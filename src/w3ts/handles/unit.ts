@@ -58,6 +58,22 @@ export class Unit extends Widget {
     SetHeroAgi(this.handle, value, true);
   }
 
+  public set addAgility(value: number) {
+    SetHeroAgi(this.handle, this.agility + value, true)
+  }
+
+  public get agilityBonus() {
+    return
+  }
+
+  public set agilityBonus(value: number) {
+
+  }
+
+  public set addAgilityBonus(value: number) {
+
+  }
+
   public get armor() {
     return BlzGetUnitArmor(this.handle);
   }
@@ -150,6 +166,10 @@ export class Unit extends Widget {
     SetHeroInt(this.handle, value, true);
   }
 
+  public set addIntelligence(value: number) {
+    SetHeroInt(this.handle, this.intelligence + value, true)
+  }
+
   public get inventorySize() {
     return UnitInventorySize(this.handle);
   }
@@ -184,12 +204,32 @@ export class Unit extends Widget {
     this.setState(UNIT_STATE_MANA, value);
   }
 
+  public set addMana(value: number) {
+    this.setState(UNIT_STATE_MANA, this.mana + value)
+  }
+
   public get maxLife() {
     return BlzGetUnitMaxHP(this.handle);
   }
 
   public set maxLife(value: number) {
     BlzSetUnitMaxHP(this.handle, value);
+  }
+
+  public get life() {
+    return this.getState(UNIT_STATE_LIFE)
+  }
+
+  public set life(value: number) {
+    this.setState(UNIT_STATE_LIFE, value)
+  }
+
+  public set addLife(value: number) {
+    this.setState(UNIT_STATE_MANA, this.life + value)
+  }
+
+  public set addMaxLife(value: number) {
+    BlzSetUnitMaxHP(this.handle, this.maxLife + value);
   }
 
   public get maxMana() {
@@ -200,12 +240,20 @@ export class Unit extends Widget {
     BlzSetUnitMaxMana(this.handle, value);
   }
 
-  public set moveSpeed(value: number) {
-    SetUnitMoveSpeed(this.handle, value);
+  public set addMaxMana(value: number) {
+    BlzSetUnitMaxMana(this.handle, this.maxMana + value);
   }
 
   public get moveSpeed() {
     return GetUnitMoveSpeed(this.handle);
+  }
+
+  public set moveSpeed(value: number) {
+    SetUnitMoveSpeed(this.handle, value);
+  }
+
+  public set addMoveSpeed(value: number) {
+    SetUnitMoveSpeed(this.handle, this.moveSpeed + value)
   }
 
   /**
@@ -385,8 +433,16 @@ export class Unit extends Widget {
     SetHeroStr(this.handle, value, true);
   }
 
+  public set strengthIncrement(value: number) {
+    SetHeroStr(this.handle, this.strength + value, true)
+  }
+
   public set turnSpeed(value: number) {
     SetUnitTurnSpeed(this.handle, value);
+  }
+
+  public set turnSpeedIncrement(value: number) {
+    SetUnitTurnSpeed(this.handle, this.turnSpeed + value)
   }
 
   public get turnSpeed() {
@@ -447,12 +503,21 @@ export class Unit extends Widget {
     SetUnitY(this.handle, value);
   }
 
+  public setXY(x: number, y: number) {
+    SetUnitX(this.handle, x)
+    SetUnitY(this.handle, y)
+  }
+
+  public getXY() {
+    return GetUnitX(this.handle), GetUnitY(this.handle)
+  }
+
   public get z() {
     return BlzGetUnitZ(this.handle);
   }
 
-  public addAbility(abilityId: number) {
-    return UnitAddAbility(this.handle, abilityId);
+  public addAbility(abil: number | string) {
+    return typeof abil === "number" ? UnitAddAbility(this.handle, abil) : UnitAddAbility(this.handle, FourCC(abil));
   }
 
   public addAnimationProps(animProperties: string, add: boolean) {
@@ -483,12 +548,15 @@ export class Unit extends Widget {
     UnitAddIndicator(this.handle, red, blue, green, alpha);
   }
 
-  public addItem(whichItem: Item) {
-    return UnitAddItem(this.handle, whichItem.handle);
-  }
+  public addItem(whichItem: Item | number | string) {
 
-  public addItemById(itemId: number) {
-    return Item.fromHandle(UnitAddItemById(this.handle, itemId));
+    if (typeof whichItem === "number") {
+      return Item.fromHandle(UnitAddItemById(this.handle, whichItem))
+    } else if (typeof whichItem === "string") {
+      return Item.fromHandle(UnitAddItemById(this.handle, FourCC(whichItem)))
+    } else {
+      return UnitAddItem(this.handle, whichItem.handle)
+    }
   }
 
   public addItemToSlotById(itemId: number, itemSlot: number) {
@@ -591,8 +659,8 @@ export class Unit extends Widget {
     RemoveUnit(this.handle);
   }
 
-  public disableAbility(abilId: number, flag: boolean, hideUI: boolean) {
-    BlzUnitDisableAbility(this.handle, abilId, flag, hideUI);
+  public disableAbility(abil: number | string, flag: boolean, hideUI: boolean) {
+    typeof abil === "number" ? BlzUnitDisableAbility(this.handle, abil, flag, hideUI) : BlzUnitDisableAbility(this.handle, FourCC(abil), flag, hideUI);
   }
 
   public dropItem(whichItem: Item, x: number, y: number) {
@@ -607,20 +675,20 @@ export class Unit extends Widget {
     return UnitDropItemTarget(this.handle, whichItem.handle, target.handle);
   }
 
-  public endAbilityCooldown(abilCode: number) {
-    BlzEndUnitAbilityCooldown(this.handle, abilCode);
+  public endAbilityCooldown(abil: number | string) {
+    typeof abil === "number" ? BlzEndUnitAbilityCooldown(this.handle, abil) : BlzEndUnitAbilityCooldown(this.handle, FourCC(abil));
   }
 
-  public getAbility(abilId: number) {
-    return BlzGetUnitAbility(this.handle, abilId);
+  public getAbility(abil: number | string) {
+    return typeof abil === "number" ? BlzGetUnitAbility(this.handle, abil) : BlzGetUnitAbility(this.handle, FourCC(abil));
   }
 
   public getAbilityByIndex(index: number) {
     return BlzGetUnitAbilityByIndex(this.handle, index);
   }
 
-  public getAbilityCooldown(abilId: number, level: number) {
-    return BlzGetUnitAbilityCooldown(this.handle, abilId, level);
+  public getAbilityCooldown(abil: number | string, level: number) {
+    return typeof abil === "number" ? BlzGetUnitAbilityCooldown(this.handle, abil, level) : BlzGetUnitAbilityCooldown(this.handle, FourCC(abil), level);
   }
 
   public getAbilityCooldownRemaining(abilId: number) {
@@ -631,12 +699,12 @@ export class Unit extends Widget {
    * Returns the level of the ability for the unit.
    * @note This function is **not** zero indexed.
    */
-  public getAbilityLevel(abilCode: number) {
-    return GetUnitAbilityLevel(this.handle, abilCode);
+  public getAbilityLevel(abil: number | string) {
+    return typeof abil === "number" ? GetUnitAbilityLevel(this.handle, abil) : GetUnitAbilityLevel(this.handle, FourCC(abil));
   }
 
-  public getAbilityManaCost(abilId: number, level: number) {
-    return BlzGetUnitAbilityManaCost(this.handle, abilId, level);
+  public getAbilityManaCost(abil: number | string, level: number) {
+    return typeof abil === "number" ? BlzGetUnitAbilityManaCost(this.handle, abil, level) : BlzGetUnitAbilityManaCost(this.handle, FourCC(abil), level);
   }
 
   public getAgility(includeBonuses: boolean) {
@@ -929,8 +997,8 @@ export class Unit extends Widget {
     RecycleGuardPosition(this.handle);
   }
 
-  public removeAbility(abilityId: number) {
-    return UnitRemoveAbility(this.handle, abilityId);
+  public removeAbility(abil: number | string) {
+    return typeof abil === "number" ? UnitRemoveAbility(this.handle, abil) : UnitRemoveAbility(this.handle, FourCC(abil));
   }
 
   public removeBuffs(removePositive: boolean, removeNegative: boolean) {
@@ -997,20 +1065,20 @@ export class Unit extends Widget {
     SelectUnit(this.handle, flag);
   }
 
-  public selectSkill(abilCode: number) {
-    SelectHeroSkill(this.handle, abilCode);
+  public selectSkill(abil: number | string) {
+    typeof abil === "number" ? SelectHeroSkill(this.handle, abil) : SelectHeroSkill(this.handle, FourCC(abil));
   }
 
-  public setAbilityCooldown(abilId: number, level: number, cooldown: number) {
-    BlzSetUnitAbilityCooldown(this.handle, abilId, level, cooldown);
+  public setAbilityCooldown(abil: number | string, level: number, cooldown: number) {
+    typeof abil === "number" ? BlzSetUnitAbilityCooldown(this.handle, abil, level, cooldown) : BlzSetUnitAbilityCooldown(this.handle, FourCC(abil), level, cooldown);
   }
 
-  public setAbilityLevel(abilCode: number, level: number) {
-    return SetUnitAbilityLevel(this.handle, abilCode, level);
+  public setAbilityLevel(abil: number | string, level: number) {
+    return typeof abil === "number" ? SetUnitAbilityLevel(this.handle, abil, level) : SetUnitAbilityLevel(this.handle, FourCC(abil), level);
   }
 
-  public setAbilityManaCost(abilId: number, level: number, manaCost: number) {
-    BlzSetUnitAbilityManaCost(this.handle, abilId, level, manaCost);
+  public setAbilityManaCost(abil: number | string, level: number, manaCost: number) {
+    typeof abil === "number" ? BlzSetUnitAbilityManaCost(this.handle, abil, level, manaCost) : BlzSetUnitAbilityManaCost(this.handle, FourCC(abil), level, manaCost);
   }
 
   public setAgility(value: number, permanent: boolean) {

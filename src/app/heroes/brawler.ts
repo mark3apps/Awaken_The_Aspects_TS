@@ -2,6 +2,7 @@ import { Ability } from "app/classes/ability"
 import { HeroType } from "app/classes/herotype"
 import { ABL, HT, IT } from "app/globals/keys"
 import { OrderId } from "w3ts/globals/order"
+import { Unit } from "w3ts/index"
 
 // Brawler Abilities
 ABL.drain = new Ability("drain", "A01Y", OrderId.Stomp, false, "", [6, 6, 6, 6, 6, 6])
