@@ -1245,6 +1245,14 @@ export class Unit extends Widget {
     return this.fromHandle(GetTriggerUnit());
   }
 
+  public static fromAttacked() {
+    return this.fromHandle(GetTriggerUnit())
+  }
+
+  public static fromAttacker() {
+    return this.fromHandle(GetAttacker())
+  }
+
   public static fromFilter() {
     return this.fromHandle(GetFilterUnit());
   }
