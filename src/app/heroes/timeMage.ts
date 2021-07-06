@@ -11,9 +11,9 @@ ABL.paradox = new Ability("paradox", "A04N", OrderId.Tranquility, false, "", [10
 
 // Time Mage Hero Setup
 HT.timeMage = new HeroType("timeMage", "H00J", "h00Z")
-HT.timeMage.addAbility(ABL.chronoAtrophy, false, false, true)
-HT.timeMage.addAbility(ABL.decay, false, false, true)
-HT.timeMage.addAbility(ABL.timeTravel, false, false, true)
+HT.timeMage.addAbility(ABL.chronoAtrophy)
+HT.timeMage.addAbility(ABL.decay)
+HT.timeMage.addAbility(ABL.timeTravel)
 HT.timeMage.addAbility(ABL.paradox, true, false, true)
 HT.timeMage.addItem(IT.teleport)
 HT.timeMage.addItem(IT.mage)
