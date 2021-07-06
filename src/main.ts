@@ -1,7 +1,7 @@
 import { Timer, Unit } from "w3ts/index";
 import { Players } from "w3ts/globals/index";
 import { addScriptHook, W3TS_HOOK } from "w3ts/hooks/index";
-import { ABL } from "abilities/upgradeabilities";
+import { ABL } from "abilities/abilitydefs";
 
 
 const BUILD_DATE = compiletime(() => new Date().toUTCString());

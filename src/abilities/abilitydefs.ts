@@ -1,6 +1,6 @@
 /** @noSelfInFile **/
 
-import { Ability } from "./../classes/ability"
+import { Ability } from "../classes/ability"
 import { OrderId } from "w3ts/globals/order"
 
 export declare const ABL: {[name: string]: Ability}
