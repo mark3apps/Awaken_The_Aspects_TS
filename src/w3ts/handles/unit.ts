@@ -1,5 +1,7 @@
 /** @noSelfInFile **/
 
+import { Ability } from "app/classes/ability";
+import { ABL } from "app/globals/abilities";
 import { OrderId } from "../globals/order";
 import { Destructable } from "./destructable";
 import { Force } from "./force";
@@ -60,18 +62,6 @@ export class Unit extends Widget {
 
   public set addAgility(value: number) {
     SetHeroAgi(this.handle, this.agility + value, true)
-  }
-
-  public get agilityBonus() {
-    return
-  }
-
-  public set agilityBonus(value: number) {
-
-  }
-
-  public set addAgilityBonus(value: number) {
-
   }
 
   public get armor() {
@@ -441,7 +431,7 @@ export class Unit extends Widget {
     SetUnitTurnSpeed(this.handle, value);
   }
 
-  public set turnSpeedIncrement(value: number) {
+  public turnSpeedIncrement(value: number) {
     SetUnitTurnSpeed(this.handle, this.turnSpeed + value)
   }
 
@@ -559,12 +549,12 @@ export class Unit extends Widget {
     }
   }
 
-  public addItemToSlotById(itemId: number, itemSlot: number) {
-    return UnitAddItemToSlotById(this.handle, itemId, itemSlot);
+  public addItemToSlot(itemId: number | string, itemSlot: number) {
+    return typeof itemId === "number" ? UnitAddItemToSlotById(this.handle, itemId, itemSlot) : UnitAddItemToSlotById(this.handle, FourCC(itemId), itemSlot);
   }
 
-  public addItemToStock(itemId: number, currentStock: number, stockMax: number) {
-    AddItemToStock(this.handle, itemId, currentStock, stockMax);
+  public addItemToStock(itemId: number | string, currentStock: number, stockMax: number) {
+    typeof itemId === "number" ? AddItemToStock(this.handle, itemId, currentStock, stockMax) : AddItemToStock(this.handle, FourCC(itemId), currentStock, stockMax);
   }
 
   /**
@@ -588,11 +578,13 @@ export class Unit extends Widget {
     return UnitAddType(this.handle, whichUnitType);
   }
 
-  public addUnitToStock(unitId: number, currentStock: number, stockMax: number) {
+  public addUnitToStock(unitId: number | string, currentStock: number, stockMax: number) {
+    if (typeof unitId === "string") { unitId = FourCC(unitId) }
     AddUnitToStock(this.handle, unitId, currentStock, stockMax);
   }
 
-  public applyTimedLife(buffId: number, duration: number) {
+  public applyTimedLife(buffId: number | string, duration: number) {
+    if (typeof buffId === "string") { buffId = FourCC(buffId) }
     UnitApplyTimedLife(this.handle, buffId, duration);
   }
 
@@ -648,7 +640,8 @@ export class Unit extends Widget {
    * @param abilCode The four digit rawcode representation of the ability.
    * @returns The new ability level.
    */
-  public decAbilityLevel(abilCode: number) {
+  public decAbilityLevel(abilCode: number | string) {
+    if (typeof abilCode === "string") { abilCode = FourCC(abilCode) }
     return DecUnitAbilityLevel(this.handle, abilCode);
   }
 
@@ -691,8 +684,9 @@ export class Unit extends Widget {
     return typeof abil === "number" ? BlzGetUnitAbilityCooldown(this.handle, abil, level) : BlzGetUnitAbilityCooldown(this.handle, FourCC(abil), level);
   }
 
-  public getAbilityCooldownRemaining(abilId: number) {
-    return BlzGetUnitAbilityCooldownRemaining(this.handle, abilId);
+  public getAbilityCooldownRemaining(abil: number | string) {
+    if (typeof abil === "string") { abil = FourCC(abil) }
+    return BlzGetUnitAbilityCooldownRemaining(this.handle, abil);
   }
 
   /**
@@ -752,6 +746,70 @@ export class Unit extends Widget {
     }
   }
 
+  public getAbilityBLF(abil: number | string, level: number, field: abilitybooleanlevelfield) {
+    return BlzGetAbilityBooleanLevelField(this.getAbility(abil), field, level);
+  }
+
+  public setAbilityBLF(abil: number | string, level: number, field: abilitybooleanlevelfield, value: boolean) {
+    return BlzSetAbilityBooleanLevelField(this.getAbility(abil), field, level, value);
+  }
+
+  public getAbilityILF(abil: number | string, level: number, field: abilityintegerlevelfield) {
+    return BlzGetAbilityIntegerLevelField(this.getAbility(abil), field, level);
+  }
+
+  public setAbilityILF(abil: number | string, level: number, field: abilityintegerlevelfield, value: number) {
+    return BlzSetAbilityIntegerLevelField(this.getAbility(abil), field, level, value);
+  }
+
+  public getAbilityRLF(abil: number | string, level: number, field: abilityreallevelfield) {
+    return BlzGetAbilityRealLevelField(this.getAbility(abil), field, level);
+  }
+
+  public setAbilityRLF(abil: number | string, level: number, field: abilityreallevelfield, value: number) {
+    return BlzSetAbilityRealLevelField(this.getAbility(abil), field, level, value);
+  }
+
+  public getAbilitySLF(abil: number | string, level: number, field: abilitystringlevelfield) {
+    return BlzGetAbilityStringLevelField(this.getAbility(abil), field, level);
+  }
+
+  public setAbilitySLF(abil: number | string, level: number, field: abilitystringlevelfield, value: string) {
+    return BlzSetAbilityStringLevelField(this.getAbility(abil), field, level, value);
+  }
+
+  public getAbilityBF(abil: number | string, field: abilitybooleanfield) {
+    return BlzGetAbilityBooleanField(this.getAbility(abil), field);
+  }
+
+  public setAbilityBF(abil: number | string, field: abilitybooleanfield, value: boolean) {
+    return BlzSetAbilityBooleanField(this.getAbility(abil), field, value);
+  }
+
+  public getAbilityIF(abil: number | string, field: abilityintegerfield) {
+    return BlzGetAbilityIntegerField(this.getAbility(abil), field);
+  }
+
+  public setAbilityIF(abil: number | string, field: abilityintegerfield, value: number) {
+    return BlzSetAbilityIntegerField(this.getAbility(abil), field, value);
+  }
+
+  public getAbilityRF(abil: number | string, field: abilityrealfield) {
+    return BlzGetAbilityRealField(this.getAbility(abil), field);
+  }
+
+  public setAbilityRF(abil: number | string, field: abilityrealfield, value: number) {
+    return BlzSetAbilityRealField(this.getAbility(abil), field, value);
+  }
+
+  public getAbilitySF(abil: number | string, field: abilitystringfield) {
+    return BlzGetAbilityStringField(this.getAbility(abil), field);
+  }
+
+  public setAbilitySF(abil: number | string, field: abilitystringfield, value: string) {
+    return BlzSetAbilityStringField(this.getAbility(abil), field, value);
+  }
+
   public getflyHeight() {
     return GetUnitFlyHeight(this.handle);
   }
@@ -788,13 +846,14 @@ export class Unit extends Widget {
     return UnitHasItem(this.handle, whichItem.handle);
   }
 
-  public hideAbility(abilId: number, flag: boolean) {
-    BlzUnitHideAbility(this.handle, abilId, flag);
+  public hideAbility(abil: number | string, flag: boolean) {
+    if (typeof abil === "string") { abil = FourCC(abil) }
+    BlzUnitHideAbility(this.handle, abil, flag);
   }
 
   /**
    * Increases the level of a unit's ability by 1.
-   * @param abilCode The four digit rawcode representation of the ability.
+   * @param abil The four digit rawcode representation of the ability.
    * @returns The new ability level.
    *
    * @note `incAbilityLevel` can increase an abilities level to maxlevel+1. On maxlevel+1 all ability fields are 0.
@@ -802,8 +861,9 @@ export class Unit extends Widget {
    * http://www.wc3c.net/showthread.php?p=1029039#post1029039
    * http://www.hiveworkshop.com/forums/lab-715/silenceex-everything-you-dont-know-about-silence-274351/.
    */
-  public incAbilityLevel(abilCode: number) {
-    return IncUnitAbilityLevel(this.handle, abilCode);
+  public incAbilityLevel(abil: number | string) {
+    if (typeof abil === "string") { abil = FourCC(abil) }
+    return IncUnitAbilityLevel(this.handle, abil);
   }
 
   public inForce(whichForce: Force) {
@@ -865,6 +925,106 @@ export class Unit extends Widget {
 
   public isHero() {
     return IsHeroUnitId(this.typeId);
+  }
+
+  public isMagicImmune() {
+    return IsUnitType(this.handle, UNIT_TYPE_MAGIC_IMMUNE)
+  }
+
+  public isStructure() {
+    return IsUnitType(this.handle, UNIT_TYPE_STRUCTURE)
+  }
+
+  public isFlying() {
+    return IsUnitType(this.handle, UNIT_TYPE_FLYING)
+  }
+
+  public isGround() {
+    return IsUnitType(this.handle, UNIT_TYPE_GROUND)
+  }
+
+  public isMeleeAttacker() {
+    return IsUnitType(this.handle, UNIT_TYPE_MELEE_ATTACKER)
+  }
+
+  public isRangedAttacker() {
+    return IsUnitType(this.handle, UNIT_TYPE_RANGED_ATTACKER)
+  }
+
+  public isGiant() {
+    return IsUnitType(this.handle, UNIT_TYPE_GIANT)
+  }
+
+  public isSummoned() {
+    return IsUnitType(this.handle, UNIT_TYPE_SUMMONED)
+  }
+
+  public isStunned() {
+    return IsUnitType(this.handle, UNIT_TYPE_STUNNED)
+  }
+
+  public isPlagued() {
+    return IsUnitType(this.handle, UNIT_TYPE_PLAGUED)
+  }
+
+  public isSnared() {
+    return IsUnitType(this.handle, UNIT_TYPE_SNARED)
+  }
+
+  public isUndead() {
+    return IsUnitType(this.handle, UNIT_TYPE_UNDEAD)
+  }
+
+  public isMechanical() {
+    return IsUnitType(this.handle, UNIT_TYPE_MECHANICAL)
+  }
+
+  public isPeon() {
+    return IsUnitType(this.handle, UNIT_TYPE_PEON)
+  }
+
+  public isSapper() {
+    return IsUnitType(this.handle, UNIT_TYPE_SAPPER)
+  }
+
+  public isTownHall() {
+    return IsUnitType(this.handle, UNIT_TYPE_TOWNHALL)
+  }
+
+  public isAncient() {
+    return IsUnitType(this.handle, UNIT_TYPE_ANCIENT)
+  }
+
+  public isTauren() {
+    return IsUnitType(this.handle, UNIT_TYPE_TAUREN)
+  }
+
+  public isPoisoned() {
+    return IsUnitType(this.handle, UNIT_TYPE_POISONED)
+  }
+
+  public isPolymorphed() {
+    return IsUnitType(this.handle, UNIT_TYPE_POLYMORPHED)
+  }
+
+  public isSleeping() {
+    return IsUnitType(this.handle, UNIT_TYPE_SLEEPING)
+  }
+
+  public isResistant() {
+    return IsUnitType(this.handle, UNIT_TYPE_RESISTANT)
+  }
+
+  public isEthereal() {
+    return IsUnitType(this.handle, UNIT_TYPE_ETHEREAL)
+  }
+
+  public isAttacksFlying() {
+    return IsUnitType(this.handle, UNIT_TYPE_ATTACKS_FLYING)
+  }
+
+  public isAttacksGround() {
+    return IsUnitType(this.handle, UNIT_TYPE_ATTACKS_GROUND)
   }
 
   public isIllusion() {
@@ -977,7 +1137,7 @@ export class Unit extends Widget {
     UnitMakeAbilityPermanent(this.handle, permanent, abilityId);
   }
 
-  public modifySkillPoints(skillPointDelta: number) {
+  public addSkillPoints(skillPointDelta: number) {
     return UnitModifySkillPoints(this.handle, skillPointDelta);
   }
 
@@ -1030,8 +1190,8 @@ export class Unit extends Widget {
     return Item.fromHandle(UnitRemoveItemFromSlot(this.handle, itemSlot));
   }
 
-  public removeItemFromStock(itemId: number) {
-    RemoveItemFromStock(this.handle, itemId);
+  public removeItemFromStock(item: number | string) {
+    typeof item === "number" ? RemoveItemFromStock(this.handle, item) : RemoveItemFromStock(this.handle, FourCC(item));
   }
 
   public removeType(whichUnitType: unittype) {
@@ -1253,8 +1413,8 @@ export class Unit extends Widget {
     BlzShowUnitTeamGlow(this.handle, show);
   }
 
-  public startAbilityCooldown(abilCode: number, cooldown: number) {
-    BlzStartUnitAbilityCooldown(this.handle, abilCode, cooldown);
+  public startAbilityCooldown(abil: number | string, cooldown: number) {
+    typeof abil == "number" ? BlzStartUnitAbilityCooldown(this.handle, abil, cooldown) : BlzStartUnitAbilityCooldown(this.handle, FourCC(abil), cooldown);
   }
 
   public stripLevels(howManyLevels: number) {
@@ -1339,5 +1499,195 @@ export class Unit extends Widget {
 
   public static isUnitIdType(unitId: number, whichUnitType: unittype) {
     return IsUnitIdType(unitId, whichUnitType);
+  }
+
+  //
+  // Custom Functions
+  //
+
+  // Get Bonuses (Private Functions)
+  private checkBonusAbility(ability: Ability) {
+    if (this.getAbilityLevel(ability.id) == 0) {
+      this.addAbility(ability.id)
+      this.makeAbilityPermanent(true, ability.id)
+    }
+  }
+
+  // Refresh the Ability when you've changed a field value.
+  private refreshAbility(ability: Ability) {
+    this.incAbilityLevel(ability.id)
+    this.decAbilityLevel(ability.id)
+  }
+
+  //
+  // Get / Set Bonuses for Heroes
+  //
+
+  // Agility Bonus
+  public get agilityBonus() {
+    this.checkBonusAbility(ABL.bonusStats)
+    return this.getAbilityILF(ABL.bonusStats.id, 0, ABILITY_ILF_AGILITY_BONUS)
+  }
+
+  public set agilityBonus(value: number) {
+    this.checkBonusAbility(ABL.bonusStats)
+    this.setAbilityILF(ABL.bonusStats.id, 0, ABILITY_ILF_AGILITY_BONUS, value)
+    this.refreshAbility(ABL.bonusStats)
+  }
+
+  public addAgilityBonus(value: number) {
+    this.checkBonusAbility(ABL.bonusStats)
+    this.setAbilityILF(ABL.bonusStats.id, 0, ABILITY_ILF_AGILITY_BONUS, this.agilityBonus + value)
+    this.refreshAbility(ABL.bonusStats)
+  }
+
+  public resetAgilityBonus() {
+    this.checkBonusAbility(ABL.bonusStats)
+    this.setAbilityILF(ABL.bonusStats.id, 0, ABILITY_ILF_AGILITY_BONUS, 0)
+    this.refreshAbility(ABL.bonusStats)
+  }
+
+  // Intelligence Bonus
+  public get intelligenceBonus() {
+    this.checkBonusAbility(ABL.bonusStats)
+    return this.getAbilityILF(ABL.bonusStats.id, 0, ABILITY_ILF_INTELLIGENCE_BONUS)
+  }
+
+  public set intelligenceBonus(value: number) {
+    this.checkBonusAbility(ABL.bonusStats)
+    this.setAbilityILF(ABL.bonusStats.id, 0, ABILITY_ILF_INTELLIGENCE_BONUS, value)
+    this.refreshAbility(ABL.bonusStats)
+  }
+
+  public addintelligenceBonus(value: number) {
+    this.checkBonusAbility(ABL.bonusStats)
+    this.setAbilityILF(ABL.bonusStats.id, 0, ABILITY_ILF_INTELLIGENCE_BONUS, this.intelligenceBonus + value)
+    this.refreshAbility(ABL.bonusStats)
+  }
+
+  public resetintelligenceBonus() {
+    this.checkBonusAbility(ABL.bonusStats)
+    this.setAbilityILF(ABL.bonusStats.id, 0, ABILITY_ILF_INTELLIGENCE_BONUS, 0)
+    this.refreshAbility(ABL.bonusStats)
+  }
+
+  // Strength Bonus
+  public get strengthBonus() {
+    this.checkBonusAbility(ABL.bonusStats)
+    return this.getAbilityILF(ABL.bonusStats.id, 0, ABILITY_ILF_STRENGTH_BONUS_ISTR)
+  }
+
+  public set strengthBonus(value: number) {
+    this.checkBonusAbility(ABL.bonusStats)
+    this.setAbilityILF(ABL.bonusStats.id, 0, ABILITY_ILF_STRENGTH_BONUS_ISTR, value)
+    this.refreshAbility(ABL.bonusStats)
+  }
+
+  public addStrengthBonus(value: number) {
+    this.checkBonusAbility(ABL.bonusStats)
+    this.setAbilityILF(ABL.bonusStats.id, 0, ABILITY_ILF_STRENGTH_BONUS_ISTR, this.strengthBonus + value)
+    this.refreshAbility(ABL.bonusStats)
+  }
+
+  public resetStrengthBonus() {
+    this.checkBonusAbility(ABL.bonusStats)
+    this.setAbilityILF(ABL.bonusStats.id, 0, ABILITY_ILF_STRENGTH_BONUS_ISTR, 0)
+    this.refreshAbility(ABL.bonusStats)
+  }
+
+  // Damage Bonus
+  public get damageBonus() {
+    this.checkBonusAbility(ABL.bonusStats)
+    return this.getAbilityILF(ABL.bonusStats.id, 0, ABILITY_ILF_ATTACK_BONUS)
+  }
+
+  public set damageBonus(value: number) {
+    this.checkBonusAbility(ABL.bonusStats)
+    this.setAbilityILF(ABL.bonusStats.id, 0, ABILITY_ILF_ATTACK_BONUS, value)
+    this.refreshAbility(ABL.bonusStats)
+  }
+
+  public addDamageBonus(value: number) {
+    this.checkBonusAbility(ABL.bonusStats)
+    this.setAbilityILF(ABL.bonusStats.id, 0, ABILITY_ILF_ATTACK_BONUS, this.damageBonus + value)
+    this.refreshAbility(ABL.bonusStats)
+  }
+
+  public resetDamageBonus() {
+    this.checkBonusAbility(ABL.bonusDamage)
+    this.setAbilityILF(ABL.bonusDamage.id, 0, ABILITY_ILF_ATTACK_BONUS, 0)
+    this.refreshAbility(ABL.bonusDamage)
+  }
+
+  // Armor Bonus
+  public get armorBonus() {
+    this.checkBonusAbility(ABL.bonusArmor)
+    return this.getAbilityILF(ABL.bonusArmor.id, 0, ABILITY_ILF_DEFENSE_BONUS_IDEF)
+  }
+
+  public set armorBonus(value: number) {
+    this.checkBonusAbility(ABL.bonusArmor)
+    this.setAbilityILF(ABL.bonusArmor.id, 0, ABILITY_ILF_DEFENSE_BONUS_IDEF, value)
+    this.refreshAbility(ABL.bonusArmor)
+  }
+
+  public addArmorBonus(value: number) {
+    this.checkBonusAbility(ABL.bonusArmor)
+    this.setAbilityILF(ABL.bonusArmor.id, 0, ABILITY_ILF_DEFENSE_BONUS_IDEF, this.armorBonus + value)
+    this.refreshAbility(ABL.bonusArmor)
+  }
+
+  public resetArmorBonus() {
+    this.checkBonusAbility(ABL.bonusArmor)
+    this.setAbilityILF(ABL.bonusArmor.id, 0, ABILITY_ILF_DEFENSE_BONUS_IDEF, 0)
+    this.refreshAbility(ABL.bonusArmor)
+  }
+
+  // Life Regen Bonus
+  public get lifeRegenBonus() {
+    this.checkBonusAbility(ABL.bonusLifeRegen)
+    return this.getAbilityRLF(ABL.bonusLifeRegen.id, 0, ABILITY_RLF_AMOUNT_OF_HIT_POINTS_REGENERATED)
+  }
+
+  public set lifeRegenBonus(value: number) {
+    this.checkBonusAbility(ABL.bonusLifeRegen)
+    this.setAbilityRLF(ABL.bonusLifeRegen.id, 0, ABILITY_RLF_AMOUNT_OF_HIT_POINTS_REGENERATED, value)
+    this.refreshAbility(ABL.bonusLifeRegen)
+  }
+
+  public addLifeRegenBonus(value: number) {
+    this.checkBonusAbility(ABL.bonusLifeRegen)
+    this.setAbilityRLF(ABL.bonusLifeRegen.id, 0, ABILITY_RLF_AMOUNT_OF_HIT_POINTS_REGENERATED, this.lifeRegenBonus + value)
+    this.refreshAbility(ABL.bonusLifeRegen)
+  }
+
+  public resetLifeRegenBonus() {
+    this.checkBonusAbility(ABL.bonusLifeRegen)
+    this.setAbilityRLF(ABL.bonusLifeRegen.id, 0, ABILITY_RLF_AMOUNT_OF_HIT_POINTS_REGENERATED, 0)
+    this.refreshAbility(ABL.bonusLifeRegen)
+  }
+
+  // Mana Regen Bonus
+  public get manaRegenBonus() {
+    this.checkBonusAbility(ABL.bonusManaRegen)
+    return this.getAbilityRLF(ABL.bonusManaRegen.id, 0, ABILITY_RLF_AMOUNT_REGENERATED)
+  }
+
+  public set manaRegenBonus(value: number) {
+    this.checkBonusAbility(ABL.bonusManaRegen)
+    this.setAbilityRLF(ABL.bonusManaRegen.id, 0, ABILITY_RLF_AMOUNT_REGENERATED, value)
+    this.refreshAbility(ABL.bonusManaRegen)
+  }
+
+  public addManaRegenBonus(value: number) {
+    this.checkBonusAbility(ABL.bonusManaRegen)
+    this.setAbilityRLF(ABL.bonusManaRegen.id, 0, ABILITY_RLF_AMOUNT_REGENERATED, this.manaRegenBonus + value)
+    this.refreshAbility(ABL.bonusManaRegen)
+  }
+
+  public resetManaRegenBonus() {
+    this.checkBonusAbility(ABL.bonusManaRegen)
+    this.setAbilityRLF(ABL.bonusManaRegen.id, 0, ABILITY_RLF_AMOUNT_REGENERATED, 0)
+    this.refreshAbility(ABL.bonusManaRegen)
   }
 }

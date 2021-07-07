@@ -1,5 +1,6 @@
 import { ItemType } from "app/classes/itemType";
-import { IT } from "./keys";
+
+export declare const IT: {[name: string]: ItemType}
 
 
 IT.teleport = new ItemType("teleportation", "I000", "A01M", "", false, [6])
