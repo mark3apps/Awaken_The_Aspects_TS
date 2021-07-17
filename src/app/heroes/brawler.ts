@@ -1,11 +1,12 @@
 import { HeroType, Strategy } from "app/classes/herotype"
 import { ABL } from "app/globals/abilities"
 import { IT } from "app/globals/itemTypes"
+import { UnitFour } from "globals/unitFour"
 
 export class BrawlerHeroType extends HeroType {
 
     constructor() {
-        super("brawler", "E001", "h00I")
+        super("brawler", UnitFour.Brawler, UnitFour.BrawlerAlter)
 
         // Brawler Hero Setup
         this.addAbility(ABL.bloodlust)

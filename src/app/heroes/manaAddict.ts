@@ -1,11 +1,12 @@
 import { HeroType, Strategy } from "app/classes/herotype"
 import { ABL } from "app/globals/abilities"
 import { IT } from "app/globals/itemTypes"
+import { UnitFour } from "globals/unitFour"
 
 export class ManaAddictHeroType extends HeroType {
 
     constructor() {
-        super("manaAddict", "H00R", "h00B")
+        super("manaAddict", UnitFour.ManaAddict, UnitFour.ManaAddictAlter)
         this.addAbility(ABL.manaShield, true, true)
         this.addAbility(ABL.manaBomb)
         this.addAbility(ABL.manaExplosion)
