@@ -1,6 +1,8 @@
 /** @noSelfInFile **/
 
 import { Ability } from "app/classes/ability";
+import { HT } from "app/classes/heroes";
+import { HeroType, Strategy } from "app/classes/herotype";
 import { ABL } from "app/globals/abilities";
 import { OrderId } from "../globals/order";
 import { Destructable } from "./destructable";
@@ -15,6 +17,10 @@ import { Widget } from "./widget";
 
 export class Unit extends Widget {
   public readonly handle!: unit;
+  readonly _heroType: HeroType
+  private _stategy: Strategy
+  private static _heroes = new Group()
+  private static _ai = new Group()
 
   /**
    * Creates a unit.
@@ -25,14 +31,51 @@ export class Unit extends Widget {
    * @param face The direction that the unit will be facing in degrees.
    * @param skinId The skin of the unit.
    */
-  constructor(owner: MapPlayer | number, unitId: number, x: number, y: number, face: number, skinId?: number) {
+  constructor(owner: MapPlayer | number, unitId: number | string, x: number, y: number, face: number, skinId?: number) {
     if (Handle.initFromHandle()) {
       super();
     } else {
       const p = typeof owner === "number" ? Player(owner) : owner.handle;
-      super(skinId ? BlzCreateUnitWithSkin(p, unitId, x, y, face, skinId) : CreateUnit(p, unitId, x, y, face));
+      const uid = typeof unitId === "number" ? unitId : FourCC(unitId)
+
+      super(skinId ? BlzCreateUnitWithSkin(p, uid, x, y, face, skinId) : CreateUnit(p, uid, x, y, face));
+    }
+    
+    // Check to see if Unit is a specified Hero Type
+    if (HeroType.getName(this.id) != null) {
+      this._heroType = HT[HeroType.getName(this.id)]
+      Unit.addHero(this)
+
+      if (this.owner.controller == MAP_CONTROL_COMPUTER) {
+        Unit.addAi(this)
+      }
     }
   }
+
+  //
+  // Static Methods
+  //
+  private static addHero(u: Unit) {
+    Unit._heroes.addUnit(u)
+  }
+
+  public static addAi(u: Unit) {
+    Unit._ai.addUnit(u)
+  }
+
+  public static get heroes() {
+    return Unit._heroes
+  }
+
+  public static get ai() {
+    return Unit._ai
+  }
+
+  //
+  // Instance Methods
+  //
+
+
 
   /**
    * Sets a unit's acquire range.  This is the value that a unit uses to choose targets to
@@ -44,6 +87,7 @@ export class Unit extends Widget {
    *
    * @note It is a myth that reducing acquire range with this native can limit a unit's attack range.
    */
+
   public set acquireRange(value: number) {
     SetUnitAcquireRange(this.handle, value);
   }
@@ -194,10 +238,6 @@ export class Unit extends Widget {
     this.setState(UNIT_STATE_MANA, value);
   }
 
-  public set addMana(value: number) {
-    this.setState(UNIT_STATE_MANA, this.mana + value)
-  }
-
   public get maxLife() {
     return BlzGetUnitMaxHP(this.handle);
   }
@@ -214,13 +254,6 @@ export class Unit extends Widget {
     this.setState(UNIT_STATE_LIFE, value)
   }
 
-  public set addLife(value: number) {
-    this.setState(UNIT_STATE_MANA, this.life + value)
-  }
-
-  public set addMaxLife(value: number) {
-    BlzSetUnitMaxHP(this.handle, this.maxLife + value);
-  }
 
   public get maxMana() {
     return BlzGetUnitMaxMana(this.handle);
@@ -228,10 +261,6 @@ export class Unit extends Widget {
 
   public set maxMana(value: number) {
     BlzSetUnitMaxMana(this.handle, value);
-  }
-
-  public set addMaxMana(value: number) {
-    BlzSetUnitMaxMana(this.handle, this.maxMana + value);
   }
 
   public get moveSpeed() {
@@ -242,18 +271,14 @@ export class Unit extends Widget {
     SetUnitMoveSpeed(this.handle, value);
   }
 
-  public set addMoveSpeed(value: number) {
-    SetUnitMoveSpeed(this.handle, this.moveSpeed + value)
-  }
-
   /**
    * @async
    */
-  get name() {
+  public get name() {
     return GetUnitName(this.handle);
   }
 
-  set name(value: string) {
+  public set name(value: string) {
     BlzSetUnitName(this.handle, value);
   }
 
@@ -397,6 +422,75 @@ export class Unit extends Widget {
     return GetHeroSkillPoints(this.handle);
   }
 
+
+  public getBaseDamage(weaponIndex: number) {
+    return BlzGetUnitBaseDamage(this.handle, weaponIndex);
+  }
+
+  public get baseDamage0() {
+    return BlzGetUnitBaseDamage(this.handle, 0);
+  }
+
+  public set baseDamage0(value: number) {
+    BlzSetUnitBaseDamage(this.handle, value, 0);
+  }
+
+  public get baseDamage1() {
+    return BlzGetUnitBaseDamage(this.handle, 1);
+  }
+
+  public set baseDamage1(value: number) {
+    BlzSetUnitBaseDamage(this.handle, value, 1);
+  }
+
+  public get diceNumber0() {
+    return BlzGetUnitDiceNumber(this.handle, 0);
+  }
+
+  public set diceNumber0(value: number) {
+    BlzSetUnitDiceNumber(this.handle, value, 0);
+  }
+
+  public get diceNumber1() {
+    return BlzGetUnitDiceNumber(this.handle, 1);
+  }
+
+  public set diceNumber1(value: number) {
+    BlzSetUnitDiceNumber(this.handle, value, 1);
+  }
+
+  public get diceSides0() {
+    return BlzGetUnitDiceSides(this.handle, 0);
+  }
+
+  public set diceSides0(value: number) {
+    BlzSetUnitDiceSides(this.handle, value, 0);
+  }
+
+  public get diceSides1() {
+    return BlzGetUnitDiceSides(this.handle, 1);
+  }
+
+  public set diceSides1(value: number) {
+    BlzSetUnitDiceSides(this.handle, value, 1);
+  }
+
+  public get attackCooldown0() {
+    return BlzGetUnitAttackCooldown(this.handle, 0);
+  }
+
+  public set attackCooldown0(value: number) {
+    BlzSetUnitAttackCooldown(this.handle, value, 0);
+  }
+
+  public get attackCooldown1() {
+    return BlzGetUnitAttackCooldown(this.handle, 1);
+  }
+
+  public set attackCooldown1(value: number) {
+    BlzSetUnitAttackCooldown(this.handle, value, 1);
+  }
+
   /**
    * Adds the amount to the units available skill points. Calling with a negative
    * number reduces the skill points by that amount.
@@ -423,16 +517,8 @@ export class Unit extends Widget {
     SetHeroStr(this.handle, value, true);
   }
 
-  public set strengthIncrement(value: number) {
-    SetHeroStr(this.handle, this.strength + value, true)
-  }
-
   public set turnSpeed(value: number) {
     SetUnitTurnSpeed(this.handle, value);
-  }
-
-  public turnSpeedIncrement(value: number) {
-    SetUnitTurnSpeed(this.handle, this.turnSpeed + value)
   }
 
   public get turnSpeed() {
@@ -493,6 +579,10 @@ export class Unit extends Widget {
     SetUnitY(this.handle, value);
   }
 
+  public get z() {
+    return BlzGetUnitZ(this.handle);
+  }
+
   public setXY(x: number, y: number) {
     SetUnitX(this.handle, x)
     SetUnitY(this.handle, y)
@@ -502,10 +592,6 @@ export class Unit extends Widget {
     return GetUnitX(this.handle), GetUnitY(this.handle)
   }
 
-  public get z() {
-    return BlzGetUnitZ(this.handle);
-  }
-
   public addAbility(abil: number | string) {
     return typeof abil === "number" ? UnitAddAbility(this.handle, abil) : UnitAddAbility(this.handle, FourCC(abil));
   }
@@ -513,6 +599,15 @@ export class Unit extends Widget {
   public addAnimationProps(animProperties: string, add: boolean) {
     AddUnitAnimationProperties(this.handle, animProperties, add);
   }
+
+  public get heroLevel() {
+    return GetHeroLevel(this.handle);
+  }
+
+  public set heroLevel(level: number) {
+    SetHeroLevel(this.handle, level, true);
+  }
+
 
   /**
    * Adds the input value of experience to the hero unit specified.
@@ -530,6 +625,9 @@ export class Unit extends Widget {
    * @param showEyeCandy If the boolean input is true, then the hero-level-gain
    * effect will be shown if the hero gains a level from the added experience.
    */
+
+
+
   public addExperience(xpToAdd: number, showEyeCandy: boolean) {
     AddHeroXP(this.handle, xpToAdd, showEyeCandy);
   }
@@ -680,7 +778,7 @@ export class Unit extends Widget {
     return BlzGetUnitAbilityByIndex(this.handle, index);
   }
 
-  public getAbilityCooldown(abil: number | string, level: number) {
+  public getAbilityCooldown(abil: number | string, level: number = this.getAbilityLevel(abil)) {
     return typeof abil === "number" ? BlzGetUnitAbilityCooldown(this.handle, abil, level) : BlzGetUnitAbilityCooldown(this.handle, FourCC(abil), level);
   }
 
@@ -697,7 +795,7 @@ export class Unit extends Widget {
     return typeof abil === "number" ? GetUnitAbilityLevel(this.handle, abil) : GetUnitAbilityLevel(this.handle, FourCC(abil));
   }
 
-  public getAbilityManaCost(abil: number | string, level: number) {
+  public getAbilityManaCost(abil: number | string, level: number = this.getAbilityLevel(abil)) {
     return typeof abil === "number" ? BlzGetUnitAbilityManaCost(this.handle, abil, level) : BlzGetUnitAbilityManaCost(this.handle, FourCC(abil), level);
   }
 
@@ -707,10 +805,6 @@ export class Unit extends Widget {
 
   public getAttackCooldown(weaponIndex: number) {
     return BlzGetUnitAttackCooldown(this.handle, weaponIndex);
-  }
-
-  public getBaseDamage(weaponIndex: number) {
-    return BlzGetUnitBaseDamage(this.handle, weaponIndex);
   }
 
   public getDiceNumber(weaponIndex: number) {
@@ -1501,6 +1595,8 @@ export class Unit extends Widget {
     return IsUnitIdType(unitId, whichUnitType);
   }
 
+
+
   //
   // Custom Functions
   //
@@ -1518,6 +1614,8 @@ export class Unit extends Widget {
     this.incAbilityLevel(ability.id)
     this.decAbilityLevel(ability.id)
   }
+
+
 
   //
   // Get / Set Bonuses for Heroes
@@ -1689,5 +1787,29 @@ export class Unit extends Widget {
     this.checkBonusAbility(ABL.bonusManaRegen)
     this.setAbilityRLF(ABL.bonusManaRegen.id, 0, ABILITY_RLF_AMOUNT_REGENERATED, 0)
     this.refreshAbility(ABL.bonusManaRegen)
+  }
+
+
+  //
+  // HERO INFO
+  //
+
+
+  public get heroType() {
+    return this._heroType
+  }
+
+  public set strategy(strat: Strategy) {
+    if (this.heroType.strats.indexOf(strat) > -1) {
+      this._stategy = strat
+    }
+  }
+
+  public get strategy() {
+    return this._stategy
+  }
+
+  public pickStrategy() {
+    this.strategy = this.heroType.strats[math.random(1, this.heroType.strats.length) - 1]
   }
 }
