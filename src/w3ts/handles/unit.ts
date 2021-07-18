@@ -1,9 +1,8 @@
 /** @noSelfInFile **/
 
 import { Ability } from "app/classes/ability";
-import { HT } from "app/classes/heroes";
 import { HeroType, Strategy } from "app/classes/herotype";
-import { ABL } from "app/globals/abilities";
+import { ABL, HT } from "globals";
 import { OrderId } from "../globals/order";
 import { Destructable } from "./destructable";
 import { Force } from "./force";
