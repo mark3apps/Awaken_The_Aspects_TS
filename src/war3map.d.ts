@@ -1,3 +1,4 @@
+
 declare var gg_rct_Left_Start: rect;
 declare var gg_rct_Left_Hero: rect;
 declare var gg_rct_Camp_Top: rect;
@@ -225,24 +226,5 @@ declare var gg_unit_u001_0098: unit;
 declare var gg_unit_ndh2_0359: unit;
 declare var gg_unit_h002_0699: unit;
 declare var gg_unit_ndh2_0876: unit;
-declare var gg_cam_intro01: camerasetup;
-declare var gg_cam_intro02: camerasetup;
-declare var gg_cam_intro03: camerasetup;
-declare var gg_cam_intro04: camerasetup;
-declare var gg_cam_intro05: camerasetup;
-declare var gg_cam_intro06: camerasetup;
-declare var gg_cam_intro07: camerasetup;
-declare var gg_cam_intro08: camerasetup;
-declare var gg_cam_intro09: camerasetup;
-declare var gg_cam_intro10: camerasetup;
-declare var gg_cam_intro11: camerasetup;
-declare var gg_unit_h003_0007: unit;
-declare var gg_unit_h014_0158: unit;
-declare var gg_unit_hars_0293: unit;
-declare var gg_unit_h00E_0081: unit;
-declare var gg_unit_hvlt_0406: unit;
-declare var gg_unit_n00B_0399: unit;
-declare var gg_unit_n00B_0038: unit;
-declare var gg_unit_ndh2_0876: unit;
-declare var gg_unit_nheb_0036: unit;
-declare var gg_unit_u001_0098: unit;
+
+

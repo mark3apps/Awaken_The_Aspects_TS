@@ -1,7 +1,7 @@
+/** @noSelfInFile **/
+
 import { HeroType, Strategy } from "app/classes/herotype"
-import { ABL } from "app/globals/abilities"
-import { IT } from "app/globals/itemTypes"
-import { UnitFour } from "globals/unitFour"
+import { ABL, IT, UnitFour } from "globals"
 
 export class BrawlerHeroType extends HeroType {
 

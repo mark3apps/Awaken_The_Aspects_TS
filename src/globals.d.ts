@@ -1,4 +1,15 @@
-export const enum UnitFour{
+import { Ability } from "app/classes/ability";
+import { HeroType } from "app/classes/herotype";
+import { ItemType } from "app/classes/itemType";
+import { Force } from "w3ts/index";
+
+declare var Allied : Force
+declare var Federation : Force
+declare var HT: { [name: string]: HeroType }
+declare var ABL: {[name: string]: Ability}
+declare var IT: {[name: string]: ItemType}
+
+declare const enum UnitFour{
     Arbalist = "n00X",
     AncientProtector = "nwnr",
     Assassin = "nass",
