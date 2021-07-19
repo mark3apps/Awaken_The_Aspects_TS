@@ -2,7 +2,7 @@
 
 import { Ability } from "app/classes/ability";
 import { HeroType, Strategy } from "app/classes/herotype";
-import { ABL, HT } from "globals";
+import { ABL, HT, OrderType } from "globals";
 import { OrderId } from "../globals/order";
 import { Destructable } from "./destructable";
 import { Force } from "./force";
@@ -20,6 +20,12 @@ export class Unit extends Widget {
   private _stategy: Strategy
   private static _heroes = new Group()
   private static _ai = new Group()
+  public xDest : number
+  public yDest : number
+  public currentOrderType : OrderType
+  public target : Widget
+  readonly xStart : number
+  readonly yStart : number
 
   /**
    * Creates a unit.
@@ -40,6 +46,9 @@ export class Unit extends Widget {
       super(skinId ? BlzCreateUnitWithSkin(p, uid, x, y, face, skinId) : CreateUnit(p, uid, x, y, face));
     }
     
+    this.xStart = this.x
+    this.yStart = this.y
+
     // Check to see if Unit is a specified Hero Type
     if (HeroType.getName(this.id) != null) {
       this._heroType = HT[HeroType.getName(this.id)]
@@ -1141,6 +1150,7 @@ export class Unit extends Widget {
   }
 
   public issueImmediateOrder(order: string | OrderId) {
+    this.currentOrderType = OrderType.Immediate
     return typeof order === "string" ? IssueImmediateOrder(this.handle, order) : IssueImmediateOrderById(this.handle, order);
   }
 
@@ -1157,6 +1167,9 @@ export class Unit extends Widget {
   }
 
   public issueOrderAt(order: string | OrderId, x: number, y: number) {
+    this.xDest = x
+    this.yDest = y
+    this.currentOrderType = OrderType.Point
     return typeof order === "string" ? IssuePointOrder(this.handle, order, x, y) : IssuePointOrderById(this.handle, order, x, y);
   }
 
@@ -1165,6 +1178,8 @@ export class Unit extends Widget {
   }
 
   public issueTargetOrder(order: string | OrderId, targetWidget: Widget) {
+    this.currentOrderType = OrderType.Target
+    this.target = targetWidget
     return typeof order === "string" ? IssueTargetOrder(this.handle, order, targetWidget.handle) : IssueTargetOrderById(this.handle, order, targetWidget.handle);
   }
 

@@ -37,6 +37,14 @@ export class Rectangle extends Handle<rect> {
     return GetRectMinY(this.handle);
   }
 
+  public get randomX() {
+    return GetRandomReal(this.minX, this.maxX)
+  }
+
+  public get randomY() {
+    return GetRandomReal(this.minY, this.maxY)
+  }
+
   public destroy() {
     RemoveRect(this.handle);
   }

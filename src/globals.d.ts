@@ -1,15 +1,32 @@
 import { Ability } from "app/classes/ability";
+import { Army } from "app/classes/army";
+import { Base } from "app/classes/base";
 import { HeroType } from "app/classes/herotype";
 import { ItemType } from "app/classes/itemType";
+import { Loc } from "app/classes/loc";
+import { Spawn } from "app/classes/spawn";
 import { Force } from "w3ts/index";
 
-declare var Allied : Force
-declare var Federation : Force
-declare var HT: { [name: string]: HeroType }
-declare var ABL: {[name: string]: Ability}
-declare var IT: {[name: string]: ItemType}
+declare var Allied: Army
+declare var Federation: Army
+declare var AlliedForce: Force
+declare var FederationForce: Force
 
-declare const enum UnitFour{
+declare var L : { [name: string]: Loc }
+declare var BSA: { [name: string]: Base }
+declare var BSF: { [name: string]: Base }
+declare var HT: { [name: string]: HeroType }
+declare var ABL: { [name: string]: Ability }
+declare var IT: { [name: string]: ItemType }
+declare var SP: { [name: string]: Spawn }
+
+declare const enum OrderType {
+    Point = 0,
+    Target = 1,
+    Immediate = 2
+}
+
+declare const enum UnitFour {
     Arbalist = "n00X",
     AncientProtector = "nwnr",
     Assassin = "nass",
