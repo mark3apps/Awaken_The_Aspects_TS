@@ -1,4 +1,4 @@
-import { UnitFour } from "globals";
+import { SPAWN_UNIT } from "utils/interfaces";
 import { OrderId } from "w3ts/globals/order";
 import { Unit } from "w3ts/index";
 import { Base } from "./base";
@@ -10,7 +10,7 @@ export class Spawn {
     private static _wave = 1
     private static _totalWaves = 10
     private bases : Array<Base>
-    private units : Array<SpawnUnit>
+    private units : Array<SPAWN_UNIT>
 
 
     constructor() {
@@ -68,16 +68,23 @@ export class Spawn {
         this.bases.push(sBase)
     }
 
-    public addUnit(sUnit: SpawnUnit) {
+    /**
+     * 
+     * @param sUnit Start = 1, End = 12, Amount = 1
+     */
+    public addUnit(sUnit: SPAWN_UNIT) {
+        if (sUnit.start == undefined) {sUnit.start = 1}
+        if (sUnit.end == undefined) {sUnit.end = 12}
+        if (sUnit.amount == undefined) {sUnit.amount = 1}
         this.units.push(sUnit)
     }
 
-    public unitInWave(sUnit: SpawnUnit) {
+    public unitInWave(sUnit: SPAWN_UNIT) {
         return sUnit.waves.indexOf(Spawn.wave) > -1
     }
 
-    public unitInLevel(sUnit: SpawnUnit) {
-        return sUnit.startLevel <= Spawn.level && sUnit.endLevel >= Spawn.level
+    public unitInLevel(sUnit: SPAWN_UNIT) {
+        return sUnit.start <= Spawn.level && sUnit.end >= Spawn.level
     }
 
 
@@ -97,7 +104,7 @@ export class Spawn {
                             let [x, y] = baseElement.randomStartXY()
                             let [xDest, yDest] = baseElement.randomEndXY()
                             let p = baseElement.army.randomPlayer
-                            let unitId = FourCC(unitElement.u)
+                            let unitId = FourCC(unitElement.uFour)
 
                             let u = new Unit(p, unitId, x, y, bj_UNIT_FACING)
                             u.issueOrderAt(OrderId.Attack, xDest, yDest)
@@ -108,23 +115,5 @@ export class Spawn {
                 }
             }
         }
-    }
-}
-
-
-
-export class SpawnUnit {
-    u: UnitFour
-    amount: number
-    waves: Array<number>
-    startLevel: number
-    endLevel: number
-
-    constructor(u: UnitFour, amount: number, waves: Array<number>, startLevel: number, endLevel: number) {
-        this.u = u
-        this.amount = amount
-        this.waves = waves
-        this.startLevel = startLevel
-        this.endLevel = endLevel
     }
 }

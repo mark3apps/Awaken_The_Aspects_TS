@@ -1,17 +1,17 @@
 import { HeroType } from "app/classes/herotype"
-import { ABL, IT, UnitFour } from "globals"
+import { ABILITY, ITEM, UNIT_FOUR } from "utils/globals"
 
 export class ShiftMasterHeroType extends HeroType {
 
     constructor() {
-        super("shiftMaster", UnitFour.ShiftMaster, UnitFour.ShiftMasterAlter)
-        this.addAbility(ABL.shift, true, true)
-        this.addAbility(ABL.switch)
-        this.addAbility(ABL.felForm)
-        this.addAbility(ABL.fallingStrike)
-        this.addAbility(ABL.shiftStorm)
-        this.addAbility(ABL.shadeStrength, true, false, true)
-        this.addItem(IT.teleport)
-        this.addItem(IT.tank)
+        super("shiftMaster", UNIT_FOUR.ShiftMaster, UNIT_FOUR.ShiftMasterAlter)
+        this.addAbility(ABILITY.shift, true, true)
+        this.addAbility(ABILITY.switch)
+        this.addAbility(ABILITY.felForm)
+        this.addAbility(ABILITY.fallingStrike)
+        this.addAbility(ABILITY.shiftStorm)
+        this.addAbility(ABILITY.shadeStrength, true, false, true)
+        this.addItem(ITEM.teleport)
+        this.addItem(ITEM.tank)
     }
 }

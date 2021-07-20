@@ -1,16 +1,16 @@
 import { HeroType } from "app/classes/herotype"
-import { ABL, IT, UnitFour } from "globals"
+import { ABILITY, ITEM, UNIT_FOUR } from "utils/globals"
 
 export class TactitionHeroType extends HeroType {
 
     constructor() {
-        super("tactition", UnitFour.Tactition, UnitFour.TactitionAlter)
-        this.addAbility(ABL.raiseBanner, true, true)
-        this.addAbility(ABL.attack)
-        this.addAbility(ABL.bolster)
-        this.addAbility(ABL.ironDefense)
-        this.addAbility(ABL.inspire, true, false, true)
-        this.addItem(IT.teleport)
-        this.addItem(IT.tank)
+        super("tactition", UNIT_FOUR.Tactition, UNIT_FOUR.TactitionAlter)
+        this.addAbility(ABILITY.raiseBanner, true, true)
+        this.addAbility(ABILITY.attack)
+        this.addAbility(ABILITY.bolster)
+        this.addAbility(ABILITY.ironDefense)
+        this.addAbility(ABILITY.inspire, true, false, true)
+        this.addItem(ITEM.teleport)
+        this.addItem(ITEM.tank)
     }
 }

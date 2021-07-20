@@ -7,26 +7,29 @@ import { Loc } from "app/classes/loc";
 import { Spawn } from "app/classes/spawn";
 import { Force } from "w3ts/index";
 
-declare var Allied: Army
-declare var Federation: Army
-declare var AlliedForce: Force
-declare var FederationForce: Force
+declare var ALLIANCE: Army
+declare var FEDERATION: Army
+declare var ALLIANCE_FORCE: Force
+declare var FEDERATION_FORCE: Force
 
-declare var L : { [name: string]: Loc }
-declare var BSA: { [name: string]: Base }
-declare var BSF: { [name: string]: Base }
-declare var HT: { [name: string]: HeroType }
-declare var ABL: { [name: string]: Ability }
-declare var IT: { [name: string]: ItemType }
-declare var SP: { [name: string]: Spawn }
+declare var LOC : { [name: string]: Loc }
+declare var BASE_ALLIANCE: { [name: string]: Base }
+declare var BASE_FEDERATION: { [name: string]: Base }
+declare var HERO_TYPE: { [name: string]: HeroType }
+declare var ABILITY: { [name: string]: Ability }
+declare var ITEM: { [name: string]: ItemType }
+declare var SPAWN: { [name: string]: Spawn }
 
-declare const enum OrderType {
+
+
+declare const enum ORDER_TYPE {
     Point = 0,
     Target = 1,
     Immediate = 2
 }
 
-declare const enum UnitFour {
+
+declare const enum UNIT_FOUR {
     Arbalist = "n00X",
     AncientProtector = "nwnr",
     Assassin = "nass",

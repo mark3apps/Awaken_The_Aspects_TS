@@ -1,21 +1,19 @@
-import { Army } from "app/classes/army";
-import { Allied, AlliedForce, Federation, FederationForce } from "globals";
-import { Players } from "w3ts/globals/index";
+import { ALLIANCE, ALLIANCE_FORCE, FEDERATION, FEDERATION_FORCE } from "utils/globals";
 import { MapPlayer, Unit } from "w3ts/index";
 
 export function defineArmies() {
-    AlliedForce.addPlayer(MapPlayer.fromIndex(18))
-    AlliedForce.addPlayer(MapPlayer.fromIndex(19))
-    AlliedForce.addPlayer(MapPlayer.fromIndex(20))
-    FederationForce.addPlayer(MapPlayer.fromIndex(21))
-    FederationForce.addPlayer(MapPlayer.fromIndex(22))
-    FederationForce.addPlayer(MapPlayer.fromIndex(23))
+    ALLIANCE_FORCE.addPlayer(MapPlayer.fromIndex(18))
+    ALLIANCE_FORCE.addPlayer(MapPlayer.fromIndex(19))
+    ALLIANCE_FORCE.addPlayer(MapPlayer.fromIndex(20))
+    FEDERATION_FORCE.addPlayer(MapPlayer.fromIndex(21))
+    FEDERATION_FORCE.addPlayer(MapPlayer.fromIndex(22))
+    FEDERATION_FORCE.addPlayer(MapPlayer.fromIndex(23))
 
-    Allied.force = AlliedForce
-    Allied.enemy = Federation
-    Allied.captial = Unit.fromHandle(gg_unit_h00E_0033)
+    ALLIANCE.force = ALLIANCE_FORCE
+    ALLIANCE.enemy = FEDERATION
+    ALLIANCE.captial = Unit.fromHandle(gg_unit_h00E_0033)
 
-    Federation.force = FederationForce
-    Federation.enemy = Allied
-    Federation.captial = Unit.fromHandle(gg_unit_h00E_0081)
+    FEDERATION.force = FEDERATION_FORCE
+    FEDERATION.enemy = ALLIANCE
+    FEDERATION.captial = Unit.fromHandle(gg_unit_h00E_0081)
 }

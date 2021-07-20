@@ -1,13 +1,13 @@
 
 import { BrawlerHeroType, ManaAddictHeroType, ShiftMasterHeroType, TactitionHeroType, TimeMageHeroType } from "app/heroes/index";
-import { HT } from "globals";
+import { HERO_TYPE } from "utils/globals";
 
 
 // Hero List Set up
 export function defineHeroTypes() {
-    HT.Brawler = new BrawlerHeroType()
-    HT.manaAddict = new ManaAddictHeroType()
-    HT.shiftMaster = new ShiftMasterHeroType()
-    HT.tactition = new TactitionHeroType()
-    HT.timeMage = new TimeMageHeroType()
+    HERO_TYPE.Brawler = new BrawlerHeroType()
+    HERO_TYPE.manaAddict = new ManaAddictHeroType()
+    HERO_TYPE.shiftMaster = new ShiftMasterHeroType()
+    HERO_TYPE.tactition = new TactitionHeroType()
+    HERO_TYPE.timeMage = new TimeMageHeroType()
 }
