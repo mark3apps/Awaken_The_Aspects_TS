@@ -1,5 +1,5 @@
 import { ItemType } from "app/classes/itemType";
-import { ITEM } from "utils/globals";
+import { ITEM } from "lib/globals";
 
 export function defineItems() {
     ITEM.teleport = new ItemType("teleportation", "I000", "A01M", "", false, [6])

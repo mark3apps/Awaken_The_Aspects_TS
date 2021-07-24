@@ -13933,22 +13933,10 @@ STRING 4785
 Wildhammer Farm
 }
 
-STRING 4788
-// Units: n00T (Arcane Tower), EditorSuffix (Name - Editor Suffix)
-{
- 1
-}
-
 STRING 4790
 // Units: n00U (Arcane Tower), EditorSuffix (Name - Editor Suffix)
 {
 2
-}
-
-STRING 4792
-// Units: n00V (Arcane Tower), EditorSuffix (Name - Editor Suffix)
-{
-3
 }
 
 STRING 4793
@@ -14006,19 +13994,13 @@ Arcane Tower
 }
 
 STRING 4809
-// Units: n00T (Arcane Tower), Name (Name)
-{
-Arcane Tower
-}
-
-STRING 4810
 // Units: n00U (Arcane Tower), Name (Name)
 {
 Arcane Tower
 }
 
-STRING 4811
-// Units: n00V (Arcane Tower), Name (Name)
+STRING 4810
+// Units: n01A (Arcane Tower), Name (Name)
 {
 Arcane Tower
 }
@@ -14033,12 +14015,6 @@ STRING 4813
 // Abilities: A02C (Magic Shield), Name (Name)
 {
 Magic Shield
-}
-
-STRING 4814
-// Units: n01A (Arcane Tower), Name (Name)
-{
-Arcane Tower
 }
 
 STRING 4815
@@ -14069,5 +14045,29 @@ STRING 4820
 // Units: n001 (Bandit Hideout), Name (Name)
 {
 Bandit Hideout
+}
+
+STRING 4821
+// Units: n00T (Arcane Violet Hold), Name (Name)
+{
+Arcane Violet Hold
+}
+
+STRING 4822
+// Units: n00V (Arcane Dome Small), Name (Name)
+{
+Arcane Dome Small
+}
+
+STRING 4823
+// Units: n01B (Arcane Dome), Name (Name)
+{
+Arcane Dome
+}
+
+STRING 4824
+// Units: n01C (Arcane Turret), Name (Name)
+{
+Arcane Turret
 }
 

@@ -2,7 +2,7 @@
 
 import { Ability } from "app/classes/ability";
 import { HeroType, Strategy } from "app/classes/herotype";
-import { ABILITY, HERO_TYPE, ORDER_TYPE } from "utils/globals";
+import { ABILITY, HERO_TYPE } from "lib/globals";
 import { OrderId } from "../globals/order";
 import { Destructable } from "./destructable";
 import { Force } from "./force";

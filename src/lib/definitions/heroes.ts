@@ -1,6 +1,6 @@
 
-import { BrawlerHeroType, ManaAddictHeroType, ShiftMasterHeroType, TactitionHeroType, TimeMageHeroType } from "app/heroes/index";
-import { HERO_TYPE } from "utils/globals";
+import { BrawlerHeroType, ManaAddictHeroType, ShiftMasterHeroType, TactitionHeroType, TimeMageHeroType } from "app/classes/heroes/index";
+import { HERO_TYPE } from "lib/globals";
 
 
 // Hero List Set up

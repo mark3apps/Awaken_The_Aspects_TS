@@ -1,4 +1,4 @@
-import { ALLIANCE, ALLIANCE_FORCE, FEDERATION, FEDERATION_FORCE } from "utils/globals";
+import { ALLIANCE, ALLIANCE_FORCE, FEDERATION, FEDERATION_FORCE } from "lib/globals";
 import { MapPlayer, Unit } from "w3ts/index";
 
 export function defineArmies() {

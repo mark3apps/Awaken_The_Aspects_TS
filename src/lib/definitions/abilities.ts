@@ -1,5 +1,5 @@
 import { Ability } from "app/classes/ability"
-import { ABILITY } from "utils/globals"
+import { ABILITY } from "lib/globals"
 import { OrderId } from "w3ts/globals/order"
 
 export function defineAbilities() {

@@ -1,5 +1,5 @@
 import { Spawn } from "app/classes/spawn";
-import { BASE_ALLIANCE, BASE_FEDERATION, SPAWN, UNIT_FOUR } from "utils/globals";
+import { BASE_ALLIANCE, BASE_FEDERATION, SPAWN } from "lib/globals";
 
 
 

@@ -1,4 +1,4 @@
-import { defineGlobals } from "definitions/_defineGlobals";
+import { defineGlobals } from "lib/definitions/_defineGlobals";
 import { addScriptHook, W3TS_HOOK } from "w3ts/hooks/index";
 
 

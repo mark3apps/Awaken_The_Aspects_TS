@@ -1,5 +1,5 @@
 import { HeroType, Strategy } from "app/classes/herotype"
-import { ABILITY, ITEM, UNIT_FOUR } from "utils/globals"
+import { ABILITY, ITEM } from "lib/globals"
 
 export class ManaAddictHeroType extends HeroType {
 

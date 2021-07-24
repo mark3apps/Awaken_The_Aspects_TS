@@ -1,5 +1,5 @@
 import { HeroType } from "app/classes/herotype"
-import { ABILITY, ITEM, UNIT_FOUR } from "utils/globals"
+import { ABILITY, ITEM } from "lib/globals"
 
 export class ShiftMasterHeroType extends HeroType {
 

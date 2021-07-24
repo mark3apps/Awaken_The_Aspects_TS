@@ -1,4 +1,4 @@
-import { SPAWN_UNIT } from "utils/interfaces";
+import { SPAWN_UNIT } from "lib/resources/interfaces/spawnUnit";
 import { OrderId } from "w3ts/globals/order";
 import { Unit } from "w3ts/index";
 import { Base } from "./base";
