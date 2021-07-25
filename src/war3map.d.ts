@@ -1,4 +1,3 @@
-
 declare var gg_rct_Left_Start: rect;
 declare var gg_rct_Left_Hero: rect;
 declare var gg_rct_Camp_Top: rect;
@@ -226,5 +225,3 @@ declare var gg_unit_u001_0098: unit;
 declare var gg_unit_ndh2_0359: unit;
 declare var gg_unit_h002_0699: unit;
 declare var gg_unit_ndh2_0876: unit;
-
-

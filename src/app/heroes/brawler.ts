@@ -1,7 +1,6 @@
-/** @noSelfInFile **/
 
-import { HeroType, Strategy } from "app/classes/herotype"
-import { ABILITY, ITEM } from "lib/globals"
+import { ABILITIES, ITEM } from "lib/globals"
+import { HeroType, Strategy } from "../classes/herotype"
 
 export class BrawlerHeroType extends HeroType {
 
@@ -9,13 +8,14 @@ export class BrawlerHeroType extends HeroType {
         super("brawler", UNIT_FOUR.Brawler, UNIT_FOUR.BrawlerAlter)
 
         // Brawler Hero Setup
-        this.addAbility(ABILITY.bloodlust)
-        this.addAbility(ABILITY.drain)
-        this.addAbility(ABILITY.warstomp)
-        this.addAbility(ABILITY.unleashRage, true, false, true)
+        this.addAbility(ABILITIES.bloodlust)
+        this.addAbility(ABILITIES.drain)
+        this.addAbility(ABILITIES.warstomp)
+        this.addAbility(ABILITIES.unleashRage, true, false, true)
         this.addItem(ITEM.teleport)
         this.addItem(ITEM.tank)
 
+        
         // Brawler AI Setup
         this.lifeFactor = 1
         this.manaFactor = 0.02

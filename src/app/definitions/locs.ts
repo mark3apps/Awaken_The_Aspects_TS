@@ -1,6 +1,6 @@
 import { Loc } from "app/classes/loc";
 import { ALLIANCE, FEDERATION, LOC } from "lib/globals";
-import { Rectangle } from "w3ts/index";
+import { Rectangle } from "w3ts/handles/rect";
 
 export function defineLocs() {
 

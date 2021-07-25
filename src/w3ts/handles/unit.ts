@@ -2,7 +2,7 @@
 
 import { Ability } from "app/classes/ability";
 import { HeroType, Strategy } from "app/classes/herotype";
-import { ABILITY, HERO_TYPE } from "lib/globals";
+import { ABILITIES, HERO_TYPE } from "lib/globals";
 import { OrderId } from "../globals/order";
 import { Destructable } from "./destructable";
 import { Force } from "./force";
@@ -1637,170 +1637,170 @@ export class Unit extends Widget {
 
   // Agility Bonus
   public get agilityBonus() {
-    this.checkBonusAbility(ABILITY.bonusStats)
-    return this.getAbilityILF(ABILITY.bonusStats.id, 0, ABILITY_ILF_AGILITY_BONUS)
+    this.checkBonusAbility(ABILITIES.bonusStats)
+    return this.getAbilityILF(ABILITIES.bonusStats.id, 0, ABILITY_ILF_AGILITY_BONUS)
   }
 
   public set agilityBonus(value: number) {
-    this.checkBonusAbility(ABILITY.bonusStats)
-    this.setAbilityILF(ABILITY.bonusStats.id, 0, ABILITY_ILF_AGILITY_BONUS, value)
-    this.refreshAbility(ABILITY.bonusStats)
+    this.checkBonusAbility(ABILITIES.bonusStats)
+    this.setAbilityILF(ABILITIES.bonusStats.id, 0, ABILITY_ILF_AGILITY_BONUS, value)
+    this.refreshAbility(ABILITIES.bonusStats)
   }
 
   public addAgilityBonus(value: number) {
-    this.checkBonusAbility(ABILITY.bonusStats)
-    this.setAbilityILF(ABILITY.bonusStats.id, 0, ABILITY_ILF_AGILITY_BONUS, this.agilityBonus + value)
-    this.refreshAbility(ABILITY.bonusStats)
+    this.checkBonusAbility(ABILITIES.bonusStats)
+    this.setAbilityILF(ABILITIES.bonusStats.id, 0, ABILITY_ILF_AGILITY_BONUS, this.agilityBonus + value)
+    this.refreshAbility(ABILITIES.bonusStats)
   }
 
   public resetAgilityBonus() {
-    this.checkBonusAbility(ABILITY.bonusStats)
-    this.setAbilityILF(ABILITY.bonusStats.id, 0, ABILITY_ILF_AGILITY_BONUS, 0)
-    this.refreshAbility(ABILITY.bonusStats)
+    this.checkBonusAbility(ABILITIES.bonusStats)
+    this.setAbilityILF(ABILITIES.bonusStats.id, 0, ABILITY_ILF_AGILITY_BONUS, 0)
+    this.refreshAbility(ABILITIES.bonusStats)
   }
 
   // Intelligence Bonus
   public get intelligenceBonus() {
-    this.checkBonusAbility(ABILITY.bonusStats)
-    return this.getAbilityILF(ABILITY.bonusStats.id, 0, ABILITY_ILF_INTELLIGENCE_BONUS)
+    this.checkBonusAbility(ABILITIES.bonusStats)
+    return this.getAbilityILF(ABILITIES.bonusStats.id, 0, ABILITY_ILF_INTELLIGENCE_BONUS)
   }
 
   public set intelligenceBonus(value: number) {
-    this.checkBonusAbility(ABILITY.bonusStats)
-    this.setAbilityILF(ABILITY.bonusStats.id, 0, ABILITY_ILF_INTELLIGENCE_BONUS, value)
-    this.refreshAbility(ABILITY.bonusStats)
+    this.checkBonusAbility(ABILITIES.bonusStats)
+    this.setAbilityILF(ABILITIES.bonusStats.id, 0, ABILITY_ILF_INTELLIGENCE_BONUS, value)
+    this.refreshAbility(ABILITIES.bonusStats)
   }
 
   public addintelligenceBonus(value: number) {
-    this.checkBonusAbility(ABILITY.bonusStats)
-    this.setAbilityILF(ABILITY.bonusStats.id, 0, ABILITY_ILF_INTELLIGENCE_BONUS, this.intelligenceBonus + value)
-    this.refreshAbility(ABILITY.bonusStats)
+    this.checkBonusAbility(ABILITIES.bonusStats)
+    this.setAbilityILF(ABILITIES.bonusStats.id, 0, ABILITY_ILF_INTELLIGENCE_BONUS, this.intelligenceBonus + value)
+    this.refreshAbility(ABILITIES.bonusStats)
   }
 
   public resetintelligenceBonus() {
-    this.checkBonusAbility(ABILITY.bonusStats)
-    this.setAbilityILF(ABILITY.bonusStats.id, 0, ABILITY_ILF_INTELLIGENCE_BONUS, 0)
-    this.refreshAbility(ABILITY.bonusStats)
+    this.checkBonusAbility(ABILITIES.bonusStats)
+    this.setAbilityILF(ABILITIES.bonusStats.id, 0, ABILITY_ILF_INTELLIGENCE_BONUS, 0)
+    this.refreshAbility(ABILITIES.bonusStats)
   }
 
   // Strength Bonus
   public get strengthBonus() {
-    this.checkBonusAbility(ABILITY.bonusStats)
-    return this.getAbilityILF(ABILITY.bonusStats.id, 0, ABILITY_ILF_STRENGTH_BONUS_ISTR)
+    this.checkBonusAbility(ABILITIES.bonusStats)
+    return this.getAbilityILF(ABILITIES.bonusStats.id, 0, ABILITY_ILF_STRENGTH_BONUS_ISTR)
   }
 
   public set strengthBonus(value: number) {
-    this.checkBonusAbility(ABILITY.bonusStats)
-    this.setAbilityILF(ABILITY.bonusStats.id, 0, ABILITY_ILF_STRENGTH_BONUS_ISTR, value)
-    this.refreshAbility(ABILITY.bonusStats)
+    this.checkBonusAbility(ABILITIES.bonusStats)
+    this.setAbilityILF(ABILITIES.bonusStats.id, 0, ABILITY_ILF_STRENGTH_BONUS_ISTR, value)
+    this.refreshAbility(ABILITIES.bonusStats)
   }
 
   public addStrengthBonus(value: number) {
-    this.checkBonusAbility(ABILITY.bonusStats)
-    this.setAbilityILF(ABILITY.bonusStats.id, 0, ABILITY_ILF_STRENGTH_BONUS_ISTR, this.strengthBonus + value)
-    this.refreshAbility(ABILITY.bonusStats)
+    this.checkBonusAbility(ABILITIES.bonusStats)
+    this.setAbilityILF(ABILITIES.bonusStats.id, 0, ABILITY_ILF_STRENGTH_BONUS_ISTR, this.strengthBonus + value)
+    this.refreshAbility(ABILITIES.bonusStats)
   }
 
   public resetStrengthBonus() {
-    this.checkBonusAbility(ABILITY.bonusStats)
-    this.setAbilityILF(ABILITY.bonusStats.id, 0, ABILITY_ILF_STRENGTH_BONUS_ISTR, 0)
-    this.refreshAbility(ABILITY.bonusStats)
+    this.checkBonusAbility(ABILITIES.bonusStats)
+    this.setAbilityILF(ABILITIES.bonusStats.id, 0, ABILITY_ILF_STRENGTH_BONUS_ISTR, 0)
+    this.refreshAbility(ABILITIES.bonusStats)
   }
 
   // Damage Bonus
   public get damageBonus() {
-    this.checkBonusAbility(ABILITY.bonusStats)
-    return this.getAbilityILF(ABILITY.bonusStats.id, 0, ABILITY_ILF_ATTACK_BONUS)
+    this.checkBonusAbility(ABILITIES.bonusStats)
+    return this.getAbilityILF(ABILITIES.bonusStats.id, 0, ABILITY_ILF_ATTACK_BONUS)
   }
 
   public set damageBonus(value: number) {
-    this.checkBonusAbility(ABILITY.bonusStats)
-    this.setAbilityILF(ABILITY.bonusStats.id, 0, ABILITY_ILF_ATTACK_BONUS, value)
-    this.refreshAbility(ABILITY.bonusStats)
+    this.checkBonusAbility(ABILITIES.bonusStats)
+    this.setAbilityILF(ABILITIES.bonusStats.id, 0, ABILITY_ILF_ATTACK_BONUS, value)
+    this.refreshAbility(ABILITIES.bonusStats)
   }
 
   public addDamageBonus(value: number) {
-    this.checkBonusAbility(ABILITY.bonusStats)
-    this.setAbilityILF(ABILITY.bonusStats.id, 0, ABILITY_ILF_ATTACK_BONUS, this.damageBonus + value)
-    this.refreshAbility(ABILITY.bonusStats)
+    this.checkBonusAbility(ABILITIES.bonusStats)
+    this.setAbilityILF(ABILITIES.bonusStats.id, 0, ABILITY_ILF_ATTACK_BONUS, this.damageBonus + value)
+    this.refreshAbility(ABILITIES.bonusStats)
   }
 
   public resetDamageBonus() {
-    this.checkBonusAbility(ABILITY.bonusDamage)
-    this.setAbilityILF(ABILITY.bonusDamage.id, 0, ABILITY_ILF_ATTACK_BONUS, 0)
-    this.refreshAbility(ABILITY.bonusDamage)
+    this.checkBonusAbility(ABILITIES.bonusDamage)
+    this.setAbilityILF(ABILITIES.bonusDamage.id, 0, ABILITY_ILF_ATTACK_BONUS, 0)
+    this.refreshAbility(ABILITIES.bonusDamage)
   }
 
   // Armor Bonus
   public get armorBonus() {
-    this.checkBonusAbility(ABILITY.bonusArmor)
-    return this.getAbilityILF(ABILITY.bonusArmor.id, 0, ABILITY_ILF_DEFENSE_BONUS_IDEF)
+    this.checkBonusAbility(ABILITIES.bonusArmor)
+    return this.getAbilityILF(ABILITIES.bonusArmor.id, 0, ABILITY_ILF_DEFENSE_BONUS_IDEF)
   }
 
   public set armorBonus(value: number) {
-    this.checkBonusAbility(ABILITY.bonusArmor)
-    this.setAbilityILF(ABILITY.bonusArmor.id, 0, ABILITY_ILF_DEFENSE_BONUS_IDEF, value)
-    this.refreshAbility(ABILITY.bonusArmor)
+    this.checkBonusAbility(ABILITIES.bonusArmor)
+    this.setAbilityILF(ABILITIES.bonusArmor.id, 0, ABILITY_ILF_DEFENSE_BONUS_IDEF, value)
+    this.refreshAbility(ABILITIES.bonusArmor)
   }
 
   public addArmorBonus(value: number) {
-    this.checkBonusAbility(ABILITY.bonusArmor)
-    this.setAbilityILF(ABILITY.bonusArmor.id, 0, ABILITY_ILF_DEFENSE_BONUS_IDEF, this.armorBonus + value)
-    this.refreshAbility(ABILITY.bonusArmor)
+    this.checkBonusAbility(ABILITIES.bonusArmor)
+    this.setAbilityILF(ABILITIES.bonusArmor.id, 0, ABILITY_ILF_DEFENSE_BONUS_IDEF, this.armorBonus + value)
+    this.refreshAbility(ABILITIES.bonusArmor)
   }
 
   public resetArmorBonus() {
-    this.checkBonusAbility(ABILITY.bonusArmor)
-    this.setAbilityILF(ABILITY.bonusArmor.id, 0, ABILITY_ILF_DEFENSE_BONUS_IDEF, 0)
-    this.refreshAbility(ABILITY.bonusArmor)
+    this.checkBonusAbility(ABILITIES.bonusArmor)
+    this.setAbilityILF(ABILITIES.bonusArmor.id, 0, ABILITY_ILF_DEFENSE_BONUS_IDEF, 0)
+    this.refreshAbility(ABILITIES.bonusArmor)
   }
 
   // Life Regen Bonus
   public get lifeRegenBonus() {
-    this.checkBonusAbility(ABILITY.bonusLifeRegen)
-    return this.getAbilityRLF(ABILITY.bonusLifeRegen.id, 0, ABILITY_RLF_AMOUNT_OF_HIT_POINTS_REGENERATED)
+    this.checkBonusAbility(ABILITIES.bonusLifeRegen)
+    return this.getAbilityRLF(ABILITIES.bonusLifeRegen.id, 0, ABILITY_RLF_AMOUNT_OF_HIT_POINTS_REGENERATED)
   }
 
   public set lifeRegenBonus(value: number) {
-    this.checkBonusAbility(ABILITY.bonusLifeRegen)
-    this.setAbilityRLF(ABILITY.bonusLifeRegen.id, 0, ABILITY_RLF_AMOUNT_OF_HIT_POINTS_REGENERATED, value)
-    this.refreshAbility(ABILITY.bonusLifeRegen)
+    this.checkBonusAbility(ABILITIES.bonusLifeRegen)
+    this.setAbilityRLF(ABILITIES.bonusLifeRegen.id, 0, ABILITY_RLF_AMOUNT_OF_HIT_POINTS_REGENERATED, value)
+    this.refreshAbility(ABILITIES.bonusLifeRegen)
   }
 
   public addLifeRegenBonus(value: number) {
-    this.checkBonusAbility(ABILITY.bonusLifeRegen)
-    this.setAbilityRLF(ABILITY.bonusLifeRegen.id, 0, ABILITY_RLF_AMOUNT_OF_HIT_POINTS_REGENERATED, this.lifeRegenBonus + value)
-    this.refreshAbility(ABILITY.bonusLifeRegen)
+    this.checkBonusAbility(ABILITIES.bonusLifeRegen)
+    this.setAbilityRLF(ABILITIES.bonusLifeRegen.id, 0, ABILITY_RLF_AMOUNT_OF_HIT_POINTS_REGENERATED, this.lifeRegenBonus + value)
+    this.refreshAbility(ABILITIES.bonusLifeRegen)
   }
 
   public resetLifeRegenBonus() {
-    this.checkBonusAbility(ABILITY.bonusLifeRegen)
-    this.setAbilityRLF(ABILITY.bonusLifeRegen.id, 0, ABILITY_RLF_AMOUNT_OF_HIT_POINTS_REGENERATED, 0)
-    this.refreshAbility(ABILITY.bonusLifeRegen)
+    this.checkBonusAbility(ABILITIES.bonusLifeRegen)
+    this.setAbilityRLF(ABILITIES.bonusLifeRegen.id, 0, ABILITY_RLF_AMOUNT_OF_HIT_POINTS_REGENERATED, 0)
+    this.refreshAbility(ABILITIES.bonusLifeRegen)
   }
 
   // Mana Regen Bonus
   public get manaRegenBonus() {
-    this.checkBonusAbility(ABILITY.bonusManaRegen)
-    return this.getAbilityRLF(ABILITY.bonusManaRegen.id, 0, ABILITY_RLF_AMOUNT_REGENERATED)
+    this.checkBonusAbility(ABILITIES.bonusManaRegen)
+    return this.getAbilityRLF(ABILITIES.bonusManaRegen.id, 0, ABILITY_RLF_AMOUNT_REGENERATED)
   }
 
   public set manaRegenBonus(value: number) {
-    this.checkBonusAbility(ABILITY.bonusManaRegen)
-    this.setAbilityRLF(ABILITY.bonusManaRegen.id, 0, ABILITY_RLF_AMOUNT_REGENERATED, value)
-    this.refreshAbility(ABILITY.bonusManaRegen)
+    this.checkBonusAbility(ABILITIES.bonusManaRegen)
+    this.setAbilityRLF(ABILITIES.bonusManaRegen.id, 0, ABILITY_RLF_AMOUNT_REGENERATED, value)
+    this.refreshAbility(ABILITIES.bonusManaRegen)
   }
 
   public addManaRegenBonus(value: number) {
-    this.checkBonusAbility(ABILITY.bonusManaRegen)
-    this.setAbilityRLF(ABILITY.bonusManaRegen.id, 0, ABILITY_RLF_AMOUNT_REGENERATED, this.manaRegenBonus + value)
-    this.refreshAbility(ABILITY.bonusManaRegen)
+    this.checkBonusAbility(ABILITIES.bonusManaRegen)
+    this.setAbilityRLF(ABILITIES.bonusManaRegen.id, 0, ABILITY_RLF_AMOUNT_REGENERATED, this.manaRegenBonus + value)
+    this.refreshAbility(ABILITIES.bonusManaRegen)
   }
 
   public resetManaRegenBonus() {
-    this.checkBonusAbility(ABILITY.bonusManaRegen)
-    this.setAbilityRLF(ABILITY.bonusManaRegen.id, 0, ABILITY_RLF_AMOUNT_REGENERATED, 0)
-    this.refreshAbility(ABILITY.bonusManaRegen)
+    this.checkBonusAbility(ABILITIES.bonusManaRegen)
+    this.setAbilityRLF(ABILITIES.bonusManaRegen.id, 0, ABILITY_RLF_AMOUNT_REGENERATED, 0)
+    this.refreshAbility(ABILITIES.bonusManaRegen)
   }
 
 

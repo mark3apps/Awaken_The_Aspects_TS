@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global, lowercase-global
 udg_PLAYERGRPallied = nil
 udg_PLAYERGRPfederation = nil
 udg_RevivableHeros = nil

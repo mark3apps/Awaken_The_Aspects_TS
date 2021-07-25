@@ -1,4 +1,4 @@
-import { defineGlobals } from "lib/definitions/_defineGlobals";
+import { Game } from "app/game";
 import { addScriptHook, W3TS_HOOK } from "w3ts/hooks/index";
 
 
@@ -14,7 +14,7 @@ function tsMain() {
   print(`Transpiler: v${TSTL_VERSION}`);
   print(" ");
 
-  defineGlobals()
+  Game.gameStart()
 
 }
 

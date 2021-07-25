@@ -1,5 +1,7 @@
 import { ALLIANCE, ALLIANCE_FORCE, FEDERATION, FEDERATION_FORCE } from "lib/globals";
-import { MapPlayer, Unit } from "w3ts/index";
+import { Unit } from "w3ts/handles/unit";
+import { MapPlayer } from "w3ts/handles/player";
+
 
 export function defineArmies() {
     ALLIANCE_FORCE.addPlayer(MapPlayer.fromIndex(18))

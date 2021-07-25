@@ -1,6 +1,5 @@
 /** @noSelfInFile **/
 
-import { Unit } from "w3ts/index"
 import { Ability } from "./ability"
 import { ItemType } from "./itemType"
 

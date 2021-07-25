@@ -1,15 +1,16 @@
-import { HeroType, Strategy } from "app/classes/herotype"
-import { ABILITY, ITEM } from "lib/globals"
+import { ABILITIES, ITEM } from "lib/globals"
+import { HeroType, Strategy } from "../classes/herotype"
 
 export class ManaAddictHeroType extends HeroType {
 
+    
     constructor() {
         super("manaAddict", UNIT_FOUR.ManaAddict, UNIT_FOUR.ManaAddictAlter)
-        this.addAbility(ABILITY.manaShield, true, true)
-        this.addAbility(ABILITY.manaBomb)
-        this.addAbility(ABILITY.manaExplosion)
-        this.addAbility(ABILITY.soulBind)
-        this.addAbility(ABILITY.unleashMana, true, false, true)
+        this.addAbility(ABILITIES.manaShield, true, true)
+        this.addAbility(ABILITIES.manaBomb)
+        this.addAbility(ABILITIES.manaExplosion)
+        this.addAbility(ABILITIES.soulBind)
+        this.addAbility(ABILITIES.unleashMana, true, false, true)
         this.addItem(ITEM.teleport)
         this.addItem(ITEM.mage)
 
