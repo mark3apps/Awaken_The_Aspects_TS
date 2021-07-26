@@ -1,6 +1,6 @@
 
-import { Ability } from "app/classes/ability"
-import { ABILITIES } from "lib/globals"
+import { Ability } from "src/app/classes/ability"
+import { ABILITIES } from "src/lib/globals"
 import { OrderId } from "w3ts/globals/order"
 
 export function defineAbilities() {

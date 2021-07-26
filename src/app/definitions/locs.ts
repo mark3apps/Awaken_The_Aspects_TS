@@ -1,5 +1,5 @@
-import { Loc } from "app/classes/loc";
-import { ALLIANCE, FEDERATION, LOC } from "lib/globals";
+import { Loc } from "src/app/classes/loc";
+import { ALLIANCE, FEDERATION, LOC } from "src/lib/globals";
 import { Rectangle } from "w3ts/handles/rect";
 
 export function defineLocs() {

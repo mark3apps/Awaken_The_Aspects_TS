@@ -12,8 +12,7 @@
     "postinstall": "tsc --outDir null -p node_modules/mdx-m3-viewer/tsconfig.json",
     "build:defs": "ts-node scripts/dev"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/fs-extra": "^8.1.1",
     "@types/node": "^12.19.1",

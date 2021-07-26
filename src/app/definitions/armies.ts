@@ -1,4 +1,4 @@
-import { ALLIANCE, ALLIANCE_FORCE, FEDERATION, FEDERATION_FORCE } from "lib/globals";
+import { ALLIANCE, ALLIANCE_FORCE, FEDERATION, FEDERATION_FORCE } from "src/lib/globals";
 import { Unit } from "w3ts/handles/unit";
 import { MapPlayer } from "w3ts/handles/player";
 

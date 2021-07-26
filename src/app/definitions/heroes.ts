@@ -3,8 +3,8 @@
 
 
 
-import { ShiftMasterHeroType } from "app/heroes/shiftMaster";
-import { HERO_TYPE } from "lib/globals";
+import { ShiftMasterHeroType } from "../heroes/shiftMaster";
+import { HERO_TYPE } from "src/lib/globals";
 import { BrawlerHeroType } from "../heroes/brawler";
 import { ManaAddictHeroType } from "../heroes/manaAddict";
 import { TactitionHeroType } from "../heroes/tactition";

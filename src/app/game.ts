@@ -6,20 +6,20 @@ import { defineLocs } from "./definitions/locs"
 import { SPAWN } from "./definitions/spawns"
 
 
-export namespace Game {
+class Game {
 
 
-    export function gameStart(){
+    public static gameStart(){
         
         // Define Globals
-        defineAbilities()
-        defineItems()
-        defineHeroTypes()
-        defineLocs()
-        defineBases()
+        //defineAbilities()
+        //defineItems()
+        //defineHeroTypes()
+        //defineLocs()
+        //defineBases()
         
         // Start Spawn
-        SPAWN.start()
+        //SPAWN.start()
     }
     
 

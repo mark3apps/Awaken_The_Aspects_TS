@@ -1,5 +1,5 @@
-import { Base } from "app/classes/base";
-import { ALLIANCE, BASE_ALLIANCE, BASE_FEDERATION, FEDERATION, LOC } from "lib/globals";
+import { Base } from "src/app/classes/base";
+import { ALLIANCE, BASE_ALLIANCE, BASE_FEDERATION, FEDERATION, LOC } from "src/lib/globals";
 import { Unit } from "w3ts/handles/unit";
 
 export function defineBases() {
