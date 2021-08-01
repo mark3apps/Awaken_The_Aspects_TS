@@ -1,4 +1,4 @@
-declare const enum UNIT_FOUR {
+declare const enum UnitFour {
     Arbalist = "n00X",
     AncientProtector = "nwnr",
     Assassin = "nass",

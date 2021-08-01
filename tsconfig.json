@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "allowJs": true,
     "target": "es6",
     "lib": [
@@ -9,11 +9,12 @@
     "moduleResolution": "classic",
     "paths": {
       "*": [
-        "../node_modules/*/src/index",
-        "../node_modules/*/lib/index",
-        "../node_modules/*/index",
-        "../node_modules/*/dist/index",
-        "../node_modules/*"
+        "node_modules/*/src/index",
+        "node_modules/*/lib/index",
+        "node_modules/*/index",
+        "node_modules/*/dist/index",
+        "node_modules/*",
+        "src/*"
       ]
     },
     "plugins": [
