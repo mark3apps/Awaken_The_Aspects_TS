@@ -1,7 +1,8 @@
-import { SpawnCheck } from "lib/resources/spawnCheck"
+import { Faction } from "lib/resources/baseInterface"
+import { SpawnValues } from "lib/resources/spawnCheck"
 import { SpawnUnit } from "lib/resources/spawnUnit"
 import { OrderId } from "lib/w3ts/globals/order"
-import { Timer, Unit } from "lib/w3ts/index"
+import { Unit } from "lib/w3ts/index"
 import { Base } from "./base"
 
 
@@ -9,44 +10,47 @@ import { Base } from "./base"
 
 export class Spawn {
 
-    private bases: Base[]
+    private factions: Faction
     private units: SpawnUnit[]
     public name: string
 
-    constructor(name) {
+    constructor(name: string) {
         this.name = name
+        this.units = []
     }
 
     //
     // Instance Methods
     //
 
-    public addBase(sBase: Base) {
-        this.bases.push(sBase)
+    public set faction(value: Faction) {
+        this.factions = value
     }
 
-    /**
-     * 
-     * @param sUnit Start = 1, End = 12, Amount = 1
-     */
+    public get faction() {
+        return this.factions
+    }
+
     public addUnit(sUnit: SpawnUnit) {
-        if (sUnit.start == undefined) { sUnit.start = 1 }
-        if (sUnit.end == undefined) { sUnit.end = 12 }
-        if (sUnit.amount == undefined) { sUnit.amount = 1 }
+        if (sUnit.start == null) { sUnit.start = 1 }
+        if (sUnit.end == null) { sUnit.end = 12 }
+        if (sUnit.amount == null) { sUnit.amount = 1 }
+
         this.units.push(sUnit)
+
     }
 
-    public unitInWave(check: SpawnCheck) {
+    public unitInWave(check: SpawnValues) {
         let sUnit = this.units[check.unit]
         return sUnit.waves.indexOf(check.wave) > -1
     }
 
-    public unitInLevel(check: SpawnCheck) {
+    public unitInLevel(check: SpawnValues) {
         let sUnit = this.units[check.unit]
         return sUnit.start <= check.level && sUnit.end >= check.level
     }
 
-    public unitReady(check: SpawnCheck) {
+    public unitReady(check: SpawnValues) {
         let sUnit = this.units[check.unit]
         return sUnit.start <= check.level && sUnit.end >= check.level && sUnit.waves.indexOf(check.wave) > -1
     }
@@ -55,17 +59,7 @@ export class Spawn {
         return this.units.length
     }
 
-    public get countOfBases() {
-        return this.bases.length
-    }
-
-
-    /**
-     * Goes through all of the Units and spawns the units
-     * if the check comes through.  Ignores the Unit value.
-     * @param check 
-     */
-    public spawnUnits(check: SpawnCheck) {
+    public spawnUnits(check: SpawnValues) {
 
         for (let i = 0; i < this.units.length; i++) {
             check.unit = i
@@ -73,17 +67,17 @@ export class Spawn {
         }
     }
 
-    
-    public spawnUnit(check: SpawnCheck) {
+    public spawnUnit(check: SpawnValues) {
 
         const unitElement = this.units[check.unit]
-
+        
         if (this.unitReady(check)) {
-            for (let b = 0; b < this.bases.length; b++) {
-                const baseElement = this.bases[b]
+            for (let b = 0; b < 2; b++) {
+
+                const baseElement = this.factions[["alliance","federation"][b]]
 
                 if (baseElement.isAlive()) {
-                    for (let index = 1; index < unitElement.amount; index++) {
+                    for (let index = 0; index < unitElement.amount; index++) {
 
                         let [x, y] = baseElement.randomStartXY()
                         let [xDest, yDest] = baseElement.randomEndXY()

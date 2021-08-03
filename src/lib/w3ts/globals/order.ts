@@ -258,7 +258,6 @@ export const enum OrderId{
   Resurrection = 852094,
   Returnresources = 852020,
   Revenge = 852241,
-  Reveal = 852270,
   Revive = 852039,
   Roar = 852164,
   Robogoblin = 852656,

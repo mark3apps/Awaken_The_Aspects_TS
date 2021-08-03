@@ -10,6 +10,7 @@ export class Loc {
 
     constructor(r: Rectangle, forwardLoc?: Loc, forwardArmy?: Army) {
         this.rect = r;
+        this.region = new Region()
         this.region.addRect(r);
         this.forwardLoc = forwardLoc;
         this.forwardArmy = forwardArmy;

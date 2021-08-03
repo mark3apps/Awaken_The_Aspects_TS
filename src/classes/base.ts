@@ -6,7 +6,7 @@ import { Loc } from "./loc"
 
 export class Base {
     army: Army;
-    baseCondition: Unit;
+    baseUnit: Unit;
     startLoc: Loc;
     endLoc: Loc;
     importance: number;
@@ -16,7 +16,7 @@ export class Base {
 
     constructor(baseUnit: Unit, army: Army, startLoc: Loc, endLoc: Loc, importance: number, dangerUpdate: boolean, teleport: boolean, healing: boolean) {
         this.army = army;
-        this.baseCondition = this.baseCondition;
+        this.baseUnit = baseUnit;
         this.startLoc = startLoc;
         this.endLoc = endLoc;
         this.importance = importance;
@@ -26,7 +26,7 @@ export class Base {
     }
 
     public isAlive() {
-        return this.baseCondition.isAlive();
+        return this.baseUnit.isAlive();
     }
 
     public randomStartXY() {
