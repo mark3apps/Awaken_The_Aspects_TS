@@ -55,6 +55,10 @@ export class Region extends Handle<region> {
     RemoveRegion(this.handle);
   }
 
+  public static fromEvent() {
+    return this.fromHandle(GetTriggeringRegion())
+  }
+
   public static fromHandle(handle: region): Region {
     return this.getObject(handle);
   }

@@ -23,6 +23,8 @@ export namespace SPAWN {
 		check = { levels: 12, waves: 10, level: 1, wave: 1, base: 0, unit: 0 }
 		loop = { cycle: 1, wave: 10, base: 0.5, unit: 0.05 }
 		spawns = []
+
+		base.define()
 	}
 
 	export namespace base {

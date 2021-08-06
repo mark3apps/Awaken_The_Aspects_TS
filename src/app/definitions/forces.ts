@@ -1,3 +1,4 @@
+import { Loc } from "classes/loc"
 import { Force, MapPlayer } from "lib/w3ts/index"
 
 export namespace FORCE {

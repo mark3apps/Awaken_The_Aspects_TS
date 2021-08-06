@@ -1,0 +1,9 @@
+{
+    "search.exclude": {
+        "*/dist": true,
+        "*/maps": true
+    },
+    "files.watcherExclude": {
+        "*/maps/**": true
+    }
+}
