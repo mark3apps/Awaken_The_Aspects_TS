@@ -321,9 +321,6 @@ gg_trg_Unit_Upgrades = nil
 gg_trg_Elder_Ent_Movement = nil
 gg_trg_Zombie_Infect = nil
 gg_trg_Upgrade_to_Fel_Warlock = nil
-gg_trg_Elf_Boat_Dies = nil
-gg_trg_Wildhammer_Building_Dies = nil
-gg_trg_Human_Boat_Dies = nil
 gg_trg_Chain_Lightning = nil
 gg_trg_Energy_Tower = nil
 gg_trg_Watch_Tower_Mana_Shield = nil
@@ -852,6 +849,14 @@ function CreateUnitsForPlayer0()
     u = BlzCreateUnitWithSkin(p, FourCC("n01A"), -20340.7, -12436.0, 270.000, FourCC("n01A"))
     u = BlzCreateUnitWithSkin(p, FourCC("n01A"), -20340.7, -10196.0, 270.000, FourCC("n01A"))
     u = BlzCreateUnitWithSkin(p, FourCC("n01A"), -20340.7, -10452.0, 270.000, FourCC("n01A"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hwt2"), -15542.2, -4990.9, 345.816, FourCC("hwt2"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hwt2"), -15525.0, -4690.5, 213.746, FourCC("hwt2"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hwt2"), -15370.7, -4547.9, 18.765, FourCC("hwt2"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hwt2"), -15320.8, -4981.3, 64.700, FourCC("hwt2"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hgyr"), -7088.3, 6262.7, 331.402, FourCC("hgyr"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h011"), -15824.1, -4750.1, 12.854, FourCC("h011"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h011"), -15710.7, -5088.8, 259.263, FourCC("h011"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h011"), -15767.4, -4905.2, 209.439, FourCC("h011"))
 end
 
 function CreateBuildingsForPlayer1()
@@ -1866,7 +1871,7 @@ function CreateNeutralHostile()
     u = BlzCreateUnitWithSkin(p, FourCC("ncim"), -25923.5, 3965.7, 309.799, FourCC("ncim"))
     u = BlzCreateUnitWithSkin(p, FourCC("e00E"), -8569.5, 6364.3, 192.157, FourCC("e00E"))
     u = BlzCreateUnitWithSkin(p, FourCC("e00F"), -8457.6, 6349.6, 96.243, FourCC("e00F"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e005"), -7317.4, 6361.8, 191.091, FourCC("e005"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e005"), -7322.6, 6300.2, 191.091, FourCC("e005"))
     u = BlzCreateUnitWithSkin(p, FourCC("h017"), -8116.0, 6525.6, 287.949, FourCC("h017"))
     u = BlzCreateUnitWithSkin(p, FourCC("h01P"), -8315.3, 6347.7, 48.385, FourCC("h01P"))
     u = BlzCreateUnitWithSkin(p, FourCC("h01O"), -8379.8, 6360.9, 178.874, FourCC("h01O"))
@@ -1879,8 +1884,8 @@ function CreateNeutralHostile()
     u = BlzCreateUnitWithSkin(p, FourCC("h015"), -8224.3, 6519.0, 220.381, FourCC("h015"))
     u = BlzCreateUnitWithSkin(p, FourCC("h007"), -8292.1, 6507.7, 80.873, FourCC("h007"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00C"), -8543.4, 6486.8, 132.082, FourCC("n00C"))
-    u = BlzCreateUnitWithSkin(p, FourCC("o00A"), -7347.5, 6499.9, 65.942, FourCC("o00A"))
-    u = BlzCreateUnitWithSkin(p, FourCC("o002"), -7421.5, 6497.9, 193.299, FourCC("o002"))
+    u = BlzCreateUnitWithSkin(p, FourCC("o00A"), -7403.6, 6515.1, 65.942, FourCC("o00A"))
+    u = BlzCreateUnitWithSkin(p, FourCC("o002"), -7477.5, 6513.1, 193.299, FourCC("o002"))
     u = BlzCreateUnitWithSkin(p, FourCC("o00B"), -6969.3, 6503.1, 149.737, FourCC("o00B"))
     u = BlzCreateUnitWithSkin(p, FourCC("u000"), -6863.7, 6329.9, 92.134, FourCC("u000"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00L"), -7196.8, 6728.6, 329.864, FourCC("n00L"))
@@ -1890,13 +1895,13 @@ function CreateNeutralHostile()
     u = BlzCreateUnitWithSkin(p, FourCC("n005"), -6886.7, 6728.2, 329.622, FourCC("n005"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00I"), -6392.1, 6737.3, 91.772, FourCC("n00I"))
     u = BlzCreateUnitWithSkin(p, FourCC("n006"), -8534.1, 6350.4, 216.174, FourCC("n006"))
-    u = BlzCreateUnitWithSkin(p, FourCC("n00F"), -8048.4, 6351.8, 318.383, FourCC("n00F"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n00F"), -8105.7, 6387.5, 318.383, FourCC("n00F"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00A"), -7570.6, 6707.0, 269.271, FourCC("n00A"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00W"), -7177.5, 6513.0, 348.629, FourCC("n00W"))
     u = BlzCreateUnitWithSkin(p, FourCC("e000"), -7714.3, 6350.6, 211.043, FourCC("e000"))
     u = BlzCreateUnitWithSkin(p, FourCC("hhes"), -8581.6, 6723.9, 65.129, FourCC("hhes"))
     u = BlzCreateUnitWithSkin(p, FourCC("hcth"), -8058.1, 6531.1, 301.300, FourCC("hcth"))
-    u = BlzCreateUnitWithSkin(p, FourCC("earc"), -7774.3, 6349.4, 289.718, FourCC("earc"))
+    u = BlzCreateUnitWithSkin(p, FourCC("earc"), -7785.3, 6347.6, 289.718, FourCC("earc"))
     u = BlzCreateUnitWithSkin(p, FourCC("edry"), -7659.2, 6346.9, 191.541, FourCC("edry"))
     u = BlzCreateUnitWithSkin(p, FourCC("edoc"), -7428.7, 6331.4, 196.277, FourCC("edoc"))
     u = BlzCreateUnitWithSkin(p, FourCC("edcm"), -7561.2, 6343.2, 338.071, FourCC("edcm"))
@@ -1917,20 +1922,20 @@ function CreateNeutralHostile()
     u = BlzCreateUnitWithSkin(p, FourCC("ninc"), -6495.5, 6337.7, 159.636, FourCC("ninc"))
     u = BlzCreateUnitWithSkin(p, FourCC("ninm"), -6397.1, 6334.7, 25.258, FourCC("ninm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nina"), -6273.0, 6329.3, 293.871, FourCC("nina"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nmbg"), -6788.6, 6517.0, 305.605, FourCC("nmbg"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nmrv"), -6596.3, 6515.2, 257.330, FourCC("nmrv"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nmrl"), -6801.9, 6609.4, 200.880, FourCC("nmrl"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nmbg"), -6805.5, 6591.6, 305.605, FourCC("nmbg"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nmrv"), -6632.4, 6576.0, 257.330, FourCC("nmrv"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nmrl"), -6876.1, 6605.0, 200.880, FourCC("nmrl"))
     u = BlzCreateUnitWithSkin(p, FourCC("nmrr"), -6739.8, 6583.4, 115.239, FourCC("nmrr"))
     u = BlzCreateUnitWithSkin(p, FourCC("nnsw"), -7799.1, 6191.0, 213.295, FourCC("nnsw"))
     u = BlzCreateUnitWithSkin(p, FourCC("nsnp"), -7656.4, 6201.1, 129.247, FourCC("nsnp"))
     u = BlzCreateUnitWithSkin(p, FourCC("nmyr"), -7881.6, 6184.9, 56.713, FourCC("nmyr"))
     u = BlzCreateUnitWithSkin(p, FourCC("nnrg"), -7546.2, 6194.2, 233.763, FourCC("nnrg"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncat"), -6259.1, 6737.1, 21.468, FourCC("ncat"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nwat"), -7812.3, 6333.9, 241.882, FourCC("nwat"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nwat"), -7840.3, 6347.6, 241.882, FourCC("nwat"))
     u = BlzCreateUnitWithSkin(p, FourCC("nfgl"), -6609.9, 6315.8, 149.770, FourCC("nfgl"))
     u = BlzCreateUnitWithSkin(p, FourCC("nogo"), -7261.2, 6512.5, 74.116, FourCC("nogo"))
     u = BlzCreateUnitWithSkin(p, FourCC("narg"), -8007.7, 6724.6, 211.493, FourCC("narg"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nftr"), -7302.2, 6515.9, 243.289, FourCC("nftr"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nftr"), -7329.2, 6519.9, 243.289, FourCC("nftr"))
     u = BlzCreateUnitWithSkin(p, FourCC("nchp"), -7660.4, 6721.6, 277.372, FourCC("nchp"))
 end
 
@@ -3539,155 +3544,6 @@ function InitTrig_Upgrade_to_Fel_Warlock()
     TriggerRegisterAnyUnitEventBJ(gg_trg_Upgrade_to_Fel_Warlock, EVENT_PLAYER_UNIT_SPELL_FINISH)
     TriggerAddCondition(gg_trg_Upgrade_to_Fel_Warlock, Condition(Trig_Upgrade_to_Fel_Warlock_Conditions))
     TriggerAddAction(gg_trg_Upgrade_to_Fel_Warlock, Trig_Upgrade_to_Fel_Warlock_Actions)
-end
-
-function Trig_Elf_Boat_Dies_Func001C()
-    if (GetUnitTypeId(GetDyingUnit()) == FourCC("edes")) then
-        return true
-    end
-    if (GetUnitTypeId(GetDyingUnit()) == FourCC("ebsh")) then
-        return true
-    end
-    return false
-end
-
-function Trig_Elf_Boat_Dies_Conditions()
-    if (not Trig_Elf_Boat_Dies_Func001C()) then
-        return false
-    end
-    return true
-end
-
-function Trig_Elf_Boat_Dies_Func003C()
-    if (not (IsTerrainPathableBJ(udg_TEMP_Pos2, PATHING_TYPE_WALKABILITY) == false)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Elf_Boat_Dies_Actions()
-    udg_TEMP_Pos2 = GetUnitLoc(GetDyingUnit())
-    if (Trig_Elf_Boat_Dies_Func003C()) then
-        CreateNUnitsAtLoc(1, FourCC("hhes"), GetOwningPlayer(GetDyingUnit()), udg_TEMP_Pos2, bj_UNIT_FACING)
-        CreateNUnitsAtLoc(1, FourCC("earc"), GetOwningPlayer(GetDyingUnit()), udg_TEMP_Pos2, bj_UNIT_FACING)
-    else
-    end
-        RemoveLocation ( udg_TEMP_Pos2 )
-end
-
-function InitTrig_Elf_Boat_Dies()
-    gg_trg_Elf_Boat_Dies = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Elf_Boat_Dies, EVENT_PLAYER_UNIT_DEATH)
-    TriggerAddCondition(gg_trg_Elf_Boat_Dies, Condition(Trig_Elf_Boat_Dies_Conditions))
-    TriggerAddAction(gg_trg_Elf_Boat_Dies, Trig_Elf_Boat_Dies_Actions)
-end
-
-function Trig_Wildhammer_Building_Dies_Func001C()
-    if (GetUnitTypeId(GetDyingUnit()) == FourCC("h01W")) then
-        return true
-    end
-    if (GetUnitTypeId(GetDyingUnit()) == FourCC("h01U")) then
-        return true
-    end
-    if (GetUnitTypeId(GetDyingUnit()) == FourCC("h01X")) then
-        return true
-    end
-    if (GetUnitTypeId(GetDyingUnit()) == FourCC("h01F")) then
-        return true
-    end
-    return false
-end
-
-function Trig_Wildhammer_Building_Dies_Conditions()
-    if (not Trig_Wildhammer_Building_Dies_Func001C()) then
-        return false
-    end
-    return true
-end
-
-function Trig_Wildhammer_Building_Dies_Func003C()
-    if (not (GetRandomInt(1, 3) > 1)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Wildhammer_Building_Dies_Func004C()
-    if (not (GetRandomInt(1, 3) > 1)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Wildhammer_Building_Dies_Func005C()
-    if (not (GetRandomInt(1, 3) == 1)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Wildhammer_Building_Dies_Actions()
-    udg_TEMP_Pos2 = GetUnitLoc(GetDyingUnit())
-    if (Trig_Wildhammer_Building_Dies_Func003C()) then
-        CreateNUnitsAtLoc(GetRandomInt(1, 2), FourCC("n006"), GetOwningPlayer(GetDyingUnit()), udg_TEMP_Pos2, bj_UNIT_FACING)
-    else
-    end
-    if (Trig_Wildhammer_Building_Dies_Func004C()) then
-        CreateNUnitsAtLoc(GetRandomInt(1, 2), FourCC("e00E"), GetOwningPlayer(GetDyingUnit()), udg_TEMP_Pos2, bj_UNIT_FACING)
-    else
-    end
-    if (Trig_Wildhammer_Building_Dies_Func005C()) then
-        CreateNUnitsAtLoc(1, FourCC("e00F"), GetOwningPlayer(GetDyingUnit()), udg_TEMP_Pos2, bj_UNIT_FACING)
-    else
-    end
-        RemoveLocation ( udg_TEMP_Pos2 )
-end
-
-function InitTrig_Wildhammer_Building_Dies()
-    gg_trg_Wildhammer_Building_Dies = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Wildhammer_Building_Dies, EVENT_PLAYER_UNIT_DEATH)
-    TriggerAddCondition(gg_trg_Wildhammer_Building_Dies, Condition(Trig_Wildhammer_Building_Dies_Conditions))
-    TriggerAddAction(gg_trg_Wildhammer_Building_Dies, Trig_Wildhammer_Building_Dies_Actions)
-end
-
-function Trig_Human_Boat_Dies_Func001C()
-    if (GetUnitTypeId(GetDyingUnit()) == FourCC("hdes")) then
-        return true
-    end
-    if (GetUnitTypeId(GetDyingUnit()) == FourCC("hbsh")) then
-        return true
-    end
-    return false
-end
-
-function Trig_Human_Boat_Dies_Conditions()
-    if (not Trig_Human_Boat_Dies_Func001C()) then
-        return false
-    end
-    return true
-end
-
-function Trig_Human_Boat_Dies_Func003C()
-    if (not (IsTerrainPathableBJ(udg_TEMP_Pos2, PATHING_TYPE_WALKABILITY) == false)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Human_Boat_Dies_Actions()
-    udg_TEMP_Pos2 = GetUnitLoc(GetDyingUnit())
-    if (Trig_Human_Boat_Dies_Func003C()) then
-        CreateNUnitsAtLoc(2, FourCC("n00X"), GetOwningPlayer(GetDyingUnit()), udg_TEMP_Pos2, bj_UNIT_FACING)
-    else
-    end
-        RemoveLocation ( udg_TEMP_Pos2 )
-end
-
-function InitTrig_Human_Boat_Dies()
-    gg_trg_Human_Boat_Dies = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Human_Boat_Dies, EVENT_PLAYER_UNIT_DEATH)
-    TriggerAddCondition(gg_trg_Human_Boat_Dies, Condition(Trig_Human_Boat_Dies_Conditions))
-    TriggerAddAction(gg_trg_Human_Boat_Dies, Trig_Human_Boat_Dies_Actions)
 end
 
 function Trig_Chain_Lightning_Conditions()
@@ -5654,9 +5510,6 @@ function InitCustomTriggers()
     InitTrig_Elder_Ent_Movement()
     InitTrig_Zombie_Infect()
     InitTrig_Upgrade_to_Fel_Warlock()
-    InitTrig_Elf_Boat_Dies()
-    InitTrig_Wildhammer_Building_Dies()
-    InitTrig_Human_Boat_Dies()
     InitTrig_Chain_Lightning()
     InitTrig_Energy_Tower()
     InitTrig_Watch_Tower_Mana_Shield()

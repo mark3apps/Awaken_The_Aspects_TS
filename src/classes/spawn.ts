@@ -3,7 +3,7 @@ import { SpawnValues } from "lib/resources/spawnCheck"
 import { SpawnUnit } from "lib/resources/spawnUnit"
 import { OrderId } from "lib/w3ts/globals/order"
 import { Unit } from "lib/w3ts/index"
-import { Base } from "./base"
+
 
 
 
@@ -82,9 +82,9 @@ export class Spawn {
                         let [x, y] = baseElement.randomStartXY()
                         let [xDest, yDest] = baseElement.randomEndXY()
                         let p = baseElement.army.randomPlayer
-                        let unitId = FourCC(unitElement.uFour)
+                        let unitId = unitElement.unitId
 
-                        let u = new Unit(p, unitId, x, y, bj_UNIT_FACING)
+                        let u = new Unit(p, unitId.id, x, y, bj_UNIT_FACING)
                         u.issueOrderAt(OrderId.Attack, xDest, yDest)
 
                     }

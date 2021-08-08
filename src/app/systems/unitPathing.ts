@@ -1,7 +1,7 @@
 import { Loc } from "classes/loc"
 import { OrderId } from "lib/w3ts/globals/order"
 import { Region, Unit } from "lib/w3ts/index"
-import { TRIGGER } from "./definitions/triggers"
+import { TRIGGER } from "../definitions/triggers"
 
 export namespace UNIT_PATHING {
 
@@ -22,6 +22,15 @@ export namespace UNIT_PATHING {
                     triggerUnit.issueOrderAt(OrderId.Attack, x, y)
                 }
             }
+
+            return false
+        })
+
+
+        TRIGGER.unitSummoned.addCondition(() => {
+            let triggerUnit = Unit.fromEvent()
+
+
 
             return false
         })

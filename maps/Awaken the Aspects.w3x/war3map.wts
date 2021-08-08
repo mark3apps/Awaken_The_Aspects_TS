@@ -13010,12 +13010,6 @@ STRING 4594
  (two story, southwest facing Tall)
 }
 
-STRING 4596
-// Units: nemi (Elven Mystic), Name (Name)
-{
-Elven Mystic
-}
-
 STRING 4598
 // Units: owad (Orc Warlord), Name (Name)
 {
@@ -13633,12 +13627,6 @@ STRING 4742
 Orc Spearthrower
 }
 
-STRING 4743
-// Units: h010 (High Elven Guardian), Name (Name)
-{
-High Elven Guardian
-}
-
 STRING 4744
 // Units: h00T (High Elf Apprentice), Name (Name)
 {
@@ -13691,12 +13679,6 @@ STRING 4753
 // Units: h01O (Iron Guard), Name (Name)
 {
 Iron Guard
-}
-
-STRING 4754
-// Units: h01P (Iron Captian), Name (Name)
-{
-Iron Captian
 }
 
 STRING 4756
@@ -14069,5 +14051,35 @@ STRING 4824
 // Units: n01C (Arcane Turret), Name (Name)
 {
 Arcane Turret
+}
+
+STRING 4825
+// Units: nemi (High Elf Healer), Name (Name)
+{
+High Elf Healer
+}
+
+STRING 4826
+// Units: hmtt (Siege Engine (Damaged)), Name (Name)
+{
+Siege Engine (Damaged)
+}
+
+STRING 4827
+// Units: h010 (High Elf Guardian), Name (Name)
+{
+High Elf Guardian
+}
+
+STRING 4828
+// Units: h01P (Iron Captain), Name (Name)
+{
+Iron Captain
+}
+
+STRING 4829
+// Abilities: A03L (Barrage (Seige Engine)), Name (Name)
+{
+Barrage (Seige Engine)
 }
 

@@ -6,6 +6,7 @@ export namespace TRIGGER {
     export let unitOrdered: Trigger
     export let unitAttacked: Trigger
     export let unitEntersRegion: Trigger
+    export let unitSummoned: Trigger
 
 
     export function define() {
@@ -23,5 +24,8 @@ export namespace TRIGGER {
         unitOrdered.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_UNIT_ORDER)
 
         unitEntersRegion = new Trigger()
+
+        unitSummoned = new Trigger()
+        unitSummoned.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SUMMON)
     }
 }
