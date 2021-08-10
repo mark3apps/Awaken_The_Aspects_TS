@@ -1,4 +1,5 @@
-import { UNIT_TYPE, UnitType } from "../../app/definitions/unitTypes"
+import { UnitType } from "./unitType"
+
 
 export interface SpawnUnit {
     unitId: UnitType,

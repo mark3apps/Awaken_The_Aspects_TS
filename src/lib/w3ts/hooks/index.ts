@@ -1,7 +1,7 @@
 /** @noSelfInFile */
 
-declare var main: () => void;
-declare var config: () => void;
+declare let main: () => void;
+declare let config: () => void;
 
 const oldMain = main;
 const oldConfig = config;

@@ -100,7 +100,7 @@ export class SyncRequest {
   public readonly from: MapPlayer;
   public readonly id: number;
   public readonly options: ISyncOptions;
-  private _startTime: number = 0;
+  private _startTime = 0;
   private chunks: string[] = [];
   private currentChunk = 0;
   private destroyed = false;

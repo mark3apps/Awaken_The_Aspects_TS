@@ -1,18 +1,17 @@
-import { Force, Unit } from "lib/w3ts/index"
+import { Force, MapPlayer, Unit } from "lib/w3ts/index"
 
 
 
 export class Army {
     public force!: Force;
-    public name!: string;
-    public captial!: Unit;
+    public capital!: Unit;
     public _enemy: Army;
 
     constructor() {
-
+        // do nothing
     }
 
-    public get enemy() {
+    public get enemy(): Army {
         return this._enemy;
     }
 
@@ -20,15 +19,15 @@ export class Army {
         this._enemy = army;
     }
 
-    public isCaptialAlive() {
-        return this.captial.isAlive();
+    public isCaptialAlive(): boolean {
+        return this.capital.isAlive();
     }
 
-    public get enemyForce() {
+    public get enemyForce(): Force {
         return this._enemy.force;
     }
 
-    public get randomPlayer() {
+    public get randomPlayer(): MapPlayer {
         return this.force.getPlayers()[Math.floor(Math.random() * this.force.getPlayers().length)];
     }
 }

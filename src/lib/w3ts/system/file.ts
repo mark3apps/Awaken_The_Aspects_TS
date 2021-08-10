@@ -28,7 +28,9 @@ export class File {
   // The string limit per Preload call.
   private static preloadLimit = 259;
 
-  private constructor() {}
+  private constructor() {
+    // Do nothing
+  }
 
   /**
    * Character we use for escape sequences. Avoiding `\` since it is

@@ -3,9 +3,7 @@ import { SpawnValues } from "lib/resources/spawnCheck"
 import { SpawnUnit } from "lib/resources/spawnUnit"
 import { OrderId } from "lib/w3ts/globals/order"
 import { Unit } from "lib/w3ts/index"
-
-
-
+import { Base } from "./base"
 
 
 export class Spawn {
@@ -27,11 +25,11 @@ export class Spawn {
         this.factions = value
     }
 
-    public get faction() {
+    public get faction(): Faction {
         return this.factions
     }
 
-    public addUnit(sUnit: SpawnUnit) {
+    public addUnit(sUnit: SpawnUnit): void {
         if (sUnit.start == null) { sUnit.start = 1 }
         if (sUnit.end == null) { sUnit.end = 12 }
         if (sUnit.amount == null) { sUnit.amount = 1 }
@@ -40,26 +38,26 @@ export class Spawn {
 
     }
 
-    public unitInWave(check: SpawnValues) {
-        let sUnit = this.units[check.unit]
+    public unitInWave(check: SpawnValues): boolean {
+        const sUnit = this.units[check.unit]
         return sUnit.waves.indexOf(check.wave) > -1
     }
 
-    public unitInLevel(check: SpawnValues) {
-        let sUnit = this.units[check.unit]
+    public unitInLevel(check: SpawnValues): boolean {
+        const sUnit = this.units[check.unit]
         return sUnit.start <= check.level && sUnit.end >= check.level
     }
 
-    public unitReady(check: SpawnValues) {
-        let sUnit = this.units[check.unit]
+    public unitReady(check: SpawnValues): boolean {
+        const sUnit = this.units[check.unit]
         return sUnit.start <= check.level && sUnit.end >= check.level && sUnit.waves.indexOf(check.wave) > -1
     }
 
-    public get countOfUnits() {
+    public get countOfUnits(): number {
         return this.units.length
     }
 
-    public spawnUnits(check: SpawnValues) {
+    public spawnUnits(check: SpawnValues): void {
 
         for (let i = 0; i < this.units.length; i++) {
             check.unit = i
@@ -67,25 +65,25 @@ export class Spawn {
         }
     }
 
-    public spawnUnit(check: SpawnValues) {
+    public spawnUnit(check: SpawnValues):void {
 
         const unitElement = this.units[check.unit]
         
         if (this.unitReady(check)) {
             for (let b = 0; b < 2; b++) {
 
-                const baseElement = this.factions[["alliance","federation"][b]]
+                const baseElement: Base = this.factions[["alliance","federation"][b]]
 
                 if (baseElement.isAlive()) {
                     for (let index = 0; index < unitElement.amount; index++) {
 
-                        let [x, y] = baseElement.randomStartXY()
-                        let [xDest, yDest] = baseElement.randomEndXY()
-                        let p = baseElement.army.randomPlayer
-                        let unitId = unitElement.unitId
+                        const start = baseElement.randomStartXY()
+                        const dest = baseElement.randomEndXY()
+                        const p = baseElement.army.randomPlayer
+                        const unitId = unitElement.unitId
 
-                        let u = new Unit(p, unitId.id, x, y, bj_UNIT_FACING)
-                        u.issueOrderAt(OrderId.Attack, xDest, yDest)
+                        const u = new Unit(p, unitId.id, start.x, start.y, bj_UNIT_FACING)
+                        u.issueOrderAt(OrderId.Attack, dest.x, dest.y)
 
                     }
 

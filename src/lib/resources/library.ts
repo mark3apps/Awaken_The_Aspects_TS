@@ -1,10 +1,11 @@
 import { Unit } from "lib/w3ts/index"
+import { Coordinate } from "./coordinate"
 
-export function CC2Four(num: number) {
+export function CC2Four(num: number): string {
     return string.pack(">I4", num)
 }
 
-export function ValueFactor(level: number, base: number, previousFactor: number, levelFactor: number, constant: number) {
+export function ValueFactor(level: number, base: number, previousFactor: number, levelFactor: number, constant: number): number {
 
     let value = base
 
@@ -17,24 +18,24 @@ export function ValueFactor(level: number, base: number, previousFactor: number,
     return value
 }
 
-export function PolarProjectionCoordinates(x: number, y: number, dist: number, angle: number) {
-    let newX = x + dist * Cos(angle * bj_DEGTORAD)
-    let newY = y + dist * Sin(angle * bj_DEGTORAD)
-    return [newX, newY]
+export function PolarProjectionCoordinates(x: number, y: number, dist: number, angle: number): Coordinate {
+    const newX = x + dist * Cos(angle * bj_DEGTORAD)
+    const newY = y + dist * Sin(angle * bj_DEGTORAD)
+    return { x: newX, y: newY }
 }
 
-export function DistanceBetweenCoordinates(x1: number, y1: number, x2: number, y2: number) {
-    return SquareRoot(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)))
+export function DistanceBetweenCoordinates(c1: Coordinate, c2: Coordinate): number {
+    return SquareRoot(((c2.x - c1.x) * (c2.x - c1.x)) + ((c2.y - c1.y) * (c2.y - c1.y)))
 }
 
-export function DistanceBetweenUnits(unitA: Unit, unitB: Unit) {
-    return DistanceBetweenCoordinates(unitA.x, unitA.y, unitB.x, unitB.y)
+export function DistanceBetweenUnits(unitA: Unit, unitB: Unit): number {
+    return DistanceBetweenCoordinates({ x: unitA.x, y: unitA.y }, { x: unitB.x, y: unitB.y })
 }
 
-export function AngleBetweenCoordinates(x1: number, y1: number, x2: number, y2: number) {
-    return bj_RADTODEG * Atan2(y2 - y1, x2 - x1)
+export function AngleBetweenCoordinates(c1: Coordinate, c2: Coordinate): number {
+    return bj_RADTODEG * Atan2(c2.y - c1.y, c2.x - c1.x)
 }
 
-export function AngleBetweenUnits(unitA: Unit, unitB: Unit) {
-    return AngleBetweenCoordinates(unitA.x, unitA.y, unitB.x, unitB.y)
+export function AngleBetweenUnits(unitA: Unit, unitB: Unit): number {
+    return AngleBetweenCoordinates({ x: unitA.x, y: unitA.y }, { x: unitB.x, y: unitB.y })
 }
