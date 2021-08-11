@@ -15,7 +15,7 @@ export class Handle<T extends handle> {
    * Get the unique ID of the handle. The ID is recycled once you destroy the object.
    * @returns The unique ID of a handle object.
    */
-  public get id() {
+  public get id(): number {
     return GetHandleId(this.handle);
   }
 

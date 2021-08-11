@@ -1,6 +1,5 @@
 import { Ability } from "classes/ability"
 import { OrderId } from "lib/w3ts/globals/order"
-import { DEATH_SPAWN } from "./unit/deathSpawn"
 
 
 export namespace ABILITY {
@@ -100,7 +99,5 @@ export namespace ABILITY {
         paradox = new Ability("paradox", "A04N", OrderId.Tranquility, false, "", [10, 10, 10])
 
 
-        // Define Unit Abilities
-        DEATH_SPAWN.define()
     }
 }

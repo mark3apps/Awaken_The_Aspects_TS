@@ -4,18 +4,23 @@ import { FACTION } from "./definitions/factions"
 import { FORCE } from "./definitions/forces"
 import { LOC } from "./definitions/locs"
 import { SPAWN } from "./definitions/spawns"
-import { EVENT } from "./definitions/events"
-import { UNIT_PATHING } from "./systems/unitPathing"
-import { ABILITY } from "./abilities/abilities"
+import { EVENT } from "./systems/events"
+import { PATHING } from "./systems/unitPathing"
+import { ABILITY } from "./definitions/abilities"
+import { DEATH_SPAWN } from "./abilities/unit/deathSpawn"
+import { REGION } from "./definitions/regions"
 
 export namespace Game {
 
 
     export function mapInit(): void {
-        EVENT.define()
+        
+        REGION.define()
         UNIT_TYPE.define()
+        EVENT.define()
         ABILITY.define()
-        UNIT_PATHING.define()
+        DEATH_SPAWN.define()
+        PATHING.define()
     }
 
     export function start(): void {
@@ -30,7 +35,6 @@ export namespace Game {
         FACTION.define()
         SPAWN.define()
         
-
         SPAWN.start()
 
         print("Worked")

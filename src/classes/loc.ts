@@ -1,4 +1,5 @@
-import { EVENT } from "app/definitions/events"
+import { EVENT } from "app/systems/events"
+import { Coordinate } from "lib/resources/coordinate"
 import { Rectangle, Region } from "lib/w3ts/index"
 import { Army } from "./army"
 
@@ -33,5 +34,17 @@ export class Loc {
     public setForward(loc: Loc, army: Army): void {
         this.forwardLoc = loc;
         this.forwardArmy = army;
+    }
+
+    public get randomX(): number {
+        return this.rect.randomX
+    }
+
+    public get randomY(): number {
+        return this.rect.randomY
+    }
+
+    public get randomCoordinate(): Coordinate {
+        return this.rect.randomCoordinate
     }
 }

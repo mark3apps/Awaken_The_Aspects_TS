@@ -83,10 +83,10 @@ export class Spawn {
                         const start = baseElement.randomStartCoordinate()
                         const dest = baseElement.randomEndCoordinate()
                         const p = baseElement.army.randomPlayer
-                        const unitId = unitElement.unitId
+                        const unitType = unitElement.unitType
 
-                        const u = new Unit(p, unitId.id, start.x, start.y, bj_UNIT_FACING)
-                        u.issueOrderAt(OrderId.Attack, dest.x, dest.y)
+                        const u = new Unit(p, unitType.id, start.x, start.y, bj_UNIT_FACING)
+                        u.issueOrderAtCoordinate(OrderId.Attack, dest)
 
                     }
 

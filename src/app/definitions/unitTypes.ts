@@ -1,10 +1,7 @@
-export interface UnitType {
-    id: number,
-    four: string
-}
+import { UnitType } from "lib/resources/unitType"
+
 
 export namespace UNIT_TYPE {
-
     export let Arbalist: UnitType
     export let AncientProtector: UnitType
     export let Assassin: UnitType
@@ -18,8 +15,8 @@ export namespace UNIT_TYPE {
     export let BloodElfArcher: UnitType
     export let BloodElfBreaker: UnitType
     export let BloodElfMage: UnitType
-    export let Captian1: UnitType
-    export let Captian2: UnitType
+    export let Captain1: UnitType
+    export let Captain2: UnitType
     export let Catapult: UnitType
     export let Clockwerk: UnitType
     export let Commander: UnitType
@@ -37,6 +34,7 @@ export namespace UNIT_TYPE {
     export let DwarfElite: UnitType
     export let Enforcer: UnitType
     export let EredarWarlock: UnitType
+    export let FelOrcWarlock: UnitType
     export let Footman1: UnitType
     export let Footman2: UnitType
     export let Ghoul: UnitType
@@ -53,12 +51,13 @@ export namespace UNIT_TYPE {
     export let HighElfHealer: UnitType
     export let HighElfKnight: UnitType
     export let HighElfSwordsman: UnitType
+    export let HippogryphRider: UnitType
     export let HumanBattleship: UnitType
     export let HumanFrigate: UnitType
-    export let IronCaptian: UnitType
+    export let IronCaptain: UnitType
     export let IronGuard: UnitType
     export let IronMagi: UnitType
-    export let IronMorterTeam: UnitType
+    export let IronMortarTeam: UnitType
     export let IronRifleman: UnitType
     export let Knight: UnitType
     export let MagiDefender: UnitType
@@ -66,11 +65,11 @@ export namespace UNIT_TYPE {
     export let ManaAddictAlter: UnitType
     export let Militia1: UnitType
     export let Militia2: UnitType
-    export let MountianGiant: UnitType
-    export let MurlocCliffrunner: UnitType
+    export let MountainGiant: UnitType
+    export let MurlocCliffRunner: UnitType
     export let MurlocReaver: UnitType
-    export let MurlocSnarecaster: UnitType
-    export let MurlocTidewarrior: UnitType
+    export let MurlocSnareCaster: UnitType
+    export let MurlocTideWarrior: UnitType
     export let NagaMyrmidon: UnitType
     export let NagaSiren: UnitType
     export let NagaRoyalGuard: UnitType
@@ -90,12 +89,12 @@ export namespace UNIT_TYPE {
     export let ShiftMasterAlter: UnitType
     export let SkeletonMage: UnitType
     export let SnapDragon: UnitType
-    export let Sorcress: UnitType
+    export let Sorceress: UnitType
     export let Summoner: UnitType
     export let SupremeWizard: UnitType
     export let StormSummoner: UnitType
-    export let Tactition: UnitType
-    export let TactitionAlter: UnitType
+    export let Tactician: UnitType
+    export let TacticianAlter: UnitType
     export let TimeMage: UnitType
     export let TimeMageAlter: UnitType
     export let TrollAxethrower: UnitType
@@ -124,8 +123,8 @@ export namespace UNIT_TYPE {
         BloodElfArcher = update("n00C")
         BloodElfBreaker = update("hspt")
         BloodElfMage = update("hmpr")
-        Captian1 = update("hcth")
-        Captian2 = update("h00S")
+        Captain1 = update("hcth")
+        Captain2 = update("h00S")
         Catapult = update("hmtm")
         Clockwerk = update("ncg2")
         Commander = update("h00D")
@@ -143,6 +142,7 @@ export namespace UNIT_TYPE {
         DwarfElite = update("e00F")
         Enforcer = update("n008")
         EredarWarlock = update("nerw")
+        FelOrcWarlock = update("nchw")
         Footman1 = update("hfoo")
         Footman2 = update("h017")
         Ghoul = update("ugho")
@@ -159,12 +159,13 @@ export namespace UNIT_TYPE {
         HighElfHealer = update("nemi")
         HighElfKnight = update("h005")
         HighElfSwordsman = update("hhes")
+        HippogryphRider = update("ehpr")
         HumanBattleship = update("hbsh")
         HumanFrigate = update("hdes")
-        IronCaptian = update("h01P")
+        IronCaptain = update("h01P")
         IronGuard = update("h01O")
         IronMagi = update("h01E")
-        IronMorterTeam = update("h001")
+        IronMortarTeam = update("h001")
         IronRifleman = update("h008")
         Knight = update("h00L")
         MagiDefender = update("h00K")
@@ -172,11 +173,11 @@ export namespace UNIT_TYPE {
         ManaAddictAlter = update("h00B")
         Militia1 = update("h007")
         Militia2 = update("h015")
-        MountianGiant = update("e005")
-        MurlocCliffrunner = update("nmcf")
+        MountainGiant = update("e005")
+        MurlocCliffRunner = update("nmcf")
         MurlocReaver = update("nnmg")
-        MurlocSnarecaster = update("nmsn")
-        MurlocTidewarrior = update("nmtw")
+        MurlocSnareCaster = update("nmsn")
+        MurlocTideWarrior = update("nmtw")
         NagaMyrmidon = update("nmyr")
         NagaSiren = update("nnsw")
         NagaRoyalGuard = update("nnrg")
@@ -196,12 +197,12 @@ export namespace UNIT_TYPE {
         ShiftMasterAlter = update("h00Q")
         SkeletonMage = update("uskm")
         SnapDragon = update("nsnp")
-        Sorcress = update("h00C")
+        Sorceress = update("h00C")
         Summoner = update("n018")
         SupremeWizard = update("n00A")
         StormSummoner = update("nchp")
-        Tactition = update("H009")
-        TactitionAlter = update("h00Y")
+        Tactician = update("H009")
+        TacticianAlter = update("h00Y")
         TimeMage = update("H00J")
         TimeMageAlter = update("h00Z")
         TrollAxethrower = update("nftr")
@@ -215,8 +216,8 @@ export namespace UNIT_TYPE {
         WildhammerFarm = update("h01U")
         WildhammerMound = update("h01X")
     }
+}
 
-    export function update(four: string): UnitType{
-        return {id: FourCC(four), four: four}
-    }
+function update(four: string): UnitType {
+    return { id: FourCC(four), four: four }
 }

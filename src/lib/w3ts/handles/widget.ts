@@ -1,41 +1,46 @@
 /** @noSelfInFile **/
 
-import { Handle } from "./handle";
+import { Coordinate } from "lib/resources/coordinate"
+import { Handle } from "./handle"
 
 export class Widget extends Handle<widget> {
   /**
    * Get the Widget's life.
    */
-  public get life() {
-    return GetWidgetLife(this.handle);
+  public get life(): number {
+    return GetWidgetLife(this.handle)
   }
 
   /**
    * Set the Widget's life.
    */
   public set life(value: number) {
-    SetWidgetLife(this.handle, value);
+    SetWidgetLife(this.handle, value)
   }
 
   /**
    * Get the Widget's x-coordinate
    */
-  public get x() {
-    return GetWidgetX(this.handle);
+  public get x(): number {
+    return GetWidgetX(this.handle)
   }
 
   /**
    * Get the Widget's y-coordinate
    */
-  public get y() {
-    return GetWidgetY(this.handle);
+  public get y(): number {
+    return GetWidgetY(this.handle)
   }
 
-  public static fromEvent() {
-    return this.fromHandle(GetTriggerWidget());
+  public get coordinates(): Coordinate {
+    return { x: GetWidgetX(this.handle), y: GetWidgetY(this.handle) }
+  }
+
+  public static fromEvent(): Widget {
+    return this.fromHandle(GetTriggerWidget())
   }
 
   public static fromHandle(handle: widget): Widget {
-    return this.getObject(handle);
+    return this.getObject(handle)
   }
 }

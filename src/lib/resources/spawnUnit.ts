@@ -1,9 +1,10 @@
-import { UNIT_TYPE, UnitType } from "../../app/definitions/unitTypes"
+import { UnitType } from "./unitType"
+
 
 export interface SpawnUnit {
-    unitId: UnitType,
+    unitType: UnitType,
     amount?: number,
-    waves: Array<number>,
+    waves: number[],
     start?: number,
     end?: number;
 }
