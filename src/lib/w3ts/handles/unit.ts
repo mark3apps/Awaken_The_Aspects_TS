@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import { UNIT, UnitData } from "classes/unitData"
+import { UnitData } from "classes/unitData"
 import { OrderId } from "../globals/order"
 import { Destructable } from "./destructable"
 import { Force } from "./force"
@@ -15,6 +16,8 @@ export class Unit extends Widget {
   public readonly handle!: unit
   public data: UnitData
 
+  private static data: UnitData[] = []
+
   /**
    * Creates a unit.
    * @param owner The owner of the unit.
@@ -28,10 +31,10 @@ export class Unit extends Widget {
     if (Handle.initFromHandle()) {
       super()
 
-      if (UNIT.exists(this) != true) {
-        this.data = UNIT.add(this)
+      if (Unit.dataExists(this) != true) {
+        this.data = Unit.addData(this)
       } else {
-        this.data = UNIT.get(this)
+        this.data = Unit.getData(this)
       }
 
     } else {
@@ -39,9 +42,34 @@ export class Unit extends Widget {
       super(skinId ? BlzCreateUnitWithSkin(p, unitId, x, y, face, skinId) : CreateUnit(p, unitId, x, y, face))
 
       // Set default starting data
-      this.data = UNIT.add(this)
+      this.data = Unit.addData(this)
     }
   }
+
+
+  // STATIC METHODS
+
+  
+
+  private static addData(unit: Unit): UnitData {
+    return Unit.data[unit.hid] = new UnitData(unit)
+  }
+
+  private static getData(unit: Unit): UnitData {
+    return Unit.data[unit.hid]
+  }
+
+  private static removeData(unit: Unit): void {
+    Unit.data[unit.hid] = null
+  }
+
+  private static dataExists(unit: Unit): boolean {
+    return Unit.data[unit.hid] != null
+  }
+
+
+  // INSTANCE METHODS
+
 
   /**
    * Sets a unit's acquire range.  This is the value that a unit uses to choose targets to
@@ -54,7 +82,7 @@ export class Unit extends Widget {
    * @note It is a myth that reducing acquire range with this native can limit a unit's attack range.
    */
 
-  public get hid() {
+  public get hid(): string {
     return "H" + this.id
   }
 
@@ -62,11 +90,11 @@ export class Unit extends Widget {
     SetUnitAcquireRange(this.handle, value)
   }
 
-  public get acquireRange() {
+  public get acquireRange(): number {
     return GetUnitAcquireRange(this.handle)
   }
 
-  public get agility() {
+  public get agility(): number {
     return GetHeroAgi(this.handle, false)
   }
 
@@ -74,7 +102,7 @@ export class Unit extends Widget {
     SetHeroAgi(this.handle, value, true)
   }
 
-  public get armor() {
+  public get armor(): number {
     return BlzGetUnitArmor(this.handle)
   }
 
@@ -86,11 +114,11 @@ export class Unit extends Widget {
     UnitAddSleep(this.handle, flag)
   }
 
-  public get canSleep() {
+  public get canSleep(): boolean {
     return UnitCanSleep(this.handle)
   }
 
-  public get collisionSize() {
+  public get collisionSize(): number {
     return BlzGetUnitCollisionSize(this.handle)
   }
 
@@ -98,19 +126,19 @@ export class Unit extends Widget {
     SetUnitColor(this.handle, whichColor)
   }
 
-  public get currentOrder() {
+  public get currentOrder(): OrderId {
     return GetUnitCurrentOrder(this.handle)
   }
 
-  public get defaultAcquireRange() {
+  public get defaultAcquireRange(): number {
     return GetUnitDefaultAcquireRange(this.handle)
   }
 
-  public get defaultFlyHeight() {
+  public get defaultFlyHeight(): number {
     return GetUnitDefaultFlyHeight(this.handle)
   }
 
-  public get defaultMoveSpeed() {
+  public get defaultMoveSpeed(): number {
     return GetUnitDefaultMoveSpeed(this.handle)
   }
 
@@ -119,15 +147,15 @@ export class Unit extends Widget {
    * @note This function is the odd case in the asymmetric prop window API, since the
    * other prop window natives use radians.
    */
-  public get defaultPropWindow() {
+  public get defaultPropWindow(): number {
     return GetUnitDefaultPropWindow(this.handle)
   }
 
-  public get defaultTurnSpeed() {
+  public get defaultTurnSpeed(): number {
     return GetUnitDefaultTurnSpeed(this.handle)
   }
 
-  public get experience() {
+  public get experience(): number {
     return GetHeroXP(this.handle)
   }
 
@@ -142,15 +170,15 @@ export class Unit extends Widget {
   /**
    * @returns The units facing in degrees.
    */
-  public get facing() {
+  public get facing(): number {
     return GetUnitFacing(this.handle)
   }
 
-  public get foodMade() {
+  public get foodMade(): number {
     return GetUnitFoodMade(this.handle)
   }
 
-  public get foodUsed() {
+  public get foodUsed(): number {
     return GetUnitFoodUsed(this.handle)
   }
 
@@ -158,7 +186,7 @@ export class Unit extends Widget {
     return UnitIgnoreAlarmToggled(this.handle)
   }
 
-  public get intelligence() {
+  public get intelligence(): number {
     return GetHeroInt(this.handle, false)
   }
 
@@ -166,7 +194,7 @@ export class Unit extends Widget {
     SetHeroInt(this.handle, value, true)
   }
 
-  public get inventorySize() {
+  public get inventorySize(): number {
     return UnitInventorySize(this.handle)
   }
 
@@ -184,15 +212,15 @@ export class Unit extends Widget {
     return BlzIsUnitInvulnerable(this.handle)
   }
 
-  public get level() {
+  public get level(): number {
     return GetUnitLevel(this.handle)
   }
 
-  public get localZ() {
+  public get localZ(): number {
     return BlzGetLocalUnitZ(this.handle)
   }
 
-  public get mana() {
+  public get mana(): number {
     return this.getState(UNIT_STATE_MANA)
   }
 
@@ -200,7 +228,7 @@ export class Unit extends Widget {
     this.setState(UNIT_STATE_MANA, value)
   }
 
-  public get maxLife() {
+  public get maxLife(): number {
     return BlzGetUnitMaxHP(this.handle)
   }
 
@@ -208,7 +236,7 @@ export class Unit extends Widget {
     BlzSetUnitMaxHP(this.handle, value)
   }
 
-  public get maxMana() {
+  public get maxMana(): number {
     return BlzGetUnitMaxMana(this.handle)
   }
 
@@ -220,7 +248,7 @@ export class Unit extends Widget {
     SetUnitMoveSpeed(this.handle, value)
   }
 
-  public get moveSpeed() {
+  public get moveSpeed(): number {
     return GetUnitMoveSpeed(this.handle)
   }
 
@@ -252,7 +280,7 @@ export class Unit extends Widget {
     SetUnitOwner(this.handle, whichPlayer.handle, true)
   }
 
-  public get owner() {
+  public get owner(): MapPlayer {
     return MapPlayer.fromHandle(GetOwningPlayer(this.handle))
   }
 
@@ -278,7 +306,7 @@ export class Unit extends Widget {
    * of the zeppelin but the last position of the unit before it was loaded into
    * the zeppelin.
    */
-  public get point() {
+  public get point(): Point {
     return Point.fromHandle(GetUnitLoc(this.handle))
   }
 
@@ -286,7 +314,7 @@ export class Unit extends Widget {
     SetUnitPositionLoc(this.handle, whichPoint.handle)
   }
 
-  public get pointValue() {
+  public get pointValue(): number {
     return GetUnitPointValue(this.handle)
   }
 
@@ -311,23 +339,23 @@ export class Unit extends Widget {
   /**
    * Returns a unit's propulsion window angle in radians.
    */
-  public get propWindow() {
+  public get propWindow(): number {
     return GetUnitPropWindow(this.handle)
   }
 
-  public get race() {
+  public get race(): race {
     return GetUnitRace(this.handle)
   }
 
-  public get rallyDestructable() {
+  public get rallyDestructable(): Destructable {
     return Destructable.fromHandle(GetUnitRallyDestructable(this.handle))
   }
 
-  public get rallyPoint() {
+  public get rallyPoint(): Point {
     return Point.fromHandle(GetUnitRallyPoint(this.handle))
   }
 
-  public get rallyUnit() {
+  public get rallyUnit(): Unit {
     return Unit.fromHandle(GetUnitRallyUnit(this.handle))
   }
 
@@ -335,7 +363,7 @@ export class Unit extends Widget {
     SetResourceAmount(this.handle, amount)
   }
 
-  public get resourceAmount() {
+  public get resourceAmount(): number {
     return GetResourceAmount(this.handle)
   }
 
@@ -347,7 +375,7 @@ export class Unit extends Widget {
     this.setField(UNIT_RF_SELECTION_SCALE, scale)
   }
 
-  public get selectionScale() {
+  public get selectionScale(): number {
     const result = this.getField(UNIT_RF_SELECTION_SCALE)
     return typeof result === "number" ? result : 0
   }
@@ -371,7 +399,7 @@ export class Unit extends Widget {
   /**
    * Returns the units available skill points.
    */
-  public get skillPoints() {
+  public get skillPoints(): number {
     return GetHeroSkillPoints(this.handle)
   }
 
@@ -393,7 +421,7 @@ export class Unit extends Widget {
     return UnitIsSleeping(this.handle)
   }
 
-  public get strength() {
+  public get strength(): number {
     return GetHeroStr(this.handle, false)
   }
 
@@ -405,15 +433,15 @@ export class Unit extends Widget {
     SetUnitTurnSpeed(this.handle, value)
   }
 
-  public get turnSpeed() {
+  public get turnSpeed(): number {
     return GetUnitTurnSpeed(this.handle)
   }
 
-  public get typeId() {
+  public get typeId(): number {
     return GetUnitTypeId(this.handle)
   }
 
-  public get userData() {
+  public get userData(): number {
     return GetUnitUserData(this.handle)
   }
 
@@ -439,7 +467,7 @@ export class Unit extends Widget {
    * of the zeppelin but the last position of the unit before it was loaded into
    * the zeppelin.
    */
-  public get x() {
+  public get x(): number {
     return GetUnitX(this.handle)
   }
 
@@ -451,7 +479,7 @@ export class Unit extends Widget {
     SetUnitX(this.handle, value)
   }
 
-  public get y() {
+  public get y(): number {
     return GetUnitY(this.handle)
   }
 
@@ -463,7 +491,7 @@ export class Unit extends Widget {
     SetUnitY(this.handle, value)
   }
 
-  public get z() {
+  public get z(): number {
     return BlzGetUnitZ(this.handle)
   }
 
@@ -491,27 +519,27 @@ export class Unit extends Widget {
    * @param showEyeCandy If the boolean input is true, then the hero-level-gain
    * effect will be shown if the hero gains a level from the added experience.
    */
-  public addExperience(xpToAdd: number, showEyeCandy: boolean) {
+  public addExperience(xpToAdd: number, showEyeCandy: boolean): void {
     AddHeroXP(this.handle, xpToAdd, showEyeCandy)
   }
 
-  public addIndicator(red: number, blue: number, green: number, alpha: number) {
+  public addIndicator(red: number, blue: number, green: number, alpha: number): void {
     UnitAddIndicator(this.handle, red, blue, green, alpha)
   }
 
-  public addItem(whichItem: Item) {
+  public addItem(whichItem: Item): boolean {
     return UnitAddItem(this.handle, whichItem.handle)
   }
 
-  public addItemById(itemId: number) {
+  public addItemById(itemId: number): Item {
     return Item.fromHandle(UnitAddItemById(this.handle, itemId))
   }
 
-  public addItemToSlotById(itemId: number, itemSlot: number) {
+  public addItemToSlotById(itemId: number, itemSlot: number): boolean {
     return UnitAddItemToSlotById(this.handle, itemId, itemSlot)
   }
 
-  public addItemToStock(itemId: number, currentStock: number, stockMax: number) {
+  public addItemToStock(itemId: number, currentStock: number, stockMax: number): void {
     AddItemToStock(this.handle, itemId, currentStock, stockMax)
   }
 
@@ -524,39 +552,39 @@ export class Unit extends Widget {
    * be auto-destroyed.
    * @param amount The amount of resources to add to the unit.
    */
-  public addResourceAmount(amount: number) {
+  public addResourceAmount(amount: number): void {
     AddResourceAmount(this.handle, amount)
   }
 
-  public addSleepPerm(add: boolean) {
+  public addSleepPerm(add: boolean): void {
     UnitAddSleepPerm(this.handle, add)
   }
 
-  public addType(whichUnitType: unittype) {
+  public addType(whichUnitType: unittype): boolean {
     return UnitAddType(this.handle, whichUnitType)
   }
 
-  public addUnitToStock(unitId: number, currentStock: number, stockMax: number) {
+  public addUnitToStock(unitId: number, currentStock: number, stockMax: number): void {
     AddUnitToStock(this.handle, unitId, currentStock, stockMax)
   }
 
-  public applyTimedLife(buffId: number, duration: number) {
+  public applyTimedLife(buffId: number, duration: number): void {
     UnitApplyTimedLife(this.handle, buffId, duration)
   }
 
-  public attachSound(sound: Sound) {
+  public attachSound(sound: Sound): void {
     AttachSoundToUnit(sound.handle, this.handle)
   }
 
-  public cancelTimedLife() {
+  public cancelTimedLife(): void {
     BlzUnitCancelTimedLife(this.handle)
   }
 
-  public canSleepPerm() {
+  public canSleepPerm(): boolean {
     return UnitCanSleepPerm(this.handle)
   }
 
-  public countBuffs(removePositive: boolean, removeNegative: boolean, magic: boolean, physical: boolean, timedLife: boolean, aura: boolean, autoDispel: boolean) {
+  public countBuffs(removePositive: boolean, removeNegative: boolean, magic: boolean, physical: boolean, timedLife: boolean, aura: boolean, autoDispel: boolean): number {
     return UnitCountBuffsEx(this.handle, removePositive, removeNegative, magic, physical, timedLife, aura, autoDispel)
   }
 
@@ -571,7 +599,7 @@ export class Unit extends Widget {
     attackType: attacktype,
     damageType: damagetype,
     weaponType: weapontype
-  ) {
+  ): boolean {
     return UnitDamagePoint(this.handle, delay, radius, x, y, amount, attack, ranged, attackType, damageType, weaponType)
   }
 
@@ -587,7 +615,7 @@ export class Unit extends Widget {
    * @param damageType
    * @param weaponType
    */
-  public damageTarget(target: widget, amount: number, attack: boolean, ranged: boolean, attackType: attacktype, damageType: damagetype, weaponType: weapontype) {
+  public damageTarget(target: widget, amount: number, attack: boolean, ranged: boolean, attackType: attacktype, damageType: damagetype, weaponType: weapontype): boolean {
     return UnitDamageTarget(this.handle, target, amount, attack, ranged, attackType, damageType, weaponType)
   }
 
@@ -596,50 +624,50 @@ export class Unit extends Widget {
    * @param abilCode The four digit rawcode representation of the ability.
    * @returns The new ability level.
    */
-  public decAbilityLevel(abilCode: number) {
+  public decAbilityLevel(abilCode: number): number {
     return DecUnitAbilityLevel(this.handle, abilCode)
   }
 
   /**
    * Instantly removes the unit from the game.
    */
-  public destroy() {
+  public destroy(): void {
     RemoveUnit(this.handle)
   }
 
-  public disableAbility(abilId: number | string, flag: boolean, hideUI: boolean) {
+  public disableAbility(abilId: number | string, flag: boolean, hideUI: boolean): void {
     typeof abilId === "string" ? BlzUnitDisableAbility(this.handle, FourCC(abilId), flag, hideUI) : BlzUnitDisableAbility(this.handle, abilId, flag, hideUI)
   }
 
-  public dropItem(whichItem: Item, x: number, y: number) {
+  public dropItem(whichItem: Item, x: number, y: number): boolean {
     return UnitDropItemPoint(this.handle, whichItem.handle, x, y)
   }
 
-  public dropItemFromSlot(whichItem: Item, slot: number) {
+  public dropItemFromSlot(whichItem: Item, slot: number): boolean {
     return UnitDropItemSlot(this.handle, whichItem.handle, slot)
   }
 
-  public dropItemTarget(whichItem: Item, target: Widget /* | Unit | Item | Destructable*/) {
+  public dropItemTarget(whichItem: Item, target: Widget /* | Unit | Item | Destructable*/): boolean {
     return UnitDropItemTarget(this.handle, whichItem.handle, target.handle)
   }
 
-  public endAbilityCooldown(abilCode: number | string) {
+  public endAbilityCooldown(abilCode: number | string): void {
     typeof abilCode === "string" ? BlzEndUnitAbilityCooldown(this.handle, FourCC(abilCode)) : BlzEndUnitAbilityCooldown(this.handle, abilCode)
   }
 
-  public getAbility(abilId: number | string) {
+  public getAbility(abilId: number | string): ability {
     return typeof abilId === "string" ? BlzGetUnitAbility(this.handle, FourCC(abilId)) : BlzGetUnitAbility(this.handle, abilId)
   }
 
-  public getAbilityByIndex(index: number) {
+  public getAbilityByIndex(index: number): ability {
     return BlzGetUnitAbilityByIndex(this.handle, index)
   }
 
-  public getAbilityCooldown(abilId: number, level: number) {
+  public getAbilityCooldown(abilId: number, level: number): number {
     return BlzGetUnitAbilityCooldown(this.handle, abilId, level)
   }
 
-  public getAbilityCooldownRemaining(abilId: number) {
+  public getAbilityCooldownRemaining(abilId: number): number {
     return BlzGetUnitAbilityCooldownRemaining(this.handle, abilId)
   }
 
@@ -647,23 +675,23 @@ export class Unit extends Widget {
    * Returns the level of the ability for the unit.
    * @note This function is **not** zero indexed.
    */
-  public getAbilityLevel(abilCode: number) {
+  public getAbilityLevel(abilCode: number): number {
     return GetUnitAbilityLevel(this.handle, abilCode)
   }
 
-  public getAbilityManaCost(abilId: number, level: number) {
+  public getAbilityManaCost(abilId: number, level: number): number {
     return BlzGetUnitAbilityManaCost(this.handle, abilId, level)
   }
 
-  public getAgility(includeBonuses: boolean) {
+  public getAgility(includeBonuses: boolean): number {
     return GetHeroAgi(this.handle, includeBonuses)
   }
 
-  public getAttackCooldown(weaponIndex: number) {
+  public getAttackCooldown(weaponIndex: number): number {
     return BlzGetUnitAttackCooldown(this.handle, weaponIndex)
   }
 
-  public getBaseDamage(weaponIndex: number) {
+  public getBaseDamage(weaponIndex: number): number {
     return BlzGetUnitBaseDamage(this.handle, weaponIndex)
   }
 
@@ -675,93 +703,97 @@ export class Unit extends Widget {
     return BlzGetUnitDiceSides(this.handle, weaponIndex)
   }
 
-  public getField(field: unitbooleanfield | unitintegerfield | unitrealfield | unitstringfield) {
+  public getField(field: unitbooleanfield | unitintegerfield | unitrealfield | unitstringfield): (boolean | number | string) {
     const fieldType = field.toString().substr(0, field.toString().indexOf(":"))
 
     switch (fieldType) {
-      case "unitbooleanfield":
+      case "unitbooleanfield": {
         const fieldBool: unitbooleanfield = field as unitbooleanfield
 
         return BlzGetUnitBooleanField(this.handle, fieldBool)
-      case "unitintegerfield":
+      }
+      case "unitintegerfield": {
         const fieldInt: unitintegerfield = field as unitintegerfield
 
         return BlzGetUnitIntegerField(this.handle, fieldInt)
-      case "unitrealfield":
+      }
+      case "unitrealfield": {
         const fieldReal: unitrealfield = field as unitrealfield
 
         return BlzGetUnitRealField(this.handle, fieldReal)
-      case "unitstringfield":
+      }
+      case "unitstringfield": {
         const fieldString: unitstringfield = field as unitstringfield
 
         return BlzGetUnitStringField(this.handle, fieldString)
+      }
       default:
         return 0
     }
   }
 
-  public getAbilityBLF(abil: number | string, level: number, field: abilitybooleanlevelfield) {
-    return BlzGetAbilityBooleanLevelField(this.getAbility(abil), field, level);
+  public getAbilityBLF(abil: number | string, level: number, field: abilitybooleanlevelfield): boolean {
+    return BlzGetAbilityBooleanLevelField(this.getAbility(abil), field, level)
   }
 
   public setAbilityBLF(abil: number | string, level: number, field: abilitybooleanlevelfield, value: boolean) {
-    return BlzSetAbilityBooleanLevelField(this.getAbility(abil), field, level, value);
+    return BlzSetAbilityBooleanLevelField(this.getAbility(abil), field, level, value)
   }
 
   public getAbilityILF(abil: number | string, level: number, field: abilityintegerlevelfield) {
-    return BlzGetAbilityIntegerLevelField(this.getAbility(abil), field, level);
+    return BlzGetAbilityIntegerLevelField(this.getAbility(abil), field, level)
   }
 
   public setAbilityILF(abil: number | string, level: number, field: abilityintegerlevelfield, value: number) {
-    return BlzSetAbilityIntegerLevelField(this.getAbility(abil), field, level, value);
+    return BlzSetAbilityIntegerLevelField(this.getAbility(abil), field, level, value)
   }
 
   public getAbilityRLF(abil: number | string, level: number, field: abilityreallevelfield) {
-    return BlzGetAbilityRealLevelField(this.getAbility(abil), field, level);
+    return BlzGetAbilityRealLevelField(this.getAbility(abil), field, level)
   }
 
   public setAbilityRLF(abil: number | string, level: number, field: abilityreallevelfield, value: number) {
-    return BlzSetAbilityRealLevelField(this.getAbility(abil), field, level, value);
+    return BlzSetAbilityRealLevelField(this.getAbility(abil), field, level, value)
   }
 
   public getAbilitySLF(abil: number | string, level: number, field: abilitystringlevelfield) {
-    return BlzGetAbilityStringLevelField(this.getAbility(abil), field, level);
+    return BlzGetAbilityStringLevelField(this.getAbility(abil), field, level)
   }
 
   public setAbilitySLF(abil: number | string, level: number, field: abilitystringlevelfield, value: string) {
-    return BlzSetAbilityStringLevelField(this.getAbility(abil), field, level, value);
+    return BlzSetAbilityStringLevelField(this.getAbility(abil), field, level, value)
   }
 
   public getAbilityBF(abil: number | string, field: abilitybooleanfield) {
-    return BlzGetAbilityBooleanField(this.getAbility(abil), field);
+    return BlzGetAbilityBooleanField(this.getAbility(abil), field)
   }
 
   public setAbilityBF(abil: number | string, field: abilitybooleanfield, value: boolean) {
-    return BlzSetAbilityBooleanField(this.getAbility(abil), field, value);
+    return BlzSetAbilityBooleanField(this.getAbility(abil), field, value)
   }
 
   public getAbilityIF(abil: number | string, field: abilityintegerfield) {
-    return BlzGetAbilityIntegerField(this.getAbility(abil), field);
+    return BlzGetAbilityIntegerField(this.getAbility(abil), field)
   }
 
   public setAbilityIF(abil: number | string, field: abilityintegerfield, value: number) {
-    return BlzSetAbilityIntegerField(this.getAbility(abil), field, value);
+    return BlzSetAbilityIntegerField(this.getAbility(abil), field, value)
   }
 
   public getAbilityRF(abil: number | string, field: abilityrealfield) {
-    return BlzGetAbilityRealField(this.getAbility(abil), field);
+    return BlzGetAbilityRealField(this.getAbility(abil), field)
   }
 
   public setAbilityRF(abil: number | string, field: abilityrealfield, value: number) {
-    return BlzSetAbilityRealField(this.getAbility(abil), field, value);
+    return BlzSetAbilityRealField(this.getAbility(abil), field, value)
   }
 
   public getAbilitySF(abil: number | string, field: abilitystringfield) {
-    return BlzGetAbilityStringField(this.getAbility(abil), field);
+    return BlzGetAbilityStringField(this.getAbility(abil), field)
   }
 
   public setAbilitySF(abil: number | string, field: abilitystringfield, value: string) {
-    return BlzSetAbilityStringField(this.getAbility(abil), field, value);
+    return BlzSetAbilityStringField(this.getAbility(abil), field, value)
   }
 
   public getflyHeight() {
@@ -938,7 +970,7 @@ export class Unit extends Widget {
     return typeof order === "string" ? IssueTargetOrder(this.handle, order, targetWidget.handle) : IssueTargetOrderById(this.handle, order, targetWidget.handle)
   }
 
-  public issueLastOrder(){
+  public issueLastOrder() {
     if (this.data.orderType == OrderType.Point) {
       this.issueOrderAt(this.data.order, this.data.destX, this.data.destY)
     } else if (this.data.orderType == OrderType.Target) {
@@ -948,8 +980,8 @@ export class Unit extends Widget {
     }
   }
 
-  public issueNewOrder(){
-
+  public issueNewOrder() {
+    //
   }
 
   /**
@@ -970,103 +1002,103 @@ export class Unit extends Widget {
     return IsUnitType(this.handle, whichUnitType)
   }
 
-  public get isDead(){
+  public get isDead() {
     return IsUnitType(this.handle, UNIT_TYPE_DEAD)
   }
 
-  public get isStructure(){
+  public get isStructure() {
     return IsUnitType(this.handle, UNIT_TYPE_STRUCTURE)
   }
 
-  public get isFlying(){
+  public get isFlying() {
     return IsUnitType(this.handle, UNIT_TYPE_FLYING)
   }
 
-  public get isGround(){
+  public get isGround() {
     return IsUnitType(this.handle, UNIT_TYPE_GROUND)
   }
 
-  public get isAttacksFlying(){
+  public get isAttacksFlying() {
     return IsUnitType(this.handle, UNIT_TYPE_ATTACKS_FLYING)
   }
 
-  public get isAttacksGround(){
+  public get isAttacksGround() {
     return IsUnitType(this.handle, UNIT_TYPE_ATTACKS_GROUND)
   }
 
-  public get isMeleeAttacker(){
+  public get isMeleeAttacker() {
     return IsUnitType(this.handle, UNIT_TYPE_MELEE_ATTACKER)
   }
 
-  public get isRangedAttacker(){
+  public get isRangedAttacker() {
     return IsUnitType(this.handle, UNIT_TYPE_RANGED_ATTACKER)
   }
 
-  public get isGiant(){
+  public get isGiant() {
     return IsUnitType(this.handle, UNIT_TYPE_GIANT)
   }
 
-  public get isSummoned(){
+  public get isSummoned() {
     return IsUnitType(this.handle, UNIT_TYPE_SUMMONED)
   }
 
-  public get isStunned(){
+  public get isStunned() {
     return IsUnitType(this.handle, UNIT_TYPE_STUNNED)
   }
 
-  public get isPlagued(){
+  public get isPlagued() {
     return IsUnitType(this.handle, UNIT_TYPE_PLAGUED)
   }
 
-  public get isSnared(){
+  public get isSnared() {
     return IsUnitType(this.handle, UNIT_TYPE_SNARED)
   }
 
-  public get isUndead(){
+  public get isUndead() {
     return IsUnitType(this.handle, UNIT_TYPE_UNDEAD)
   }
 
-  public get isMechanical(){
+  public get isMechanical() {
     return IsUnitType(this.handle, UNIT_TYPE_MECHANICAL)
   }
 
-  public get isPeon(){
+  public get isPeon() {
     return IsUnitType(this.handle, UNIT_TYPE_PEON)
   }
 
-  public get isSapper(){
+  public get isSapper() {
     return IsUnitType(this.handle, UNIT_TYPE_SAPPER)
   }
 
-  public get isAncient(){
+  public get isAncient() {
     return IsUnitType(this.handle, UNIT_TYPE_ANCIENT)
   }
 
-  public get isTauren(){
+  public get isTauren() {
     return IsUnitType(this.handle, UNIT_TYPE_TAUREN)
   }
 
-  public get isPoisoned(){
+  public get isPoisoned() {
     return IsUnitType(this.handle, UNIT_TYPE_POISONED)
   }
 
-  public get isPolymorphed(){
+  public get isPolymorphed() {
     return IsUnitType(this.handle, UNIT_TYPE_POLYMORPHED)
   }
 
-  public get isSleeping(){
+  public get isSleeping() {
     return IsUnitType(this.handle, UNIT_TYPE_SLEEPING)
   }
 
-  public get isResistant(){
+  public get isResistant() {
     return IsUnitType(this.handle, UNIT_TYPE_RESISTANT)
   }
 
-  public get isEthereal(){
+  public get isEthereal() {
     return IsUnitType(this.handle, UNIT_TYPE_ETHEREAL)
   }
 
-  public get isMagicImmune(){
+  public get isMagicImmune() {
     return IsUnitType(this.handle, UNIT_TYPE_MAGIC_IMMUNE)
   }
 

@@ -11,18 +11,18 @@ export class Ubersplat extends Handle<ubersplat> {
     }
   }
 
-  public destroy() {
+  public destroy(): void {
     DestroyUbersplat(this.handle);
   }
 
   /**
    * @bug Does nothing.
    */
-  public finish() {
+  public finish(): void {
     FinishUbersplat(this.handle);
   }
 
-  public render(flag: boolean, always = false) {
+  public render(flag: boolean, always = false):void {
     if (always) {
       SetUbersplatRenderAlways(this.handle, flag);
     } else {
@@ -33,11 +33,11 @@ export class Ubersplat extends Handle<ubersplat> {
   /**
    * @bug Does nothing.
    */
-  public reset() {
+  public reset():void {
     ResetUbersplat(this.handle);
   }
 
-  public show(flag: boolean) {
+  public show(flag: boolean): void {
     ShowUbersplat(this.handle, flag);
   }
 
