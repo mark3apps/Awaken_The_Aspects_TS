@@ -1,6 +1,6 @@
 import * as fs from "fs-extra";
 import { loadJsonFile, logger } from "./utils";
-import War3TSTLHelper = require("war3tstlhelper");
+const War3TSTLHelper = require("war3tstlhelper");
 
 const config = loadJsonFile("config.json");
 

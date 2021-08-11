@@ -1,1 +1,0 @@
-export * as DEATH_SPAWN from "./deathSpawn"

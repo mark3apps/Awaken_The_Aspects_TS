@@ -1,6 +1,6 @@
 import { OrderId } from "lib/w3ts/globals/order"
 
-export const OrderIdIgnore: number[] = [
+export let OrderIdIgnore: number[] = [
     OrderId.Defend,
     OrderId.Undefend,
     OrderId.Frenzy,

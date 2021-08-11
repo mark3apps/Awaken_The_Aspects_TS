@@ -29,7 +29,7 @@ export class Leaderboard extends Handle<leaderboard> {
     DestroyLeaderboard(this.handle);
   }
 
-  public display(flag = true) {
+  public display(flag: boolean = true) {
     LeaderboardDisplay(this.handle, flag);
   }
 
@@ -69,7 +69,7 @@ export class Leaderboard extends Handle<leaderboard> {
     LeaderboardSetItemLabelColor(this.handle, item, red, green, blue, alpha);
   }
 
-  public setItemStyle(item: number, showLabel = true, showValues = true, showIcons = true) {
+  public setItemStyle(item: number, showLabel: boolean = true, showValues: boolean = true, showIcons: boolean = true) {
     LeaderboardSetItemStyle(this.handle, item, showLabel, showValues, showIcons);
   }
 
@@ -89,7 +89,7 @@ export class Leaderboard extends Handle<leaderboard> {
     PlayerSetLeaderboard(p.handle, this.handle);
   }
 
-  public setStyle(showLabel = true, showNames = true, showValues = true, showIcons = true) {
+  public setStyle(showLabel: boolean = true, showNames: boolean = true, showValues: boolean = true, showIcons: boolean = true) {
     LeaderboardSetStyle(this.handle, showLabel, showNames, showValues, showIcons);
   }
 
@@ -97,15 +97,15 @@ export class Leaderboard extends Handle<leaderboard> {
     LeaderboardSetValueColor(this.handle, red, green, blue, alpha);
   }
 
-  public sortByLabel(asc = true) {
+  public sortByLabel(asc: boolean = true) {
     LeaderboardSortItemsByLabel(this.handle, asc);
   }
 
-  public sortByPlayer(asc = true) {
+  public sortByPlayer(asc: boolean = true) {
     LeaderboardSortItemsByPlayer(this.handle, asc);
   }
 
-  public sortByValue(asc = true) {
+  public sortByValue(asc: boolean = true) {
     LeaderboardSortItemsByValue(this.handle, asc);
   }
 

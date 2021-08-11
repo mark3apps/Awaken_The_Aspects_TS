@@ -1,5 +1,5 @@
 
-import { UnitData } from "classes/unitData"
+import { UNIT, UnitData } from "classes/unitData"
 import { OrderId } from "../globals/order"
 import { Destructable } from "./destructable"
 import { Force } from "./force"
@@ -15,8 +15,6 @@ export class Unit extends Widget {
   public readonly handle!: unit
   public data: UnitData
 
-  private static data: UnitData[] = []
-
   /**
    * Creates a unit.
    * @param owner The owner of the unit.
@@ -30,10 +28,10 @@ export class Unit extends Widget {
     if (Handle.initFromHandle()) {
       super()
 
-      if (Unit.dataExists(this) != true) {
-        this.data = Unit.addData(this)
+      if (UNIT.exists(this) != true) {
+        this.data = UNIT.add(this)
       } else {
-        this.data = Unit.getData(this)
+        this.data = UNIT.get(this)
       }
 
     } else {
@@ -41,34 +39,9 @@ export class Unit extends Widget {
       super(skinId ? BlzCreateUnitWithSkin(p, unitId, x, y, face, skinId) : CreateUnit(p, unitId, x, y, face))
 
       // Set default starting data
-      this.data = Unit.addData(this)
+      this.data = UNIT.add(this)
     }
   }
-
-
-  // STATIC METHODS
-
-  
-
-  private static addData(unit: Unit): UnitData {
-    return Unit.data[unit.hid] = new UnitData(unit)
-  }
-
-  private static getData(unit: Unit): UnitData {
-    return Unit.data[unit.hid]
-  }
-
-  private static removeData(unit: Unit): void {
-    Unit.data[unit.hid] = null
-  }
-
-  private static dataExists(unit: Unit): boolean {
-    return Unit.data[unit.hid] != null
-  }
-
-
-  // INSTANCE METHODS
-
 
   /**
    * Sets a unit's acquire range.  This is the value that a unit uses to choose targets to
@@ -702,97 +675,93 @@ export class Unit extends Widget {
     return BlzGetUnitDiceSides(this.handle, weaponIndex)
   }
 
-  public getField(field: unitbooleanfield | unitintegerfield | unitrealfield | unitstringfield): (boolean | number | string) {
+  public getField(field: unitbooleanfield | unitintegerfield | unitrealfield | unitstringfield) {
     const fieldType = field.toString().substr(0, field.toString().indexOf(":"))
 
     switch (fieldType) {
-      case "unitbooleanfield": {
+      case "unitbooleanfield":
         const fieldBool: unitbooleanfield = field as unitbooleanfield
 
         return BlzGetUnitBooleanField(this.handle, fieldBool)
-      }
-      case "unitintegerfield": {
+      case "unitintegerfield":
         const fieldInt: unitintegerfield = field as unitintegerfield
 
         return BlzGetUnitIntegerField(this.handle, fieldInt)
-      }
-      case "unitrealfield": {
+      case "unitrealfield":
         const fieldReal: unitrealfield = field as unitrealfield
 
         return BlzGetUnitRealField(this.handle, fieldReal)
-      }
-      case "unitstringfield": {
+      case "unitstringfield":
         const fieldString: unitstringfield = field as unitstringfield
 
         return BlzGetUnitStringField(this.handle, fieldString)
-      }
       default:
         return 0
     }
   }
 
-  public getAbilityBLF(abil: number | string, level: number, field: abilitybooleanlevelfield): boolean {
-    return BlzGetAbilityBooleanLevelField(this.getAbility(abil), field, level)
+  public getAbilityBLF(abil: number | string, level: number, field: abilitybooleanlevelfield) {
+    return BlzGetAbilityBooleanLevelField(this.getAbility(abil), field, level);
   }
 
   public setAbilityBLF(abil: number | string, level: number, field: abilitybooleanlevelfield, value: boolean) {
-    return BlzSetAbilityBooleanLevelField(this.getAbility(abil), field, level, value)
+    return BlzSetAbilityBooleanLevelField(this.getAbility(abil), field, level, value);
   }
 
   public getAbilityILF(abil: number | string, level: number, field: abilityintegerlevelfield) {
-    return BlzGetAbilityIntegerLevelField(this.getAbility(abil), field, level)
+    return BlzGetAbilityIntegerLevelField(this.getAbility(abil), field, level);
   }
 
   public setAbilityILF(abil: number | string, level: number, field: abilityintegerlevelfield, value: number) {
-    return BlzSetAbilityIntegerLevelField(this.getAbility(abil), field, level, value)
+    return BlzSetAbilityIntegerLevelField(this.getAbility(abil), field, level, value);
   }
 
   public getAbilityRLF(abil: number | string, level: number, field: abilityreallevelfield) {
-    return BlzGetAbilityRealLevelField(this.getAbility(abil), field, level)
+    return BlzGetAbilityRealLevelField(this.getAbility(abil), field, level);
   }
 
   public setAbilityRLF(abil: number | string, level: number, field: abilityreallevelfield, value: number) {
-    return BlzSetAbilityRealLevelField(this.getAbility(abil), field, level, value)
+    return BlzSetAbilityRealLevelField(this.getAbility(abil), field, level, value);
   }
 
   public getAbilitySLF(abil: number | string, level: number, field: abilitystringlevelfield) {
-    return BlzGetAbilityStringLevelField(this.getAbility(abil), field, level)
+    return BlzGetAbilityStringLevelField(this.getAbility(abil), field, level);
   }
 
   public setAbilitySLF(abil: number | string, level: number, field: abilitystringlevelfield, value: string) {
-    return BlzSetAbilityStringLevelField(this.getAbility(abil), field, level, value)
+    return BlzSetAbilityStringLevelField(this.getAbility(abil), field, level, value);
   }
 
   public getAbilityBF(abil: number | string, field: abilitybooleanfield) {
-    return BlzGetAbilityBooleanField(this.getAbility(abil), field)
+    return BlzGetAbilityBooleanField(this.getAbility(abil), field);
   }
 
   public setAbilityBF(abil: number | string, field: abilitybooleanfield, value: boolean) {
-    return BlzSetAbilityBooleanField(this.getAbility(abil), field, value)
+    return BlzSetAbilityBooleanField(this.getAbility(abil), field, value);
   }
 
   public getAbilityIF(abil: number | string, field: abilityintegerfield) {
-    return BlzGetAbilityIntegerField(this.getAbility(abil), field)
+    return BlzGetAbilityIntegerField(this.getAbility(abil), field);
   }
 
   public setAbilityIF(abil: number | string, field: abilityintegerfield, value: number) {
-    return BlzSetAbilityIntegerField(this.getAbility(abil), field, value)
+    return BlzSetAbilityIntegerField(this.getAbility(abil), field, value);
   }
 
   public getAbilityRF(abil: number | string, field: abilityrealfield) {
-    return BlzGetAbilityRealField(this.getAbility(abil), field)
+    return BlzGetAbilityRealField(this.getAbility(abil), field);
   }
 
   public setAbilityRF(abil: number | string, field: abilityrealfield, value: number) {
-    return BlzSetAbilityRealField(this.getAbility(abil), field, value)
+    return BlzSetAbilityRealField(this.getAbility(abil), field, value);
   }
 
   public getAbilitySF(abil: number | string, field: abilitystringfield) {
-    return BlzGetAbilityStringField(this.getAbility(abil), field)
+    return BlzGetAbilityStringField(this.getAbility(abil), field);
   }
 
   public setAbilitySF(abil: number | string, field: abilitystringfield, value: string) {
-    return BlzSetAbilityStringField(this.getAbility(abil), field, value)
+    return BlzSetAbilityStringField(this.getAbility(abil), field, value);
   }
 
   public getflyHeight() {
@@ -969,7 +938,7 @@ export class Unit extends Widget {
     return typeof order === "string" ? IssueTargetOrder(this.handle, order, targetWidget.handle) : IssueTargetOrderById(this.handle, order, targetWidget.handle)
   }
 
-  public issueLastOrder() {
+  public issueLastOrder(){
     if (this.data.orderType == OrderType.Point) {
       this.issueOrderAt(this.data.order, this.data.destX, this.data.destY)
     } else if (this.data.orderType == OrderType.Target) {
@@ -979,8 +948,8 @@ export class Unit extends Widget {
     }
   }
 
-  public issueNewOrder() {
-    //
+  public issueNewOrder(){
+
   }
 
   /**
@@ -1001,103 +970,103 @@ export class Unit extends Widget {
     return IsUnitType(this.handle, whichUnitType)
   }
 
-  public get isDead() {
+  public get isDead(){
     return IsUnitType(this.handle, UNIT_TYPE_DEAD)
   }
 
-  public get isStructure() {
+  public get isStructure(){
     return IsUnitType(this.handle, UNIT_TYPE_STRUCTURE)
   }
 
-  public get isFlying() {
+  public get isFlying(){
     return IsUnitType(this.handle, UNIT_TYPE_FLYING)
   }
 
-  public get isGround() {
+  public get isGround(){
     return IsUnitType(this.handle, UNIT_TYPE_GROUND)
   }
 
-  public get isAttacksFlying() {
+  public get isAttacksFlying(){
     return IsUnitType(this.handle, UNIT_TYPE_ATTACKS_FLYING)
   }
 
-  public get isAttacksGround() {
+  public get isAttacksGround(){
     return IsUnitType(this.handle, UNIT_TYPE_ATTACKS_GROUND)
   }
 
-  public get isMeleeAttacker() {
+  public get isMeleeAttacker(){
     return IsUnitType(this.handle, UNIT_TYPE_MELEE_ATTACKER)
   }
 
-  public get isRangedAttacker() {
+  public get isRangedAttacker(){
     return IsUnitType(this.handle, UNIT_TYPE_RANGED_ATTACKER)
   }
 
-  public get isGiant() {
+  public get isGiant(){
     return IsUnitType(this.handle, UNIT_TYPE_GIANT)
   }
 
-  public get isSummoned() {
+  public get isSummoned(){
     return IsUnitType(this.handle, UNIT_TYPE_SUMMONED)
   }
 
-  public get isStunned() {
+  public get isStunned(){
     return IsUnitType(this.handle, UNIT_TYPE_STUNNED)
   }
 
-  public get isPlagued() {
+  public get isPlagued(){
     return IsUnitType(this.handle, UNIT_TYPE_PLAGUED)
   }
 
-  public get isSnared() {
+  public get isSnared(){
     return IsUnitType(this.handle, UNIT_TYPE_SNARED)
   }
 
-  public get isUndead() {
+  public get isUndead(){
     return IsUnitType(this.handle, UNIT_TYPE_UNDEAD)
   }
 
-  public get isMechanical() {
+  public get isMechanical(){
     return IsUnitType(this.handle, UNIT_TYPE_MECHANICAL)
   }
 
-  public get isPeon() {
+  public get isPeon(){
     return IsUnitType(this.handle, UNIT_TYPE_PEON)
   }
 
-  public get isSapper() {
+  public get isSapper(){
     return IsUnitType(this.handle, UNIT_TYPE_SAPPER)
   }
 
-  public get isAncient() {
+  public get isAncient(){
     return IsUnitType(this.handle, UNIT_TYPE_ANCIENT)
   }
 
-  public get isTauren() {
+  public get isTauren(){
     return IsUnitType(this.handle, UNIT_TYPE_TAUREN)
   }
 
-  public get isPoisoned() {
+  public get isPoisoned(){
     return IsUnitType(this.handle, UNIT_TYPE_POISONED)
   }
 
-  public get isPolymorphed() {
+  public get isPolymorphed(){
     return IsUnitType(this.handle, UNIT_TYPE_POLYMORPHED)
   }
 
-  public get isSleeping() {
+  public get isSleeping(){
     return IsUnitType(this.handle, UNIT_TYPE_SLEEPING)
   }
 
-  public get isResistant() {
+  public get isResistant(){
     return IsUnitType(this.handle, UNIT_TYPE_RESISTANT)
   }
 
-  public get isEthereal() {
+  public get isEthereal(){
     return IsUnitType(this.handle, UNIT_TYPE_ETHEREAL)
   }
 
-  public get isMagicImmune() {
+  public get isMagicImmune(){
     return IsUnitType(this.handle, UNIT_TYPE_MAGIC_IMMUNE)
   }
 

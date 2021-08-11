@@ -4,9 +4,7 @@ import { Handle } from "./handle";
 import { Point } from "./point";
 
 export class Camera {
-  private constructor() {
-    // Nothing
-  }
+  private constructor() {}
 
   public static set visible(flag: boolean) {
     DisplayCineFilter(flag);

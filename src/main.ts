@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import { addScriptHook, Timer, W3TS_HOOK } from "lib/w3ts/index"
-import * as Game from "./app/game"
+import { Game } from "./app/game"
 
 
 
