@@ -1,4 +1,4 @@
-import { Force, Unit } from "lib/w3ts/index"
+import { Force, MapPlayer, Unit } from "lib/w3ts/index"
 
 
 
@@ -9,10 +9,10 @@ export class Army {
     public _enemy: Army;
 
     constructor() {
-
+        // Do nothing
     }
 
-    public get enemy() {
+    public get enemy(): Army {
         return this._enemy;
     }
 
@@ -20,15 +20,15 @@ export class Army {
         this._enemy = army;
     }
 
-    public isCaptialAlive() {
+    public isCapitalAlive(): boolean {
         return this.captial.isAlive();
     }
 
-    public get enemyForce() {
+    public get enemyForce(): Force {
         return this._enemy.force;
     }
 
-    public get randomPlayer() {
+    public get randomPlayer(): MapPlayer {
         return this.force.getPlayers()[Math.floor(Math.random() * this.force.getPlayers().length)];
     }
 }

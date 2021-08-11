@@ -6,7 +6,7 @@ export namespace ARMY {
     export let alliance: Army
     export let federation: Army
 
-    export function define(){
+    export function define(): void {
         alliance = new Army()
         alliance.force = FORCE.alliance
         alliance.enemy = federation

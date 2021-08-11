@@ -11,10 +11,10 @@ export class Ability {
     public instant: boolean;
     public buff: string;
     public buffId: number;
-    public castTime: any;
+    public castTime: number[];
     public properName: string;
 
-    constructor(name: string, four: string, orderId: OrderId = 0, instant = true, buff = "", castTime: Array<number> = []) {
+    constructor(name: string, four: string, orderId: OrderId = 0, instant = true, buff = "", castTime: number[] = []) {
 
         this.name = name;
         this.four = four;
@@ -28,11 +28,11 @@ export class Ability {
         if (buff != "") { this.buffId = FourCC(buff); } else { this.buffId = 0; }
     }
 
-    public get icon() {
+    public get icon(): string {
         return BlzGetAbilityIcon(this.id);
     }
 
-    public get iconActivated() {
+    public get iconActivated(): string {
         return BlzGetAbilityActivatedIcon(this.id);
     }
 }

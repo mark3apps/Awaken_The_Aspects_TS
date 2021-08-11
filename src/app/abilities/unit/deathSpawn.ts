@@ -2,7 +2,7 @@ import { UNIT_TYPE, UnitType } from "app/definitions/unitTypes"
 import { AttachPoint } from "lib/resources/attachPoints"
 import { EffectPath } from "lib/resources/effects"
 import { Effect, Unit } from "lib/w3ts/index"
-import { TRIGGER } from "../../definitions/triggers"
+import { EVENT } from "../../definitions/events"
 
 export interface DeathSpawn {
     amount: number,
@@ -15,10 +15,10 @@ export interface DeathSpawn {
 
 export namespace DEATH_SPAWN {
 
-    export let id: { [id: string]: DeathSpawn[] } = {}
+    export const id: { [id: string]: DeathSpawn[] } = {}
 
 
-    export function define() {
+    export function define(): void {
 
         add(UNIT_TYPE.Knight, { amount: 1, unitId: UNIT_TYPE.Captian1 })
         add(UNIT_TYPE.WaterElemental2, { amount: 1, unitId: UNIT_TYPE.WaterElemental1, effectPath: EffectPath.corporealForm, effectAttach: AttachPoint.chest })
@@ -44,17 +44,17 @@ export namespace DEATH_SPAWN {
         add(UNIT_TYPE.WildhammerMound, { amount: 3, unitId: UNIT_TYPE.DwarfAxethrower, chance: 0.4 })
         add(UNIT_TYPE.WildhammerMound, { amount: 1, unitId: UNIT_TYPE.DwarfElite, chance: 1 })
 
-        triggerInit()
+        eventInit()
     }
 
 
 
-    function triggerInit() {
+    export function eventInit(): void {
 
         // Add Death Spawn trigger to Unit Dieing Trigger
-        TRIGGER.unitDies.addCondition(() => {
+        EVENT.unitDies.addCondition(() => {
             try {
-                let unit = Unit.fromEvent()
+                const unit = Unit.fromEvent()
 
                 if (id[unit.typeId] != null) {
                     for (let i = 0; i < id[unit.typeId].length; i++) {
@@ -71,7 +71,7 @@ export namespace DEATH_SPAWN {
         })
     }
 
-    function spawn(unit: Unit, deathSpawn: DeathSpawn) {
+    export function spawn(unit: Unit, deathSpawn: DeathSpawn): void {
 
         if (deathSpawn.chance == null) { deathSpawn.chance = 1 }
 
@@ -89,7 +89,7 @@ export namespace DEATH_SPAWN {
 
     }
 
-    function add(unitId: UnitType, deathSpawn: DeathSpawn) {
+    export function add(unitId: UnitType, deathSpawn: DeathSpawn): void {
         if (id[unitId.id] == null) {
             id[unitId.id] = [deathSpawn]
         } else {

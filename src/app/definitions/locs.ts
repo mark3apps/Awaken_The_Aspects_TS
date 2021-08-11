@@ -16,7 +16,7 @@ export namespace LOC {
     export let bottom: LocInterface
     export let middle: LocInterface
     export let top: LocInterface
-    export let sArcane: LocInterface 
+    export let sArcane: LocInterface
     export let sArcaneHero: LocInterface
     export let sCamp: LocInterface
     export let sHighCity: LocInterface
@@ -27,23 +27,23 @@ export namespace LOC {
     export let sElementalBottom: LocInterface
     export let sElf: LocInterface
     export let sElfShipyard: LocInterface
-    export let sHero: LocInterface 
+    export let sHero: LocInterface
     export let sHumanShipyard: LocInterface
     export let sKolbold: LocInterface
     export let sMurloc: LocInterface
     export let sNaga: LocInterface
-    export let sOrc: LocInterface 
+    export let sOrc: LocInterface
     export let sNightElf: LocInterface
     export let sDwarf: LocInterface
     export let sUndead: LocInterface
     export let cForest: LocInterface
     export let cForestMid: LocInterface
-    export let cTides: LocInterface 
+    export let cTides: LocInterface
     export let cDeath: LocInterface
     export let cDeathMid: LocInterface
-    export let cStorm: LocInterface 
+    export let cStorm: LocInterface
 
-    export function define(){
+    export function define(): void {
         castle = {
             alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Hero)),
             federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Hero))
@@ -60,7 +60,7 @@ export namespace LOC {
             alliance: new Loc(Rectangle.fromHandle(gg_rct_Elf_Base_Left), castle.alliance, ARMY.federation),
             federation: new Loc(Rectangle.fromHandle(gg_rct_Elf_Base_Right), castle.federation, ARMY.alliance)
         }
-    
+
         // Pathing Rects
         everything = {
             alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Everything), castle.alliance, ARMY.federation),
@@ -78,7 +78,7 @@ export namespace LOC {
             alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Start_Top), elf.alliance, ARMY.federation),
             federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Start_Top), arcane.federation, ARMY.alliance)
         }
-    
+
         // Spawn Rects
         sArcane = {
             alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Arcane)),
@@ -160,7 +160,7 @@ export namespace LOC {
             alliance: new Loc(Rectangle.fromHandle(gg_rct_Undead_Left)),
             federation: new Loc(Rectangle.fromHandle(gg_rct_Undead_Right))
         }
-    
+
         // Creep Rects
         cForest = {
             alliance: new Loc(Rectangle.fromHandle(gg_rct_Aspect_of_Forest_Left), top.federation, ARMY.alliance),
@@ -187,5 +187,5 @@ export namespace LOC {
             federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Elemental_Start), top.alliance, ARMY.federation)
         }
     }
-  
+
 }

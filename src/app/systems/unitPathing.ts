@@ -1,23 +1,23 @@
 import { Loc } from "classes/loc"
 import { OrderId } from "lib/w3ts/globals/order"
 import { Region, Unit } from "lib/w3ts/index"
-import { TRIGGER } from "../definitions/triggers"
+import { EVENT } from "../definitions/events"
 
 export namespace UNIT_PATHING {
 
-    export function define() {
+    export function define(): void {
 
         // Unit Enters a LOC region
-        TRIGGER.unitEntersRegion.addCondition(() => {
-            let triggerRegion = Region.fromEvent()
-            let triggerLoc = Loc.key[triggerRegion.id]
+        EVENT.unitEntersRegion.addCondition(() => {
+            const triggerRegion = Region.fromEvent()
+            const triggerLoc = Loc.key[triggerRegion.id]
 
             if (triggerLoc != null) {
-                let triggerUnit = Unit.fromEvent()
+                const triggerUnit = Unit.fromEvent()
 
                 if (triggerUnit.inForce(triggerLoc.forwardArmy.force)) {
-                    let x = triggerLoc.forwardLoc.rect.randomX
-                    let y = triggerLoc.forwardLoc.rect.randomY
+                    const x = triggerLoc.forwardLoc.rect.randomX
+                    const y = triggerLoc.forwardLoc.rect.randomY
 
                     triggerUnit.issueOrderAt(OrderId.Attack, x, y)
                 }
@@ -27,8 +27,8 @@ export namespace UNIT_PATHING {
         })
 
 
-        TRIGGER.unitSummoned.addCondition(() => {
-            let triggerUnit = Unit.fromEvent()
+        EVENT.unitSummoned.addCondition(() => {
+            const triggerUnit = Unit.fromEvent()
 
 
 

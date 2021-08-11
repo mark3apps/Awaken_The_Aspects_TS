@@ -1,4 +1,4 @@
-import { TRIGGER } from "app/definitions/triggers"
+import { EVENT } from "app/definitions/events"
 import { Rectangle, Region } from "lib/w3ts/index"
 import { Army } from "./army"
 
@@ -22,15 +22,15 @@ export class Loc {
         this.forwardLoc = forwardLoc;
         this.forwardArmy = forwardArmy;
 
-        TRIGGER.unitEntersRegion.registerEnterRegion(this.region.handle, null)
+        EVENT.unitEntersRegion.registerEnterRegion(this.region.handle, null)
         Loc.key[this.region.id] = this
     }
 
-    public static get(region: Region) {
+    public static get(region: Region): LocKey {
         return Loc[region.id]
     }
 
-    public setForward(loc: Loc, army: Army) {
+    public setForward(loc: Loc, army: Army): void {
         this.forwardLoc = loc;
         this.forwardArmy = army;
     }

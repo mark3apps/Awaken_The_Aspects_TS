@@ -1,6 +1,6 @@
 import { Trigger } from "lib/w3ts/index"
 
-export namespace TRIGGER {
+export namespace EVENT {
 
     export let unitDies: Trigger
     export let unitOrdered: Trigger
@@ -9,7 +9,7 @@ export namespace TRIGGER {
     export let unitSummoned: Trigger
 
 
-    export function define() {
+    export function define():void {
 
         unitDies = new Trigger()
         unitDies.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH)

@@ -17,7 +17,7 @@ export namespace SPAWN {
 	export let loop: SpawnLoop
 	export let spawns: string[]
 
-	export function define() {
+	export function define(): void {
 		maxLevel = 12
 		maxWaves = 10
 
@@ -53,7 +53,7 @@ export namespace SPAWN {
 		export let nightElfShipyard: Spawn
 		export let undead: Spawn
 
-		export function define() {
+		export function define(): void {
 			arcane = new Spawn("arcane")
 			arcane.faction = FACTION.arcane
 			arcane.addUnit({ unitId: UNIT_TYPE.Sorcress, waves: [6, 7, 8, 9, 10], start: 3 })
@@ -287,11 +287,11 @@ export namespace SPAWN {
 	}
 
 
-	export function addSpawn(value: string) {
+	export function addSpawn(value: string): void {
 		spawns.push(value)
 	}
 
-	export function start() {
+	export function start(): void {
 
 		spawnTimer = new Timer
 		spawnTimer.start(1, false, SPAWN.iterate)
@@ -300,13 +300,13 @@ export namespace SPAWN {
 		levelTimer.start((50 + (10 * check.level)), false, levelUp)
 	}
 
-	export function iterate() {
+	export function iterate(): void {
 
 		try {
 
-			let spawnName = spawns[check.base]
+			const spawnName = spawns[check.base]
 
-			let curSpawn: Spawn = base[spawnName]
+			const curSpawn: Spawn = base[spawnName]
 
 			// Spawn Units
 			curSpawn.spawnUnit(check)
@@ -349,14 +349,16 @@ export namespace SPAWN {
 		}
 	}
 
-	export function levelUp() {
+	export function levelUp(): number {
 		check.level++
 		if (check.level > check.levels) {
 			check.level = check.levels
 		} else {
 			print("Level Up")
+			
 			levelTimer.start((40 + (10 * check.level)), false, levelUp)
 		}
+		return check.level
 	}
 }
 

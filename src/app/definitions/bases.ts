@@ -29,7 +29,7 @@ export namespace FACTION {
     export let draenei: Faction
     export let undead: Faction
 
-    export function define() {
+    export function define(): void {
         arcane = {
             alliance: new Base(Unit.fromHandle(gg_unit_h003_0015), ARMY.alliance, LOC.arcane.alliance, LOC.bottom.federation, 4, true, true, true),
             federation: new Base(Unit.fromHandle(gg_unit_h003_0007), ARMY.federation, LOC.arcane.federation, LOC.top.alliance, 4, true, true, true)
