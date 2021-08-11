@@ -49,34 +49,34 @@ export namespace LOC {
             federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Hero))
         }
         arcane = {
-            alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Mage_Base), castle.alliance, ARMY.federation),
-            federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Mage_Base), castle.federation, ARMY.alliance)
+            alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Mage_Base), castle.alliance, ARMY.Federation),
+            federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Mage_Base), castle.federation, ARMY.Alliance)
         }
         start = {
-            alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Start), castle.alliance, ARMY.federation),
-            federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Start), castle.federation, ARMY.alliance)
+            alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Start), castle.alliance, ARMY.Federation),
+            federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Start), castle.federation, ARMY.Alliance)
         }
         elf = {
-            alliance: new Loc(Rectangle.fromHandle(gg_rct_Elf_Base_Left), castle.alliance, ARMY.federation),
-            federation: new Loc(Rectangle.fromHandle(gg_rct_Elf_Base_Right), castle.federation, ARMY.alliance)
+            alliance: new Loc(Rectangle.fromHandle(gg_rct_Elf_Base_Left), castle.alliance, ARMY.Federation),
+            federation: new Loc(Rectangle.fromHandle(gg_rct_Elf_Base_Right), castle.federation, ARMY.Alliance)
         }
 
         // Pathing Rects
         everything = {
-            alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Everything), castle.alliance, ARMY.federation),
-            federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Everything), castle.federation, ARMY.alliance)
+            alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Everything), castle.alliance, ARMY.Federation),
+            federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Everything), castle.federation, ARMY.Alliance)
         }
         bottom = {
-            alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Start_Bottom), arcane.alliance, ARMY.federation),
-            federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Start_Bottom), elf.federation, ARMY.alliance)
+            alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Start_Bottom), arcane.alliance, ARMY.Federation),
+            federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Start_Bottom), elf.federation, ARMY.Alliance)
         }
         middle = {
-            alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Start_Middle), start.alliance, ARMY.federation),
-            federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Start_Middle), start.federation, ARMY.alliance)
+            alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Start_Middle), start.alliance, ARMY.Federation),
+            federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Start_Middle), start.federation, ARMY.Alliance)
         }
         top = {
-            alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Start_Top), elf.alliance, ARMY.federation),
-            federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Start_Top), arcane.federation, ARMY.alliance)
+            alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Start_Top), elf.alliance, ARMY.Federation),
+            federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Start_Top), arcane.federation, ARMY.Alliance)
         }
 
         // Spawn Rects
@@ -163,28 +163,28 @@ export namespace LOC {
 
         // Creep Rects
         cForest = {
-            alliance: new Loc(Rectangle.fromHandle(gg_rct_Aspect_of_Forest_Left), top.federation, ARMY.alliance),
-            federation: new Loc(Rectangle.fromHandle(gg_rct_Aspect_of_Forest_Right), bottom.alliance, ARMY.federation)
+            alliance: new Loc(Rectangle.fromHandle(gg_rct_Aspect_of_Forest_Left), top.federation, ARMY.Alliance),
+            federation: new Loc(Rectangle.fromHandle(gg_rct_Aspect_of_Forest_Right), bottom.alliance, ARMY.Federation)
         }
         cForestMid = {
-            alliance: new Loc(Rectangle.fromHandle(gg_rct_Aspect_of_Forest_Left_Mid), cForest.alliance, ARMY.alliance),
-            federation: new Loc(Rectangle.fromHandle(gg_rct_Aspect_of_Forest_Right_Mid), cForest.federation, ARMY.federation)
+            alliance: new Loc(Rectangle.fromHandle(gg_rct_Aspect_of_Forest_Left_Mid), cForest.alliance, ARMY.Alliance),
+            federation: new Loc(Rectangle.fromHandle(gg_rct_Aspect_of_Forest_Right_Mid), cForest.federation, ARMY.Federation)
         }
         cTides = {
-            alliance: new Loc(Rectangle.fromHandle(gg_rct_Murloc_Left), top.federation, ARMY.alliance),
-            federation: new Loc(Rectangle.fromHandle(gg_rct_Murloc_Right), bottom.alliance, ARMY.federation)
+            alliance: new Loc(Rectangle.fromHandle(gg_rct_Murloc_Left), top.federation, ARMY.Alliance),
+            federation: new Loc(Rectangle.fromHandle(gg_rct_Murloc_Right), bottom.alliance, ARMY.Federation)
         }
         cDeath = {
-            alliance: new Loc(Rectangle.fromHandle(gg_rct_Zombie_End_Left), middle.federation, ARMY.alliance),
-            federation: new Loc(Rectangle.fromHandle(gg_rct_Zombie_End_Right), middle.alliance, ARMY.federation)
+            alliance: new Loc(Rectangle.fromHandle(gg_rct_Zombie_End_Left), middle.federation, ARMY.Alliance),
+            federation: new Loc(Rectangle.fromHandle(gg_rct_Zombie_End_Right), middle.alliance, ARMY.Federation)
         }
         cDeathMid = {
-            alliance: new Loc(Rectangle.fromHandle(gg_rct_Zombie_Mid_Left), cDeath.alliance, ARMY.alliance),
-            federation: new Loc(Rectangle.fromHandle(gg_rct_Zombie_Mid_Right), cDeath.federation, ARMY.federation)
+            alliance: new Loc(Rectangle.fromHandle(gg_rct_Zombie_Mid_Left), cDeath.alliance, ARMY.Alliance),
+            federation: new Loc(Rectangle.fromHandle(gg_rct_Zombie_Mid_Right), cDeath.federation, ARMY.Federation)
         }
         cStorm = {
-            alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Elemental_Start), bottom.federation, ARMY.alliance),
-            federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Elemental_Start), top.alliance, ARMY.federation)
+            alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Elemental_Start), bottom.federation, ARMY.Alliance),
+            federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Elemental_Start), top.alliance, ARMY.Federation)
         }
     }
 

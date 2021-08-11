@@ -110,7 +110,7 @@ export namespace UNIT_TYPE {
     export let WildhammerMound: UnitType
 
 
-    export function define() {
+    export function define(): void {
         Arbalist = update("n00X")
         AncientProtector = update("nwnr")
         Assassin = update("nass")
@@ -216,7 +216,7 @@ export namespace UNIT_TYPE {
         WildhammerMound = update("h01X")
     }
 
-    function update(four: string){
-        return {id: FourCC(four), four: four} as UnitType
+    export function update(four: string): UnitType{
+        return {id: FourCC(four), four: four}
     }
 }

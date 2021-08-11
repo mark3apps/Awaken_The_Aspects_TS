@@ -2,7 +2,7 @@ import { Spawn } from "classes/spawn"
 import { SpawnLoop, SpawnValues } from "lib/resources/spawnCheck"
 import { UNIT_TYPE } from "app/definitions/unitTypes"
 import { Timer } from "lib/w3ts/index"
-import { FACTION } from "./bases"
+import { FACTION } from "./factions"
 
 
 

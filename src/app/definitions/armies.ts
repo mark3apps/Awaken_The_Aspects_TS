@@ -3,19 +3,19 @@ import { Unit } from "lib/w3ts/index"
 import { FORCE } from "./forces"
 
 export namespace ARMY {
-    export let alliance: Army
-    export let federation: Army
+    export let Alliance: Army
+    export let Federation: Army
 
     export function define(): void {
-        alliance = new Army()
-        alliance.force = FORCE.alliance
-        alliance.enemy = federation
-        alliance.captial = Unit.fromHandle(gg_unit_h00E_0033)
+        Alliance = new Army()
+        Alliance.force = FORCE.Alliance
+        Alliance.enemy = Federation
+        Alliance.captial = Unit.fromHandle(gg_unit_h00E_0033)
     
-        federation = new Army()
-        federation.force = FORCE.federation
-        federation.enemy = alliance
-        federation.captial = Unit.fromHandle(gg_unit_h00E_0081)
+        Federation = new Army()
+        Federation.force = FORCE.Federation
+        Federation.enemy = Alliance
+        Federation.captial = Unit.fromHandle(gg_unit_h00E_0081)
     }
 
 }

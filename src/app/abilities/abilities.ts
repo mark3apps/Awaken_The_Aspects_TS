@@ -51,7 +51,7 @@ export namespace ABILITY {
     export let timeTravel: Ability
     export let paradox: Ability
 
-    export function define() {
+    export function define(): void {
         bonusArmor = new Ability("bonusArmor", "Z001")
         bonusCriticalStrike = new Ability("bonusCriticalStrike", "Z003")
         bonusDamage = new Ability("bonusDamage", "Z004")

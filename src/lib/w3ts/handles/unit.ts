@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import { UnitData } from "classes/unitData"
+import { OrderType } from "lib/resources/orderType"
 import { OrderId } from "../globals/order"
 import { Destructable } from "./destructable"
 import { Force } from "./force"

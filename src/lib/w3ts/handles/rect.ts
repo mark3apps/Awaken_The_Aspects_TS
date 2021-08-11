@@ -1,5 +1,6 @@
 /** @noSelfInFile **/
 
+import { Coordinate } from "lib/resources/coordinate"
 import { Handle } from "./handle";
 import { Point } from "./point";
 
@@ -13,63 +14,71 @@ export class Rectangle extends Handle<rect> {
     }
   }
 
-  public get centerX() {
+  public get centerX(): number {
     return GetRectCenterX(this.handle);
   }
 
-  public get centerY() {
+  public get centerY(): number {
     return GetRectCenterY(this.handle);
   }
 
-  public get maxX() {
+  public get centerCoordinate(): Coordinate {
+    return {x: this.centerX, y: this.centerY}
+  }
+
+  public get maxX(): number {
     return GetRectMaxX(this.handle);
   }
 
-  public get maxY() {
+  public get maxY(): number {
     return GetRectMaxY(this.handle);
   }
 
-  public get minX() {
+  public get minX(): number {
     return GetRectMinX(this.handle);
   }
 
-  public get minY() {
+  public get minY(): number {
     return GetRectMinY(this.handle);
   }
 
-  public get randomX() {
+  public get randomX(): number {
     return GetRandomReal(this.minX, this.maxX)
   }
 
-  public get randomY() {
+  public get randomY(): number {
     return GetRandomReal(this.minY, this.maxY)
   }
 
-  public destroy() {
+  public get randomCoordinate(): Coordinate {
+    return {x: this.randomX, y: this.randomY}
+  }
+
+  public destroy(): void {
     RemoveRect(this.handle);
   }
 
-  public enumDestructables(filter: boolexpr | (() => boolean), actionFunc: () => void) {
+  public enumDestructables(filter: boolexpr | (() => boolean), actionFunc: () => void): void {
     EnumDestructablesInRect(this.handle, typeof filter === "function" ? Filter(filter) : filter, actionFunc);
   }
 
-  public enumItems(filter: boolexpr | (() => boolean), actionFunc: () => void) {
+  public enumItems(filter: boolexpr | (() => boolean), actionFunc: () => void): void {
     EnumItemsInRect(this.handle, typeof filter === "function" ? Filter(filter) : filter, actionFunc);
   }
 
-  public move(newCenterX: number, newCenterY: number) {
+  public move(newCenterX: number, newCenterY: number): void {
     MoveRectTo(this.handle, newCenterX, newCenterY);
   }
 
-  public movePoint(newCenterPoint: Point) {
+  public movePoint(newCenterPoint: Point): void {
     MoveRectToLoc(this.handle, newCenterPoint.handle);
   }
 
-  public setRect(minX: number, minY: number, maxX: number, maxY: number) {
+  public setRect(minX: number, minY: number, maxX: number, maxY: number):void {
     SetRect(this.handle, minX, minY, maxX, maxY);
   }
 
-  public setRectFromPoint(min: Point, max: Point) {
+  public setRectFromPoint(min: Point, max: Point): void {
     SetRectFromLoc(this.handle, min.handle, max.handle);
   }
 
@@ -77,13 +86,17 @@ export class Rectangle extends Handle<rect> {
     return this.getObject(handle);
   }
 
-  public static fromPoint(min: Point, max: Point) {
+  public static fromPoint(min: Point, max: Point):Rectangle {
     return this.fromHandle(RectFromLoc(min.handle, max.handle));
   }
 
   // Returns full map bounds, including unplayable borders, in world coordinates
-  public static getWorldBounds() {
+  public static getWorldBounds(): Rectangle {
     return Rectangle.fromHandle(GetWorldBounds());
+  }
+
+  public static getPlayableMap(): Rectangle {
+    return Rectangle.fromHandle(GetPlayableMapRect())
   }
 
 }

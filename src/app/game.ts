@@ -1,6 +1,6 @@
 import { UNIT_TYPE } from "app/definitions/unitTypes"
 import { ARMY } from "./definitions/armies"
-import { FACTION } from "./definitions/bases"
+import { FACTION } from "./definitions/factions"
 import { FORCE } from "./definitions/forces"
 import { LOC } from "./definitions/locs"
 import { SPAWN } from "./definitions/spawns"
