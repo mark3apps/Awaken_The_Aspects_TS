@@ -137,7 +137,10 @@ export namespace PATHING {
             OrderId.Summonfactory,
             OrderId.Chainlightning,
             OrderId.Polymorph,
-            OrderId.Shockwave
+            OrderId.Shockwave,
+            OrderId.Dispel,
+            OrderId.Innerfire,
+            OrderId.Firebolt
         ]
 
         OrderIdIgnoreWithDelay = [
@@ -162,11 +165,9 @@ export namespace PATHING {
                 const eventUnit = Unit.fromEvent()
 
                 if (eventUnit.inForce(eventLoc.forwardArmy.force)) {
-                    const x = eventLoc.forwardLoc.rect.randomX
-                    const y = eventLoc.forwardLoc.rect.randomY
-
-
-                    eventUnit.issueOrderAt(OrderId.Attack, x, y)
+                    const dest = eventLoc.forwardLoc.randomCoordinate
+                    
+                    eventUnit.issueOrderAtCoordinate(OrderId.Attack, dest)
 
 
                 }
@@ -181,7 +182,10 @@ export namespace PATHING {
         EVENT.unitSummoned.addCondition(() => {
             const eventUnit = Unit.fromEvent()
 
+            print("Summon: " + eventUnit.name)
+
             if (eventUnit.inForce(FORCE.Computers)) {
+                print("Ordered")
                 newOrders(eventUnit)
             }
 
@@ -190,7 +194,21 @@ export namespace PATHING {
         })
     }
 
+    export function addUnitTrained(): void {
+        EVENT.unitTrained.addCondition(() => {
+            const eventUnit = Unit.fromHandle(GetTrainedUnit())
 
+            print("Summon: " + eventUnit.name)
+
+            if (eventUnit.inForce(FORCE.Computers)) {
+                print("Ordered")
+                newOrders(eventUnit)
+            }
+
+
+            return false
+        })
+    }
 
 
     export function addUnitOrdered(): void {
@@ -208,13 +226,13 @@ export namespace PATHING {
                 const timer = new Timer()
 
                 if (OrderIdIgnore.indexOf(order) != -1) {
-                    print(eventUnit.name + " - " + orderName + ":" + order + " - Quickly")
+                    //print(eventUnit.name + " - " + orderName + ":" + order + " - Quickly")
                     timer.start(1, false, () => {
                         eventUnit.issueLastOrder()
                     }).destroy
 
                 } else if (OrderIdIgnoreWithDelay.indexOf(order) != -1) {
-                    print(eventUnit.name + " - " + orderName + ":" + order + " - Delay")
+                    //print(eventUnit.name + " - " + orderName + ":" + order + " - Delay")
 
                     timer.start(6, false, () => {
                         eventUnit.issueLastOrder()
@@ -238,7 +256,7 @@ export namespace PATHING {
             } else if (unit.inForce(FORCE.Federation)) {
                 dest = LOC.top.alliance.randomCoordinate
             }
-            print("top")
+            
         } else if (unit.inRegion(REGION.BigMiddle)) {
 
             if (unit.inForce(FORCE.Alliance)) {
@@ -246,7 +264,7 @@ export namespace PATHING {
             } else if (unit.inForce(FORCE.Federation)) {
                 dest = LOC.middle.alliance.randomCoordinate
             }
-            print("middle")
+            
         } else {
 
             if (unit.inForce(FORCE.Alliance)) {
@@ -254,7 +272,7 @@ export namespace PATHING {
             } else if (unit.inForce(FORCE.Federation)) {
                 dest = LOC.bottom.alliance.randomCoordinate
             }
-            print("bottom")
+            
         }
 
         if (dest != null) {

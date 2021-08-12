@@ -7,6 +7,7 @@ export namespace EVENT {
     export let unitAttacked: Trigger
     export let unitEntersRegion: Trigger
     export let unitSummoned: Trigger
+    export let unitTrained: Trigger
 
 
     export function define():void {
@@ -27,5 +28,8 @@ export namespace EVENT {
 
         unitSummoned = new Trigger()
         unitSummoned.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SUMMON)
+
+        unitTrained = new Trigger()
+        unitTrained.registerAnyUnitEvent(EVENT_PLAYER_UNIT_TRAIN_FINISH)
     }
 }
