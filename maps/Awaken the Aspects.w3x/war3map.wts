@@ -14083,3 +14083,9 @@ STRING 4829
 Barrage (Seige Engine)
 }
 
+STRING 4830
+// Units: nska (Skeleton Archer BAD), Name (Name)
+{
+Skeleton Archer BAD
+}
+

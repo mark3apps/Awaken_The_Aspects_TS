@@ -87,6 +87,8 @@ export namespace UNIT_TYPE {
     export let SeigeGolem: UnitType
     export let ShiftMaster: UnitType
     export let ShiftMasterAlter: UnitType
+    export let SkeletonArcher: UnitType
+    export let SkeletonWarrior: UnitType
     export let SkeletonMage: UnitType
     export let SnapDragon: UnitType
     export let Sorceress: UnitType
@@ -195,6 +197,8 @@ export namespace UNIT_TYPE {
         SeigeGolem = update("nsgg")
         ShiftMaster = update("E002")
         ShiftMasterAlter = update("h00Q")
+        SkeletonArcher = update("nsca")
+        SkeletonWarrior = update("h00Q")
         SkeletonMage = update("uskm")
         SnapDragon = update("nsnp")
         Sorceress = update("h00C")

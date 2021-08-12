@@ -162,7 +162,7 @@ export namespace SPAWN {
 			highElves.addUnit({ unitType: UNIT_TYPE.HighElfArcher, waves: [1, 3, 5], start: 2 })
 			highElves.addUnit({ unitType: UNIT_TYPE.HighElfSwordsman, amount: 2, waves: [1, 2, 3, 4], start: 4 })
 			highElves.addUnit({ unitType: UNIT_TYPE.HighElfHealer, waves: [1, 3, 5], start: 5 })
-			highElves.addUnit({ unitType: UNIT_TYPE.DragonHawk, waves: [1, 2, 3, 5], start: 6 })
+			highElves.addUnit({ unitType: UNIT_TYPE.DragonHawk, waves: [1, 2, 3, 4, 5], start: 6 })
 			highElves.addUnit({ unitType: UNIT_TYPE.HighElfKnight, waves: [1, 3, 5], start: 7 })
 			SPAWN.addSpawn(highElves.name)
 	
@@ -236,7 +236,7 @@ export namespace SPAWN {
 			nightElves.addUnit({ unitType: UNIT_TYPE.NightElfEliteRanger, waves: [1, 2, 3, 4, 5], start: 2 })
 			nightElves.addUnit({ unitType: UNIT_TYPE.NightElfSentry, waves: [7, 8, 9, 10], start: 2 })
 			nightElves.addUnit({ unitType: UNIT_TYPE.Dryad, waves: [7, 9, 10], start: 3 })
-			nightElves.addUnit({ unitType: UNIT_TYPE.HippogryphRider, waves: [4, 6, 7], start: 3 })
+			nightElves.addUnit({ unitType: UNIT_TYPE.HippogryphRider, waves: [4, 6, 7, 8], start: 6 })
 			nightElves.addUnit({ unitType: UNIT_TYPE.DruidOfTheClaw, waves: [6, 7, 8, 9, 10], start: 4 })
 			nightElves.addUnit({ unitType: UNIT_TYPE.MountainGiant, waves: [5, 9], start: 5 })
 			nightElves.addUnit({ unitType: UNIT_TYPE.AncientProtector, waves: [5], start: 10 })
