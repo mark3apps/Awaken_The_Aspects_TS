@@ -4,8 +4,8 @@ import { REGION } from "app/definitions/regions"
 import { UNIT_TYPE } from "app/definitions/unitTypes"
 import { Loc } from "classes/loc"
 import { Coordinate } from "lib/resources/coordinate"
-import { OrderId, OrderIdSearchable } from "lib/w3ts/globals/order"
-import { Region, Timer, Unit } from "lib/w3ts/index"
+import { OrderId } from "lib/w3ts/globals/order"
+import { Group, Rectangle, Region, Timer, Unit } from "lib/w3ts/index"
 import { EVENT } from "./events"
 
 
@@ -149,15 +149,8 @@ export namespace PATHING {
             OrderId.Stunned
         ]
 
-        addUnitEntersRegion()
-        addUnitOrdered()
-        addUnitSummoned()
-    }
-
-
-    // Unit Enters a LOC region
-    export function addUnitEntersRegion(): void {
-        EVENT.unitEntersRegion.addCondition(() => {
+        // Unit Enters a Loc Forwarding Region
+        EVENT.unitEntersRegion.add(() => {
             const eventRegion = Region.fromEvent()
             const eventLoc = Loc.key[eventRegion.id]
 
@@ -166,20 +159,41 @@ export namespace PATHING {
 
                 if (eventUnit.inForce(eventLoc.forwardArmy.force)) {
                     const dest = eventLoc.forwardLoc.randomCoordinate
-                    
+
                     eventUnit.issueOrderAtCoordinate(OrderId.Attack, dest)
 
 
                 }
             }
-
-            return false
         })
-    }
 
+        // Units Ordered
+        EVENT.unitOrdered.add(() => {
 
-    export function addUnitSummoned(): void {
-        EVENT.unitSummoned.addCondition(() => {
+            const eventOrder = GetIssuedOrderId()
+            const eventUnit = Unit.fromEvent()
+
+            if (SpawnedTypes.indexOf(eventUnit.typeId) != -1) {
+
+                const timer = new Timer()
+
+                if (OrderIdIgnore.indexOf(eventOrder) != -1) {
+
+                    timer.start(1, false, () => {
+                        eventUnit.issueLastOrder()
+                    }).destroy
+
+                } else if (OrderIdIgnoreWithDelay.indexOf(eventOrder) != -1) {
+
+                    timer.start(6, false, () => {
+                        eventUnit.issueLastOrder()
+                    }).destroy
+                }
+            }
+        })
+
+        // Unit is Summoned
+        EVENT.unitSummoned.add(() => {
             const eventUnit = Unit.fromEvent()
 
             print("Summon: " + eventUnit.name)
@@ -188,14 +202,10 @@ export namespace PATHING {
                 print("Ordered")
                 newOrders(eventUnit)
             }
-
-
-            return false
         })
-    }
 
-    export function addUnitTrained(): void {
-        EVENT.unitTrained.addCondition(() => {
+        // Unit is Trained
+        EVENT.unitTrained.add(() => {
             const eventUnit = Unit.fromHandle(GetTrainedUnit())
 
             print("Summon: " + eventUnit.name)
@@ -204,79 +214,58 @@ export namespace PATHING {
                 print("Ordered")
                 newOrders(eventUnit)
             }
-
-
-            return false
         })
-    }
 
+        EVENT.mapStart.add(() => {
 
-    export function addUnitOrdered(): void {
-        EVENT.unitOrdered.addCondition(() => {
-            //
-            const order = GetIssuedOrderId()
-            const orderName = OrderIdSearchable[order]
+            const allUnits = new Group()
 
+            allUnits.enumUnitsInRect(Rectangle.getWorldBounds(), null)
 
-            const eventUnit = Unit.fromEvent()
+            let unit = allUnits.first
+            while (unit != null) {
+                if (unit.inForce(FORCE.Computers) && SpawnedTypes.indexOf(unit.typeId) != -1) { newOrders(unit) }
 
-            if (SpawnedTypes.indexOf(eventUnit.typeId) != -1) {
-
-
-                const timer = new Timer()
-
-                if (OrderIdIgnore.indexOf(order) != -1) {
-                    //print(eventUnit.name + " - " + orderName + ":" + order + " - Quickly")
-                    timer.start(1, false, () => {
-                        eventUnit.issueLastOrder()
-                    }).destroy
-
-                } else if (OrderIdIgnoreWithDelay.indexOf(order) != -1) {
-                    //print(eventUnit.name + " - " + orderName + ":" + order + " - Delay")
-
-                    timer.start(6, false, () => {
-                        eventUnit.issueLastOrder()
-                    }).destroy
-
-                }
+                allUnits.removeUnit(unit)
+                unit = allUnits.first
             }
-
-            return false
+            allUnits.destroy()
         })
     }
+
 
     export function newOrders(unit: Unit): void {
 
         let dest: Coordinate
 
+
         if (unit.inRegion(REGION.BigTop)) {
 
-            if (unit.inForce(FORCE.Alliance)) {
+            if (unit.inForce(FORCE.AllianceAll)) {
                 dest = LOC.top.federation.randomCoordinate
-            } else if (unit.inForce(FORCE.Federation)) {
+            } else if (unit.inForce(FORCE.FederationAll)) {
                 dest = LOC.top.alliance.randomCoordinate
             }
-            
+
         } else if (unit.inRegion(REGION.BigMiddle)) {
 
-            if (unit.inForce(FORCE.Alliance)) {
+            if (unit.inForce(FORCE.AllianceAll)) {
                 dest = LOC.middle.federation.randomCoordinate
-            } else if (unit.inForce(FORCE.Federation)) {
+            } else if (unit.inForce(FORCE.FederationAll)) {
                 dest = LOC.middle.alliance.randomCoordinate
             }
-            
+
         } else {
 
-            if (unit.inForce(FORCE.Alliance)) {
+            if (unit.inForce(FORCE.AllianceAll)) {
                 dest = LOC.bottom.federation.randomCoordinate
-            } else if (unit.inForce(FORCE.Federation)) {
+            } else if (unit.inForce(FORCE.FederationAll)) {
                 dest = LOC.bottom.alliance.randomCoordinate
             }
-            
         }
 
+        // If 
         if (dest != null) {
-
             unit.issueOrderAtCoordinate(OrderId.Attack, dest)
         }
 

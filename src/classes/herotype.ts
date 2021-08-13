@@ -1,115 +1,96 @@
-// import { Ability } from "./ability"
-// import { ItemType } from "./itemType"
+import { Strategy } from "lib/resources/strategy"
+import { Ability } from "./ability"
+import { HeroAbility } from "./heroAbility"
+import { ItemType } from "./itemType"
 
 
-// export const enum Strategy {
-//     Agressive = 1,
-//     Neutral = 2,
-//     Defensive = 4,
-// }
-
-// export class HeroType {
-
-//     private static _KeyString: Record<string, string>;
-//     private static _KeyNumber: Record<number, string>;
-
-//     readonly id: number;
-//     readonly idAlter: number;
-//     readonly four: string;
-//     readonly fourAlter: string;
-
-//     permanentSpells: Array<HeroAbility>;
-//     startingSpells: Array<HeroAbility>;
-//     ultSpells: HeroAbility;
-//     spells: Array<HeroAbility>;
-
-//     spellCount = 0;
-//     permanentSpellCount = 0;
-//     startingSpellCount = 0;
-
-//     items: Array<ItemType> = [];
-//     itemCount = 0;
-//     protected talents = [];
-
-//     // AI Globals
-//     lifeFactor: number = 1;
-//     manaFactor: number = 0.02;
-//     lifeHighPercent: number = 0.85;
-//     lifeLowPercent: number = 0.20;
-//     lifeLowNumber: number = 400;
-//     highDamageSingle: number = 0.17;
-//     highDamageAverage: number = 0.25;
-//     powerBase: number = 500;
-//     powerLevel: number = 200;
-//     unitClumpCheck: boolean = true;
-//     unitClumpRange: number = 100;
-//     intelRange: number = 1100;
-//     intelCloseRange: number = 500;
-//     strats: Array<Strategy>;
-
-//     constructor(name: string, four: string, fourAlter: string) {
-
-//         this.four = four;
-//         this.id = FourCC(four);
-//         this.idAlter = FourCC(fourAlter);
 
 
-//         HeroType._KeyString[four] = name;
-//         HeroType._KeyString[name] = name;
-//         HeroType._KeyNumber[this.id] = name;
+export class HeroType {
 
-//     }
+    private static _key: {[name:string]: HeroType} = {}
+    static readonly pre = "H"
 
-//     static getName(value: string | number) {
-//         return typeof value === "string" ? HeroType._KeyString[value] : HeroType._KeyNumber[value];
-//     }
+    readonly id: number
+    readonly hid: string
+    readonly idAlter: number
+    readonly four: string
+    readonly fourAlter: string
 
-//     public addAbility(spellObj: Ability, permanent = true, starting = false, ult = false) {
+    permanentSpells: Array<HeroAbility>
+    startingSpells: Array<HeroAbility>
+    ultSpells: HeroAbility
+    spells: HeroAbility[]
 
-//         let newHeroAbility = new HeroAbility(spellObj.name, permanent, starting, ult);
+    spellCount = 0;
+    permanentSpellCount = 0;
+    startingSpellCount = 0;
 
-//         this.spells.push(newHeroAbility);
-//         this.spellCount++;
+    items: ItemType[] = [];
+    itemCount = 0;
+    protected talents = [];
 
-//         if (permanent) {
-//             this.permanentSpells.push(newHeroAbility);
-//             this.permanentSpellCount++;
-//         }
+    // AI Globals
+    lifeFactor = 1;
+    manaFactor = 0.02;
+    lifeHighPercent = 0.85;
+    lifeLowPercent = 0.20;
+    lifeLowNumber = 400;
+    highDamageSingle = 0.17;
+    highDamageAverage = 0.25;
+    powerBase = 500;
+    powerLevel = 200;
+    unitClumpCheck = true;
+    unitClumpRange = 100;
+    intelRange = 1100;
+    intelCloseRange = 500;
+    strats: Strategy[]
 
-//         if (starting) {
-//             this.startingSpells.push(newHeroAbility);
-//             this.startingSpellCount++;
-//         }
+    constructor(name: string, four: string, fourAlter: string) {
 
-//         if (ult) {
-//             this.ultSpells = newHeroAbility;
-//         }
-//     }
-
-
-//     public addItem(itemTypeObj: ItemType) {
-//         this.items.push(itemTypeObj);
-//         this.itemCount++;
-//     }
-
-//     public addStrategy(strat: Strategy) {
-//         this.strats.push(strat);
-//     }
-// }
+        this.four = four
+        this.id = FourCC(four)
+        this.hid = HeroType.pre + this.id
+        this.idAlter = FourCC(fourAlter)
 
 
-// export class HeroAbility {
+        HeroType._key[this.hid] = this
 
-//     name: string;
-//     ult: boolean;
-//     starting: boolean;
-//     permanent: boolean;
+    }
 
-//     constructor(name: string, permanent = true, starting = false, ult = false) {
+    static get(value: string | number): HeroType {
+        return typeof value === "string" ? HeroType._key[FourCC(value)] : HeroType._key[value]
+    }
 
-//         this.name = name;
-//         this.permanent = permanent;
-//         this.starting = starting;
-//         this.ult = ult;
-//     }
-// }
+    public addAbility(spellObj: Ability, permanent = true, starting = false, ult = false): void {
+
+        const newHeroAbility = new HeroAbility(spellObj.name, permanent, starting, ult)
+
+        this.spells.push(newHeroAbility)
+        this.spellCount++
+
+        if (permanent) {
+            this.permanentSpells.push(newHeroAbility)
+            this.permanentSpellCount++
+        }
+
+        if (starting) {
+            this.startingSpells.push(newHeroAbility)
+            this.startingSpellCount++
+        }
+
+        if (ult) {
+            this.ultSpells = newHeroAbility
+        }
+    }
+
+
+    public addItem(itemTypeObj: ItemType): void {
+        this.items.push(itemTypeObj)
+        this.itemCount++
+    }
+
+    public addStrategy(strat: Strategy): void {
+        this.strats.push(strat)
+    }
+}

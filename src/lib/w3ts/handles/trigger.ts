@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /** @noSelfInFile **/
 
 import { Dialog, DialogButton } from "./dialog";
@@ -78,15 +79,23 @@ export class Trigger extends Handle<trigger> {
    * ```
    * @param condition The condition which must evaluate to true in order to run the trigger's actions.
    */
-  public addCondition(condition: boolexpr | (() => boolean)) {
+  public addCondition(condition: boolexpr | (() => boolean)): triggercondition {
     return TriggerAddCondition(this.handle, typeof condition === "function" ? Condition(condition) : condition);
+  }
+
+  public add(event: () => void): triggercondition {
+    const trigFormatted = function(){
+      event()
+      return false
+    }
+    return TriggerAddCondition(this.handle, Condition(trigFormatted));
   }
 
   /**
    * @bug Do not destroy the current running Trigger (when waits are involved)
    * as it can cause handle stack corruption as documented [here](http://www.wc3c.net/showthread.php?t=110519).
    */
-  public destroy() {
+  public destroy(): void {
     DestroyTrigger(this.handle);
   }
 

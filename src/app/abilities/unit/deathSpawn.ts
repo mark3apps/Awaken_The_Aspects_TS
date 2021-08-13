@@ -1,5 +1,5 @@
 import { UNIT_TYPE } from "app/definitions/unitTypes"
-import { PATHING } from "app/systems/unitPathing"
+import { PATHING } from "app/systems/pathing"
 import { AttachPoint } from "lib/resources/attachPoints"
 import { DeathSpawn } from "lib/resources/deathSpawn"
 import { EffectPath } from "lib/resources/effects"
@@ -43,22 +43,16 @@ export namespace DEATH_SPAWN {
         add(UNIT_TYPE.HumanFrigate, { amount: 1, unitId: UNIT_TYPE.Footman2, chance: 0.5 })
         add(UNIT_TYPE.HumanBattleship, { amount: 2, unitId: UNIT_TYPE.Arbalist, chance: 1 })
         add(UNIT_TYPE.HumanBattleship, { amount: 1, unitId: UNIT_TYPE.Footman2, chance: 0.75 })
-    
+
         add(UNIT_TYPE.NightElfFrigate, { amount: 2, unitId: UNIT_TYPE.NightElfRanger, chance: 0.6 })
         add(UNIT_TYPE.NightElfFrigate, { amount: 2, unitId: UNIT_TYPE.NightElfSentry, chance: 0.7 })
         add(UNIT_TYPE.NightElfBattleship, { amount: 2, unitId: UNIT_TYPE.NightElfRanger, chance: 0.7 })
         add(UNIT_TYPE.NightElfBattleship, { amount: 1, unitId: UNIT_TYPE.NightElfEliteRanger, chance: 0.6 })
         add(UNIT_TYPE.NightElfBattleship, { amount: 2, unitId: UNIT_TYPE.NightElfSentry, chance: 0.8 })
 
-        eventInit()
-    }
-
-
-
-    export function eventInit(): void {
 
         // Add Death Spawn trigger to Unit Dieing Trigger
-        EVENT.unitDies.addCondition(() => {
+        EVENT.unitDies.add(() => {
             try {
                 const unit = Unit.fromEvent()
 
@@ -69,13 +63,12 @@ export namespace DEATH_SPAWN {
                     }
 
                 }
-
-                return false
             } catch (e) {
                 print(e)
             }
         })
     }
+
 
     export function spawn(unit: Unit, deathSpawn: DeathSpawn): void {
 
@@ -85,9 +78,9 @@ export namespace DEATH_SPAWN {
 
             if (deathSpawn.chance >= math.random()) {
                 const u = new Unit(unit.owner, deathSpawn.unitId.id, unit.x, unit.y, unit.facing)
-                
+
                 PATHING.newOrders(u)
-                
+
                 if (deathSpawn.effectPath != null) {
                     new Effect(deathSpawn.effectPath, unit, deathSpawn.effectAttach).destroy()
                 }
