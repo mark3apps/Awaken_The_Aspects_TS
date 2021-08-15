@@ -1,9 +1,9 @@
 import { UNIT_TYPE } from "app/definitions/unitTypes"
 import { PATHING } from "app/systems/pathing"
-import { AttachPoint } from "lib/resources/attachPoints"
+import { UnitType } from "classes/unitType"
 import { DeathSpawn } from "lib/resources/deathSpawn"
-import { EffectPath } from "lib/resources/effects"
-import { UnitType } from "lib/resources/unitType"
+import { ATTACH } from "lib/w3ts/globals/attachmentPoints"
+import { MODEL } from "lib/w3ts/globals/models"
 import { Effect, Unit } from "lib/w3ts/index"
 import { EVENT } from "../../systems/events"
 
@@ -15,8 +15,8 @@ export namespace DEATH_SPAWN {
     export function define(): void {
 
         add(UNIT_TYPE.Knight, { amount: 1, unitId: UNIT_TYPE.Captain1 })
-        add(UNIT_TYPE.WaterElemental2, { amount: 1, unitId: UNIT_TYPE.WaterElemental1, effectPath: EffectPath.corporealForm, effectAttach: AttachPoint.chest })
-        add(UNIT_TYPE.WaterElemental3, { amount: 1, unitId: UNIT_TYPE.WaterElemental2, effectPath: EffectPath.corporealForm, effectAttach: AttachPoint.chest })
+        add(UNIT_TYPE.WaterElemental2, { amount: 1, unitId: UNIT_TYPE.WaterElemental1, effectPath: MODEL.Ability.avatarCaster, effectAttach: ATTACH.Point.chest })
+        add(UNIT_TYPE.WaterElemental3, { amount: 1, unitId: UNIT_TYPE.WaterElemental2, effectPath: MODEL.Ability.avatarCaster, effectAttach: ATTACH.Point.chest })
         add(UNIT_TYPE.Automation, { amount: 2, unitId: UNIT_TYPE.Clockwerk })
         add(UNIT_TYPE.SeigeGolem, { amount: 2, unitId: UNIT_TYPE.WarGolem })
         add(UNIT_TYPE.WarGolem, { amount: 2, unitId: UNIT_TYPE.BattleGolem })
@@ -49,26 +49,24 @@ export namespace DEATH_SPAWN {
         add(UNIT_TYPE.NightElfBattleship, { amount: 2, unitId: UNIT_TYPE.NightElfRanger, chance: 0.7 })
         add(UNIT_TYPE.NightElfBattleship, { amount: 1, unitId: UNIT_TYPE.NightElfEliteRanger, chance: 0.6 })
         add(UNIT_TYPE.NightElfBattleship, { amount: 2, unitId: UNIT_TYPE.NightElfSentry, chance: 0.8 })
-
-
-        // Add Death Spawn trigger to Unit Dieing Trigger
-        EVENT.unitDies.add(() => {
-            try {
-                const unit = Unit.fromEvent()
-
-                if (id[unit.typeId] != null) {
-                    for (let i = 0; i < id[unit.typeId].length; i++) {
-                        const element = id[unit.typeId][i]
-                        spawn(unit, element)
-                    }
-
-                }
-            } catch (e) {
-                print(e)
-            }
-        })
     }
 
+    // Add Death Spawn trigger to Unit Dieing Trigger
+    EVENT.unitDies.add(() => {
+        try {
+            const unit = Unit.fromEvent()
+
+            if (id[unit.typeId] != null) {
+                for (let i = 0; i < id[unit.typeId].length; i++) {
+                    const element = id[unit.typeId][i]
+                    spawn(unit, element)
+                }
+
+            }
+        } catch (e) {
+            print(e)
+        }
+    })
 
     export function spawn(unit: Unit, deathSpawn: DeathSpawn): void {
 

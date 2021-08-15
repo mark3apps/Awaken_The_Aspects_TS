@@ -2,92 +2,74 @@ import { Strategy } from "lib/resources/strategy"
 import { Ability } from "./ability"
 import { HeroAbility } from "./heroAbility"
 import { ItemType } from "./itemType"
+import { UnitType } from "./unitType"
 
 
 
+export class HeroType extends UnitType {
 
-export class HeroType {
-
-    private static _key: {[name:string]: HeroType} = {}
+    private static _key: { [name: string]: HeroType } = {}
     static readonly pre = "H"
 
-    readonly id: number
-    readonly hid: string
-    readonly idAlter: number
-    readonly four: string
-    readonly fourAlter: string
+    readonly hid!: string
+    readonly alter!: UnitType
 
-    permanentSpells: Array<HeroAbility>
-    startingSpells: Array<HeroAbility>
-    ultSpells: HeroAbility
-    spells: HeroAbility[]
+    public permanentSpells: HeroAbility[] = []
+    public startingSpells: HeroAbility[] = []
+    public ultSpell: HeroAbility
+    public spells: HeroAbility[] = []
 
-    spellCount = 0;
-    permanentSpellCount = 0;
-    startingSpellCount = 0;
 
-    items: ItemType[] = [];
-    itemCount = 0;
-    protected talents = [];
+    public items: ItemType[] = [];
+    public talents = [];
 
     // AI Globals
-    lifeFactor = 1;
-    manaFactor = 0.02;
-    lifeHighPercent = 0.85;
-    lifeLowPercent = 0.20;
-    lifeLowNumber = 400;
-    highDamageSingle = 0.17;
-    highDamageAverage = 0.25;
-    powerBase = 500;
-    powerLevel = 200;
-    unitClumpCheck = true;
-    unitClumpRange = 100;
-    intelRange = 1100;
-    intelCloseRange = 500;
-    strats: Strategy[]
+    public lifeFactor = 1;
+    public manaFactor = 0.02;
+    public lifeHighPercent = 0.85;
+    public lifeLowPercent = 0.20;
+    public lifeLowNumber = 400;
+    public highDamageSingle = 0.17;
+    public highDamageAverage = 0.25;
+    public powerBase = 500;
+    public powerLevel = 200;
+    public unitClumpCheck = true;
+    public unitClumpRange = 100;
+    public intelRange = 1100;
+    public intelCloseRange = 500;
+    public strats: Strategy[] = []
 
-    constructor(name: string, four: string, fourAlter: string) {
+    constructor(type: UnitType, typeAlter: UnitType) {
 
-        this.four = four
-        this.id = FourCC(four)
+        super(type.four)
+
         this.hid = HeroType.pre + this.id
-        this.idAlter = FourCC(fourAlter)
-
+        this.alter = typeAlter
 
         HeroType._key[this.hid] = this
-
+        
     }
 
+    
     static get(value: string | number): HeroType {
         return typeof value === "string" ? HeroType._key[FourCC(value)] : HeroType._key[value]
     }
 
     public addAbility(spellObj: Ability, permanent = true, starting = false, ult = false): void {
 
-        const newHeroAbility = new HeroAbility(spellObj.name, permanent, starting, ult)
+        const newHeroAbility = new HeroAbility(spellObj, permanent, starting, ult)
+
 
         this.spells.push(newHeroAbility)
-        this.spellCount++
 
-        if (permanent) {
-            this.permanentSpells.push(newHeroAbility)
-            this.permanentSpellCount++
-        }
-
-        if (starting) {
-            this.startingSpells.push(newHeroAbility)
-            this.startingSpellCount++
-        }
-
-        if (ult) {
-            this.ultSpells = newHeroAbility
-        }
+        if (permanent) { this.permanentSpells.push(newHeroAbility) }
+        if (starting) { this.startingSpells.push(newHeroAbility) }
+        if (ult) { this.ultSpell = newHeroAbility }
     }
 
 
     public addItem(itemTypeObj: ItemType): void {
         this.items.push(itemTypeObj)
-        this.itemCount++
     }
 
     public addStrategy(strat: Strategy): void {

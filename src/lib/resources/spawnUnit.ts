@@ -1,4 +1,4 @@
-import { UnitType } from "./unitType"
+import { UnitType } from "classes/unitType"
 
 
 export interface SpawnUnit {

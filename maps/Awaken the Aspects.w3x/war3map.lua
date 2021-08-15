@@ -2352,6 +2352,7 @@ function Trig_testing_Actions()
     DisableTrigger(GetTriggeringTrigger())
     SetPlayerTechResearchedSwap(FourCC("R005"), 0, Player(0))
     BlzSetUnitName(GetTriggerUnit(), "hie")
+    udg_JD_Group = GetUnitsOfTypeIdAll(FourCC("hfoo"))
 end
 
 function InitTrig_testing()

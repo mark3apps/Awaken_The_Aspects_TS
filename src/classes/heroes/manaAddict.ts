@@ -1,22 +1,21 @@
 
+import { ABILITY } from "lib/resources/mapAbilities"
 import { Strategy } from "lib/resources/strategy"
-import { HeroType } from "../herotype";
-import { ABILITY } from "../../app/definitions/abilities"
 import { ITEM_TYPE } from "../../app/definitions/itemTypes"
 import { UNIT_TYPE } from "../../app/definitions/unitTypes"
-
+import { HeroType } from "../herotype"
 
 export class ManaAddictHeroType extends HeroType {
 
     constructor() {
-        super("manaAddict", UNIT_TYPE.ManaAddict.four, UNIT_TYPE.ManaAddictAlter.four)
+        super(UNIT_TYPE.ManaAddict, UNIT_TYPE.ManaAddictAlter)
 
         // Abilities
-        this.addAbility(ABILITY.manaShield, true, true)
-        this.addAbility(ABILITY.manaBomb)
-        this.addAbility(ABILITY.manaExplosion)
-        this.addAbility(ABILITY.soulBind)
-        this.addAbility(ABILITY.unleashMana, true, false, true)
+        this.addAbility(ABILITY.ManaAddictManaShield, true, true)
+        this.addAbility(ABILITY.ManaAddictManaBomb)
+        this.addAbility(ABILITY.ManaAddictManaExplosion)
+        this.addAbility(ABILITY.ManaAddictSoulBind)
+        this.addAbility(ABILITY.ManaAddictUnleashMana, true, false, true)
 
         // Items
         this.addItem(ITEM_TYPE.teleport)

@@ -1,13 +1,14 @@
-export class HeroAbility {
+import { Ability } from "./ability"
 
-    name: string
+export class HeroAbility extends Ability {
+
     ult: boolean
     starting: boolean
     permanent: boolean
 
-    constructor(name: string, permanent = true, starting = false, ult = false) {
+    constructor(ability: Ability, permanent = true, starting = false, ult = false) {
 
-        this.name = name
+        super(ability.mapAbility)
         this.permanent = permanent
         this.starting = starting
         this.ult = ult

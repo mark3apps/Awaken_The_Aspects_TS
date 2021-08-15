@@ -1,5 +1,9 @@
 import { OrderId } from "lib/w3ts/globals/order"
 
+export interface ItemTypeKey {
+    [name: string]: ItemType
+}
+
 export class ItemType {
 
     name: string
@@ -13,22 +17,38 @@ export class ItemType {
     instant: boolean
     castTime: number[]
 
-    private static _key: { [name: string]: ItemType } = {}
+    private static _key: ItemTypeKey = {}
     static readonly pre = "H"
 
-    constructor(four: string, abilityFour = "", orderFour = "", instant = true, castTime: number[] = []) {
+    constructor(four: string, abilityFour = null, orderFour = null, instant = true, castTime: number[] = []) {
 
         this.four = four
         this.id = FourCC(four)
         this.hid = ItemType.pre + this.id
         this.abilityFour = abilityFour
-        this.abilityId = FourCC(abilityFour)
+
+        if (abilityFour != null) {
+            this.abilityId = FourCC(abilityFour)
+        } else { 
+            this.abilityId = null
+        }
+        
         this.orderFour = orderFour
-        this.orderId = FourCC(orderFour)
+
+        if (orderFour != null) {
+            this.orderId = FourCC(orderFour)
+        } else {
+            this.orderFour = null
+        }
+        
         this.instant = instant
         this.castTime = castTime
 
-        //ItemType._key[this.hid] = this
+        ItemType._key[this.hid] = this
+    }
+
+    public static get key(): ItemTypeKey {
+        return ItemType._key
     }
 
     public static get(id: number | string): ItemType {

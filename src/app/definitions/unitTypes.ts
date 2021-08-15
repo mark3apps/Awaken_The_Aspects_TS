@@ -1,227 +1,112 @@
-import { UnitType } from "lib/resources/unitType"
-
+import { UnitType } from "classes/unitType"
 
 export namespace UNIT_TYPE {
-    export let Arbalist: UnitType
-    export let AncientProtector: UnitType
-    export let Assassin: UnitType
-    export let Automation: UnitType
-    export let Brawler: UnitType
-    export let BrawlerAlter: UnitType
-    export let Bandit: UnitType
-    export let BanditLord: UnitType
-    export let BanditSpearman: UnitType
-    export let BattleGolem: UnitType
-    export let BloodElfArcher: UnitType
-    export let BloodElfBreaker: UnitType
-    export let BloodElfMage: UnitType
-    export let Captain1: UnitType
-    export let Captain2: UnitType
-    export let Catapult: UnitType
-    export let Clockwerk: UnitType
-    export let Commander: UnitType
-    export let DraeneiDarkslayer: UnitType
-    export let DraeneiDemolisher: UnitType
-    export let DraeneiGuardian: UnitType
-    export let DraeneiSeer: UnitType
-    export let DraeneiVindicator: UnitType
-    export let DragonHawk: UnitType
-    export let DragonTurtle: UnitType
-    export let DruidOfTheClaw: UnitType
-    export let Dryad: UnitType
-    export let DwarfAxethrower: UnitType
-    export let DwarfClansman: UnitType
-    export let DwarfElite: UnitType
-    export let Enforcer: UnitType
-    export let EredarWarlock: UnitType
-    export let FelOrcWarlock: UnitType
-    export let Footman1: UnitType
-    export let Footman2: UnitType
-    export let Ghoul: UnitType
-    export let GiantSkeleton: UnitType
-    export let Grunt: UnitType
-    export let GryphonRider: UnitType
-    export let Gyrocopter: UnitType
-    export let InfernalContraption: UnitType
-    export let InfernalJuggernaut: UnitType
-    export let InfernalMachine: UnitType
-    export let HighElfApprenticeSwordsman: UnitType
-    export let HighElfArcher: UnitType
-    export let HighElfGuardian: UnitType
-    export let HighElfHealer: UnitType
-    export let HighElfKnight: UnitType
-    export let HighElfSwordsman: UnitType
-    export let HippogryphRider: UnitType
-    export let HumanBattleship: UnitType
-    export let HumanFrigate: UnitType
-    export let IronCaptain: UnitType
-    export let IronGuard: UnitType
-    export let IronMagi: UnitType
-    export let IronMortarTeam: UnitType
-    export let IronRifleman: UnitType
-    export let Knight: UnitType
-    export let MagiDefender: UnitType
-    export let ManaAddict: UnitType
-    export let ManaAddictAlter: UnitType
-    export let Militia1: UnitType
-    export let Militia2: UnitType
-    export let MountainGiant: UnitType
-    export let MurlocCliffRunner: UnitType
-    export let MurlocReaver: UnitType
-    export let MurlocSnareCaster: UnitType
-    export let MurlocTideWarrior: UnitType
-    export let NagaMyrmidon: UnitType
-    export let NagaSiren: UnitType
-    export let NagaRoyalGuard: UnitType
-    export let Necromancer: UnitType
-    export let NightElfBattleship: UnitType
-    export let NightElfFrigate: UnitType
-    export let NightElfRanger: UnitType
-    export let NightElfEliteRanger: UnitType
-    export let NightElfSentry: UnitType
-    export let Ogre: UnitType
-    export let OrcWarchief: UnitType
-    export let Rogue: UnitType
-    export let SeigeEngine: UnitType
-    export let SeigeEngineDamaged: UnitType
-    export let SeigeGolem: UnitType
-    export let ShiftMaster: UnitType
-    export let ShiftMasterAlter: UnitType
-    export let SkeletonArcher: UnitType
-    export let SkeletonWarrior: UnitType
-    export let SkeletonMage: UnitType
-    export let SnapDragon: UnitType
-    export let Sorceress: UnitType
-    export let Summoner: UnitType
-    export let SupremeWizard: UnitType
-    export let StormSummoner: UnitType
-    export let Tactician: UnitType
-    export let TacticianAlter: UnitType
-    export let TimeMage: UnitType
-    export let TimeMageAlter: UnitType
-    export let TrollAxethrower: UnitType
-    export let WarGolem: UnitType
-    export let Warlock: UnitType
-    export let WaterElemental1: UnitType
-    export let WaterElemental2: UnitType
-    export let WaterElemental3: UnitType
-    export let WildhammerCottage: UnitType
-    export let WildhammerFarmLarge: UnitType
-    export let WildhammerFarm: UnitType
-    export let WildhammerMound: UnitType
 
-
-    export function define(): void {
-        Arbalist = update("n00X")
-        AncientProtector = update("nwnr")
-        Assassin = update("nass")
-        Automation = update("n00F")
-        Brawler = update("E001")
-        BrawlerAlter = update("h00I")
-        Bandit = update("n002")
-        BanditLord = update("n005")
-        BanditSpearman = update("n003")
-        BattleGolem = update("narg")
-        BloodElfArcher = update("n00C")
-        BloodElfBreaker = update("hspt")
-        BloodElfMage = update("hmpr")
-        Captain1 = update("hcth")
-        Captain2 = update("h00S")
-        Catapult = update("hmtm")
-        Clockwerk = update("ncg2")
-        Commander = update("h00D")
-        DraeneiDarkslayer = update("ndrd")
-        DraeneiDemolisher = update("ncat")
-        DraeneiGuardian = update("ndrf")
-        DraeneiSeer = update("ndrs")
-        DraeneiVindicator = update("n00I")
-        DragonHawk = update("nws1")
-        DragonTurtle = update("nhyc")
-        DruidOfTheClaw = update("edoc")
-        Dryad = update("edry")
-        DwarfAxethrower = update("n006")
-        DwarfClansman = update("e00E")
-        DwarfElite = update("e00F")
-        Enforcer = update("n008")
-        EredarWarlock = update("nerw")
-        FelOrcWarlock = update("nchw")
-        Footman1 = update("hfoo")
-        Footman2 = update("h017")
-        Ghoul = update("ugho")
-        GiantSkeleton = update("nfgl")
-        Grunt = update("o002")
-        GryphonRider = update("hgry")
-        Gyrocopter = update("hgyr")
-        InfernalContraption = update("ninc")
-        InfernalJuggernaut = update("nina")
-        InfernalMachine = update("ninm")
-        HighElfApprenticeSwordsman = update("h00T")
-        HighElfArcher = update("nhea")
-        HighElfGuardian = update("h010")
-        HighElfHealer = update("nemi")
-        HighElfKnight = update("h005")
-        HighElfSwordsman = update("hhes")
-        HippogryphRider = update("ehpr")
-        HumanBattleship = update("hbsh")
-        HumanFrigate = update("hdes")
-        IronCaptain = update("h01P")
-        IronGuard = update("h01O")
-        IronMagi = update("h01E")
-        IronMortarTeam = update("h001")
-        IronRifleman = update("h008")
-        Knight = update("h00L")
-        MagiDefender = update("h00K")
-        ManaAddict = update("H00R")
-        ManaAddictAlter = update("h00B")
-        Militia1 = update("h007")
-        Militia2 = update("h015")
-        MountainGiant = update("e005")
-        MurlocCliffRunner = update("nmcf")
-        MurlocReaver = update("nnmg")
-        MurlocSnareCaster = update("nmsn")
-        MurlocTideWarrior = update("nmtw")
-        NagaMyrmidon = update("nmyr")
-        NagaSiren = update("nnsw")
-        NagaRoyalGuard = update("nnrg")
-        Necromancer = update("unec")
-        NightElfBattleship = update("ebsh")
-        NightElfFrigate = update("edes")
-        NightElfRanger = update("earc")
-        NightElfEliteRanger = update("e000")
-        NightElfSentry = update("nwat")
-        Ogre = update("nogo")
-        OrcWarchief = update("owad")
-        Rogue = update("n00L")
-        SeigeEngine = update("h011")
-        SeigeEngineDamaged = update("hmtt")
-        SeigeGolem = update("nsgg")
-        ShiftMaster = update("E002")
-        ShiftMasterAlter = update("h00Q")
-        SkeletonArcher = update("nsca")
-        SkeletonWarrior = update("h00Q")
-        SkeletonMage = update("uskm")
-        SnapDragon = update("nsnp")
-        Sorceress = update("h00C")
-        Summoner = update("n018")
-        SupremeWizard = update("n00A")
-        StormSummoner = update("nchp")
-        Tactician = update("H009")
-        TacticianAlter = update("h00Y")
-        TimeMage = update("H00J")
-        TimeMageAlter = update("h00Z")
-        TrollAxethrower = update("nftr")
-        WarGolem = update("nwrg")
-        Warlock = update("nw2w")
-        WaterElemental1 = update("hwat")
-        WaterElemental2 = update("hwt2")
-        WaterElemental3 = update("hwt3")
-        WildhammerCottage = update("h01W")
-        WildhammerFarmLarge = update("h01F")
-        WildhammerFarm = update("h01U")
-        WildhammerMound = update("h01X")
-    }
-}
-
-function update(four: string): UnitType {
-    return { id: FourCC(four), four: four }
+    export const Arbalist = new UnitType("n00X")
+    export const AncientProtector = new UnitType("nwnr")
+    export const Assassin = new UnitType("nass")
+    export const Automation = new UnitType("n00F")
+    export const Brawler = new UnitType("E001")
+    export const BrawlerAlter = new UnitType("h00I")
+    export const Bandit = new UnitType("n002")
+    export const BanditLord = new UnitType("n005")
+    export const BanditSpearman = new UnitType("n003")
+    export const BattleGolem = new UnitType("narg")
+    export const BloodElfArcher = new UnitType("n00C")
+    export const BloodElfBreaker = new UnitType("hspt")
+    export const BloodElfMage = new UnitType("hmpr")
+    export const Captain1 = new UnitType("hcth")
+    export const Captain2 = new UnitType("h00S")
+    export const Catapult = new UnitType("hmtm")
+    export const Clockwerk = new UnitType("ncg2")
+    export const Commander = new UnitType("h00D")
+    export const DraeneiDarkslayer = new UnitType("ndrd")
+    export const DraeneiDemolisher = new UnitType("ncat")
+    export const DraeneiGuardian = new UnitType("ndrf")
+    export const DraeneiSeer = new UnitType("ndrs")
+    export const DraeneiVindicator = new UnitType("n00I")
+    export const DragonHawk = new UnitType("nws1")
+    export const DragonTurtle = new UnitType("nhyc")
+    export const DruidOfTheClaw = new UnitType("edoc")
+    export const Dryad = new UnitType("edry")
+    export const DwarfAxethrower = new UnitType("n006")
+    export const DwarfClansman = new UnitType("e00E")
+    export const DwarfElite = new UnitType("e00F")
+    export const Enforcer = new UnitType("n008")
+    export const EredarWarlock = new UnitType("nerw")
+    export const FelOrcWarlock = new UnitType("nchw")
+    export const Footman1 = new UnitType("hfoo")
+    export const Footman2 = new UnitType("h017")
+    export const Ghoul = new UnitType("ugho")
+    export const GiantSkeleton = new UnitType("nfgl")
+    export const Grunt = new UnitType("o002")
+    export const GryphonRider = new UnitType("hgry")
+    export const Gyrocopter = new UnitType("hgyr")
+    export const InfernalContraption = new UnitType("ninc")
+    export const InfernalJuggernaut = new UnitType("nina")
+    export const InfernalMachine = new UnitType("ninm")
+    export const HighElfApprenticeSwordsman = new UnitType("h00T")
+    export const HighElfArcher = new UnitType("nhea")
+    export const HighElfGuardian = new UnitType("h010")
+    export const HighElfHealer = new UnitType("nemi")
+    export const HighElfKnight = new UnitType("h005")
+    export const HighElfSwordsman = new UnitType("hhes")
+    export const HippogryphRider = new UnitType("ehpr")
+    export const HumanBattleship = new UnitType("hbsh")
+    export const HumanFrigate = new UnitType("hdes")
+    export const IronCaptain = new UnitType("h01P")
+    export const IronGuard = new UnitType("h01O")
+    export const IronMagi = new UnitType("h01E")
+    export const IronMortarTeam = new UnitType("h001")
+    export const IronRifleman = new UnitType("h008")
+    export const Knight = new UnitType("h00L")
+    export const MagiDefender = new UnitType("h00K")
+    export const ManaAddict = new UnitType("H00R")
+    export const ManaAddictAlter = new UnitType("h00B")
+    export const Militia1 = new UnitType("h007")
+    export const Militia2 = new UnitType("h015")
+    export const MountainGiant = new UnitType("e005")
+    export const MurlocCliffRunner = new UnitType("nmcf")
+    export const MurlocReaver = new UnitType("nnmg")
+    export const MurlocSnareCaster = new UnitType("nmsn")
+    export const MurlocTideWarrior = new UnitType("nmtw")
+    export const NagaMyrmidon = new UnitType("nmyr")
+    export const NagaSiren = new UnitType("nnsw")
+    export const NagaRoyalGuard = new UnitType("nnrg")
+    export const Necromancer = new UnitType("unec")
+    export const NightElfBattleship = new UnitType("ebsh")
+    export const NightElfFrigate = new UnitType("edes")
+    export const NightElfRanger = new UnitType("earc")
+    export const NightElfEliteRanger = new UnitType("e000")
+    export const NightElfSentry = new UnitType("nwat")
+    export const Ogre = new UnitType("nogo")
+    export const OrcWarchief = new UnitType("owad")
+    export const Rogue = new UnitType("n00L")
+    export const SeigeEngine = new UnitType("h011")
+    export const SeigeEngineDamaged = new UnitType("hmtt")
+    export const SeigeGolem = new UnitType("nsgg")
+    export const ShiftMaster = new UnitType("E002")
+    export const ShiftMasterAlter = new UnitType("h00Q")
+    export const SkeletonArcher = new UnitType("nsca")
+    export const SkeletonWarrior = new UnitType("h00Q")
+    export const SkeletonMage = new UnitType("uskm")
+    export const SnapDragon = new UnitType("nsnp")
+    export const Sorceress = new UnitType("h00C")
+    export const Summoner = new UnitType("n018")
+    export const SupremeWizard = new UnitType("n00A")
+    export const StormSummoner = new UnitType("nchp")
+    export const Tactician = new UnitType("H009")
+    export const TacticianAlter = new UnitType("h00Y")
+    export const TimeMage = new UnitType("H00J")
+    export const TimeMageAlter = new UnitType("h00Z")
+    export const TrollAxethrower = new UnitType("nftr")
+    export const WarGolem = new UnitType("nwrg")
+    export const Warlock = new UnitType("nw2w")
+    export const WaterElemental1 = new UnitType("hwat")
+    export const WaterElemental2 = new UnitType("hwt2")
+    export const WaterElemental3 = new UnitType("hwt3")
+    export const WildhammerCottage = new UnitType("h01W")
+    export const WildhammerFarmLarge = new UnitType("h01F")
+    export const WildhammerFarm = new UnitType("h01U")
+    export const WildhammerMound = new UnitType("h01X")
 }

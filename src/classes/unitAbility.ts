@@ -1,0 +1,276 @@
+import { Unit } from "lib/w3ts/index"
+import { Ability } from "./ability"
+
+export class UnitAbility extends Ability {
+    public readonly unit!: Unit
+
+    constructor(ability: Ability, unit: Unit) {
+
+        super(ability.mapAbility)
+        this.unit = unit
+    }
+
+
+    // Easy getters from Ability Class
+    public get activatedTooltip(): string {
+        return BlzGetAbilityActivatedTooltip(this.id, this.level)
+    }
+
+    public set activatedTooltip(value: string) {
+        BlzSetAbilityActivatedTooltip(this.id, value, this.level)
+    }
+
+    public get extendedTooltip(): string {
+        return BlzGetAbilityExtendedTooltip(this.id, this.level)
+    }
+
+    public set extendedTooltip(value: string) {
+        BlzSetAbilityExtendedTooltip(this.id, value, this.level)
+    }
+
+    public get tooltip(): string {
+        return BlzGetAbilityTooltip(this.id, this.level)
+    }
+
+    public set tooltip(value: string) {
+        BlzSetAbilityTooltip(this.id, value, this.level)
+    }
+
+    public get researchTooltip(): string {
+        return BlzGetAbilityResearchTooltip(this.id, this.level)
+    }
+
+    public set researchTooltip(value: string) {
+        BlzSetAbilityResearchTooltip(this.id, value, this.level)
+    }
+
+    public get researchExtendedTooltip(): string {
+        return BlzGetAbilityResearchExtendedTooltip(this.id, this.level)
+    }
+
+    public set researchExtendedTooltip(value: string) {
+        BlzSetAbilityResearchExtendedTooltip(this.id, value, this.level)
+    }
+
+    public get activatedExtendedTooltip(): string {
+        return BlzGetAbilityActivatedExtendedTooltip(this.id, this.level)
+    }
+
+    public set activatedExtendedTooltip(value: string) {
+        BlzSetAbilityActivatedExtendedTooltip(this.id, value, this.level)
+    }
+
+
+    // Getters and Setters unique
+    public get unitAbility(): ability {
+        return BlzGetUnitAbility(this.unit.handle, this.id)
+    }
+
+    public get level(): number {
+        return GetUnitAbilityLevel(this.unit.handle, this.id)
+    }
+
+    public set level(level: number) {
+        SetUnitAbilityLevel(this.unit.handle, this.id, level)
+    }
+
+    public set name(value: string) {
+        this.setField(ABILITY_SF_NAME, value)
+    }
+
+    public get levels(): number {
+        return this.getField(ABILITY_IF_LEVELS) as number
+    }
+
+    public get levelSkip(): number {
+        return this.getField(ABILITY_IF_LEVEL_SKIP_REQUIREMENT) as number
+    }
+
+    public get requiredLevel(): number {
+        return this.getField(ABILITY_IF_REQUIRED_LEVEL) as number
+    }
+
+    public get isHeroAbility(): boolean {
+        return this.getField(ABILITY_BF_HERO_ABILITY) as boolean
+    }
+
+    public get isItemAbility(): boolean {
+        return this.getField(ABILITY_BF_ITEM_ABILITY) as boolean
+    }
+
+    public get cooldown(): number {
+        return this.getLevelField(ABILITY_RLF_COOLDOWN) as number
+    }
+
+    public set cooldown(value: number) {
+        this.setLevelField(ABILITY_RLF_COOLDOWN, value)
+    }
+
+    public get buff(): string[] {
+        return
+    }
+
+    public get cooldownRemaining(): number {
+        return BlzGetUnitAbilityCooldownRemaining(this.unit.handle, this.id)
+    }
+
+    public endCooldown(): void {
+        BlzEndUnitAbilityCooldown(this.unit.handle, this.id)
+    }
+
+    public get manaCost(): number {
+        return this.getLevelField(ABILITY_ILF_MANA_COST) as number
+    }
+
+    public set manaCost(value: number) {
+        this.setLevelField(ABILITY_ILF_MANA_COST, value)
+    }
+
+    public get manaCostAllLevels(): number[] {
+        return this.getLevelFieldArray(ABILITY_ILF_MANA_COST) as number[]
+    }
+
+    public set manaCostAllLevels(value: number[]) {
+        this.setLevelFieldArray(ABILITY_ILF_MANA_COST, value)
+    }
+
+    public get castTime(): number {
+        return this.getLevelField(ABILITY_RLF_CASTING_TIME) as number
+    }
+
+    public set castTime(value: number) {
+        this.setLevelField(ABILITY_RLF_CASTING_TIME, value)
+    }
+
+    public get castTimeAllLevels(): number[] {
+        return this.getLevelFieldArray(ABILITY_RLF_CASTING_TIME) as number[]
+    }
+
+    public set castTimeAllLevels(value: number[]) {
+        this.setLevelFieldArray(ABILITY_RLF_CASTING_TIME, value)
+    }
+
+
+    /**
+     * Runs an function through all of the levels of a abilitylevelfield item
+     * @param field 
+     * @param expression this will be run on every level of the abilitylevelfield item
+     */
+    public forEachLevelField(field: abilitybooleanlevelfield | abilitystringlevelfield | abilityreallevelfield | abilityintegerlevelfield, expression: (value: string | number | boolean) => string | number | boolean): void {
+        for (let i = 0; i < this.levels; i++) {
+            this.setLevelField(field, expression(this.getLevelField(field, i)), i)
+        }
+    }
+
+    public setLevelFieldArray(field: abilitybooleanlevelfield | abilitystringlevelfield | abilityreallevelfield | abilityintegerlevelfield, value: string[] | number[] | boolean[]): void {
+        for (let i = 0; i < this.levels; i++) {
+            this.setLevelField(field, value[i])
+        }
+    }
+
+    /**
+     * Returns all levels of an abilitylevelfield as an array
+     * @param field 
+     * @returns an array of items from the abilitylevelfield for all levels
+     */
+    public getLevelFieldArray(field: abilitybooleanlevelfield | abilitystringlevelfield | abilityreallevelfield | abilityintegerlevelfield): string[] | number[] | boolean[] {
+        const fields = []
+
+        for (let i = 0; i < this.levels; i++) {
+            fields.push(this.getLevelField(field, i))
+        }
+
+        return fields
+    }
+
+    public setField(field: abilitybooleanfield | abilitystringfield | abilityrealfield | abilityintegerfield, value: boolean | number | string): boolean {
+        const fieldType = field.toString().substr(0, field.toString().indexOf(":"))
+
+        if (fieldType === "abilitybooleanfield" && typeof value === "boolean") {
+            return BlzSetAbilityBooleanField(this.unitAbility, field as abilitybooleanfield, value)
+        } else if (fieldType === "abilityintegerfield" && typeof value === "number") {
+            return BlzSetAbilityIntegerField(this.unitAbility, field as abilityintegerfield, value)
+        } else if (fieldType === "abilityrealfield" && typeof value === "number") {
+            return BlzSetAbilityRealField(this.unitAbility, field as abilityrealfield, value)
+        } else if (fieldType === "abilitystringfield" && typeof value === "string") {
+            return BlzSetAbilityStringField(this.unitAbility, field as abilitystringfield, value)
+        }
+
+        return false
+    }
+
+    public setLevelField(field: abilitybooleanlevelfield | abilitystringlevelfield | abilityreallevelfield | abilityintegerlevelfield, value: boolean | number | string, level: number = this.level): boolean {
+        const fieldType = field.toString().substr(0, field.toString().indexOf(":"))
+
+        if (fieldType === "abilitybooleanlevelfield" && typeof value === "boolean") {
+            return BlzSetAbilityBooleanLevelField(this.unitAbility, field as abilitybooleanlevelfield, level, value)
+        } else if (fieldType === "abilityintegerlevelfield" && typeof value === "number") {
+            return BlzSetAbilityIntegerLevelField(this.unitAbility, field as abilityintegerlevelfield, level, value)
+        } else if (fieldType === "abilityreallevelfield" && typeof value === "number") {
+            return BlzSetAbilityRealLevelField(this.unitAbility, field as abilityreallevelfield, level, value)
+        } else if (fieldType === "abilitystringlevelfield" && typeof value === "string") {
+            return BlzSetAbilityStringLevelField(this.unitAbility, field as abilitystringlevelfield, level, value)
+        }
+
+        return false
+    }
+
+    public getField(field: abilitybooleanfield | abilitystringfield | abilityrealfield | abilityintegerfield): (boolean | number | string) {
+        const fieldType = field.toString().substr(0, field.toString().indexOf(":"))
+
+        switch (fieldType) {
+            case "abilitybooleanfield": {
+                const fieldBool = field as abilitybooleanfield
+
+                return BlzGetAbilityBooleanField(this.unitAbility, fieldBool)
+            }
+            case "abilityintegerfield": {
+                const fieldInt = field as abilityintegerfield
+
+                return BlzGetAbilityIntegerField(this.unitAbility, fieldInt)
+            }
+            case "abilityrealfield": {
+                const fieldReal = field as abilityrealfield
+
+                return BlzGetAbilityRealField(this.unitAbility, fieldReal)
+            }
+            case "abilitystringfield": {
+                const fieldString = field as abilitystringfield
+
+                return BlzGetAbilityStringField(this.unitAbility, fieldString)
+            }
+            default:
+                return 0
+        }
+    }
+
+    public getLevelField(field: abilitybooleanlevelfield | abilitystringlevelfield | abilityreallevelfield | abilityintegerlevelfield, level: number = this.level): (boolean | number | string) {
+        const fieldType = field.toString().substr(0, field.toString().indexOf(":"))
+
+        switch (fieldType) {
+            case "abilitybooleanlevelfield": {
+                const fieldBool = field as abilitybooleanlevelfield
+
+                return BlzGetAbilityBooleanLevelField(this.unitAbility, fieldBool, level)
+            }
+            case "abilityintegerlevelfield": {
+                const fieldInt = field as abilityintegerlevelfield
+
+                return BlzGetAbilityIntegerLevelField(this.unitAbility, fieldInt, level)
+            }
+            case "abilityreallevelfield": {
+                const fieldReal = field as abilityreallevelfield
+
+                return BlzGetAbilityRealLevelField(this.unitAbility, fieldReal, level)
+            }
+            case "abilitystringlevelfield": {
+                const fieldString = field as abilitystringlevelfield
+
+                return BlzGetAbilityStringLevelField(this.unitAbility, fieldString, level)
+            }
+            default:
+                return 0
+        }
+    }
+
+}
