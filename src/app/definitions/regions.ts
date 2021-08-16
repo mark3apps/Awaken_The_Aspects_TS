@@ -2,13 +2,16 @@ import { Rectangle, Region } from "lib/w3ts/index"
 
 
 export namespace REGION {
-    export const BigTop: Region = new Region()
-    export const BigMiddle: Region = new Region()
-    export const BigBottom: Region = new Region()
-
+    export let BigTop: Region
+    export let BigMiddle: Region
+    export let BigBottom: Region
 
 
     export function define(): void {
+
+        BigTop = new Region()
+        BigMiddle = new Region()
+        BigBottom = new Region()
 
         BigTop.addRect(Rectangle.fromHandle(gg_rct_Big_Top_Left))
         BigTop.addRect(Rectangle.fromHandle(gg_rct_Big_Top_Left_Center))

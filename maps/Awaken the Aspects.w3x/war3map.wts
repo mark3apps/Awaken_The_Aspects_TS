@@ -12920,42 +12920,6 @@ STRING 4573
 It fights for the Alliance!
 }
 
-STRING 4574
-// Units: h01C (City Gate), Name (Name)
-{
-City Gate
-}
-
-STRING 4576
-// Units: h01G (City Gate), Name (Name)
-{
-City Gate
-}
-
-STRING 4578
-// Units: h01S (City Gate), Name (Name)
-{
-City Gate
-}
-
-STRING 4580
-// Units: h01T (City Gate), Name (Name)
-{
-City Gate
-}
-
-STRING 4582
-// Units: h01B (City Gate), Name (Name)
-{
-City Gate
-}
-
-STRING 4584
-// Units: h01D (City Gate), Name (Name)
-{
-City Gate
-}
-
 STRING 4586
 // Doodads: D012 (City Dome), Name (Name)
 {
@@ -13322,42 +13286,6 @@ STRING 4674
 Spawn Assassins
 }
 
-STRING 4681
-// Units: h01C (City Gate), EditorSuffix (Name - Editor Suffix)
-{
-(Open Vertical Right)
-}
-
-STRING 4682
-// Units: h01G (City Gate), EditorSuffix (Name - Editor Suffix)
-{
-(Closed Vertical Right)
-}
-
-STRING 4683
-// Units: h01S (City Gate), EditorSuffix (Name - Editor Suffix)
-{
-(Closed Horizontal Top)
-}
-
-STRING 4684
-// Units: h01T (City Gate), EditorSuffix (Name - Editor Suffix)
-{
-(Open Horizontal Top)
-}
-
-STRING 4685
-// Units: h01B (City Gate), EditorSuffix (Name - Editor Suffix)
-{
-(Closed Vertical Left)
-}
-
-STRING 4686
-// Units: h01D (City Gate), EditorSuffix (Name - Editor Suffix)
-{
-(Open Vertical Left)
-}
-
 STRING 4687
 // Units: hgyr (Gyrocopter), Name (Name)
 {
@@ -13489,46 +13417,10 @@ STRING 4718
 Caste Gate
 }
 
-STRING 4719
-// Units: h020 (Caste Gate), EditorSuffix (Name - Editor Suffix)
-{
-(Open Vertical Right)
-}
-
 STRING 4720
 // Units: h021 (Castle Gate), Name (Name)
 {
 Castle Gate
-}
-
-STRING 4721
-// Units: h021 (Castle Gate), EditorSuffix (Name - Editor Suffix)
-{
-(Closed Vertical Right)
-}
-
-STRING 4722
-// Units: h022 (Caste Gate), Name (Name)
-{
-Caste Gate
-}
-
-STRING 4723
-// Units: h022 (Caste Gate), EditorSuffix (Name - Editor Suffix)
-{
-(Open Horizonal Bottom)
-}
-
-STRING 4724
-// Units: h023 (Castle Gate), Name (Name)
-{
-Castle Gate
-}
-
-STRING 4725
-// Units: h023 (Castle Gate), EditorSuffix (Name - Editor Suffix)
-{
-(Closed Horizontal Bottom)
 }
 
 STRING 4727
@@ -14087,5 +13979,41 @@ STRING 4830
 // Units: nska (Skeleton Archer BAD), Name (Name)
 {
 Skeleton Archer BAD
+}
+
+STRING 4831
+// Units: h01C (Dwarven Gate), Name (Name)
+{
+Dwarven Gate
+}
+
+STRING 4832
+// Units: h01C (Dwarven Gate), EditorSuffix (Name - Editor Suffix)
+{
+(Open)
+}
+
+STRING 4833
+// Units: h01G (Dwarven Gate), Name (Name)
+{
+Dwarven Gate
+}
+
+STRING 4834
+// Units: h01G (Dwarven Gate), EditorSuffix (Name - Editor Suffix)
+{
+(Closed)
+}
+
+STRING 4835
+// Units: h020 (Caste Gate), EditorSuffix (Name - Editor Suffix)
+{
+(Open)
+}
+
+STRING 4836
+// Units: h021 (Castle Gate), EditorSuffix (Name - Editor Suffix)
+{
+(Closed)
 }
 

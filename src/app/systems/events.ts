@@ -10,10 +10,8 @@ export namespace EVENT {
     export const unitTrained = new Trigger()
     export const mapStart = new Trigger()
 
-
-    export function define():void {
-
-
+    
+    export function define(): void {
         mapStart.registerTimerEvent(1, false)
         unitDies.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH)
         unitAttacked.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
@@ -23,7 +21,5 @@ export namespace EVENT {
         unitOrdered.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_UNIT_ORDER)
         unitSummoned.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SUMMON)
         unitTrained.registerAnyUnitEvent(EVENT_PLAYER_UNIT_TRAIN_FINISH)
-        
     }
 }
-    

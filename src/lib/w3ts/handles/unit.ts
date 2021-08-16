@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /** @noSelfInFile **/
 
+import { Log } from "app/systems/log"
 import { UnitData } from "classes/unitData"
+import { UnitType } from "classes/unitType"
 import { Coordinate } from "lib/resources/coordinate"
+import { CC2Four } from "lib/resources/library"
 import { OrderType } from "lib/resources/orderType"
 import { OrderId } from "../globals/order"
 import { Destructable } from "./destructable"
@@ -16,6 +19,9 @@ import { Rectangle } from "./rect"
 import { Region } from "./region"
 import { Sound } from "./sound"
 import { Widget } from "./widget"
+
+export type UnitField = unitintegerfield | unitrealfield | unitstringfield | unitbooleanfield | unitweaponbooleanfield | unitweaponintegerfield | unitweaponrealfield | unitweaponstringfield
+export type UnitFieldValue = boolean | number | string
 
 export class Unit extends Widget {
 	public readonly handle!: unit
@@ -708,7 +714,7 @@ export class Unit extends Widget {
 		return BlzGetUnitDiceSides(this.handle, weaponIndex)
 	}
 
-	public getField(field: unitbooleanfield | unitintegerfield | unitrealfield | unitstringfield): (boolean | number | string) {
+	public getField(field: UnitField, index = 0): UnitFieldValue {
 		const fieldType = field.toString().substr(0, field.toString().indexOf(":"))
 
 		switch (fieldType) {
@@ -731,6 +737,27 @@ export class Unit extends Widget {
 				const fieldString: unitstringfield = field as unitstringfield
 
 				return BlzGetUnitStringField(this.handle, fieldString)
+			}
+
+			case "unitweaponbooleanfield": {
+				const fieldBool: unitweaponbooleanfield = field as unitweaponbooleanfield
+
+				return BlzGetUnitWeaponBooleanField(this.handle, fieldBool, index)
+			}
+			case "unitweaponintegerfield": {
+				const fieldInt: unitweaponintegerfield = field as unitweaponintegerfield
+
+				return BlzGetUnitWeaponIntegerField(this.handle, fieldInt, index)
+			}
+			case "unitweaponrealfield": {
+				const fieldReal: unitweaponrealfield = field as unitweaponrealfield
+
+				return BlzGetUnitWeaponRealField(this.handle, fieldReal, index)
+			}
+			case "unitweaponstringfield": {
+				const fieldString: unitweaponstringfield = field as unitweaponstringfield
+
+				return BlzGetUnitWeaponStringField(this.handle, fieldString, index)
 			}
 			default:
 				return 0
@@ -1070,6 +1097,41 @@ export class Unit extends Widget {
 		KillUnit(this.handle)
 	}
 
+	public set lifePercent(value: number){
+		this.life = this.maxLife * (value / 100)
+	}
+	
+	public get lifePercent(): number {
+		return this.life / this.maxLife * 100
+	}
+
+	public set manaPercent(value: number){
+		this.mana = this.maxMana * (value / 100)
+	}
+	
+	public get manaPercent(): number {
+		return this.mana / this.maxMana * 100
+	}
+
+	public get type(): UnitType {
+		return new UnitType(CC2Four(this.id))
+	}
+
+	public replace(newUnitType: UnitType): Unit {
+		this.show = false
+		
+		Log.Information("Replacing Unit")
+
+		const newUnit = new Unit(this.owner, newUnitType.id, this.x, this.y, this.facing)
+		newUnit.lifePercent = this.lifePercent
+		newUnit.manaPercent = this.manaPercent
+
+		this.kill()
+		this.destroy()
+
+		return newUnit
+	}
+
 	/**
 	 * Locks a unit's bone to face the target until ResetUnitLookAt is called.
 	 *
@@ -1263,7 +1325,7 @@ export class Unit extends Widget {
 		BlzSetUnitFacingEx(this.handle, facingAngle)
 	}
 
-	public setField(field: unitbooleanfield | unitintegerfield | unitrealfield | unitstringfield, value: boolean | number | string) {
+	public setField(field: UnitField, value: UnitFieldValue, index = 0) {
 		const fieldType = field.toString().substr(0, field.toString().indexOf(":"))
 
 		if (fieldType === "unitbooleanfield" && typeof value === "boolean") {
@@ -1274,6 +1336,14 @@ export class Unit extends Widget {
 			return BlzSetUnitRealField(this.handle, field as unitrealfield, value)
 		} else if (fieldType === "unitstringfield" && typeof value === "string") {
 			return BlzSetUnitStringField(this.handle, field as unitstringfield, value)
+		} else if (fieldType === "unitweaponbooleanfield" && typeof value === "boolean") {
+			return BlzSetUnitWeaponBooleanField(this.handle, field as unitweaponbooleanfield, index, value)
+		} else if (fieldType === "unitweaponintegerfield" && typeof value === "number") {
+			return BlzSetUnitWeaponIntegerField(this.handle, field as unitweaponintegerfield, index, value)
+		} else if (fieldType === "unitweaponrealfield" && typeof value === "number") {
+			return BlzSetUnitWeaponRealField(this.handle, field as unitweaponrealfield, index, value)
+		} else if (fieldType === "unitweaponstringfield" && typeof value === "string") {
+			return BlzSetUnitWeaponStringField(this.handle, field as unitweaponstringfield, index, value)
 		}
 
 		return false

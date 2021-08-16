@@ -1,5 +1,5 @@
-import { BrawlerHeroType } from "classes/heroes/brawler"
-import { ManaAddictHeroType } from "classes/heroes/manaAddict"
+import { BrawlerHeroType } from "classes/heroes/brawlerHeroType"
+import { ManaAddictHeroType } from "classes/heroes/manaAddictHeroType"
 
 
 

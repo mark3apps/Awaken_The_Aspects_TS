@@ -1280,6 +1280,13 @@ export namespace ID {
     }
 
     export const enum Unit {
+    // Custom Units
+    DwarvenGateOpen = "h01C",
+    DwarvenGateClosed = "h01G",
+    CastleGateOpen = "h020",
+    CastleGateClosed = "h021",
+
+    // Default Units
 	Abomination = "uabo", // model: Abomination	 scale: 0,9	 selectScale: 2,1
 	Abominationcinematic = "uabc", // model: AbominationCIN	 scale: 0,9	 selectScale: 2,1
 	Acolyte = "uaco", // model: Acolyte	

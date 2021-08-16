@@ -98,7 +98,8 @@ export class Group extends Handle<group> {
    * See http://wc3c.net/showthread.php?t=104464.
    */
   public get first() {
-    return Unit.fromHandle(FirstOfGroup(this.handle));
+    const unit = FirstOfGroup(this.handle)
+    return unit == null ? null : Unit.fromHandle(unit);
   }
 
   public get size(): number {

@@ -1,4 +1,5 @@
 import { UnitType } from "classes/unitType"
+import { ID } from "lib/w3ts/globals/ids"
 
 export namespace UNIT_TYPE {
 
@@ -109,4 +110,8 @@ export namespace UNIT_TYPE {
     export const WildhammerFarmLarge = new UnitType("h01F")
     export const WildhammerFarm = new UnitType("h01U")
     export const WildhammerMound = new UnitType("h01X")
+    export const DwarvenGateClosed = new UnitType(ID.Unit.DwarvenGateClosed)
+    export const DwarvenGateOpen = new UnitType(ID.Unit.DwarvenGateOpen)
+    export const CastleGateOpen = new UnitType(ID.Unit.CastleGateOpen)
+    export const CastleGateClosed = new UnitType(ID.Unit.CastleGateClosed)
 }
