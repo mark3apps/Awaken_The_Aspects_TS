@@ -2,8 +2,6 @@ import { UNIT_TYPE } from "app/definitions/unitTypes"
 import { PATHING } from "app/systems/pathing"
 import { UnitType } from "classes/unitType"
 import { DeathSpawn } from "lib/resources/deathSpawn"
-import { ATTACH } from "lib/w3ts/globals/attachmentPoints"
-import { MODEL } from "lib/w3ts/globals/models"
 import { Effect, Unit } from "lib/w3ts/index"
 import { EVENT } from "../../systems/events"
 
@@ -15,9 +13,8 @@ export namespace DEATH_SPAWN {
     export function define(): void {
 
         add(UNIT_TYPE.Knight, { amount: 1, unitId: UNIT_TYPE.Captain1 })
-        add(UNIT_TYPE.WaterElemental2, { amount: 1, unitId: UNIT_TYPE.WaterElemental1, effectPath: MODEL.Ability.avatarCaster, effectAttach: ATTACH.Point.chest })
-        add(UNIT_TYPE.WaterElemental3, { amount: 1, unitId: UNIT_TYPE.WaterElemental2, effectPath: MODEL.Ability.avatarCaster, effectAttach: ATTACH.Point.chest })
-        add(UNIT_TYPE.Automation, { amount: 2, unitId: UNIT_TYPE.Clockwerk })
+        add(UNIT_TYPE.WaterElemental2, { amount: 1, unitId: UNIT_TYPE.WaterElemental1 })
+        add(UNIT_TYPE.WaterElemental3, { amount: 1, unitId: UNIT_TYPE.WaterElemental2 })
         add(UNIT_TYPE.SeigeGolem, { amount: 2, unitId: UNIT_TYPE.WarGolem })
         add(UNIT_TYPE.WarGolem, { amount: 2, unitId: UNIT_TYPE.BattleGolem })
         add(UNIT_TYPE.HippogryphRider, { amount: 1, unitId: UNIT_TYPE.NightElfRanger, chance: 0.6 })
@@ -25,6 +22,13 @@ export namespace DEATH_SPAWN {
         add(UNIT_TYPE.SeigeEngine, { amount: 1, unitId: UNIT_TYPE.Gyrocopter })
         add(UNIT_TYPE.SeigeEngine, { amount: 1, unitId: UNIT_TYPE.SeigeEngineDamaged })
         add(UNIT_TYPE.SeigeEngineDamaged, { amount: 1, unitId: UNIT_TYPE.Gyrocopter })
+
+        add(UNIT_TYPE.Nerubianziggurat, {amount: 7, unitId: UNIT_TYPE.SkeletonWarrior, chance: 0.7})
+        add(UNIT_TYPE.Nerubianziggurat, {amount: 5, unitId: UNIT_TYPE.SkeletonArcher, chance: 0.7})
+
+        add(UNIT_TYPE.MercTent, {amount: 5, unitId: UNIT_TYPE.Bandit, chance: 0.8})
+        add(UNIT_TYPE.MercTent, {amount: 3, unitId: UNIT_TYPE.BanditSpearman, chance: 0.6})
+        add(UNIT_TYPE.MercTent, {amount: 2, unitId: UNIT_TYPE.Assassin, chance: 0.4})
 
         add(UNIT_TYPE.WildhammerCottage, { amount: 3, unitId: UNIT_TYPE.DwarfClansman, chance: 0.6 })
         add(UNIT_TYPE.WildhammerCottage, { amount: 3, unitId: UNIT_TYPE.DwarfAxethrower, chance: 0.6 })

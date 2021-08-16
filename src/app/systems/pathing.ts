@@ -13,7 +13,6 @@ import { Log } from "./log"
 const SpawnedTypes = [
     UNIT_TYPE.Arbalist.id,
     UNIT_TYPE.Assassin.id,
-    UNIT_TYPE.Automation.id,
     UNIT_TYPE.Bandit.id,
     UNIT_TYPE.BanditLord.id,
     UNIT_TYPE.BanditSpearman.id,
@@ -24,7 +23,6 @@ const SpawnedTypes = [
     UNIT_TYPE.Captain1.id,
     UNIT_TYPE.Captain2.id,
     UNIT_TYPE.Catapult.id,
-    UNIT_TYPE.Clockwerk.id,
     UNIT_TYPE.Commander.id,
     UNIT_TYPE.DraeneiDarkslayer.id,
     UNIT_TYPE.DraeneiDemolisher.id,

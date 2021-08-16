@@ -1285,6 +1285,7 @@ export namespace ID {
     DwarvenGateClosed = "h01G",
     CastleGateOpen = "h020",
     CastleGateClosed = "h021",
+    MercTent = "n00M",
 
     // Default Units
 	Abomination = "uabo", // model: Abomination	 scale: 0,9	 selectScale: 2,1

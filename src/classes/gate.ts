@@ -93,12 +93,12 @@ export class Gate {
                 new Gate(u)
             }
 
-
             g.removeUnit(u)
             u = g.first
         }
         g.destroy()
 
+        // Event Setup
         EVENT.unitDies.add(() => {
             if (Unit.fromEvent().inGroup(Gate.unitGroup)) {
                 const gate = Gate.fromUnit(Unit.fromEvent())
@@ -106,8 +106,15 @@ export class Gate {
             }
         })
 
+        EVENT.unitAttacked.add(() => {
+            if (Unit.fromEvent().inGroup(Gate.unitGroup)) {
+                Unit.fromEvent().setAnimation(ANIMATION.Gate.standHit)
+            }
+        })
+
         Log.Information("Finished Defining Gates")
     }
+
 
     public static start(timeout: number, radius = 500): void {
         Gate.radius = radius

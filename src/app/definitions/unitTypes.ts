@@ -6,7 +6,6 @@ export namespace UNIT_TYPE {
     export const Arbalist = new UnitType("n00X")
     export const AncientProtector = new UnitType("nwnr")
     export const Assassin = new UnitType("nass")
-    export const Automation = new UnitType("n00F")
     export const Brawler = new UnitType("E001")
     export const BrawlerAlter = new UnitType("h00I")
     export const Bandit = new UnitType("n002")
@@ -19,7 +18,6 @@ export namespace UNIT_TYPE {
     export const Captain1 = new UnitType("hcth")
     export const Captain2 = new UnitType("h00S")
     export const Catapult = new UnitType("hmtm")
-    export const Clockwerk = new UnitType("ncg2")
     export const Commander = new UnitType("h00D")
     export const DraeneiDarkslayer = new UnitType("ndrd")
     export const DraeneiDemolisher = new UnitType("ncat")
@@ -89,7 +87,7 @@ export namespace UNIT_TYPE {
     export const ShiftMaster = new UnitType("E002")
     export const ShiftMasterAlter = new UnitType("h00Q")
     export const SkeletonArcher = new UnitType("nsca")
-    export const SkeletonWarrior = new UnitType("h00Q")
+    export const SkeletonWarrior = new UnitType("nske")
     export const SkeletonMage = new UnitType("uskm")
     export const SnapDragon = new UnitType("nsnp")
     export const Sorceress = new UnitType("h00C")
@@ -114,4 +112,7 @@ export namespace UNIT_TYPE {
     export const DwarvenGateOpen = new UnitType(ID.Unit.DwarvenGateOpen)
     export const CastleGateOpen = new UnitType(ID.Unit.CastleGateOpen)
     export const CastleGateClosed = new UnitType(ID.Unit.CastleGateClosed)
+    export const MercTent = new UnitType(ID.Unit.MercTent)
+    export const Nerubianziggurat = new UnitType(ID.Unit.Nerubianziggurat)
+    
 }
