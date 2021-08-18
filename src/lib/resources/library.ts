@@ -1,3 +1,4 @@
+
 import { Unit } from "lib/w3ts/index"
 import { Coordinate } from "./coordinate"
 
@@ -21,15 +22,11 @@ export function ValueFactor(level: number, base: number, previousFactor: number,
 export function PolarProjectionCoordinates(x: number, y: number, dist: number, angle: number): Coordinate {
     const newX = x + dist * Cos(angle * bj_DEGTORAD)
     const newY = y + dist * Sin(angle * bj_DEGTORAD)
-    return {x: newX, y: newY}
+    return { x: newX, y: newY }
 }
 
-export function DistanceBetweenCoordinates(x1: number, y1: number, x2: number, y2: number): number {
-    return SquareRoot(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)))
-}
-
-export function DistanceBetweenUnits(unitA: Unit, unitB: Unit): number {
-    return DistanceBetweenCoordinates(unitA.x, unitA.y, unitB.x, unitB.y)
+export function DistanceBetweenCoordinates(c1: Coordinate, c2: Coordinate): number {
+    return SquareRoot(((c2.x - c1.x) * (c2.x - c1.x)) + ((c2.y - c1.y) * (c2.y - c1.y)))
 }
 
 export function AngleBetweenCoordinates(x1: number, y1: number, x2: number, y2: number): number {
@@ -39,3 +36,4 @@ export function AngleBetweenCoordinates(x1: number, y1: number, x2: number, y2: 
 export function AngleBetweenUnits(unitA: Unit, unitB: Unit): number {
     return AngleBetweenCoordinates(unitA.x, unitA.y, unitB.x, unitB.y)
 }
+

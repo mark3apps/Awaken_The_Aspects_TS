@@ -8,6 +8,7 @@ import { Coordinate } from "lib/resources/coordinate"
 import { CC2Four } from "lib/resources/library"
 import { OrderType } from "lib/resources/orderType"
 import { OrderId } from "../globals/order"
+import { PrimaryAttribute } from "../globals/primaryAttribute"
 import { Destructable } from "./destructable"
 import { Force } from "./force"
 import { Group } from "./group"
@@ -28,7 +29,7 @@ export class Unit extends Widget {
 	public data: UnitData
 
 	private static data: UnitData[] = []
-	
+
 	/**
 	 * Creates a unit.
 	 * @param owner The owner of the unit.
@@ -127,6 +128,26 @@ export class Unit extends Widget {
 
 	public get canSleep(): boolean {
 		return UnitCanSleep(this.handle)
+	}
+
+	public get attack1Base(): number {
+		return this.getField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, 1) as number
+	}
+
+	public set attack1Base(value: number) {
+		this.setField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, value, 1)
+	}
+
+	public get attack2Base(): number {
+		return this.getField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, 2) as number
+	}
+
+	public set attack2Base(value: number) {
+		this.setField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, value, 2)
+	}
+
+	public get primaryAttribute(): PrimaryAttribute {
+		return this.getField(UNIT_IF_PRIMARY_ATTRIBUTE) as PrimaryAttribute
 	}
 
 	public get collisionSize(): number {
@@ -457,12 +478,20 @@ export class Unit extends Widget {
 	}
 
 	/**
-	 * Sets a single custom integer for a unit.
-	 *
-	 * @note This value is not used by any standard mechanisms in Warcraft III.
-	 */
+ * Sets a single custom integer for a unit.
+ *
+ * @note This value is not used by any standard mechanisms in Warcraft III.
+ */
 	public set userData(value: number) {
 		SetUnitUserData(this.handle, value)
+	}
+
+	public set heroLevel(value: number) {
+		value > this.getHeroLevel() ? SetHeroLevel(this.handle, value, true) : SetHeroLevel(this.handle, value, false)
+	}
+
+	public get heroLevel(): number {
+		return GetHeroLevel(this.handle)
 	}
 
 	public set waygateActive(flag: boolean) {
@@ -500,6 +529,15 @@ export class Unit extends Widget {
 	 */
 	public set y(value: number) {
 		SetUnitY(this.handle, value)
+	}
+
+	public get coordinate(): Coordinate {
+		return { x: this.x, y: this.y }
+	}
+
+	public set coordinate(value: Coordinate) {
+		this.x = value.x
+		this.y = value.y
 	}
 
 	public get z(): number {
@@ -808,6 +846,23 @@ export class Unit extends Widget {
 		BlzUnitHideAbility(this.handle, abilId, false)
 	}
 
+	public distanceFromUnit(unit: Unit): number {
+		return SquareRoot(((unit.x - this.x) * (unit.x - this.x)) + ((unit.y - this.y) * (unit.y - this.y)))
+	}
+
+	public angleBetweenUnit(unit: Unit): number {
+		return bj_RADTODEG * Atan2(unit.y - this.y, unit.x - this.x)
+	}
+
+	public polarOffset(dist: number, angle: number): Coordinate {
+		return { x: this.x + dist * Cos(angle * bj_DEGTORAD), y: this.y + dist * Sin(angle * bj_DEGTORAD) }
+	}
+
+	public movePolarOffset(dist: number, angle: number): void {
+		this.coordinate = this.polarOffset(dist, angle)
+
+	}
+
 	/**
 	 * Increases the level of a unit's ability by 1.
 	 * @param abilCode The four digit rawcode representation of the ability.
@@ -1097,29 +1152,33 @@ export class Unit extends Widget {
 		KillUnit(this.handle)
 	}
 
-	public set lifePercent(value: number){
+	public set lifePercent(value: number) {
 		this.life = this.maxLife * (value / 100)
 	}
-	
+
 	public get lifePercent(): number {
 		return this.life / this.maxLife * 100
 	}
 
-	public set manaPercent(value: number){
+	public set manaPercent(value: number) {
 		this.mana = this.maxMana * (value / 100)
 	}
-	
+
 	public get manaPercent(): number {
 		return this.mana / this.maxMana * 100
 	}
 
+	public get four(): string {
+		return CC2Four(this.id)
+	}
+
 	public get type(): UnitType {
-		return new UnitType(CC2Four(this.id))
+		return new UnitType(this.four)
 	}
 
 	public replace(newUnitType: UnitType): Unit {
 		this.show = false
-		
+
 		Log.Information("Replacing Unit")
 
 		const newUnit = new Unit(this.owner, newUnitType.id, this.x, this.y, this.facing)

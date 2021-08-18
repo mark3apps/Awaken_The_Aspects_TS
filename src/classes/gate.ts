@@ -65,7 +65,7 @@ export class Gate {
         this.player = unit.owner
         this.gateType = GateType.get(unit)
         this.facing = unit.facing
-        this.coordinate = unit.coordinates
+        this.coordinate = unit.coordinate
         this.state = GateState.open
 
         Gate.all.push(this)
@@ -85,18 +85,14 @@ export class Gate {
         const g = new Group()
         g.enumUnitsInRect(Rectangle.getPlayableMap(), null)
 
-        let u = g.first
-        while (u != null) {
-
+        g.firstLoop((u) => {
             if (GateType.typeIds.indexOf(u.typeId) != -1 && u != null) {
                 Log.Debug("Unit", u.name, u.owner.name)
                 new Gate(u)
             }
-
-            g.removeUnit(u)
-            u = g.first
-        }
+        })
         g.destroy()
+
 
         // Event Setup
         EVENT.unitDies.add(() => {
@@ -153,10 +149,7 @@ export class Gate {
         const check: GateCheck = { enemies: 0, allies: 0, friendlyHeroes: 0 }
 
         g.enumUnitsInRange(gate.unit.x, gate.unit.y, range, null)
-
-        let u = g.first
-        while (u != null) {
-
+        g.firstLoop((u) => {
             if (u.isAlive()) {
                 if (u.isAlly(gate.unit)) {
                     check.allies += 1
@@ -168,10 +161,7 @@ export class Gate {
                     check.enemies += 1
                 }
             }
-
-            g.removeUnit(u)
-            u = g.first
-        }
+        })
         g.destroy()
 
         return check

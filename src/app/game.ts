@@ -49,11 +49,13 @@ export namespace Game {
 
 
         
-        if (Log.logLevel >= LogLevel.Information) {
+        if (Log.logLevel <= LogLevel.Information) {
             const hero = new Unit(Players[0], UNIT_TYPE.ShiftMaster.id, Rectangle.getPlayableMap().centerX, Rectangle.getPlayableMap().centerY, 0)
-            hero.setHeroLevel(100, true)
-            hero.setField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, 2500, 1)
-            hero.setField(UNIT_IF_STRENGTH, 1500)
+            hero.heroLevel = 100
+            hero.attack1Base = 2500
+            hero.strength = 1000
+            hero.armor = 500
+            hero.moveSpeed = 500
         }
     }
 

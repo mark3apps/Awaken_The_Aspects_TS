@@ -1,174 +1,199 @@
 /** @noSelfInFile **/
 
-import { Handle } from "./handle";
-import { MapPlayer } from "./player";
-import { Point } from "./point";
-import { Rectangle } from "./rect";
-import { Unit } from "./unit";
-import { Widget } from "./widget";
+import { Handle } from "./handle"
+import { MapPlayer } from "./player"
+import { Point } from "./point"
+import { Rectangle } from "./rect"
+import { Unit } from "./unit"
+import { Widget } from "./widget"
 
 export class Group extends Handle<group> {
-  constructor() {
-    if (Handle.initFromHandle()) {
-      super();
-    } else {
-      super(CreateGroup());
-    }
-  }
+	constructor() {
+		if (Handle.initFromHandle()) {
+			super()
+		} else {
+			super(CreateGroup())
+		}
+	}
 
-  public addGroupFast(addGroup: Group): number {
-    return BlzGroupAddGroupFast(this.handle, addGroup.handle);
-  }
+	public addGroupFast(addGroup: Group): number {
+		return BlzGroupAddGroupFast(this.handle, addGroup.handle)
+	}
 
-  public addUnit(whichUnit: Unit): boolean {
-    return GroupAddUnit(this.handle, whichUnit.handle);
-  }
+	public addUnit(whichUnit: Unit): boolean {
+		return GroupAddUnit(this.handle, whichUnit.handle)
+	}
 
-  public clear() {
-    GroupClear(this.handle);
-  }
+	public clear(): void {
+		GroupClear(this.handle)
+	}
 
-  public destroy() {
-    DestroyGroup(this.handle);
-  }
+	public destroy(): void {
+		DestroyGroup(this.handle)
+	}
 
-  public enumUnitsInRange(x: number, y: number, radius: number, filter: boolexpr | (() => boolean)) {
-    GroupEnumUnitsInRange(this.handle, x, y, radius, typeof filter === "function" ? Filter(filter) : filter);
-  }
+	public enumUnitsInRange(x: number, y: number, radius: number, filter: boolexpr | (() => boolean)): void {
+		GroupEnumUnitsInRange(this.handle, x, y, radius, typeof filter === "function" ? Filter(filter) : filter)
+	}
 
-  /**
-   * @bug Causes irregular behavior when used with large numbers
-   */
-  public enumUnitsInRangeCounted(x: number, y: number, radius: number, filter: boolexpr | (() => boolean), countLimit: number) {
-    GroupEnumUnitsInRangeCounted(this.handle, x, y, radius, typeof filter === "function" ? Filter(filter) : filter, countLimit);
-  }
+	/**
+	 * @bug Causes irregular behavior when used with large numbers
+	 */
+	public enumUnitsInRangeCounted(x: number, y: number, radius: number, filter: boolexpr | (() => boolean), countLimit: number): void {
+		GroupEnumUnitsInRangeCounted(this.handle, x, y, radius, typeof filter === "function" ? Filter(filter) : filter, countLimit)
+	}
 
-  public enumUnitsInRangeOfPoint(whichPoint: Point, radius: number, filter: boolexpr | (() => boolean)) {
-    GroupEnumUnitsInRangeOfLoc(this.handle, whichPoint.handle, radius, typeof filter === "function" ? Filter(filter) : filter);
-  }
+	public enumUnitsInRangeOfPoint(whichPoint: Point, radius: number, filter: boolexpr | (() => boolean)): void {
+		GroupEnumUnitsInRangeOfLoc(this.handle, whichPoint.handle, radius, typeof filter === "function" ? Filter(filter) : filter)
+	}
 
-  /**
-   * @bug Causes irregular behavior when used with large numbers
-   */
-  public enumUnitsInRangeOfPointCounted(whichPoint: Point, radius: number, filter: boolexpr | (() => boolean), countLimit: number) {
-    GroupEnumUnitsInRangeOfLocCounted(this.handle, whichPoint.handle, radius, typeof filter === "function" ? Filter(filter) : filter, countLimit);
-  }
+	/**
+	 * @bug Causes irregular behavior when used with large numbers
+	 */
+	public enumUnitsInRangeOfPointCounted(whichPoint: Point, radius: number, filter: boolexpr | (() => boolean), countLimit: number): void {
+		GroupEnumUnitsInRangeOfLocCounted(this.handle, whichPoint.handle, radius, typeof filter === "function" ? Filter(filter) : filter, countLimit)
+	}
 
-  public enumUnitsInRect(r: Rectangle, filter: boolexpr | (() => boolean)) {
-    GroupEnumUnitsInRect(this.handle, r.handle, typeof filter === "function" ? Filter(filter) : filter);
-  }
+	public enumUnitsInRect(r: Rectangle, filter: boolexpr | (() => boolean)): void {
+		GroupEnumUnitsInRect(this.handle, r.handle, typeof filter === "function" ? Filter(filter) : filter)
+	}
 
-  /**
-   * @bug Causes irregular behavior when used with large numbers
-   */
-  public enumUnitsInRectCounted(r: Rectangle, filter: boolexpr | (() => boolean), countLimit: number) {
-    GroupEnumUnitsInRectCounted(this.handle, r.handle, typeof filter === "function" ? Filter(filter) : filter, countLimit);
-  }
+	/**
+	 * @bug Causes irregular behavior when used with large numbers
+	 */
+	public enumUnitsInRectCounted(r: Rectangle, filter: boolexpr | (() => boolean), countLimit: number): void {
+		GroupEnumUnitsInRectCounted(this.handle, r.handle, typeof filter === "function" ? Filter(filter) : filter, countLimit)
+	}
 
-  /**
-   * @note In contrast to other Enum-functions this function enumarates units with locust.
-   */
-  public enumUnitsOfPlayer(whichPlayer: MapPlayer, filter: boolexpr | (() => boolean)) {
-    GroupEnumUnitsOfPlayer(this.handle, whichPlayer.handle, typeof filter === "function" ? Filter(filter) : filter);
-  }
+	/**
+	 * @note In contrast to other Enum-functions this function enumarates units with locust.
+	 */
+	public enumUnitsOfPlayer(whichPlayer: MapPlayer, filter: boolexpr | (() => boolean)): void {
+		GroupEnumUnitsOfPlayer(this.handle, whichPlayer.handle, typeof filter === "function" ? Filter(filter) : filter)
+	}
 
-  public enumUnitsOfType(unitName: string, filter: boolexpr | (() => boolean)) {
-    GroupEnumUnitsOfType(this.handle, unitName, typeof filter === "function" ? Filter(filter) : filter);
-  }
+	public enumUnitsOfType(unitName: string, filter: boolexpr | (() => boolean)): void {
+		GroupEnumUnitsOfType(this.handle, unitName, typeof filter === "function" ? Filter(filter) : filter)
+	}
 
-  /**
-   * @bug Causes irregular behavior when used with large numbers
-   */
-  public enumUnitsOfTypeCounted(unitName: string, filter: boolexpr | (() => boolean), countLimit: number) {
-    GroupEnumUnitsOfTypeCounted(this.handle, unitName, typeof filter === "function" ? Filter(filter) : filter, countLimit);
-  }
+	/**
+	 * @bug Causes irregular behavior when used with large numbers
+	 */
+	public enumUnitsOfTypeCounted(unitName: string, filter: boolexpr | (() => boolean), countLimit: number): void {
+		GroupEnumUnitsOfTypeCounted(this.handle, unitName, typeof filter === "function" ? Filter(filter) : filter, countLimit)
+	}
 
-  public enumUnitsSelected(whichPlayer: MapPlayer, filter: boolexpr | (() => boolean)) {
-    GroupEnumUnitsSelected(this.handle, whichPlayer.handle, typeof filter === "function" ? Filter(filter) : filter);
-  }
+	public enumUnitsSelected(whichPlayer: MapPlayer, filter: boolexpr | (() => boolean)): void {
+		GroupEnumUnitsSelected(this.handle, whichPlayer.handle, typeof filter === "function" ? Filter(filter) : filter)
+	}
 
-  public for(callback: () => void) {
-    ForGroup(this.handle, callback);
-  }
+	public enumUnitsOfTypeID(unitId: string | number): void {
+		this.enumUnitsInRect(Rectangle.getWorldBounds(), () =>{
+			return (typeof unitId === "string" ? FourCC(unitId) : unitId) == Unit.fromFilter().typeId
+		})
+	}
 
-  /**
-   * @bug May return `null` even if there are still units in the group.
-   * This happens when a unit in the group dies and decays since the group still
-   * holds a reference to that unit but that unit is pretty much null.
-   * See http://wc3c.net/showthread.php?t=104464.
-   */
-  public get first() {
-    const unit = FirstOfGroup(this.handle)
-    return unit == null ? null : Unit.fromHandle(unit);
-  }
+	public for(callback: () => void): void {
+		ForGroup(this.handle, callback)
+	}
 
-  public get size(): number {
-    return BlzGroupGetSize(this.handle);
-  }
+	/**
+	 * @bug May return `null` even if there are still units in the group.
+	 * This happens when a unit in the group dies and decays since the group still
+	 * holds a reference to that unit but that unit is pretty much null.
+	 * See http://wc3c.net/showthread.php?t=104464.
+	 */
+	public get first(): Unit {
+		const unit = FirstOfGroup(this.handle)
+		return unit == null ? null : Unit.fromHandle(unit)
+	}
 
-  public getUnits(): Unit[] {
-    const units: Unit[] = [];
-    this.for(() => units.push(Unit.fromFilter()));
-    return units;
-  }
+	/**
+	 * This Function removes the Units from the unit group just like a typical
+	 * first loop would.  Use only if that's what's intended.  The group will
+	 * still exist afterwards, so if you're finished with the group, be sure to 
+	 * add .destroy() after this runs to clean up the handle.
+	 * @param callback The function that will be run for ever unit of the group
+	 */
+	public firstLoop(callback: (u: Unit) => void): void {
 
-  public getUnitAt(index: number): Unit {
-    return Unit.fromHandle(BlzGroupUnitAt(this.handle, index));
-  }
+		let u = this.first
+		while (u != null) {
+	
+			callback(u)
 
-  public hasUnit(whichUnit: Unit) {
-    return IsUnitInGroup(whichUnit.handle, this.handle);
-  }
+			this.removeUnit(u)
+			u = this.first
+		}
+	}
 
-  public orderCoords(order: string | number, x: number, y: number) {
-    if (typeof order === "string") {
-      GroupPointOrder(this.handle, order, x, y);
-    } else {
-      GroupPointOrderById(this.handle, order, x, y);
-    }
-  }
+	public get size(): number {
+		return BlzGroupGetSize(this.handle)
+	}
 
-  public orderImmediate(order: string | number) {
-    if (typeof order === "string") {
-      GroupImmediateOrder(this.handle, order);
-    } else {
-      GroupImmediateOrderById(this.handle, order);
-    }
-  }
+	public getUnits(): Unit[] {
+		const units: Unit[] = []
+		this.for(() => units.push(Unit.fromFilter()))
+		return units
+	}
 
-  public orderPoint(order: string | number, whichPoint: Point) {
-    if (typeof order === "string") {
-      GroupPointOrderLoc(this.handle, order, whichPoint.handle);
-    } else {
-      GroupPointOrderByIdLoc(this.handle, order, whichPoint.handle);
-    }
-  }
+	public getUnitAt(index: number): Unit {
+		return Unit.fromHandle(BlzGroupUnitAt(this.handle, index))
+	}
 
-  public orderTarget(order: string | number, targetWidget: Widget | Unit) {
-    if (typeof order === "string") {
-      GroupTargetOrder(this.handle, order, targetWidget.handle);
-    } else {
-      GroupTargetOrderById(this.handle, order, targetWidget.handle);
-    }
-  }
+	public hasUnit(whichUnit: Unit): boolean {
+		return IsUnitInGroup(whichUnit.handle, this.handle)
+	}
 
-  public removeGroupFast(removeGroup: Group): number {
-    return BlzGroupRemoveGroupFast(this.handle, removeGroup.handle);
-  }
+	public orderCoords(order: string | number, x: number, y: number): void {
+		if (typeof order === "string") {
+			GroupPointOrder(this.handle, order, x, y)
+		} else {
+			GroupPointOrderById(this.handle, order, x, y)
+		}
+	}
 
-  public removeUnit(whichUnit: Unit): boolean {
-    return GroupRemoveUnit(this.handle, whichUnit.handle);
-  }
+	public orderImmediate(order: string | number): void {
+		if (typeof order === "string") {
+			GroupImmediateOrder(this.handle, order)
+		} else {
+			GroupImmediateOrderById(this.handle, order)
+		}
+	}
 
-  public static fromHandle(handle: group): Group {
-    return this.getObject(handle);
-  }
+	public orderPoint(order: string | number, whichPoint: Point): void {
+		if (typeof order === "string") {
+			GroupPointOrderLoc(this.handle, order, whichPoint.handle)
+		} else {
+			GroupPointOrderByIdLoc(this.handle, order, whichPoint.handle)
+		}
+	}
 
-  public static getEnumUnit(): Unit {
-    return Unit.fromHandle(GetEnumUnit());
-  }
+	public orderTarget(order: string | number, targetWidget: Widget | Unit): void {
+		if (typeof order === "string") {
+			GroupTargetOrder(this.handle, order, targetWidget.handle)
+		} else {
+			GroupTargetOrderById(this.handle, order, targetWidget.handle)
+		}
+	}
 
-  public static getFilterUnit(): Unit {
-    return Unit.fromHandle(GetFilterUnit());
-  }
+	public removeGroupFast(removeGroup: Group): number {
+		return BlzGroupRemoveGroupFast(this.handle, removeGroup.handle)
+	}
+
+	public removeUnit(whichUnit: Unit): boolean {
+		return GroupRemoveUnit(this.handle, whichUnit.handle)
+	}
+
+	public static fromHandle(handle: group): Group {
+		return this.getObject(handle)
+	}
+
+	public static getEnumUnit(): Unit {
+		return Unit.fromHandle(GetEnumUnit())
+	}
+
+	public static getFilterUnit(): Unit {
+		return Unit.fromHandle(GetFilterUnit())
+	}
 }

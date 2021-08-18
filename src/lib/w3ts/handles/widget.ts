@@ -32,7 +32,7 @@ export class Widget extends Handle<widget> {
     return GetWidgetY(this.handle)
   }
 
-  public get coordinates(): Coordinate {
+  public get coordinate(): Coordinate {
     return { x: GetWidgetX(this.handle), y: GetWidgetY(this.handle) }
   }
 
