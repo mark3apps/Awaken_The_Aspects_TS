@@ -1,18 +1,93 @@
-import { MapAbility } from "lib/resources/mapAbilities"
 import { ID } from "lib/w3ts/globals/ids"
 import { OrderId } from "lib/w3ts/globals/order"
+import { Unit } from "lib/w3ts/index"
 
+export const enum EffectType {
+    Channel,
+    Instant,
+    InstantDelayedEffect,
+    ChannelInstantEffect,
+    Passive,
+    Death,
+    Attack,
+    Aura,
+    None
+}
+
+export const enum TargetType {
+    Point,
+    Target,
+    None,
+    AOE
+}
+
+
+export interface MapAbility {
+    four: ID.Ability,
+    buffFour?: ID.Buff,
+    type?: EffectType,
+    target?: TargetType,
+    orderId?: number,
+    orderIdAutoOn?: number,
+    orderIdAutoOff?: number,
+    orderIdOff?: number,
+}
 
 export class Ability {
-
-    public readonly mapAbility!: MapAbility
+    readonly four: ID.Ability
+    readonly baseFour: string
+    readonly buffFour: ID.Buff
+    readonly type: EffectType
+    readonly target: TargetType
+    readonly orderId: OrderId
+    readonly orderIdAutoOn: OrderId
+    readonly orderIdAutoOff: OrderId
+    readonly orderIdOff: OrderId
 
     private static _key: { [four: string]: Ability } = {}
 
     constructor(ability: MapAbility) {
 
-        this.mapAbility = ability
+        if (ability.type == null) { ability.type = EffectType.Instant }
+        if (ability.target == null) { ability.target = TargetType.None }
+
+        this.four = ability.four
+        this.buffFour = ability.buffFour
+        this.type = ability.type
+        this.target = ability.target
+        this.orderId = ability.orderId
+        this.orderIdAutoOff = ability.orderIdAutoOff
+        this.orderIdAutoOn = ability.orderIdAutoOn
+        this.orderIdOff = ability.orderIdOff
+
         Ability._key[ability.four] = this
+
+
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    public aiCheck(unit: Unit): void {
+        // Empty
+    }
+
+    public onEffect(): void {
+        // Empty
+    }
+
+    public onEvent(): void {
+        // Empty
+    }
+
+    public onChannel(): void {
+        // Empty
+    }
+
+    public onLoop(): void {
+        // Empty
+    }
+
+    public onFinish(): void {
+        // Empty
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -21,39 +96,11 @@ export class Ability {
     }
 
     public get id(): number {
-        return FourCC(this.mapAbility.four)
+        return FourCC(this.four)
     }
 
-    public get four(): string {
-        return this.mapAbility.four
-    }
-
-    public get orderId(): OrderId {
-        return this.mapAbility.orderId
-    }
-
-    public get instant(): boolean {
-        return this.mapAbility.instant
-    }
-
-    public get baseId(): ID.Ability | null {
-        return this.mapAbility.baseFour
-    }
-
-    public get orderIdOff(): OrderId | null {
-        return this.mapAbility.orderIdOff
-    }
-
-    public get orderIdAutoOff(): OrderId | null {
-        return this.mapAbility.orderIdAutoOff
-    }
-
-    public get orderIdAutoOn(): OrderId | null {
-        return this.mapAbility.orderIdAutoOn
-    }
-
-    public get buffFour(): string {
-        return this.mapAbility.buffFour
+    public get buffId(): number {
+        return FourCC(this.buffFour)
     }
 
     public get properName(): string {

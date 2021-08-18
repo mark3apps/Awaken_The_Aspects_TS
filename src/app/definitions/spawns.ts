@@ -58,6 +58,7 @@ export namespace SPAWN {
 			arcane.faction = FACTION.arcane
 			arcane.addUnit({ unitType: UNIT_TYPE.Sorceress, waves: [6, 7, 8, 9, 10], start: 3 })
 			arcane.addUnit({ unitType: UNIT_TYPE.StormSummoner, waves: [6, 7, 8, 9, 10], start: 5 })
+			arcane.addUnit({ unitType: UNIT_TYPE.MagiDefender, waves: [6, 8], start: 7 })
 			SPAWN.addSpawn(arcane.name)
 
 			arcaneCreep = new Spawn("arcaneCreep")
@@ -162,7 +163,7 @@ export namespace SPAWN {
 			highElves.addUnit({ unitType: UNIT_TYPE.HighElfArcher, waves: [1, 3, 5], start: 2 })
 			highElves.addUnit({ unitType: UNIT_TYPE.HighElfSwordsman, amount: 2, waves: [1, 2, 3, 4], start: 4 })
 			highElves.addUnit({ unitType: UNIT_TYPE.HighElfHealer, waves: [1, 3, 5], start: 5 })
-			highElves.addUnit({ unitType: UNIT_TYPE.DragonHawk, waves: [1, 2, 3, 4, 5], start: 6 })
+			highElves.addUnit({ unitType: UNIT_TYPE.DragonHawk, amount: 2, waves: [2, 3, 5], start: 6 })
 			highElves.addUnit({ unitType: UNIT_TYPE.HighElfKnight, waves: [1, 3, 5], start: 7 })
 			SPAWN.addSpawn(highElves.name)
 
@@ -192,29 +193,29 @@ export namespace SPAWN {
 			dwarf.faction = FACTION.dwarf
 			dwarf.addUnit({ unitType: UNIT_TYPE.IronGuard, amount: 2, waves: [1, 2, 3, 5, 6], end: 1 })
 			dwarf.addUnit({ unitType: UNIT_TYPE.IronGuard, amount: 3, waves: [1, 2, 3, 4, 5, 6, 7], start: 2 })
-			dwarf.addUnit({ unitType: UNIT_TYPE.IronMortarTeam, waves: [2, 4, 6], start: 2 })
-			dwarf.addUnit({ unitType: UNIT_TYPE.IronRifleman, waves: [1, 2, 3, 4, 5, 6], start: 3 })
+			dwarf.addUnit({ unitType: UNIT_TYPE.IronRifleman, waves: [1, 2, 3, 4, 5, 6], start: 2 })
+			dwarf.addUnit({ unitType: UNIT_TYPE.IronMortarTeam, waves: [2, 4, 6], start: 3 })
 			dwarf.addUnit({ unitType: UNIT_TYPE.IronCaptain, waves: [1, 2, 3, 4], start: 5 })
 			dwarf.addUnit({ unitType: UNIT_TYPE.IronMagi, waves: [1, 2, 3, 4], start: 6 })
-			dwarf.addUnit({ unitType: UNIT_TYPE.GryphonRider, waves: [1, 2, 3, 4], start: 8 })
 			dwarf.addUnit({ unitType: UNIT_TYPE.SeigeEngine, waves: [2, 5], start: 6 })
+			dwarf.addUnit({ unitType: UNIT_TYPE.GryphonRider, waves: [1, 2, 3, 4], start: 8 })
 			SPAWN.addSpawn(dwarf.name)
 
 			// Murloc Spawn
 			murloc = new Spawn("murloc")
 			murloc.faction = FACTION.murloc
-			murloc.addUnit({ unitType: UNIT_TYPE.MurlocCliffRunner, amount: 3, waves: [5, 6, 7, 9, 10] })
-			murloc.addUnit({ unitType: UNIT_TYPE.MurlocReaver, waves: [5, 7], start: 2 })
-			murloc.addUnit({ unitType: UNIT_TYPE.MurlocSnareCaster, waves: [6, 8, 10], start: 3 })
-			murloc.addUnit({ unitType: UNIT_TYPE.MurlocTideWarrior, waves: [4, 8], start: 6 })
+			murloc.addUnit({ unitType: UNIT_TYPE.MurlocCliffRunner, amount: 3, waves: [5, 6, 7, 10] })
+			murloc.addUnit({ unitType: UNIT_TYPE.MurlocReaver, waves: [5, 7], start: 3 })
+			murloc.addUnit({ unitType: UNIT_TYPE.MurlocSnareCaster, waves: [6, 8, 10], start: 4 })
+			murloc.addUnit({ unitType: UNIT_TYPE.MurlocTideWarrior, waves: [4, 8], start: 7 })
 			SPAWN.addSpawn(murloc.name)
 
 			// Naga Spawn
 			naga = new Spawn("naga")
-			naga.faction = FACTION.murloc
+			naga.faction = FACTION.naga
 			naga.addUnit({ unitType: UNIT_TYPE.NagaMyrmidon, waves: [1, 3], end: 3 })
-			naga.addUnit({ unitType: UNIT_TYPE.NagaMyrmidon, waves: [1, 2, 3, 4], start: 4, end: 5 })
-			naga.addUnit({ unitType: UNIT_TYPE.NagaMyrmidon, waves: [1, 2, 3, 4, 5, 6], start: 6 })
+			naga.addUnit({ unitType: UNIT_TYPE.NagaMyrmidon, waves: [1, 2, 3, 4], start: 4, end: 6 })
+			naga.addUnit({ unitType: UNIT_TYPE.NagaMyrmidon, waves: [1, 2, 3, 4, 5, 6], start: 7 })
 			naga.addUnit({ unitType: UNIT_TYPE.NagaSiren, waves: [2, 4, 6], start: 3 })
 			naga.addUnit({ unitType: UNIT_TYPE.NagaRoyalGuard, waves: [2, 5], start: 6 })
 			naga.addUnit({ unitType: UNIT_TYPE.DragonTurtle, waves: [1, 4], start: 9 })
@@ -234,7 +235,7 @@ export namespace SPAWN {
 			nightElves.addUnit({ unitType: UNIT_TYPE.NightElfRanger, waves: [2, 3, 4, 5,6] })
 			nightElves.addUnit({ unitType: UNIT_TYPE.NightElfEliteRanger, waves: [2, 3, 4, 5,6], start: 2 })
 			nightElves.addUnit({ unitType: UNIT_TYPE.NightElfSentry, waves: [7, 8, 9, 10], start: 2 })
-			nightElves.addUnit({ unitType: UNIT_TYPE.Dryad, waves: [7, 9, 10], start: 3 })
+			nightElves.addUnit({ unitType: UNIT_TYPE.Dryad, waves: [7, 8, 9, 10], start: 3 })
 			nightElves.addUnit({ unitType: UNIT_TYPE.HippogryphRider, amount: 2, waves: [4, 6, 7], start: 6 })
 			nightElves.addUnit({ unitType: UNIT_TYPE.DruidOfTheClaw, waves: [6, 7, 8, 9, 10], start: 4 })
 			nightElves.addUnit({ unitType: UNIT_TYPE.MountainGiant, waves: [5, 9], start: 5 })

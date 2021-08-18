@@ -1,12 +1,23 @@
 import { Unit } from "lib/w3ts/index"
-import { Ability } from "./ability"
+import { Ability, MapAbility } from "./ability"
+import { HeroAbility } from "./heroAbility"
 
 export class UnitAbility extends Ability {
     public readonly unit!: Unit
 
-    constructor(ability: Ability, unit: Unit) {
+    constructor(ability: Ability | MapAbility | HeroAbility, unit: Unit) {
 
-        super(ability.mapAbility)
+        super({
+            four: ability.four,
+            buffFour: ability.buffFour,
+            type: ability.type,
+            target: ability.target,
+            orderId: ability.orderId,
+            orderIdAutoOn: ability.orderIdAutoOn,
+            orderIdAutoOff: ability.orderIdAutoOff,
+            orderIdOff: ability.orderIdOff
+        })
+
         this.unit = unit
     }
 

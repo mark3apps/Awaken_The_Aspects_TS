@@ -12,6 +12,7 @@ import { Gate } from "classes/gate"
 import { Rectangle, Unit } from "lib/w3ts/index"
 import { Players } from "lib/w3ts/globals/index"
 import { UNIT_TYPE } from "./definitions/unitTypes"
+import { ABILITY } from "lib/resources/mapAbilities"
 
 
 export namespace Game {
@@ -35,6 +36,7 @@ export namespace Game {
 
         Log.Information("Game Map Start")
 
+        ABILITY.define()
         FORCE.define()
         ARMY.define()
         LOC.define()

@@ -71,7 +71,7 @@ export class Unit extends Widget {
 		return Unit.data[unit.hid]
 	}
 
-	private static removeData(unit: Unit): void {
+	public static removeData(unit: Unit): void {
 		Unit.data[unit.hid] = null
 	}
 

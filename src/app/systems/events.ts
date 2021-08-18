@@ -1,4 +1,4 @@
-import { Trigger } from "lib/w3ts/index"
+import { Trigger, Unit } from "lib/w3ts/index"
 
 export namespace EVENT {
 
@@ -8,9 +8,10 @@ export namespace EVENT {
     export const unitEntersRegion = new Trigger()
     export const unitSummoned = new Trigger()
     export const unitTrained = new Trigger()
+    export const unitSpellEffect = new Trigger()
     export const mapStart = new Trigger()
 
-    
+
     export function define(): void {
         mapStart.registerTimerEvent(1, false)
         unitDies.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH)
@@ -21,5 +22,18 @@ export namespace EVENT {
         unitOrdered.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_UNIT_ORDER)
         unitSummoned.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SUMMON)
         unitTrained.registerAnyUnitEvent(EVENT_PLAYER_UNIT_TRAIN_FINISH)
+        unitSpellEffect.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT)
+
+
+        // When a Unit dies clear it out
+        unitDies.add(() => {
+            const eventUnit = Unit.fromEvent()
+            const killingUnit = Unit.fromHandle(GetKillingUnit())
+
+            Unit.removeData(eventUnit)
+            killingUnit.data.kills += 1
+        })
     }
+
+
 }

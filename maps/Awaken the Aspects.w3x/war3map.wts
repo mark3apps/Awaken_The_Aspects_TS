@@ -1904,12 +1904,6 @@ STRING 761
 (Doom Warden)
 }
 
-STRING 767
-// Units: u000 (Doom Skeleton), Name (Name)
-{
-Doom Skeleton
-}
-
 STRING 770
 // Buffs/Effects: B000 (BR - Bloodlust), Bufftip (Tooltip)
 {
@@ -2588,22 +2582,10 @@ STRING 985
 (Generic)
 }
 
-STRING 997
-// Units: ncg2 (Clockwerk), EditorSuffix (Name - Editor Suffix)
-{
-(Used Version)
-}
-
 STRING 998
 // Abilities: A013 (Barrage), EditorSuffix (Editor Suffix)
 {
 (High Elf)
-}
-
-STRING 1006
-// Units: n00F (Automaton), Name (Name)
-{
-Automaton
 }
 
 STRING 1007
@@ -13298,12 +13280,6 @@ STRING 4688
 Spawn Copter
 }
 
-STRING 4689
-// Units: ncg2 (Clockwerk), Name (Name)
-{
-Clockwerk
-}
-
 STRING 4690
 // Units: h01E (Magi), Name (Name)
 {
@@ -13843,12 +13819,6 @@ STRING 4797
 Wrap Baracade (Pathing)
 }
 
-STRING 4798
-// Units: n018 (Summoner), Name (Name)
-{
-Summoner
-}
-
 STRING 4799
 // Abilities: A028 (Summon War Golem), Name (Name)
 {
@@ -14015,5 +13985,11 @@ STRING 4836
 // Units: h021 (Castle Gate), EditorSuffix (Name - Editor Suffix)
 {
 (Closed)
+}
+
+STRING 4837
+// Units: n018 (Elementalist), Name (Name)
+{
+Elementalist
 }
 
