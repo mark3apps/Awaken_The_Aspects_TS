@@ -10166,7 +10166,7 @@ Arbalist
 }
 
 STRING 3904
-// Abilities: S006 (Fel Orc Warchief), Name (Name)
+// Abilities: A048 (Fel Orc Warchief), Name (Name)
 {
 Fel Orc Warchief
 }
@@ -10292,19 +10292,19 @@ Gold Mine
 }
 
 STRING 3959
-// Abilities: S003 (Fel Orc Grunt), Name (Name)
+// Abilities: A03Z (Fel Orc Grunt), Name (Name)
 {
 Fel Orc Grunt
 }
 
 STRING 3960
-// Abilities: S004 (Fel Orc Ogre), Name (Name)
+// Abilities: A047 (Fel Orc Ogre), Name (Name)
 {
 Fel Orc Ogre
 }
 
 STRING 3961
-// Abilities: S005 (Fel Orc Warlock), Name (Name)
+// Abilities: A049 (Fel Orc Warlock), Name (Name)
 {
 Fel Orc Warlock
 }
@@ -13501,12 +13501,6 @@ STRING 4744
 High Elf Apprentice
 }
 
-STRING 4745
-// Abilities: S001 (Fel Orc Spearthrower), Name (Name)
-{
-Fel Orc Spearthrower
-}
-
 STRING 4747
 // Units: h01R (Barracade), Name (Name)
 {
@@ -13991,5 +13985,53 @@ STRING 4837
 // Units: n018 (Elementalist), Name (Name)
 {
 Elementalist
+}
+
+STRING 4838
+// Abilities: S003 (Fel Orc Grunt Transformed), Name (Name)
+{
+Fel Orc Grunt Transformed
+}
+
+STRING 4839
+// Abilities: S004 (Fel Orc Ogre Transformed), Name (Name)
+{
+Fel Orc Ogre Transformed
+}
+
+STRING 4840
+// Abilities: S005 (Fel Orc Warlock Transformed), Name (Name)
+{
+Fel Orc Warlock Transformed
+}
+
+STRING 4841
+// Abilities: S006 (Fel Orc Warchief Transformed), Name (Name)
+{
+Fel Orc Warchief Transformed
+}
+
+STRING 4842
+// Abilities: A03Z (Fel Orc Grunt), Tip (Tooltip - Normal)
+{
+Fel Orc Grunt
+}
+
+STRING 4843
+// Abilities: A047 (Fel Orc Ogre), Tip (Tooltip - Normal)
+{
+Fel Orc Grunt
+}
+
+STRING 4844
+// Abilities: A048 (Fel Orc Warchief), Tip (Tooltip - Normal)
+{
+Fel Orc Grunt
+}
+
+STRING 4845
+// Abilities: A049 (Fel Orc Warlock), Tip (Tooltip - Normal)
+{
+Fel Orc Grunt
 }
 

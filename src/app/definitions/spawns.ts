@@ -194,11 +194,11 @@ export namespace SPAWN {
 			dwarf.addUnit({ unitType: UNIT_TYPE.IronGuard, amount: 2, waves: [1, 2, 3, 5, 6], end: 1 })
 			dwarf.addUnit({ unitType: UNIT_TYPE.IronGuard, amount: 3, waves: [1, 2, 3, 4, 5, 6, 7], start: 2 })
 			dwarf.addUnit({ unitType: UNIT_TYPE.IronRifleman, waves: [1, 2, 3, 4, 5, 6], start: 2 })
-			dwarf.addUnit({ unitType: UNIT_TYPE.IronMortarTeam, waves: [2, 4, 6], start: 3 })
-			dwarf.addUnit({ unitType: UNIT_TYPE.IronCaptain, waves: [1, 2, 3, 4], start: 5 })
-			dwarf.addUnit({ unitType: UNIT_TYPE.IronMagi, waves: [1, 2, 3, 4], start: 6 })
-			dwarf.addUnit({ unitType: UNIT_TYPE.SeigeEngine, waves: [2, 5], start: 6 })
-			dwarf.addUnit({ unitType: UNIT_TYPE.GryphonRider, waves: [1, 2, 3, 4], start: 8 })
+			dwarf.addUnit({ unitType: UNIT_TYPE.IronMortarTeam, waves: [2, 3, 4, 6], start: 3 })
+			dwarf.addUnit({ unitType: UNIT_TYPE.IronCaptain, waves: [1, 2, 3, 4, 5, 6], start: 4 })
+			dwarf.addUnit({ unitType: UNIT_TYPE.IronMagi, waves: [1, 2, 3, 4], start: 5 })
+			dwarf.addUnit({ unitType: UNIT_TYPE.SeigeEngine, waves: [1, 2, 5], start: 6 })
+			dwarf.addUnit({ unitType: UNIT_TYPE.GryphonRider, waves: [1, 2, 3, 4, 5], start: 8 })
 			SPAWN.addSpawn(dwarf.name)
 
 			// Murloc Spawn
@@ -232,8 +232,8 @@ export namespace SPAWN {
 			// Night Elves Spawn
 			nightElves = new Spawn("nightElves")
 			nightElves.faction = FACTION.nightElves
-			nightElves.addUnit({ unitType: UNIT_TYPE.NightElfRanger, waves: [2, 3, 4, 5,6] })
-			nightElves.addUnit({ unitType: UNIT_TYPE.NightElfEliteRanger, waves: [2, 3, 4, 5,6], start: 2 })
+			nightElves.addUnit({ unitType: UNIT_TYPE.NightElfRanger, waves: [4, 5, 6, 7, 8, 9] })
+			nightElves.addUnit({ unitType: UNIT_TYPE.NightElfEliteRanger, waves: [4, 5, 6, 7, 8], start: 2 })
 			nightElves.addUnit({ unitType: UNIT_TYPE.NightElfSentry, waves: [7, 8, 9, 10], start: 2 })
 			nightElves.addUnit({ unitType: UNIT_TYPE.Dryad, waves: [7, 8, 9, 10], start: 3 })
 			nightElves.addUnit({ unitType: UNIT_TYPE.HippogryphRider, amount: 2, waves: [4, 6, 7], start: 6 })

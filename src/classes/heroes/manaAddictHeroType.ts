@@ -1,5 +1,5 @@
 
-import { ABILITY } from "lib/resources/mapAbilities"
+import { ABILITY } from "app/definitions/abilities"
 import { Strategy } from "lib/resources/strategy"
 import { ITEM_TYPE } from "../../app/definitions/itemTypes"
 import { UNIT_TYPE } from "../../app/definitions/unitTypes"

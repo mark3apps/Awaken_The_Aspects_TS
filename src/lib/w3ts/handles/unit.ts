@@ -2,6 +2,7 @@
 /** @noSelfInFile **/
 
 import { Log } from "app/systems/log"
+import { Ability } from "classes/ability"
 import { UnitData } from "classes/unitData"
 import { UnitType } from "classes/unitType"
 import { Coordinate } from "lib/resources/coordinate"
@@ -836,6 +837,10 @@ export class Unit extends Widget {
 
 	public hasItem(whichItem: Item) {
 		return UnitHasItem(this.handle, whichItem.handle)
+	}
+
+	public hasAbility(ability: Ability | number): boolean {
+		return this.getAbilityLevel((typeof ability === "number" ? ability : ability.id)) >= 1
 	}
 
 	public hideAbility(abilId: number) {

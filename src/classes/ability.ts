@@ -1,6 +1,9 @@
+import { EVENT } from "app/systems/events"
+import { CC2Four } from "lib/resources/library"
 import { ID } from "lib/w3ts/globals/ids"
 import { OrderId } from "lib/w3ts/globals/order"
 import { Unit } from "lib/w3ts/index"
+import { UnitType } from "./unitType"
 
 export const enum EffectType {
     Channel,
@@ -9,7 +12,9 @@ export const enum EffectType {
     ChannelInstantEffect,
     Passive,
     Death,
-    Attack,
+    Kill,
+    Attacked,
+    Attacking,
     Aura,
     None
 }
@@ -22,7 +27,7 @@ export const enum TargetType {
 }
 
 
-export interface MapAbility {
+export interface AbilityParameters {
     four: ID.Ability,
     buffFour?: ID.Buff,
     type?: EffectType,
@@ -31,24 +36,32 @@ export interface MapAbility {
     orderIdAutoOn?: number,
     orderIdAutoOff?: number,
     orderIdOff?: number,
+    unitType?: UnitType,
+    permanent?: boolean,
+    starting?: boolean,
+    ult?: boolean
 }
 
 export class Ability {
     readonly four: ID.Ability
-    readonly baseFour: string
-    readonly buffFour: ID.Buff
     readonly type: EffectType
     readonly target: TargetType
-    readonly orderId: OrderId
-    readonly orderIdAutoOn: OrderId
-    readonly orderIdAutoOff: OrderId
-    readonly orderIdOff: OrderId
 
-    private static _key: { [four: string]: Ability } = {}
+    readonly buffFour?: ID.Buff
+    readonly orderId?: OrderId
+    readonly orderIdAutoOn?: OrderId
+    readonly orderIdAutoOff?: OrderId
+    readonly orderIdOff?: OrderId
+    readonly unitType?: UnitType
+    readonly permanent?: boolean
+    readonly starting?: boolean
+    readonly ult?: boolean
 
-    constructor(ability: MapAbility) {
+    private static _key: { [four: string]: AbilityParameters } = {}
 
-        if (ability.type == null) { ability.type = EffectType.Instant }
+    constructor(ability: AbilityParameters) {
+
+        if (ability.type == null) { ability.type = EffectType.None }
         if (ability.target == null) { ability.target = TargetType.None }
 
         this.four = ability.four
@@ -59,10 +72,71 @@ export class Ability {
         this.orderIdAutoOff = ability.orderIdAutoOff
         this.orderIdAutoOn = ability.orderIdAutoOn
         this.orderIdOff = ability.orderIdOff
+        this.unitType = ability.unitType
+        this.permanent = ability.permanent
+        this.starting = ability.starting
+        this.ult= ability.ult
 
-        Ability._key[ability.four] = this
+        // If ability hasn't been definited before
+        if (Ability._key[ability.four] == null) {
 
+            Ability._key[ability.four] = ability
 
+            switch (this.type) {
+                case EffectType.Kill:
+                    EVENT.unitDies.add(() => {
+                        if (Unit.fromHandle(GetKillingUnit()).hasAbility(this)) {
+                            this.onEvent()
+                        }
+                    })
+                    break
+    
+                case EffectType.Death:
+                    EVENT.unitDies.add(() => {
+                        if (Unit.fromEvent().hasAbility(this)) {
+                            this.onEvent()
+                        }
+                    })
+                    break
+    
+                case EffectType.Attacked:
+                    EVENT.unitAttacked.add(() => {
+                        if (Unit.fromEvent().hasAbility(this.id)) {
+                            this.onEvent()
+                        }
+                    })
+    
+                    break
+    
+                case EffectType.Attacking:
+                    EVENT.unitAttacked.add(() => {
+                        if (Unit.fromAttackingUnit().hasAbility(this.id)) {
+                            this.onEvent()
+                        }
+                    })
+    
+                    break
+    
+                case EffectType.Instant:
+                    EVENT.unitSpellEffect.add(() => {
+                        if (Ability.fromSpellEvent().id == this.id) {
+                            this.onEffect()
+                        }
+                    })
+    
+                    break
+                default:
+                    break
+            }
+        }
+    }
+
+    public static fromSpellEvent(): Ability {
+        return Ability.fromFour(CC2Four(GetSpellAbilityId()))
+    }
+
+    public static fromFour(four: string): Ability {
+        return new Ability(Ability._key[four])
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -90,10 +164,6 @@ export class Ability {
         // Empty
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    public static fromFour(four: string, unit?: never): Ability {
-        return Ability._key[four]
-    }
 
     public get id(): number {
         return FourCC(this.four)

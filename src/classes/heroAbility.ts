@@ -1,4 +1,4 @@
-import { Ability, MapAbility } from "./ability"
+import { Ability, AbilityParameters } from "./ability"
 
 export class HeroAbility extends Ability {
 
@@ -6,7 +6,7 @@ export class HeroAbility extends Ability {
     starting: boolean
     permanent: boolean
 
-    constructor(ability: Ability | MapAbility, permanent = true, starting = false, ult = false) {
+    constructor(ability: Ability | AbilityParameters, permanent = true, starting = false, ult = false) {
 
         super({
             four: ability.four,

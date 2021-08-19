@@ -16,10 +16,14 @@ export namespace ID {
         BonusStats = "Z010",
         BonusManaRegen = "Z011",
 
-        FelGrunt = "S003",
-        FelOgre = "S004",
-        FelWarlord = "S006",
-        FelWarlock = "S005",
+        FelGrunt = "A03Z",
+        FelGruntTransformed = "S003",
+        FelOgre = "A047",
+        FelOgreTransformed = "S004",
+        FelWarlord = "A048",
+        FelWarlordTransformed = "S006",
+        FelWarlock = "A049",
+        FelWarlockTransformed = "S005",
 
         // Brawler Abilities
         Drain = "A01Y",

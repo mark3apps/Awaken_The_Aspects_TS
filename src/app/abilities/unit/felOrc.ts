@@ -1,36 +1,27 @@
-import { EVENT } from "app/systems/events"
 import { Log } from "app/systems/log"
-import { Ability, MapAbility } from "classes/ability"
-import { UnitType } from "classes/unitType"
+import { Ability, AbilityParameters } from "classes/ability"
+import { ID } from "lib/w3ts/globals/ids"
 import { ANIMATION } from "lib/w3ts/globals/unitAnimations"
 import { Unit } from "lib/w3ts/index"
 
 
 export class AbilityFel extends Ability {
-    public unitType: UnitType
-    public killsNeeded = 0
+    public chaosAbility: ID.Ability
+    public killsNeeded: number
 
-    constructor(ability: MapAbility, unitType: UnitType) {
+    constructor(ability: AbilityParameters | Ability) {
         super(ability)
-
-        this.unitType = unitType
-
-        EVENT.unitDies.add(() => {
-            if (Unit.fromHandle(GetKillingUnit()).typeId == this.unitType.id) {
-                this.onEvent()
-            }
-        })
     }
 
     public onEvent(): void {
         const eventUnit = Unit.fromHandle(GetKillingUnit())
 
-        Log.Information("Ability ", eventUnit.name, eventUnit.data.kills)
-        if (this.killsNeeded >= eventUnit.data.kills) {
-            eventUnit.addAbility(this.id)
-            PolledWait(1)
+        if (this.killsNeeded <= eventUnit.data.kills) {
+            Log.Information("Ability", this.name, this.killsNeeded, eventUnit.data.kills)
             this.setAnimation(eventUnit)
             this.extraEffects(eventUnit)
+
+            eventUnit.addAbility(FourCC(this.chaosAbility))
         }
 
     }
@@ -50,9 +41,11 @@ export class AbilityFel extends Ability {
 
 export class AbilityFelGrunt extends AbilityFel {
 
-    constructor(ability: MapAbility, unitType: UnitType) {
-        super(ability, unitType)
-        this.killsNeeded = 1
+    killsNeeded = 1
+    chaosAbility = ID.Ability.FelGruntTransformed
+
+    constructor(ability: AbilityParameters) {
+        super(ability)
     }
 
     public setAnimation(unit: Unit): void {
@@ -62,9 +55,12 @@ export class AbilityFelGrunt extends AbilityFel {
 
 export class AbilityFelOgre extends AbilityFel {
 
-    constructor(ability: MapAbility, unitType: UnitType) {
-        super(ability, unitType)
-        this.killsNeeded = 1
+    killsNeeded = 1
+    chaosAbility = ID.Ability.FelOgreTransformed
+
+    constructor(ability: AbilityParameters) {
+        super(ability)
+
     }
 
     public setAnimation(unit: Unit): void {
@@ -74,9 +70,11 @@ export class AbilityFelOgre extends AbilityFel {
 
 export class AbilityFelWarlord extends AbilityFel {
 
-    constructor(ability: MapAbility, unitType: UnitType) {
-        super(ability, unitType)
-        this.killsNeeded = 3
+    killsNeeded = 4
+    chaosAbility = ID.Ability.FelWarlordTransformed
+
+    constructor(ability: AbilityParameters) {
+        super(ability)
     }
 
     public setAnimation(unit: Unit): void {
@@ -86,9 +84,11 @@ export class AbilityFelWarlord extends AbilityFel {
 
 export class AbilityFelWarlock extends AbilityFel {
 
-    constructor(ability: MapAbility, unitType: UnitType) {
-        super(ability, unitType)
-        this.killsNeeded = 1
+    killsNeeded = 3
+    chaosAbility = ID.Ability.FelWarlockTransformed
+
+    constructor(ability: AbilityParameters) {
+        super(ability)
     }
 
     public setAnimation(unit: Unit): void {
