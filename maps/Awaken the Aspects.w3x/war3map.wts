@@ -10393,12 +10393,6 @@ STRING 3988
 Kobold Hall
 }
 
-STRING 3992
-// Abilities: Afzy (Footman Auto Upgrade), Name (Name)
-{
-Footman Auto Upgrade
-}
-
 STRING 4000
 // Abilities: A053 (Permanent Immolation), EditorSuffix (Editor Suffix)
 {
@@ -13460,19 +13454,19 @@ High Elf Knight
 }
 
 STRING 4737
-// Abilities: A00J (Charge), Name (Name)
+// Abilities: Afzy (Charge), Name (Name)
 {
 Charge
 }
 
 STRING 4738
-// Buffs/Effects: B00G (Charge), EditorName (Name (Editor Only))
+// Abilities: A00J (Charge), Name (Name)
 {
 Charge
 }
 
 STRING 4739
-// Buffs/Effects: B00G (Charge), Bufftip (Tooltip)
+// Buffs/Effects: B00G (Charge), EditorName (Name (Editor Only))
 {
 Charge
 }
@@ -14033,5 +14027,17 @@ STRING 4845
 // Abilities: A049 (Fel Orc Warlock), Tip (Tooltip - Normal)
 {
 Fel Orc Grunt
+}
+
+STRING 4846
+// Abilities: Afzy (Charge), EditorSuffix (Editor Suffix)
+{
+(Footman)
+}
+
+STRING 4847
+// Buffs/Effects: B00G (Charge), Bufftip (Tooltip)
+{
+Charge
 }
 

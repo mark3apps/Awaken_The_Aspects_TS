@@ -164,7 +164,6 @@ export class Ability {
         // Empty
     }
 
-
     public get id(): number {
         return FourCC(this.four)
     }

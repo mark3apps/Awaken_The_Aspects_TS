@@ -316,7 +316,6 @@ gg_trg_Start_Event = nil
 gg_trg_Event_Count = nil
 gg_trg_DW_Ancient_Chaos = nil
 gg_trg_Doom_Warden_End = nil
-gg_trg_Footman_at_Max_Mana = nil
 gg_trg_Unit_Upgrades = nil
 gg_trg_Elder_Ent_Movement = nil
 gg_trg_Zombie_Infect = nil
@@ -1610,7 +1609,7 @@ function CreateBuildingsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("h00G"), -5248.0, 1536.0, 270.000, FourCC("h00G"))
     u = BlzCreateUnitWithSkin(p, FourCC("n007"), -9216.0, 1344.0, 270.000, FourCC("n007"))
     gg_unit_nmh1_0783 = BlzCreateUnitWithSkin(p, FourCC("nmh1"), -8736.0, -13344.0, 270.000, FourCC("nmh1"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h020"), -4774.5, -3581.4, 90.000, FourCC("h020"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h020"), -4798.5, -3581.4, 90.000, FourCC("h020"))
     u = BlzCreateUnitWithSkin(p, FourCC("n019"), -7552.0, 1856.0, 270.000, FourCC("n019"))
     u = BlzCreateUnitWithSkin(p, FourCC("h024"), -5824.0, 2624.0, 270.000, FourCC("h024"))
     u = BlzCreateUnitWithSkin(p, FourCC("h024"), -8896.0, 3328.0, 270.000, FourCC("h024"))
@@ -3296,96 +3295,6 @@ function InitTrig_Doom_Warden_End()
     TriggerRegisterAnyUnitEventBJ(gg_trg_Doom_Warden_End, EVENT_PLAYER_UNIT_DEATH)
     TriggerAddCondition(gg_trg_Doom_Warden_End, Condition(Trig_Doom_Warden_End_Conditions))
     TriggerAddAction(gg_trg_Doom_Warden_End, Trig_Doom_Warden_End_Actions)
-end
-
-function Trig_Footman_at_Max_Mana_Conditions()
-    if (not (GetSpellAbilityId() == FourCC("Afzy"))) then
-        return false
-    end
-    if (not (GetUnitManaPercent(GetTriggerUnit()) >= 100.00)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Footman_at_Max_Mana_Actions()
-    IssueImmediateOrderBJ(GetTriggerUnit(), "bearform")
-    SetUnitLifePercentBJ(GetTriggerUnit(), (GetUnitLifePercent(GetTriggerUnit()) + 5.00))
-end
-
-function InitTrig_Footman_at_Max_Mana()
-    gg_trg_Footman_at_Max_Mana = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Footman_at_Max_Mana, EVENT_PLAYER_UNIT_SPELL_CAST)
-    TriggerAddCondition(gg_trg_Footman_at_Max_Mana, Condition(Trig_Footman_at_Max_Mana_Conditions))
-    TriggerAddAction(gg_trg_Footman_at_Max_Mana, Trig_Footman_at_Max_Mana_Actions)
-end
-
-function Trig_Unit_Upgrades_Func003C()
-    if (GetUnitTypeId(GetKillingUnitBJ()) == FourCC("hfoo")) then
-        return true
-    end
-    if (GetUnitTypeId(GetKillingUnitBJ()) == FourCC("h017")) then
-        return true
-    end
-    if (GetUnitTypeId(GetKillingUnitBJ()) == FourCC("h007")) then
-        return true
-    end
-    if (GetUnitTypeId(GetKillingUnitBJ()) == FourCC("h015")) then
-        return true
-    end
-    if (GetUnitTypeId(GetKillingUnitBJ()) == FourCC("hcth")) then
-        return true
-    end
-    return false
-end
-
-function Trig_Unit_Upgrades_Conditions()
-    if (not Trig_Unit_Upgrades_Func003C()) then
-        return false
-    end
-    return true
-end
-
-function Trig_Unit_Upgrades_Func002Func003C()
-    if (GetUnitTypeId(GetKillingUnitBJ()) == FourCC("hfoo")) then
-        return true
-    end
-    if (GetUnitTypeId(GetKillingUnitBJ()) == FourCC("h017")) then
-        return true
-    end
-    if (GetUnitTypeId(GetKillingUnitBJ()) == FourCC("h007")) then
-        return true
-    end
-    if (GetUnitTypeId(GetKillingUnitBJ()) == FourCC("h015")) then
-        return true
-    end
-    if (GetUnitTypeId(GetKillingUnitBJ()) == FourCC("hcth")) then
-        return true
-    end
-    return false
-end
-
-function Trig_Unit_Upgrades_Func002C()
-    if (not Trig_Unit_Upgrades_Func002Func003C()) then
-        return false
-    end
-    return true
-end
-
-function Trig_Unit_Upgrades_Actions()
-    SetUnitManaBJ(GetKillingUnitBJ(), (GetUnitStateSwap(UNIT_STATE_MANA, GetKillingUnitBJ()) + 1))
-    if (Trig_Unit_Upgrades_Func002C()) then
-        SetUnitLifePercentBJ(GetKillingUnitBJ(), (GetUnitLifePercent(GetKillingUnitBJ()) + 5.00))
-        SetUnitManaBJ(GetKillingUnitBJ(), (GetUnitStateSwap(UNIT_STATE_MANA, GetKillingUnitBJ()) + 9.00))
-    else
-    end
-end
-
-function InitTrig_Unit_Upgrades()
-    gg_trg_Unit_Upgrades = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Unit_Upgrades, EVENT_PLAYER_UNIT_DEATH)
-    TriggerAddCondition(gg_trg_Unit_Upgrades, Condition(Trig_Unit_Upgrades_Conditions))
-    TriggerAddAction(gg_trg_Unit_Upgrades, Trig_Unit_Upgrades_Actions)
 end
 
 function Trig_Elder_Ent_Movement_Conditions()
@@ -5425,8 +5334,6 @@ function InitCustomTriggers()
     InitTrig_Event_Count()
     InitTrig_DW_Ancient_Chaos()
     InitTrig_Doom_Warden_End()
-    InitTrig_Footman_at_Max_Mana()
-    InitTrig_Unit_Upgrades()
     InitTrig_Elder_Ent_Movement()
     InitTrig_Zombie_Infect()
     InitTrig_Chain_Lightning()

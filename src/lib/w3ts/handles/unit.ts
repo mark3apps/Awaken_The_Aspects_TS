@@ -159,6 +159,10 @@ export class Unit extends Widget {
 		SetUnitColor(this.handle, whichColor)
 	}
 
+	public get color(): playercolor {
+		return this.owner.color
+	}
+
 	public get currentOrder(): OrderId {
 		return GetUnitCurrentOrder(this.handle)
 	}

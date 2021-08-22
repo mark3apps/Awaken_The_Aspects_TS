@@ -1,4 +1,5 @@
 import { AbilityFelGrunt, AbilityFelOgre, AbilityFelWarlock, AbilityFelWarlord } from "app/abilities/unit/felOrc"
+import { AbilityFootmanUpgrade } from "app/abilities/unit/footmanUpgrade"
 import { Ability, EffectType, TargetType } from "classes/ability"
 import { HeroAbility } from "classes/heroAbility"
 import { ID } from "lib/w3ts/globals/ids"
@@ -74,6 +75,8 @@ export namespace ABILITY {
         new AbilityFelOgre({ four: ID.Ability.FelOgre, type: EffectType.Kill, target: TargetType.None })
         new AbilityFelWarlord({ four: ID.Ability.FelWarlord, type: EffectType.Kill, target: TargetType.None })
         new AbilityFelWarlock({ four: ID.Ability.FelWarlock, type: EffectType.Kill, target: TargetType.None })
+
+        new AbilityFootmanUpgrade({ four: ID.Ability.FootmanCharge, orderId: OrderId.Bearform, type: EffectType.Instant})
 
         //
         // Hero Abilities

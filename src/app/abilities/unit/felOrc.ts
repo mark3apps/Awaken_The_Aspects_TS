@@ -4,7 +4,6 @@ import { ID } from "lib/w3ts/globals/ids"
 import { ANIMATION } from "lib/w3ts/globals/unitAnimations"
 import { Unit } from "lib/w3ts/index"
 
-
 export class AbilityFel extends Ability {
     public chaosAbility: ID.Ability
     public killsNeeded: number
