@@ -51,18 +51,15 @@ export namespace DEATH_SPAWN {
         add(UNIT_TYPE.MercTent, { amount: 3, unitId: UNIT_TYPE.BanditSpearman, chance: 0.6 })
         add(UNIT_TYPE.MercTent, { amount: 2, unitId: UNIT_TYPE.Assassin, chance: 0.4 })
 
-        add(UNIT_TYPE.WildhammerCottage, { amount: 3, unitId: UNIT_TYPE.DwarfClansman, chance: 0.3 })
-        add(UNIT_TYPE.WildhammerCottage, { amount: 3, unitId: UNIT_TYPE.DwarfAxethrower, chance: 0.3 })
+        add(UNIT_TYPE.WildhammerCottage, { amount: 2, unitId: UNIT_TYPE.DwarfClansman, chance: 0.3 })
+        add(UNIT_TYPE.WildhammerCottage, { amount: 2, unitId: UNIT_TYPE.DwarfAxethrower, chance: 0.3 })
         add(UNIT_TYPE.WildhammerCottage, { amount: 1, unitId: UNIT_TYPE.DwarfElite, chance: 0.2 })
         add(UNIT_TYPE.WildhammerFarm, { amount: 2, unitId: UNIT_TYPE.DwarfClansman, chance: 0.2 })
         add(UNIT_TYPE.WildhammerFarm, { amount: 2, unitId: UNIT_TYPE.DwarfAxethrower, chance: 0.2 })
         add(UNIT_TYPE.WildhammerFarm, { amount: 1, unitId: UNIT_TYPE.DwarfElite, chance: 0.3 })
-        add(UNIT_TYPE.WildhammerFarmLarge, { amount: 3, unitId: UNIT_TYPE.DwarfClansman, chance: 0.3 })
-        add(UNIT_TYPE.WildhammerFarmLarge, { amount: 3, unitId: UNIT_TYPE.DwarfAxethrower, chance: 0.3 })
+        add(UNIT_TYPE.WildhammerFarmLarge, { amount: 2, unitId: UNIT_TYPE.DwarfClansman, chance: 0.3 })
+        add(UNIT_TYPE.WildhammerFarmLarge, { amount: 2, unitId: UNIT_TYPE.DwarfAxethrower, chance: 0.3 })
         add(UNIT_TYPE.WildhammerFarmLarge, { amount: 1, unitId: UNIT_TYPE.DwarfElite, chance: 0.3 })
-        add(UNIT_TYPE.WildhammerMound, { amount: 3, unitId: UNIT_TYPE.DwarfClansman, chance: 0.4 })
-        add(UNIT_TYPE.WildhammerMound, { amount: 3, unitId: UNIT_TYPE.DwarfAxethrower, chance: 0.4 })
-        add(UNIT_TYPE.WildhammerMound, { amount: 1, unitId: UNIT_TYPE.DwarfElite })
 
         add(UNIT_TYPE.GryphonRider, { amount: 1, unitId: UNIT_TYPE.DwarfAxethrower })
 
