@@ -63,10 +63,11 @@ export namespace DEATH_SPAWN {
 
         add(UNIT_TYPE.GryphonRider, { amount: 1, unitId: UNIT_TYPE.DwarfAxethrower })
 
-        add(UNIT_TYPE.HumanFrigate, { amount: 2, unitId: UNIT_TYPE.Arbalist, chance: .7 })
-        add(UNIT_TYPE.HumanFrigate, { amount: 1, unitId: UNIT_TYPE.Footman2, chance: 0.5 })
+        add(UNIT_TYPE.HumanFrigate, { amount: 2, unitId: UNIT_TYPE.Arbalist, chance: .5 })
+        add(UNIT_TYPE.HumanFrigate, { amount: 1, unitId: UNIT_TYPE.NavyMarine, chance: 0.4 })
         add(UNIT_TYPE.HumanBattleship, { amount: 2, unitId: UNIT_TYPE.Arbalist, chance: 1 })
-        add(UNIT_TYPE.HumanBattleship, { amount: 1, unitId: UNIT_TYPE.Footman2, chance: 0.75 })
+        add(UNIT_TYPE.HumanBattleship, { amount: 1, unitId: UNIT_TYPE.NavyMarine, chance: 0.5 })
+        add(UNIT_TYPE.HumanBattleship, { amount: 1, unitId: UNIT_TYPE.NavyCaptain })
 
         add(UNIT_TYPE.NightElfFrigate, { amount: 2, unitId: UNIT_TYPE.NightElfRanger, chance: 0.6 })
         add(UNIT_TYPE.NightElfFrigate, { amount: 2, unitId: UNIT_TYPE.NightElfSentry, chance: 0.7 })

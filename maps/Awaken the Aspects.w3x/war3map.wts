@@ -10159,12 +10159,6 @@ STRING 3901
 Arrow Storm 2
 }
 
-STRING 3902
-// Units: n00X (Arbalist), Name (Name)
-{
-Arbalist
-}
-
 STRING 3904
 // Abilities: A048 (Fel Orc Warchief), Name (Name)
 {
@@ -10373,12 +10367,6 @@ STRING 3985
 // Abilities: A052 (Upgrade Captian 1), Name (Name)
 {
 Upgrade Captian 1
-}
-
-STRING 3986
-// Units: hmtm (Catapult), Name (Name)
-{
-Catapult
 }
 
 STRING 3987
@@ -14045,5 +14033,71 @@ STRING 4848
 // Doodads: D00E (Kul Turas Bridge), Name (Name)
 {
 Kul Turas Bridge
+}
+
+STRING 4849
+// Doodads: D00F (Crates (No Pathing)), Name (Name)
+{
+Crates (No Pathing)
+}
+
+STRING 4850
+// Doodads: D00G (Crates 2 (No Pathing)), Name (Name)
+{
+Crates 2 (No Pathing)
+}
+
+STRING 4851
+// Units: n00X (Crossbowman), Name (Name)
+{
+Crossbowman
+}
+
+STRING 4852
+// Units: h013 (Navy Footman), Name (Name)
+{
+Navy Footman
+}
+
+STRING 4853
+// Units: h016 (Navy Marine), Name (Name)
+{
+Navy Marine
+}
+
+STRING 4854
+// Units: h018 (Navy Captian), Name (Name)
+{
+Navy Captian
+}
+
+STRING 4855
+// Abilities: A05M (Summon Marines), Name (Name)
+{
+Summon Marines
+}
+
+STRING 4856
+// Abilities: A05M (Summon Marines), EditorSuffix (Editor Suffix)
+{
+(1)
+}
+
+STRING 4857
+// Abilities: A05N (Summon Marines), Name (Name)
+{
+Summon Marines
+}
+
+STRING 4858
+// Abilities: A05N (Summon Marines), EditorSuffix (Editor Suffix)
+{
+(2)
+}
+
+STRING 4859
+// Units: hmtm (Cannon), Name (Name)
+{
+Cannon
 }
 

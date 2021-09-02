@@ -1304,6 +1304,9 @@ export namespace ID {
         MercTent = "n00M",
         FarmLarge = "h01A",
         MercLookout = "o004",
+        NavyCaptain = "h018",
+        NavyFootman = "h013",
+        NavyMarine = "h016",
 
         // Default Units
         Abomination = "uabo", // model: Abomination	 scale: 0,9	 selectScale: 2,1
