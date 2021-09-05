@@ -1307,6 +1307,8 @@ export namespace ID {
         NavyCaptain = "h018",
         NavyFootman = "h013",
         NavyMarine = "h016",
+        AncientOfLife = "n00F",
+        LichCustom = "u000",
 
         // Default Units
         Abomination = "uabo", // model: Abomination	 scale: 0,9	 selectScale: 2,1

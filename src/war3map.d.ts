@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 declare var gg_rct_Left_Start: rect;
 declare var gg_rct_Left_Hero: rect;
 declare var gg_rct_Camp_Top: rect;
@@ -40,6 +41,8 @@ declare var gg_rct_City_Elves_Left: rect;
 declare var gg_rct_Blacksmith_Left: rect;
 declare var gg_rct_Front_City_Right: rect;
 declare var gg_rct_City_Elves_Right: rect;
+declare var gg_rct_Night_Elf_Left: rect;
+declare var gg_rct_Night_Elf_Right: rect;
 declare var gg_rct_Blacksmith_Right: rect;
 declare var gg_rct_Arcane_Hero_Right: rect;
 declare var gg_rct_Arcane_Hero_Left: rect;
@@ -225,3 +228,5 @@ declare var gg_unit_u001_0098: unit;
 declare var gg_unit_ndh2_0359: unit;
 declare var gg_unit_h002_0699: unit;
 declare var gg_unit_ndh2_0876: unit;
+declare var gg_unit_edob_0304: unit;
+declare var gg_unit_edob_0315: unit;

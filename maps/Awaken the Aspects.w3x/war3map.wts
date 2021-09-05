@@ -961,12 +961,6 @@ STRING 353
 AT - Endurance
 }
 
-STRING 354
-// Abilities: A011 (AT - Thorns Aura), Name (Name)
-{
-AT - Thorns Aura
-}
-
 STRING 356
 {
 Defeat!
@@ -1898,12 +1892,6 @@ STRING 757
 Increases Attack Speed
 }
 
-STRING 761
-// Abilities: A01D (War Stomp), EditorSuffix (Editor Suffix)
-{
-(Doom Warden)
-}
-
 STRING 770
 // Buffs/Effects: B000 (BR - Bloodlust), Bufftip (Tooltip)
 {
@@ -2340,54 +2328,6 @@ STRING 889
 // Abilities: A01G (Assasin - Cleaving Attack), EditorSuffix (Editor Suffix)
 {
 (Spell Book)
-}
-
-STRING 890
-// Abilities: A01X (Blink Landing), Name (Name)
-{
-Blink Landing
-}
-
-STRING 891
-// Abilities: A01X (Blink Landing), Tip (Tooltip - Normal)
-{
-Thunder Clap - [|cffffcc00Level 4|r]
-}
-
-STRING 892
-// Abilities: A01X (Blink Landing), Tip (Tooltip - Normal)
-{
-Thunder Clap - [|cffffcc00Level 5|r]
-}
-
-STRING 893
-// Abilities: A01X (Blink Landing), Tip (Tooltip - Normal)
-{
-Thunder Clap - [|cffffcc00Level 6|r]
-}
-
-STRING 894
-// Abilities: A026 (Blink Takeoff), Name (Name)
-{
-Blink Takeoff
-}
-
-STRING 895
-// Abilities: A026 (Blink Takeoff), Tip (Tooltip - Normal)
-{
-Thunder Clap - [|cffffcc00Level 4|r]
-}
-
-STRING 896
-// Abilities: A026 (Blink Takeoff), Tip (Tooltip - Normal)
-{
-Thunder Clap - [|cffffcc00Level 5|r]
-}
-
-STRING 897
-// Abilities: A026 (Blink Takeoff), Tip (Tooltip - Normal)
-{
-Thunder Clap - [|cffffcc00Level 6|r]
 }
 
 STRING 913
@@ -4196,12 +4136,6 @@ STRING 2368
 BAN - Impale
 }
 
-STRING 2369
-// Abilities: A02I (Barrage Banchee), Name (Name)
-{
-Barrage Banchee
-}
-
 STRING 2379
 // Upgrades: R00A (Animal War Training), Tip (Tooltip)
 {
@@ -4373,18 +4307,6 @@ Elemental Focus
 STRING 2447
 {
 Event Started whichever team holds the middle will get an extra powerful giant to fight for it.
-}
-
-STRING 2448
-// Abilities: A02U (Spawn Medium Golem), Name (Name)
-{
-Spawn Medium Golem
-}
-
-STRING 2449
-// Abilities: A02V (Spawn Small Golem), Name (Name)
-{
-Spawn Small Golem
 }
 
 STRING 2451
@@ -4780,12 +4702,6 @@ STRING 2655
 // Abilities: A00S (Summon Water Elemental), EditorSuffix (Editor Suffix)
 {
 Medium
-}
-
-STRING 2656
-// Abilities: A034 (Summon Water Elemental), EditorSuffix (Editor Suffix)
-{
-Small
 }
 
 STRING 2657
@@ -7872,52 +7788,10 @@ STRING 3282
 Merc Tent
 }
 
-STRING 3283
-// Abilities: A04V (Summon Rogue), Name (Name)
-{
-Summon Rogue
-}
-
 STRING 3284
 // Buffs/Effects: B009 (), Bufftip (Tooltip)
 {
 Hired Gun
-}
-
-STRING 3285
-// Abilities: A03G (Summon Assassin), Name (Name)
-{
-Summon Assassin
-}
-
-STRING 3287
-// Abilities: A03H (Resurrection), Ubertip (Tooltip - Normal - Extended)
-{
-Brings back to life the corpses of <AHre,DataA2> friendly nearby units.
-}
-
-STRING 3288
-// Abilities: A03H (Resurrection), Ubertip (Tooltip - Normal - Extended)
-{
-Brings back to life the corpses of <AHre,DataA3> friendly nearby units.
-}
-
-STRING 3289
-// Abilities: A03H (Resurrection), Tip (Tooltip - Normal)
-{
-Resurrection - [|cffffcc00Level 1|r]
-}
-
-STRING 3290
-// Abilities: A03H (Resurrection), Tip (Tooltip - Normal)
-{
-Resurrection - [|cffffcc00Level 2|r]
-}
-
-STRING 3291
-// Abilities: A03H (Resurrection), Tip (Tooltip - Normal)
-{
-Resurrection - [|cffffcc00Level 3|r]
 }
 
 STRING 3296
@@ -8098,18 +7972,6 @@ STRING 3383
 // Abilities: A03P (MS - Mana Bomb), Ubertip (Tooltip - Normal - Extended)
 {
 Channels powerful warding magic.
-}
-
-STRING 3385
-// Abilities: A03Q (Spawn Water Elemental Level 2), Name (Name)
-{
-Spawn Water Elemental Level 2
-}
-
-STRING 3386
-// Abilities: A03R (Spawn Water Elemental Level 1), Name (Name)
-{
-Spawn Water Elemental Level 1
 }
 
 STRING 3388
@@ -10175,18 +10037,6 @@ STRING 3906
 // Units: nogo (Ogre), Name (Name)
 {
 Ogre
-}
-
-STRING 3907
-// Abilities: A00P (Spawn Clockwork Golem), Name (Name)
-{
-Spawn Clockwork Golem
-}
-
-STRING 3908
-// Abilities: A044 (Spawn Fallen Knight), Name (Name)
-{
-Spawn Fallen Knight
 }
 
 STRING 3920
@@ -13220,46 +13070,16 @@ STRING 4667
 Hardened Armor
 }
 
-STRING 4669
-// Abilities: A017 (Shoot Gun), Name (Name)
-{
-Shoot Gun
-}
-
-STRING 4670
-// Abilities: A02B (Skatter Shot), Name (Name)
-{
-Skatter Shot
-}
-
 STRING 4671
 // Units: o004 (Merc Lookout), Name (Name)
 {
 Merc Lookout
 }
 
-STRING 4673
-// Abilities: A05A (Spawn Mercs), Name (Name)
-{
-Spawn Mercs
-}
-
-STRING 4674
-// Abilities: A05B (Spawn Assassins), Name (Name)
-{
-Spawn Assassins
-}
-
 STRING 4687
 // Units: hgyr (Gyrocopter), Name (Name)
 {
 Gyrocopter
-}
-
-STRING 4688
-// Abilities: A05C (Spawn Copter), Name (Name)
-{
-Spawn Copter
 }
 
 STRING 4690
@@ -14099,5 +13919,65 @@ STRING 4859
 // Units: hmtm (Cannon), Name (Name)
 {
 Cannon
+}
+
+STRING 4860
+// Units: h012 (Ship), Name (Name)
+{
+Ship
+}
+
+STRING 4861
+// Units: n00F (Ancient of Life), Name (Name)
+{
+Ancient of Life
+}
+
+STRING 4862
+// Abilities: A011 (Summon Crossbow), Name (Name)
+{
+Summon Crossbow
+}
+
+STRING 4863
+// Abilities: A011 (Summon Crossbow), EditorSuffix (Editor Suffix)
+{
+(1)
+}
+
+STRING 4864
+// Abilities: A017 (Summon Captian), Name (Name)
+{
+Summon Captian
+}
+
+STRING 4865
+// Units: u000 (Lich), Name (Name)
+{
+Lich
+}
+
+STRING 4866
+// Abilities: Arai (Raise Dead), EditorSuffix (Editor Suffix)
+{
+(Warriors)
+}
+
+STRING 4867
+// Abilities: A01D (Raise Dead), EditorSuffix (Editor Suffix)
+{
+(Archer)
+}
+
+STRING 4868
+// Abilities: A01X (Raise Dead), EditorSuffix (Editor Suffix)
+{
+(Mage)
+}
+
+STRING 4869
+// Abilities: A026 (Mark for Death), Name (Name)
+{
+Mark for Death
 }
 

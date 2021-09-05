@@ -14,11 +14,11 @@ export namespace FACTION {
     export let highCity: Faction
     export let cityElves: Faction
     export let cityFront: Faction
-    export let citySide: Faction
     export let humanShipyard: Faction
     export let highElves: Faction
     export let highElvesCreep: Faction
-    export let nightElves: Faction
+    export let tree: Faction
+    export let nightElf: Faction
     export let nightElfShipyard: Faction
     export let merc: Faction
     export let dwarf: Faction
@@ -66,10 +66,6 @@ export namespace FACTION {
             alliance: new Base(Unit.fromHandle(gg_unit_n00B_0364), ARMY.Alliance, LOC.sCityFront.alliance, LOC.middle.federation, 3, true, true, true),
             federation: new Base(Unit.fromHandle(gg_unit_n00B_0399), ARMY.Federation, LOC.sCityFront.federation, LOC.middle.alliance, 3, true, true, true)
         }
-        citySide = {
-            alliance: new Base(Unit.fromHandle(gg_unit_n00B_0102), ARMY.Alliance, LOC.sCitySide.alliance, LOC.bottom.federation, 2, true, true, true),
-            federation: new Base(Unit.fromHandle(gg_unit_n00B_0038), ARMY.Federation, LOC.sCitySide.federation, LOC.top.alliance, 2, true, true, true)
-        }
         humanShipyard = {
             alliance: new Base(Unit.fromHandle(gg_unit_hshy_0011), ARMY.Alliance, LOC.sHumanShipyard.alliance, LOC.sHumanShipyard.federation, 1, true, true, true),
             federation: new Base(Unit.fromHandle(gg_unit_hshy_0212), ARMY.Federation, LOC.sHumanShipyard.federation, LOC.sHumanShipyard.alliance, 1, true, true, true)
@@ -82,9 +78,13 @@ export namespace FACTION {
             alliance: new Base(Unit.fromHandle(gg_unit_nheb_0109), ARMY.Alliance, LOC.sElf.alliance, LOC.cForestMid.alliance, 1, true, true, true),
             federation: new Base(Unit.fromHandle(gg_unit_nheb_0036), ARMY.Federation, LOC.sElf.federation, LOC.cForestMid.federation, 1, true, true, true)
         }
-        nightElves = {
-            alliance: new Base(Unit.fromHandle(gg_unit_e003_0058), ARMY.Alliance, LOC.sNightElf.alliance, LOC.top.federation, 1, true, true, false),
-            federation: new Base(Unit.fromHandle(gg_unit_e003_0014), ARMY.Federation, LOC.sNightElf.federation, LOC.bottom.alliance, 1, true, true, false)
+        tree = {
+            alliance: new Base(Unit.fromHandle(gg_unit_e003_0058), ARMY.Alliance, LOC.sTree.alliance, LOC.top.federation, 1, true, true, false),
+            federation: new Base(Unit.fromHandle(gg_unit_e003_0014), ARMY.Federation, LOC.sTree.federation, LOC.bottom.alliance, 1, true, true, false)
+        }
+        nightElf = {
+            alliance: new Base(Unit.fromHandle(gg_unit_edob_0315), ARMY.Alliance, LOC.sNightElf.alliance, LOC.top.federation, 1, true, true, false),
+            federation: new Base(Unit.fromHandle(gg_unit_edob_0304), ARMY.Federation, LOC.sNightElf.federation, LOC.bottom.alliance, 1, true, true, false)
         }
         nightElfShipyard = {
             alliance: new Base(Unit.fromHandle(gg_unit_eshy_0120), ARMY.Alliance, LOC.sElfShipyard.alliance, LOC.sHumanShipyard.federation, 1, true, true, true),

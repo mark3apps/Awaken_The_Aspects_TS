@@ -33,6 +33,8 @@ export namespace Game {
     export function start(): void {
         FogEnableOff()
         FogMaskEnableOff()
+        FogMaskEnableOn()
+        FogEnableOn()
 
         Log.Information("Game Map Start")
 

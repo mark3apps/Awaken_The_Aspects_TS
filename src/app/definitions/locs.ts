@@ -18,11 +18,11 @@ export namespace LOC {
     export let top: LocInterface
     export let sArcane: LocInterface
     export let sArcaneHero: LocInterface
+    export let sNightElf: LocInterface
     export let sCamp: LocInterface
     export let sHighCity: LocInterface
     export let sCityElf: LocInterface
     export let sCityFront: LocInterface
-    export let sCitySide: LocInterface
     export let sElementalTop: LocInterface
     export let sElementalBottom: LocInterface
     export let sElf: LocInterface
@@ -33,7 +33,7 @@ export namespace LOC {
     export let sMurloc: LocInterface
     export let sNaga: LocInterface
     export let sOrc: LocInterface
-    export let sNightElf: LocInterface
+    export let sTree: LocInterface
     export let sDwarf: LocInterface
     export let sUndead: LocInterface
     export let cForest: LocInterface
@@ -104,10 +104,6 @@ export namespace LOC {
             alliance: new Loc(Rectangle.fromHandle(gg_rct_Front_Town_Left)),
             federation: new Loc(Rectangle.fromHandle(gg_rct_Front_City_Right))
         }
-        sCitySide = {
-            alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_City)),
-            federation: new Loc(Rectangle.fromHandle(gg_rct_Right_City))
-        }
         sElementalTop = {
             alliance: new Loc(Rectangle.fromHandle(gg_rct_Arcane_Left_Top)),
             federation: new Loc(Rectangle.fromHandle(gg_rct_Arcane_Right_Top))
@@ -148,9 +144,13 @@ export namespace LOC {
             alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Orc)),
             federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Orc))
         }
-        sNightElf = {
+        sTree = {
             alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Tree)),
             federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Tree))
+        }
+        sNightElf = {
+            alliance: new Loc(Rectangle.fromHandle(gg_rct_Night_Elf_Left)),
+            federation: new Loc(Rectangle.fromHandle(gg_rct_Night_Elf_Right))
         }
         sDwarf = {
             alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Workshop)),

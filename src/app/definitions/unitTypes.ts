@@ -6,7 +6,8 @@ import { ID } from "lib/w3ts/globals/ids"
 export const UNIT_TYPE = {
 
    Arbalist: new UnitType("n00X"), 
-   AncientProtector : new UnitType("nwnr"), 
+   AncientOfWar : new UnitType("nwnr"),
+   AncientOfLife : new UnitType(ID.Unit.AncientOfLife), 
    Assassin : new UnitType("nass"), 
    Brawler : new UnitType("E001"), 
    BrawlerAlter : new UnitType("h00I"), 
@@ -60,7 +61,8 @@ export const UNIT_TYPE = {
    IronMagi : new UnitType("h01E"), 
    IronMortarTeam : new UnitType("h001"), 
    IronRifleman : new UnitType("h008"), 
-   Knight : new UnitType("h00L"), 
+   Knight : new UnitType("h00L"),
+   Lich : new UnitType(ID.Unit.LichCustom),
    MagiDefender : new UnitType("h00K"), 
    ManaAddict : new UnitType("H00R"), 
    ManaAddictAlter : new UnitType("h00B"), 
@@ -109,6 +111,7 @@ export const UNIT_TYPE = {
    WaterElemental1 : new UnitType("hwat"), 
    WaterElemental2 : new UnitType("hwt2"), 
    WaterElemental3 : new UnitType("hwt3"),
+   NightElfWarden : new UnitType(ID.Unit.Nightelfassassin),
    
    // Buildings
    CastleGateOpen : new UnitType(ID.Unit.CastleGateOpen), 

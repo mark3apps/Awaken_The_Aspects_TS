@@ -47,9 +47,9 @@ export namespace DEATH_SPAWN {
         add(UNIT_TYPE.Nerubianziggurat, { amount: 7, unitId: UNIT_TYPE.SkeletonWarrior, chance: 0.7 })
         add(UNIT_TYPE.Nerubianziggurat, { amount: 5, unitId: UNIT_TYPE.SkeletonArcher, chance: 0.7 })
 
-        add(UNIT_TYPE.MercTent, { amount: 5, unitId: UNIT_TYPE.Bandit, chance: 0.8 })
-        add(UNIT_TYPE.MercTent, { amount: 3, unitId: UNIT_TYPE.BanditSpearman, chance: 0.6 })
-        add(UNIT_TYPE.MercTent, { amount: 2, unitId: UNIT_TYPE.Assassin, chance: 0.4 })
+        add(UNIT_TYPE.MercTent, { amount: 5, unitId: UNIT_TYPE.Bandit, chance: 0.4 })
+        add(UNIT_TYPE.MercTent, { amount: 3, unitId: UNIT_TYPE.BanditSpearman, chance: 0.5 })
+        add(UNIT_TYPE.MercTent, { amount: 2, unitId: UNIT_TYPE.Assassin, chance: 0.25 })
 
         add(UNIT_TYPE.WildhammerCottage, { amount: 2, unitId: UNIT_TYPE.DwarfClansman, chance: 0.3 })
         add(UNIT_TYPE.WildhammerCottage, { amount: 2, unitId: UNIT_TYPE.DwarfAxethrower, chance: 0.3 })
@@ -63,11 +63,10 @@ export namespace DEATH_SPAWN {
 
         add(UNIT_TYPE.GryphonRider, { amount: 1, unitId: UNIT_TYPE.DwarfAxethrower })
 
-        add(UNIT_TYPE.HumanFrigate, { amount: 2, unitId: UNIT_TYPE.Arbalist, chance: .5 })
-        add(UNIT_TYPE.HumanFrigate, { amount: 1, unitId: UNIT_TYPE.NavyMarine, chance: 0.4 })
-        add(UNIT_TYPE.HumanBattleship, { amount: 2, unitId: UNIT_TYPE.Arbalist, chance: 1 })
-        add(UNIT_TYPE.HumanBattleship, { amount: 1, unitId: UNIT_TYPE.NavyMarine, chance: 0.5 })
-        add(UNIT_TYPE.HumanBattleship, { amount: 1, unitId: UNIT_TYPE.NavyCaptain })
+        add(UNIT_TYPE.HumanFrigate, { amount: 2, unitId: UNIT_TYPE.Arbalist, chance: .4 })
+        add(UNIT_TYPE.HumanFrigate, { amount: 3, unitId: UNIT_TYPE.NavyMarine, chance: 0.5 })
+        add(UNIT_TYPE.HumanBattleship, { amount: 1, unitId: UNIT_TYPE.Arbalist, chance: 0.5 })
+        add(UNIT_TYPE.HumanBattleship, { amount: 4, unitId: UNIT_TYPE.NavyMarine, chance: 0.5 })
 
         add(UNIT_TYPE.NightElfFrigate, { amount: 2, unitId: UNIT_TYPE.NightElfRanger, chance: 0.6 })
         add(UNIT_TYPE.NightElfFrigate, { amount: 2, unitId: UNIT_TYPE.NightElfSentry, chance: 0.7 })
@@ -97,7 +96,7 @@ export namespace DEATH_SPAWN {
             const unit = Unit.fromEvent()
 
             if (unit.isStructure && ignoreBuildingId.indexOf(unit.typeId) == -1 ) {
-                if (0.5 > (math.random() + 0.000001)) {
+                if (0 > (math.random() + 0.000001)) {
 
                     const uBuilding = new Unit(MapPlayer.fromHandle(Player(PLAYER_NEUTRAL_PASSIVE)), unit.typeId, unit.x, unit.y, unit.facing)
                     uBuilding.color = unit.color
