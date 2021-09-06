@@ -896,7 +896,7 @@ Mountian Giant
 }
 
 STRING 333
-// Units: o001 (Stronghold), Name (Name)
+// Units: h006 (Stronghold), Name (Name)
 {
 Stronghold
 }
@@ -941,12 +941,6 @@ STRING 350
 // Abilities: A00Z (Mana Regen Small), Name (Name)
 {
 Mana Regen Small
-}
-
-STRING 351
-// Units: h00F (Command Center), Name (Name)
-{
-Command Center
 }
 
 STRING 352
@@ -1770,12 +1764,6 @@ STRING 688
 // Abilities: A042 (TA - Inspire), Researchtip (Tooltip - Learn)
 {
 Learn Inspire - [|cffffcc00Level %d|r]
-}
-
-STRING 703
-// Units: n00D (Furbolg Camp), Name (Name)
-{
-Furbolg Camp
 }
 
 STRING 706
@@ -8670,24 +8658,6 @@ STRING 3587
 Scout Tower
 }
 
-STRING 3588
-// Units: n00O (Peasant), Name (Name)
-{
-Peasant
-}
-
-STRING 3589
-// Units: n00P (Peasant), Name (Name)
-{
-Peasant
-}
-
-STRING 3590
-// Units: n00Q (Peasant), Name (Name)
-{
-Peasant
-}
-
 STRING 3603
 // Units: nico (Obelisk), Name (Name)
 {
@@ -10217,18 +10187,6 @@ STRING 3985
 // Abilities: A052 (Upgrade Captian 1), Name (Name)
 {
 Upgrade Captian 1
-}
-
-STRING 3987
-// Units: ngnh (Kobold Hut), Name (Name)
-{
-Kobold Hut
-}
-
-STRING 3988
-// Units: ngt2 (Kobold Hall), Name (Name)
-{
-Kobold Hall
 }
 
 STRING 4000
@@ -12667,12 +12625,6 @@ STRING 4559
 Pathing Blocker (Ground + Vision) (Large)
 }
 
-STRING 4560
-// Units: h019 (Stables), Name (Name)
-{
-Stables
-}
-
 STRING 4561
 // Doodads: D01J (Rack Armor 2), Name (Name)
 {
@@ -12698,16 +12650,6 @@ Fortified armor greatly reduces Piercing, and Normal attacks, but takes extra da
 STRING 4566
 {
 Fortified armor greatly reduces Piercing, Hero, Magic, and Normal attacks, but takes extra damage from Siege.
-}
-
-STRING 4567
-{
- - Each point increase movement speed
-}
-
-STRING 4568
-{
- - Each point increase movement speed
 }
 
 STRING 4569
@@ -13603,12 +13545,6 @@ STRING 4795
 Pathing Blocker (Wrap Baracade)
 }
 
-STRING 4796
-// Units: h006 (|cff0000ffStronghold|r), Name (Name)
-{
-|cff0000ffStronghold|r
-}
-
 STRING 4797
 // Doodads: D00D (Wrap Baracade (Pathing)), Name (Name)
 {
@@ -13873,12 +13809,6 @@ STRING 4851
 Crossbowman
 }
 
-STRING 4852
-// Units: h013 (Navy Footman), Name (Name)
-{
-Navy Footman
-}
-
 STRING 4853
 // Units: h016 (Navy Marine), Name (Name)
 {
@@ -13979,5 +13909,92 @@ STRING 4869
 // Abilities: A026 (Mark for Death), Name (Name)
 {
 Mark for Death
+}
+
+STRING 4870
+{
+Type: |Cffffcc00Aspect|R
+}
+
+STRING 4871
+{
+ - Each point increase movement and attack speed
+}
+
+STRING 4872
+{
+ - Each point increase movement and attack speed
+}
+
+STRING 4873
+{
+Type: |Cffffcc00Armored|R
+}
+
+STRING 4874
+{
+Type: |Cffffcc00Large|R
+}
+
+STRING 4875
+{
+Type: |Cffffcc00Magical|R
+}
+
+STRING 4876
+{
+Type: |Cffffcc00Plate|R
+}
+
+STRING 4877
+{
+Type: |Cffffcc00Structure|R
+}
+
+STRING 4878
+{
+Type: |Cffffcc00Structure|R
+}
+
+STRING 4879
+// Units: nggg (Aspect of the Earth), Name (Name)
+{
+Aspect of the Earth
+}
+
+STRING 4880
+// Units: o001 (Stronghold), Name (Name)
+{
+Stronghold
+}
+
+STRING 4882
+// Abilities: A02I (Death Explosion), EditorSuffix (Editor Suffix)
+{
+(Aspect of the Earth)
+}
+
+STRING 4883
+// Abilities: A02I (Death Explosion), Name (Name)
+{
+Death Explosion
+}
+
+STRING 4884
+// Abilities: A02U (Rock Slam), EditorSuffix (Editor Suffix)
+{
+(Aspect of the Earth)
+}
+
+STRING 4885
+// Abilities: A02U (Rock Slam), Name (Name)
+{
+Rock Slam
+}
+
+STRING 4886
+// Abilities: A02V (Slam), EditorSuffix (Editor Suffix)
+{
+(Aspect of the Earth)
 }
 
