@@ -55,8 +55,8 @@ export namespace FACTION {
             federation: new Base(Unit.fromHandle(gg_unit_h00E_0081), ARMY.Federation, LOC.sHero.federation, LOC.everything.alliance, 6, true, true, true)
         }
         highCity = {
-            alliance: new Base(Unit.fromHandle(gg_unit_n00K_0802), ARMY.Alliance, LOC.sHighCity.alliance, LOC.cDeathMid.alliance, 2, true, true, true),
-            federation: new Base(Unit.fromHandle(gg_unit_n00K_0477), ARMY.Federation, LOC.sHighCity.federation, LOC.cDeathMid.federation, 2, true, true, true)
+            alliance: new Base(Unit.fromHandle(gg_unit_n00K_0802), ARMY.Alliance, LOC.sHighCity.alliance, LOC.cDeath.alliance, 2, true, true, true),
+            federation: new Base(Unit.fromHandle(gg_unit_n00K_0477), ARMY.Federation, LOC.sHighCity.federation, LOC.cDeath.federation, 2, true, true, true)
         }
         cityElves = {
             alliance: new Base(Unit.fromHandle(gg_unit_hvlt_0207), ARMY.Alliance, LOC.sCityElf.alliance, LOC.everything.federation, 2, true, true, true),

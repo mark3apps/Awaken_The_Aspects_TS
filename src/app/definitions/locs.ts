@@ -40,7 +40,6 @@ export namespace LOC {
     export let cForestMid: LocInterface
     export let cTides: LocInterface
     export let cDeath: LocInterface
-    export let cDeathMid: LocInterface
     export let cStorm: LocInterface
 
     export function define(): void {
@@ -177,10 +176,6 @@ export namespace LOC {
         cDeath = {
             alliance: new Loc(Rectangle.fromHandle(gg_rct_Zombie_End_Left), middle.federation, ARMY.Alliance),
             federation: new Loc(Rectangle.fromHandle(gg_rct_Zombie_End_Right), middle.alliance, ARMY.Federation)
-        }
-        cDeathMid = {
-            alliance: new Loc(Rectangle.fromHandle(gg_rct_Zombie_Mid_Left), cDeath.alliance, ARMY.Alliance),
-            federation: new Loc(Rectangle.fromHandle(gg_rct_Zombie_Mid_Right), cDeath.federation, ARMY.Federation)
         }
         cStorm = {
             alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Elemental_Start), bottom.federation, ARMY.Alliance),

@@ -63,6 +63,18 @@ export namespace DEATH_SPAWN {
 
         add(UNIT_TYPE.GryphonRider, { amount: 1, unitId: UNIT_TYPE.DwarfAxethrower })
 
+        add(UNIT_TYPE.CityBuilding03, { amount: 1, unitId: UNIT_TYPE.VillagerMale1, chance: 0.5 })
+        add(UNIT_TYPE.CityBuilding03, { amount: 1, unitId: UNIT_TYPE.VillagerMale2, chance: 0.5 })
+        add(UNIT_TYPE.CityBuilding03, { amount: 2, unitId: UNIT_TYPE.VillagerFemale1, chance: 0.5 })
+        add(UNIT_TYPE.CityBuilding03, { amount: 1, unitId: UNIT_TYPE.VillagerChild1, chance: 0.5 })
+        add(UNIT_TYPE.CityBuilding03, { amount: 1, unitId: UNIT_TYPE.VillagerChild2, chance: 0.5 })
+
+        add(UNIT_TYPE.CityBuilding09, { amount: 1, unitId: UNIT_TYPE.VillagerMale1, chance: 0.5 })
+        add(UNIT_TYPE.CityBuilding09, { amount: 1, unitId: UNIT_TYPE.VillagerMale2, chance: 0.5 })
+        add(UNIT_TYPE.CityBuilding09, { amount: 2, unitId: UNIT_TYPE.VillagerFemale1, chance: 0.5 })
+        add(UNIT_TYPE.CityBuilding09, { amount: 1, unitId: UNIT_TYPE.VillagerChild1, chance: 0.5 })
+        add(UNIT_TYPE.CityBuilding09, { amount: 1, unitId: UNIT_TYPE.VillagerChild2, chance: 0.5 })
+
         add(UNIT_TYPE.HumanFrigate, { amount: 2, unitId: UNIT_TYPE.Arbalist, chance: .4 })
         add(UNIT_TYPE.HumanFrigate, { amount: 3, unitId: UNIT_TYPE.NavyMarine, chance: 0.5 })
         add(UNIT_TYPE.HumanBattleship, { amount: 1, unitId: UNIT_TYPE.Arbalist, chance: 0.5 })

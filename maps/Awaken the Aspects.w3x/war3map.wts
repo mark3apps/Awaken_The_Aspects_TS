@@ -13998,3 +13998,51 @@ STRING 4886
 (Aspect of the Earth)
 }
 
+STRING 4887
+// Doodads: D00H (City Column Destroyed), Name (Name)
+{
+City Column Destroyed
+}
+
+STRING 4888
+// Doodads: D00I (City Dome Destroyed), Name (Name)
+{
+City Dome Destroyed
+}
+
+STRING 4889
+// Doodads: D00T (City Main Building Destroyed), Name (Name)
+{
+City Main Building Destroyed
+}
+
+STRING 4890
+// Doodads: D00W (City Spire Destroyed), Name (Name)
+{
+City Spire Destroyed
+}
+
+STRING 4891
+// Doodads: D00X (City Gate), Name (Name)
+{
+City Gate
+}
+
+STRING 4892
+// Doodads: D00Y (City Gate Destroyed), Name (Name)
+{
+City Gate Destroyed
+}
+
+STRING 4893
+// Abilities: A02B (Rocket Bunker Fire), Name (Name)
+{
+Rocket Bunker Fire
+}
+
+STRING 4894
+// Abilities: A034 (Rocket Bunker Fire 2), Name (Name)
+{
+Rocket Bunker Fire 2
+}
+

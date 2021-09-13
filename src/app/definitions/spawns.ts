@@ -72,8 +72,10 @@ export namespace SPAWN {
 			// Arcane Hero Spawn
 			arcaneHero = new Spawn("arcaneHero")
 			arcaneHero.faction = FACTION.arcaneHero
+			arcaneHero.addUnit({ unitType: UNIT_TYPE.MagiDefender, waves: [1, 2, 3, 5], start: 6 })
 			arcaneHero.addUnit({ unitType: UNIT_TYPE.SupremeWizard, waves: [5], start: 7 })
 			arcaneHero.addUnit({ unitType: UNIT_TYPE.SeigeGolem, waves: [4], start: 9 })
+			
 			SPAWN.addSpawn(arcaneHero.name)
 
 			// Arcane Top Spawn
@@ -95,11 +97,12 @@ export namespace SPAWN {
 			// High City Spawn
 			highCity = new Spawn("highCity")
 			highCity.faction = FACTION.highCity
-			highCity.addUnit({ unitType: UNIT_TYPE.Militia1, amount: 2, waves: [1, 2, 3, 4], end: 6 })
-			highCity.addUnit({ unitType: UNIT_TYPE.Arbalist, waves: [1, 2], start: 3 })
-			highCity.addUnit({ unitType: UNIT_TYPE.BloodElfBreaker, waves: [3, 4], start: 5 })
-			highCity.addUnit({ unitType: UNIT_TYPE.Footman2, waves: [1, 2, 3, 4, 5], start: 8 })
-			highCity.addUnit({ unitType: UNIT_TYPE.Captain1, waves: [1, 2, 3, 4, 5], start: 11 })
+			highCity.addUnit({ unitType: UNIT_TYPE.Militia1, amount: 3, waves: [1, 2, 3, 4, 5, 6], end: 7 })
+			highCity.addUnit({ unitType: UNIT_TYPE.Arbalist, waves: [1, 2, 3, 4, 5, 6], start: 1 })
+			highCity.addUnit({ unitType: UNIT_TYPE.Arbalist, waves: [1, 2, 3, 4], start: 5 })
+			highCity.addUnit({ unitType: UNIT_TYPE.Footman1, waves: [1, 2, 3, 4], start: 4 })
+			highCity.addUnit({ unitType: UNIT_TYPE.Footman2, amount: 2, waves: [1, 2, 3, 4], start: 8 })
+			highCity.addUnit({ unitType: UNIT_TYPE.Captain1, amount: 1, waves: [1, 2, 3, 4], start: 9 })
 			SPAWN.addSpawn(highCity.name)
 
 			// Castle Spawn

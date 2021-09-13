@@ -18,7 +18,6 @@ InfoPanelIconDamageChaos=UI\Widgets\Console\Human\ATTT_Nhance_RPG_Icons_NatureGo
 InfoPanelIconDamageChaosNeutral=UI\Widgets\Console\Human\ATTT_Nhance_RPG_Icons_NatureGoldenArrow.dds
 InfoPanelIconDamageHero=UI\Widgets\Console\Human\ATTT_Nhance_RPG_Icons_HolyPeak
 InfoPanelIconDamageHeroNeutral=UI\Widgets\Console\Human\ATTT_Nhance_RPG_Icons_HolyPeak
-UnderAttackSound=
 
 [FrameDef]
 ARMOR_DIVINE=TRIGSTR_4870

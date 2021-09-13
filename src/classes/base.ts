@@ -38,3 +38,4 @@ export class Base {
         return this.endLoc.rect.randomCoordinate
     }
 }
+

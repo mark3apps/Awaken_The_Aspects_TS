@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ARMY } from "./definitions/armies"
 import { FACTION } from "./definitions/factions"
 import { FORCE } from "./definitions/forces"
@@ -52,7 +53,9 @@ export namespace Game {
         Log.Information("Game Map Start Finished")
 
 
-        
+        Log.Information("Start Hero Pick")
+
+
         if (Log.logLevel <= LogLevel.Information) {
             const hero = new Unit(Players[0], UNIT_TYPE.ShiftMaster.id, Rectangle.getPlayableMap().centerX, Rectangle.getPlayableMap().centerY, 0)
             hero.heroLevel = 100
