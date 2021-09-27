@@ -28,6 +28,7 @@ export namespace Game {
         DEATH_SPAWN.define()
         PATHING.define()
 
+        
         Log.Information("Game Init Finished")
     }
 
