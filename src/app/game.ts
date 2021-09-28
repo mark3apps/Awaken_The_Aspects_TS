@@ -14,6 +14,7 @@ import { Rectangle, Unit } from "lib/w3ts/index"
 import { Players } from "lib/w3ts/globals/index"
 import { UNIT_TYPE } from "./definitions/unitTypes"
 import { ABILITY } from "app/definitions/abilities"
+//import { HeroSelector } from "lib/resources/heroSelector"
 
 
 export namespace Game {
@@ -55,6 +56,28 @@ export namespace Game {
 
 
         Log.Information("Start Hero Pick")
+
+        //@ts-ignore
+        HeroSelector.addUnit('Hpal') //add paladin as selectable Hero
+        // HeroSelector.addUnit('Hamg')
+        // HeroSelector.addUnit('Hblm')
+        // HeroSelector.addUnit('Hmkg')
+        // HeroSelector.addUnit("Obla", true) //this unit can only be randomed
+        // HeroSelector.addUnit("Ofar")
+        // HeroSelector.addUnit("Otch", 1) //this unit can only be randomed
+        // HeroSelector.addUnit("") //this is an empty box. It still takes a slot.
+        // HeroSelector.addUnit("") //this is an empty box. It still takes a slot.
+        // HeroSelector.addUnit("Oshd")
+        // HeroSelector.addUnit("Edem")
+        // HeroSelector.addUnit("") //this is an empty box. It still takes a slot.
+        // HeroSelector.addUnit("") //this is an empty box. It still takes a slot.
+        // HeroSelector.addUnit("Ekee")
+        // HeroSelector.addUnit("Emoo")
+        // HeroSelector.addUnit("Ewar",true)
+        // HeroSelector.addUnit("Udea")
+        // HeroSelector.addUnit("Ulic")
+        // HeroSelector.addUnit("Udre")
+        // HeroSelector.addUnit("Ucrl",1)
 
 
         if (Log.logLevel <= LogLevel.Information) {

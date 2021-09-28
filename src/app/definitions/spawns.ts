@@ -360,7 +360,7 @@ export namespace SPAWN {
 		} else {
 			print("Level Up")
 
-			levelTimer.start((40 + (10 * check.level)), false, levelUp)
+			levelTimer.start((50 + (15 * check.level)), false, levelUp)
 		}
 		return check.level
 	}
