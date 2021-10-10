@@ -1,4 +1,3 @@
----@diagnostic disable: lowercase-global
 --[[
 HeroSelector V1.6
 
@@ -218,32 +217,11 @@ function HeroSelector.initHeroes()
        HeroSelector.addCategory(value[1], value[2])
     end
 
-    --read GUI, when the variable exist
-    if udg_HeroSelectorUnitCode then
-        local index = 1
-        --add from index 1 all random only heroes
-        while udg_HeroSelectorRandomOnly[index] ~= 0 do
-            HeroSelector.addUnit(udg_HeroSelectorRandomOnly[index], true)
-            index = index + 1
-        end
 
-        --copy the setuped field
-        for index = 1, HeroSelector.ButtonColCount*HeroSelector.ButtonRowCount,1 do
-            HeroSelector.addUnit(udg_HeroSelectorUnitCode[index])
-            if udg_HeroSelectorCategory[index] ~= 0 then
-                HeroSelector.addUnitCategory(udg_HeroSelectorUnitCode[index], udg_HeroSelectorCategory[index])
-            end
-        end
-
-        --kill the tables
-        udg_HeroSelectorUnitCode = nil
-        udg_HeroSelectorRandomOnly = nil
-        udg_HeroSelectorCategory = nil
-    end
     --adding further units when using the GUI Array does not make much sense, except you would add rows.
 
     --skip further demo code
-    if true then return end
+    --if true then return end
 
 
     HeroSelector.addUnit("Hgam", true, 0) --antonidas is an only random Hero that can only be randomed by team 0 (for users 1).
@@ -268,7 +246,7 @@ function HeroSelector.initHeroes()
     --HeroSelector.setUnitReq('Ulic', RACE_UNDEAD)
     --HeroSelector.setUnitReq('Udre', RACE_UNDEAD)
     --HeroSelector.setUnitReq('Ucrl', RACE_UNDEAD)
-    --[[
+    
     local categoryMelee = 1 --autodetected
     local categoryRanged = 2 --autodetected
     local categoryStr = 4
@@ -293,30 +271,10 @@ function HeroSelector.initHeroes()
 
     HeroSelector.setUnitCategory('Hgam', categoryInt + categoryRanged)
     HeroSelector.setUnitCategory("Eevi", categoryAgi + categoryMelee)
-    --]]
     
-    --[[
-    HeroSelector.addUnit('Hpal') --add paladin as selectable Hero
-    HeroSelector.addUnit('Hamg')
-    HeroSelector.addUnit('Hblm')
-    HeroSelector.addUnit('Hmkg')
-    HeroSelector.addUnit("Obla", true) --this unit can only be randomed
-    HeroSelector.addUnit("Ofar")
-    HeroSelector.addUnit("Otch", 1) --this unit can only be randomed
-    HeroSelector.addUnit() --this is an empty box. It still takes a slot.
-    HeroSelector.addUnit() --this is an empty box. It still takes a slot.
-    HeroSelector.addUnit("Oshd")
-    HeroSelector.addUnit("Edem")
-    HeroSelector.addUnit() --this is an empty box. It still takes a slot.
-    HeroSelector.addUnit() --this is an empty box. It still takes a slot.
-    HeroSelector.addUnit("Ekee")
-    HeroSelector.addUnit("Emoo")
-    HeroSelector.addUnit("Ewar",true)
-    HeroSelector.addUnit("Udea")
-    HeroSelector.addUnit("Ulic")
-    HeroSelector.addUnit("Udre")
-    HeroSelector.addUnit("Ucrl",1)
-    --]]
+    
+
+    
 end
 
 function HeroSelector.autoDetectCategory(unitCode)
@@ -357,10 +315,6 @@ function HeroSelector.unitCreated(player, unitCode, isRandom)
     SelectUnitForPlayerSingle(unit, player)
     HeroSelector.enablePick(false, player) --only one pick for this player
 
-    if globals and globals.udg_HeroSelectorEvent then
-        globals.udg_HeroSelectorEvent = 0
-        globals.udg_HeroSelectorEvent = 1.0
-    end
     --print(GetPlayerName(player),"picks",GetUnitName(unit))
 end
 

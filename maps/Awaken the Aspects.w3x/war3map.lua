@@ -178,7 +178,6 @@ udg_Talent__UnitCode = 0
 udg_Talent__Choice = nil
 udg_Talent__Level = 0
 udg_Talent__Button = 0
-udg_Count_Copy = 0
 gg_rct_Left_Start = nil
 gg_rct_Left_Hero = nil
 gg_rct_Camp_Top = nil
@@ -290,6 +289,10 @@ gg_snd_Warning = nil
 gg_snd_GateEpicDeath = nil
 gg_trg_Level100 = nil
 gg_trg_fogofwar = nil
+gg_trg_Repick = nil
+gg_trg_Picking_Phase = nil
+gg_trg_AllRandom = nil
+gg_trg_Start = nil
 gg_trg_testing = nil
 gg_trg_FUNC_Calculate_Level_Factor = nil
 gg_trg_Open_Gate_Right_Murloc = nil
@@ -317,7 +320,6 @@ gg_trg_Start_Event = nil
 gg_trg_Event_Count = nil
 gg_trg_DW_Ancient_Chaos = nil
 gg_trg_Doom_Warden_End = nil
-gg_trg_Unit_Upgrades = nil
 gg_trg_Elder_Ent_Movement = nil
 gg_trg_Zombie_Infect = nil
 gg_trg_Chain_Lightning = nil
@@ -401,14 +403,6 @@ gg_unit_ndh2_0359 = nil
 gg_unit_ndh2_0876 = nil
 gg_unit_edob_0304 = nil
 gg_unit_h002_0699 = nil
-gg_trg_Start = nil
-gg_trg_AllRandom = nil
-gg_trg_BaningPhase = nil
-gg_trg_Picking_Phase = nil
-gg_trg_Close = nil
-gg_trg_Option2 = nil
-gg_trg_Show = nil
-gg_trg_Repick = nil
 function InitGlobals()
     local i = 0
     udg_PLAYERGRPallied = CreateForce()
@@ -776,7 +770,6 @@ function InitGlobals()
     udg_Talent__Event = 0.0
     udg_Talent__Level = 0
     udg_Talent__Button = 0
-    udg_Count_Copy = 0
 end
 
 TasButtonAction = {
@@ -1042,10 +1035,6 @@ function HeroSelector.initHeroes()
             end
         end
 
-        --kill the tables
-        udg_HeroSelectorUnitCode = nil
-        udg_HeroSelectorRandomOnly = nil
-        udg_HeroSelectorCategory = nil
     end
     --adding further units when using the GUI Array does not make much sense, except you would add rows.
 
@@ -1144,10 +1133,6 @@ function HeroSelector.unitCreated(player, unitCode, isRandom)
     SelectUnitForPlayerSingle(unit, player)
     HeroSelector.enablePick(false, player) --only one pick for this player
 
-    if globals and globals.udg_HeroSelectorEvent then
-        globals.udg_HeroSelectorEvent = 0
-        globals.udg_HeroSelectorEvent = 1.0
-    end
     --print(GetPlayerName(player),"picks",GetUnitName(unit))
 end
 
@@ -2089,7 +2074,7 @@ function TeamViewer.AllowPlayer(player)
     return GetPlayerSlotState(player) ==  PLAYER_SLOT_STATE_PLAYING
 end
 
-function oppositeFramePoint(framepoint)
+function OppositeFramePoint(framepoint)
     if framepoint == FRAMEPOINT_BOTTOM then return FRAMEPOINT_TOP
     elseif framepoint == FRAMEPOINT_TOP then return FRAMEPOINT_BOTTOM
     elseif framepoint == FRAMEPOINT_TOPLEFT then return FRAMEPOINT_BOTTOMRIGHT
@@ -2200,7 +2185,7 @@ function TeamViewer.Init()
             BlzFrameSetText(textFrame, GetPlayerName(player))
             BlzFrameSetTooltip(button, tooltipBox)
             BlzFrameSetTexture(icon, TeamViewer.ButtonDefaultIcon, 0, true)
-            BlzFrameSetTexture(iconPusheds, TeamViewer.ButtonDefaultIcon, 0, true)
+            BlzFrameSetTexture(iconPushed, TeamViewer.ButtonDefaultIcon, 0, true)
             table.insert(TeamViewer.Frames, button)
             table.insert(TeamViewer.Frames, textFrame)
             table.insert(TeamViewer.Frames, icon)
@@ -2215,7 +2200,7 @@ function TeamViewer.Init()
             TeamViewer[player].Button = button
             TeamViewer[button] = player
             TeamViewer[player].Icon = icon
-            TeamViewer[player].IconPushed = iconPusheds
+            TeamViewer[player].IconPushed = iconPushed
             TeamViewer[player].IconDisabled = iconDisabled
             TeamViewer[player].Tooltip = tooltip
             TeamViewer[player].Category = {}
@@ -2720,7 +2705,7 @@ function CreateBuildingsForPlayer20()
     u = BlzCreateUnitWithSkin(p, FourCC("nfv0"), -21376.0, -5408.0, 141.625, FourCC("nfv0"))
     u = BlzCreateUnitWithSkin(p, FourCC("n01B"), -25536.0, -11840.0, 0.000, FourCC("n01B"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncbb"), -15584.0, -5856.0, 270.000, FourCC("ncbb"))
-    gg_unit_hshy_0011 = BlzCreateUnitWithSkin(p, FourCC("hshy"), -20512.0, -6688.0, 270.000, FourCC("hshy"))
+    gg_unit_hshy_0011 = BlzCreateUnitWithSkin(p, FourCC("hshy"), -19808.0, -6688.0, 270.000, FourCC("hshy"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncb5"), -15520.0, -6240.0, 270.000, FourCC("ncb5"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00G"), -23680.0, -11712.0, 270.000, FourCC("h00G"))
     gg_unit_h003_0015 = BlzCreateUnitWithSkin(p, FourCC("h003"), -25088.0, -11360.0, 270.000, FourCC("h003"))
@@ -2744,7 +2729,7 @@ function CreateBuildingsForPlayer20()
     u = BlzCreateUnitWithSkin(p, FourCC("ncbb"), -17056.0, -6112.0, 270.000, FourCC("ncbb"))
     u = BlzCreateUnitWithSkin(p, FourCC("o004"), -14912.0, -7744.0, 270.000, FourCC("o004"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncb2"), -16608.0, -6176.0, 270.000, FourCC("ncb2"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hbar"), -19904.0, -7552.0, 270.000, FourCC("hbar"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hbar"), -21632.0, -8000.0, 270.000, FourCC("hbar"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncb5"), -16352.0, -6560.0, 270.000, FourCC("ncb5"))
     u = BlzCreateUnitWithSkin(p, FourCC("h024"), -24640.0, -11328.0, 270.000, FourCC("h024"))
     SetUnitState(u, UNIT_STATE_MANA, 1000)
@@ -2781,7 +2766,7 @@ function CreateBuildingsForPlayer20()
     u = BlzCreateUnitWithSkin(p, FourCC("ncba"), -19168.0, -5856.0, 270.000, FourCC("ncba"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00U"), -23726.2, -9027.1, 0.000, FourCC("n00U"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00U"), -23726.2, -9699.1, 0.000, FourCC("n00U"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h004"), -19584.0, -7296.0, 270.000, FourCC("h004"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h004"), -19520.0, -7360.0, 270.000, FourCC("h004"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00X"), -18496.0, -3520.0, 270.000, FourCC("h00X"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00X"), -17856.0, -3520.0, 270.000, FourCC("h00X"))
     u = BlzCreateUnitWithSkin(p, FourCC("h01C"), -17853.9, -13527.6, 180.000, FourCC("h01C"))
@@ -3105,7 +3090,7 @@ function CreateUnitsForPlayer20()
     u = BlzCreateUnitWithSkin(p, FourCC("h012"), -19205.6, -7809.4, 28.610, FourCC("h012"))
     u = BlzCreateUnitWithSkin(p, FourCC("h007"), -19186.9, -4280.1, 50.407, FourCC("h007"))
     u = BlzCreateUnitWithSkin(p, FourCC("h012"), -20236.3, -8518.4, 348.610, FourCC("h012"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h012"), -20156.3, -6553.9, 243.610, FourCC("h012"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h012"), -20778.3, -6521.0, 28.610, FourCC("h012"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00H"), -25794.8, -1274.8, 323.535, FourCC("h00H"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00H"), -26254.3, -2044.8, 328.798, FourCC("h00H"))
     u = BlzCreateUnitWithSkin(p, FourCC("o002"), -18661.5, -1475.7, 136.207, FourCC("o002"))
@@ -3241,7 +3226,7 @@ function CreateBuildingsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("nft2"), -7232.0, 1664.0, 270.000, FourCC("nft2"))
     u = BlzCreateUnitWithSkin(p, FourCC("h024"), -6464.0, 2368.0, 270.000, FourCC("h024"))
     SetUnitState(u, UNIT_STATE_MANA, 1000)
-    gg_unit_hshy_0212 = BlzCreateUnitWithSkin(p, FourCC("hshy"), -8544.0, -2720.0, 270.000, FourCC("hshy"))
+    gg_unit_hshy_0212 = BlzCreateUnitWithSkin(p, FourCC("hshy"), -9248.0, -2656.0, 270.000, FourCC("hshy"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00U"), -5361.8, 4291.1, 180.000, FourCC("n00U"))
     u = BlzCreateUnitWithSkin(p, FourCC("ndh3"), -11328.0, -10432.0, 270.000, FourCC("ndh3"))
     u = BlzCreateUnitWithSkin(p, FourCC("otrb"), -10688.0, -7744.0, 270.000, FourCC("otrb"))
@@ -3374,7 +3359,7 @@ function CreateBuildingsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("ncba"), -10272.0, -3488.0, 90.000, FourCC("ncba"))
     u = BlzCreateUnitWithSkin(p, FourCC("h020"), -4774.5, -3581.4, 90.000, FourCC("h020"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncb3"), -608.0, -4832.0, 90.000, FourCC("ncb3"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h004"), -9472.0, -2048.0, 270.000, FourCC("h004"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h004"), -9472.0, -1984.0, 270.000, FourCC("h004"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncb3"), -608.0, -3808.0, 90.000, FourCC("ncb3"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00X"), -11904.0, -4416.0, 270.000, FourCC("h00X"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncb3"), -608.0, -1824.0, 90.000, FourCC("ncb3"))
@@ -3434,7 +3419,7 @@ function CreateBuildingsForPlayer23()
     SetUnitState(u, UNIT_STATE_LIFE, 0.60 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("ncb3"), -608.0, -5216.0, 90.000, FourCC("ncb3"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncb3"), -1056.0, -4320.0, 90.000, FourCC("ncb3"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hbar"), -9152.0, -1792.0, 270.000, FourCC("hbar"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hbar"), -7424.0, -1344.0, 270.000, FourCC("hbar"))
     u = BlzCreateUnitWithSkin(p, FourCC("hlum"), -13600.0, -2464.0, 270.000, FourCC("hlum"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncbb"), -12640.0, -1248.0, 90.000, FourCC("ncbb"))
     u = BlzCreateUnitWithSkin(p, FourCC("hhou"), -14272.0, -2688.0, 270.000, FourCC("hhou"))
@@ -3546,7 +3531,6 @@ function CreateUnitsForPlayer23()
     local unitID
     local t
     local life
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), -7667.3, -1657.9, 238.328, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), -7827.8, -1797.0, 93.909, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("h012"), -9850.4, -1534.6, 208.610, FourCC("h012"))
     u = BlzCreateUnitWithSkin(p, FourCC("nefm"), -5408.0, -9376.0, 309.272, FourCC("nefm"))
@@ -3569,7 +3553,7 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("nef4"), -5920.0, -9888.0, 90.000, FourCC("nef4"))
     u = BlzCreateUnitWithSkin(p, FourCC("nefm"), -5856.0, -10720.0, 258.734, FourCC("nefm"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00H"), -3302.8, -8061.3, 143.535, FourCC("h00H"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h012"), -8899.7, -2790.1, 63.610, FourCC("h012"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h012"), -8350.8, -2920.9, 63.610, FourCC("h012"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00L"), -14230.7, -1112.3, 302.375, FourCC("n00L"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00L"), -13433.7, -1545.6, 318.745, FourCC("n00L"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00L"), -14180.2, -1855.7, 129.478, FourCC("n00L"))
@@ -3624,10 +3608,6 @@ function CreateNeutralHostile()
     u = BlzCreateUnitWithSkin(p, FourCC("nelb"), -1439.8, 329.5, 32.870, FourCC("nelb"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvdl"), -2940.9, 3728.6, 354.979, FourCC("nvdl"))
     u = BlzCreateUnitWithSkin(p, FourCC("uabo"), -1754.5, -4343.7, 300.430, FourCC("uabo"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nzom"), -2949.2, -1696.5, 346.074, FourCC("nzom"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nzom"), -2973.1, -1806.0, 97.963, FourCC("nzom"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nzom"), -2856.4, -1740.4, 163.223, FourCC("nzom"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nzom"), -859.5, -3551.3, 163.220, FourCC("nzom"))
     u = BlzCreateUnitWithSkin(p, FourCC("nmsc"), -7172.0, -13936.0, 127.640, FourCC("nmsc"))
     SetUnitState(u, UNIT_STATE_MANA, 600)
     u = BlzCreateUnitWithSkin(p, FourCC("ncks"), -3096.5, -13696.7, 184.064, FourCC("ncks"))
@@ -3658,10 +3638,6 @@ function CreateNeutralHostile()
     u = BlzCreateUnitWithSkin(p, FourCC("ncim"), -3153.8, -13350.8, 129.799, FourCC("ncim"))
     u = BlzCreateUnitWithSkin(p, FourCC("eaow"), -994.5, -11274.5, 90.000, FourCC("eaow"))
     IssueImmediateOrder(u, "unroot")
-    u = BlzCreateUnitWithSkin(p, FourCC("nzom"), -26199.6, -7603.6, 343.223, FourCC("nzom"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nzom"), -26106.8, -7647.5, 166.074, FourCC("nzom"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nzom"), -26082.9, -7538.0, 277.963, FourCC("nzom"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nzom"), -28196.5, -5792.7, 343.223, FourCC("nzom"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvdl"), -26808.5, -12345.4, 218.420, FourCC("nvdl"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvdl"), -26972.9, -12347.3, 31.922, FourCC("nvdl"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvdl"), -26115.1, -13136.6, 174.979, FourCC("nvdl"))
@@ -3840,8 +3816,8 @@ function CreateRegions()
     gg_rct_Elf_Base_Left = Rect(-25216.0, 736.0, -24480.0, 1632.0)
     gg_rct_Undead_Right = Rect(-13088.0, -6432.0, -12128.0, -5088.0)
     gg_rct_Undead_Left = Rect(-16960.0, -4224.0, -15968.0, -2944.0)
-    gg_rct_Human_Shipyard_Left = Rect(-20832.0, -8640.0, -20512.0, -6656.0)
-    gg_rct_Human_Shipyard_Right = Rect(-8544.0, -2560.0, -8224.0, -640.0)
+    gg_rct_Human_Shipyard_Left = Rect(-20832.0, -8640.0, -20512.0, -6432.0)
+    gg_rct_Human_Shipyard_Right = Rect(-8544.0, -2944.0, -8224.0, -640.0)
     gg_rct_Right_Everything = Rect(-5376.0, -10784.0, -5088.0, 4288.0)
     gg_rct_Left_Everything = Rect(-24768.0, -13728.0, -24448.0, 1696.0)
     gg_rct_Left_Mage_Base = Rect(-25568.0, -12544.0, -24704.0, -10144.0)
@@ -4118,39 +4094,6 @@ function InitTrig_Repick()
     TriggerAddAction(gg_trg_Repick, Trig_Repick_Actions)
 end
 
-function Trig_Show_Actions()
-        HeroSelector.show(true, GetTriggerPlayer())
-end
-
-function InitTrig_Show()
-    gg_trg_Show = CreateTrigger()
-    TriggerAddAction(gg_trg_Show, Trig_Show_Actions)
-end
-
-function Trig_Option2_Actions()
-        HeroSelector.deselectButtons()
-        HeroSelector.clearUnitData()
-        HeroSelector.addUnit('hfoo')
-        HeroSelector.addUnit('ogru')
-        HeroSelector.addUnit('ugho')
-        HeroSelector.addUnit('earc')
-        HeroSelector.update()
-end
-
-function InitTrig_Option2()
-    gg_trg_Option2 = CreateTrigger()
-    TriggerAddAction(gg_trg_Option2, Trig_Option2_Actions)
-end
-
-function Trig_Close_Actions()
-        HeroSelector.show(false, GetTriggerPlayer())
-end
-
-function InitTrig_Close()
-    gg_trg_Close = CreateTrigger()
-    TriggerAddAction(gg_trg_Close, Trig_Close_Actions)
-end
-
 function Trig_Picking_Phase_Func003C()
     if (not (udg_Count <= 5)) then
         return false
@@ -4203,43 +4146,6 @@ function InitTrig_Picking_Phase()
     TriggerAddAction(gg_trg_Picking_Phase, Trig_Picking_Phase_Actions)
 end
 
-function Trig_BaningPhase_Func004C()
-    if (not (udg_Count <= 5)) then
-        return false
-    end
-    return true
-end
-
-function Trig_BaningPhase_Func006C()
-    if (not (udg_Count <= 0)) then
-        return false
-    end
-    return true
-end
-
-function Trig_BaningPhase_Actions()
-    udg_Count = (26 - GetTriggerExecCount(GetTriggeringTrigger()))
-        HeroSelector.setTitleText(GetLocalizedString(HeroSelector.BanButtonText)..": " .. udg_Count)
-    if (Trig_BaningPhase_Func004C()) then
-        PlaySoundBJ(gg_snd_BattleNetTick)
-    else
-    end
-    if (Trig_BaningPhase_Func006C()) then
-                HeroSelector.enablePick(true)
-        DisableTrigger(GetTriggeringTrigger())
-        EnableTrigger(gg_trg_Picking_Phase)
-                HeroSelector.update()
-                HeroSelector.setTitleText( "Picking: ")
-    else
-    end
-end
-
-function InitTrig_BaningPhase()
-    gg_trg_BaningPhase = CreateTrigger()
-    TriggerRegisterTimerEventPeriodic(gg_trg_BaningPhase, 1.00)
-    TriggerAddAction(gg_trg_BaningPhase, Trig_BaningPhase_Actions)
-end
-
 function Trig_AllRandom_Actions()
         HeroSelector.forceRandom()
         HeroSelector.destroy()
@@ -4249,25 +4155,6 @@ function InitTrig_AllRandom()
     gg_trg_AllRandom = CreateTrigger()
     TriggerRegisterPlayerChatEvent(gg_trg_AllRandom, Player(0), "-ar", true)
     TriggerAddAction(gg_trg_AllRandom, Trig_AllRandom_Actions)
-end
-
-function Trig_Start_Func001A()
-    CreateNUnitsAtLoc(1, FourCC("ncop"), GetEnumPlayer(), GetPlayerStartLocationLoc(GetEnumPlayer()), bj_UNIT_FACING)
-    TriggerRegisterPlayerChatEvent(gg_trg_Show, GetEnumPlayer(), "-show", true)
-    TriggerRegisterPlayerChatEvent(gg_trg_Close, GetEnumPlayer(), "-close", true)
-    TriggerRegisterPlayerChatEvent(gg_trg_Option2, GetEnumPlayer(), "-option2", true)
-end
-
-function Trig_Start_Actions()
-    ForForce(GetPlayersAll(), Trig_Start_Func001A)
-        HeroSelector.show(true)
-        HeroSelector.enableBan(true)
-end
-
-function InitTrig_Start()
-    gg_trg_Start = CreateTrigger()
-    TriggerRegisterTimerEventSingle(gg_trg_Start, 0.10)
-    TriggerAddAction(gg_trg_Start, Trig_Start_Actions)
 end
 
 function Trig_testing_Conditions()
@@ -7263,13 +7150,8 @@ function InitCustomTriggers()
     InitTrig_Level100()
     InitTrig_fogofwar()
     InitTrig_Repick()
-    InitTrig_Show()
-    InitTrig_Option2()
-    InitTrig_Close()
     InitTrig_Picking_Phase()
-    InitTrig_BaningPhase()
     InitTrig_AllRandom()
-    InitTrig_Start()
     InitTrig_testing()
     InitTrig_FUNC_Calculate_Level_Factor()
     InitTrig_Open_Gate_Right_Murloc()
@@ -7370,41 +7252,49 @@ function InitCustomPlayerSlots()
     SetPlayerRaceSelectable(Player(3), false)
     SetPlayerController(Player(3), MAP_CONTROL_USER)
     SetPlayerStartLocation(Player(4), 4)
+    ForcePlayerStartLocation(Player(4), 4)
     SetPlayerColor(Player(4), ConvertPlayerColor(4))
     SetPlayerRacePreference(Player(4), RACE_PREF_HUMAN)
     SetPlayerRaceSelectable(Player(4), false)
     SetPlayerController(Player(4), MAP_CONTROL_USER)
     SetPlayerStartLocation(Player(5), 5)
+    ForcePlayerStartLocation(Player(5), 5)
     SetPlayerColor(Player(5), ConvertPlayerColor(5))
     SetPlayerRacePreference(Player(5), RACE_PREF_HUMAN)
     SetPlayerRaceSelectable(Player(5), false)
     SetPlayerController(Player(5), MAP_CONTROL_USER)
     SetPlayerStartLocation(Player(6), 6)
+    ForcePlayerStartLocation(Player(6), 6)
     SetPlayerColor(Player(6), ConvertPlayerColor(6))
     SetPlayerRacePreference(Player(6), RACE_PREF_HUMAN)
     SetPlayerRaceSelectable(Player(6), false)
     SetPlayerController(Player(6), MAP_CONTROL_USER)
     SetPlayerStartLocation(Player(7), 7)
+    ForcePlayerStartLocation(Player(7), 7)
     SetPlayerColor(Player(7), ConvertPlayerColor(7))
     SetPlayerRacePreference(Player(7), RACE_PREF_HUMAN)
     SetPlayerRaceSelectable(Player(7), false)
     SetPlayerController(Player(7), MAP_CONTROL_USER)
     SetPlayerStartLocation(Player(8), 8)
+    ForcePlayerStartLocation(Player(8), 8)
     SetPlayerColor(Player(8), ConvertPlayerColor(8))
     SetPlayerRacePreference(Player(8), RACE_PREF_HUMAN)
     SetPlayerRaceSelectable(Player(8), false)
     SetPlayerController(Player(8), MAP_CONTROL_USER)
     SetPlayerStartLocation(Player(9), 9)
+    ForcePlayerStartLocation(Player(9), 9)
     SetPlayerColor(Player(9), ConvertPlayerColor(9))
     SetPlayerRacePreference(Player(9), RACE_PREF_HUMAN)
     SetPlayerRaceSelectable(Player(9), false)
     SetPlayerController(Player(9), MAP_CONTROL_USER)
     SetPlayerStartLocation(Player(10), 10)
+    ForcePlayerStartLocation(Player(10), 10)
     SetPlayerColor(Player(10), ConvertPlayerColor(10))
     SetPlayerRacePreference(Player(10), RACE_PREF_UNDEAD)
     SetPlayerRaceSelectable(Player(10), false)
     SetPlayerController(Player(10), MAP_CONTROL_USER)
     SetPlayerStartLocation(Player(11), 11)
+    ForcePlayerStartLocation(Player(11), 11)
     SetPlayerColor(Player(11), ConvertPlayerColor(11))
     SetPlayerRacePreference(Player(11), RACE_PREF_NIGHTELF)
     SetPlayerRaceSelectable(Player(11), false)

@@ -14,7 +14,8 @@ import { Rectangle, Unit } from "lib/w3ts/index"
 import { Players } from "lib/w3ts/globals/index"
 import { UNIT_TYPE } from "./definitions/unitTypes"
 import { ABILITY } from "app/definitions/abilities"
-//import { HeroSelector } from "lib/resources/heroSelector"
+import { Cinematic } from "./definitions/cinematics"
+
 
 
 export namespace Game {
@@ -24,11 +25,13 @@ export namespace Game {
 
         Log.Information("Game Init Start")
 
+        
+        
         REGION.define()
         EVENT.define()
         DEATH_SPAWN.define()
         PATHING.define()
-
+        Cinematic.define()
         
         Log.Information("Game Init Finished")
     }
@@ -48,6 +51,9 @@ export namespace Game {
         FACTION.define()
         SPAWN.define()
         Gate.define()
+        
+        Cinematic.setupCamera()
+        Cinematic.startHeroSelector()
 
         Gate.start(2, 700)
         SPAWN.start()
@@ -57,8 +63,8 @@ export namespace Game {
 
         Log.Information("Start Hero Pick")
 
-        //@ts-ignore
-        HeroSelector.addUnit('Hpal') //add paladin as selectable Hero
+        
+        
         // HeroSelector.addUnit('Hamg')
         // HeroSelector.addUnit('Hblm')
         // HeroSelector.addUnit('Hmkg')
