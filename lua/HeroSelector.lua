@@ -224,53 +224,34 @@ function HeroSelector.initHeroes()
     --if true then return end
 
 
-    HeroSelector.addUnit("Hgam", true, 0) --antonidas is an only random Hero that can only be randomed by team 0 (for users 1).
-    HeroSelector.addUnit("Eevi", true, 1) --evil Illidan is an only random Hero that can only be randomed by team 1 (for users 2).
-    
     --Adds requirments
     --when you have a ban phase it might be better to add the requirments after the ban phase is over, otherwise one can only ban own options.
     --human only work for human, as nightelf only for Nightelf
-    HeroSelector.setUnitReq('Hpal', RACE_HUMAN)
-    HeroSelector.setUnitReq('Hamg', RACE_HUMAN)
-    HeroSelector.setUnitReq('Hblm', RACE_HUMAN)
-    HeroSelector.setUnitReq('Hmkg', RACE_HUMAN)
-    --HeroSelector.setUnitReq('Ofar', RACE_ORC)
-    --HeroSelector.setUnitReq('Oshd', RACE_ORC)
-    --HeroSelector.setUnitReq('Otch', RACE_ORC)
-    --HeroSelector.setUnitReq('Obla', RACE_ORC)
-    HeroSelector.setUnitReq('Emoo', RACE_NIGHTELF)
-    HeroSelector.setUnitReq('Edem', RACE_NIGHTELF)
-    HeroSelector.setUnitReq('Ekee', RACE_NIGHTELF)
-    HeroSelector.setUnitReq('Ewar', RACE_NIGHTELF)
-    --HeroSelector.setUnitReq('Udea', RACE_UNDEAD)
-    --HeroSelector.setUnitReq('Ulic', RACE_UNDEAD)
-    --HeroSelector.setUnitReq('Udre', RACE_UNDEAD)
-    --HeroSelector.setUnitReq('Ucrl', RACE_UNDEAD)
     
-    local categoryMelee = 1 --autodetected
-    local categoryRanged = 2 --autodetected
-    local categoryStr = 4
-    local categoryAgi = 8
-    local categoryInt = 16
-    HeroSelector.addUnitCategory('Hpal', categoryStr)
-    HeroSelector.addUnitCategory('Hamg', categoryInt)
-    HeroSelector.addUnitCategory('Hblm', categoryInt)
-    HeroSelector.addUnitCategory('Hmkg', categoryStr)
-    HeroSelector.addUnitCategory('Ofar', categoryInt)
-    HeroSelector.addUnitCategory('Oshd', categoryAgi)
-    HeroSelector.addUnitCategory('Otch', categoryAgi)
-    HeroSelector.addUnitCategory('Obla', categoryAgi)
-    HeroSelector.addUnitCategory('Emoo', categoryAgi)
-    HeroSelector.addUnitCategory('Edem', categoryAgi)
-    HeroSelector.addUnitCategory('Ekee', categoryInt)
-    HeroSelector.addUnitCategory('Ewar', categoryAgi)
-    HeroSelector.addUnitCategory('Udea', categoryStr)
-    HeroSelector.addUnitCategory('Ulic', categoryInt)
-    HeroSelector.addUnitCategory('Udre', categoryStr)
-    HeroSelector.addUnitCategory('Ucrl', categoryStr)
+    -- local categoryMelee = 1 --autodetected
+    -- local categoryRanged = 2 --autodetected
+    -- local categoryStr = 4
+    -- local categoryAgi = 8
+    -- local categoryInt = 16
+    -- HeroSelector.addUnitCategory('Hpal', categoryStr)
+    -- HeroSelector.addUnitCategory('Hamg', categoryInt)
+    -- HeroSelector.addUnitCategory('Hblm', categoryInt)
+    -- HeroSelector.addUnitCategory('Hmkg', categoryStr)
+    -- HeroSelector.addUnitCategory('Ofar', categoryInt)
+    -- HeroSelector.addUnitCategory('Oshd', categoryAgi)
+    -- HeroSelector.addUnitCategory('Otch', categoryAgi)
+    -- HeroSelector.addUnitCategory('Obla', categoryAgi)
+    -- HeroSelector.addUnitCategory('Emoo', categoryAgi)
+    -- HeroSelector.addUnitCategory('Edem', categoryAgi)
+    -- HeroSelector.addUnitCategory('Ekee', categoryInt)
+    -- HeroSelector.addUnitCategory('Ewar', categoryAgi)
+    -- HeroSelector.addUnitCategory('Udea', categoryStr)
+    -- HeroSelector.addUnitCategory('Ulic', categoryInt)
+    -- HeroSelector.addUnitCategory('Udre', categoryStr)
+    -- HeroSelector.addUnitCategory('Ucrl', categoryStr)
 
-    HeroSelector.setUnitCategory('Hgam', categoryInt + categoryRanged)
-    HeroSelector.setUnitCategory("Eevi", categoryAgi + categoryMelee)
+    -- HeroSelector.setUnitCategory('Hgam', categoryInt + categoryRanged)
+    -- HeroSelector.setUnitCategory("Eevi", categoryAgi + categoryMelee)
     
     
 
@@ -311,8 +292,6 @@ function HeroSelector.unitCreated(player, unitCode, isRandom)
                 
     end
 
-    PanCameraToTimedForPlayer(player, GetUnitX(unit), GetUnitY(unit),0)
-    SelectUnitForPlayerSingle(unit, player)
     HeroSelector.enablePick(false, player) --only one pick for this player
 
     --print(GetPlayerName(player),"picks",GetUnitName(unit))

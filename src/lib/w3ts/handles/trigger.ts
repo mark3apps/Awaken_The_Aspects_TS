@@ -5,6 +5,7 @@ import { Dialog, DialogButton } from "./dialog";
 import { Frame } from "./frame";
 import { Handle } from "./handle";
 import { MapPlayer } from "./player";
+import { Rectangle } from "./rect"
 import { Unit } from "./unit";
 import { Widget } from "./widget";
 
@@ -83,12 +84,12 @@ export class Trigger extends Handle<trigger> {
     return TriggerAddCondition(this.handle, typeof condition === "function" ? Condition(condition) : condition);
   }
 
-  public add(event: () => void): triggercondition {
+  public add(event: () => void) {
     const trigFormatted = function(){
       event()
-      return false
     }
-    return TriggerAddCondition(this.handle, Condition(trigFormatted));
+
+    TriggerAddAction(this.handle, trigFormatted);
   }
 
   /**
@@ -149,6 +150,14 @@ export class Trigger extends Handle<trigger> {
 
   public registerDialogEvent(whichDialog: Dialog) {
     return TriggerRegisterDialogEvent(this.handle, whichDialog.handle);
+  }
+
+  public registerEnterRect(whichRect: Rectangle) {
+    return TriggerRegisterEnterRectSimple(this.handle, whichRect.handle);
+  }
+
+  public registerLeaveRect(whichRect: Rectangle) {
+    return TriggerRegisterLeaveRectSimple(this.handle, whichRect.handle)
   }
 
   public registerEnterRegion(whichRegion: region, filter: boolexpr | (() => boolean) | null) {
@@ -233,6 +242,7 @@ export class Trigger extends Handle<trigger> {
     return TriggerRegisterUnitStateEvent(this.handle, whichUnit.handle, whichState, opcode, limitval);
   }
 
+ 
   public registerUpgradeCommandEvent(whichUpgrade: number) {
     return TriggerRegisterUpgradeCommandEvent(this.handle, whichUpgrade);
   }

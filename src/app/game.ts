@@ -14,7 +14,8 @@ import { Rectangle, Unit } from "lib/w3ts/index"
 import { Players } from "lib/w3ts/globals/index"
 import { UNIT_TYPE } from "./definitions/unitTypes"
 import { ABILITY } from "app/definitions/abilities"
-import { Cinematic } from "./definitions/cinematics"
+import { CINEMATIC } from "./definitions/cinematics"
+import { HERO_TYPE } from "./definitions/heroTypes"
 
 
 
@@ -31,7 +32,8 @@ export namespace Game {
         EVENT.define()
         DEATH_SPAWN.define()
         PATHING.define()
-        Cinematic.define()
+        ABILITY.define()
+        HERO_TYPE.define()
         
         Log.Information("Game Init Finished")
     }
@@ -44,7 +46,6 @@ export namespace Game {
 
         Log.Information("Game Map Start")
 
-        ABILITY.define()
         FORCE.define()
         ARMY.define()
         LOC.define()
@@ -52,8 +53,8 @@ export namespace Game {
         SPAWN.define()
         Gate.define()
         
-        Cinematic.setupCamera()
-        Cinematic.startHeroSelector()
+        CINEMATIC.setupCineCamera()
+        CINEMATIC.startHeroSelector()
 
         Gate.start(2, 700)
         SPAWN.start()

@@ -1,10 +1,11 @@
-import { Trigger, Unit } from "lib/w3ts/index"
+import { Rectangle, Trigger, Unit } from "lib/w3ts/index"
 
 export namespace EVENT {
 
     export const unitDies = new Trigger()
     export const unitOrdered = new Trigger()
     export const unitAttacked = new Trigger()
+    export const unitCreated = new Trigger()
     export const unitEntersRegion = new Trigger()
     export const unitSummoned = new Trigger()
     export const unitTrained = new Trigger()
@@ -14,6 +15,7 @@ export namespace EVENT {
 
     export function define(): void {
         mapStart.registerTimerEvent(1, false)
+        unitCreated.registerEnterRect(Rectangle.getPlayableMap())
         unitDies.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH)
         unitAttacked.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
         unitOrdered.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_ORDER)
@@ -30,7 +32,10 @@ export namespace EVENT {
             const eventUnit = Unit.fromEvent()
             const killingUnit = Unit.fromHandle(GetKillingUnit())
 
-            Unit.removeData(eventUnit)
+            if (!eventUnit.isHero) {
+                Unit.removeData(eventUnit)
+            }
+
             killingUnit.data.kills += 1
         })
     }

@@ -1,4 +1,5 @@
 import { Strategy } from "lib/resources/strategy"
+import { Unit } from "lib/w3ts/index"
 import { Ability } from "./ability"
 import { HeroAbility } from "./heroAbility"
 import { ItemType } from "./itemType"
@@ -8,7 +9,7 @@ import { UnitType } from "./unitType"
 
 export class HeroType extends UnitType {
 
-    private static _key: { [name: string]: HeroType } = {}
+    private static Key: { [name: string]: HeroType } = {}
     static readonly pre = "H"
 
     readonly hid!: string
@@ -46,19 +47,19 @@ export class HeroType extends UnitType {
         this.hid = HeroType.pre + this.id
         this.alter = typeAlter
 
-        HeroType._key[this.hid] = this
-        
+        HeroType.Key[this.hid] = this
+        HeroSelector.addUnit(type.four)
+
     }
 
-    
-    static get(value: string | number): HeroType {
-        return typeof value === "string" ? HeroType._key[FourCC(value)] : HeroType._key[value]
+    static get(unit: Unit): HeroType {
+
+        return HeroType.Key[HeroType.pre + unit.hid]
     }
 
     public addAbility(spellObj: Ability, permanent = true, starting = false, ult = false): void {
 
         const newHeroAbility = new HeroAbility(spellObj, permanent, starting, ult)
-
 
         this.spells.push(newHeroAbility)
 

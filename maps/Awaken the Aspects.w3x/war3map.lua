@@ -4193,6 +4193,7 @@ function InitTrig_testing()
     DisableTrigger(gg_trg_testing)
     TriggerRegisterAnyUnitEventBJ(gg_trg_testing, EVENT_PLAYER_UNIT_ATTACKED)
     TriggerRegisterUnitEvent(gg_trg_testing, gg_unit_h003_0007, EVENT_UNIT_ATTACKED)
+    TriggerRegisterEnterRectSimple(gg_trg_testing, GetPlayableMapRect())
     TriggerAddCondition(gg_trg_testing, Condition(Trig_testing_Conditions))
     TriggerAddAction(gg_trg_testing, Trig_testing_Actions)
 end
