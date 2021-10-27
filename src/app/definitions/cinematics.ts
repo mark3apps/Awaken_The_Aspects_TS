@@ -40,7 +40,7 @@ export namespace CINEMATIC {
     }
 
     export function setupGameCamera(): void {
-        //
+        ResetToGameCamera(2)
     }
 
     export function startHeroSelector(): void {

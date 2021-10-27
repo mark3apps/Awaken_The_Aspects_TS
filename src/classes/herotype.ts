@@ -53,8 +53,7 @@ export class HeroType extends UnitType {
     }
 
     static get(unit: Unit): HeroType {
-
-        return HeroType.Key[HeroType.pre + unit.hid]
+        return HeroType.Key[HeroType.pre + unit.typeId]
     }
 
     public addAbility(spellObj: Ability, permanent = true, starting = false, ult = false): void {

@@ -4166,6 +4166,7 @@ end
 
 function Trig_testing_Actions()
     SetPlayerHandicapXPBJ(Player(0), GetPlayerHandicapXPBJ(Player(0)))
+    SelectHeroSkill(GetTriggerUnit(), FourCC("AHbz"))
     SetUnitPositionLoc(GetTriggerUnit(), GetRectCenter(GetPlayableMapRect()))
     AdjustPlayerStateBJ(50, Player(0), PLAYER_STATE_RESOURCE_LUMBER)
     SetUnitPositionLoc(GetTriggerUnit(), GetRectCenter(GetPlayableMapRect()))

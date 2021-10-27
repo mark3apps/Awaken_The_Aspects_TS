@@ -10,11 +10,12 @@ export namespace EVENT {
     export const unitSummoned = new Trigger()
     export const unitTrained = new Trigger()
     export const unitSpellEffect = new Trigger()
+    export const heroLevels = new Trigger()
     export const mapStart = new Trigger()
 
 
     export function define(): void {
-        mapStart.registerTimerEvent(1, false)
+        mapStart.registerTimerEvent(0.5, false)
         unitCreated.registerEnterRect(Rectangle.getPlayableMap())
         unitDies.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH)
         unitAttacked.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
@@ -25,6 +26,7 @@ export namespace EVENT {
         unitSummoned.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SUMMON)
         unitTrained.registerAnyUnitEvent(EVENT_PLAYER_UNIT_TRAIN_FINISH)
         unitSpellEffect.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT)
+        heroLevels.registerAnyUnitEvent(EVENT_PLAYER_HERO_LEVEL)
 
 
         // When a Unit dies clear it out

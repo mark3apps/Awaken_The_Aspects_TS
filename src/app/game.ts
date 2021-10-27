@@ -16,6 +16,7 @@ import { UNIT_TYPE } from "./definitions/unitTypes"
 import { ABILITY } from "app/definitions/abilities"
 import { CINEMATIC } from "./definitions/cinematics"
 import { HERO_TYPE } from "./definitions/heroTypes"
+import { HEROES } from "./definitions/heroes"
 
 
 
@@ -34,6 +35,7 @@ export namespace Game {
         PATHING.define()
         ABILITY.define()
         HERO_TYPE.define()
+        HEROES.define()
         
         Log.Information("Game Init Finished")
     }

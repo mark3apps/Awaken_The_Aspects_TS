@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /** @noSelfInFile **/
 
-import { Log } from "app/systems/log"
 import { Ability } from "classes/ability"
 import { UnitData } from "classes/unitData"
 import { UnitType } from "classes/unitType"
@@ -1187,8 +1186,6 @@ export class Unit extends Widget {
 
 	public replace(newUnitType: UnitType): Unit {
 		this.show = false
-
-		Log.Information("Replacing Unit")
 
 		const newUnit = new Unit(this.owner, newUnitType.id, this.x, this.y, this.facing)
 		newUnit.lifePercent = this.lifePercent
