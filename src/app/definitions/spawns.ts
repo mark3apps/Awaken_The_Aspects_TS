@@ -17,7 +17,7 @@ export namespace SPAWN {
 	export let loop: SpawnLoop
 	export let spawns: string[]
 
-	export function define(): void {
+	export const define = (): void => {
 		maxLevel = 12
 		maxWaves = 10
 
@@ -53,7 +53,7 @@ export namespace SPAWN {
 		export let nightElfShipyard: Spawn
 		export let undead: Spawn
 
-		export function define(): void {
+		export const define = (): void => {
 			arcane = new Spawn("arcane")
 			arcane.faction = FACTION.arcane
 			arcane.addUnit({ unitType: UNIT_TYPE.Sorceress, waves: [6, 7, 8, 9, 10], start: 3 })
@@ -75,7 +75,7 @@ export namespace SPAWN {
 			arcaneHero.addUnit({ unitType: UNIT_TYPE.MagiDefender, waves: [1, 2, 3, 5], start: 6 })
 			arcaneHero.addUnit({ unitType: UNIT_TYPE.SupremeWizard, waves: [5], start: 7 })
 			arcaneHero.addUnit({ unitType: UNIT_TYPE.SeigeGolem, waves: [4], start: 9 })
-			
+
 			SPAWN.addSpawn(arcaneHero.name)
 
 			// Arcane Top Spawn
@@ -291,11 +291,11 @@ export namespace SPAWN {
 	}
 
 
-	export function addSpawn(value: string): void {
+	export const addSpawn = (value: string): void => {
 		spawns.push(value)
 	}
 
-	export function start(): void {
+	export const start = (): void => {
 
 		spawnTimer = new Timer
 		spawnTimer.start(1, false, SPAWN.iterate)
@@ -304,7 +304,7 @@ export namespace SPAWN {
 		levelTimer.start((50 + (10 * check.level)), false, levelUp)
 	}
 
-	export function iterate(): void {
+	export const iterate = (): void => {
 
 		try {
 
@@ -353,7 +353,7 @@ export namespace SPAWN {
 		}
 	}
 
-	export function levelUp(): number {
+	export const levelUp = (): number => {
 		check.level++
 		if (check.level > check.levels) {
 			check.level = check.levels

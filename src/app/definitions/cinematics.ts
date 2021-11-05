@@ -11,7 +11,7 @@ import { FORCE } from "./forces"
 export namespace CINEMATIC {
 
 
-    export function setupCineCamera(): void {
+    export const setupCineCamera = (): void  => {
 
         SetSkyModel(SKY.blizzard)
 
@@ -39,11 +39,11 @@ export namespace CINEMATIC {
         }
     }
 
-    export function setupGameCamera(): void {
+    export const setupGameCamera = (): void  => {
         ResetToGameCamera(2)
     }
 
-    export function startHeroSelector(): void {
+    export const startHeroSelector = (): void  => {
 
         HeroSelector.show(true)
         HeroSelector.enableBan(false)

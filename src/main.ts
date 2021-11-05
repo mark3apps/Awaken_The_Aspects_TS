@@ -10,7 +10,7 @@ import { Game } from "./app/game"
 //const TSTL_VERSION = compiletime(() => require("typescript-to-lua").version)
 
 
-function tsMain() {
+const tsMain = () => {
 
 	Log.Level(LogLevel.Information)
 

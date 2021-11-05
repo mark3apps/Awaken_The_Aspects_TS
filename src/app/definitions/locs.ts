@@ -42,7 +42,7 @@ export namespace LOC {
     export let cDeath: LocInterface
     export let cStorm: LocInterface
 
-    export function define(): void {
+    export const define = (): void => {
         castle = {
             alliance: new Loc(Rectangle.fromHandle(gg_rct_Left_Hero)),
             federation: new Loc(Rectangle.fromHandle(gg_rct_Right_Hero))

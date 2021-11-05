@@ -141,7 +141,7 @@ const OrderIdIgnoreWithDelay = [
 
 export namespace PATHING {
 
-    export function define(): void {
+    export const define = (): void => {
         // Unit Enters a Loc Forwarding Region
         EVENT.unitEntersRegion.add(() => {
             const eventRegion = Region.fromEvent()
@@ -228,7 +228,7 @@ export namespace PATHING {
 
 
     // Namespace Functions
-    export function newOrders(unit: Unit): void {
+    export const newOrders = (unit: Unit): void => {
 
         let dest: Coordinate
 

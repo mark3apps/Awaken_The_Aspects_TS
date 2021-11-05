@@ -64,7 +64,7 @@ export namespace ABILITY {
     export let TimeMageTimeTravel: Ability
     export let TimeMageParadox: Ability
 
-    export function define(): void {
+    export const define = (): void  => {
 
         //
         // Unit Abilities

@@ -8,7 +8,7 @@ export namespace HERO_TYPE {
     export let Brawler: HeroType
     export let ManaAddict: HeroType
 
-    export function define(): void {
+    export const define = () : void => {
         Brawler = new BrawlerHeroType()
         ManaAddict = new ManaAddictHeroType()
 

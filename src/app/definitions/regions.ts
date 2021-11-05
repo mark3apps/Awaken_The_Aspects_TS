@@ -7,7 +7,7 @@ export namespace REGION {
     export let BigBottom: Region
 
 
-    export function define(): void {
+    export const define = (): void => {
 
         BigTop = new Region()
         BigMiddle = new Region()

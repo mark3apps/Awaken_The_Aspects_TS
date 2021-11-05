@@ -14,7 +14,7 @@ export namespace EVENT {
     export const mapStart = new Trigger()
 
 
-    export function define(): void {
+    export const define = (): void  => {
         mapStart.registerTimerEvent(0.5, false)
         unitCreated.registerEnterRect(Rectangle.getPlayableMap())
         unitDies.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH)

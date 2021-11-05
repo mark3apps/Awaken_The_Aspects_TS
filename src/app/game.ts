@@ -23,7 +23,7 @@ import { HEROES } from "./definitions/heroes"
 export namespace Game {
 
 
-    export function mapInit(): void {
+    export const mapInit = (): void => {
 
         Log.Information("Game Init Start")
 
@@ -40,7 +40,7 @@ export namespace Game {
         Log.Information("Game Init Finished")
     }
 
-    export function start(): void {
+    export const start = (): void => {
         FogEnableOff()
         FogMaskEnableOff()
         FogMaskEnableOn()

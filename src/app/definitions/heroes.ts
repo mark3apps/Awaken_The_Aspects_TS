@@ -11,7 +11,7 @@ export namespace HEROES {
     export const Human: Unit[] = []
     export const AI: Unit[] = []
 
-    export function define(): void {
+    export const define = (): void => {
 
 
         // When a Hero Levels up
@@ -27,7 +27,6 @@ export namespace HEROES {
             if (unit.heroLevel % 2 == 0) {
                 player.addTechResearched(FourCC("R006"), 1)
             }
-            
             
         })
 

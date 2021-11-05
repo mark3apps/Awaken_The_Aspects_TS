@@ -15,7 +15,7 @@ export namespace Log {
 
     export let logLevel = LogLevel.None
 
-    export function Level(level: LogLevel): void {
+    export const Level = (level: LogLevel): void => {
         logLevel = level
     }
     export interface Events {
@@ -24,31 +24,31 @@ export namespace Log {
         arg: unknown[]
     }
 
-    export function Fatal(message: string, ...args: unknown[]): void {
+    export const Fatal = (message: string, ...args: unknown[]): void => {
         log(LogLevel.Fatal, message, ...args)
     }
 
-    export function Error(message: string, ...args: unknown[]): void {
+    export const Error = (message: string, ...args: unknown[]): void => {
         log(LogLevel.Error, message, ...args)
     }
 
-    export function Warning(message: string, ...args: unknown[]): void {
+    export const Warning = (message: string, ...args: unknown[]): void => {
         log(LogLevel.Warning, message, ...args)
     }
 
-    export function Information(message: string, ...args: unknown[]): void {
+    export const Information = (message: string, ...args: unknown[]): void => {
         log(LogLevel.Information, message, ...args)
     }
 
-    export function Debug(message: string, ...args: unknown[]): void {
+    export const Debug = (message: string, ...args: unknown[]): void => {
         log(LogLevel.Debug, message, ...args)
     }
 
-    export function Message(message: string, ...args: unknown[]): void {
+    export const Message = (message: string, ...args: unknown[]): void => {
         log(LogLevel.Message, message, ...args)
     }
 
-    export function Verbose(this: void, message: string, ...args: unknown[]): void {
+    export const Verbose = (message: string, ...args: unknown[]): void => {
         log(LogLevel.Verbose, message, ...args)
     }
 
@@ -90,7 +90,7 @@ const Brackets: Record<string, boolean> =
     ['userdata']: true,
 }
 
-function log(logLevel: LogLevel, message: string, ...events: unknown[]) {
+const log = (logLevel: LogLevel, message: string, ...events: unknown[]) => {
 
     if (logLevel >= Log.logLevel) {
         let messagePost = Prefix[logLevel] + " " + message
