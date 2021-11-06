@@ -1,7 +1,6 @@
 import { Strategy } from "lib/resources/strategy"
 import { Unit } from "lib/w3ts/index"
 import { Ability } from "./ability"
-import { HeroAbility } from "./heroAbility"
 import { ItemType } from "./itemType"
 import { UnitType } from "./unitType"
 
@@ -15,10 +14,10 @@ export class HeroType extends UnitType {
     readonly hid!: string
     readonly alter!: UnitType
 
-    public permanentSpells: HeroAbility[] = []
-    public startingSpells: HeroAbility[] = []
-    public ultSpell: HeroAbility
-    public spells: HeroAbility[] = []
+    public permanentSpells: Ability[] = []
+    public startingSpells: Ability[] = []
+    public ultSpell: Ability
+    public spells: Ability[] = []
 
 
     public items: ItemType[] = [];
@@ -56,15 +55,13 @@ export class HeroType extends UnitType {
         return HeroType.Key[HeroType.pre + unit.typeId]
     }
 
-    public addAbility(spellObj: Ability, permanent = true, starting = false, ult = false): void {
+    public addAbility(spellObj: Ability): void {
 
-        const newHeroAbility = new HeroAbility(spellObj, permanent, starting, ult)
+        this.spells.push(spellObj)
 
-        this.spells.push(newHeroAbility)
-
-        if (permanent) { this.permanentSpells.push(newHeroAbility) }
-        if (starting) { this.startingSpells.push(newHeroAbility) }
-        if (ult) { this.ultSpell = newHeroAbility }
+        if (spellObj.permanent) { this.permanentSpells.push(spellObj) }
+        if (spellObj.starting) { this.startingSpells.push(spellObj) }
+        if (spellObj.ult) { this.ultSpell = spellObj }
     }
 
 

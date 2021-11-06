@@ -1,11 +1,10 @@
 import { Unit } from "lib/w3ts/index"
 import { Ability, AbilityParameters } from "./ability"
-import { HeroAbility } from "./heroAbility"
 
 export class UnitAbility extends Ability {
     public readonly unit!: Unit
 
-    constructor(ability: Ability | AbilityParameters | HeroAbility, unit: Unit) {
+    constructor(ability: Ability | AbilityParameters, unit: Unit) {
 
         super(ability as AbilityParameters)
 
@@ -80,6 +79,10 @@ export class UnitAbility extends Ability {
         this.setField(ABILITY_SF_NAME, value)
     }
 
+    public get name(): string {
+        return this.getField(ABILITY_SF_NAME) as string
+    }
+
     public get levels(): number {
         return this.getField(ABILITY_IF_LEVELS) as number
     }
@@ -88,8 +91,16 @@ export class UnitAbility extends Ability {
         return this.getField(ABILITY_IF_LEVEL_SKIP_REQUIREMENT) as number
     }
 
+    public set levelSkip(value: number) {
+        this.setField(ABILITY_IF_LEVEL_SKIP_REQUIREMENT, value)
+    }
+
     public get requiredLevel(): number {
         return this.getField(ABILITY_IF_REQUIRED_LEVEL) as number
+    }
+
+    public set requiredLevel(value: number) {
+        this.setField(ABILITY_IF_REQUIRED_LEVEL, value)
     }
 
     public get isHeroAbility(): boolean {
@@ -101,22 +112,22 @@ export class UnitAbility extends Ability {
     }
 
     public get cooldown(): number {
-        return this.getLevelField(ABILITY_RLF_COOLDOWN) as number
+        return BlzGetUnitAbilityCooldown(this.unit.handle, this.id, this.level)
     }
 
     public set cooldown(value: number) {
-        this.setLevelField(ABILITY_RLF_COOLDOWN, value)
-    }
-
-    public get buff(): string[] {
-        return
+        BlzSetUnitAbilityCooldown(this.unit.handle, this.id, this.level, value)
     }
 
     public get cooldownRemaining(): number {
         return BlzGetUnitAbilityCooldownRemaining(this.unit.handle, this.id)
     }
 
-    public endCooldown(): void {
+    public set cooldownRemaining(value: number) {
+        BlzStartUnitAbilityCooldown(this.unit.handle, this.id, value)
+    }
+
+    public resetCooldown(): void {
         BlzEndUnitAbilityCooldown(this.unit.handle, this.id)
     }
 

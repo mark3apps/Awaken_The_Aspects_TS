@@ -76,6 +76,9 @@ export class Ability {
         this.permanent = ability.permanent
         this.starting = ability.starting
         this.ult= ability.ult
+        this.permanent = ability.permanent
+        this.starting = ability.starting
+        this.ult = ability.ult
 
         // If ability hasn't been definited before
         if (Ability._key[ability.four] == null) {
@@ -139,11 +142,6 @@ export class Ability {
         return new Ability(Ability._key[four])
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    public aiCheck(unit: Unit): void {
-        // Empty
-    }
-
     public onEffect(): void {
         // Empty
     }
@@ -202,6 +200,10 @@ export class Ability {
 
     public get posY(): number {
         return BlzGetAbilityPosY(this.id)
+    }
+
+    public defaultManaCost(level: number): number {
+        return BlzGetAbilityManaCost(this.id, level)
     }
 
     public getCooldown(level: number): number {

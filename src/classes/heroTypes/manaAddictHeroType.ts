@@ -11,11 +11,11 @@ export class ManaAddictHeroType extends HeroType {
         super(UNIT_TYPE.ManaAddict, UNIT_TYPE.ManaAddictAlter)
 
         // Abilities
-        this.addAbility(ABILITY.ManaAddictManaShield, true, true)
+        this.addAbility(ABILITY.ManaAddictManaShield)
         this.addAbility(ABILITY.ManaAddictManaBomb)
         this.addAbility(ABILITY.ManaAddictManaExplosion)
         this.addAbility(ABILITY.ManaAddictSoulBind)
-        this.addAbility(ABILITY.ManaAddictUnleashMana, true, false, true)
+        this.addAbility(ABILITY.ManaAddictUnleashMana)
 
         // Items
         this.addItem(ITEM_TYPE.teleport)

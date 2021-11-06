@@ -5,5 +5,10 @@
     },
     "files.watcherExclude": {
         "*/maps/**": true
-    }
+    },
+    "Lua.diagnostics.globals": [
+        "text",
+        "bj_lastCreatedUnit",
+        "udg_PickedHero"
+    ]
 }

@@ -1558,6 +1558,10 @@ export class Unit extends Widget {
 		WaygateSetDestination(this.handle, x, y)
 	}
 
+
+
+	// Static Events
+
 	public static foodMadeByType(unitId: number) {
 		return GetFoodMade(unitId)
 	}

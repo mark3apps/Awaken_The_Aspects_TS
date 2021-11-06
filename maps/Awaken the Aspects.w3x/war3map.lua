@@ -178,6 +178,7 @@ udg_Talent__UnitCode = 0
 udg_Talent__Choice = nil
 udg_Talent__Level = 0
 udg_Talent__Button = 0
+udg_PickedHero = nil
 gg_rct_Left_Start = nil
 gg_rct_Left_Hero = nil
 gg_rct_Camp_Top = nil
@@ -923,176 +924,137 @@ function HeroSelector.frameLoseFocus(frame)
 function HeroSelector.rollOption(player, includeRandomOnly, excludedIndex, category)
     get an random Unitcode from the added options
     returns an unitcode or nil when none could be found
---]]
-HeroSelector = {}
+--]] HeroSelector = {}
 
---Box
-HeroSelector.BoxFrameName           = "HeroSelectorRaceBox" --this is the background box being created
-HeroSelector.BoxPosX                = 0.3
-HeroSelector.BoxPosY                = 0.4
-HeroSelector.BoxPosPoint            = FRAMEPOINT_CENTER
-HeroSelector.AutoShow               = true --(true) shows the box and the Selection at 0.0 for all players
---Unique Picks
-HeroSelector.UnitCount              = 2 --each hero is in total allowed to be picked this amount of times (includes random, repicking allows a hero again).
-HeroSelector.UnitCountPerTeam       = 1 --Each Team is allowed to pick this amount of each unitType
-HeroSelector.ToManyTooltip          = "OUTOFSTOCKTOOLTIP"
---Ban
-HeroSelector.DelayBanUntilPick      = false --(true) baning will not be applied instantly, instead it is applied when HeroSelector.enablePick is called the next time.
---Category
+-- Box
+HeroSelector.BoxFrameName = "HeroSelectorRaceBox" -- this is the background box being created
+HeroSelector.BoxPosX = 0.3
+HeroSelector.BoxPosY = 0.4
+HeroSelector.BoxPosPoint = FRAMEPOINT_CENTER
+HeroSelector.AutoShow = true -- (true) shows the box and the Selection at 0.0 for all players
+-- Unique Picks
+HeroSelector.UnitCount = 2 -- each hero is in total allowed to be picked this amount of times (includes random, repicking allows a hero again).
+HeroSelector.UnitCountPerTeam = 1 -- Each Team is allowed to pick this amount of each unitType
+HeroSelector.ToManyTooltip = "OUTOFSTOCKTOOLTIP"
+-- Ban
+HeroSelector.DelayBanUntilPick = false -- (true) baning will not be applied instantly, instead it is applied when HeroSelector.enablePick is called the next time.
+-- Category
 HeroSelector.Category = {
-    --Icon path, tooltip Text (tries to localize)
-    {"ReplaceableTextures\\CommandButtons\\BTNSteelMelee", "MELEE"},                 --1, automatic detected when adding an unit
-    {"ReplaceableTextures\\CommandButtons\\BTNHumanMissileUpOne", "Ranged"},         --2, automatic detected when adding an unit
-    {"ReplaceableTextures\\CommandButtons\\BTNGauntletsOfOgrePower", "STRENGTH"},    --4
-    {"ReplaceableTextures\\CommandButtons\\BTNSlippersOfAgility", "AGILITY"},        --8
-    {"ReplaceableTextures\\CommandButtons\\BTNMantleOfIntelligence", "INTELLECT"},   --16
+    -- Icon path, tooltip Text (tries to localize)
+    {"ReplaceableTextures\\CommandButtons\\BTNSteelMelee", "MELEE"}, -- 1, automatic detected when adding an unit
+    {"ReplaceableTextures\\CommandButtons\\BTNHumanMissileUpOne", "Ranged"}, -- 2, automatic detected when adding an unit
+    {"ReplaceableTextures\\CommandButtons\\BTNGauntletsOfOgrePower", "STRENGTH"}, -- 4
+    {"ReplaceableTextures\\CommandButtons\\BTNSlippersOfAgility", "AGILITY"}, -- 8
+    {
+        "ReplaceableTextures\\CommandButtons\\BTNMantleOfIntelligence",
+        "INTELLECT"
+    } -- 16
 }
-HeroSelector.CategoryAffectRandom   = true  --(false) random will not care about selected category
-HeroSelector.CategoryMultiSelect    = false --(false) deselect other category when selecting one, (true) can selected multiple categories and all heroes having any of them are not filtered.
-HeroSelector.CategorySize           = 0.02  --the size of the Category Button
-HeroSelector.CategorySpaceX         = 0.0008 --space between 2 category Buttons, it is meant to need only one line of Categoryy Buttons.
-HeroSelector.CategoryFilteredAlpha  = 45     -- Alpha value of Heroes being filtered by unselected categories
-HeroSelector.CategoryAutoDetectHero = true  -- Will create and remove added Heroes to setup the Category for the primary Attribute Str(4) Agi(8) Int(16)   
+HeroSelector.CategoryAffectRandom = true -- (false) random will not care about selected category
+HeroSelector.CategoryMultiSelect = false -- (false) deselect other category when selecting one, (true) can selected multiple categories and all heroes having any of them are not filtered.
+HeroSelector.CategorySize = 0.02 -- the size of the Category Button
+HeroSelector.CategorySpaceX = 0.0008 -- space between 2 category Buttons, it is meant to need only one line of Categoryy Buttons.
+HeroSelector.CategoryFilteredAlpha = 45 -- Alpha value of Heroes being filtered by unselected categories
+HeroSelector.CategoryAutoDetectHero = true -- Will create and remove added Heroes to setup the Category for the primary Attribute Str(4) Agi(8) Int(16)   
 
---Indicator
-HeroSelector.IndicatorPathPick      = "UI\\Feedback\\Autocast\\UI-ModalButtonOn.mdl" --this model is used by the indicator during picking
-HeroSelector.IndicatorPathBan       = "war3mapImported\\HeroSelectorBan.mdl" --this model is used by the indicator during baning
---Grid
-HeroSelector.SpaceBetweenX          = 0.008 --space between 2 buttons in one row
-HeroSelector.SpaceBetweenY          = 0.008 --space between 2 rows
-HeroSelector.ButtonColCount         = 4 --amount of buttons in one row
-HeroSelector.ButtonRowCount         = 4 --amount of rows
-HeroSelector.ChainedButtons         = true --(true) connect to the previous button/ or row, (false) have a offset to the box topLeft in this moving a button has no effect on other buttons.
---Button
-HeroSelector.ButtonSize             = 0.036 --size of each button
-HeroSelector.ButtonBlendAll         = false --(true) when a hero icon uses transparenzy
-HeroSelector.EmptyButtonPath        = "UI\\Widgets\\EscMenu\\Human\\blank-background.blp"
-HeroSelector.HideEmptyButtons       = true
---Ban Button
-HeroSelector.BanButtonTextPrefix    = "|cffcf2084" --Prefix Text for the Ban Button
-HeroSelector.BanButtonText          = "CHAT_ACTION_BAN" --tries to get a Localized String
-HeroSelector.BanButtonSizeX         = 0.13
-HeroSelector.BanButtonSizeY         = 0.03
-HeroSelector.BanTooltip             = "DISALLOWED"
-HeroSelector.BanIgnoreRequirment    = true -- (true) Ban is not restricted by Requirments
---Accept Button
+-- Indicator
+HeroSelector.IndicatorPathPick = "UI\\Feedback\\Autocast\\UI-ModalButtonOn.mdl" -- this model is used by the indicator during picking
+HeroSelector.IndicatorPathBan = "war3mapImported\\HeroSelectorBan.mdl" -- this model is used by the indicator during baning
+-- Grid
+HeroSelector.SpaceBetweenX = 0.008 -- space between 2 buttons in one row
+HeroSelector.SpaceBetweenY = 0.008 -- space between 2 rows
+HeroSelector.ButtonColCount = 4 -- amount of buttons in one row
+HeroSelector.ButtonRowCount = 4 -- amount of rows
+HeroSelector.ChainedButtons = true -- (true) connect to the previous button/ or row, (false) have a offset to the box topLeft in this moving a button has no effect on other buttons.
+-- Button
+HeroSelector.ButtonSize = 0.036 -- size of each button
+HeroSelector.ButtonBlendAll = false -- (true) when a hero icon uses transparenzy
+HeroSelector.EmptyButtonPath =
+    "UI\\Widgets\\EscMenu\\Human\\blank-background.blp"
+HeroSelector.HideEmptyButtons = true
+-- Ban Button
+HeroSelector.BanButtonTextPrefix = "|cffcf2084" -- Prefix Text for the Ban Button
+HeroSelector.BanButtonText = "CHAT_ACTION_BAN" -- tries to get a Localized String
+HeroSelector.BanButtonSizeX = 0.13
+HeroSelector.BanButtonSizeY = 0.03
+HeroSelector.BanTooltip = "DISALLOWED"
+HeroSelector.BanIgnoreRequirment = true -- (true) Ban is not restricted by Requirments
+-- Accept Button
 HeroSelector.AcceptButtonTextPrefix = ""
-HeroSelector.AcceptButtonText       = "ACCEPT"
-HeroSelector.AcceptButtonSizeX      = 0.085
-HeroSelector.AcceptButtonSizeY      = 0.03
-HeroSelector.AcceptButtonIsShown    = true
-HeroSelector.AcceptButtonAnchor     = FRAMEPOINT_BOTTOMRIGHT --places the Accept button with which Point to the bottom, with right he is at the left
---Random Button
+HeroSelector.AcceptButtonText = "ACCEPT"
+HeroSelector.AcceptButtonSizeX = 0.085
+HeroSelector.AcceptButtonSizeY = 0.03
+HeroSelector.AcceptButtonIsShown = true
+HeroSelector.AcceptButtonAnchor = FRAMEPOINT_BOTTOMRIGHT -- places the Accept button with which Point to the bottom, with right he is at the left
+-- Random Button
 HeroSelector.RandomButtonTextPrefix = ""
-HeroSelector.RandomButtonText       = "RANDOM" --tries Localizing
-HeroSelector.RandomButtonSizeX      = 0.085
-HeroSelector.RandomButtonSizeY      = 0.03
-HeroSelector.RandomButtonIsShown    = true
-HeroSelector.RandomButtonAnchor     = FRAMEPOINT_BOTTOMLEFT
-HeroSelector.RandomButtonPick       = false --(true) pressing the random button will pick the option. (false) pressing the random button will select a button, random only heroes can not be selected, but that does not matter. This weak random and randomonly should not be combined.
---Tooltip
-HeroSelector.TooltipPrefix          = "|cffffcc00"
-HeroSelector.TooltipOffsetX         = 0
-HeroSelector.TooltipOffsetY         = 0
-HeroSelector.TooltipPoint           = FRAMEPOINT_BOTTOM --pos the Tooltip with which Point
-HeroSelector.TooltipRelativePoint   = FRAMEPOINT_TOP --pos the Tooltip to which Point of the Relative
-HeroSelector.TooltipRelativIsBox    = false          --(true) use the box as anchor, (false) use the button as anchor
-HeroSelector.TooltipRequires        = "QUESTCOMPONENTS"
+HeroSelector.RandomButtonText = "RANDOM" -- tries Localizing
+HeroSelector.RandomButtonSizeX = 0.085
+HeroSelector.RandomButtonSizeY = 0.03
+HeroSelector.RandomButtonIsShown = true
+HeroSelector.RandomButtonAnchor = FRAMEPOINT_BOTTOMLEFT
+HeroSelector.RandomButtonPick = false -- (true) pressing the random button will pick the option. (false) pressing the random button will select a button, random only heroes can not be selected, but that does not matter. This weak random and randomonly should not be combined.
+-- Tooltip
+HeroSelector.TooltipPrefix = "|cffffcc00"
+HeroSelector.TooltipOffsetX = 0
+HeroSelector.TooltipOffsetY = 0
+HeroSelector.TooltipPoint = FRAMEPOINT_BOTTOM -- pos the Tooltip with which Point
+HeroSelector.TooltipRelativePoint = FRAMEPOINT_TOP -- pos the Tooltip to which Point of the Relative
+HeroSelector.TooltipRelativIsBox = false -- (true) use the box as anchor, (false) use the button as anchor
+HeroSelector.TooltipRequires = "QUESTCOMPONENTS"
 
---Border
+-- Border
 HeroSelector.BorderSize = {}
-HeroSelector.BorderSize[RACE_HUMAN]     = 0.029 --border size seen by Race Human, this is needed cause the borders are different in size.
-HeroSelector.BorderSize[RACE_ORC]       = 0.029
-HeroSelector.BorderSize[RACE_UNDEAD]    = 0.035
-HeroSelector.BorderSize[RACE_NIGHTELF]  = 0.035
-HeroSelector.BorderSize[RACE_DEMON]     = 0.024
+HeroSelector.BorderSize[RACE_HUMAN] = 0.029 -- border size seen by Race Human, this is needed cause the borders are different in size.
+HeroSelector.BorderSize[RACE_ORC] = 0.029
+HeroSelector.BorderSize[RACE_UNDEAD] = 0.035
+HeroSelector.BorderSize[RACE_NIGHTELF] = 0.035
+HeroSelector.BorderSize[RACE_DEMON] = 0.024
 
---This runs before the box is created with that the system has the needed data right when it is needed.
---you can add units somewhere else but it is done after the box was created you have to use the update function to update the textures of shown buttons
+-- This runs before the box is created with that the system has the needed data right when it is needed.
+-- you can add units somewhere else but it is done after the box was created you have to use the update function to update the textures of shown buttons
 function HeroSelector.initHeroes()
-    --create categories setuped in config
+    -- create categories setuped in config
     local categories = HeroSelector.Category
     HeroSelector.Category = {}
-    for index, value in ipairs(categories)
-    do
-       HeroSelector.addCategory(value[1], value[2])
+    for index, value in ipairs(categories) do
+        HeroSelector.addCategory(value[1], value[2])
     end
 
-    --read GUI, when the variable exist
-    if udg_HeroSelectorUnitCode then
-        local index = 1
-        --add from index 1 all random only heroes
-        while udg_HeroSelectorRandomOnly[index] ~= 0 do
-            HeroSelector.addUnit(udg_HeroSelectorRandomOnly[index], true)
-            index = index + 1
-        end
+    -- adding further units when using the GUI Array does not make much sense, except you would add rows.
 
-        --copy the setuped field
-        for index = 1, HeroSelector.ButtonColCount*HeroSelector.ButtonRowCount,1 do
-            HeroSelector.addUnit(udg_HeroSelectorUnitCode[index])
-            if udg_HeroSelectorCategory[index] ~= 0 then
-                HeroSelector.addUnitCategory(udg_HeroSelectorUnitCode[index], udg_HeroSelectorCategory[index])
-            end
-        end
+    -- skip further demo code
+    -- if true then return end
 
-    end
-    --adding further units when using the GUI Array does not make much sense, except you would add rows.
+    -- Adds requirments
+    -- when you have a ban phase it might be better to add the requirments after the ban phase is over, otherwise one can only ban own options.
+    -- human only work for human, as nightelf only for Nightelf
 
-    --skip further demo code
-    --if true then return end
+    -- local categoryMelee = 1 --autodetected
+    -- local categoryRanged = 2 --autodetected
+    -- local categoryStr = 4
+    -- local categoryAgi = 8
+    -- local categoryInt = 16
+    -- HeroSelector.addUnitCategory('Hpal', categoryStr)
+    -- HeroSelector.addUnitCategory('Hamg', categoryInt)
+    -- HeroSelector.addUnitCategory('Hblm', categoryInt)
+    -- HeroSelector.addUnitCategory('Hmkg', categoryStr)
+    -- HeroSelector.addUnitCategory('Ofar', categoryInt)
+    -- HeroSelector.addUnitCategory('Oshd', categoryAgi)
+    -- HeroSelector.addUnitCategory('Otch', categoryAgi)
+    -- HeroSelector.addUnitCategory('Obla', categoryAgi)
+    -- HeroSelector.addUnitCategory('Emoo', categoryAgi)
+    -- HeroSelector.addUnitCategory('Edem', categoryAgi)
+    -- HeroSelector.addUnitCategory('Ekee', categoryInt)
+    -- HeroSelector.addUnitCategory('Ewar', categoryAgi)
+    -- HeroSelector.addUnitCategory('Udea', categoryStr)
+    -- HeroSelector.addUnitCategory('Ulic', categoryInt)
+    -- HeroSelector.addUnitCategory('Udre', categoryStr)
+    -- HeroSelector.addUnitCategory('Ucrl', categoryStr)
 
+    -- HeroSelector.setUnitCategory('Hgam', categoryInt + categoryRanged)
+    -- HeroSelector.setUnitCategory("Eevi", categoryAgi + categoryMelee)
 
-    HeroSelector.addUnit("Hgam", true, 0) --antonidas is an only random Hero that can only be randomed by team 0 (for users 1).
-    HeroSelector.addUnit("Eevi", true, 1) --evil Illidan is an only random Hero that can only be randomed by team 1 (for users 2).
-    
-    --Adds requirments
-    --when you have a ban phase it might be better to add the requirments after the ban phase is over, otherwise one can only ban own options.
-    --human only work for human, as nightelf only for Nightelf
-    HeroSelector.setUnitReq('Hpal', RACE_HUMAN)
-    HeroSelector.setUnitReq('Hamg', RACE_HUMAN)
-    HeroSelector.setUnitReq('Hblm', RACE_HUMAN)
-    HeroSelector.setUnitReq('Hmkg', RACE_HUMAN)
-    --HeroSelector.setUnitReq('Ofar', RACE_ORC)
-    --HeroSelector.setUnitReq('Oshd', RACE_ORC)
-    --HeroSelector.setUnitReq('Otch', RACE_ORC)
-    --HeroSelector.setUnitReq('Obla', RACE_ORC)
-    HeroSelector.setUnitReq('Emoo', RACE_NIGHTELF)
-    HeroSelector.setUnitReq('Edem', RACE_NIGHTELF)
-    HeroSelector.setUnitReq('Ekee', RACE_NIGHTELF)
-    HeroSelector.setUnitReq('Ewar', RACE_NIGHTELF)
-    --HeroSelector.setUnitReq('Udea', RACE_UNDEAD)
-    --HeroSelector.setUnitReq('Ulic', RACE_UNDEAD)
-    --HeroSelector.setUnitReq('Udre', RACE_UNDEAD)
-    --HeroSelector.setUnitReq('Ucrl', RACE_UNDEAD)
-    
-    local categoryMelee = 1 --autodetected
-    local categoryRanged = 2 --autodetected
-    local categoryStr = 4
-    local categoryAgi = 8
-    local categoryInt = 16
-    HeroSelector.addUnitCategory('Hpal', categoryStr)
-    HeroSelector.addUnitCategory('Hamg', categoryInt)
-    HeroSelector.addUnitCategory('Hblm', categoryInt)
-    HeroSelector.addUnitCategory('Hmkg', categoryStr)
-    HeroSelector.addUnitCategory('Ofar', categoryInt)
-    HeroSelector.addUnitCategory('Oshd', categoryAgi)
-    HeroSelector.addUnitCategory('Otch', categoryAgi)
-    HeroSelector.addUnitCategory('Obla', categoryAgi)
-    HeroSelector.addUnitCategory('Emoo', categoryAgi)
-    HeroSelector.addUnitCategory('Edem', categoryAgi)
-    HeroSelector.addUnitCategory('Ekee', categoryInt)
-    HeroSelector.addUnitCategory('Ewar', categoryAgi)
-    HeroSelector.addUnitCategory('Udea', categoryStr)
-    HeroSelector.addUnitCategory('Ulic', categoryInt)
-    HeroSelector.addUnitCategory('Udre', categoryStr)
-    HeroSelector.addUnitCategory('Ucrl', categoryStr)
-
-    HeroSelector.setUnitCategory('Hgam', categoryInt + categoryRanged)
-    HeroSelector.setUnitCategory("Eevi", categoryAgi + categoryMelee)
-    
-    
-
-    
 end
 
 function HeroSelector.autoDetectCategory(unitCode)
@@ -1101,75 +1063,74 @@ function HeroSelector.autoDetectCategory(unitCode)
     elseif IsUnitIdType(unitCode, UNIT_TYPE_RANGED_ATTACKER) then
         HeroSelector.UnitData[unitCode].Category = 2
     end
-    if HeroSelector.CategoryAutoDetectHero and IsUnitIdType(unitCode, UNIT_TYPE_HERO) then
-        local unit = CreateUnit(Player(bj_PLAYER_NEUTRAL_EXTRA), unitCode, 0, 0, 270)
-        local primaryAttribute = BlzGetUnitIntegerField(unit, UNIT_IF_PRIMARY_ATTRIBUTE)
+    if HeroSelector.CategoryAutoDetectHero and
+        IsUnitIdType(unitCode, UNIT_TYPE_HERO) then
+        local unit = CreateUnit(Player(bj_PLAYER_NEUTRAL_EXTRA), unitCode, 0, 0,
+                                270)
+        local primaryAttribute = BlzGetUnitIntegerField(unit,
+                                                        UNIT_IF_PRIMARY_ATTRIBUTE)
         RemoveUnit(unit)
         if ConvertHeroAttribute(primaryAttribute) == HERO_ATTRIBUTE_STR then
-            HeroSelector.UnitData[unitCode].Category = HeroSelector.UnitData[unitCode].Category + 4
+            HeroSelector.UnitData[unitCode].Category =
+                HeroSelector.UnitData[unitCode].Category + 4
         elseif ConvertHeroAttribute(primaryAttribute) == HERO_ATTRIBUTE_AGI then
-            HeroSelector.UnitData[unitCode].Category = HeroSelector.UnitData[unitCode].Category + 8
-        elseif ConvertHeroAttribute(primaryAttribute) == HERO_ATTRIBUTE_INT then 
-            HeroSelector.UnitData[unitCode].Category = HeroSelector.UnitData[unitCode].Category + 16
+            HeroSelector.UnitData[unitCode].Category =
+                HeroSelector.UnitData[unitCode].Category + 8
+        elseif ConvertHeroAttribute(primaryAttribute) == HERO_ATTRIBUTE_INT then
+            HeroSelector.UnitData[unitCode].Category =
+                HeroSelector.UnitData[unitCode].Category + 16
         end
     end
 end
 
---what happens to the unit beeing picked, player is the one having pressed the button
+-- what happens to the unit being picked, player is the one having pressed the button
 function HeroSelector.unitCreated(player, unitCode, isRandom)
-    bj_lastCreatedUnit = CreateUnit(player, unitCode, GetPlayerStartLocationX(player), GetPlayerStartLocationY(player), 0)
-    local unit = bj_lastCreatedUnit
-    if isRandom then
-        --randomed
-    else
-        --picked
-    end
+    udg_PickedHero = CreateUnit(player, unitCode,
+                                GetPlayerStartLocationX(player),
+                                GetPlayerStartLocationY(player), 0)
 
-    if player == Player(1) then
-                
-    end
+    HeroSelector.enablePick(false, udg_PickedHero)
+    -- if isRandom then
+    --     --randomed
+    -- else
+    --     --picked
+    -- end
 
-    PanCameraToTimedForPlayer(player, GetUnitX(unit), GetUnitY(unit),0)
-    SelectUnitForPlayerSingle(unit, player)
-    HeroSelector.enablePick(false, player) --only one pick for this player
-
-    --print(GetPlayerName(player),"picks",GetUnitName(unit))
+    -- print(GetPlayerName(player),"picks",GetUnitName(unit))
 end
 
---happens when the banButton is pressed, player is the one having pressed the button
+-- happens when the banButton is pressed, player is the one having pressed the button
 function HeroSelector.unitBaned(player, unitCode)
-    HeroSelector.enableBan(false, player) --only one ban
-    --print(GetPlayerName(player),"bans",GetObjectName(unitCode))
+    HeroSelector.enableBan(false, player) -- only one ban
+    -- print(GetPlayerName(player),"bans",GetObjectName(unitCode))
 end
 
 function HeroSelector.buttonSelected(player, unitCode)
-    --player who pressed the button
-    --unitCode the unitCode selected
-    --this is not picked.
+    -- player who pressed the button
+    -- unitCode the unitCode selected
+    -- this is not picked.
 
-    --print(GetPlayerName(player),"selects",GetObjectName(unitCode))
+    -- print(GetPlayerName(player),"selects",GetObjectName(unitCode))
 end
 
 function HeroSelector.repick(unit, player)
-    UnitRemoveBuffsBJ(bj_REMOVEBUFFS_ALL, unit) --this is done to undo metamorph
+    UnitRemoveBuffsBJ(bj_REMOVEBUFFS_ALL, unit) -- this is done to undo metamorph
     local unitCode = GetUnitTypeId(unit)
     if unitCode == 0 then return end
 
     HeroSelector.counterChangeUnitCode(unitCode, -1, player)
 
-    if not player then
-        player = GetOwningPlayer(unit)
-    end
+    if not player then player = GetOwningPlayer(unit) end
     HeroSelector.show(true, player)
     HeroSelector.enablePick(true, player)
     RemoveUnit(unit)
 end
---=====
---code start
---=====
-BlzLoadTOCFile("war3mapImported\\HeroSelector.toc") --ex/import also "HeroSelector.fdf"
-HeroSelector.HeroButtons  = {} --the clickable Buttons
-HeroSelector.UnitData = {} --all avaiable selections
+-- =====
+-- code start
+-- =====
+BlzLoadTOCFile("war3mapImported\\HeroSelector.toc") -- ex/import also "HeroSelector.fdf"
+HeroSelector.HeroButtons = {} -- the clickable Buttons
+HeroSelector.UnitData = {} -- all avaiable selections
 HeroSelector.UnitDataPool = {} -- all possible random values
 HeroSelector.CategoryButton = {}
 
@@ -1181,30 +1142,30 @@ function HeroSelector.CategoryClickAction()
     local category = HeroSelector.CategoryButton[button]
     HeroSelector.frameLoseFocus(BlzGetTriggerFrame())
     local player = GetTriggerPlayer()
-    local playerData = HeroSelector.Category[player] 
-    if not playerData then
-        playerData = 0
-    end
-    --has this category already?
+    local playerData = HeroSelector.Category[player]
+    if not playerData then playerData = 0 end
+    -- has this category already?
     if BlzBitAnd(playerData, category.Value) ~= 0 then
-        --yes, unable
+        -- yes, unable
         playerData = playerData - category.Value
         if GetLocalPlayer() == player then
             BlzFrameSetTexture(category.Icon, category.TextureDisabled, 0, true)
-            BlzFrameSetTexture(category.IconPushed, category.TextureDisabled, 0, true)
+            BlzFrameSetTexture(category.IconPushed, category.TextureDisabled, 0,
+                               true)
         end
 
     else
-        if not HeroSelector.CategoryMultiSelect and HeroSelector.CategoryButton[player]  then
+        if not HeroSelector.CategoryMultiSelect and
+            HeroSelector.CategoryButton[player] then
             local lastCategory = HeroSelector.CategoryButton[player]
-            BlzFrameSetTexture(lastCategory.Icon, lastCategory.TextureDisabled, 0, true)
-            BlzFrameSetTexture(lastCategory.IconPushed, lastCategory.Texture, 0, true)
-            if playerData ~= 0 then
-                playerData = 0
-            end
+            BlzFrameSetTexture(lastCategory.Icon, lastCategory.TextureDisabled,
+                               0, true)
+            BlzFrameSetTexture(lastCategory.IconPushed, lastCategory.Texture, 0,
+                               true)
+            if playerData ~= 0 then playerData = 0 end
         end
-        
-        --no, enable
+
+        -- no, enable
         playerData = playerData + category.Value
         if GetLocalPlayer() == player then
             BlzFrameSetTexture(category.Icon, category.Texture, 0, true)
@@ -1212,18 +1173,19 @@ function HeroSelector.CategoryClickAction()
         end
         HeroSelector.CategoryButton[player] = category
     end
-    
+
     HeroSelector.Category[player] = playerData
 
     if GetLocalPlayer() == player then
-        --update all buttons
-        --buttons not having at least 1 selected category becomes partly transparent
-        for buttonIndex, value in ipairs(HeroSelector.HeroButtons)
-        do
+        -- update all buttons
+        -- buttons not having at least 1 selected category becomes partly transparent
+        for buttonIndex, value in ipairs(HeroSelector.HeroButtons) do
             local button = HeroSelector.HeroButtons[buttonIndex].Frame
             local unitCode = HeroSelector.UnitData[buttonIndex]
             if unitCode and unitCode > 0 then
-                if playerData == 0 or BlzBitAnd(HeroSelector.UnitData[unitCode].Category, playerData) > 0 then
+                if playerData == 0 or
+                    BlzBitAnd(HeroSelector.UnitData[unitCode].Category,
+                              playerData) > 0 then
                     BlzFrameSetAlpha(button, 255)
                 else
                     BlzFrameSetAlpha(button, HeroSelector.CategoryFilteredAlpha)
@@ -1234,55 +1196,73 @@ function HeroSelector.CategoryClickAction()
 end
 
 function HeroSelector.getDisabledIcon(icon)
-    --ReplaceableTextures\CommandButtons\BTNHeroPaladin.tga -> ReplaceableTextures\CommandButtonsDisabled\DISBTNHeroPaladin.tga
-    if string.sub(icon,35,35) ~= "\\" then return icon end --this string has not enough chars return it
-    --string.len(icon) < 35 then return icon end --this string has not enough chars return it
+    -- ReplaceableTextures\CommandButtons\BTNHeroPaladin.tga -> ReplaceableTextures\CommandButtonsDisabled\DISBTNHeroPaladin.tga
+    if string.sub(icon, 35, 35) ~= "\\" then return icon end -- this string has not enough chars return it
+    -- string.len(icon) < 35 then return icon end --this string has not enough chars return it
     local prefix = string.sub(icon, 1, 34)
     local sufix = string.sub(icon, 36)
-    return prefix .."Disabled\\DIS"..sufix
+    return prefix .. "Disabled\\DIS" .. sufix
 end
 
 function HeroSelector.updateTooltip(unitCode)
-    local tooltipFrame = HeroSelector.HeroButtons[HeroSelector.UnitData[unitCode].Index].Tooltip 
+    local tooltipFrame =
+        HeroSelector.HeroButtons[HeroSelector.UnitData[unitCode].Index].Tooltip
     local unitData = HeroSelector.UnitData[unitCode]
     if unitData.Count > HeroSelector.UnitCount then
-        BlzFrameSetText(tooltipFrame, HeroSelector.TooltipPrefix..GetObjectName(unitCode).."\n|r("..GetLocalizedString(HeroSelector.BanTooltip)..")")
+        BlzFrameSetText(tooltipFrame,
+                        HeroSelector.TooltipPrefix .. GetObjectName(unitCode) ..
+                            "\n|r(" ..
+                            GetLocalizedString(HeroSelector.BanTooltip) .. ")")
     else
-        if unitData.Count == HeroSelector.UnitCount or unitData.InTeam[GetPlayerTeam(GetLocalPlayer())] >= HeroSelector.UnitCountPerTeam then
-            BlzFrameSetText(tooltipFrame, HeroSelector.TooltipPrefix..GetObjectName(unitCode).."\n|r("..GetLocalizedString(HeroSelector.ToManyTooltip)..")")
+        if unitData.Count == HeroSelector.UnitCount or
+            unitData.InTeam[GetPlayerTeam(GetLocalPlayer())] >=
+            HeroSelector.UnitCountPerTeam then
+            BlzFrameSetText(tooltipFrame,
+                            HeroSelector.TooltipPrefix ..
+                                GetObjectName(unitCode) .. "\n|r(" ..
+                                GetLocalizedString(HeroSelector.ToManyTooltip) ..
+                                ")")
         elseif not HeroSelector.buttonRequirementDone(unitCode, GetLocalPlayer()) then
-            BlzFrameSetText(tooltipFrame, HeroSelector.TooltipPrefix..GetObjectName(unitCode).."\n|r("..GetLocalizedString(HeroSelector.TooltipRequires)..")")
+            BlzFrameSetText(tooltipFrame,
+                            HeroSelector.TooltipPrefix ..
+                                GetObjectName(unitCode) .. "\n|r(" ..
+                                GetLocalizedString(HeroSelector.TooltipRequires) ..
+                                ")")
         else
-            BlzFrameSetText(tooltipFrame, HeroSelector.TooltipPrefix..GetObjectName(unitCode))
+            BlzFrameSetText(tooltipFrame, HeroSelector.TooltipPrefix ..
+                                GetObjectName(unitCode))
         end
     end
 end
 
 function HeroSelector.addCategory(icon, text)
     if HeroSelector.CategoryHighest then
-        HeroSelector.CategoryHighest = HeroSelector.CategoryHighest*2
+        HeroSelector.CategoryHighest = HeroSelector.CategoryHighest * 2
     else
         HeroSelector.CategoryHighest = 1
     end
-    
+
     local newObject = {}
     table.insert(HeroSelector.Category, newObject)
     newObject.Value = HeroSelector.CategoryHighest
     newObject.Texture = icon
     newObject.TextureDisabled = HeroSelector.getDisabledIcon(icon)
     newObject.Text = text
-    
+
     if HeroSelector.Box then
         local box = HeroSelector.Box
-        local lastButton = HeroSelector.CategoryButton[#HeroSelector.CategoryButton]
+        local lastButton =
+            HeroSelector.CategoryButton[#HeroSelector.CategoryButton]
         local button = BlzCreateFrame("HeroSelectorCategoryButton", box, 0, 0)
         local icon = BlzGetFrameByName("HeroSelectorCategoryButtonIcon", 0)
-        local iconPushed = BlzGetFrameByName("HeroSelectorCategoryButtonIconPushed", 0)
+        local iconPushed = BlzGetFrameByName(
+                               "HeroSelectorCategoryButtonIconPushed", 0)
         local tooltip = BlzCreateFrame("HeroSelectorText", box, 0, 0)
         BlzFrameSetText(tooltip, GetLocalizedString(text))
-        newObject.Text = tooltip --when this is reached overwritte textframe with the tooltip
+        newObject.Text = tooltip -- when this is reached overwritte textframe with the tooltip
         BlzFrameSetTooltip(button, tooltip)
-        BlzFrameSetPoint(tooltip, FRAMEPOINT_BOTTOM, button, FRAMEPOINT_TOP, 0, 0)
+        BlzFrameSetPoint(tooltip, FRAMEPOINT_BOTTOM, button, FRAMEPOINT_TOP, 0,
+                         0)
         BlzFrameSetSize(button, 0.02, 0.02)
         BlzFrameSetTexture(icon, newObject.TextureDisabled, 0, true)
         BlzFrameSetTexture(iconPushed, newObject.TextureDisabled, 0, true)
@@ -1294,12 +1274,15 @@ function HeroSelector.addCategory(icon, text)
 
         if not lastButton then
             local titleSize = 0.015
-            local borderSize = HeroSelector.BorderSize[GetPlayerRace(GetLocalPlayer())]
+            local borderSize = HeroSelector.BorderSize[GetPlayerRace(
+                                   GetLocalPlayer())]
             local y = -borderSize - titleSize - 0.01
             local x = borderSize
-            BlzFrameSetPoint(button, FRAMEPOINT_TOPLEFT, box, FRAMEPOINT_TOPLEFT, x, y)
+            BlzFrameSetPoint(button, FRAMEPOINT_TOPLEFT, box,
+                             FRAMEPOINT_TOPLEFT, x, y)
         else
-            BlzFrameSetPoint(button, FRAMEPOINT_LEFT, lastButton, FRAMEPOINT_RIGHT, 0, 0)
+            BlzFrameSetPoint(button, FRAMEPOINT_LEFT, lastButton,
+                             FRAMEPOINT_RIGHT, 0, 0)
         end
         table.insert(HeroSelector.CategoryButton, button)
         table.insert(HeroSelector.Frames, tooltip)
@@ -1309,30 +1292,37 @@ function HeroSelector.addCategory(icon, text)
 end
 
 function HeroSelector.addUnit(unitCode, onlyRandom, requirement)
-    --no unitCode => empty field
+    -- no unitCode => empty field
     if not unitCode or unitCode == 0 then
         table.insert(HeroSelector.UnitData, 0)
     else
-        --'Hpal' -> number?
-        if type(unitCode) == "string" then
-            unitCode = FourCC(unitCode)
+        -- 'Hpal' -> number?
+        if type(unitCode) == "string" then unitCode = FourCC(unitCode) end
+
+        -- Such an object Exist?
+        if GetObjectName(unitCode) == "" then
+            print(('>I4'):pack(unitCode), "is not an valid Object")
+            return
         end
 
-        --Such an object Exist?
-        if GetObjectName(unitCode) == "" then print(('>I4'):pack(unitCode), "is not an valid Object") return end
-        
-        --only unique
+        -- only unique
         if HeroSelector.UnitData[unitCode] then return end
         HeroSelector.UnitDataPool[unitCode] = true -- add to random
 
-        HeroSelector.UnitData[unitCode] = {Index = 0, Count = 0, InTeam = __jarray(0), Category = 0, Requirment = HeroSelector.convertReq(requirement), RequirmentData = requirement}
+        HeroSelector.UnitData[unitCode] = {
+            Index = 0,
+            Count = 0,
+            InTeam = __jarray(0),
+            Category = 0,
+            Requirment = HeroSelector.convertReq(requirement),
+            RequirmentData = requirement
+        }
         HeroSelector.autoDetectCategory(unitCode)
         if not onlyRandom then
             table.insert(HeroSelector.UnitData, unitCode)
-            HeroSelector.UnitData[unitCode].Index = #HeroSelector.UnitData   --remember the index for the unitCode
+            HeroSelector.UnitData[unitCode].Index = #HeroSelector.UnitData -- remember the index for the unitCode
         end
-      
-        
+
     end
 
 end
@@ -1361,19 +1351,24 @@ function HeroSelector.setBanButtonText(text, who)
 end
 
 function HeroSelector.isPlayerRace(unitCode, player)
-    return HeroSelector.UnitData[unitCode].RequirmentData == GetPlayerRace(player) 
+    return HeroSelector.UnitData[unitCode].RequirmentData ==
+               GetPlayerRace(player)
 end
 function HeroSelector.IsPlayerForce(unitCode, player)
-    return BlzForceHasPlayer(HeroSelector.UnitData[unitCode].RequirmentData, player)
+    return BlzForceHasPlayer(HeroSelector.UnitData[unitCode].RequirmentData,
+                             player)
 end
 function HeroSelector.IsPlayerTeamNr(unitCode, player)
-    return HeroSelector.UnitData[unitCode].RequirmentData == GetPlayerTeam(player)
+    return HeroSelector.UnitData[unitCode].RequirmentData ==
+               GetPlayerTeam(player)
 end
 function HeroSelector.isPlayer(unitCode, player)
     return HeroSelector.UnitData[unitCode].RequirmentData == player
 end
 function HeroSelector.HasPlayerTechLevel(unitCode, player)
-    return GetPlayerTechCount(player, HeroSelector.UnitData[unitCode].RequirmentData[1], true) >= HeroSelector.UnitData[unitCode].RequirmentData[2]
+    return GetPlayerTechCount(player, HeroSelector.UnitData[unitCode]
+                                  .RequirmentData[1], true) >=
+               HeroSelector.UnitData[unitCode].RequirmentData[2]
 end
 
 function HeroSelector.convertReq(who)
@@ -1394,32 +1389,28 @@ function HeroSelector.convertReq(who)
 end
 
 function HeroSelector.setUnitReq(unitCode, who)
-    if type(unitCode) == "string" then
-        unitCode = FourCC(unitCode)
-    end
-    --Such an object Exist?
+    if type(unitCode) == "string" then unitCode = FourCC(unitCode) end
+    -- Such an object Exist?
     if not HeroSelector.UnitData[unitCode] then return end
 
     HeroSelector.UnitData[unitCode].RequirmentData = who
     HeroSelector.UnitData[unitCode].Requirment = HeroSelector.convertReq(who)
 end
 function HeroSelector.setUnitCategory(unitCode, category)
-    if type(unitCode) == "string" then
-        unitCode = FourCC(unitCode)
-    end
-    --Such an object Exist?
+    if type(unitCode) == "string" then unitCode = FourCC(unitCode) end
+    -- Such an object Exist?
     if not HeroSelector.UnitData[unitCode] then return end
 
     HeroSelector.UnitData[unitCode].Category = category
 end
 function HeroSelector.addUnitCategory(unitCode, category)
-    if type(unitCode) == "string" then
-        unitCode = FourCC(unitCode)
-    end
-    --Such an object Exist?
+    if type(unitCode) == "string" then unitCode = FourCC(unitCode) end
+    -- Such an object Exist?
     if not HeroSelector.UnitData[unitCode] then return end
 
-    HeroSelector.UnitData[unitCode].Category = BlzBitOr(category, HeroSelector.UnitData[unitCode].Category)
+    HeroSelector.UnitData[unitCode].Category = BlzBitOr(category,
+                                                        HeroSelector.UnitData[unitCode]
+                                                            .Category)
 end
 
 function HeroSelector.deselectButtons(buttonIndex)
@@ -1427,22 +1418,23 @@ function HeroSelector.deselectButtons(buttonIndex)
         if HeroSelector.HeroButtons[GetLocalPlayer()] == buttonIndex then
             BlzFrameSetVisible(HeroSelector.SelectedIndikator, false)
         end
-        for index= 0, GetBJMaxPlayers() - 1,1 do
+        for index = 0, GetBJMaxPlayers() - 1, 1 do
             if HeroSelector.HeroButtons[Player(index)] == buttonIndex then
-                HeroSelector.HeroButtons[Player(index)] = 0 
+                HeroSelector.HeroButtons[Player(index)] = 0
             end
         end
     else
-        for index= 0, GetBJMaxPlayers() - 1,1 do
-            HeroSelector.HeroButtons[Player(index)] = 0 
+        for index = 0, GetBJMaxPlayers() - 1, 1 do
+            HeroSelector.HeroButtons[Player(index)] = 0
         end
         BlzFrameSetVisible(HeroSelector.SelectedIndikator, false)
     end
 end
 
 function HeroSelector.buttonRequirementDone(unitCode, player)
-    --true when no requirement is set or the requirment call is successful
-    return not HeroSelector.UnitData[unitCode].Requirment or HeroSelector.UnitData[unitCode].Requirment(unitCode, player)
+    -- true when no requirement is set or the requirment call is successful
+    return not HeroSelector.UnitData[unitCode].Requirment or
+               HeroSelector.UnitData[unitCode].Requirment(unitCode, player)
 end
 
 function HeroSelector.disableButtonIndex(buttonIndex, teamNr)
@@ -1454,40 +1446,51 @@ function HeroSelector.disableButtonIndex(buttonIndex, teamNr)
             BlzFrameSetVisible(HeroSelector.SelectedIndikator, false)
         end
 
-        --deselect this Button from all players or the team
-        for index= 0, GetBJMaxPlayers() - 1,1 do
+        -- deselect this Button from all players or the team
+        for index = 0, GetBJMaxPlayers() - 1, 1 do
             local player = Player(index)
-            if (not teamNr or teamNr == GetPlayerTeam(player)) and HeroSelector.HeroButtons[player] == buttonIndex then
-                HeroSelector.HeroButtons[player] = 0                
+            if (not teamNr or teamNr == GetPlayerTeam(player)) and
+                HeroSelector.HeroButtons[player] == buttonIndex then
+                HeroSelector.HeroButtons[player] = 0
             end
         end
     end
 end
 
 function HeroSelector.enableButtonIndex(unitCode, buttonIndex, teamNr)
-    if buttonIndex > 0 and (not teamNr or teamNr == GetPlayerTeam(GetLocalPlayer())) then
-        BlzFrameSetEnable(HeroSelector.HeroButtons[buttonIndex].Frame, true and (HeroSelector.BanIgnoreRequirment and BlzFrameIsVisible(HeroSelector.BanButton)) or HeroSelector.buttonRequirementDone(unitCode, GetLocalPlayer()))
+    if buttonIndex > 0 and
+        (not teamNr or teamNr == GetPlayerTeam(GetLocalPlayer())) then
+        BlzFrameSetEnable(HeroSelector.HeroButtons[buttonIndex].Frame, true and
+                              (HeroSelector.BanIgnoreRequirment and
+                                  BlzFrameIsVisible(HeroSelector.BanButton)) or
+                              HeroSelector.buttonRequirementDone(unitCode,
+                                                                 GetLocalPlayer()))
     end
 end
 
 function HeroSelector.counterChangeUnitCode(unitCode, add, player)
-    if not HeroSelector.UnitData[unitCode] then HeroSelector.UnitData[unitCode] = {Count = 0, InTeam = __jarray(0)} end
+    if not HeroSelector.UnitData[unitCode] then
+        HeroSelector.UnitData[unitCode] = {Count = 0, InTeam = __jarray(0)}
+    end
     local buttonIndex = HeroSelector.UnitData[unitCode].Index
-    if not buttonIndex  then buttonIndex = 0 end
+    if not buttonIndex then buttonIndex = 0 end
 
     local teamNr = GetPlayerTeam(player)
-    
-    HeroSelector.UnitData[unitCode].InTeam[teamNr] = HeroSelector.UnitData[unitCode].InTeam[teamNr] + add
-    HeroSelector.UnitData[unitCode].Count = HeroSelector.UnitData[unitCode].Count + add
+
+    HeroSelector.UnitData[unitCode].InTeam[teamNr] =
+        HeroSelector.UnitData[unitCode].InTeam[teamNr] + add
+    HeroSelector.UnitData[unitCode].Count =
+        HeroSelector.UnitData[unitCode].Count + add
 
     if HeroSelector.UnitData[unitCode].Count >= HeroSelector.UnitCount then
-        --disable for all
+        -- disable for all
         HeroSelector.disableButtonIndex(buttonIndex)
     else
-        --enable for all
+        -- enable for all
         HeroSelector.enableButtonIndex(unitCode, buttonIndex)
-        if HeroSelector.UnitData[unitCode].InTeam[teamNr] >= HeroSelector.UnitCountPerTeam  then
-            --disable for this team
+        if HeroSelector.UnitData[unitCode].InTeam[teamNr] >=
+            HeroSelector.UnitCountPerTeam then
+            -- disable for this team
             HeroSelector.disableButtonIndex(buttonIndex, teamNr)
         end
     end
@@ -1496,66 +1499,76 @@ end
 
 HeroSelector.rollOptionData = {Count = 0}
 
-function HeroSelector.rollOption(player, includeRandomOnly, excludedIndex, category)
+function HeroSelector.rollOption(player, includeRandomOnly, excludedIndex,
+                                 category)
     if not excludedIndex then excludedIndex = 0 end
     if not category then category = 0 end
     local teamNr = GetPlayerTeam(player)
     HeroSelector.rollOptionData.Count = 0
-    for unitCode, value in pairs(HeroSelector.UnitDataPool)
-    do
-        
+    for unitCode, value in pairs(HeroSelector.UnitDataPool) do
+
         local allowed = value
-        --total limited reached?
+        -- total limited reached?
         if HeroSelector.UnitData[unitCode].Count >= HeroSelector.UnitCount then
             allowed = false
-            --print(GetObjectName(unitCode))
-            --print("rejected total limit")
+            -- print(GetObjectName(unitCode))
+            -- print("rejected total limit")
         end
-        --team limited reached?
-        if allowed and HeroSelector.UnitData[unitCode].InTeam[teamNr] >= HeroSelector.UnitCountPerTeam  then
-            --print(GetObjectName(unitCode))
-            --print("rejected team limit")
+        -- team limited reached?
+        if allowed and HeroSelector.UnitData[unitCode].InTeam[teamNr] >=
+            HeroSelector.UnitCountPerTeam then
+            -- print(GetObjectName(unitCode))
+            -- print("rejected team limit")
             allowed = false
         end
-        --allow randomOnly?
-        if allowed and not includeRandomOnly and HeroSelector.UnitData[unitCode].Index == 0  then
-            --print(GetObjectName(unitCode))
-            --print("rejected random only")
+        -- allow randomOnly?
+        if allowed and not includeRandomOnly and
+            HeroSelector.UnitData[unitCode].Index == 0 then
+            -- print(GetObjectName(unitCode))
+            -- print("rejected random only")
             allowed = false
         end
-        --this index is excluded? This can make sure you get another button.
-        if allowed and HeroSelector.UnitData[unitCode].Index > 0 and HeroSelector.UnitData[unitCode].Index == excludedIndex then
-            --print(GetObjectName(unitCode))
-            --print("rejected exclude")
+        -- this index is excluded? This can make sure you get another button.
+        if allowed and HeroSelector.UnitData[unitCode].Index > 0 and
+            HeroSelector.UnitData[unitCode].Index == excludedIndex then
+            -- print(GetObjectName(unitCode))
+            -- print("rejected exclude")
             allowed = false
         end
-        --fullfills the requirement?
+        -- fullfills the requirement?
         if allowed and not HeroSelector.buttonRequirementDone(unitCode, player) then
-            --print(GetObjectName(unitCode))
-            --print("rejected requirement")
+            -- print(GetObjectName(unitCode))
+            -- print("rejected requirement")
             allowed = false
         end
-        --when having an given an category only allow options having that category atleast partly
-        if allowed and category and category > 0 and BlzBitAnd(category, HeroSelector.UnitData[unitCode].Category) == 0 then
-            --print(GetObjectName(unitCode))
-            --print("  rejected category", category, HeroSelector.UnitData[unitCode].Category)
+        -- when having an given an category only allow options having that category atleast partly
+        if allowed and category and category > 0 and
+            BlzBitAnd(category, HeroSelector.UnitData[unitCode].Category) == 0 then
+            -- print(GetObjectName(unitCode))
+            -- print("  rejected category", category, HeroSelector.UnitData[unitCode].Category)
             allowed = false
         end
 
         if allowed then
-            HeroSelector.rollOptionData.Count = HeroSelector.rollOptionData.Count + 1
-            HeroSelector.rollOptionData[HeroSelector.rollOptionData.Count] = unitCode
+            HeroSelector.rollOptionData.Count =
+                HeroSelector.rollOptionData.Count + 1
+            HeroSelector.rollOptionData[HeroSelector.rollOptionData.Count] =
+                unitCode
         end
     end
-    --nothing is allwoed?
+    -- nothing is allwoed?
     if HeroSelector.rollOptionData.Count == 0 then return nil end
 
-    return HeroSelector.rollOptionData[GetRandomInt(1, HeroSelector.rollOptionData.Count)]
+    return HeroSelector.rollOptionData[GetRandomInt(1,
+                                                    HeroSelector.rollOptionData
+                                                        .Count)]
 end
 
 function HeroSelector.doRandom(player)
     local category = 0
-    if HeroSelector.CategoryAffectRandom then category = HeroSelector.Category[player] end
+    if HeroSelector.CategoryAffectRandom then
+        category = HeroSelector.Category[player]
+    end
     local unitCode = HeroSelector.rollOption(player, true, 0, category)
     if not unitCode then return end
 
@@ -1564,12 +1577,14 @@ function HeroSelector.doRandom(player)
 end
 
 function HeroSelector.doPick(player)
-    --pick what currently is selected, returns true on success returns false when something went wrong,
+    -- pick what currently is selected, returns true on success returns false when something went wrong,
     if not HeroSelector.HeroButtons[player] then return false end
     local buttonIndex = HeroSelector.HeroButtons[player]
-    if buttonIndex <= 0 then return false end --reject nothing selected
+    if buttonIndex <= 0 then return false end -- reject nothing selected
     local unitCode = HeroSelector.UnitData[buttonIndex]
-    if not HeroSelector.buttonRequirementDone(unitCode, player) then return false end --requirment fullfilled
+    if not HeroSelector.buttonRequirementDone(unitCode, player) then
+        return false
+    end -- requirment fullfilled
 
     HeroSelector.counterChangeUnitCode(unitCode, 1, player)
     HeroSelector.unitCreated(player, unitCode)
@@ -1577,16 +1592,16 @@ function HeroSelector.doPick(player)
 end
 
 function HeroSelector.forceRandom(who)
-    --this is a wrapper for doRandom allowing different dataTypes
+    -- this is a wrapper for doRandom allowing different dataTypes
     if not who then
-        for index= 0, GetBJMaxPlayers() - 1,1 do
+        for index = 0, GetBJMaxPlayers() - 1, 1 do
             local player = Player(index)
             if GetPlayerSlotState(player) == PLAYER_SLOT_STATE_PLAYING then
-                HeroSelector.doRandom(Player(index)) 
+                HeroSelector.doRandom(Player(index))
             end
         end
     elseif type(who) == "number" then
-        for index= 0, GetBJMaxPlayers() - 1,1 do
+        for index = 0, GetBJMaxPlayers() - 1, 1 do
             local player = Player(index)
             if GetPlayerSlotState(player) == PLAYER_SLOT_STATE_PLAYING then
                 if GetPlayerTeam(player) == who then
@@ -1595,120 +1610,119 @@ function HeroSelector.forceRandom(who)
             end
         end
     elseif tostring(who):sub(1, 5) == "race:" then
-        for index= 0, GetBJMaxPlayers() - 1,1 do
+        for index = 0, GetBJMaxPlayers() - 1, 1 do
             local player = Player(index)
             if GetPlayerSlotState(player) == PLAYER_SLOT_STATE_PLAYING then
                 if GetPlayerRace(player) == who then
-                    HeroSelector.doRandom(player) 
+                    HeroSelector.doRandom(player)
                 end
             end
         end
     elseif tostring(who):sub(1, 7) == "player:" then
         HeroSelector.doRandom(who)
-    elseif tostring(who):sub(1, 6) == "force:"then
+    elseif tostring(who):sub(1, 6) == "force:" then
         ForForce(who, function() HeroSelector.doRandom(GetEnumPlayer()) end)
     end
 end
 
 function HeroSelector.forcePick(who)
     if not who then
-        for index= 0, GetBJMaxPlayers() - 1,1 do
+        for index = 0, GetBJMaxPlayers() - 1, 1 do
             local player = Player(index)
             if GetPlayerSlotState(player) == PLAYER_SLOT_STATE_PLAYING then
-                if not HeroSelector.doPick(player) then --do picking, when that fails doRandom
+                if not HeroSelector.doPick(player) then -- do picking, when that fails doRandom
                     HeroSelector.doRandom(player)
                 end
             end
         end
     elseif type(who) == "number" then
-        for index= 0, GetBJMaxPlayers() - 1,1 do
+        for index = 0, GetBJMaxPlayers() - 1, 1 do
             local player = Player(index)
             if GetPlayerSlotState(player) == PLAYER_SLOT_STATE_PLAYING then
                 if GetPlayerTeam(player) == who then
                     if not HeroSelector.doPick(player) then
-                        HeroSelector.doRandom(player) 
+                        HeroSelector.doRandom(player)
                     end
                 end
             end
         end
     elseif tostring(who):sub(1, 5) == "race:" then
-        for index= 0, GetBJMaxPlayers() - 1,1 do
+        for index = 0, GetBJMaxPlayers() - 1, 1 do
             local player = Player(index)
             if GetPlayerSlotState(player) == PLAYER_SLOT_STATE_PLAYING then
                 if GetPlayerRace(player) == who then
                     if not HeroSelector.doPick(player) then
-                        HeroSelector.doRandom(player) 
+                        HeroSelector.doRandom(player)
                     end
                 end
             end
         end
     elseif tostring(who):sub(1, 7) == "player:" then
-        if not HeroSelector.doPick(who) then
-            HeroSelector.doRandom(who) 
-        end
+        if not HeroSelector.doPick(who) then HeroSelector.doRandom(who) end
     elseif tostring(who):sub(1, 6) == "force:" then
         ForForce(who, function()
             local player = GetEnumPlayer()
             if not HeroSelector.doPick(player) then
-                HeroSelector.doRandom(player) 
-            end 
+                HeroSelector.doRandom(player)
+            end
         end)
     end
 end
 
 function HeroSelector.includesPlayer(who, player)
-    if not who then --there is no who -> everyone
+    if not who then -- there is no who -> everyone
         return true
     elseif type(who) == "number" and GetPlayerTeam(player) == who then
         return true
-    elseif tostring(who):sub(1, 5) == "race:" and GetPlayerRace(player) == who  then
+    elseif tostring(who):sub(1, 5) == "race:" and GetPlayerRace(player) == who then
         return true
     elseif tostring(who):sub(1, 7) == "player:" and player == who then
         return true
-    elseif tostring(who):sub(1, 6) == "force:" and BlzForceHasPlayer(who, player) then
+    elseif tostring(who):sub(1, 6) == "force:" and
+        BlzForceHasPlayer(who, player) then
         return true
     end
     return false
 end
 
 function HeroSelector.enablePick(flag, who)
-    for index = #HeroSelector.BanDelayed, 1, -1
-    do
+    for index = #HeroSelector.BanDelayed, 1, -1 do
         local ban = table.remove(HeroSelector.BanDelayed)
-        HeroSelector.counterChangeUnitCode(ban[1], HeroSelector.UnitCount + 1, ban[2])
+        HeroSelector.counterChangeUnitCode(ban[1], HeroSelector.UnitCount + 1,
+                                           ban[2])
     end
 
     if HeroSelector.includesPlayer(who, GetLocalPlayer()) then
-        BlzFrameSetVisible(HeroSelector.AcceptButton, true and HeroSelector.AcceptButtonIsShown)
-        BlzFrameSetVisible(HeroSelector.RandomButton, true and HeroSelector.RandomButtonIsShown)
+        BlzFrameSetVisible(HeroSelector.AcceptButton,
+                           true and HeroSelector.AcceptButtonIsShown)
+        BlzFrameSetVisible(HeroSelector.RandomButton,
+                           true and HeroSelector.RandomButtonIsShown)
         BlzFrameSetVisible(HeroSelector.BanButton, false)
         BlzFrameSetEnable(HeroSelector.AcceptButton, flag)
         BlzFrameSetEnable(HeroSelector.RandomButton, flag)
-        BlzFrameSetModel(HeroSelector.SelectedIndikator, HeroSelector.IndicatorPathPick, 0)
+        BlzFrameSetModel(HeroSelector.SelectedIndikator,
+                         HeroSelector.IndicatorPathPick, 0)
         if HeroSelector.BanIgnoreRequirment then HeroSelector.update() end
     end
-    
+
 end
 
-function HeroSelector.enableBan(flag, who)  
+function HeroSelector.enableBan(flag, who)
     if HeroSelector.includesPlayer(who, GetLocalPlayer()) then
         BlzFrameSetVisible(HeroSelector.AcceptButton, false)
         BlzFrameSetVisible(HeroSelector.RandomButton, false)
         BlzFrameSetVisible(HeroSelector.BanButton, true)
         BlzFrameSetEnable(HeroSelector.BanButton, flag)
-        BlzFrameSetModel(HeroSelector.SelectedIndikator, HeroSelector.IndicatorPathBan, 0)
+        BlzFrameSetModel(HeroSelector.SelectedIndikator,
+                         HeroSelector.IndicatorPathBan, 0)
         if HeroSelector.BanIgnoreRequirment then HeroSelector.update() end
-    end    
+    end
 end
 
 function HeroSelector.destroy()
-    for key, value in ipairs(HeroSelector.Frames)
-    do
-        BlzDestroyFrame(value)
-    end
+    for key, value in ipairs(HeroSelector.Frames) do BlzDestroyFrame(value) end
     HeroSelector.Frames = nil
-    for key, value in ipairs(HeroSelector.HeroButtons)
-    do
+    for key, value in ipairs(HeroSelector.HeroButtons) do
         BlzDestroyFrame(value.Tooltip)
         BlzDestroyFrame(value.Icon)
         BlzDestroyFrame(value.IconDisabled)
@@ -1717,11 +1731,11 @@ function HeroSelector.destroy()
     HeroSelector.HeroButtons = nil
 
     BlzDestroyFrame(HeroSelector.SelectedIndikator)
-    
+
     HeroSelector.UnitData = nil
     HeroSelector.BorderSize = nil
     HeroSelector = nil
-    
+
 end
 
 function HeroSelector.frameLoseFocus(frame)
@@ -1742,9 +1756,11 @@ function HeroSelector.actionPressHeroButton()
     end
     if GetLocalPlayer() == player then
         BlzFrameSetVisible(HeroSelector.SelectedIndikator, true)
-        
-        BlzFrameSetPoint(HeroSelector.SelectedIndikator, FRAMEPOINT_TOPLEFT, button, FRAMEPOINT_TOPLEFT, -0.001, 0.001)
-        BlzFrameSetPoint(HeroSelector.SelectedIndikator, FRAMEPOINT_BOTTOMRIGHT, button, FRAMEPOINT_BOTTOMRIGHT, -0.0012, -0.0016)
+
+        BlzFrameSetPoint(HeroSelector.SelectedIndikator, FRAMEPOINT_TOPLEFT,
+                         button, FRAMEPOINT_TOPLEFT, -0.001, 0.001)
+        BlzFrameSetPoint(HeroSelector.SelectedIndikator, FRAMEPOINT_BOTTOMRIGHT,
+                         button, FRAMEPOINT_BOTTOMRIGHT, -0.0012, -0.0016)
     end
     HeroSelector.buttonSelected(player, unitCode)
 end
@@ -1755,7 +1771,9 @@ function HeroSelector.actionRandomButton()
     if HeroSelector.RandomButtonPick then
         HeroSelector.doRandom(player)
     else
-        local unitCode = HeroSelector.rollOption(player, false, HeroSelector.HeroButtons[player], HeroSelector.Category[player])
+        local unitCode = HeroSelector.rollOption(player, false,
+                                                 HeroSelector.HeroButtons[player],
+                                                 HeroSelector.Category[player])
         if unitCode and GetLocalPlayer() == player then
             local buttonIndex = HeroSelector.UnitData[unitCode].Index
             BlzFrameClick(HeroSelector.HeroButtons[buttonIndex].Frame)
@@ -1773,10 +1791,11 @@ function HeroSelector.actionBanButton()
     HeroSelector.frameLoseFocus(BlzGetTriggerFrame())
     if not HeroSelector.HeroButtons[player] then return end
     local buttonIndex = HeroSelector.HeroButtons[player]
-    if buttonIndex <= 0 then return end --reject nothing selected
+    if buttonIndex <= 0 then return end -- reject nothing selected
     local unitCode = HeroSelector.UnitData[buttonIndex]
     if not HeroSelector.DelayBanUntilPick then
-        HeroSelector.counterChangeUnitCode(unitCode, HeroSelector.UnitCount + 1, player)
+        HeroSelector.counterChangeUnitCode(unitCode, HeroSelector.UnitCount + 1,
+                                           player)
     else
         table.insert(HeroSelector.BanDelayed, {unitCode, player})
     end
@@ -1784,39 +1803,53 @@ function HeroSelector.actionBanButton()
 end
 
 function HeroSelector.update()
-    for buttonIndex, value in ipairs(HeroSelector.HeroButtons)
-    do
-        --have data for this button?
-        
-        if HeroSelector.UnitData[buttonIndex] and HeroSelector.UnitData[buttonIndex] > 0 then
-            if HeroSelector.HideEmptyButtons then BlzFrameSetVisible(value.Frame, true) end
+    for buttonIndex, value in ipairs(HeroSelector.HeroButtons) do
+        -- have data for this button?
+
+        if HeroSelector.UnitData[buttonIndex] and
+            HeroSelector.UnitData[buttonIndex] > 0 then
+            if HeroSelector.HideEmptyButtons then
+                BlzFrameSetVisible(value.Frame, true)
+            end
             local unitCode = HeroSelector.UnitData[buttonIndex]
             if HeroSelector.UnitData[unitCode].Count >= HeroSelector.UnitCount then
-                --disable for all
+                -- disable for all
                 HeroSelector.disableButtonIndex(buttonIndex)
             else
-                --enable for all
+                -- enable for all
                 HeroSelector.enableButtonIndex(unitCode, buttonIndex)
-                for teamNr, inTeamCount in pairs(HeroSelector.UnitData[unitCode].InTeam) do
-                    if HeroSelector.UnitData[unitCode].InTeam[teamNr] >= HeroSelector.UnitCountPerTeam  then
-                        --disable for this team
+                for teamNr, inTeamCount in pairs(
+                                               HeroSelector.UnitData[unitCode]
+                                                   .InTeam) do
+                    if HeroSelector.UnitData[unitCode].InTeam[teamNr] >=
+                        HeroSelector.UnitCountPerTeam then
+                        -- disable for this team
                         HeroSelector.disableButtonIndex(buttonIndex, teamNr)
                     end
                 end
             end
-            BlzFrameSetTexture(value.Icon, BlzGetAbilityIcon(unitCode), 0, HeroSelector.ButtonBlendAll)
-            BlzFrameSetTexture(value.IconPushed, BlzGetAbilityIcon(unitCode), 0, HeroSelector.ButtonBlendAll)
-            BlzFrameSetTexture(value.IconDisabled, HeroSelector.getDisabledIcon(BlzGetAbilityIcon(unitCode)), 0, HeroSelector.ButtonBlendAll)
-            --BlzFrameSetText(value.Tooltip, HeroSelector.TooltipPrefix..GetObjectName(unitCode))
+            BlzFrameSetTexture(value.Icon, BlzGetAbilityIcon(unitCode), 0,
+                               HeroSelector.ButtonBlendAll)
+            BlzFrameSetTexture(value.IconPushed, BlzGetAbilityIcon(unitCode), 0,
+                               HeroSelector.ButtonBlendAll)
+            BlzFrameSetTexture(value.IconDisabled,
+                               HeroSelector.getDisabledIcon(
+                                   BlzGetAbilityIcon(unitCode)), 0,
+                               HeroSelector.ButtonBlendAll)
+            -- BlzFrameSetText(value.Tooltip, HeroSelector.TooltipPrefix..GetObjectName(unitCode))
             HeroSelector.updateTooltip(unitCode)
-            
+
         else
-            --no, make it unclickable and empty
-            if HeroSelector.HideEmptyButtons then BlzFrameSetVisible(value.Frame, false) end
+            -- no, make it unclickable and empty
+            if HeroSelector.HideEmptyButtons then
+                BlzFrameSetVisible(value.Frame, false)
+            end
             BlzFrameSetEnable(value.Frame, false)
             BlzFrameSetTexture(value.Icon, HeroSelector.EmptyButtonPath, 0, true)
-            BlzFrameSetTexture(value.IconPushed, HeroSelector.EmptyButtonPath, 0, true)
-            BlzFrameSetTexture(value.IconDisabled, HeroSelector.EmptyButtonPath, 0, true)
+            BlzFrameSetTexture(value.IconPushed, HeroSelector.EmptyButtonPath,
+                               0, true)
+            BlzFrameSetTexture(value.IconDisabled, HeroSelector.EmptyButtonPath,
+                               0, true)
         end
     end
 end
@@ -1838,194 +1871,263 @@ do
         backUp = nil
         if HeroSelector.initHeroes then HeroSelector.initHeroes() end
 
-    --for key, value in ipairs(HeroSelector.UnitData)
-    --do
---        print(key, ('>I4'):pack(value), GetObjectName(value))
-    --end
+        -- for key, value in ipairs(HeroSelector.UnitData)
+        -- do
+        --        print(key, ('>I4'):pack(value), GetObjectName(value))
+        -- end
 
-    local titleSize = 0.015
-    local buttonSize = HeroSelector.ButtonSize
-    local borderSize = HeroSelector.BorderSize[GetPlayerRace(GetLocalPlayer())]
-    local colCount = HeroSelector.ButtonColCount
-    local rowCount = HeroSelector.ButtonRowCount
-    local box = BlzCreateFrame(HeroSelector.BoxFrameName, BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 0, 0)
-    --local boxTitle = BlzCreateFrame(HeroSelector.BoxFrameName, box, 0, 0)
-    local boxBottom = BlzCreateFrame("HeroSelectorRaceTopBox", box, 0, 0)
-    local titel = BlzCreateFrame("HeroSelectorTitle", box, 0, 0)
-    
-    HeroSelector.Title = titel
-    local indicatorParent = BlzCreateFrameByType("BUTTON", "MyHeroIndikatorParent", box, "", 0)
-    HeroSelector.SelectedIndikator = BlzCreateFrameByType("SPRITE", "MyHeroIndikator", indicatorParent, "", 0)
-    BlzFrameSetLevel(indicatorParent, 9)
+        local titleSize = 0.015
+        local buttonSize = HeroSelector.ButtonSize
+        local borderSize = HeroSelector.BorderSize[GetPlayerRace(
+                               GetLocalPlayer())]
+        local colCount = HeroSelector.ButtonColCount
+        local rowCount = HeroSelector.ButtonRowCount
+        local box = BlzCreateFrame(HeroSelector.BoxFrameName,
+                                   BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0),
+                                   0, 0)
+        -- local boxTitle = BlzCreateFrame(HeroSelector.BoxFrameName, box, 0, 0)
+        local boxBottom = BlzCreateFrame("HeroSelectorRaceTopBox", box, 0, 0)
+        local titel = BlzCreateFrame("HeroSelectorTitle", box, 0, 0)
 
-    BlzFrameSetModel(HeroSelector.SelectedIndikator, HeroSelector.IndicatorPathPick, 0)
-    BlzFrameSetScale(HeroSelector.SelectedIndikator, buttonSize/0.036) --scale the model to the button size.
-    
+        HeroSelector.Title = titel
+        local indicatorParent = BlzCreateFrameByType("BUTTON",
+                                                     "MyHeroIndikatorParent",
+                                                     box, "", 0)
+        HeroSelector.SelectedIndikator =
+            BlzCreateFrameByType("SPRITE", "MyHeroIndikator", indicatorParent,
+                                 "", 0)
+        BlzFrameSetLevel(indicatorParent, 9)
 
-    --BlzFrameSetPoint(boxTitle, FRAMEPOINT_TOPLEFT, box, FRAMEPOINT_TOPLEFT, 0, -(titleSize - 0.003 + 0.9*borderSize))
-    --BlzFrameSetPoint(boxTitle, FRAMEPOINT_BOTTOMRIGHT, box, FRAMEPOINT_TOPRIGHT, 0, - 0.9*borderSize - titleSize - 0.003 -HeroSelector.CategorySize)
-    --BlzFrameSetSize(boxTitle, 0.01, 0.1)
-    -- human UI size differs much, needs other numbers
-    if GetPlayerRace(GetLocalPlayer()) == RACE_HUMAN then
-        BlzFrameSetPoint(boxBottom, FRAMEPOINT_TOPLEFT, box, FRAMEPOINT_TOPLEFT, borderSize*0.055, - 0.9*borderSize - titleSize - 0.003 -HeroSelector.CategorySize)
-        BlzFrameSetPoint(boxBottom, FRAMEPOINT_TOPRIGHT, box, FRAMEPOINT_TOPRIGHT, -borderSize*0.055, - 0.9*borderSize - titleSize - 0.003 -HeroSelector.CategorySize)
-    else
-        BlzFrameSetPoint(boxBottom, FRAMEPOINT_TOPLEFT, box, FRAMEPOINT_TOPLEFT, borderSize*0.25, - 0.9*borderSize - titleSize - 0.003 -HeroSelector.CategorySize)
-        BlzFrameSetPoint(boxBottom, FRAMEPOINT_TOPRIGHT, box, FRAMEPOINT_TOPRIGHT, -borderSize*0.25, - 0.9*borderSize - titleSize - 0.003 -HeroSelector.CategorySize)
-    end
-    BlzFrameSetSize(boxBottom, 0.01, 0.1)
-    
-    
-    BlzFrameSetVisible(HeroSelector.SelectedIndikator, false)
-    BlzFrameSetAbsPoint(box, HeroSelector.BoxPosPoint, HeroSelector.BoxPosX, HeroSelector.BoxPosY)   
-    BlzFrameSetSize(box, borderSize*2 + buttonSize*colCount + HeroSelector.SpaceBetweenX*(colCount-1), borderSize*2 + buttonSize*rowCount + HeroSelector.SpaceBetweenY*(rowCount - 1) + titleSize + HeroSelector.CategorySize + 0.0145)
-    BlzFrameSetTextAlignment(titel, TEXT_JUSTIFY_MIDDLE, TEXT_JUSTIFY_CENTER)
-    BlzFrameSetPoint(titel, FRAMEPOINT_TOP, box, FRAMEPOINT_TOP, 0, -borderSize*0.6)
-    BlzFrameSetSize(titel, BlzFrameGetWidth(box) - borderSize*2, 0.03)
-    
-    BlzFrameSetText(titel, "Hero Selection")
+        BlzFrameSetModel(HeroSelector.SelectedIndikator,
+                         HeroSelector.IndicatorPathPick, 0)
+        BlzFrameSetScale(HeroSelector.SelectedIndikator, buttonSize / 0.036) -- scale the model to the button size.
 
-    local rowRemaining = colCount
-    if colCount*rowCount < #HeroSelector.UnitData then
-        print("FieldCount:",colCount*rowCount, "HeroCount",#HeroSelector.UnitData)
-    end
-    local y = -borderSize - titleSize - 0.0125 - HeroSelector.CategorySize
-    local x = borderSize
-    for buttonIndex = 1, colCount*rowCount, 1 do
-        local button = BlzCreateFrame("HeroSelectorButton", box, 0, buttonIndex)
-        local icon = BlzGetFrameByName("HeroSelectorButtonIcon", buttonIndex)
-        local iconPushed = BlzGetFrameByName("HeroSelectorButtonIconPushed", buttonIndex)
-        local iconDisabled = BlzGetFrameByName("HeroSelectorButtonIconDisabled", buttonIndex)
-        local tooltipBox = BlzCreateFrame("HeroSelectorTextBox", box, 0, buttonIndex)
-        local tooltip = BlzCreateFrame("HeroSelectorText", tooltipBox, 0, buttonIndex)
-        BlzFrameSetTooltip(button, tooltipBox)
-        if not HeroSelector.TooltipRelativIsBox then
-            BlzFrameSetPoint(tooltip, HeroSelector.TooltipPoint, button, HeroSelector.TooltipRelativePoint, HeroSelector.TooltipOffsetX ,HeroSelector.TooltipOffsetY)
+        -- BlzFrameSetPoint(boxTitle, FRAMEPOINT_TOPLEFT, box, FRAMEPOINT_TOPLEFT, 0, -(titleSize - 0.003 + 0.9*borderSize))
+        -- BlzFrameSetPoint(boxTitle, FRAMEPOINT_BOTTOMRIGHT, box, FRAMEPOINT_TOPRIGHT, 0, - 0.9*borderSize - titleSize - 0.003 -HeroSelector.CategorySize)
+        -- BlzFrameSetSize(boxTitle, 0.01, 0.1)
+        -- human UI size differs much, needs other numbers
+        if GetPlayerRace(GetLocalPlayer()) == RACE_HUMAN then
+            BlzFrameSetPoint(boxBottom, FRAMEPOINT_TOPLEFT, box,
+                             FRAMEPOINT_TOPLEFT, borderSize * 0.055, -0.9 *
+                                 borderSize - titleSize - 0.003 -
+                                 HeroSelector.CategorySize)
+            BlzFrameSetPoint(boxBottom, FRAMEPOINT_TOPRIGHT, box,
+                             FRAMEPOINT_TOPRIGHT, -borderSize * 0.055, -0.9 *
+                                 borderSize - titleSize - 0.003 -
+                                 HeroSelector.CategorySize)
         else
-            BlzFrameSetPoint(tooltip, HeroSelector.TooltipPoint, box, HeroSelector.TooltipRelativePoint, HeroSelector.TooltipOffsetX ,HeroSelector.TooltipOffsetY)
+            BlzFrameSetPoint(boxBottom, FRAMEPOINT_TOPLEFT, box,
+                             FRAMEPOINT_TOPLEFT, borderSize * 0.25, -0.9 *
+                                 borderSize - titleSize - 0.003 -
+                                 HeroSelector.CategorySize)
+            BlzFrameSetPoint(boxBottom, FRAMEPOINT_TOPRIGHT, box,
+                             FRAMEPOINT_TOPRIGHT, -borderSize * 0.25, -0.9 *
+                                 borderSize - titleSize - 0.003 -
+                                 HeroSelector.CategorySize)
         end
-        BlzFrameSetPoint(tooltipBox, FRAMEPOINT_BOTTOMLEFT, tooltip, FRAMEPOINT_BOTTOMLEFT, -0.007, -0.007)
-        BlzFrameSetPoint(tooltipBox, FRAMEPOINT_TOPRIGHT, tooltip, FRAMEPOINT_TOPRIGHT, 0.007, 0.007)
-        TasButtonAction.Set(button, HeroSelector.actionPressHeroButton)
-        BlzFrameSetSize(button, buttonSize, buttonSize)
- 
-        local heroButton = {}
-        HeroSelector.HeroButtons[buttonIndex] = heroButton
-        heroButton.Frame = button
-        heroButton.Icon = icon
-        heroButton.IconPushed = iconPushed
-        heroButton.IconDisabled = iconDisabled
-        heroButton.Tooltip = tooltip
+        BlzFrameSetSize(boxBottom, 0.01, 0.1)
 
-        HeroSelector.HeroButtons[button] = buttonIndex
-        if HeroSelector.ChainedButtons then --buttons are connected to the previous one or the previous row
-            if buttonIndex == 1 then
-                BlzFrameSetPoint(button, FRAMEPOINT_TOPLEFT, box, FRAMEPOINT_TOPLEFT, borderSize, y)
-            elseif rowRemaining <= 0 then
-                BlzFrameSetPoint(button, FRAMEPOINT_TOPLEFT, HeroSelector.HeroButtons[buttonIndex - colCount].Frame, FRAMEPOINT_BOTTOMLEFT, 0, -HeroSelector.SpaceBetweenY)
-                rowRemaining = colCount
+        BlzFrameSetVisible(HeroSelector.SelectedIndikator, false)
+        BlzFrameSetAbsPoint(box, HeroSelector.BoxPosPoint, HeroSelector.BoxPosX,
+                            HeroSelector.BoxPosY)
+        BlzFrameSetSize(box,
+                        borderSize * 2 + buttonSize * colCount +
+                            HeroSelector.SpaceBetweenX * (colCount - 1),
+                        borderSize * 2 + buttonSize * rowCount +
+                            HeroSelector.SpaceBetweenY * (rowCount - 1) +
+                            titleSize + HeroSelector.CategorySize + 0.0145)
+        BlzFrameSetTextAlignment(titel, TEXT_JUSTIFY_MIDDLE, TEXT_JUSTIFY_CENTER)
+        BlzFrameSetPoint(titel, FRAMEPOINT_TOP, box, FRAMEPOINT_TOP, 0,
+                         -borderSize * 0.6)
+        BlzFrameSetSize(titel, BlzFrameGetWidth(box) - borderSize * 2, 0.03)
+
+        BlzFrameSetText(titel, "Hero Selection")
+
+        local rowRemaining = colCount
+        if colCount * rowCount < #HeroSelector.UnitData then
+            print("FieldCount:", colCount * rowCount, "HeroCount",
+                  #HeroSelector.UnitData)
+        end
+        local y = -borderSize - titleSize - 0.0125 - HeroSelector.CategorySize
+        local x = borderSize
+        for buttonIndex = 1, colCount * rowCount, 1 do
+            local button = BlzCreateFrame("HeroSelectorButton", box, 0,
+                                          buttonIndex)
+            local icon =
+                BlzGetFrameByName("HeroSelectorButtonIcon", buttonIndex)
+            local iconPushed = BlzGetFrameByName("HeroSelectorButtonIconPushed",
+                                                 buttonIndex)
+            local iconDisabled = BlzGetFrameByName(
+                                     "HeroSelectorButtonIconDisabled",
+                                     buttonIndex)
+            local tooltipBox = BlzCreateFrame("HeroSelectorTextBox", box, 0,
+                                              buttonIndex)
+            local tooltip = BlzCreateFrame("HeroSelectorText", tooltipBox, 0,
+                                           buttonIndex)
+            BlzFrameSetTooltip(button, tooltipBox)
+            if not HeroSelector.TooltipRelativIsBox then
+                BlzFrameSetPoint(tooltip, HeroSelector.TooltipPoint, button,
+                                 HeroSelector.TooltipRelativePoint,
+                                 HeroSelector.TooltipOffsetX,
+                                 HeroSelector.TooltipOffsetY)
             else
-                BlzFrameSetPoint(button, FRAMEPOINT_LEFT, HeroSelector.HeroButtons[buttonIndex - 1].Frame, FRAMEPOINT_RIGHT, HeroSelector.SpaceBetweenX, 0)
+                BlzFrameSetPoint(tooltip, HeroSelector.TooltipPoint, box,
+                                 HeroSelector.TooltipRelativePoint,
+                                 HeroSelector.TooltipOffsetX,
+                                 HeroSelector.TooltipOffsetY)
             end
-        else --buttons have an offset to the TopLeft of the box
-            if rowRemaining <= 0 then
-                x = borderSize
-                rowRemaining = colCount
-                y = y - HeroSelector.SpaceBetweenY - buttonSize
-            elseif buttonIndex ~= 1 then
-                x = x + buttonSize + HeroSelector.SpaceBetweenX
-            end
-            BlzFrameSetPoint(button, FRAMEPOINT_TOPLEFT, box, FRAMEPOINT_TOPLEFT, x, y)
-        end
-        rowRemaining = rowRemaining - 1
-    end
-    local y = -0.9*borderSize - titleSize - 0.0025
-    local x = borderSize*0.65
-    --create category buttons added before the box was created
-    for buttonIndex, value in ipairs(HeroSelector.Category)
-    do
-        local button = BlzCreateFrame("HeroSelectorCategoryButton", box, 0, 0)
-        local icon = BlzGetFrameByName("HeroSelectorCategoryButtonIcon", 0)
-        local iconPushed = BlzGetFrameByName("HeroSelectorCategoryButtonIconPushed", 0)
-        local tooltipBox = BlzCreateFrame("HeroSelectorTextBox", box, 0, buttonIndex)
-        local tooltip = BlzCreateFrame("HeroSelectorText", tooltipBox, 0, buttonIndex)
-        BlzFrameSetPoint(tooltipBox, FRAMEPOINT_BOTTOMLEFT, tooltip, FRAMEPOINT_BOTTOMLEFT, -0.007, -0.007)
-        BlzFrameSetPoint(tooltipBox, FRAMEPOINT_TOPRIGHT, tooltip, FRAMEPOINT_TOPRIGHT, 0.007, 0.007)
-        BlzFrameSetText(tooltip, GetLocalizedString(value.Text))
-        value.Text = tooltip
-        BlzFrameSetPoint(tooltip, FRAMEPOINT_BOTTOM, button, FRAMEPOINT_TOP, 0, 0.007)
-        BlzFrameSetTooltip(button, tooltipBox)
-        BlzFrameSetSize(button, HeroSelector.CategorySize, HeroSelector.CategorySize)
-        BlzFrameSetTexture(icon, value.TextureDisabled, 0, true)
-        BlzFrameSetTexture(iconPushed, value.TextureDisabled, 0, true)
-        HeroSelector.CategoryButton[button] = value
-        TasButtonAction.Set(button, HeroSelector.CategoryClickAction)
-        value.Icon = icon
-        value.IconPushed = iconPushed
-        value.Button = button
+            BlzFrameSetPoint(tooltipBox, FRAMEPOINT_BOTTOMLEFT, tooltip,
+                             FRAMEPOINT_BOTTOMLEFT, -0.007, -0.007)
+            BlzFrameSetPoint(tooltipBox, FRAMEPOINT_TOPRIGHT, tooltip,
+                             FRAMEPOINT_TOPRIGHT, 0.007, 0.007)
+            TasButtonAction.Set(button, HeroSelector.actionPressHeroButton)
+            BlzFrameSetSize(button, buttonSize, buttonSize)
 
-        local lastButton = HeroSelector.CategoryButton[buttonIndex - 1]
-        if not lastButton then
-            BlzFrameSetPoint(button, FRAMEPOINT_TOPLEFT, box, FRAMEPOINT_TOPLEFT, x, y)
+            local heroButton = {}
+            HeroSelector.HeroButtons[buttonIndex] = heroButton
+            heroButton.Frame = button
+            heroButton.Icon = icon
+            heroButton.IconPushed = iconPushed
+            heroButton.IconDisabled = iconDisabled
+            heroButton.Tooltip = tooltip
+
+            HeroSelector.HeroButtons[button] = buttonIndex
+            if HeroSelector.ChainedButtons then -- buttons are connected to the previous one or the previous row
+                if buttonIndex == 1 then
+                    BlzFrameSetPoint(button, FRAMEPOINT_TOPLEFT, box,
+                                     FRAMEPOINT_TOPLEFT, borderSize, y)
+                elseif rowRemaining <= 0 then
+                    BlzFrameSetPoint(button, FRAMEPOINT_TOPLEFT,
+                                     HeroSelector.HeroButtons[buttonIndex -
+                                         colCount].Frame, FRAMEPOINT_BOTTOMLEFT,
+                                     0, -HeroSelector.SpaceBetweenY)
+                    rowRemaining = colCount
+                else
+                    BlzFrameSetPoint(button, FRAMEPOINT_LEFT,
+                                     HeroSelector.HeroButtons[buttonIndex - 1]
+                                         .Frame, FRAMEPOINT_RIGHT,
+                                     HeroSelector.SpaceBetweenX, 0)
+                end
+            else -- buttons have an offset to the TopLeft of the box
+                if rowRemaining <= 0 then
+                    x = borderSize
+                    rowRemaining = colCount
+                    y = y - HeroSelector.SpaceBetweenY - buttonSize
+                elseif buttonIndex ~= 1 then
+                    x = x + buttonSize + HeroSelector.SpaceBetweenX
+                end
+                BlzFrameSetPoint(button, FRAMEPOINT_TOPLEFT, box,
+                                 FRAMEPOINT_TOPLEFT, x, y)
+            end
+            rowRemaining = rowRemaining - 1
+        end
+        local y = -0.9 * borderSize - titleSize - 0.0025
+        local x = borderSize * 0.65
+        -- create category buttons added before the box was created
+        for buttonIndex, value in ipairs(HeroSelector.Category) do
+            local button = BlzCreateFrame("HeroSelectorCategoryButton", box, 0,
+                                          0)
+            local icon = BlzGetFrameByName("HeroSelectorCategoryButtonIcon", 0)
+            local iconPushed = BlzGetFrameByName(
+                                   "HeroSelectorCategoryButtonIconPushed", 0)
+            local tooltipBox = BlzCreateFrame("HeroSelectorTextBox", box, 0,
+                                              buttonIndex)
+            local tooltip = BlzCreateFrame("HeroSelectorText", tooltipBox, 0,
+                                           buttonIndex)
+            BlzFrameSetPoint(tooltipBox, FRAMEPOINT_BOTTOMLEFT, tooltip,
+                             FRAMEPOINT_BOTTOMLEFT, -0.007, -0.007)
+            BlzFrameSetPoint(tooltipBox, FRAMEPOINT_TOPRIGHT, tooltip,
+                             FRAMEPOINT_TOPRIGHT, 0.007, 0.007)
+            BlzFrameSetText(tooltip, GetLocalizedString(value.Text))
+            value.Text = tooltip
+            BlzFrameSetPoint(tooltip, FRAMEPOINT_BOTTOM, button, FRAMEPOINT_TOP,
+                             0, 0.007)
+            BlzFrameSetTooltip(button, tooltipBox)
+            BlzFrameSetSize(button, HeroSelector.CategorySize,
+                            HeroSelector.CategorySize)
+            BlzFrameSetTexture(icon, value.TextureDisabled, 0, true)
+            BlzFrameSetTexture(iconPushed, value.TextureDisabled, 0, true)
+            HeroSelector.CategoryButton[button] = value
+            TasButtonAction.Set(button, HeroSelector.CategoryClickAction)
+            value.Icon = icon
+            value.IconPushed = iconPushed
+            value.Button = button
+
+            local lastButton = HeroSelector.CategoryButton[buttonIndex - 1]
+            if not lastButton then
+                BlzFrameSetPoint(button, FRAMEPOINT_TOPLEFT, box,
+                                 FRAMEPOINT_TOPLEFT, x, y)
+            else
+                BlzFrameSetPoint(button, FRAMEPOINT_LEFT, lastButton,
+                                 FRAMEPOINT_RIGHT, HeroSelector.CategorySpaceX,
+                                 0)
+            end
+            table.insert(HeroSelector.CategoryButton, button)
+            table.insert(HeroSelector.Frames, tooltip)
+            table.insert(HeroSelector.Frames, icon)
+            table.insert(HeroSelector.Frames, button)
+        end
+
+        local acceptButton = BlzCreateFrame("HeroSelectorTextButton", box, 0, 0)
+        local randomButton = BlzCreateFrame("HeroSelectorTextButton", box, 0, 1)
+        local banButton = BlzCreateFrame("HeroSelectorTextButton", box, 0, 2)
+
+        TasButtonAction.Set(acceptButton, HeroSelector.actionAcceptButton)
+        TasButtonAction.Set(randomButton, HeroSelector.actionRandomButton)
+        TasButtonAction.Set(banButton, HeroSelector.actionBanButton)
+        BlzFrameSetSize(acceptButton, HeroSelector.AcceptButtonSizeX,
+                        HeroSelector.AcceptButtonSizeY)
+        BlzFrameSetSize(randomButton, HeroSelector.RandomButtonSizeX,
+                        HeroSelector.RandomButtonSizeY)
+        BlzFrameSetSize(banButton, HeroSelector.BanButtonSizeX,
+                        HeroSelector.BanButtonSizeY)
+
+        -- OK, READY, ACCEPT
+        BlzFrameSetText(acceptButton, HeroSelector.AcceptButtonTextPrefix ..
+                            GetLocalizedString(HeroSelector.AcceptButtonText))
+        BlzFrameSetText(randomButton, HeroSelector.RandomButtonTextPrefix ..
+                            GetLocalizedString(HeroSelector.RandomButtonText))
+        BlzFrameSetText(banButton, HeroSelector.BanButtonTextPrefix ..
+                            GetLocalizedString(HeroSelector.BanButtonText))
+        BlzFrameSetPoint(acceptButton, HeroSelector.AcceptButtonAnchor, box,
+                         FRAMEPOINT_BOTTOM, 0, 0)
+        BlzFrameSetPoint(randomButton, HeroSelector.RandomButtonAnchor, box,
+                         FRAMEPOINT_BOTTOM, 0, 0)
+        BlzFrameSetPoint(banButton, FRAMEPOINT_BOTTOM, box, FRAMEPOINT_BOTTOM,
+                         0, 0)
+        HeroSelector.AcceptButton = acceptButton
+        HeroSelector.RandomButton = randomButton
+        HeroSelector.BanButton = banButton
+        BlzFrameSetVisible(banButton, false)
+        BlzFrameSetVisible(acceptButton, HeroSelector.AcceptButtonIsShown)
+        BlzFrameSetVisible(randomButton, HeroSelector.RandomButtonIsShown)
+
+        table.insert(HeroSelector.Frames, randomButton)
+        table.insert(HeroSelector.Frames, acceptButton)
+        table.insert(HeroSelector.Frames, titel)
+        table.insert(HeroSelector.Frames, box)
+        table.insert(HeroSelector.Frames, banButton)
+        table.insert(HeroSelector.Frames, indicatorParent)
+
+        HeroSelector.Box = box
+        if not HeroSelector.AutoShow then
+            BlzFrameSetVisible(box, false)
         else
-            BlzFrameSetPoint(button, FRAMEPOINT_LEFT, lastButton, FRAMEPOINT_RIGHT, HeroSelector.CategorySpaceX, 0)
+            HeroSelector.AutoShow = nil
         end
-        table.insert(HeroSelector.CategoryButton, button)
-        table.insert(HeroSelector.Frames, tooltip)
-        table.insert(HeroSelector.Frames, icon)
-        table.insert(HeroSelector.Frames, button)
+        HeroSelector.update()
+        -- clean of globals
+        HeroSelector.BoxPosPoint = nil
+        HeroSelector.BoxPosX = nil
+        HeroSelector.BoxPosY = nil
+        HeroSelector.AcceptButtonTextPrefix = nil
+        HeroSelector.RandomButtonTextPrefix = nil
+        HeroSelector.BanButtonTextPrefix = nil
+        if TeamViewer then TeamViewer.Init() end
+        if HeroInfo then HeroInfo.Init() end
     end
-
-    local acceptButton = BlzCreateFrame("HeroSelectorTextButton", box, 0, 0)
-    local randomButton = BlzCreateFrame("HeroSelectorTextButton", box, 0, 1)
-    local banButton = BlzCreateFrame("HeroSelectorTextButton", box, 0, 2)
-
-    TasButtonAction.Set(acceptButton, HeroSelector.actionAcceptButton)
-    TasButtonAction.Set(randomButton, HeroSelector.actionRandomButton)
-    TasButtonAction.Set(banButton, HeroSelector.actionBanButton)
-    BlzFrameSetSize(acceptButton, HeroSelector.AcceptButtonSizeX, HeroSelector.AcceptButtonSizeY)
-    BlzFrameSetSize(randomButton, HeroSelector.RandomButtonSizeX, HeroSelector.RandomButtonSizeY)
-    BlzFrameSetSize(banButton, HeroSelector.BanButtonSizeX, HeroSelector.BanButtonSizeY)
-
-    --OK, READY, ACCEPT
-    BlzFrameSetText(acceptButton, HeroSelector.AcceptButtonTextPrefix .. GetLocalizedString(HeroSelector.AcceptButtonText))
-    BlzFrameSetText(randomButton, HeroSelector.RandomButtonTextPrefix .. GetLocalizedString(HeroSelector.RandomButtonText))
-    BlzFrameSetText(banButton, HeroSelector.BanButtonTextPrefix .. GetLocalizedString(HeroSelector.BanButtonText))
-    BlzFrameSetPoint(acceptButton, HeroSelector.AcceptButtonAnchor, box, FRAMEPOINT_BOTTOM, 0, 0)
-    BlzFrameSetPoint(randomButton, HeroSelector.RandomButtonAnchor, box, FRAMEPOINT_BOTTOM, 0, 0)
-    BlzFrameSetPoint(banButton, FRAMEPOINT_BOTTOM, box, FRAMEPOINT_BOTTOM, 0, 0)
-    HeroSelector.AcceptButton = acceptButton
-    HeroSelector.RandomButton = randomButton
-    HeroSelector.BanButton = banButton
-    BlzFrameSetVisible(banButton, false)
-    BlzFrameSetVisible(acceptButton, HeroSelector.AcceptButtonIsShown)
-    BlzFrameSetVisible(randomButton, HeroSelector.RandomButtonIsShown)
-
-    table.insert(HeroSelector.Frames, randomButton)
-    table.insert(HeroSelector.Frames, acceptButton)
-    table.insert(HeroSelector.Frames, titel)
-    table.insert(HeroSelector.Frames, box)
-    table.insert(HeroSelector.Frames, banButton)
-    table.insert(HeroSelector.Frames, indicatorParent)
-    
-    HeroSelector.Box = box
-    if not HeroSelector.AutoShow then
-        BlzFrameSetVisible(box, false)
-    else
-        HeroSelector.AutoShow = nil
-    end
-    HeroSelector.update()
-    --clean of globals
-    HeroSelector.BoxPosPoint = nil
-    HeroSelector.BoxPosX = nil
-    HeroSelector.BoxPosY = nil
-    HeroSelector.AcceptButtonTextPrefix = nil
-    HeroSelector.RandomButtonTextPrefix = nil
-    HeroSelector.BanButtonTextPrefix = nil
-    if TeamViewer then TeamViewer.Init() end
-    if HeroInfo then HeroInfo.Init() end
-    end 
 end
+
 --TeamViewer 1.3c
 --Plugin for HeroSelector by Tasyen
 --It shows the selection of Teams in groups
@@ -2715,7 +2817,6 @@ function CreateBuildingsForPlayer20()
     u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), -18368.0, -6208.0, 270.000, FourCC("hgtw"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00G"), -25088.0, -11776.0, 270.000, FourCC("h00G"))
     u = BlzCreateUnitWithSkin(p, FourCC("h004"), -19904.0, -8000.0, 270.000, FourCC("h004"))
-    u = BlzCreateUnitWithSkin(p, FourCC("ncbb"), -15968.0, -6752.0, 270.000, FourCC("ncbb"))
     u = BlzCreateUnitWithSkin(p, FourCC("n019"), -24192.0, -9472.0, 270.000, FourCC("n019"))
     u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), -21312.0, -7040.0, 270.000, FourCC("hgtw"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00T"), -20864.0, -12160.0, 270.000, FourCC("n00T"))
@@ -2729,7 +2830,7 @@ function CreateBuildingsForPlayer20()
     u = BlzCreateUnitWithSkin(p, FourCC("ncbb"), -17056.0, -6112.0, 270.000, FourCC("ncbb"))
     u = BlzCreateUnitWithSkin(p, FourCC("o004"), -14912.0, -7744.0, 270.000, FourCC("o004"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncb2"), -16608.0, -6176.0, 270.000, FourCC("ncb2"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hbar"), -21632.0, -8000.0, 270.000, FourCC("hbar"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hbar"), -21568.0, -8000.0, 270.000, FourCC("hbar"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncb5"), -16352.0, -6560.0, 270.000, FourCC("ncb5"))
     u = BlzCreateUnitWithSkin(p, FourCC("h024"), -24640.0, -11328.0, 270.000, FourCC("h024"))
     SetUnitState(u, UNIT_STATE_MANA, 1000)
@@ -2756,14 +2857,12 @@ function CreateBuildingsForPlayer20()
     u = BlzCreateUnitWithSkin(p, FourCC("h004"), -22720.0, -5824.0, 270.000, FourCC("h004"))
     u = BlzCreateUnitWithSkin(p, FourCC("h01I"), -17344.0, -12672.0, 270.000, FourCC("h01I"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00M"), -15104.0, -8512.0, 270.000, FourCC("n00M"))
-    u = BlzCreateUnitWithSkin(p, FourCC("ncbb"), -16416.0, -8096.0, 270.000, FourCC("ncbb"))
     gg_unit_h006_0074 = BlzCreateUnitWithSkin(p, FourCC("h006"), -16128.0, -11968.0, 270.000, FourCC("h006"))
     gg_unit_o001_0075 = BlzCreateUnitWithSkin(p, FourCC("o001"), -19136.0, -1088.0, 270.000, FourCC("o001"))
     u = BlzCreateUnitWithSkin(p, FourCC("h01M"), -15520.0, -10976.0, 270.000, FourCC("h01M"))
     u = BlzCreateUnitWithSkin(p, FourCC("h01N"), -16960.0, -13664.0, 270.000, FourCC("h01N"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncbb"), -16800.0, -7840.0, 270.000, FourCC("ncbb"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00U"), -23694.2, -13635.1, 0.000, FourCC("n00U"))
-    u = BlzCreateUnitWithSkin(p, FourCC("ncba"), -19168.0, -5856.0, 270.000, FourCC("ncba"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00U"), -23726.2, -9027.1, 0.000, FourCC("n00U"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00U"), -23726.2, -9699.1, 0.000, FourCC("n00U"))
     u = BlzCreateUnitWithSkin(p, FourCC("h004"), -19520.0, -7360.0, 270.000, FourCC("h004"))
@@ -2774,7 +2873,6 @@ function CreateBuildingsForPlayer20()
     u = BlzCreateUnitWithSkin(p, FourCC("negt"), -20416.0, -3776.0, 270.000, FourCC("negt"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00U"), -21422.2, -11004.9, 0.000, FourCC("n00U"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00T"), -19072.0, -12352.0, 270.000, FourCC("n00T"))
-    u = BlzCreateUnitWithSkin(p, FourCC("ncba"), -18784.0, -5856.0, 270.000, FourCC("ncba"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00X"), -17152.0, -5312.0, 270.000, FourCC("h00X"))
     gg_unit_nheb_0109 = BlzCreateUnitWithSkin(p, FourCC("nheb"), -24864.0, 1312.0, 270.000, FourCC("nheb"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00X"), -15808.0, -6464.0, 270.000, FourCC("h00X"))
@@ -2783,18 +2881,15 @@ function CreateBuildingsForPlayer20()
     u = BlzCreateUnitWithSkin(p, FourCC("n000"), -23168.0, -4608.0, 270.000, FourCC("n000"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00U"), -21422.2, -11676.9, 0.000, FourCC("n00U"))
     gg_unit_eshy_0120 = BlzCreateUnitWithSkin(p, FourCC("eshy"), -21664.0, -2016.0, 270.000, FourCC("eshy"))
-    u = BlzCreateUnitWithSkin(p, FourCC("ncba"), -18976.0, -5856.0, 270.000, FourCC("ncba"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00U"), -23694.2, -12963.1, 0.000, FourCC("n00U"))
     u = BlzCreateUnitWithSkin(p, FourCC("nft2"), -24768.0, -12416.0, 270.000, FourCC("nft2"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hlum"), -15456.0, -6880.0, 270.000, FourCC("hlum"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hlum"), -15520.0, -6880.0, 270.000, FourCC("hlum"))
     u = BlzCreateUnitWithSkin(p, FourCC("hhou"), -14784.0, -6656.0, 270.000, FourCC("hhou"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hhou"), -14208.0, -6144.0, 270.000, FourCC("hhou"))
     u = BlzCreateUnitWithSkin(p, FourCC("o004"), -14592.0, -8064.0, 270.000, FourCC("o004"))
     gg_unit_nntt_0135 = BlzCreateUnitWithSkin(p, FourCC("nntt"), -20736.0, 1984.0, 270.000, FourCC("nntt"))
     u = BlzCreateUnitWithSkin(p, FourCC("o004"), -15808.0, -7936.0, 270.000, FourCC("o004"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hhou"), -14848.0, -5888.0, 270.000, FourCC("hhou"))
     u = BlzCreateUnitWithSkin(p, FourCC("n01C"), -19776.0, -10880.0, 270.000, FourCC("n01C"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hhou"), -15040.0, -7168.0, 270.000, FourCC("hhou"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h00F"), -24582.0, -7564.3, 0.000, FourCC("h00F"))
     u = BlzCreateUnitWithSkin(p, FourCC("n01C"), -21888.0, -10624.0, 270.000, FourCC("n01C"))
     u = BlzCreateUnitWithSkin(p, FourCC("n01C"), -21888.0, -12032.0, 270.000, FourCC("n01C"))
     u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), -22592.0, -3136.0, 270.000, FourCC("hgtw"))
@@ -2806,6 +2901,7 @@ function CreateBuildingsForPlayer20()
     u = BlzCreateUnitWithSkin(p, FourCC("n01C"), -19776.0, -11776.0, 270.000, FourCC("n01C"))
     u = BlzCreateUnitWithSkin(p, FourCC("n000"), -23424.0, -4288.0, 270.000, FourCC("n000"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncba"), -19360.0, -5408.0, 180.000, FourCC("ncba"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h013"), -23104.4, -6721.9, 270.000, FourCC("h013"))
     gg_unit_hars_0292 = BlzCreateUnitWithSkin(p, FourCC("hars"), -20160.0, -13120.0, 270.000, FourCC("hars"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00M"), -14464.0, -7360.0, 270.000, FourCC("n00M"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00M"), -15872.0, -8448.0, 270.000, FourCC("n00M"))
@@ -2824,6 +2920,7 @@ function CreateBuildingsForPlayer20()
     gg_unit_n00B_0364 = BlzCreateUnitWithSkin(p, FourCC("n00B"), -18752.0, -5184.0, 270.000, FourCC("n00B"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncb4"), -18144.0, -5408.0, 270.000, FourCC("ncb4"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncb4"), -17952.0, -6048.0, 90.000, FourCC("ncb4"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h019"), -19914.4, -7606.1, 270.000, FourCC("h019"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncb9"), -27424.0, -3744.0, 270.000, FourCC("ncb9"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncb9"), -27616.0, -3744.0, 270.000, FourCC("ncb9"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncb4"), -17504.0, -5984.0, 270.000, FourCC("ncb4"))
@@ -3086,13 +3183,23 @@ function CreateUnitsForPlayer20()
     local unitID
     local t
     local life
+    u = BlzCreateUnitWithSkin(p, FourCC("h01B"), -16000.0, -6688.0, 290.000, FourCC("h01B"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h01B"), -16192.0, -8256.0, 75.000, FourCC("h01B"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h01B"), -16448.0, -8384.0, 195.000, FourCC("h01B"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h01B"), -14208.0, -6144.0, 115.000, FourCC("h01B"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h01B"), -14848.0, -5888.0, 270.000, FourCC("h01B"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h01B"), -14784.0, -6912.0, 180.000, FourCC("h01B"))
     u = BlzCreateUnitWithSkin(p, FourCC("h012"), -19100.9, -6596.5, 235.334, FourCC("h012"))
     u = BlzCreateUnitWithSkin(p, FourCC("h012"), -19205.6, -7809.4, 28.610, FourCC("h012"))
     u = BlzCreateUnitWithSkin(p, FourCC("h007"), -19186.9, -4280.1, 50.407, FourCC("h007"))
     u = BlzCreateUnitWithSkin(p, FourCC("h012"), -20236.3, -8518.4, 348.610, FourCC("h012"))
     u = BlzCreateUnitWithSkin(p, FourCC("h012"), -20778.3, -6521.0, 28.610, FourCC("h012"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h01B"), -16064.0, -7360.0, 270.000, FourCC("h01B"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h01Q"), -15043.5, -6772.3, 228.727, FourCC("h01Q"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00H"), -25794.8, -1274.8, 323.535, FourCC("h00H"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00H"), -26254.3, -2044.8, 328.798, FourCC("h00H"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h01D"), -15010.3, -6534.5, 35.258, FourCC("h01D"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h01S"), -19175.5, -5891.8, 270.000, FourCC("h01S"))
     u = BlzCreateUnitWithSkin(p, FourCC("o002"), -18661.5, -1475.7, 136.207, FourCC("o002"))
     u = BlzCreateUnitWithSkin(p, FourCC("o002"), -18409.5, -2049.3, 206.577, FourCC("o002"))
     u = BlzCreateUnitWithSkin(p, FourCC("h01O"), -16699.0, -11699.0, 295.398, FourCC("h01O"))
@@ -3419,7 +3526,7 @@ function CreateBuildingsForPlayer23()
     SetUnitState(u, UNIT_STATE_LIFE, 0.60 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("ncb3"), -608.0, -5216.0, 90.000, FourCC("ncb3"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncb3"), -1056.0, -4320.0, 90.000, FourCC("ncb3"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hbar"), -7424.0, -1344.0, 270.000, FourCC("hbar"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hbar"), -7488.0, -1344.0, 270.000, FourCC("hbar"))
     u = BlzCreateUnitWithSkin(p, FourCC("hlum"), -13600.0, -2464.0, 270.000, FourCC("hlum"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncbb"), -12640.0, -1248.0, 90.000, FourCC("ncbb"))
     u = BlzCreateUnitWithSkin(p, FourCC("hhou"), -14272.0, -2688.0, 270.000, FourCC("hhou"))

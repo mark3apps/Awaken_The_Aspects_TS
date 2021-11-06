@@ -1,5 +1,6 @@
 /** @noSelfInFile **/
 
+import { Players } from "../globals/index"
 import { Handle } from "./handle";
 import { MapPlayer } from "./player";
 
@@ -13,15 +14,24 @@ export class Force extends Handle<force> {
     }
   }
 
-  public addPlayer(whichPlayer: MapPlayer) {
+  public addPlayer(whichPlayer: MapPlayer): void {
     ForceAddPlayer(this.handle, whichPlayer.handle);
   }
 
-  public clear() {
+  public addPlayers(whichPlayers: number[]): void {
+    for (let index = 0; index < whichPlayers.length; index++) {
+      const element = whichPlayers[index];
+
+      ForceAddPlayer(this.handle, Players[element].handle)
+      
+    }
+  }
+
+  public clear() : void {
     ForceClear(this.handle);
   }
 
-  public destroy() {
+  public destroy(): void {
     DestroyForce(this.handle);
   }
 

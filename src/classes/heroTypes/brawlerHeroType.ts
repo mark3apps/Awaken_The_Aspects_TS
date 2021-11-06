@@ -14,7 +14,7 @@ export class BrawlerHeroType extends HeroType {
         this.addAbility(ABILITY.BrawlerBloodlust)
         this.addAbility(ABILITY.BrawlerDrain)
         this.addAbility(ABILITY.BrawlerWarstomp)
-        this.addAbility(ABILITY.BrawlerUnleashRage, true, false, true)
+        this.addAbility(ABILITY.BrawlerUnleashRage)
 
         this.addItem(ITEM_TYPE.teleport)
         this.addItem(ITEM_TYPE.tank)

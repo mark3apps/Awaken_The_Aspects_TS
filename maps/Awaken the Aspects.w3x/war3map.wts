@@ -14046,3 +14046,45 @@ STRING 4894
 Rocket Bunker Fire 2
 }
 
+STRING 4895
+// Units: h00F (Grand Abbey), Name (Name)
+{
+Grand Abbey
+}
+
+STRING 4896
+// Units: h013 (Clock Tower), Name (Name)
+{
+Clock Tower
+}
+
+STRING 4897
+// Units: h019 (Dock Tower), Name (Name)
+{
+Dock Tower
+}
+
+STRING 4898
+// Units: h01B (Farm House), Name (Name)
+{
+Farm House
+}
+
+STRING 4899
+// Units: h01D (Windmill), Name (Name)
+{
+Windmill
+}
+
+STRING 4900
+// Units: h01Q (Granary), Name (Name)
+{
+Granary
+}
+
+STRING 4901
+// Units: h01S (Chapel), Name (Name)
+{
+Chapel
+}
+

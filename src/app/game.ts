@@ -89,14 +89,14 @@ export namespace Game {
         // HeroSelector.addUnit("Ucrl",1)
 
 
-        if (Log.logLevel <= LogLevel.Information) {
-            const hero = new Unit(Players[0], UNIT_TYPE.ShiftMaster.id, Rectangle.getPlayableMap().centerX, Rectangle.getPlayableMap().centerY, 0)
-            hero.heroLevel = 100
-            hero.attack1Base = 2500
-            hero.strength = 1000
-            hero.armor = 500
-            hero.moveSpeed = 500
-        }
+        // if (Log.logLevel <= LogLevel.Information) {
+        //     const hero = new Unit(Players[0], UNIT_TYPE.ShiftMaster.id, Rectangle.getPlayableMap().centerX, Rectangle.getPlayableMap().centerY, 0)
+        //     hero.heroLevel = 100
+        //     hero.attack1Base = 2500
+        //     hero.strength = 1000
+        //     hero.armor = 500
+        //     hero.moveSpeed = 500
+        // }
     }
 
 
