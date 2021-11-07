@@ -22,6 +22,7 @@ export class TacticianHeroType extends HeroType {
         // Attributes
         this.addHeroAttribute(ATTRIBUTE.strength)
         this.addHeroAttribute(ATTRIBUTE.melee)
+        this.addHeroAttribute(ATTRIBUTE.brawler)
 
         // Items
         

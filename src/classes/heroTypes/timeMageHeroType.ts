@@ -21,6 +21,7 @@ export class TimeMageHeroType extends HeroType {
         // Attributes
         this.addHeroAttribute(ATTRIBUTE.intelligence)
         this.addHeroAttribute(ATTRIBUTE.ranged)
+        this.addHeroAttribute(ATTRIBUTE.healer)
 
         // Items
         

@@ -19,6 +19,7 @@ export class BrawlerHeroType extends HeroType {
         // Attributes
         this.addHeroAttribute(ATTRIBUTE.strength)
         this.addHeroAttribute(ATTRIBUTE.melee)
+        this.addHeroAttribute(ATTRIBUTE.brawler)
 
         // Items
         

@@ -2066,66 +2066,6 @@ STRING 824
 Marketplace
 }
 
-STRING 825
-// Items: I001 (Potion of Healing Lesser), Name (Name)
-{
-Potion of Healing Lesser
-}
-
-STRING 826
-// Items: I001 (Potion of Healing Lesser), Ubertip (Tooltip - Extended)
-{
-Heals 500 hit points when used. 3 charges
-}
-
-STRING 827
-// Items: I002 (Potion of Healing), Ubertip (Tooltip - Extended)
-{
-Heals 1000 hit points when used. 3 charges
-}
-
-STRING 829
-// Items: I003 (Potion of Healing Greater), Name (Name)
-{
-Potion of Healing Greater
-}
-
-STRING 830
-// Abilities: A020 (Item Heal Lesser), Name (Name)
-{
-Item Heal Lesser
-}
-
-STRING 831
-// Abilities: A021 (Item Heal), Name (Name)
-{
-Item Heal
-}
-
-STRING 832
-// Abilities: A022 (Item Heal Greater), Name (Name)
-{
-Item Heal Greater
-}
-
-STRING 833
-// Items: I003 (Potion of Healing Greater), Ubertip (Tooltip - Extended)
-{
-Heals 2000 hit points when used. 3 charges
-}
-
-STRING 834
-// Abilities: A023 (Vapiric Potion), Name (Name)
-{
-Vapiric Potion
-}
-
-STRING 835
-// Abilities: A023 (Vapiric Potion), EditorSuffix (Editor Suffix)
-{
-(custom)
-}
-
 STRING 836
 // Abilities: A01Z (TC - Bolster), Tip (Tooltip - Normal)
 {
@@ -10237,30 +10177,6 @@ STRING 4011
 Fence (No Pathing)
 }
 
-STRING 4012
-// Items: I005 (Restoration Potion), Name (Name)
-{
-Restoration Potion
-}
-
-STRING 4013
-// Items: I005 (Restoration Potion), Ubertip (Tooltip - Extended)
-{
-|cff87ceebNon-Combat Consumable|r|nRegenerates the Hero's health by 700 and  mana by 100 over 45 seconds when used. 180 second cooldown.
-}
-
-STRING 4014
-// Items: I005 (Restoration Potion), Description (Description)
-{
-Regenerates Health and Mana over time.
-}
-
-STRING 4015
-// Abilities: A055 (Restoration Potion), Name (Name)
-{
-Restoration Potion
-}
-
 STRING 4028
 // Abilities: A030 (TALENT - SH - Swift Attacks), Name (Name)
 {
@@ -14392,5 +14308,402 @@ STRING 4945
 // Buffs/Effects: B00H (Increased Stamina), Bufftip (Tooltip)
 {
 Increased Stamina
+}
+
+STRING 4946
+// Items: I001 (Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 3|r]), Name (Name)
+{
+Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 3|r]
+}
+
+STRING 4947
+// Items: I001 (Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 3|r]), Description (Description)
+{
+Greatly restores Health and some Mana to your Hero over 30 seconds.
+
+2500 Health
+200 Mana
+120 second cooldown
+}
+
+STRING 4948
+// Items: I001 (Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 3|r]), Ubertip (Tooltip - Extended)
+{
+Greatly restores Health and some Mana to your Hero over 30 seconds.
+
+2500 Health
+200 Mana
+120 second cooldown
+}
+
+STRING 4949
+// Items: I002 (Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 1|r]), Name (Name)
+{
+Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 1|r]
+}
+
+STRING 4950
+// Items: I002 (Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 1|r]), Description (Description)
+{
+|cff87ceebNon-Combat Consumable|r
+Greatly restores Health and some Mana to your Hero over 30 seconds.
+
+1000 Health
+100 Mana
+120 second cooldown
+}
+
+STRING 4951
+// Items: I002 (Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 1|r]), Ubertip (Tooltip - Extended)
+{
+|cff87ceebNon-Combat Consumable|r
+Greatly restores Health and some Mana to your Hero over 30 seconds.
+
+1000 Health
+100 Mana
+120 second cooldown
+}
+
+STRING 4952
+// Items: I003 (Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 2|r]), Name (Name)
+{
+Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 2|r]
+}
+
+STRING 4953
+// Items: I003 (Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 2|r]), Description (Description)
+{
+|cff87ceebNon-Combat Consumable|r
+Greatly restores Health and some Mana to your Hero over 30 seconds.
+
+1750 Health
+150 Mana
+120 second cooldown
+}
+
+STRING 4954
+// Items: I003 (Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 2|r]), Ubertip (Tooltip - Extended)
+{
+|cff87ceebNon-Combat Consumable|r
+Greatly restores Health and some Mana to your Hero over 30 seconds.
+
+1750 Health
+150 Mana
+120 second cooldown
+}
+
+STRING 4955
+// Items: I004 (Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 3|r]), Name (Name)
+{
+Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 3|r]
+}
+
+STRING 4956
+// Items: I004 (Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 3|r]), Description (Description)
+{
+Restores some Health and Greatly restores Mana to your Hero over 30 seconds.
+
+200 Health
+1700 Mana
+120 second cooldown
+}
+
+STRING 4957
+// Items: I004 (Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 3|r]), Ubertip (Tooltip - Extended)
+{
+Restores some Health and Greatly restores Mana to your Hero over 30 seconds.
+
+200 Health
+1700 Mana
+120 second cooldown
+}
+
+STRING 4958
+// Items: I005 (Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 2|r]), Name (Name)
+{
+Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 2|r]
+}
+
+STRING 4959
+// Items: I005 (Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 2|r]), Description (Description)
+{
+|cff87ceebNon-Combat Consumable|r
+Restores some Health and Greatly restores Mana to your Hero over 30 seconds.
+
+100 Health
+1300 Mana
+120 second cooldown
+}
+
+STRING 4960
+// Items: I005 (Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 2|r]), Ubertip (Tooltip - Extended)
+{
+|cff87ceebNon-Combat Consumable|r
+Restores some Health and Greatly restores Mana to your Hero over 30 seconds.
+
+100 Health
+1300 Mana
+120 second cooldown
+}
+
+STRING 4961
+// Items: I00F (Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 1|r]), Name (Name)
+{
+Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 1|r]
+}
+
+STRING 4962
+// Items: I00F (Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 1|r]), Description (Description)
+{
+|cff87ceebNon-Combat Consumable|r
+Restores some Health and Greatly restores Mana to your Hero over 30 seconds.
+
+50 Health
+700 Mana
+120 second cooldown
+}
+
+STRING 4963
+// Items: I00F (Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 1|r]), Ubertip (Tooltip - Extended)
+{
+|cff87ceebNon-Combat Consumable|r
+Restores some Health and Greatly restores Mana to your Hero over 30 seconds.
+
+50 Health
+700 Mana
+120 second cooldown
+}
+
+STRING 4964
+// Items: I00G (Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 1|r]), Name (Name)
+{
+Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 1|r]
+}
+
+STRING 4965
+// Items: I00G (Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 1|r]), Description (Description)
+{
+|cff87ceebNon-Combat Consumable|r
+Restores Health and Mana to a friendly Hero over 20 seconds.
+
+400 Health
+200 Mana
+100 second cooldown
+}
+
+STRING 4966
+// Items: I00G (Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 1|r]), Ubertip (Tooltip - Extended)
+{
+|cff87ceebNon-Combat Consumable|r
+Restores Health and Mana to a friendly Hero over 20 seconds.
+
+400 Health
+200 Mana
+100 second cooldown
+}
+
+STRING 4967
+// Items: I00H (Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 2|r]), Name (Name)
+{
+Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 2|r]
+}
+
+STRING 4968
+// Items: I00H (Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 2|r]), Description (Description)
+{
+|cff87ceebNon-Combat Consumable|r
+Restores Health and Mana to a friendly Hero over 20 seconds.
+
+400 Health
+200 Mana
+100 second cooldown
+}
+
+STRING 4969
+// Items: I00H (Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 2|r]), Ubertip (Tooltip - Extended)
+{
+|cff87ceebNon-Combat Consumable|r
+Restores Health and Mana to a friendly Hero over 20 seconds.
+
+800 Health
+400 Mana
+100 second cooldown
+}
+
+STRING 4970
+// Items: I00I (Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 3|r]), Name (Name)
+{
+Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 3|r]
+}
+
+STRING 4971
+// Items: I00I (Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 3|r]), Description (Description)
+{
+|cff87ceebNon-Combat Consumable|r
+Restores Health and Mana to a friendly Hero over 20 seconds.
+
+400 Health
+200 Mana
+100 second cooldown
+}
+
+STRING 4972
+// Items: I00I (Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 3|r]), Ubertip (Tooltip - Extended)
+{
+Restores Health and Mana to a friendly Hero over 20 seconds.
+
+1000 Health
+600 Mana
+100 second cooldown
+}
+
+STRING 4973
+// Items: I00J (Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 1|r]), Name (Name)
+{
+Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 1|r]
+}
+
+STRING 4974
+// Items: I00J (Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 1|r]), Description (Description)
+{
+Gives the player vision of a target unit until that unit is dispelled.
+
+20 second duration
+120 second cooldown
+300 range
+}
+
+STRING 4975
+// Items: I00J (Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 1|r]), Ubertip (Tooltip - Extended)
+{
+Gives the player vision of a target unit until that unit is dispelled.
+
+20 second duration
+120 second cooldown
+300 range
+}
+
+STRING 4976
+// Items: I00K (Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 2|r]), Name (Name)
+{
+Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 2|r]
+}
+
+STRING 4977
+// Items: I00K (Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 2|r]), Description (Description)
+{
+Gives the player vision of a target unit until that unit is dispelled.
+
+20 second duration
+60 second cooldown
+300 range
+}
+
+STRING 4978
+// Items: I00K (Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 2|r]), Ubertip (Tooltip - Extended)
+{
+Gives the player vision of a target unit until that unit is dispelled.
+
+20 second duration
+60 second cooldown
+300 range
+}
+
+STRING 4979
+// Items: I00L (Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 3|r]), Name (Name)
+{
+Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 3|r]
+}
+
+STRING 4980
+// Items: I00L (Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 3|r]), Description (Description)
+{
+Gives the player vision of a target unit until that unit is dispelled.
+
+30 second duration
+40 second cooldown
+500 range
+}
+
+STRING 4981
+// Items: I00L (Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 3|r]), Ubertip (Tooltip - Extended)
+{
+Gives the player vision of a target unit until that unit is dispelled.
+
+30 second duration
+40 second cooldown
+500 range
+}
+
+STRING 4982
+// Abilities: A055 (Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 3|r]), Name (Name)
+{
+Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 3|r]
+}
+
+STRING 4983
+// Abilities: A01A (Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 1|r]), Name (Name)
+{
+Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 1|r]
+}
+
+STRING 4984
+// Abilities: A020 (Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 2|r]), Name (Name)
+{
+Toughen Up - [|cffc0c0c0Brawler|r] [|cffffcc00Level 2|r]
+}
+
+STRING 4985
+// Abilities: A021 (Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 1|r]), Name (Name)
+{
+Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 1|r]
+}
+
+STRING 4986
+// Abilities: A022 (Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 3|r]), Name (Name)
+{
+Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 3|r]
+}
+
+STRING 4987
+// Abilities: A023 (Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 2|r]), Name (Name)
+{
+Mana Renewal - [|cffc0c0c0Mage|r] [|cffffcc00Level 2|r]
+}
+
+STRING 4988
+// Abilities: A05C (Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 2|r]), Name (Name)
+{
+Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 2|r]
+}
+
+STRING 4989
+// Abilities: A05O (Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 3|r]), Name (Name)
+{
+Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 3|r]
+}
+
+STRING 4990
+// Abilities: A05P (Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 1|r]), Name (Name)
+{
+Give Life - [|cffc0c0c0Healer|r] [|cffffcc00Level 1|r]
+}
+
+STRING 4991
+// Abilities: A05Q (Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 1|r]), Name (Name)
+{
+Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 1|r]
+}
+
+STRING 4992
+// Abilities: A05R (Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 2|r]), Name (Name)
+{
+Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 2|r]
+}
+
+STRING 4993
+// Abilities: A05S (Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 3|r]), Name (Name)
+{
+Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 3|r]
 }
 

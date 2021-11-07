@@ -20,6 +20,7 @@ export class ManaAddictHeroType extends HeroType {
         // Attributes
         this.addHeroAttribute(ATTRIBUTE.agility)
         this.addHeroAttribute(ATTRIBUTE.ranged)
+        this.addHeroAttribute(ATTRIBUTE.mage)
 
         // Items
 

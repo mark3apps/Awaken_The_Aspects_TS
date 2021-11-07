@@ -25,6 +25,7 @@ export class ShiftMasterHeroType extends HeroType {
         // Attributes
         this.addHeroAttribute(ATTRIBUTE.agility)
         this.addHeroAttribute(ATTRIBUTE.melee)
+        this.addHeroAttribute(ATTRIBUTE.assassin)
 
         // Items
         
