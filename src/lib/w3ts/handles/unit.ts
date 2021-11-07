@@ -436,8 +436,8 @@ export class Unit extends Widget {
 	 * actually can spend (like 9 for three 3-level abilities) only that amount will
 	 * be added. Negative `skillPointDelta` works as expected.
 	 */
-	public set skillPoints(skillPointDelta: number) {
-		UnitModifySkillPoints(this.handle, skillPointDelta)
+	public set skillPoints(amount: number) {
+		UnitModifySkillPoints(this.handle, amount - this.skillPoints)
 	}
 
 	public get sleeping() {

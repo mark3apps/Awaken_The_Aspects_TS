@@ -5,16 +5,19 @@ import { Strategy } from "lib/resources/strategy"
 import { UNIT_TYPE } from "../../app/definitions/unitTypes"
 import { HeroType } from "../herotype"
 
-export class BrawlerHeroType extends HeroType {
+export class TacticianHeroType extends HeroType {
 
     constructor() {
-        super(UNIT_TYPE.Brawler, UNIT_TYPE.BrawlerAlter, "Brawler")
+        super(UNIT_TYPE.Tactician, UNIT_TYPE.TacticianAlter, "Tactician")
 
         // Brawler Hero Setup
-        this.addAbility(ABILITY.BrawlerBloodlust)
-        this.addAbility(ABILITY.BrawlerDrain)
-        this.addAbility(ABILITY.BrawlerWarstomp)
-        this.addAbility(ABILITY.BrawlerUnleashRage)
+        this.addAbility(ABILITY.TactitionAttack)
+        this.addAbility(ABILITY.TactitionBolster)
+        this.addAbility(ABILITY.TactitionInspire)
+        this.addAbility(ABILITY.TactitionIronDefense)
+        this.addAbility(ABILITY.TactitionRaiseBanner)
+
+        // Passive Abilities
 
         // Attributes
         this.addHeroAttribute(ATTRIBUTE.strength)

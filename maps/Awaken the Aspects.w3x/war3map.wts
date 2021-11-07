@@ -14382,3 +14382,15 @@ STRING 4943
 Increased Stamina - [|cffc0c0c0Strength|r] [|cffffcc00Level 2|r]
 }
 
+STRING 4944
+// Buffs/Effects: B00H (Increased Stamina), EditorName (Name (Editor Only))
+{
+Increased Stamina
+}
+
+STRING 4945
+// Buffs/Effects: B00H (Increased Stamina), Bufftip (Tooltip)
+{
+Increased Stamina
+}
+

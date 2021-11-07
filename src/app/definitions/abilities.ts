@@ -209,7 +209,7 @@ export namespace ABILITY {
             type: EffectType.None,
             target: TargetType.None,
             permanent: true,
-            starting: false,
+            starting: true,
             ult: false
         })
         ShiftMasterShift = new Ability({
@@ -218,7 +218,7 @@ export namespace ABILITY {
             type: EffectType.Instant,
             target: TargetType.None,
             permanent: true,
-            starting: false,
+            starting: true,
             ult: false
         })
         ShiftMasterFallingStrike = new Ability({
@@ -227,7 +227,7 @@ export namespace ABILITY {
             orderId: OrderId.Thunderbolt,
             target: TargetType.Point,
             permanent: true,
-            starting: false,
+            starting: true,
             ult: false
         })
         ShiftMasterShiftStorm = new Ability({
@@ -237,7 +237,7 @@ export namespace ABILITY {
             target: TargetType.None,
             permanent: true,
             starting: false,
-            ult: false
+            ult: true
         })
         ShiftMasterFelForm = new Ability({
             four: ID.Ability.FelForm,
@@ -261,28 +261,28 @@ export namespace ABILITY {
             four: ID.Ability.IronDefense,
             orderId: OrderId.Roar,
             permanent: true,
-            starting: false,
+            starting: true,
             ult: false
         })
         TactitionRaiseBanner = new Ability({
             four: ID.Ability.RaiseBanner,
             orderId: OrderId.Healingward,
             permanent: true,
-            starting: false,
+            starting: true,
             ult: false
         })
         TactitionAttack = new Ability({
             four: ID.Ability.Attack,
             orderId: OrderId.Fingerofdeath,
             permanent: true,
-            starting: false,
+            starting: true,
             ult: false
         })
         TactitionBolster = new Ability({
             four: ID.Ability.Bolster,
             orderId: OrderId.Tranquility,
             permanent: true,
-            starting: false,
+            starting: true,
             ult: false
         })
 
@@ -291,14 +291,14 @@ export namespace ABILITY {
             four: ID.Ability.ChronoAtrophy,
             orderId: OrderId.Flamestrike,
             permanent: true,
-            starting: false,
+            starting: true,
             ult: false
         })
         TimeMageDecay = new Ability({
             four: ID.Ability.Decay,
             orderId: OrderId.Shadowstrike,
             permanent: true,
-            starting: false,
+            starting: true,
             ult: false
         })
         TimeMageTimeTravel = new Ability({

@@ -5,19 +5,25 @@ import { Strategy } from "lib/resources/strategy"
 import { UNIT_TYPE } from "../../app/definitions/unitTypes"
 import { HeroType } from "../herotype"
 
-export class BrawlerHeroType extends HeroType {
+export class ShiftMasterHeroType extends HeroType {
 
     constructor() {
-        super(UNIT_TYPE.Brawler, UNIT_TYPE.BrawlerAlter, "Brawler")
+        super(UNIT_TYPE.ShiftMaster, UNIT_TYPE.ShiftMasterAlter, "Shift Master")
 
         // Brawler Hero Setup
-        this.addAbility(ABILITY.BrawlerBloodlust)
-        this.addAbility(ABILITY.BrawlerDrain)
-        this.addAbility(ABILITY.BrawlerWarstomp)
-        this.addAbility(ABILITY.BrawlerUnleashRage)
+        this.addAbility(ABILITY.ShiftMasterFallingStrike)
+        this.addAbility(ABILITY.ShiftMasterFelForm)
+        this.addAbility(ABILITY.ShiftMasterShift)
+        this.addAbility(ABILITY.ShiftMasterSwitch)
+        this.addAbility(ABILITY.ShiftMasterShiftStorm)
+
+        // Passive Abilities
+        this.addAbility(ABILITY.ShiftMasterShadeStrength)
+        this.addAbility(ABILITY.ShiftMasterSwiftAttacks)
+        this.addAbility(ABILITY.ShiftMasterSwiftMoves)
 
         // Attributes
-        this.addHeroAttribute(ATTRIBUTE.strength)
+        this.addHeroAttribute(ATTRIBUTE.agility)
         this.addHeroAttribute(ATTRIBUTE.melee)
 
         // Items

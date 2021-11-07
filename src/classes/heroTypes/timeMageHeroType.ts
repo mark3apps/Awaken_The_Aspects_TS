@@ -5,20 +5,22 @@ import { Strategy } from "lib/resources/strategy"
 import { UNIT_TYPE } from "../../app/definitions/unitTypes"
 import { HeroType } from "../herotype"
 
-export class BrawlerHeroType extends HeroType {
+export class TimeMageHeroType extends HeroType {
 
     constructor() {
-        super(UNIT_TYPE.Brawler, UNIT_TYPE.BrawlerAlter, "Brawler")
+        super(UNIT_TYPE.TimeMage, UNIT_TYPE.TimeMageAlter, "TimeMage")
 
         // Brawler Hero Setup
-        this.addAbility(ABILITY.BrawlerBloodlust)
-        this.addAbility(ABILITY.BrawlerDrain)
-        this.addAbility(ABILITY.BrawlerWarstomp)
-        this.addAbility(ABILITY.BrawlerUnleashRage)
+        this.addAbility(ABILITY.TimeMageChronoAtrophy)
+        this.addAbility(ABILITY.TimeMageDecay)
+        this.addAbility(ABILITY.TimeMageParadox)
+        this.addAbility(ABILITY.TimeMageTimeTravel)
+
+        // Passive Abilities
 
         // Attributes
-        this.addHeroAttribute(ATTRIBUTE.strength)
-        this.addHeroAttribute(ATTRIBUTE.melee)
+        this.addHeroAttribute(ATTRIBUTE.intelligence)
+        this.addHeroAttribute(ATTRIBUTE.ranged)
 
         // Items
         

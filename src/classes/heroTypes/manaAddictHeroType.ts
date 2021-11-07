@@ -18,7 +18,7 @@ export class ManaAddictHeroType extends HeroType {
         this.addAbility(ABILITY.ManaAddictUnleashMana)
 
         // Attributes
-        this.addHeroAttribute(ATTRIBUTE.intelligence)
+        this.addHeroAttribute(ATTRIBUTE.agility)
         this.addHeroAttribute(ATTRIBUTE.ranged)
 
         // Items

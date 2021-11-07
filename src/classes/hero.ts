@@ -1,4 +1,3 @@
-import { Log } from "app/systems/log"
 import { MapPlayer, Unit } from "lib/w3ts/index"
 import { HeroType } from "./herotype"
 import { UnitAbility } from "./unitAbility"
@@ -6,7 +5,7 @@ import { UnitAbility } from "./unitAbility"
 export class Hero extends Unit {
 
     unitAbilities: UnitAbility[] = []
-    static map: WeakMap<Unit, Hero> = new WeakMap<Unit, Hero>()
+    static map: Map<Unit, Hero> = new Map<Unit, Hero>()
     static readonly all: Hero[] = []
     static human: Hero[] = []
     static ai: Hero[] = []
@@ -15,7 +14,8 @@ export class Hero extends Unit {
         super(owner, unitId, x, y, face, skinId)
         this.data.heroType = HeroType.get(this)
         this.setupHero()
-        Hero.map.set(this, this)
+
+        Hero.map.set(this as Unit, this)
         Hero.all.push(this)
 
         if (this.owner.controller == MAP_CONTROL_COMPUTER) {
@@ -77,8 +77,6 @@ export class Hero extends Unit {
     public addStartingAbilities(): void {
 
         if (this.data.heroType != undefined) {
-
-            Log.Information("Starting", this.data.heroType.startingSpells.length)
 
             for (let i = 0; i < this.data.heroType.startingSpells.length; i++) {
                 this.selectSkill(this.data.heroType.startingSpells[i].id)
