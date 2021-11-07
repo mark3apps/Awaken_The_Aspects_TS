@@ -3,3 +3,4 @@ export const enum PrimaryAttribute {
     Intelligence = 2,
     Agility = 3
 }
+

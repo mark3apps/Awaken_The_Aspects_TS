@@ -28,7 +28,7 @@ export class Unit extends Widget {
 	public readonly handle!: unit
 	public data: UnitData
 
-	private static data: UnitData[] = []
+	static dataMap: WeakMap<Unit, UnitData> = new WeakMap<Unit, UnitData>()
 
 	/**
 	 * Creates a unit.
@@ -43,10 +43,13 @@ export class Unit extends Widget {
 		if (Handle.initFromHandle()) {
 			super()
 
-			if (Unit.dataExists(this) != true) {
-				this.data = Unit.addData(this)
+
+
+			if (Unit.dataMap.has(this)) {
+				this.data = Unit.dataMap.get(this)
 			} else {
-				this.data = Unit.getData(this)
+				Unit.dataMap.set(this, new UnitData(this))
+				this.data = Unit.dataMap.get(this)
 			}
 
 		} else {
@@ -54,30 +57,14 @@ export class Unit extends Widget {
 			super(skinId ? BlzCreateUnitWithSkin(p, unitId, x, y, face, skinId) : CreateUnit(p, unitId, x, y, face))
 
 			// Set default starting data
-			this.data = Unit.addData(this)
+			Unit.dataMap.set(this, new UnitData(this))
+			this.data = Unit.dataMap.get(this)
 		}
 	}
 
 
 	// STATIC METHODS
 
-
-
-	private static addData(unit: Unit): UnitData {
-		return Unit.data[unit.hid] = new UnitData(unit)
-	}
-
-	private static getData(unit: Unit): UnitData {
-		return Unit.data[unit.hid]
-	}
-
-	public static removeData(unit: Unit): void {
-		Unit.data[unit.hid] = null
-	}
-
-	private static dataExists(unit: Unit): boolean {
-		return Unit.data[unit.hid] != null
-	}
 
 
 	// INSTANCE METHODS

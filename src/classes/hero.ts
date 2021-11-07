@@ -1,3 +1,4 @@
+import { Log } from "app/systems/log"
 import { MapPlayer, Unit } from "lib/w3ts/index"
 import { HeroType } from "./herotype"
 import { UnitAbility } from "./unitAbility"
@@ -5,7 +6,7 @@ import { UnitAbility } from "./unitAbility"
 export class Hero extends Unit {
 
     unitAbilities: UnitAbility[] = []
-    private static _id: { [handleId: number]: Hero } = {}
+    static map: WeakMap<Unit, Hero> = new WeakMap<Unit, Hero>()
     static readonly all: Hero[] = []
     static human: Hero[] = []
     static ai: Hero[] = []
@@ -14,7 +15,7 @@ export class Hero extends Unit {
         super(owner, unitId, x, y, face, skinId)
         this.data.heroType = HeroType.get(this)
         this.setupHero()
-        Hero._id[this.id] = this
+        Hero.map.set(this, this)
         Hero.all.push(this)
 
         if (this.owner.controller == MAP_CONTROL_COMPUTER) {
@@ -25,14 +26,10 @@ export class Hero extends Unit {
     }
 
     public static get(unit: Unit): Hero {
-        return Hero._id[unit.id]
-    }
-
-    public resetUnitAbilities(): void {
-        this.unitAbilities = []
-        for (let i = 0; i < this.data.heroType.spells.length; i++) {
-            const element = this.data.heroType.spells[i]
-            this.unitAbilities.push(new UnitAbility(element, this))
+        if (Hero.map.has(unit)) {
+            return Hero.map.get(unit)
+        } else {
+            return null
         }
     }
 
@@ -44,14 +41,36 @@ export class Hero extends Unit {
         }
     }
 
+    public resetUnitAbilities(): void {
+        this.unitAbilities = []
+        for (let i = 0; i < this.data.heroType.spells.length; i++) {
+            const element = this.data.heroType.spells[i]
+            this.unitAbilities.push(new UnitAbility(element, this))
+        }
+    }
+
     public addStartingItems(): void {
 
         if (this.data.heroType != undefined) {
 
+            // Add Attribute Items
+            for (let n = 0; n < this.data.heroType.attributes.length; n++) {
+                const element = this.data.heroType.attributes[n];
+                
+                for (let i = 0; i < element.items.length; i++) {
+                    const item = element.items[i].id
+                    this.addItemById(item)
+                }
+            }
+
+
+            // Add Specific Hero Type Items
             for (let i = 0; i < this.data.heroType.items.length; i++) {
                 const item = this.data.heroType.items[i].id
                 this.addItemById(item)
             }
+
+
         }
     }
 
@@ -59,10 +78,13 @@ export class Hero extends Unit {
 
         if (this.data.heroType != undefined) {
 
+            Log.Information("Starting", this.data.heroType.startingSpells.length)
+
             for (let i = 0; i < this.data.heroType.startingSpells.length; i++) {
-                this.skillPoints += 1
                 this.selectSkill(this.data.heroType.startingSpells[i].id)
+                this.skillPoints += 1
             }
+            this.skillPoints -= 1
         }
     }
 

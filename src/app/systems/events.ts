@@ -35,7 +35,7 @@ export namespace EVENT {
             const killingUnit = Unit.fromHandle(GetKillingUnit())
 
             if (!eventUnit.isHero) {
-                Unit.removeData(eventUnit)
+                Unit.dataMap.delete(eventUnit)
             }
 
             killingUnit.data.kills += 1

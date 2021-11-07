@@ -22,11 +22,20 @@ export namespace HEROES {
             Log.Information("Hero Leveled Up:", hero.name)
 
             // Every Level increase Attack
-            player.addTechResearched(FourCC("R005"), 1)
+            player.setTechResearched(FourCC("R005"), hero.level - 1)
 
             // Every other level increase Armor
             if (hero.heroLevel % 2 == 0) {
-                player.addTechResearched(FourCC("R006"), 1)
+                player.setTechResearched(FourCC("R006"), hero.level - 1)
+            }
+
+            // Remove Ability Points
+            if (hero.heroLevel < 15 && hero.heroLevel % 2 != 0) {
+                hero.skillPoints -= 1
+            } else if (hero.heroLevel < 25 && hero.heroLevel >= 15 && hero.heroLevel % 3 != 0) {
+                hero.skillPoints -= 1
+            } else if (hero.heroLevel >= 25 && hero.heroLevel % 4 != 0) {
+                hero.skillPoints -= 1
             }
 
         })
@@ -38,12 +47,12 @@ export namespace HEROES {
             if (Unit.fromEvent().isHero) {
                 const unit = Unit.fromEvent()
 
-                
+
                 // If Hero's Hero Type hasn't been defined yet (First time being created)
                 if (unit.handle == udg_PickedHero) {
                     try {
-                        Log.Information("Name:", unit.name)
-                        
+
+
                         let x: number
                         let y: number
 
@@ -51,26 +60,25 @@ export namespace HEROES {
                             x = Rectangle.fromHandle(gg_rct_Left_Castle).centerX
                             y = Rectangle.fromHandle(gg_rct_Left_Castle).centerY
                         } else {
-                             x = Rectangle.fromHandle(gg_rct_Right_Castle).centerX
-                             y = Rectangle.fromHandle(gg_rct_Right_Castle).centerY
+                            x = Rectangle.fromHandle(gg_rct_Right_Castle).centerX
+                            y = Rectangle.fromHandle(gg_rct_Right_Castle).centerY
                         }
 
                         const hero = new Hero(unit.owner, unit.typeId, x, y, 180)
                         unit.destroy()
-                        
-                        PickedPlayers.addPlayer(hero.owner)
-    
-                        Log.Information("Hero Type:", hero.data.heroType.id)
 
-    
-                        //unit.show = false
-    
-                        
-    
+                        PickedPlayers.addPlayer(hero.owner)
+
+                        Log.Information("Name", hero.name)
+                        Log.Information("Hero Type", hero.data.heroType.name)
+                        unit.show = false
+
+
+
 
                     } catch (error) {
                         Log.Error("Error", error)
-                        
+
                     }
 
                 }

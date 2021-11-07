@@ -155,7 +155,7 @@ export namespace ABILITY {
             type: EffectType.Instant,
             target: TargetType.None,
             permanent: true,
-            starting: false,
+            starting: true,
             ult: false
         })
         ManaAddictSoulBind = new Ability({
@@ -165,7 +165,7 @@ export namespace ABILITY {
             type: EffectType.Instant,
             target: TargetType.AOE,
             permanent: true,
-            starting: false,
+            starting: true,
             ult: false
         })
         ManaAddictUnleashMana = new Ability({

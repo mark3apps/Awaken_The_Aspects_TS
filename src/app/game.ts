@@ -17,6 +17,7 @@ import { ABILITY } from "app/definitions/abilities"
 import { CINEMATIC } from "./definitions/cinematics"
 import { HERO_TYPE } from "./definitions/heroTypes"
 import { HEROES } from "./definitions/heroes"
+import { ATTRIBUTE } from "./definitions/attributes"
 
 
 
@@ -33,6 +34,7 @@ export namespace Game {
         EVENT.define()
         DEATH_SPAWN.define()
         PATHING.define()
+        ATTRIBUTE.define()
         ABILITY.define()
         HERO_TYPE.define()
         HEROES.define()

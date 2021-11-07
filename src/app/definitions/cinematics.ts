@@ -1,11 +1,12 @@
 
 
 import { Log } from "app/systems/log"
+import { Hero } from "classes/hero"
 import { Players } from "lib/w3ts/globals/index"
 import { MASK } from "lib/w3ts/globals/mask"
 import { SKY } from "lib/w3ts/globals/sky"
 import { SOUND } from "lib/w3ts/globals/sounds"
-import { Camera, MapPlayer, Timer, Unit } from "lib/w3ts/index"
+import { CameraSetup, MapPlayer, Timer, Unit } from "lib/w3ts/index"
 import { FORCE } from "./forces"
 import { HEROES } from "./heroes"
 
@@ -15,10 +16,11 @@ export namespace CINEMATIC {
 
 	export const setupCineCamera = (): void => {
 
+
 		SetSkyModel(SKY.blizzard)
+		FogEnableOff()
 
 		CinematicFilterGenericBJ(0.00, BLEND_MODE_BLEND, MASK.black, 0.00, 0.00, 0.00, 0.00, 0, 0, 0, 0)
-
 		CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 3.00, MASK.black, 0, 0, 0, 0)
 
 		const startCams = [
@@ -28,21 +30,35 @@ export namespace CINEMATIC {
 
 		for (let i = 0; i < 11; i++) {
 
-			const camChoice = GetRandomInt(1, startCams.length)
-			CameraSetupApplyForPlayer(true, startCams[camChoice], Player(i), 0)
-			const camX = CameraSetupGetDestPositionX(startCams[camChoice])
-			const camY = CameraSetupGetDestPositionY(startCams[camChoice])
+			const startCamera = CameraSetup.fromHandle(startCams[GetRandomInt(1, startCams.length)])
 
-			const unit = new Unit(Players[19], FourCC("h01Z"), camX, camY, bj_UNIT_FACING)
-			unit.applyTimedLife(FourCC("BTLF"), 20)
+			Players[i].applyCamera(true, startCamera, 0)
 
-			Camera.setTargetControllerForPlayer(Players[i], unit, 0, 0, false)
+			const unit = new Unit(Players[19], FourCC("h01Z"), startCamera.destX, startCamera.destY, bj_UNIT_FACING)
+			unit.applyTimedLife(FourCC("BTLF"), 30)
 
+			Players[i].setTargetControllerCamera(unit, 0, 0, false)
 		}
 	}
 
 	export const setupGameCamera = (): void => {
-		ResetToGameCamera(2)
+
+		const camLeftStart = CameraSetup.fromHandle(gg_cam_baseLeftPanStart)
+		const camLeftEnd = CameraSetup.fromHandle(gg_cam_baseLeftStart)
+		const camRightStart = CameraSetup.fromHandle(gg_cam_baseRightPanStart)
+		const camRightEnd = CameraSetup.fromHandle(gg_cam_baseRightStart)
+
+		FORCE.AlliancePlayers.for(() => {
+			MapPlayer.fromEnum().applyCamera(true, camLeftStart, 0)
+			MapPlayer.fromEnum().applyCamera(true, camLeftEnd, 2)
+		})
+
+		FORCE.FederationPlayers.for(() => {
+			MapPlayer.fromEnum().applyCamera(true, camRightStart, 0)
+			MapPlayer.fromEnum().applyCamera(true, camRightEnd, 2)
+		})
+
+		FogEnableOn()
 	}
 
 	export const startHeroSelector = (): void => {
@@ -79,6 +95,11 @@ export namespace CINEMATIC {
 							HeroSelector.forcePick(GetEnumPlayer())
 						}
 					})
+
+					for (let i = 0; i < Hero.all.length; i++) {
+						const element = Hero.all[i]
+						element.show = true
+					}
 
 					countdown.pause()
 					countdown.destroy()

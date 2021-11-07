@@ -1,6 +1,7 @@
 import { Strategy } from "lib/resources/strategy"
 import { Unit } from "lib/w3ts/index"
 import { Ability } from "./ability"
+import { HeroAttribute } from "./attribute"
 import { ItemType } from "./itemType"
 import { UnitType } from "./unitType"
 
@@ -13,12 +14,14 @@ export class HeroType extends UnitType {
 
     readonly hid!: string
     readonly alter!: UnitType
+    readonly name!: string
 
+    public attributes: HeroAttribute[] = []
     public permanentSpells: Ability[] = []
     public startingSpells: Ability[] = []
     public ultSpell: Ability
     public spells: Ability[] = []
-
+    
 
     public items: ItemType[] = [];
     public talents = [];
@@ -37,12 +40,13 @@ export class HeroType extends UnitType {
     public unitClumpRange = 100;
     public intelRange = 1100;
     public intelCloseRange = 500;
-    public strats: Strategy[] = []
+    public strategies: Strategy[] = []
 
-    constructor(type: UnitType, typeAlter: UnitType) {
+    constructor(type: UnitType, typeAlter: UnitType, name: string ) {
 
         super(type.four)
 
+        this.name = name
         this.hid = HeroType.pre + this.id
         this.alter = typeAlter
 
@@ -55,21 +59,25 @@ export class HeroType extends UnitType {
         return HeroType.Key[HeroType.pre + unit.typeId]
     }
 
-    public addAbility(spellObj: Ability): void {
+    public addHeroAttribute(attribute: HeroAttribute): void {
+        this.attributes.push(attribute)
+    }
 
-        this.spells.push(spellObj)
+    public addAbility(ability: Ability): void {
 
-        if (spellObj.permanent) { this.permanentSpells.push(spellObj) }
-        if (spellObj.starting) { this.startingSpells.push(spellObj) }
-        if (spellObj.ult) { this.ultSpell = spellObj }
+        this.spells.push(ability)
+
+        if (ability.permanent) { this.permanentSpells.push(ability) }
+        if (ability.starting) { this.startingSpells.push(ability) }
+        if (ability.ult) { this.ultSpell = ability }
     }
 
 
-    public addItem(itemTypeObj: ItemType): void {
-        this.items.push(itemTypeObj)
+    public addItem(itemType: ItemType): void {
+        this.items.push(itemType)
     }
 
     public addStrategy(strat: Strategy): void {
-        this.strats.push(strat)
+        this.strategies.push(strat)
     }
 }

@@ -42,8 +42,7 @@ TeamViewer.BackupRepick = HeroSelector.repick
 TeamViewer.BackupDestroy = HeroSelector.destroy
 
 function TeamViewer.AllowPlayer(player)
-    return false
-    --return GetPlayerSlotState(player) == PLAYER_SLOT_STATE_PLAYING and GetConvertedPlayerId(player) < 12 and false
+    return GetPlayerSlotState(player) == PLAYER_SLOT_STATE_PLAYING and GetConvertedPlayerId(player) < 12
 end
 
 function OppositeFramePoint(framepoint)

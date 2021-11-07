@@ -1,14 +1,14 @@
 
 import { ABILITY } from "app/definitions/abilities"
+import { ATTRIBUTE } from "app/definitions/attributes"
 import { Strategy } from "lib/resources/strategy"
-import { ITEM_TYPE } from "../../app/definitions/itemTypes"
 import { UNIT_TYPE } from "../../app/definitions/unitTypes"
 import { HeroType } from "../herotype"
 
 export class ManaAddictHeroType extends HeroType {
 
     constructor() {
-        super(UNIT_TYPE.ManaAddict, UNIT_TYPE.ManaAddictAlter)
+        super(UNIT_TYPE.ManaAddict, UNIT_TYPE.ManaAddictAlter, "Mana Addict",)
 
         // Abilities
         this.addAbility(ABILITY.ManaAddictManaShield)
@@ -17,9 +17,11 @@ export class ManaAddictHeroType extends HeroType {
         this.addAbility(ABILITY.ManaAddictSoulBind)
         this.addAbility(ABILITY.ManaAddictUnleashMana)
 
+        // Attributes
+        this.addHeroAttribute(ATTRIBUTE.intelligence)
+        this.addHeroAttribute(ATTRIBUTE.ranged)
+
         // Items
-        this.addItem(ITEM_TYPE.teleport)
-        this.addItem(ITEM_TYPE.mage)
 
         // AI
         this.lifeFactor = 1

@@ -131,8 +131,8 @@ HeroSelector.BoxPosY = 0.4
 HeroSelector.BoxPosPoint = FRAMEPOINT_CENTER
 HeroSelector.AutoShow = true -- (true) shows the box and the Selection at 0.0 for all players
 -- Unique Picks
-HeroSelector.UnitCount = 2 -- each hero is in total allowed to be picked this amount of times (includes random, repicking allows a hero again).
-HeroSelector.UnitCountPerTeam = 1 -- Each Team is allowed to pick this amount of each unitType
+HeroSelector.UnitCount = 5 -- each hero is in total allowed to be picked this amount of times (includes random, repicking allows a hero again).
+HeroSelector.UnitCountPerTeam = 5 -- Each Team is allowed to pick this amount of each unitType
 HeroSelector.ToManyTooltip = "OUTOFSTOCKTOOLTIP"
 -- Ban
 HeroSelector.DelayBanUntilPick = false -- (true) baning will not be applied instantly, instead it is applied when HeroSelector.enablePick is called the next time.
@@ -288,7 +288,7 @@ function HeroSelector.unitCreated(player, unitCode, isRandom)
                                 GetPlayerStartLocationX(player),
                                 GetPlayerStartLocationY(player), 0)
 
-    HeroSelector.enablePick(false, udg_PickedHero)
+    HeroSelector.enablePick(false, GetOwningPlayer(udg_PickedHero))
 
     -- if isRandom then
     --     --randomed

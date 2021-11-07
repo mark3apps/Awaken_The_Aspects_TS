@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /** @noSelfInFile **/
 
+import { Camera, CameraSetup } from "./camera"
 import { Force } from "./force"
 import { Handle } from "./handle"
 import { Point } from "./point"
+import { Unit } from "./unit"
 
 export class MapPlayer extends Handle<player> {
   private constructor(index: number) {
@@ -250,6 +252,14 @@ export class MapPlayer extends Handle<player> {
 
   public setUnitsOwner(newOwner: number) {
     SetPlayerUnitsOwner(this.handle, newOwner)
+  }
+
+  public applyCamera(doPan: boolean, camera: CameraSetup, duration: number) : void {
+    CameraSetupApplyForPlayer(doPan, camera.handle, this.handle, duration)
+  }
+
+  public setTargetControllerCamera(unit: Unit, xOffset: number, yOffset: number, inheritOrientation: boolean): void {
+    Camera.setTargetControllerForPlayer(this, unit, xOffset, yOffset, inheritOrientation)
   }
 
   public static fromEnum() {

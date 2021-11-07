@@ -1,5 +1,6 @@
 
 import { ABILITY } from "app/definitions/abilities"
+import { ATTRIBUTE } from "app/definitions/attributes"
 import { Strategy } from "lib/resources/strategy"
 import { ITEM_TYPE } from "../../app/definitions/itemTypes"
 import { UNIT_TYPE } from "../../app/definitions/unitTypes"
@@ -8,19 +9,23 @@ import { HeroType } from "../herotype"
 export class BrawlerHeroType extends HeroType {
 
     constructor() {
-        super(UNIT_TYPE.Brawler, UNIT_TYPE.BrawlerAlter)
+        super(UNIT_TYPE.Brawler, UNIT_TYPE.BrawlerAlter, "Brawler")
 
-        // // Brawler Hero Setup
+        // Brawler Hero Setup
         this.addAbility(ABILITY.BrawlerBloodlust)
         this.addAbility(ABILITY.BrawlerDrain)
         this.addAbility(ABILITY.BrawlerWarstomp)
         this.addAbility(ABILITY.BrawlerUnleashRage)
 
-        this.addItem(ITEM_TYPE.teleport)
-        this.addItem(ITEM_TYPE.tank)
+        // Attributes
+        this.addHeroAttribute(ATTRIBUTE.strength)
+        this.addHeroAttribute(ATTRIBUTE.melee)
+
+        // Items
+        
 
 
-        // // Brawler AI Setup
+        // Brawler AI Setup
         this.lifeFactor = 1
         this.manaFactor = 0.02
         this.lifeHighPercent = 65

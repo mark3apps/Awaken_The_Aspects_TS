@@ -17,7 +17,7 @@ export class ItemType {
     instant: boolean
     castTime: number[]
 
-    private static _key: ItemTypeKey = {}
+    static readonly key: ItemTypeKey = {}
     static readonly pre = "H"
 
     constructor(four: string, abilityFour = null, orderFour = null, instant = true, castTime: number[] = []) {
@@ -44,15 +44,11 @@ export class ItemType {
         this.instant = instant
         this.castTime = castTime
 
-        ItemType._key[this.hid] = this
-    }
-
-    public static get key(): ItemTypeKey {
-        return ItemType._key
+        ItemType.key[this.hid] = this
     }
 
     public static get(id: number | string): ItemType {
-        return typeof id === "number" ? ItemType._key[ItemType.pre + id] : ItemType._key[ItemType.pre + FourCC(id)]
+        return typeof id === "number" ? ItemType.key[ItemType.pre + id] : ItemType.key[ItemType.pre + FourCC(id)]
     }
 
 
