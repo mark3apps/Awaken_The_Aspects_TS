@@ -1,5 +1,5 @@
 
-import { ABILITY } from "app/definitions/abilities"
+import { HERO_ABILITY } from "app/definitions/heroAbilities"
 import { ATTRIBUTE } from "app/definitions/attributes"
 import { Strategy } from "lib/resources/strategy"
 import { UNIT_TYPE } from "../../app/definitions/unitTypes"
@@ -11,11 +11,11 @@ export class ManaAddictHeroType extends HeroType {
         super(UNIT_TYPE.ManaAddict, UNIT_TYPE.ManaAddictAlter, "Mana Addict",)
 
         // Abilities
-        this.addAbility(ABILITY.ManaAddictManaShield)
-        this.addAbility(ABILITY.ManaAddictManaBomb)
-        this.addAbility(ABILITY.ManaAddictManaExplosion)
-        this.addAbility(ABILITY.ManaAddictSoulBind)
-        this.addAbility(ABILITY.ManaAddictUnleashMana)
+        this.addAbility(HERO_ABILITY.ManaAddictManaShield)
+        this.addAbility(HERO_ABILITY.ManaAddictManaBomb)
+        this.addAbility(HERO_ABILITY.ManaAddictManaExplosion)
+        this.addAbility(HERO_ABILITY.ManaAddictSoulBind)
+        this.addAbility(HERO_ABILITY.ManaAddictUnleashMana)
 
         // Attributes
         this.addHeroAttribute(ATTRIBUTE.agility)

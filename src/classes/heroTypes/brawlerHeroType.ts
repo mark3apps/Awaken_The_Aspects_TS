@@ -1,5 +1,5 @@
 
-import { ABILITY } from "app/definitions/abilities"
+import { HERO_ABILITY } from "app/definitions/heroAbilities"
 import { ATTRIBUTE } from "app/definitions/attributes"
 import { Strategy } from "lib/resources/strategy"
 import { UNIT_TYPE } from "../../app/definitions/unitTypes"
@@ -11,10 +11,10 @@ export class BrawlerHeroType extends HeroType {
         super(UNIT_TYPE.Brawler, UNIT_TYPE.BrawlerAlter, "Brawler")
 
         // Brawler Hero Setup
-        this.addAbility(ABILITY.BrawlerBloodlust)
-        this.addAbility(ABILITY.BrawlerDrain)
-        this.addAbility(ABILITY.BrawlerWarstomp)
-        this.addAbility(ABILITY.BrawlerUnleashRage)
+        this.addAbility(HERO_ABILITY.BrawlerBloodlust)
+        this.addAbility(HERO_ABILITY.BrawlerDrain)
+        this.addAbility(HERO_ABILITY.BrawlerWarstomp)
+        this.addAbility(HERO_ABILITY.BrawlerUnleashRage)
 
         // Attributes
         this.addHeroAttribute(ATTRIBUTE.strength)

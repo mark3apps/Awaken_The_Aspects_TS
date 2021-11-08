@@ -1,5 +1,5 @@
 
-import { ABILITY } from "app/definitions/abilities"
+import { HERO_ABILITY } from "app/definitions/heroAbilities"
 import { ATTRIBUTE } from "app/definitions/attributes"
 import { Strategy } from "lib/resources/strategy"
 import { UNIT_TYPE } from "../../app/definitions/unitTypes"
@@ -11,16 +11,16 @@ export class ShiftMasterHeroType extends HeroType {
         super(UNIT_TYPE.ShiftMaster, UNIT_TYPE.ShiftMasterAlter, "Shift Master")
 
         // Brawler Hero Setup
-        this.addAbility(ABILITY.ShiftMasterFallingStrike)
-        this.addAbility(ABILITY.ShiftMasterFelForm)
-        this.addAbility(ABILITY.ShiftMasterShift)
-        this.addAbility(ABILITY.ShiftMasterSwitch)
-        this.addAbility(ABILITY.ShiftMasterShiftStorm)
+        this.addAbility(HERO_ABILITY.ShiftMasterFallingStrike)
+        this.addAbility(HERO_ABILITY.ShiftMasterFelForm)
+        this.addAbility(HERO_ABILITY.ShiftMasterShift)
+        this.addAbility(HERO_ABILITY.ShiftMasterSwitch)
+        this.addAbility(HERO_ABILITY.ShiftMasterShiftStorm)
 
         // Passive Abilities
-        this.addAbility(ABILITY.ShiftMasterShadeStrength)
-        this.addAbility(ABILITY.ShiftMasterSwiftAttacks)
-        this.addAbility(ABILITY.ShiftMasterSwiftMoves)
+        this.addAbility(HERO_ABILITY.ShiftMasterShadeStrength)
+        this.addAbility(HERO_ABILITY.ShiftMasterSwiftAttacks)
+        this.addAbility(HERO_ABILITY.ShiftMasterSwiftMoves)
 
         // Attributes
         this.addHeroAttribute(ATTRIBUTE.agility)

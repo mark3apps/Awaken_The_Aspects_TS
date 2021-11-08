@@ -1,7 +1,7 @@
 import { ItemUpgrade } from "classes/itemUpgrade"
 import { ITEM_TYPE } from "./itemTypes"
 
-export namespace ITEM_UPGRADES {
+export namespace ITEM_UPGRADE {
 
     // Define Item Upgrades
     export const increasedStamina = new ItemUpgrade()

@@ -8,7 +8,7 @@ import { SKY } from "lib/w3ts/globals/sky"
 import { SOUND } from "lib/w3ts/globals/sounds"
 import { CameraSetup, MapPlayer, Timer, Unit } from "lib/w3ts/index"
 import { FORCE } from "./forces"
-import { HEROES } from "./heroes"
+import { HERO } from "./heroes"
 
 
 export namespace CINEMATIC {
@@ -90,7 +90,7 @@ export namespace CINEMATIC {
 
 
 					FORCE.Humans.for(() => {
-						if (!HEROES.PickedPlayers.hasPlayer(MapPlayer.fromEnum())) {
+						if (!HERO.PickedPlayers.hasPlayer(MapPlayer.fromEnum())) {
 							Log.Information("Picked", MapPlayer.fromEnum().name)
 							HeroSelector.forcePick(GetEnumPlayer())
 						}

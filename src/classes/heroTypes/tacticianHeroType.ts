@@ -1,5 +1,5 @@
 
-import { ABILITY } from "app/definitions/abilities"
+import { HERO_ABILITY } from "app/definitions/heroAbilities"
 import { ATTRIBUTE } from "app/definitions/attributes"
 import { Strategy } from "lib/resources/strategy"
 import { UNIT_TYPE } from "../../app/definitions/unitTypes"
@@ -11,11 +11,11 @@ export class TacticianHeroType extends HeroType {
         super(UNIT_TYPE.Tactician, UNIT_TYPE.TacticianAlter, "Tactician")
 
         // Brawler Hero Setup
-        this.addAbility(ABILITY.TactitionAttack)
-        this.addAbility(ABILITY.TactitionBolster)
-        this.addAbility(ABILITY.TactitionInspire)
-        this.addAbility(ABILITY.TactitionIronDefense)
-        this.addAbility(ABILITY.TactitionRaiseBanner)
+        this.addAbility(HERO_ABILITY.TactitionAttack)
+        this.addAbility(HERO_ABILITY.TactitionBolster)
+        this.addAbility(HERO_ABILITY.TactitionInspire)
+        this.addAbility(HERO_ABILITY.TactitionIronDefense)
+        this.addAbility(HERO_ABILITY.TactitionRaiseBanner)
 
         // Passive Abilities
 

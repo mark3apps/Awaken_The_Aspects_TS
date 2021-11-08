@@ -9,12 +9,14 @@ import { REGION } from "./definitions/regions"
 import { PATHING } from "./systems/pathing"
 import { Log } from "./systems/log"
 import { Gate } from "classes/gate"
-import { ABILITY } from "app/definitions/abilities"
+import { HERO_ABILITY } from "app/definitions/heroAbilities"
 import { CINEMATIC } from "./definitions/cinematics"
 import { HERO_TYPE } from "./definitions/heroTypes"
-import { HEROES } from "./definitions/heroes"
+import { HERO } from "./definitions/heroes"
 import { ATTRIBUTE } from "./definitions/attributes"
-import { ITEM_UPGRADES } from "./definitions/itemUpgrades"
+import { ITEM_UPGRADE } from "./definitions/itemUpgrades"
+import { Ability } from "classes/ability"
+import { UNIT_ABILITY } from "./definitions/unitAbilities"
 
 
 
@@ -23,28 +25,29 @@ export namespace Game {
 
     export const mapInit = (): void => {
 
-        Log.Information("Game Init Start")
+        Log.Verbose("Game Init Start")
         
         REGION.define()
         EVENT.define()
         DEATH_SPAWN.define()
         PATHING.define()
         ATTRIBUTE.define()
-        ABILITY.define()
-        ITEM_UPGRADES.define()
+        UNIT_ABILITY.define()
+        HERO_ABILITY.define()
+        ITEM_UPGRADE.define()
         HERO_TYPE.define()
-        HEROES.define()
+        HERO.define()
+
+        Ability.initSpellEffects()
         
-        Log.Information("Game Init Finished")
+        Log.Verbose("Game Init Finished")
     }
 
     export const start = (): void => {
         FogEnableOff()
         FogMaskEnableOff()
-        FogMaskEnableOn()
-        FogEnableOn()
 
-        Log.Information("Game Map Start")
+        Log.Verbose("Game Map Start")
 
         FORCE.define()
         ARMY.define()
@@ -59,10 +62,10 @@ export namespace Game {
         Gate.start(2, 700)
         SPAWN.start()
 
-        Log.Information("Game Map Start Finished")
+        Log.Verbose("Game Map Start Finished")
 
 
-        Log.Information("Start Hero Pick")
+        Log.Verbose("Start Hero Pick")
 
         
         

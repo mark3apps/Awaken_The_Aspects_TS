@@ -1,4 +1,5 @@
 import { EVENT } from "app/systems/events"
+import { Log } from "app/systems/log"
 import { CC2Four } from "lib/resources/library"
 import { ID } from "lib/w3ts/globals/ids"
 import { OrderId } from "lib/w3ts/globals/order"
@@ -77,7 +78,10 @@ export class Ability {
     readonly starting?: boolean
     readonly ult?: boolean
 
-    private static _key: { [four: string]: AbilityParameters } = {}
+    onEffect: (ability?: Ability) => void = (): void => { return undefined }
+
+    private static map = new Map<string, Ability>()
+    private static mapInstant = new Map<string, Ability>()
 
     constructor(ability: AbilityParameters) {
 
@@ -95,58 +99,51 @@ export class Ability {
         this.unitType = ability.unitType
         this.permanent = ability.permanent
         this.starting = ability.starting
-        this.ult= ability.ult
+        this.ult = ability.ult
         this.permanent = ability.permanent
         this.starting = ability.starting
         this.ult = ability.ult
 
         // If ability hasn't been definited before
-        if (Ability._key[ability.four] == null) {
+        if (!Ability.map.has(this.four)) {
 
-            Ability._key[ability.four] = ability
+            Ability.map.set(this.four, this)
 
             switch (this.type) {
                 case EffectType.Kill:
                     EVENT.unitDies.add(() => {
                         if (Unit.fromHandle(GetKillingUnit()).hasAbility(this)) {
-                            this.onEvent()
+                            this.onEffect(this)
                         }
                     })
                     break
-    
+
                 case EffectType.Death:
                     EVENT.unitDies.add(() => {
                         if (Unit.fromEvent().hasAbility(this)) {
-                            this.onEvent()
+                            this.onEffect(this)
                         }
                     })
                     break
-    
+
                 case EffectType.Attacked:
                     EVENT.unitAttacked.add(() => {
                         if (Unit.fromEvent().hasAbility(this.id)) {
-                            this.onEvent()
+                            this.onEffect(this)
                         }
                     })
-    
                     break
-    
+
                 case EffectType.Attacking:
                     EVENT.unitAttacked.add(() => {
                         if (Unit.fromAttackingUnit().hasAbility(this.id)) {
-                            this.onEvent()
+                            this.onEffect(this)
                         }
                     })
-    
                     break
-    
+
                 case EffectType.Instant:
-                    EVENT.unitSpellEffect.add(() => {
-                        if (Ability.fromSpellEvent().id == this.id) {
-                            this.onEffect()
-                        }
-                    })
-    
+                    Ability.mapInstant.set(this.four, this)
                     break
                 default:
                     break
@@ -154,32 +151,37 @@ export class Ability {
         }
     }
 
+    public static initSpellEffects(): void {
+        try {
+            EVENT.unitSpellEffect.add(() => {
+    
+                if (Ability.mapInstant.has(CC2Four(GetSpellAbilityId()))) {
+                    
+                    const ability = this.fromSpellEvent()
+                    ability.onEffect(ability)
+                }
+            })
+        } catch (error) {
+            Log.Error("Cast Spell", error)
+        }
+        
+    }
+
     public static fromSpellEvent(): Ability {
-        return Ability.fromFour(CC2Four(GetSpellAbilityId()))
+        return Ability.fromId(GetSpellAbilityId())
     }
 
-    public static fromFour(four: string): Ability {
-        return new Ability(Ability._key[four])
-    }
+    public static fromId(id: string | number): Ability | undefined {
 
-    public onEffect(): void {
-        // Empty
-    }
+        let four: string
+        typeof id === "string" ? four = id : four = CC2Four(id)
 
-    public onEvent(): void {
-        // Empty
-    }
+        if (Ability.map.has(four)) {
+            return Ability.map.get(four)
+        } else {
+            return undefined
+        }
 
-    public onChannel(): void {
-        // Empty
-    }
-
-    public onLoop(): void {
-        // Empty
-    }
-
-    public onFinish(): void {
-        // Empty
     }
 
     public get id(): number {

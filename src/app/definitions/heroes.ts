@@ -5,7 +5,7 @@ import { Force, Rectangle, Unit } from "lib/w3ts/index"
 import { FORCE } from "./forces"
 
 
-export namespace HEROES {
+export namespace HERO {
 
     export const PickedPlayers = new Force()
 

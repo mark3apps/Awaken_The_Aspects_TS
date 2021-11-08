@@ -1,5 +1,5 @@
 
-import { ABILITY } from "app/definitions/abilities"
+import { HERO_ABILITY } from "app/definitions/heroAbilities"
 import { ATTRIBUTE } from "app/definitions/attributes"
 import { Strategy } from "lib/resources/strategy"
 import { UNIT_TYPE } from "../../app/definitions/unitTypes"
@@ -11,10 +11,10 @@ export class TimeMageHeroType extends HeroType {
         super(UNIT_TYPE.TimeMage, UNIT_TYPE.TimeMageAlter, "TimeMage")
 
         // Brawler Hero Setup
-        this.addAbility(ABILITY.TimeMageChronoAtrophy)
-        this.addAbility(ABILITY.TimeMageDecay)
-        this.addAbility(ABILITY.TimeMageParadox)
-        this.addAbility(ABILITY.TimeMageTimeTravel)
+        this.addAbility(HERO_ABILITY.TimeMageChronoAtrophy)
+        this.addAbility(HERO_ABILITY.TimeMageDecay)
+        this.addAbility(HERO_ABILITY.TimeMageParadox)
+        this.addAbility(HERO_ABILITY.TimeMageTimeTravel)
 
         // Passive Abilities
 

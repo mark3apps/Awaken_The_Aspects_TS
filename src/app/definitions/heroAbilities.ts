@@ -1,10 +1,8 @@
-import { AbilityFelGrunt, AbilityFelOgre, AbilityFelWarlock, AbilityFelWarlord } from "app/abilities/unit/felOrc"
-import { AbilityFootmanUpgrade } from "app/abilities/unit/footmanUpgrade"
 import { Ability, EffectType, TargetType } from "classes/ability"
 import { ID } from "lib/w3ts/globals/ids"
 import { OrderId } from "lib/w3ts/globals/order"
 
-export namespace ABILITY {
+export namespace HERO_ABILITY {
 
     // Custom Abilities
     export let BonusArmor: Ability
@@ -64,44 +62,6 @@ export namespace ABILITY {
     export let TimeMageParadox: Ability
 
     export const define = (): void => {
-
-        //
-        // Unit Abilities
-        //
-
-        // Orc Abilities
-        new AbilityFelGrunt({
-            four: ID.Ability.FelGrunt,
-            type: EffectType.Kill,
-            target: TargetType.SupportSelf
-        })
-        new AbilityFelOgre({
-            four: ID.Ability.FelOgre,
-            type: EffectType.Kill,
-            target: TargetType.SupportSelf
-        })
-        new AbilityFelWarlord({
-            four: ID.Ability.FelWarlord,
-            type: EffectType.Kill,
-            target: TargetType.SupportSelf
-        })
-        new AbilityFelWarlock({
-            four: ID.Ability.FelWarlock,
-            type: EffectType.Kill,
-            target: TargetType.SupportSelf
-        })
-
-        new AbilityFootmanUpgrade({
-            four: ID.Ability.FootmanCharge,
-            orderId: OrderId.Bearform,
-            type: EffectType.Instant,
-            target: TargetType.SupportSelf
-        })
-
-
-        //
-        // Hero Abilities
-        //
 
         // Brawler Abilities
         BrawlerDrain = new Ability({
