@@ -21,7 +21,6 @@ export class HeroType extends UnitType {
     public startingSpells: Ability[] = []
     public ultSpell: Ability
     public spells: Ability[] = []
-    
 
     public items: ItemType[] = [];
     public talents = [];
@@ -40,9 +39,15 @@ export class HeroType extends UnitType {
     public unitClumpRange = 100;
     public intelRange = 1100;
     public intelCloseRange = 500;
+
+    public traitAgressive = 50
+    public traitDefensive = 50
+    public traitSupport = 0
+    public traitAssassinate = 0
+
     public strategies: Strategy[] = []
 
-    constructor(type: UnitType, typeAlter: UnitType, name: string ) {
+    constructor(type: UnitType, typeAlter: UnitType, name: string) {
 
         super(type.four)
 

@@ -63,6 +63,23 @@ export class UnitAbility extends Ability {
 
 
     // Getters and Setters unique
+
+    public get areaOfEffect(): number {
+        return this.getLevelField(ABILITY_RLF_AREA_OF_EFFECT) as number
+    }
+
+    public set areaOfEffect(value: number) {
+        this.setLevelField(ABILITY_RLF_AREA_OF_EFFECT, value)
+    }
+
+    public get normalDuration(): number {
+        return this.getLevelField(ABILITY_RLF_DURATION_NORMAL) as number
+    }
+
+    public get heroDuration(): number {
+        return this.getLevelField(ABILITY_RLF_DURATION_HERO) as number
+    }
+
     public get unitAbility(): ability {
         return BlzGetUnitAbility(this.unit.handle, this.id)
     }
@@ -235,22 +252,22 @@ export class UnitAbility extends Ability {
             case "abilitybooleanfield": {
                 const fieldBool = field as abilitybooleanfield
 
-                return BlzGetAbilityBooleanField(this.unitAbility, fieldBool)
+                return BlzGetAbilityBooleanField(this.unitAbility, fieldBool) as boolean
             }
             case "abilityintegerfield": {
                 const fieldInt = field as abilityintegerfield
 
-                return BlzGetAbilityIntegerField(this.unitAbility, fieldInt)
+                return BlzGetAbilityIntegerField(this.unitAbility, fieldInt) as number
             }
             case "abilityrealfield": {
                 const fieldReal = field as abilityrealfield
 
-                return BlzGetAbilityRealField(this.unitAbility, fieldReal)
+                return BlzGetAbilityRealField(this.unitAbility, fieldReal) as number
             }
             case "abilitystringfield": {
                 const fieldString = field as abilitystringfield
 
-                return BlzGetAbilityStringField(this.unitAbility, fieldString)
+                return BlzGetAbilityStringField(this.unitAbility, fieldString) as string
             }
             default:
                 return 0
@@ -264,22 +281,22 @@ export class UnitAbility extends Ability {
             case "abilitybooleanlevelfield": {
                 const fieldBool = field as abilitybooleanlevelfield
 
-                return BlzGetAbilityBooleanLevelField(this.unitAbility, fieldBool, level)
+                return BlzGetAbilityBooleanLevelField(this.unitAbility, fieldBool, level) as boolean
             }
             case "abilityintegerlevelfield": {
                 const fieldInt = field as abilityintegerlevelfield
 
-                return BlzGetAbilityIntegerLevelField(this.unitAbility, fieldInt, level)
+                return BlzGetAbilityIntegerLevelField(this.unitAbility, fieldInt, level) as number
             }
             case "abilityreallevelfield": {
                 const fieldReal = field as abilityreallevelfield
 
-                return BlzGetAbilityRealLevelField(this.unitAbility, fieldReal, level)
+                return BlzGetAbilityRealLevelField(this.unitAbility, fieldReal, level) as number
             }
             case "abilitystringlevelfield": {
                 const fieldString = field as abilitystringlevelfield
 
-                return BlzGetAbilityStringLevelField(this.unitAbility, fieldString, level)
+                return BlzGetAbilityStringLevelField(this.unitAbility, fieldString, level) as string
             }
             default:
                 return 0

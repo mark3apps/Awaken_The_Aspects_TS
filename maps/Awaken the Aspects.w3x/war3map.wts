@@ -14141,30 +14141,6 @@ STRING 4927
 Increased Stamina - [|cffc0c0c0Strength|r] [|cffffcc00Level 2|r]
 }
 
-STRING 4928
-// Items: I007 (Increased Stamina - [|cffc0c0c0Strength|r] [|cffffcc00Level 1|r]), Description (Description)
-{
-Your Hero has increased Movement Speed but takes more damage for a short period of time.
-
-50 Mana
-40% faster movement speed
-30% more damage taken
-90 second cooldown
-
-}
-
-STRING 4929
-// Items: I007 (Increased Stamina - [|cffc0c0c0Strength|r] [|cffffcc00Level 1|r]), Ubertip (Tooltip - Extended)
-{
-Your Hero has increased Movement Speed but takes more damage for a short period of time.
-
-50 Mana
-40% faster movement speed
-30% more damage taken
-90 second cooldown
-
-}
-
 STRING 4930
 // Items: I00A (Blink - [|cffc0c0c0Agility|r] [|cffffcc00Level 2|r]), Ubertip (Tooltip - Extended)
 {
@@ -14218,54 +14194,6 @@ Teleports your Hero a short distance.
 2000 range
 40 second cooldown
 3 second delay
-}
-
-STRING 4935
-// Items: I00D (Increased Stamina - [|cffc0c0c0Strength|r] [|cffffcc00Level 2|r]), Description (Description)
-{
-Your Hero has increased Movement Speed but takes more damage for a short period of time.
-
-50 Mana
-40% faster movement speed
-30% more damage taken
-90 second cooldown
-
-}
-
-STRING 4936
-// Items: I00D (Increased Stamina - [|cffc0c0c0Strength|r] [|cffffcc00Level 2|r]), Ubertip (Tooltip - Extended)
-{
-Your Hero has increased Movement Speed but takes more damage for a short period of time.
-
-50 Mana
-40% faster movement speed
-30% more damage taken
-90 second cooldown
-
-}
-
-STRING 4937
-// Items: I00E (Increased Stamina - [|cffc0c0c0Strength|r] [|cffffcc00Level 3|r]), Description (Description)
-{
-Your Hero has increased Movement Speed but takes more damage for a short period of time.
-
-50 Mana
-40% faster movement speed
-30% more damage taken
-90 second cooldown
-
-}
-
-STRING 4938
-// Items: I00E (Increased Stamina - [|cffc0c0c0Strength|r] [|cffffcc00Level 3|r]), Ubertip (Tooltip - Extended)
-{
-Your Hero has increased Movement Speed but takes more damage for a short period of time.
-
-50 Mana
-40% faster movement speed
-30% more damage taken
-90 second cooldown
-
 }
 
 STRING 4939
@@ -14705,5 +14633,83 @@ STRING 4993
 // Abilities: A05S (Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 3|r]), Name (Name)
 {
 Focus - [|cffc0c0c0Assassin|r] [|cffffcc00Level 3|r]
+}
+
+STRING 4994
+// Items: I007 (Increased Stamina - [|cffc0c0c0Strength|r] [|cffffcc00Level 1|r]), Description (Description)
+{
+Your Hero has increased Movement Speed but takes more damage for a short period of time.
+
+50 Mana
+10 second duration
+60% faster movement speed
+60% more damage taken
+90 second cooldown
+
+}
+
+STRING 4995
+// Items: I007 (Increased Stamina - [|cffc0c0c0Strength|r] [|cffffcc00Level 1|r]), Ubertip (Tooltip - Extended)
+{
+Your Hero has increased Movement Speed but takes more damage for a short period of time.
+
+50 Mana
+10 second duration
+60% faster movement speed
+60% more damage taken
+90 second cooldown
+
+}
+
+STRING 4996
+// Items: I00D (Increased Stamina - [|cffc0c0c0Strength|r] [|cffffcc00Level 2|r]), Description (Description)
+{
+Your Hero has increased Movement Speed but takes more damage for a short period of time.
+
+25 Mana
+10 second duration
+70% faster movement speed
+40% more damage taken
+75 second cooldown
+
+}
+
+STRING 4997
+// Items: I00D (Increased Stamina - [|cffc0c0c0Strength|r] [|cffffcc00Level 2|r]), Ubertip (Tooltip - Extended)
+{
+Your Hero has increased Movement Speed but takes more damage for a short period of time.
+
+25 Mana
+10 second duration
+70% faster movement speed
+40% more damage taken
+75 second cooldown
+
+}
+
+STRING 4998
+// Items: I00E (Increased Stamina - [|cffc0c0c0Strength|r] [|cffffcc00Level 3|r]), Description (Description)
+{
+Your Hero has increased Movement Speed but takes more damage for a short period of time.
+
+50 Mana
+10 second duration
+60% faster movement speed
+60% more damage taken
+90 second cooldown
+
+}
+
+STRING 4999
+// Items: I00E (Increased Stamina - [|cffc0c0c0Strength|r] [|cffffcc00Level 3|r]), Ubertip (Tooltip - Extended)
+{
+Your Hero has increased Movement Speed but takes more damage for a short period of time.
+
+0 Mana
+10 second duration
+80% faster movement speed
+20% more damage taken
+40 second cooldown
+
 }
 

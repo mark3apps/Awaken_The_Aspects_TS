@@ -73,28 +73,29 @@ export namespace ABILITY {
         new AbilityFelGrunt({
             four: ID.Ability.FelGrunt,
             type: EffectType.Kill,
-            target: TargetType.None
+            target: TargetType.SupportSelf
         })
         new AbilityFelOgre({
             four: ID.Ability.FelOgre,
             type: EffectType.Kill,
-            target: TargetType.None
+            target: TargetType.SupportSelf
         })
         new AbilityFelWarlord({
             four: ID.Ability.FelWarlord,
             type: EffectType.Kill,
-            target: TargetType.None
+            target: TargetType.SupportSelf
         })
         new AbilityFelWarlock({
             four: ID.Ability.FelWarlock,
             type: EffectType.Kill,
-            target: TargetType.None
+            target: TargetType.SupportSelf
         })
 
         new AbilityFootmanUpgrade({
             four: ID.Ability.FootmanCharge,
             orderId: OrderId.Bearform,
-            type: EffectType.Instant
+            type: EffectType.Instant,
+            target: TargetType.SupportSelf
         })
 
 
@@ -107,25 +108,25 @@ export namespace ABILITY {
             four: ID.Ability.Drain,
             type: EffectType.Channel,
             orderId: OrderId.Stomp,
-            target: TargetType.None
+            target: TargetType.DamageAround
         })
         BrawlerBloodlust = new Ability({
             four: ID.Ability.Bloodlust,
             orderId: OrderId.Stomp,
             type: EffectType.Instant,
-            target: TargetType.None
+            target: TargetType.SupportSelf
         })
         BrawlerWarstomp = new Ability({
             four: ID.Ability.Warstomp,
             orderId: OrderId.Stomp,
             type: EffectType.Instant,
-            target: TargetType.None
+            target: TargetType.DamageAround
         })
         BrawlerUnleashRage = new Ability({
             four: ID.Ability.UnleashRage,
             type: EffectType.Channel,
             orderId: OrderId.Stomp,
-            target: TargetType.None
+            target: TargetType.DamageAround
         })
 
         // Mana Addict Abilities
@@ -135,7 +136,7 @@ export namespace ABILITY {
             orderIdOff: OrderId.Manashieldoff,
             buffFour: ID.Buff.ManaShield,
             type: EffectType.Instant,
-            target: TargetType.None,
+            target: TargetType.SupportSelf,
             permanent: true,
             starting: true,
             ult: false
@@ -144,7 +145,7 @@ export namespace ABILITY {
             four: ID.Ability.ManaBomb,
             orderId: OrderId.Flamestrike,
             type: EffectType.Instant,
-            target: TargetType.Point,
+            target: TargetType.DamageArea,
             permanent: true,
             starting: false,
             ult: false
@@ -153,7 +154,7 @@ export namespace ABILITY {
             four: ID.Ability.ManaExplosion,
             orderId: OrderId.Thunderclap,
             type: EffectType.Instant,
-            target: TargetType.None,
+            target: TargetType.CrippleAround,
             permanent: true,
             starting: true,
             ult: false
@@ -163,7 +164,7 @@ export namespace ABILITY {
             orderId: OrderId.Clusterrockets,
             buffFour: ID.Buff.ManaAddictSoulBind,
             type: EffectType.Instant,
-            target: TargetType.AOE,
+            target: TargetType.ModifyArea,
             permanent: true,
             starting: true,
             ult: false
@@ -172,7 +173,7 @@ export namespace ABILITY {
             four: ID.Ability.UnleashMana,
             type: EffectType.Channel,
             orderId: OrderId.Starfall,
-            target: TargetType.None,
+            target: TargetType.DamageAround,
             permanent: true,
             starting: false,
             ult: true
@@ -207,7 +208,7 @@ export namespace ABILITY {
             four: ID.Ability.MirrorSwitch,
             orderId: OrderId.Reveal,
             type: EffectType.None,
-            target: TargetType.None,
+            target: TargetType.Specific,
             permanent: true,
             starting: true,
             ult: false
@@ -216,7 +217,7 @@ export namespace ABILITY {
             four: ID.Ability.Shift,
             orderId: OrderId.Berserk,
             type: EffectType.Instant,
-            target: TargetType.None,
+            target: TargetType.SupportSelf,
             permanent: true,
             starting: true,
             ult: false
@@ -225,7 +226,7 @@ export namespace ABILITY {
             four: ID.Ability.FallingStrike,
             type: EffectType.Channel,
             orderId: OrderId.Thunderbolt,
-            target: TargetType.Point,
+            target: TargetType.DamageAreaTarget,
             permanent: true,
             starting: true,
             ult: false
@@ -233,8 +234,8 @@ export namespace ABILITY {
         ShiftMasterShiftStorm = new Ability({
             four: ID.Ability.ShiftStorm,
             orderId: OrderId.Channel,
-            type: EffectType.None,
-            target: TargetType.None,
+            type: EffectType.Instant,
+            target: TargetType.Specific,
             permanent: true,
             starting: false,
             ult: true
@@ -242,8 +243,8 @@ export namespace ABILITY {
         ShiftMasterFelForm = new Ability({
             four: ID.Ability.FelForm,
             orderId: OrderId.Metamorphosis,
-            type: EffectType.None,
-            target: TargetType.None,
+            type: EffectType.Instant,
+            target: TargetType.SupportSelf,
             permanent: true,
             starting: false,
             ult: false
@@ -253,6 +254,8 @@ export namespace ABILITY {
         TactitionInspire = new Ability({
             four: ID.Ability.Inspire,
             orderId: OrderId.Channel,
+            type: EffectType.Instant,
+            target: TargetType.SupportAround,
             permanent: true,
             starting: false,
             ult: true
@@ -260,6 +263,8 @@ export namespace ABILITY {
         TactitionIronDefense = new Ability({
             four: ID.Ability.IronDefense,
             orderId: OrderId.Roar,
+            type: EffectType.Instant,
+            target: TargetType.SupportSelf,
             permanent: true,
             starting: true,
             ult: false
@@ -267,6 +272,8 @@ export namespace ABILITY {
         TactitionRaiseBanner = new Ability({
             four: ID.Ability.RaiseBanner,
             orderId: OrderId.Healingward,
+            type: EffectType.Instant,
+            target: TargetType.SupportArea,
             permanent: true,
             starting: true,
             ult: false
@@ -274,6 +281,8 @@ export namespace ABILITY {
         TactitionAttack = new Ability({
             four: ID.Ability.Attack,
             orderId: OrderId.Fingerofdeath,
+            type: EffectType.Instant,
+            target: TargetType.Specific,
             permanent: true,
             starting: true,
             ult: false
@@ -281,6 +290,8 @@ export namespace ABILITY {
         TactitionBolster = new Ability({
             four: ID.Ability.Bolster,
             orderId: OrderId.Tranquility,
+            type: EffectType.Instant,
+            target: TargetType.SupportAround,
             permanent: true,
             starting: true,
             ult: false
@@ -290,6 +301,8 @@ export namespace ABILITY {
         TimeMageChronoAtrophy = new Ability({
             four: ID.Ability.ChronoAtrophy,
             orderId: OrderId.Flamestrike,
+            type: EffectType.Instant,
+            target: TargetType.ModifyArea,
             permanent: true,
             starting: true,
             ult: false
@@ -297,6 +310,8 @@ export namespace ABILITY {
         TimeMageDecay = new Ability({
             four: ID.Ability.Decay,
             orderId: OrderId.Shadowstrike,
+            type: EffectType.Instant,
+            target: TargetType.ModifySingle,
             permanent: true,
             starting: true,
             ult: false
@@ -304,14 +319,17 @@ export namespace ABILITY {
         TimeMageTimeTravel = new Ability({
             four: ID.Ability.TimeTravel,
             orderId: OrderId.Clusterrockets,
+            type: EffectType.Instant,
+            target: TargetType.ModifyArea,
             permanent: true,
             starting: false,
             ult: false
         })
         TimeMageParadox = new Ability({
             four: ID.Ability.Paradox,
-            type: EffectType.Channel,
             orderId: OrderId.Tranquility,
+            type: EffectType.Channel,
+            target: TargetType.ModifyAround,
             permanent: true,
             starting: false,
             ult: true

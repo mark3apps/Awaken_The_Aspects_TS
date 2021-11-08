@@ -571,6 +571,7 @@ export class Unit extends Widget {
 		return UnitAddItem(this.handle, whichItem.handle)
 	}
 
+
 	public addItemById(itemId: number): Item {
 		return Item.fromHandle(UnitAddItemById(this.handle, itemId))
 	}
@@ -827,6 +828,22 @@ export class Unit extends Widget {
 
 	public hasItem(whichItem: Item) {
 		return UnitHasItem(this.handle, whichItem.handle)
+	}
+
+	public hasItemOfType(itemType: string | number) {
+		
+		const itemId = typeof itemType === "string" ? FourCC(itemType) : itemType
+
+		let index = 0
+		while (index < bj_MAX_INVENTORY) {
+			const indexItem = UnitItemInSlot(this.handle, index)
+			if ((indexItem != null) && (GetItemTypeId(indexItem) == itemId)) {
+				return true
+			}
+
+			index = index + 1
+		}
+		return false
 	}
 
 	public hasAbility(ability: Ability | number): boolean {

@@ -281,6 +281,8 @@ gg_cam_intro10 = nil
 gg_cam_intro11 = nil
 gg_cam_intro12 = nil
 gg_cam_intro13 = nil
+gg_cam_baseLeftPanStart = nil
+gg_cam_baseRightPanStart = nil
 gg_snd_PurgeTarget1 = nil
 gg_snd_BattleNetTick = nil
 gg_snd_CreepAggroWhat1 = nil
@@ -404,8 +406,6 @@ gg_unit_ndh2_0359 = nil
 gg_unit_ndh2_0876 = nil
 gg_unit_edob_0304 = nil
 gg_unit_h002_0699 = nil
-gg_cam_baseLeftPanStart = nil
-gg_cam_baseRightPanStart = nil
 function InitGlobals()
     local i = 0
     udg_PLAYERGRPallied = CreateForce()
@@ -2954,6 +2954,7 @@ function CreateBuildingsForPlayer20()
     u = BlzCreateUnitWithSkin(p, FourCC("negt"), -20416.0, -3776.0, 270.000, FourCC("negt"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00U"), -21422.2, -11004.9, 0.000, FourCC("n00U"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00T"), -19072.0, -12352.0, 270.000, FourCC("n00T"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h00X"), -14336.0, -6784.0, 270.000, FourCC("h00X"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00X"), -17152.0, -5312.0, 270.000, FourCC("h00X"))
     gg_unit_nheb_0109 = BlzCreateUnitWithSkin(p, FourCC("nheb"), -24864.0, 1312.0, 270.000, FourCC("nheb"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00X"), -15808.0, -6464.0, 270.000, FourCC("h00X"))
@@ -3777,9 +3778,7 @@ function CreateNeutralHostile()
     u = BlzCreateUnitWithSkin(p, FourCC("nvdl"), -1491.1, 773.8, 34.608, FourCC("nvdl"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvdl"), -1043.4, 1727.3, 6.175, FourCC("nvdl"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvdl"), -2247.5, 2937.4, 38.420, FourCC("nvdl"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nggg"), -15463.2, -15749.1, 97.346, FourCC("nggg"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -1204.4, 328.0, 189.817, FourCC("nvdg"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nggg"), -13613.4, 6403.1, -69.422, FourCC("nggg"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvdl"), -1105.7, 721.1, 235.840, FourCC("nvdl"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -1540.5, 571.1, 28.082, FourCC("nvdg"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvdl"), -1158.9, 1639.8, 164.064, FourCC("nvdl"))

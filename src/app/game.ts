@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ARMY } from "./definitions/armies"
 import { FACTION } from "./definitions/factions"
 import { FORCE } from "./definitions/forces"
@@ -15,6 +14,7 @@ import { CINEMATIC } from "./definitions/cinematics"
 import { HERO_TYPE } from "./definitions/heroTypes"
 import { HEROES } from "./definitions/heroes"
 import { ATTRIBUTE } from "./definitions/attributes"
+import { ITEM_UPGRADES } from "./definitions/itemUpgrades"
 
 
 
@@ -24,8 +24,6 @@ export namespace Game {
     export const mapInit = (): void => {
 
         Log.Information("Game Init Start")
-
-        
         
         REGION.define()
         EVENT.define()
@@ -33,6 +31,7 @@ export namespace Game {
         PATHING.define()
         ATTRIBUTE.define()
         ABILITY.define()
+        ITEM_UPGRADES.define()
         HERO_TYPE.define()
         HEROES.define()
         

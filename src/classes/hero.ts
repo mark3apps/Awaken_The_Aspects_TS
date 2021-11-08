@@ -1,28 +1,81 @@
-import { MapPlayer, Unit } from "lib/w3ts/index"
+import { Log } from "app/systems/log"
+import { OrderId } from "lib/w3ts/globals/order"
+import { Group, MapPlayer, Timer, Unit } from "lib/w3ts/index"
 import { HeroType } from "./herotype"
+import { IState, StateMachine } from "./stateMachine"
 import { UnitAbility } from "./unitAbility"
 
 export class Hero extends Unit {
 
     unitAbilities: UnitAbility[] = []
+    private stateMachine: StateMachine
+
+    private AITickTimer = new Timer()
+    private AITickIncrement = 1.2
+    private AIActivated = false
+
+    AIpowerBase = 0
+    AIpowerHero = 0
+
+    AIunitCount = 0
+    AIunitCountAlly = 0
+    AIUnitCoundEnemy = 0
+
+    AImostPowerfulAlly = 0
+    AImostPowerfulAllyUnit: Unit = null
+    AImostPowerfulEnemy = 0
+    AImostPowerfulEnemyUnit: Unit = null
+
+    AIclumpAllyUnit: Unit
+    AIclumpAllyCount = 0
+    AIclumpAllyPower = 0
+    AIclumpEnemyUnit: Unit
+    AIclumpEnemyCount = 0
+    AIclumpEnemyPower = 0
+    AIclumpAllUnit: Unit
+    AIclumpAllCount = 0
+    AIclumpAllPower = 0
+
+    AIheroesAlly = new Group()
+    AIheroesEnemy = new Group()
+
+    AIhealthHistory: number[] = []
+    AIhealthHistoryAverageSingle = 0
+    AIhealthHistoryAverageAll = 0
+
+    AIweightedHealth = 0
+    AIweightedHealthMax = 0
+    AIweightedHealthPercent = 0
+
     static map: Map<Unit, Hero> = new Map<Unit, Hero>()
     static readonly all: Hero[] = []
     static human: Hero[] = []
     static ai: Hero[] = []
 
+
     constructor(owner: MapPlayer | number, unitId: number, x: number, y: number, face: number, skinId?: number) {
         super(owner, unitId, x, y, face, skinId)
-        this.data.heroType = HeroType.get(this)
-        this.setupHero()
 
-        Hero.map.set(this as Unit, this)
-        Hero.all.push(this)
+        try {
+            this.data.heroType = HeroType.get(this)
+            this.setupHero()
 
-        if (this.owner.controller == MAP_CONTROL_COMPUTER) {
-            Hero.ai.push(this)
-        } else {
-            Hero.human.push(this)
+            Hero.map.set(this as Unit, this)
+            Hero.all.push(this)
+
+            if (this.owner.controller == MAP_CONTROL_COMPUTER) {
+                Hero.ai.push(this)
+            } else {
+                Hero.human.push(this)
+            }
+
+
+            this.AIstart()
+        } catch (error) {
+            Log.Error("Hero Creation", error)
         }
+
+
     }
 
     public static get(unit: Unit): Hero {
@@ -33,6 +86,131 @@ export class Hero extends Unit {
         }
     }
 
+
+    // AI Methods
+    public AIstart(tick = this.AITickIncrement): void {
+
+        Log.Information("Starting AI for", this.nameProper)
+
+        this.stateMachine = new StateMachine(this)
+        this.AITickIncrement = tick
+
+        // Add all of the Hero Type Specified States
+        this.stateMachine.addState(this.STATEattack())
+        this.stateMachine.addState(this.STATEheal())
+        this.stateMachine.addState(this.STATEcast())
+        this.stateMachine.addState(this.STATEdead())
+        this.stateMachine.addState(this.STATEflee())
+
+        // Set the starting State
+        this.stateMachine.setState("attack")
+
+        // Start the AI Loop Timer        
+        this.AITickTimer.start(tick, true, () => this.AIexecute())
+    }
+
+
+    public AIpause(): void {
+        this.AITickTimer.pause()
+    }
+
+
+
+    public AIexecute(): void {
+
+        this.AIintel()
+        this.stateMachine.update()
+
+        // Nothing at the moment
+    }
+
+    public AIintel(): void {
+        //
+    }
+
+    public AIlevelup(): void {
+        // 
+    }
+
+    private STATEdead(): IState {
+        return {
+            name: "dead",
+            onEnter: () => {
+                this.name
+            },
+            onUpdate: () => {
+                //
+            },
+            onExit: () => {
+                //
+            }
+        }
+    }
+
+    private STATEcast(): IState {
+        return {
+            name: "cast",
+            onEnter: () => {
+                this.name
+            },
+            onUpdate: () => {
+                //
+            },
+            onExit: () => {
+                //
+            }
+        }
+    }
+
+    private STATEheal(): IState {
+        return {
+            name: "heal",
+            onEnter: () => {
+                Log.Information("Heal")
+            },
+            onUpdate: () => {
+                Log.Information("Healing")
+            },
+            onExit: () => {
+                //
+            }
+        }
+    }
+
+    private STATEattack(): IState {
+        return {
+            name: "attack",
+            onEnter: () => {
+                Log.Information("Attack", this.nameProper)
+                this.issueOrderAt(OrderId.Attack, 0, 0)
+            },
+            onUpdate: () => {
+                Log.Information("Attacking")
+            },
+            onExit: () => {
+                Log.Information("End Attack")
+            }
+        }
+    }
+
+    private STATEflee(): IState {
+
+        return {
+            name: "flee",
+            onEnter: () => {
+                this.name
+            },
+            onUpdate: () => {
+                //
+            },
+            onExit: () => {
+                //
+            }
+        }
+    }
+
+
+    // General Methods
     public setupHero(): void {
         if (this.data.heroType != undefined) {
             this.addStartingAbilities()
@@ -55,8 +233,8 @@ export class Hero extends Unit {
 
             // Add Attribute Items
             for (let n = 0; n < this.data.heroType.attributes.length; n++) {
-                const element = this.data.heroType.attributes[n];
-                
+                const element = this.data.heroType.attributes[n]
+
                 for (let i = 0; i < element.items.length; i++) {
                     const item = element.items[i].id
                     this.addItemById(item)
@@ -79,32 +257,32 @@ export class Hero extends Unit {
         if (this.data.heroType != undefined) {
 
             for (let i = 0; i < this.data.heroType.startingSpells.length; i++) {
-                this.selectSkill(this.data.heroType.startingSpells[i].id)
                 this.skillPoints += 1
+                this.selectSkill(this.data.heroType.startingSpells[i].id)
+                this.skillPoints -= 1
             }
-            this.skillPoints -= 1
         }
     }
 
     // Static Event Overrides
 
-    public static fromEnum(): Hero {
+    public static override fromEnum(): Hero {
         return this.fromHandle(GetEnumUnit())
     }
 
-    public static fromEvent(): Hero {
+    public static override fromEvent(): Hero {
         return this.fromHandle(GetTriggerUnit())
     }
 
-    public static fromFilter(): Hero {
+    public static override fromFilter(): Hero {
         return this.fromHandle(GetFilterUnit())
     }
 
-    public static fromAttackingUnit(): Hero {
+    public static override fromAttackingUnit(): Hero {
         return this.fromHandle(GetAttacker())
     }
 
-    public static fromHandle(handle: unit): Hero {
+    public static override fromHandle(handle: unit): Hero {
         const unit: Unit = this.getObject(handle)
 
         if (!unit.isHero) {
@@ -112,12 +290,5 @@ export class Hero extends Unit {
         } else {
             return unit as Hero
         }
-    }
-
-
-
-
-    public testingThis(): void {
-        //
     }
 }
