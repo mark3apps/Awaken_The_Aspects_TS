@@ -9,14 +9,13 @@ import { REGION } from "./definitions/regions"
 import { PATHING } from "./systems/pathing"
 import { Log } from "./systems/log"
 import { Gate } from "classes/gate"
-import { HERO_ABILITY } from "app/definitions/heroAbilities"
 import { CINEMATIC } from "./definitions/cinematics"
 import { HERO_TYPE } from "./definitions/heroTypes"
 import { HERO } from "./definitions/heroes"
 import { ATTRIBUTE } from "./definitions/attributes"
 import { ITEM_UPGRADE } from "./definitions/itemUpgrades"
 import { Ability } from "classes/ability"
-import { UNIT_ABILITY } from "./definitions/unitAbilities"
+import { NORMAL_ABILITY } from "./definitions/normalAbilities"
 
 
 
@@ -32,8 +31,7 @@ export namespace Game {
         DEATH_SPAWN.define()
         PATHING.define()
         ATTRIBUTE.define()
-        UNIT_ABILITY.define()
-        HERO_ABILITY.define()
+        NORMAL_ABILITY.define()
         ITEM_UPGRADE.define()
         HERO_TYPE.define()
         HERO.define()

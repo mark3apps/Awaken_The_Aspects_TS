@@ -50,6 +50,7 @@ export const enum TargetType {
 
 export interface AbilityParameters {
     four: ID.Ability,
+    addEffect?: boolean,
     buffFour?: ID.Buff,
     type?: EffectType,
     target?: TargetType,
@@ -77,6 +78,7 @@ export class Ability {
     readonly permanent?: boolean
     readonly starting?: boolean
     readonly ult?: boolean
+    readonly addEvent?: boolean
 
     onEffect: (ability?: Ability) => void = (): void => { return undefined }
 
@@ -85,68 +87,66 @@ export class Ability {
 
     constructor(ability: AbilityParameters) {
 
-        if (ability.type == null) { ability.type = EffectType.None }
-        if (ability.target == null) { ability.target = TargetType.None }
-
         this.four = ability.four
         this.buffFour = ability.buffFour
-        this.type = ability.type
-        this.target = ability.target
+        this.type = ability.type ?? EffectType.None
+        this.target = ability.target ?? TargetType.None
         this.orderId = ability.orderId
         this.orderIdAutoOff = ability.orderIdAutoOff
         this.orderIdAutoOn = ability.orderIdAutoOn
         this.orderIdOff = ability.orderIdOff
         this.unitType = ability.unitType
-        this.permanent = ability.permanent
-        this.starting = ability.starting
-        this.ult = ability.ult
-        this.permanent = ability.permanent
-        this.starting = ability.starting
-        this.ult = ability.ult
+
+        this.permanent = ability.permanent ?? false
+        this.starting = ability.starting ?? false
+        this.ult = ability.ult ?? false
+        this.addEvent = ability.addEffect ?? false
 
         // If ability hasn't been definited before
         if (!Ability.map.has(this.four)) {
 
             Ability.map.set(this.four, this)
 
-            switch (this.type) {
-                case EffectType.Kill:
-                    EVENT.unitDies.add(() => {
-                        if (Unit.fromHandle(GetKillingUnit()).hasAbility(this)) {
-                            this.onEffect(this)
-                        }
-                    })
-                    break
+            if (this.addEvent) {
+                switch (this.type) {
+                    case EffectType.Kill:
+                        EVENT.unitDies.add(() => {
+                            if (Unit.fromHandle(GetKillingUnit()).hasAbility(this)) {
+                                this.onEffect(this)
+                            }
+                        })
+                        break
 
-                case EffectType.Death:
-                    EVENT.unitDies.add(() => {
-                        if (Unit.fromEvent().hasAbility(this)) {
-                            this.onEffect(this)
-                        }
-                    })
-                    break
+                    case EffectType.Death:
+                        EVENT.unitDies.add(() => {
+                            if (Unit.fromEvent().hasAbility(this)) {
+                                this.onEffect(this)
+                            }
+                        })
+                        break
 
-                case EffectType.Attacked:
-                    EVENT.unitAttacked.add(() => {
-                        if (Unit.fromEvent().hasAbility(this.id)) {
-                            this.onEffect(this)
-                        }
-                    })
-                    break
+                    case EffectType.Attacked:
+                        EVENT.unitAttacked.add(() => {
+                            if (Unit.fromEvent().hasAbility(this.id)) {
+                                this.onEffect(this)
+                            }
+                        })
+                        break
 
-                case EffectType.Attacking:
-                    EVENT.unitAttacked.add(() => {
-                        if (Unit.fromAttackingUnit().hasAbility(this.id)) {
-                            this.onEffect(this)
-                        }
-                    })
-                    break
+                    case EffectType.Attacking:
+                        EVENT.unitAttacked.add(() => {
+                            if (Unit.fromAttackingUnit().hasAbility(this.id)) {
+                                this.onEffect(this)
+                            }
+                        })
+                        break
 
-                case EffectType.Instant:
-                    Ability.mapInstant.set(this.four, this)
-                    break
-                default:
-                    break
+                    case EffectType.Instant:
+                        Ability.mapInstant.set(this.four, this)
+                        break
+                    default:
+                        break
+                }
             }
         }
     }
@@ -154,9 +154,9 @@ export class Ability {
     public static initSpellEffects(): void {
         try {
             EVENT.unitSpellEffect.add(() => {
-    
+
                 if (Ability.mapInstant.has(CC2Four(GetSpellAbilityId()))) {
-                    
+
                     const ability = this.fromSpellEvent()
                     ability.onEffect(ability)
                 }
@@ -164,7 +164,7 @@ export class Ability {
         } catch (error) {
             Log.Error("Cast Spell", error)
         }
-        
+
     }
 
     public static fromSpellEvent(): Ability {

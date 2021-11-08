@@ -1,20 +1,15 @@
-
-import { HERO_ABILITY } from "app/definitions/heroAbilities"
 import { ATTRIBUTE } from "app/definitions/attributes"
 import { Strategy } from "lib/resources/strategy"
 import { UNIT_TYPE } from "../../app/definitions/unitTypes"
 import { HeroType } from "../herotype"
+import { Ability, EffectType, TargetType } from "classes/ability"
+import { ID } from "lib/w3ts/globals/ids"
+import { OrderId } from "lib/w3ts/globals/order"
 
 export class BrawlerHeroType extends HeroType {
 
     constructor() {
         super(UNIT_TYPE.Brawler, UNIT_TYPE.BrawlerAlter, "Brawler")
-
-        // Brawler Hero Setup
-        this.addAbility(HERO_ABILITY.BrawlerBloodlust)
-        this.addAbility(HERO_ABILITY.BrawlerDrain)
-        this.addAbility(HERO_ABILITY.BrawlerWarstomp)
-        this.addAbility(HERO_ABILITY.BrawlerUnleashRage)
 
         // Attributes
         this.addHeroAttribute(ATTRIBUTE.strength)
@@ -22,10 +17,9 @@ export class BrawlerHeroType extends HeroType {
         this.addHeroAttribute(ATTRIBUTE.brawler)
 
         // Items
-        
 
 
-        // Brawler AI Setup
+        // AI Setup
         this.lifeFactor = 1
         this.manaFactor = 0.02
         this.lifeHighPercent = 65
@@ -39,8 +33,57 @@ export class BrawlerHeroType extends HeroType {
         this.unitClumpRange = 100
         this.intelRange = 1100
         this.intelCloseRange = 500
+
+        this.traitAgressive = 80
+        this.traitDefensive = 60
+        this.traitSupport = 30
+        this.traitAssassinate = 0
+
         this.addStrategy(Strategy.Agressive)
         this.addStrategy(Strategy.Neutral)
         this.addStrategy(Strategy.Defensive)
+
+        // Abilities
+
+        // Drain
+        this.addAbility(new Ability({
+            four: ID.Ability.Drain,
+            type: EffectType.Channel,
+            orderId: OrderId.Stomp,
+            target: TargetType.DamageAround,
+            permanent: true
+        }))
+
+        // Bloodlust
+        this.addAbility(new Ability({
+            four: ID.Ability.Bloodlust,
+            orderId: OrderId.Stomp,
+            type: EffectType.Instant,
+            target: TargetType.SupportSelf,
+            permanent: true,
+            starting: true
+        }))
+
+        // Warstomp
+        this.addAbility(new Ability({
+            four: ID.Ability.Warstomp,
+            orderId: OrderId.Stomp,
+            type: EffectType.Instant,
+            target: TargetType.DamageAround,
+            permanent: true,
+            starting: true
+        }))
+
+        // Unleash Rage
+        this.addAbility(new Ability({
+            four: ID.Ability.UnleashRage,
+            type: EffectType.Channel,
+            orderId: OrderId.Stomp,
+            target: TargetType.DamageAround,
+            permanent: true,
+            starting: false,
+            ult: true
+        }))
+
     }
 }
