@@ -6539,6 +6539,7 @@ end
 
 function InitTrig_Attack_INIT()
     gg_trg_Attack_INIT = CreateTrigger()
+    DisableTrigger(gg_trg_Attack_INIT)
     TriggerAddAction(gg_trg_Attack_INIT, Trig_Attack_INIT_Actions)
 end
 
@@ -6646,6 +6647,7 @@ end
 
 function InitTrig_Attack_CAST()
     gg_trg_Attack_CAST = CreateTrigger()
+    DisableTrigger(gg_trg_Attack_CAST)
     TriggerRegisterAnyUnitEventBJ(gg_trg_Attack_CAST, EVENT_PLAYER_UNIT_SPELL_CAST)
     TriggerAddCondition(gg_trg_Attack_CAST, Condition(Trig_Attack_CAST_Conditions))
     TriggerAddAction(gg_trg_Attack_CAST, Trig_Attack_CAST_Actions)
@@ -7438,7 +7440,6 @@ end
 function RunInitializationTriggers()
     ConditionalTriggerExecute(gg_trg_Paradox_INIT)
     ConditionalTriggerExecute(gg_trg_Time_Travel_INIT)
-    ConditionalTriggerExecute(gg_trg_Attack_INIT)
     ConditionalTriggerExecute(gg_trg_Hash_INIT)
     ConditionalTriggerExecute(gg_trg_Melee_Initialization)
 end

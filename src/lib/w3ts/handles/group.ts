@@ -36,6 +36,10 @@ export class Group extends Handle<group> {
 		GroupEnumUnitsInRange(this.handle, x, y, radius, typeof filter === "function" ? Filter(filter) : filter)
 	}
 
+	public enumUnitsInRangeOfUnit(unit: Unit, radius: number, filter: boolexpr | (() => boolean)): void {
+		GroupEnumUnitsInRange(this.handle, unit.x, unit.y, radius, typeof filter === "function" ? Filter(filter) : filter)
+	}
+
 	/**
 	 * @bug Causes irregular behavior when used with large numbers
 	 */

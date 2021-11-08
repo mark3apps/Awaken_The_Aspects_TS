@@ -11,17 +11,15 @@ export class UnitData {
     public order?: OrderId
     public orderType?: OrderType
     public targetWidget?: Widget
-    public kills: number
-    public assists: number
+    public kills = 0
+    public assists = 0
     public heroType?: HeroType
-    public unitsAttackedBy?: Unit[]
+    public unitsAttackedBy?: Unit[] = []
+    public custom = new Map<string, unknown>()
 
 
     constructor(unit: Unit) {
         this.startX = unit.x
         this.startY = unit.y
-        this.kills = 0
-        this.assists = 0
-        this.unitsAttackedBy = []
     }
 }

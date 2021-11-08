@@ -62,6 +62,12 @@ export namespace ID {
         TactitionAttack = "A01B",
         Bolster = "A01Z",
 
+        AttackSpellBook = "A04L",
+        AttackDamage = "A04X",
+        AttackFocus = "A01E",
+        AttackRage = "A01Q",
+        AttackLoyalty = "A01C",
+
         // Time Mage Abilities
         ChronoAtrophy = "A04K",
         Decay = "A032",
@@ -772,6 +778,7 @@ export namespace ID {
     export const enum Buff {
         // Custom
         ManaAddictSoulBind = "B00F",
+        AttackUnit = "B006",
 
 
         // Default

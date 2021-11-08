@@ -535,8 +535,8 @@ export class Unit extends Widget {
 		return BlzGetUnitZ(this.handle)
 	}
 
-	public addAbility(abilityId: number) {
-		return UnitAddAbility(this.handle, abilityId)
+	public addAbility(abilityId: number | string) {
+		return typeof abilityId === "number" ? UnitAddAbility(this.handle, abilityId) : UnitAddAbility(this.handle, FourCC(abilityId))
 	}
 
 	public addAnimationProps(animProperties: string, add: boolean) {
@@ -824,6 +824,10 @@ export class Unit extends Widget {
 
 	public hasBuffs(removePositive: boolean, removeNegative: boolean, magic: boolean, physical: boolean, timedLife: boolean, aura: boolean, autoDispel: boolean) {
 		return UnitHasBuffsEx(this.handle, removePositive, removeNegative, magic, physical, timedLife, aura, autoDispel)
+	}
+
+	public hasBuff(buffcode: number | string): boolean {
+		return typeof buffcode === "number" ? GetUnitAbilityLevel(this.handle, buffcode) > 0 : GetUnitAbilityLevel(this.handle, FourCC(buffcode)) > 0
 	}
 
 	public hasItem(whichItem: Item) {
@@ -1254,8 +1258,8 @@ export class Unit extends Widget {
 		RecycleGuardPosition(this.handle)
 	}
 
-	public removeAbility(abilityId: number) {
-		return UnitRemoveAbility(this.handle, abilityId)
+	public removeAbility(abilityId: number | string) {
+		return typeof abilityId === "number" ? UnitRemoveAbility(this.handle, abilityId) : UnitRemoveAbility(this.handle, FourCC(abilityId))
 	}
 
 	public removeBuffs(removePositive: boolean, removeNegative: boolean) {
@@ -1330,8 +1334,8 @@ export class Unit extends Widget {
 		BlzSetUnitAbilityCooldown(this.handle, abilId, level, cooldown)
 	}
 
-	public setAbilityLevel(abilCode: number, level: number) {
-		return SetUnitAbilityLevel(this.handle, abilCode, level)
+	public setAbilityLevel(abilCode: number | string, level: number) {
+		return typeof abilCode === "number" ? SetUnitAbilityLevel(this.handle, abilCode, level) : SetUnitAbilityLevel(this.handle, FourCC(abilCode), level)
 	}
 
 	public setAbilityManaCost(abilId: number, level: number, manaCost: number) {
@@ -1580,6 +1584,10 @@ export class Unit extends Widget {
 
 	public static fromEvent() {
 		return this.fromHandle(GetTriggerUnit())
+	}
+
+	public static fromSpellTarget() {
+		return this.fromHandle(GetSpellTargetUnit())
 	}
 
 	public static fromFilter() {

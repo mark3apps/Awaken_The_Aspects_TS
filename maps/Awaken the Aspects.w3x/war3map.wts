@@ -1304,7 +1304,7 @@ Attack!
 }
 
 STRING 517
-// Abilities: A01C (TC - Attack! Unfaltering Loyaly), EditorSuffix (Editor Suffix)
+// Abilities: A01C (TC - Attack! Loyaly), EditorSuffix (Editor Suffix)
 {
 (unit)
 }
@@ -1315,170 +1315,86 @@ STRING 520
 This unit is attacking!
 }
 
-STRING 528
-// Abilities: A01C (TC - Attack! Unfaltering Loyaly), Name (Name)
-{
-TC - Attack! Unfaltering Loyaly
-}
-
-STRING 529
-// Abilities: A01C (TC - Attack! Unfaltering Loyaly), Tip (Tooltip - Normal)
-{
-Attack! Unfaltering Loyalty - [|cffffcc00Level 1|r]
-}
-
-STRING 530
-// Abilities: A01C (TC - Attack! Unfaltering Loyaly), Tip (Tooltip - Normal)
-{
-Attack! Unfaltering Loyalty - [|cffffcc00Level 2|r]
-}
-
-STRING 531
-// Abilities: A01C (TC - Attack! Unfaltering Loyaly), Tip (Tooltip - Normal)
-{
-Attack! Unfaltering Loyalty - [|cffffcc00Level 3|r]
-}
-
-STRING 532
-// Abilities: A01C (TC - Attack! Unfaltering Loyaly), Tip (Tooltip - Normal)
-{
-Attack! Unfaltering Loyalty - [|cffffcc00Level 4|r]
-}
-
-STRING 533
-// Abilities: A01C (TC - Attack! Unfaltering Loyaly), Tip (Tooltip - Normal)
-{
-Attack! Unfaltering Loyalty - [|cffffcc00Level 5|r]
-}
-
-STRING 534
-// Abilities: A01C (TC - Attack! Unfaltering Loyaly), Tip (Tooltip - Normal)
-{
-Attack! Unfaltering Loyalty - [|cffffcc00Level 6|r]
-}
-
 STRING 535
-// Abilities: A01C (TC - Attack! Unfaltering Loyaly), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01C (TC - Attack! Loyaly), Ubertip (Tooltip - Normal - Extended)
 {
 +<A01C,DataA1,%>% movement speed.
 +<A01C,DataB1,%>%. life regeneration rate.
 }
 
 STRING 536
-// Abilities: A01C (TC - Attack! Unfaltering Loyaly), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01C (TC - Attack! Loyaly), Ubertip (Tooltip - Normal - Extended)
 {
 +<A02C,DataA2,%>% movement speed.
 +<A02C,DataB2,%>%. life regeneration rate.
 }
 
 STRING 537
-// Abilities: A01C (TC - Attack! Unfaltering Loyaly), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01C (TC - Attack! Loyaly), Ubertip (Tooltip - Normal - Extended)
 {
 +<A03C,DataA3,%>% movement speed.
 +<A03C,DataB3,%>%. life regeneration rate.
 }
 
 STRING 538
-// Abilities: A01C (TC - Attack! Unfaltering Loyaly), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01C (TC - Attack! Loyaly), Ubertip (Tooltip - Normal - Extended)
 {
 +<A04C,DataA4,%>% movement speed.
 +<A04C,DataB4,%>%. life regeneration rate.
 }
 
 STRING 539
-// Abilities: A01C (TC - Attack! Unfaltering Loyaly), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01C (TC - Attack! Loyaly), Ubertip (Tooltip - Normal - Extended)
 {
 +<A05C,DataA5,%>% movement speed.
 +<A05C,DataB5,%>%. life regeneration rate.
 }
 
 STRING 540
-// Abilities: A01C (TC - Attack! Unfaltering Loyaly), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01C (TC - Attack! Loyaly), Ubertip (Tooltip - Normal - Extended)
 {
 +<A06C,DataA6,%>% movement speed.
 +<A06C,DataB6,%>%. life regeneration rate.
 }
 
-STRING 543
-// Abilities: A01E (TC - Attack! Increased Focus), Name (Name)
-{
-TC - Attack! Increased Focus
-}
-
-STRING 544
-// Abilities: A01E (TC - Attack! Increased Focus), Tip (Tooltip - Normal)
-{
-Attack! Increased Focus - [|cffffcc00Level 1|r]
-}
-
-STRING 545
-// Abilities: A01E (TC - Attack! Increased Focus), Tip (Tooltip - Normal)
-{
-Attack! Increased Focus - [|cffffcc00Level 2|r]
-}
-
-STRING 546
-// Abilities: A01E (TC - Attack! Increased Focus), Tip (Tooltip - Normal)
-{
-Attack! Increased Focus - [|cffffcc00Level 3|r]
-}
-
-STRING 547
-// Abilities: A01E (TC - Attack! Increased Focus), Tip (Tooltip - Normal)
-{
-Attack! Increased Focus - [|cffffcc00Level 4|r]
-}
-
-STRING 548
-// Abilities: A01E (TC - Attack! Increased Focus), Tip (Tooltip - Normal)
-{
-Attack! Increased Focus - [|cffffcc00Level 5|r]
-}
-
-STRING 549
-// Abilities: A01E (TC - Attack! Increased Focus), Tip (Tooltip - Normal)
-{
-Attack! Increased Focus - [|cffffcc00Level 6|r]
-}
-
 STRING 550
-// Abilities: A01E (TC - Attack! Increased Focus), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01E (TC - Attack! Focus), Ubertip (Tooltip - Normal - Extended)
 {
 +<A01E,DataC1> armor and takes <A01E,DataB1,%>% of damage.
 }
 
 STRING 551
-// Abilities: A01E (TC - Attack! Increased Focus), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01E (TC - Attack! Focus), Ubertip (Tooltip - Normal - Extended)
 {
 +<A02E,DataC2> armor and takes <A02E,DataB2,%>% of damage.
 }
 
 STRING 552
-// Abilities: A01E (TC - Attack! Increased Focus), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01E (TC - Attack! Focus), Ubertip (Tooltip - Normal - Extended)
 {
 +<A03E,DataC3> armor and takes <A03E,DataB3,%>% of damage.
 }
 
 STRING 553
-// Abilities: A01E (TC - Attack! Increased Focus), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01E (TC - Attack! Focus), Ubertip (Tooltip - Normal - Extended)
 {
 +<A04E,DataC4> armor and takes <A04E,DataB4,%>% of damage.
 }
 
 STRING 554
-// Abilities: A01E (TC - Attack! Increased Focus), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01E (TC - Attack! Focus), Ubertip (Tooltip - Normal - Extended)
 {
 +<A05E,DataC5> armor and takes <A05E,DataB5,%>% of damage.
 }
 
 STRING 555
-// Abilities: A01E (TC - Attack! Increased Focus), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01E (TC - Attack! Focus), Ubertip (Tooltip - Normal - Extended)
 {
 +<A06E,DataC6> armor and takes <A06E,DataB6,%>% of damage.
 }
 
 STRING 556
-// Abilities: A01E (TC - Attack! Increased Focus), EditorSuffix (Editor Suffix)
+// Abilities: A01E (TC - Attack! Focus), EditorSuffix (Editor Suffix)
 {
 (unit)
 }
@@ -9416,12 +9332,6 @@ STRING 3745
 Pick Ariadne
 }
 
-STRING 3748
-// Abilities: A04L (TA - Attack! (Spell Book)), Name (Name)
-{
-TA - Attack! (Spell Book)
-}
-
 STRING 3749
 // Abilities: A04J (Chrono Atropy (dummy ENEMIES)), Name (Name)
 {
@@ -14711,5 +14621,131 @@ Your Hero has increased Movement Speed but takes more damage for a short period 
 20% more damage taken
 40 second cooldown
 
+}
+
+STRING 5000
+// Abilities: A01C (TC - Attack! Loyaly), Tip (Tooltip - Normal)
+{
+Attack! Loyalty - [|cffffcc00Level 1|r]
+}
+
+STRING 5001
+// Abilities: A01C (TC - Attack! Loyaly), Tip (Tooltip - Normal)
+{
+Attack! Loyalty - [|cffffcc00Level 2|r]
+}
+
+STRING 5002
+// Abilities: A01C (TC - Attack! Loyaly), Tip (Tooltip - Normal)
+{
+Attack! Loyalty - [|cffffcc00Level 3|r]
+}
+
+STRING 5003
+// Abilities: A01C (TC - Attack! Loyaly), Tip (Tooltip - Normal)
+{
+Attack! Loyalty - [|cffffcc00Level 4|r]
+}
+
+STRING 5004
+// Abilities: A01C (TC - Attack! Loyaly), Tip (Tooltip - Normal)
+{
+Attack! Loyalty - [|cffffcc00Level 5|r]
+}
+
+STRING 5005
+// Abilities: A01C (TC - Attack! Loyaly), Tip (Tooltip - Normal)
+{
+Attack! Loyalty - [|cffffcc00Level 6|r]
+}
+
+STRING 5006
+// Abilities: A01E (TC - Attack! Focus), Tip (Tooltip - Normal)
+{
+Attack! Focus - [|cffffcc00Level 1|r]
+}
+
+STRING 5007
+// Abilities: A01E (TC - Attack! Focus), Tip (Tooltip - Normal)
+{
+Attack! Focus - [|cffffcc00Level 2|r]
+}
+
+STRING 5008
+// Abilities: A01E (TC - Attack! Focus), Tip (Tooltip - Normal)
+{
+Attack! Focus - [|cffffcc00Level 3|r]
+}
+
+STRING 5009
+// Abilities: A01E (TC - Attack! Focus), Tip (Tooltip - Normal)
+{
+Attack! Focus - [|cffffcc00Level 4|r]
+}
+
+STRING 5010
+// Abilities: A01E (TC - Attack! Focus), Tip (Tooltip - Normal)
+{
+Attack! Focus - [|cffffcc00Level 5|r]
+}
+
+STRING 5011
+// Abilities: A01E (TC - Attack! Focus), Tip (Tooltip - Normal)
+{
+Attack! Focus - [|cffffcc00Level 6|r]
+}
+
+STRING 5012
+// Abilities: A04L (TC - Attack! (Spell Book)), Name (Name)
+{
+TC - Attack! (Spell Book)
+}
+
+STRING 5013
+// Abilities: A04X (TC - Attack! Damage), Tip (Tooltip - Normal)
+{
+Attack! Damage- [|cffffcc00Level 1|r]
+}
+
+STRING 5014
+// Abilities: A04X (TC - Attack! Damage), Tip (Tooltip - Normal)
+{
+Attack! Damage- [|cffffcc00Level 2|r]
+}
+
+STRING 5015
+// Abilities: A04X (TC - Attack! Damage), Tip (Tooltip - Normal)
+{
+Attack! Damage- [|cffffcc00Level 3|r]
+}
+
+STRING 5016
+// Abilities: A04X (TC - Attack! Damage), Tip (Tooltip - Normal)
+{
+Attack! Damage- [|cffffcc00Level 4|r]
+}
+
+STRING 5017
+// Abilities: A04X (TC - Attack! Damage), Tip (Tooltip - Normal)
+{
+Attack! Damage- [|cffffcc00Level 5|r]
+}
+
+STRING 5018
+// Abilities: A04X (TC - Attack! Damage), Tip (Tooltip - Normal)
+{
+Attack! Damage- [|cffffcc00Level 6|r]
+}
+
+STRING 5019
+// Abilities: A01C (TC - Attack! Loyaly), Name (Name)
+{
+TC - Attack! Loyaly
+}
+
+STRING 5020
+// Abilities: A01E (TC - Attack! Focus), Name (Name)
+{
+TC - Attack! Focus
 }
 

@@ -166,10 +166,10 @@ export class Hero extends Unit {
         return {
             name: "heal",
             onEnter: () => {
-                Log.Information("Heal")
+                //Log.Information("Heal")
             },
             onUpdate: () => {
-                Log.Information("Healing")
+                //Log.Information("Healing")
             },
             onExit: () => {
                 //
@@ -181,14 +181,14 @@ export class Hero extends Unit {
         return {
             name: "attack",
             onEnter: () => {
-                Log.Information("Attack", this.nameProper)
+                //Log.Information("Attack", this.nameProper)
                 this.issueOrderAt(OrderId.Attack, 0, 0)
             },
             onUpdate: () => {
-                Log.Information("Attacking")
+                //Log.Information("Attacking")
             },
             onExit: () => {
-                Log.Information("End Attack")
+                //Log.Information("End Attack")
             }
         }
     }
@@ -198,7 +198,7 @@ export class Hero extends Unit {
         return {
             name: "flee",
             onEnter: () => {
-                this.name
+                //
             },
             onUpdate: () => {
                 //
@@ -223,7 +223,7 @@ export class Hero extends Unit {
         this.unitAbilities = []
         for (let i = 0; i < this.data.heroType.spells.length; i++) {
             const element = this.data.heroType.spells[i]
-            this.unitAbilities.push(new UnitAbility(element, this))
+            this.unitAbilities.push(new UnitAbility(this, element))
         }
     }
 

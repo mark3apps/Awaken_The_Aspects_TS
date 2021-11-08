@@ -4,7 +4,7 @@ import { Ability, AbilityParameters } from "./ability"
 export class UnitAbility extends Ability {
     public readonly unit!: Unit
 
-    constructor(ability: Ability | AbilityParameters, unit: Unit) {
+    constructor(unit: Unit, ability: Ability | AbilityParameters) {
 
         super(ability as AbilityParameters)
 
@@ -276,6 +276,7 @@ export class UnitAbility extends Ability {
 
     public getLevelField(field: abilitybooleanlevelfield | abilitystringlevelfield | abilityreallevelfield | abilityintegerlevelfield, level: number = this.level): (boolean | number | string) {
         const fieldType = field.toString().substr(0, field.toString().indexOf(":"))
+        level -= 1
 
         switch (fieldType) {
             case "abilitybooleanlevelfield": {

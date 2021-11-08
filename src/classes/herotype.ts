@@ -64,6 +64,22 @@ export class HeroType extends UnitType {
         return HeroType.Key[HeroType.pre + unit.typeId]
     }
 
+    public defineAbilities(): void {
+        // Empty
+    }
+
+    public defineAI(): void {
+        // Empty
+    }
+
+    public defineAttributes(): void {
+        // Empty
+    }
+
+    public defineItems(): void {
+        // Empty
+    }
+
     public addHeroAttribute(attribute: HeroAttribute): void {
         this.attributes.push(attribute)
     }

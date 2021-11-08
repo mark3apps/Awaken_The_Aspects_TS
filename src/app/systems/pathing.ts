@@ -4,6 +4,7 @@ import { REGION } from "app/definitions/regions"
 import { UNIT_TYPE } from "app/definitions/unitTypes"
 import { Loc } from "classes/loc"
 import { Coordinate } from "lib/resources/coordinate"
+import { ID } from "lib/w3ts/globals/ids"
 import { OrderId } from "lib/w3ts/globals/order"
 import { Group, Rectangle, Region, Timer, Unit } from "lib/w3ts/index"
 import { EVENT } from "./events"
@@ -133,6 +134,10 @@ const OrderIdIgnore = [
     OrderId.Firebolt
 ]
 
+const BuffIdIgnore = [
+    ID.Buff.AttackUnit
+]
+
 const OrderIdIgnoreWithDelay = [
     OrderId.Rainoffire,
     OrderId.Tranquility,
@@ -168,16 +173,14 @@ export namespace PATHING {
 
             if (SpawnedTypes.indexOf(eventUnit.typeId) != -1) {
 
-                const timer = new Timer()
-
-                if (OrderIdIgnore.indexOf(eventOrder) != -1) {
-
+                if (OrderIdIgnore.indexOf(eventOrder) != -1 && !eventUnit.hasBuff(BuffIdIgnore[0])) {
+                    const timer = new Timer()
                     timer.start(1, false, () => {
                         eventUnit.issueLastOrder()
                     }).destroy
 
                 } else if (OrderIdIgnoreWithDelay.indexOf(eventOrder) != -1) {
-
+                    const timer = new Timer()
                     timer.start(6, false, () => {
                         eventUnit.issueLastOrder()
                     }).destroy

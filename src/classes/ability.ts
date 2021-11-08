@@ -192,10 +192,6 @@ export class Ability {
         return FourCC(this.buffFour)
     }
 
-    public get properName(): string {
-        return GetAbilityName(this.id)
-    }
-
     public get icon(): string {
         return BlzGetAbilityIcon(this.id)
     }
