@@ -14749,3 +14749,21 @@ STRING 5020
 TC - Attack! Focus
 }
 
+STRING 5021
+// Buffs/Effects: B00I (Inspired Unit), EditorName (Name (Editor Only))
+{
+Inspired Unit
+}
+
+STRING 5022
+// Buffs/Effects: B00I (Inspired Unit), Bufftip (Tooltip)
+{
+Inspire
+}
+
+STRING 5023
+// Buffs/Effects: B00I (Inspired Unit), Buffubertip (Tooltip - Extended)
+{
+This unit is inspired; its health, armor and attack damage are increased.
+}
+

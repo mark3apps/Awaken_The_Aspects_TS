@@ -3,7 +3,7 @@ import { Log } from "app/systems/log"
 import { CC2Four } from "lib/resources/library"
 import { ID } from "lib/w3ts/globals/ids"
 import { OrderId } from "lib/w3ts/globals/order"
-import { Unit } from "lib/w3ts/index"
+import { Group, Timer, Unit } from "lib/w3ts/index"
 import { UnitType } from "./unitType"
 
 export const enum EffectType {
@@ -51,6 +51,7 @@ export const enum TargetType {
 export interface AbilityParameters {
     four: ID.Ability,
     addEffect?: boolean,
+    loopTick?: number,
     buffFour?: ID.Buff,
     type?: EffectType,
     target?: TargetType,
@@ -79,8 +80,11 @@ export class Ability {
     readonly starting?: boolean
     readonly ult?: boolean
     readonly addEvent?: boolean
+    readonly loopTick?: number
+    group: Group
 
     onEffect: (ability?: Ability) => void = (): void => { return undefined }
+    onLoop: (group?: Group) => void = (): void => { return undefined }
 
     private static map = new Map<string, Ability>()
     private static mapInstant = new Map<string, Ability>()
@@ -101,12 +105,21 @@ export class Ability {
         this.starting = ability.starting ?? false
         this.ult = ability.ult ?? false
         this.addEvent = ability.addEffect ?? false
+        this.loopTick = ability.loopTick ?? 0
 
         // If ability hasn't been definited before
         if (!Ability.map.has(this.four)) {
 
             Ability.map.set(this.four, this)
 
+            // Start Ability loop
+            if (this.loopTick > 0) {
+                this.group = new Group()
+                const loopTimer = new Timer()
+                loopTimer.start(this.loopTick, true, () => this.onLoop(this.group))
+            }
+
+            // Add Trigger Event
             if (this.addEvent) {
                 switch (this.type) {
                     case EffectType.Kill:

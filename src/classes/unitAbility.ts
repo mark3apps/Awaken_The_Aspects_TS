@@ -172,6 +172,10 @@ export class UnitAbility extends Ability {
         this.setLevelField(ABILITY_RLF_CASTING_TIME, value)
     }
 
+    public get castRange(): number {
+        return this.getLevelField(ABILITY_RLF_CAST_RANGE) as number
+    }
+
     public get castTimeAllLevels(): number[] {
         return this.getLevelFieldArray(ABILITY_RLF_CASTING_TIME) as number[]
     }

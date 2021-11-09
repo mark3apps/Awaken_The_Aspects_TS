@@ -6715,6 +6715,7 @@ end
 
 function InitTrig_Hash_INIT()
     gg_trg_Hash_INIT = CreateTrigger()
+    DisableTrigger(gg_trg_Hash_INIT)
     TriggerAddAction(gg_trg_Hash_INIT, Trig_Hash_INIT_Actions)
 end
 
@@ -6800,6 +6801,7 @@ end
 
 function InitTrig_Inspire_Start()
     gg_trg_Inspire_Start = CreateTrigger()
+    DisableTrigger(gg_trg_Inspire_Start)
     TriggerRegisterAnyUnitEventBJ(gg_trg_Inspire_Start, EVENT_PLAYER_UNIT_SPELL_CAST)
     TriggerAddCondition(gg_trg_Inspire_Start, Condition(Trig_Inspire_Start_Conditions))
     TriggerAddAction(gg_trg_Inspire_Start, Trig_Inspire_Start_Actions)
@@ -7440,7 +7442,6 @@ end
 function RunInitializationTriggers()
     ConditionalTriggerExecute(gg_trg_Paradox_INIT)
     ConditionalTriggerExecute(gg_trg_Time_Travel_INIT)
-    ConditionalTriggerExecute(gg_trg_Hash_INIT)
     ConditionalTriggerExecute(gg_trg_Melee_Initialization)
 end
 

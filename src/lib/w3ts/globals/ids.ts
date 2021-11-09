@@ -57,6 +57,11 @@ export namespace ID {
 
         // Tactition Abilities
         Inspire = "A042",
+        InspireSpellBook = "A01J",
+        InspireAttack = "A043",
+        InspireDefence = "A04F",
+        InspireHealth = "A01K",
+
         IronDefense = "A019",
         RaiseBanner = "A01I",
         TactitionAttack = "A01B",
@@ -779,6 +784,7 @@ export namespace ID {
         // Custom
         ManaAddictSoulBind = "B00F",
         AttackUnit = "B006",
+        Inspired = "B00I",
 
 
         // Default
