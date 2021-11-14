@@ -2018,64 +2018,10 @@ STRING 841
 Bolster - [|cffffcc00Level 6|r]
 }
 
-STRING 842
-// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
-{
-Bolsters the units nearby the Commander by adding additional units to their ranks.
-
-+1 Unit, with a <A01Z:Cool1> Second Cooldown.
-}
-
-STRING 843
-// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
-{
-Bolsters the units nearby the Commander by adding additional units to their ranks.
-
-+3 Units, with a <A02Z:Cool2> Second Cooldown.
-}
-
-STRING 844
-// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
-{
-Bolsters the units nearby the Commander by adding additional units to their ranks.
-
-+4 Units, with a <A03Z:Cool3> Second Cooldown.
-}
-
-STRING 845
-// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
-{
-Bolsters the units nearby the Commander by adding additional units to their ranks.
-
-+6 Units, with a <A04Z:Cool4> Second Cooldown.
-}
-
-STRING 846
-// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
-{
-Bolsters the units nearby the Commander by adding additional units to their ranks.
-
-+7 Units, with a <A05Z:Cool5> Second Cooldown.
-}
-
-STRING 847
-// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
-{
-Bolsters the units nearby the Commander by adding additional units to their ranks.
-
-+9 Units, with a <A06Z:Cool6> Second Cooldown.
-}
-
 STRING 848
 // Abilities: A01Z (TC - Bolster), Researchtip (Tooltip - Learn)
 {
 Learn Bolster - [|cffffcc00Level %d|r]
-}
-
-STRING 849
-// Abilities: A01Z (TC - Bolster), Researchubertip (Tooltip - Learn - Extended)
-{
-Bolsters the units nearby the Commander by adding additional units to their ranks.  Levels increase amount and decrease cooldown.
 }
 
 STRING 850
@@ -14765,5 +14711,83 @@ STRING 5023
 // Buffs/Effects: B00I (Inspired Unit), Buffubertip (Tooltip - Extended)
 {
 This unit is inspired; its health, armor and attack damage are increased.
+}
+
+STRING 5030
+// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
+{
+Bolsters the units nearby the Commander by adding additional units to their ranks.
+
+<A01Z,Dur1> max summoned units
+<A01Z,HeroDur1> max combined unit Level
+<A01Z,Area1> area around hero
+<A01Z,Rng1> second summond duration
+<A01Z,Cool1> second cooldown
+}
+
+STRING 5031
+// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
+{
+Bolsters the units nearby the Commander by adding additional units to their ranks.
+
+<A01Z,Dur2> max summoned units
+<A01Z,HeroDur2> max combined unit Level
+<A01Z,Area2> area around hero
+<A01Z,Rng2> second summond duration
+<A01Z,Cool2> second cooldown
+}
+
+STRING 5032
+// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
+{
+Bolsters the units nearby the Commander by adding additional units to their ranks.
+
+<A01Z,Dur3> max summoned units
+<A01Z,HeroDur3> max combined unit Level
+<A01Z,Area3> area around hero
+<A01Z,Rng3> second summond duration
+<A01Z,Cool3> second cooldown
+}
+
+STRING 5033
+// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
+{
+Bolsters the units nearby the Commander by adding additional units to their ranks.
+
+<A01Z,Dur4> max summoned units
+<A01Z,HeroDur4> max combined unit Level
+<A01Z,Area4> area around hero
+<A01Z,Rng4> second summond duration
+<A01Z,Cool4> second cooldown
+}
+
+STRING 5034
+// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
+{
+Bolsters the units nearby the Commander by adding additional units to their ranks.
+
+<A01Z,Dur5> max summoned units
+<A01Z,HeroDur5> max combined unit Level
+<A01Z,Area5> area around hero
+<A01Z,Rng5> second summond duration
+<A01Z,Cool5> second cooldown
+}
+
+STRING 5035
+// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
+{
+Bolsters the units nearby the Commander by adding additional units to their ranks.
+
+<A01Z,Dur6> max summoned units
+<A01Z,HeroDur6> max combined unit Level
+<A01Z,Area6> area around hero
+<A01Z,Rng6> second summond duration
+<A01Z,Cool6> second cooldown
+}
+
+STRING 5036
+// Abilities: A01Z (TC - Bolster), Researchubertip (Tooltip - Learn - Extended)
+{
+Bolsters the units nearby the Commander by adding additional units to their ranks that fight for a short period of time.  Levels increase amount of units, and max combined unit level.
 }
 

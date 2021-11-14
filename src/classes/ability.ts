@@ -17,6 +17,7 @@ export const enum EffectType {
     Attacked,
     Attacking,
     Aura,
+    AutoCast,
     None
 }
 
@@ -53,6 +54,7 @@ export interface AbilityParameters {
     addEffect?: boolean,
     addGroup?: boolean,
     loopTick?: number,
+    
     buffFour?: ID.Buff,
     type?: EffectType,
     target?: TargetType,
@@ -88,7 +90,7 @@ export class Ability {
     group: Group
 
     onEffect: (ability?: Ability) => void = (): void => { return undefined }
-    onLoop: (group?: Group) => void = (): void => { return undefined }
+    onLoop: () => void = (): void => { return undefined }
 
     private static map = new Map<string, Ability>()
     private static mapInstant = new Map<string, Ability>()
@@ -110,7 +112,6 @@ export class Ability {
         this.ult = ability.ult ?? false
         this.addEvent = ability.addEffect ?? false
         this.loopTick = ability.loopTick ?? 0
-        this.addGroup = ability.addGroup ?? false
 
         // If ability hasn't been definited before
         if (!Ability.map.has(this.four)) {
@@ -118,7 +119,7 @@ export class Ability {
             Ability.map.set(this.four, this)
 
             // Start Ability loop
-            if (this.addGroup) {
+            if (this.loopTick > 0) {
                 this.loopTimer = new Timer()
                 this.loopTimer.start(this.loopTick, true, () => this.onLoop())
             }

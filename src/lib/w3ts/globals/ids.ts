@@ -32,6 +32,13 @@ export namespace ID {
         Captian1Upgrade = "A052",
         Captian2Upgrade = "A03K",
 
+        // Mage Towers
+        ManaRepository = "A05L",
+        ManaShieldTower = "A00H",
+        ManaShardsTower = "A03D",
+        ChainLightningTower = "A00I",
+        ConeOfFireTower = "A05K",
+
         // Brawler Abilities
         Drain = "A01Y",
         BrawlerBloodlust = "A007",

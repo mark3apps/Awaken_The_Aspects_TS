@@ -609,8 +609,8 @@ export class Unit extends Widget {
 		AddUnitToStock(this.handle, unitId, currentStock, stockMax)
 	}
 
-	public applyTimedLife(buffId: number, duration: number): void {
-		UnitApplyTimedLife(this.handle, buffId, duration)
+	public applyTimedLife(buffId: number | string, duration: number): void {
+		typeof buffId === "number" ? UnitApplyTimedLife(this.handle, buffId, duration) : UnitApplyTimedLife(this.handle, FourCC(buffId), duration)
 	}
 
 	public attachSound(sound: Sound): void {
@@ -1596,6 +1596,10 @@ export class Unit extends Widget {
 
 	public static fromAttackingUnit() {
 		return this.fromHandle(GetAttacker())
+	}
+
+	public static fromKillingUnit() {
+		return this.fromHandle(GetKillingUnit())
 	}
 
 	public static fromHandle(handle: unit): Unit {

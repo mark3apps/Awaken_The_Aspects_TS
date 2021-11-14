@@ -135,20 +135,12 @@ udg_Spell_Level = 0
 udg_Spell_Distance = 0.0
 udg_Spell_Speed = 0.0
 udg_Spell_Phase = 0
-udg_Attack_Hash = nil
-udg_Attack_Unit_Group = nil
 udg_Spell_Unit_Target = nil
 udg_Spell_Player = nil
-udg_Attack_Interval = 0.0
 udg_Hero_Levels = __jarray(0)
 udg_FA_Level = 0
-udg_Gates_Open = nil
-udg_Gates_Closed = nil
 udg_TEMP_Region = nil
 udg_TEMP_Int3 = 0
-udg_Inspired_Hash = nil
-udg_Inspired_UnitGroup = nil
-udg_Inspired_Interval = 0.0
 udg_CALC_Level_Factor = 0.0
 udg_CALC_Base = 0.0
 udg_CALC_Constant = 0.0
@@ -316,18 +308,12 @@ gg_trg_Shade_Strength = nil
 gg_trg_Swift_Moves = nil
 gg_trg_Swift_Attacks = nil
 gg_trg_Attribute_Upgrade = nil
-gg_trg_INIT_Gates = nil
-gg_trg_Toggle_Gate = nil
-gg_trg_Gate_Dies = nil
 gg_trg_Start_Event = nil
 gg_trg_Event_Count = nil
 gg_trg_DW_Ancient_Chaos = nil
 gg_trg_Doom_Warden_End = nil
 gg_trg_Elder_Ent_Movement = nil
 gg_trg_Zombie_Infect = nil
-gg_trg_Chain_Lightning = nil
-gg_trg_Energy_Tower = nil
-gg_trg_Watch_Tower_Mana_Shield = nil
 gg_trg_Shipyard_Left_End = nil
 gg_trg_Brawler_No_Mana = nil
 gg_trg_Brawler_Rage_GUI = nil
@@ -350,14 +336,6 @@ gg_trg_Chrono_Atrophy_CAST = nil
 gg_trg_Time_Travel_INIT = nil
 gg_trg_Time_Travel_CAST = nil
 gg_trg_Time_Travel_LOOP = nil
-gg_trg_Attack_INIT = nil
-gg_trg_Attack_CAST = nil
-gg_trg_Attack_LOOP = nil
-gg_trg_Hash_INIT = nil
-gg_trg_Inspire_Start = nil
-gg_trg_Inspire_LOOP = nil
-gg_trg_Inspire_DIE = nil
-gg_trg_Bolster = nil
 gg_trg_Level_Up_Team = nil
 gg_trg_Revive_Hero = nil
 gg_trg_Revive_Hero_Timer = nil
@@ -718,8 +696,6 @@ function InitGlobals()
     udg_Spell_Distance = 0.0
     udg_Spell_Speed = 0.0
     udg_Spell_Phase = 0
-    udg_Attack_Unit_Group = CreateGroup()
-    udg_Attack_Interval = 0.10
     i = 0
     while (true) do
         if ((i > 0)) then break end
@@ -727,11 +703,7 @@ function InitGlobals()
         i = i + 1
     end
     udg_FA_Level = 0
-    udg_Gates_Open = CreateGroup()
-    udg_Gates_Closed = CreateGroup()
     udg_TEMP_Int3 = 0
-    udg_Inspired_UnitGroup = CreateGroup()
-    udg_Inspired_Interval = 0.0
     udg_CALC_Level_Factor = 0.0
     udg_CALC_Base = 0.0
     udg_CALC_Constant = 0.0
@@ -3368,6 +3340,7 @@ function CreateBuildingsForPlayer23()
     SetUnitState(u, UNIT_STATE_MANA, 1000)
     u = BlzCreateUnitWithSkin(p, FourCC("n007"), -9280.0, 3840.0, 270.000, FourCC("n007"))
     u = BlzCreateUnitWithSkin(p, FourCC("h024"), -8896.0, -192.0, 270.000, FourCC("h024"))
+    SetUnitState(u, UNIT_STATE_MANA, 1500)
     u = BlzCreateUnitWithSkin(p, FourCC("nft2"), -4288.0, 3072.0, 270.000, FourCC("nft2"))
     u = BlzCreateUnitWithSkin(p, FourCC("ntt1"), -11584.0, -11200.0, 270.000, FourCC("ntt1"))
     u = BlzCreateUnitWithSkin(p, FourCC("h024"), -8896.0, 4096.0, 270.000, FourCC("h024"))
@@ -3393,6 +3366,7 @@ function CreateBuildingsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("n00U"), -7377.8, 3011.1, 180.000, FourCC("n00U"))
     u = BlzCreateUnitWithSkin(p, FourCC("n019"), -4864.0, 3840.0, 90.000, FourCC("n019"))
     u = BlzCreateUnitWithSkin(p, FourCC("h024"), -8896.0, 576.0, 270.000, FourCC("h024"))
+    SetUnitState(u, UNIT_STATE_MANA, 1500)
     u = BlzCreateUnitWithSkin(p, FourCC("h024"), -4224.0, 2752.0, 270.000, FourCC("h024"))
     SetUnitState(u, UNIT_STATE_MANA, 1000)
     u = BlzCreateUnitWithSkin(p, FourCC("n007"), -6912.0, 2304.0, 270.000, FourCC("n007"))
@@ -4380,6 +4354,7 @@ function Trig_testing_Conditions()
 end
 
 function Trig_testing_Actions()
+    UnitApplyTimedLifeBJ(60, FourCC("BTLF"), GetTriggerUnit())
     SetPlayerHandicapXPBJ(Player(0), GetPlayerHandicapXPBJ(Player(0)))
     SelectHeroSkill(GetTriggerUnit(), FourCC("AHbz"))
     SetUnitPositionLoc(GetTriggerUnit(), GetRectCenter(GetPlayableMapRect()))
@@ -5433,77 +5408,6 @@ function InitTrig_Zombie_Infect()
     TriggerAddAction(gg_trg_Zombie_Infect, Trig_Zombie_Infect_Actions)
 end
 
-function Trig_Chain_Lightning_Conditions()
-    if (not (GetUnitTypeId(GetAttacker()) == FourCC("n007"))) then
-        return false
-    end
-    if (not (BlzGetUnitAbilityCooldownRemaining(GetAttacker(), FourCC("A00I")) == 0.00)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Chain_Lightning_Actions()
-    IssueTargetOrderBJ(GetAttacker(), "chainlightning", GetAttackedUnitBJ())
-end
-
-function InitTrig_Chain_Lightning()
-    gg_trg_Chain_Lightning = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Chain_Lightning, EVENT_PLAYER_UNIT_ATTACKED)
-    TriggerAddCondition(gg_trg_Chain_Lightning, Condition(Trig_Chain_Lightning_Conditions))
-    TriggerAddAction(gg_trg_Chain_Lightning, Trig_Chain_Lightning_Actions)
-end
-
-function Trig_Energy_Tower_Conditions()
-    if (not (GetUnitTypeId(GetAttacker()) == FourCC("n007"))) then
-        return false
-    end
-    if (not (BlzGetUnitAbilityCooldownRemaining(GetAttacker(), FourCC("A03D")) == 0.00)) then
-        return false
-    end
-    if (not (IsUnitType(GetAttackedUnitBJ(), UNIT_TYPE_GROUND) == true)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Energy_Tower_Actions()
-    udg_TEMP_Pos2 = GetUnitLoc(GetAttackedUnitBJ())
-    IssuePointOrderLocBJ(GetAttacker(), "clusterrockets", udg_TEMP_Pos2)
-        RemoveLocation ( udg_TEMP_Pos2 )
-end
-
-function InitTrig_Energy_Tower()
-    gg_trg_Energy_Tower = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Energy_Tower, EVENT_PLAYER_UNIT_ATTACKED)
-    TriggerAddCondition(gg_trg_Energy_Tower, Condition(Trig_Energy_Tower_Conditions))
-    TriggerAddAction(gg_trg_Energy_Tower, Trig_Energy_Tower_Actions)
-end
-
-function Trig_Watch_Tower_Mana_Shield_Conditions()
-    if (not (GetUnitStateSwap(UNIT_STATE_MANA, GetAttacker()) >= 250.00)) then
-        return false
-    end
-    if (not (UnitHasBuffBJ(GetAttacker(), FourCC("BNms")) == false)) then
-        return false
-    end
-    if (not (GetUnitTypeId(GetAttacker()) == FourCC("n007"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Watch_Tower_Mana_Shield_Actions()
-    IssueImmediateOrderBJ(GetAttacker(), "manashieldon")
-end
-
-function InitTrig_Watch_Tower_Mana_Shield()
-    gg_trg_Watch_Tower_Mana_Shield = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Watch_Tower_Mana_Shield, EVENT_PLAYER_UNIT_ATTACKED)
-    TriggerAddCondition(gg_trg_Watch_Tower_Mana_Shield, Condition(Trig_Watch_Tower_Mana_Shield_Conditions))
-    TriggerAddAction(gg_trg_Watch_Tower_Mana_Shield, Trig_Watch_Tower_Mana_Shield_Actions)
-end
-
 function Trig_Shipyard_Left_End_Func009C()
     if (GetUnitTypeId(GetEnteringUnit()) == FourCC("edes")) then
         return true
@@ -6530,501 +6434,6 @@ function InitTrig_Time_Travel_LOOP()
     TriggerAddAction(gg_trg_Time_Travel_LOOP, Trig_Time_Travel_LOOP_Actions)
 end
 
-function Trig_Attack_INIT_Actions()
-    InitHashtableBJ()
-    udg_Attack_Hash = GetLastCreatedHashtableBJ()
-    udg_Attack_Interval = 0.10
-    TriggerRegisterTimerEventPeriodic(gg_trg_Attack_LOOP, udg_Attack_Interval)
-end
-
-function InitTrig_Attack_INIT()
-    gg_trg_Attack_INIT = CreateTrigger()
-    DisableTrigger(gg_trg_Attack_INIT)
-    TriggerAddAction(gg_trg_Attack_INIT, Trig_Attack_INIT_Actions)
-end
-
-function Trig_Attack_CAST_Conditions()
-    if (not (GetSpellAbilityId() == FourCC("A01B"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Attack_CAST_Func007Func001Func002Func008C()
-    if (not (IsPlayerInForce(GetOwningPlayer(GetEnumUnit()), udg_PLAYERGRPallied) == false)) then
-        return false
-    end
-    if (not (IsPlayerInForce(GetOwningPlayer(GetEnumUnit()), udg_PLAYERGRPfederation) == false)) then
-        return false
-    end
-    if (not (GetOwningPlayer(GetEnumUnit()) ~= GetOwningPlayer(GetSpellAbilityUnit()))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Attack_CAST_Func007Func001Func002C()
-    if (IsUnitType(GetEnumUnit(), UNIT_TYPE_STRUCTURE) == true) then
-        return true
-    end
-    if (IsUnitIllusionBJ(GetEnumUnit()) == true) then
-        return true
-    end
-    if (IsUnitType(GetEnumUnit(), UNIT_TYPE_HERO) == true) then
-        return true
-    end
-    if (GetUnitDefaultMoveSpeed(GetEnumUnit()) == 0.00) then
-        return true
-    end
-    if (IsUnitAliveBJ(GetEnumUnit()) == false) then
-        return true
-    end
-    if (GetUnitLevel(GetEnumUnit()) > 9) then
-        return true
-    end
-    if (IsUnitAlly(GetEnumUnit(), GetOwningPlayer(GetSpellAbilityUnit())) == false) then
-        return true
-    end
-    if (Trig_Attack_CAST_Func007Func001Func002Func008C()) then
-        return true
-    end
-    return false
-end
-
-function Trig_Attack_CAST_Func007Func001C()
-    if (not Trig_Attack_CAST_Func007Func001Func002C()) then
-        return false
-    end
-    return true
-end
-
-function Trig_Attack_CAST_Func007A()
-    if (Trig_Attack_CAST_Func007Func001C()) then
-        GroupRemoveUnitSimple(GetEnumUnit(), udg_TEMP_UnitGroup)
-    else
-    end
-end
-
-function Trig_Attack_CAST_Func011C()
-    if (not (CountUnitsInGroup(udg_Attack_Unit_Group) == 0)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Attack_CAST_Func013A()
-    GroupAddUnitSimple(GetEnumUnit(), udg_Attack_Unit_Group)
-    SaveRealBJ(0.00, 0, GetHandleIdBJ(GetEnumUnit()), udg_Attack_Hash)
-    SaveLocationHandleBJ(udg_Spell_LOC_Cast, 1, GetHandleIdBJ(GetEnumUnit()), udg_Attack_Hash)
-    SaveIntegerBJ(udg_Spell_Level, 3, GetHandleIdBJ(GetEnumUnit()), udg_Attack_Hash)
-    SaveRealBJ(udg_Spell_Duration, 4, GetHandleIdBJ(GetEnumUnit()), udg_Attack_Hash)
-    SaveUnitHandleBJ(udg_Spell_Unit_Target, 8, GetHandleIdBJ(GetEnumUnit()), udg_Attack_Hash)
-    SavePlayerHandleBJ(GetOwningPlayer(GetEnumUnit()), 9, GetHandleIdBJ(GetEnumUnit()), udg_Attack_Hash)
-    UnitAddAbilityBJ(FourCC("A04L"), GetEnumUnit())
-    SetUnitAbilityLevelSwapped(FourCC("A01E"), GetEnumUnit(), udg_Spell_Level)
-    SetUnitAbilityLevelSwapped(FourCC("A01Q"), GetEnumUnit(), udg_Spell_Level)
-    SetUnitAbilityLevelSwapped(FourCC("A01C"), GetEnumUnit(), udg_Spell_Level)
-    SetUnitOwner(GetEnumUnit(), GetOwningPlayer(GetSpellAbilityUnit()), true)
-    IssueTargetOrderBJ(GetEnumUnit(), "attack", udg_Spell_Unit_Target)
-end
-
-function Trig_Attack_CAST_Actions()
-    udg_Spell_LOC_Cast = GetUnitLoc(GetSpellAbilityUnit())
-    udg_Spell_Unit_Target = GetSpellTargetUnit()
-    udg_Spell_Level = GetUnitAbilityLevelSwapped(FourCC("A01B"), GetSpellAbilityUnit())
-    udg_Spell_Duration = 8.00
-    udg_TEMP_UnitGroup = GetUnitsInRangeOfLocAll(900.00, udg_Spell_LOC_Cast)
-    ForGroupBJ(udg_TEMP_UnitGroup, Trig_Attack_CAST_Func007A)
-    udg_TEMP_UnitGroup2 = GetRandomSubGroup(5, udg_TEMP_UnitGroup)
-    if (Trig_Attack_CAST_Func011C()) then
-        EnableTrigger(gg_trg_Attack_LOOP)
-    else
-    end
-    ForGroupBJ(udg_TEMP_UnitGroup2, Trig_Attack_CAST_Func013A)
-        DestroyGroup ( udg_TEMP_UnitGroup )
-        DestroyGroup ( udg_TEMP_UnitGroup2 )
-end
-
-function InitTrig_Attack_CAST()
-    gg_trg_Attack_CAST = CreateTrigger()
-    DisableTrigger(gg_trg_Attack_CAST)
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Attack_CAST, EVENT_PLAYER_UNIT_SPELL_CAST)
-    TriggerAddCondition(gg_trg_Attack_CAST, Condition(Trig_Attack_CAST_Conditions))
-    TriggerAddAction(gg_trg_Attack_CAST, Trig_Attack_CAST_Actions)
-end
-
-function Trig_Attack_LOOP_Func001Func003Func001C()
-    if (udg_Spell_Counter >= udg_Spell_Duration) then
-        return true
-    end
-    if (IsUnitAliveBJ(GetEnumUnit()) == false) then
-        return true
-    end
-    return false
-end
-
-function Trig_Attack_LOOP_Func001Func003Func010C()
-    if (not (CountUnitsInGroup(udg_Attack_Unit_Group) == 0)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Attack_LOOP_Func001Func003C()
-    if (not Trig_Attack_LOOP_Func001Func003Func001C()) then
-        return false
-    end
-    return true
-end
-
-function Trig_Attack_LOOP_Func001A()
-    udg_Spell_Counter = LoadRealBJ(0, GetHandleIdBJ(GetEnumUnit()), udg_Attack_Hash)
-    udg_Spell_Duration = LoadRealBJ(4, GetHandleIdBJ(GetEnumUnit()), udg_Attack_Hash)
-    if (Trig_Attack_LOOP_Func001Func003C()) then
-        udg_Spell_Player = LoadPlayerHandleBJ(9, GetHandleIdBJ(GetEnumUnit()), udg_Attack_Hash)
-        UnitRemoveAbilityBJ(FourCC("A04L"), GetEnumUnit())
-        SetUnitOwner(GetEnumUnit(), udg_Spell_Player, true)
-        udg_TEMP_Unit = GetEnumUnit()
-        GroupRemoveUnitSimple(GetEnumUnit(), udg_Attack_Unit_Group)
-        FlushChildHashtableBJ(GetHandleIdBJ(GetEnumUnit()), udg_Attack_Hash)
-        if (Trig_Attack_LOOP_Func001Func003Func010C()) then
-            DisableTrigger(GetTriggeringTrigger())
-        else
-        end
-    else
-        SaveRealBJ((udg_Spell_Counter + udg_Attack_Interval), 0, GetHandleIdBJ(GetEnumUnit()), udg_Attack_Hash)
-    end
-end
-
-function Trig_Attack_LOOP_Actions()
-    ForGroupBJ(udg_Attack_Unit_Group, Trig_Attack_LOOP_Func001A)
-end
-
-function InitTrig_Attack_LOOP()
-    gg_trg_Attack_LOOP = CreateTrigger()
-    DisableTrigger(gg_trg_Attack_LOOP)
-    TriggerAddAction(gg_trg_Attack_LOOP, Trig_Attack_LOOP_Actions)
-end
-
-function Trig_Hash_INIT_Actions()
-    InitHashtableBJ()
-    udg_Inspired_Hash = GetLastCreatedHashtableBJ()
-    udg_Inspired_Interval = 1.00
-    TriggerRegisterTimerEventPeriodic(gg_trg_Inspire_LOOP, udg_Inspired_Interval)
-end
-
-function InitTrig_Hash_INIT()
-    gg_trg_Hash_INIT = CreateTrigger()
-    DisableTrigger(gg_trg_Hash_INIT)
-    TriggerAddAction(gg_trg_Hash_INIT, Trig_Hash_INIT_Actions)
-end
-
-function Trig_Inspire_Start_Conditions()
-    if (not (GetSpellAbilityId() == FourCC("A042"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Inspire_Start_Func007002003001()
-    return (IsUnitType(GetFilterUnit(), UNIT_TYPE_STRUCTURE) == false)
-end
-
-function Trig_Inspire_Start_Func007002003002001()
-    return (IsUnitType(GetFilterUnit(), UNIT_TYPE_HERO) == false)
-end
-
-function Trig_Inspire_Start_Func007002003002002001()
-    return (GetUnitLevel(GetFilterUnit()) < 10)
-end
-
-function Trig_Inspire_Start_Func007002003002002002001()
-    return (IsUnitAliveBJ(GetFilterUnit()) == true)
-end
-
-function Trig_Inspire_Start_Func007002003002002002002()
-    return (IsUnitAlly(GetFilterUnit(), GetOwningPlayer(GetSpellAbilityUnit())) == true)
-end
-
-function Trig_Inspire_Start_Func007002003002002002()
-    return GetBooleanAnd(Trig_Inspire_Start_Func007002003002002002001(), Trig_Inspire_Start_Func007002003002002002002())
-end
-
-function Trig_Inspire_Start_Func007002003002002()
-    return GetBooleanAnd(Trig_Inspire_Start_Func007002003002002001(), Trig_Inspire_Start_Func007002003002002002())
-end
-
-function Trig_Inspire_Start_Func007002003002()
-    return GetBooleanAnd(Trig_Inspire_Start_Func007002003002001(), Trig_Inspire_Start_Func007002003002002())
-end
-
-function Trig_Inspire_Start_Func007002003()
-    return GetBooleanAnd(Trig_Inspire_Start_Func007002003001(), Trig_Inspire_Start_Func007002003002())
-end
-
-function Trig_Inspire_Start_Func010C()
-    if (not (CountUnitsInGroup(udg_Inspired_UnitGroup) == 0)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Inspire_Start_Func012A()
-    UnitAddAbilityBJ(FourCC("A01J"), GetEnumUnit())
-    SetUnitLifePercentBJ(GetEnumUnit(), 100)
-    BlzSetUnitName(GetEnumUnit(), ("Inspired " .. GetUnitName(GetEnumUnit())))
-    AddSpecialEffectTargetUnitBJ("origin", GetEnumUnit(), "Abilities\\Spells\\Human\\Resurrect\\ResurrectTarget.mdl")
-    DestroyEffectBJ(GetLastCreatedEffectBJ())
-    GroupAddUnitSimple(GetEnumUnit(), udg_Inspired_UnitGroup)
-    SaveRealBJ(0.00, 0, GetHandleIdBJ(GetEnumUnit()), udg_Inspired_Hash)
-    SaveIntegerBJ(udg_Spell_Level, 3, GetHandleIdBJ(GetEnumUnit()), udg_Inspired_Hash)
-    SaveRealBJ(udg_Spell_Duration, 4, GetHandleIdBJ(GetEnumUnit()), udg_Inspired_Hash)
-end
-
-function Trig_Inspire_Start_Actions()
-    udg_TC_Player = GetOwningPlayer(GetSpellAbilityUnit())
-    udg_Spell_Level = GetUnitAbilityLevelSwapped(GetSpellAbilityId(), GetSpellAbilityUnit())
-    udg_Spell_Duration = 180.00
-    udg_TEMP_Pos2 = GetUnitLoc(GetSpellAbilityUnit())
-    udg_TEMP_UnitGroup = GetUnitsInRangeOfLocMatching((200.00 + I2R((udg_Spell_Level * 100))), udg_TEMP_Pos2, Condition(Trig_Inspire_Start_Func007002003))
-    udg_TEMP_UnitGroup2 = GetRandomSubGroup((udg_Spell_Level * 4), udg_TEMP_UnitGroup)
-    if (Trig_Inspire_Start_Func010C()) then
-        EnableTrigger(gg_trg_Inspire_LOOP)
-        EnableTrigger(gg_trg_Inspire_DIE)
-    else
-    end
-    ForGroupBJ(udg_TEMP_UnitGroup2, Trig_Inspire_Start_Func012A)
-        RemoveLocation ( udg_TEMP_Pos2 )
-        DestroyGroup( udg_TEMP_UnitGroup )
-        DestroyGroup( udg_TEMP_UnitGroup2 )
-end
-
-function InitTrig_Inspire_Start()
-    gg_trg_Inspire_Start = CreateTrigger()
-    DisableTrigger(gg_trg_Inspire_Start)
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Inspire_Start, EVENT_PLAYER_UNIT_SPELL_CAST)
-    TriggerAddCondition(gg_trg_Inspire_Start, Condition(Trig_Inspire_Start_Conditions))
-    TriggerAddAction(gg_trg_Inspire_Start, Trig_Inspire_Start_Actions)
-end
-
-function Trig_Inspire_LOOP_Func001Func003Func001C()
-    if (not (udg_Spell_Counter >= udg_Spell_Duration)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Inspire_LOOP_Func001Func003C()
-    if (not (IsUnitAliveBJ(GetEnumUnit()) == true)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Inspire_LOOP_Func001A()
-    udg_Spell_Counter = LoadRealBJ(0, GetHandleIdBJ(GetEnumUnit()), udg_Inspired_Hash)
-    udg_Spell_Duration = LoadRealBJ(4, GetHandleIdBJ(GetEnumUnit()), udg_Inspired_Hash)
-    if (Trig_Inspire_LOOP_Func001Func003C()) then
-        if (Trig_Inspire_LOOP_Func001Func003Func001C()) then
-            UnitRemoveAbilityBJ(FourCC("A01J"), GetEnumUnit())
-            BlzSetUnitName(GetEnumUnit(), SubStringBJ(GetUnitName(GetEnumUnit()), 10, StringLength(GetUnitName(GetEnumUnit()))))
-            GroupRemoveUnitSimple(GetEnumUnit(), udg_Inspired_UnitGroup)
-            FlushChildHashtableBJ(GetHandleIdBJ(GetEnumUnit()), udg_Inspired_Hash)
-        else
-            SaveRealBJ((udg_Spell_Counter + udg_Inspired_Interval), 0, GetHandleIdBJ(GetEnumUnit()), udg_Inspired_Hash)
-        end
-    else
-    end
-end
-
-function Trig_Inspire_LOOP_Func002C()
-    if (not (CountUnitsInGroup(udg_Inspired_UnitGroup) == 0)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Inspire_LOOP_Actions()
-    ForGroupBJ(udg_Inspired_UnitGroup, Trig_Inspire_LOOP_Func001A)
-    if (Trig_Inspire_LOOP_Func002C()) then
-        DisableTrigger(GetTriggeringTrigger())
-        DisableTrigger(gg_trg_Inspire_DIE)
-    else
-    end
-end
-
-function InitTrig_Inspire_LOOP()
-    gg_trg_Inspire_LOOP = CreateTrigger()
-    DisableTrigger(gg_trg_Inspire_LOOP)
-    TriggerAddAction(gg_trg_Inspire_LOOP, Trig_Inspire_LOOP_Actions)
-end
-
-function Trig_Inspire_DIE_Conditions()
-    if (not (IsUnitInGroup(GetTriggerUnit(), udg_Inspired_UnitGroup) == true)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Inspire_DIE_Func003002003001()
-    return (IsUnitType(GetFilterUnit(), UNIT_TYPE_STRUCTURE) == false)
-end
-
-function Trig_Inspire_DIE_Func003002003002001()
-    return (GetUnitLevel(GetFilterUnit()) <= 10)
-end
-
-function Trig_Inspire_DIE_Func003002003002002001()
-    return (IsUnitType(GetFilterUnit(), UNIT_TYPE_HERO) == false)
-end
-
-function Trig_Inspire_DIE_Func003002003002002002001()
-    return (IsUnitIllusionBJ(GetFilterUnit()) == false)
-end
-
-function Trig_Inspire_DIE_Func003002003002002002002001()
-    return (IsUnitAliveBJ(GetFilterUnit()) == true)
-end
-
-function Trig_Inspire_DIE_Func003002003002002002002002001()
-    return (IsUnitAlly(GetFilterUnit(), GetOwningPlayer(GetDyingUnit())) == true)
-end
-
-function Trig_Inspire_DIE_Func003002003002002002002002002()
-    return (IsUnitInGroup(GetFilterUnit(), udg_Inspired_UnitGroup) == false)
-end
-
-function Trig_Inspire_DIE_Func003002003002002002002002()
-    return GetBooleanAnd(Trig_Inspire_DIE_Func003002003002002002002002001(), Trig_Inspire_DIE_Func003002003002002002002002002())
-end
-
-function Trig_Inspire_DIE_Func003002003002002002002()
-    return GetBooleanAnd(Trig_Inspire_DIE_Func003002003002002002002001(), Trig_Inspire_DIE_Func003002003002002002002002())
-end
-
-function Trig_Inspire_DIE_Func003002003002002002()
-    return GetBooleanAnd(Trig_Inspire_DIE_Func003002003002002002001(), Trig_Inspire_DIE_Func003002003002002002002())
-end
-
-function Trig_Inspire_DIE_Func003002003002002()
-    return GetBooleanAnd(Trig_Inspire_DIE_Func003002003002002001(), Trig_Inspire_DIE_Func003002003002002002())
-end
-
-function Trig_Inspire_DIE_Func003002003002()
-    return GetBooleanAnd(Trig_Inspire_DIE_Func003002003002001(), Trig_Inspire_DIE_Func003002003002002())
-end
-
-function Trig_Inspire_DIE_Func003002003()
-    return GetBooleanAnd(Trig_Inspire_DIE_Func003002003001(), Trig_Inspire_DIE_Func003002003002())
-end
-
-function Trig_Inspire_DIE_Func005A()
-    UnitAddAbilityBJ(FourCC("A01J"), GetEnumUnit())
-    SetUnitLifePercentBJ(GetEnumUnit(), 100)
-    BlzSetUnitName(GetEnumUnit(), ("Inspired " .. GetUnitName(GetEnumUnit())))
-    AddSpecialEffectTargetUnitBJ("origin", GetEnumUnit(), "Abilities\\Spells\\Human\\Resurrect\\ResurrectTarget.mdl")
-    DestroyEffectBJ(GetLastCreatedEffectBJ())
-    GroupAddUnitSimple(GetEnumUnit(), udg_Inspired_UnitGroup)
-    SaveRealBJ(0.00, 0, GetHandleIdBJ(GetEnumUnit()), udg_Inspired_Hash)
-    SaveIntegerBJ(udg_Spell_Level, 3, GetHandleIdBJ(GetEnumUnit()), udg_Inspired_Hash)
-    SaveRealBJ(udg_Spell_Duration, 4, GetHandleIdBJ(GetEnumUnit()), udg_Inspired_Hash)
-end
-
-function Trig_Inspire_DIE_Actions()
-    udg_TEMP_Pos2 = GetUnitLoc(GetDyingUnit())
-    udg_Spell_Level = LoadIntegerBJ(3, GetHandleIdBJ(GetDyingUnit()), udg_Inspired_Hash)
-    udg_TEMP_UnitGroup = GetUnitsInRangeOfLocMatching(300.00, udg_TEMP_Pos2, Condition(Trig_Inspire_DIE_Func003002003))
-    udg_TEMP_UnitGroup2 = GetRandomSubGroup(udg_Spell_Level, udg_TEMP_UnitGroup)
-    ForGroupBJ(udg_TEMP_UnitGroup2, Trig_Inspire_DIE_Func005A)
-    GroupRemoveUnitSimple(GetDyingUnit(), udg_Inspired_UnitGroup)
-    FlushChildHashtableBJ(GetHandleIdBJ(GetDyingUnit()), udg_Inspired_Hash)
-        RemoveLocation ( udg_TEMP_Pos2 )
-        DestroyGroup( udg_TEMP_UnitGroup )
-        DestroyGroup( udg_TEMP_UnitGroup2 )
-end
-
-function InitTrig_Inspire_DIE()
-    gg_trg_Inspire_DIE = CreateTrigger()
-    DisableTrigger(gg_trg_Inspire_DIE)
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Inspire_DIE, EVENT_PLAYER_UNIT_DEATH)
-    TriggerAddCondition(gg_trg_Inspire_DIE, Condition(Trig_Inspire_DIE_Conditions))
-    TriggerAddAction(gg_trg_Inspire_DIE, Trig_Inspire_DIE_Actions)
-end
-
-function Trig_Bolster_Conditions()
-    if (not (GetSpellAbilityId() == FourCC("A01Z"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Bolster_Func004Func001Func001C()
-    if (IsUnitType(GetEnumUnit(), UNIT_TYPE_STRUCTURE) == true) then
-        return true
-    end
-    if (GetUnitDefaultMoveSpeed(GetEnumUnit()) == 0.00) then
-        return true
-    end
-    if (IsUnitType(GetEnumUnit(), UNIT_TYPE_HERO) == true) then
-        return true
-    end
-    if (IsUnitIllusionBJ(GetEnumUnit()) == true) then
-        return true
-    end
-    if (IsUnitEnemy(GetEnumUnit(), GetOwningPlayer(GetSpellAbilityUnit())) == true) then
-        return true
-    end
-    if (GetUnitLevel(GetEnumUnit()) > (3 + R2I((I2R(udg_TEMP_Int) * 0.50)))) then
-        return true
-    end
-    if (IsUnitAliveBJ(GetEnumUnit()) == false) then
-        return true
-    end
-    return false
-end
-
-function Trig_Bolster_Func004Func001C()
-    if (not Trig_Bolster_Func004Func001Func001C()) then
-        return false
-    end
-    return true
-end
-
-function Trig_Bolster_Func004A()
-    if (Trig_Bolster_Func004Func001C()) then
-        GroupRemoveUnitSimple(GetEnumUnit(), udg_TEMP_UnitGroup)
-    else
-    end
-end
-
-function Trig_Bolster_Actions()
-    udg_TEMP_Pos_Spell = GetUnitLoc(GetSpellAbilityUnit())
-    udg_TEMP_Int = GetUnitAbilityLevelSwapped(FourCC("A01Z"), GetSpellAbilityUnit())
-    udg_TEMP_UnitGroup = GetUnitsInRangeOfLocAll(500.00, udg_TEMP_Pos_Spell)
-    ForGroupBJ(udg_TEMP_UnitGroup, Trig_Bolster_Func004A)
-    udg_TEMP_IntLoop1 = 1
-    while (true) do
-        if (udg_TEMP_IntLoop1 > R2I((I2R(udg_TEMP_Int) * 1.00))) then break end
-        udg_TEMP_Pos2 = GetRandomLocInRect(RectFromCenterSizeBJ(udg_TEMP_Pos_Spell, 400.00, 400.00))
-        CreateNUnitsAtLoc(1, GetUnitTypeId(GroupPickRandomUnit(udg_TEMP_UnitGroup)), GetOwningPlayer(GetSpellAbilityUnit()), udg_TEMP_Pos2, bj_UNIT_FACING)
-        UnitApplyTimedLifeBJ(90.00, FourCC("BHwe"), GetLastCreatedUnit())
-        udg_TEMP_Unit = GetLastCreatedUnit()
-        AddSpecialEffectTargetUnitBJ("origin", GetLastCreatedUnit(), "Abilities\\Spells\\Other\\Charm\\CharmTarget.mdl")
-        DestroyEffectBJ(GetLastCreatedEffectBJ())
-                RemoveLocation ( udg_TEMP_Pos2 )
-        udg_TEMP_IntLoop1 = udg_TEMP_IntLoop1 + 1
-    end
-        RemoveLocation ( udg_TEMP_Pos_Spell )
-        DestroyGroup ( udg_TEMP_UnitGroup )
-end
-
-function InitTrig_Bolster()
-    gg_trg_Bolster = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Bolster, EVENT_PLAYER_UNIT_SPELL_EFFECT)
-    TriggerAddCondition(gg_trg_Bolster, Condition(Trig_Bolster_Conditions))
-    TriggerAddAction(gg_trg_Bolster, Trig_Bolster_Actions)
-end
-
 function Trig_Level_Up_Team_Func002C()
     if (not (IsUnitAlly(GetLevelingUnit(), ForcePickRandomPlayer(udg_PLAYERGRPallied)) == true)) then
         return false
@@ -7399,9 +6808,6 @@ function InitCustomTriggers()
     InitTrig_Doom_Warden_End()
     InitTrig_Elder_Ent_Movement()
     InitTrig_Zombie_Infect()
-    InitTrig_Chain_Lightning()
-    InitTrig_Energy_Tower()
-    InitTrig_Watch_Tower_Mana_Shield()
     InitTrig_Shipyard_Left_End()
     InitTrig_Brawler_No_Mana()
     InitTrig_Brawler_Rage_GUI()
@@ -7422,14 +6828,6 @@ function InitCustomTriggers()
     InitTrig_Time_Travel_INIT()
     InitTrig_Time_Travel_CAST()
     InitTrig_Time_Travel_LOOP()
-    InitTrig_Attack_INIT()
-    InitTrig_Attack_CAST()
-    InitTrig_Attack_LOOP()
-    InitTrig_Hash_INIT()
-    InitTrig_Inspire_Start()
-    InitTrig_Inspire_LOOP()
-    InitTrig_Inspire_DIE()
-    InitTrig_Bolster()
     InitTrig_Level_Up_Team()
     InitTrig_Revive_Hero()
     InitTrig_Revive_Hero_Timer()

@@ -1,4 +1,5 @@
-import { Unit } from "lib/w3ts/index"
+import { Coordinate } from "lib/resources/coordinate"
+import { Unit, Widget } from "lib/w3ts/index"
 import { Ability, AbilityParameters } from "./ability"
 
 export class UnitAbility extends Ability {
@@ -11,6 +12,25 @@ export class UnitAbility extends Ability {
         this.unit = unit
     }
 
+    public isCastable(): boolean {
+        return (this.unit.isAlive() && this.unit.mana > this.manaCost && this.cooldownRemaining == 0 && this.level > 0)
+    }
+
+    public hasBuff(): boolean {
+        return this.unit.hasBuff(this.buffFour)
+    }
+
+    public castImmediateAbility(): void {
+        this.unit.issueImmediateOrder(this.orderId)
+    }
+
+    public castTargetAbility(targetWidget: Widget): void {
+        this.unit.issueTargetOrder(this.orderId, targetWidget)
+    }
+
+    public castAbility(dest: Coordinate): void {
+        this.unit.issueOrderAtCoordinate(this.orderId, dest)
+    }
 
     // Easy getters from Ability Class
     public get activatedTooltip(): string {

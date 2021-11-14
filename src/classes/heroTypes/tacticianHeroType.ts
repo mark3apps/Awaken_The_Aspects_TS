@@ -64,6 +64,9 @@ export class TacticianHeroType extends HeroType {
 
 
     public override defineAbilities(): void {
+
+        // Standard Abilities
+
         // Iron Defense
         this.addAbility(new Ability({
             four: ID.Ability.IronDefense,
@@ -85,11 +88,9 @@ export class TacticianHeroType extends HeroType {
         }))
 
 
+        // Custom Abilities
         this.addAbility(new AbilityBolster())
         this.addAbility(new AbilityAttack())
-        
-
-        // Inspire
         this.addAbility(new AbilityInspire())
         new AbilityInspireDeath()
     }
