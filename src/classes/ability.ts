@@ -51,6 +51,7 @@ export const enum TargetType {
 export interface AbilityParameters {
     four: ID.Ability,
     addEffect?: boolean,
+    addGroup?: boolean,
     loopTick?: number,
     buffFour?: ID.Buff,
     type?: EffectType,
@@ -80,7 +81,10 @@ export class Ability {
     readonly starting?: boolean
     readonly ult?: boolean
     readonly addEvent?: boolean
+    readonly addGroup?: boolean
     readonly loopTick?: number
+
+    loopTimer: Timer
     group: Group
 
     onEffect: (ability?: Ability) => void = (): void => { return undefined }
@@ -106,6 +110,7 @@ export class Ability {
         this.ult = ability.ult ?? false
         this.addEvent = ability.addEffect ?? false
         this.loopTick = ability.loopTick ?? 0
+        this.addGroup = ability.addGroup ?? false
 
         // If ability hasn't been definited before
         if (!Ability.map.has(this.four)) {
@@ -113,10 +118,9 @@ export class Ability {
             Ability.map.set(this.four, this)
 
             // Start Ability loop
-            if (this.loopTick > 0) {
-                this.group = new Group()
-                const loopTimer = new Timer()
-                loopTimer.start(this.loopTick, true, () => this.onLoop(this.group))
+            if (this.addGroup) {
+                this.loopTimer = new Timer()
+                this.loopTimer.start(this.loopTick, true, () => this.onLoop())
             }
 
             // Add Trigger Event

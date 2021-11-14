@@ -1234,8 +1234,8 @@ export class Unit extends Widget {
 	/**
 	 * This native is used to keep abilities when morphing units
 	 */
-	public makeAbilityPermanent(permanent: boolean, abilityId: number) {
-		UnitMakeAbilityPermanent(this.handle, permanent, abilityId)
+	public makeAbilityPermanent(permanent: boolean, abilityId: number | string) {
+		typeof abilityId === "number" ? UnitMakeAbilityPermanent(this.handle, permanent, abilityId): UnitMakeAbilityPermanent(this.handle, permanent, FourCC(abilityId))
 	}
 
 	public modifySkillPoints(skillPointDelta: number) {
