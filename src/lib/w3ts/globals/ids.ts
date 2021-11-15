@@ -25,12 +25,17 @@ export namespace ID {
         FelWarlock = "A049",
         FelWarlockTransformed = "S005",
 
+        // Footman
         FootmanCharge = "Afzy",
         Militia2Upgrade = "A045",
         Footman1Upgrade = "A051",
         Footman2Upgrade = "A03J",
         Captian1Upgrade = "A052",
         Captian2Upgrade = "A03K",
+
+        // Aspects
+        InfectAspect = "A05T",
+        InfectAspectDummy = "A04B",
 
         // Mage Towers
         ManaRepository = "A05L",
@@ -49,8 +54,10 @@ export namespace ID {
         ManaShield = "A001",
         ManaBomb = "A03P",
         ManaExplosion = "A018",
-        SoulBind = "A015",
-        UnleashMana = "A03S",
+        Mark = "A015",
+        MarkedSoul = "A05V",
+        ManaStorm = "A03S",
+        ManaStormFeedback = "A05U",
 
         // Shift Master Abilities
         ShadeStrength = "A037",
@@ -792,7 +799,10 @@ export namespace ID {
         ManaAddictSoulBind = "B00F",
         AttackUnit = "B006",
         Inspired = "B00I",
+        Infected = "B00B",
 
+        // Timed Generic Life
+        TimedLifeGeneric = "BTLF",
 
         // Default
         AcidBomb = "BNab",
@@ -1329,6 +1339,10 @@ export namespace ID {
         NavyMarine = "h016",
         AncientOfLife = "n00F",
         LichCustom = "u000",
+        Dummy = "h00U",
+        DummyManaStorm = "h01H",
+        Soul = "e00D",
+
 
         // Default Units
         Abomination = "uabo", // model: Abomination	 scale: 0,9	 selectScale: 2,1
@@ -1565,7 +1579,7 @@ export namespace ID {
         Elderjunglestalker = "njga", // model: JungleBeast	 scale: 1,2	 selectScale: 1,45
         Eldersasquatch = "nsqe", // model: SasquatchShaman	 selectScale: 1,2  
         Eldervoidwalker = "nvde", // model: VoidWalker	 scale: 1,5	 selectScale: 1,5
-        Elderwendigo = "nwnr", // model: Wendigo	 scale: 1,3  
+        AncientOfWarCreep = "nwnr", // model: Wendigo	 scale: 1,3  
         Elvenfarm = "nefm", // model: ElvenFarm	 selectScale: 3,5  
         Elvenfarm0 = "nef0", // model: ElvenVillageBuilding0	 selectScale: 3,5  
         Elvenfarm1 = "nef1", // model: ElvenVillageBuilding1	 selectScale: 3,5  

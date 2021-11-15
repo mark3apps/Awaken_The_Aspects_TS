@@ -39,11 +39,9 @@ export class Unit extends Widget {
 	 * @param face The direction that the unit will be facing in degrees.
 	 * @param skinId The skin of the unit.
 	 */
-	constructor(owner: MapPlayer | number, unitId: number, x: number, y: number, face: number, skinId?: number) {
+	constructor(owner: MapPlayer | number, unitId: number | string, x: number, y: number, face: number, skinId?: number) {
 		if (Handle.initFromHandle()) {
 			super()
-
-
 
 			if (Unit.dataMap.has(this)) {
 				this.data = Unit.dataMap.get(this)
@@ -54,7 +52,9 @@ export class Unit extends Widget {
 
 		} else {
 			const p = typeof owner === "number" ? Player(owner) : owner.handle
-			super(skinId ? BlzCreateUnitWithSkin(p, unitId, x, y, face, skinId) : CreateUnit(p, unitId, x, y, face))
+			typeof unitId === "string" ?
+				super(skinId ? BlzCreateUnitWithSkin(p, FourCC(unitId), x, y, face, skinId) : CreateUnit(p, FourCC(unitId), x, y, face)) :
+				super(skinId ? BlzCreateUnitWithSkin(p, unitId, x, y, face, skinId) : CreateUnit(p, unitId, x, y, face))
 
 			// Set default starting data
 			Unit.dataMap.set(this, new UnitData(this))
@@ -117,19 +117,19 @@ export class Unit extends Widget {
 		return UnitCanSleep(this.handle)
 	}
 
-	public get attack1Base(): number {
+	public get weapon1Base(): number {
 		return this.getField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, 1) as number
 	}
 
-	public set attack1Base(value: number) {
+	public set weapon1Base(value: number) {
 		this.setField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, value, 1)
 	}
 
-	public get attack2Base(): number {
+	public get weapon2Base(): number {
 		return this.getField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, 2) as number
 	}
 
-	public set attack2Base(value: number) {
+	public set weapon2Base(value: number) {
 		this.setField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, value, 2)
 	}
 
@@ -462,6 +462,10 @@ export class Unit extends Widget {
 
 	public get typeId(): number {
 		return GetUnitTypeId(this.handle)
+	}
+
+	public get typeFour(): string {
+		return CC2Four(GetUnitTypeId(this.handle))
 	}
 
 	public get userData(): number {
@@ -835,7 +839,7 @@ export class Unit extends Widget {
 	}
 
 	public hasItemOfType(itemType: string | number) {
-		
+
 		const itemId = typeof itemType === "string" ? FourCC(itemType) : itemType
 
 		let index = 0
@@ -862,7 +866,7 @@ export class Unit extends Widget {
 		BlzUnitHideAbility(this.handle, abilId, false)
 	}
 
-	public distanceFromUnit(unit: Unit): number {
+	public distanceFrom(unit: Unit): number {
 		return SquareRoot(((unit.x - this.x) * (unit.x - this.x)) + ((unit.y - this.y) * (unit.y - this.y)))
 	}
 
@@ -1235,7 +1239,7 @@ export class Unit extends Widget {
 	 * This native is used to keep abilities when morphing units
 	 */
 	public makeAbilityPermanent(permanent: boolean, abilityId: number | string) {
-		typeof abilityId === "number" ? UnitMakeAbilityPermanent(this.handle, permanent, abilityId): UnitMakeAbilityPermanent(this.handle, permanent, FourCC(abilityId))
+		typeof abilityId === "number" ? UnitMakeAbilityPermanent(this.handle, permanent, abilityId) : UnitMakeAbilityPermanent(this.handle, permanent, FourCC(abilityId))
 	}
 
 	public modifySkillPoints(skillPointDelta: number) {
@@ -1445,6 +1449,7 @@ export class Unit extends Widget {
 	public setPathing(flag: boolean) {
 		SetUnitPathing(this.handle, flag)
 	}
+
 
 	/**
 	 * @note This cancels the orders of the unit. If you want to move a unit without canceling its orders set `x`/`y`.

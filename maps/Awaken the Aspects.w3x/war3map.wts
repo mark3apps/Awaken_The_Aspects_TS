@@ -722,7 +722,7 @@ Passthrough
 }
 
 STRING 252
-// Abilities: A01B (TC - Attack), Researchhotkey (Hotkey - Learn)
+// Abilities: A01B (TA - Attack), Researchhotkey (Hotkey - Learn)
 {
 E
 }
@@ -1154,13 +1154,13 @@ W
 }
 
 STRING 456
-// Abilities: A01Z (TC - Bolster), Hotkey (Hotkey - Normal)
+// Abilities: A01Z (TA - Bolster), Hotkey (Hotkey - Normal)
 {
 W
 }
 
 STRING 457
-// Abilities: A01B (TC - Attack), Hotkey (Hotkey - Normal)
+// Abilities: A01B (TA - Attack), Hotkey (Hotkey - Normal)
 {
 E
 }
@@ -1172,13 +1172,13 @@ E
 }
 
 STRING 459
-// Abilities: A019 (TC - Iron Defense), Researchhotkey (Hotkey - Learn)
+// Abilities: A019 (TA - Iron Defense), Researchhotkey (Hotkey - Learn)
 {
 Q
 }
 
 STRING 460
-// Abilities: A019 (TC - Iron Defense), Hotkey (Hotkey - Normal)
+// Abilities: A019 (TA - Iron Defense), Hotkey (Hotkey - Normal)
 {
 Q
 }
@@ -1238,51 +1238,45 @@ Iron Defense
 }
 
 STRING 493
-// Abilities: A019 (TC - Iron Defense), Researchtip (Tooltip - Learn)
+// Abilities: A019 (TA - Iron Defense), Researchtip (Tooltip - Learn)
 {
 Learn Iron Defense - [|cffffcc00Level %d|r]
 }
 
 STRING 494
-// Abilities: A019 (TC - Iron Defense), Tip (Tooltip - Normal)
+// Abilities: A019 (TA - Iron Defense), Tip (Tooltip - Normal)
 {
 Iron Defense - [|cffffcc00Level 1|r]
 }
 
 STRING 495
-// Abilities: A019 (TC - Iron Defense), Tip (Tooltip - Normal)
+// Abilities: A019 (TA - Iron Defense), Tip (Tooltip - Normal)
 {
 Iron Defense - [|cffffcc00Level 2|r]
 }
 
 STRING 496
-// Abilities: A019 (TC - Iron Defense), Tip (Tooltip - Normal)
+// Abilities: A019 (TA - Iron Defense), Tip (Tooltip - Normal)
 {
 Iron Defense - [|cffffcc00Level 3|r]
 }
 
 STRING 497
-// Abilities: A019 (TC - Iron Defense), Tip (Tooltip - Normal)
+// Abilities: A019 (TA - Iron Defense), Tip (Tooltip - Normal)
 {
 Iron Defense - [|cffffcc00Level 4|r]
 }
 
 STRING 498
-// Abilities: A019 (TC - Iron Defense), Tip (Tooltip - Normal)
+// Abilities: A019 (TA - Iron Defense), Tip (Tooltip - Normal)
 {
 Iron Defense - [|cffffcc00Level 5|r]
 }
 
 STRING 499
-// Abilities: A019 (TC - Iron Defense), Tip (Tooltip - Normal)
+// Abilities: A019 (TA - Iron Defense), Tip (Tooltip - Normal)
 {
 Iron Defense - [|cffffcc00Level 6|r]
-}
-
-STRING 500
-// Abilities: A019 (TC - Iron Defense), Researchubertip (Tooltip - Learn - Extended)
-{
-Gives the Commander increased armor and Life regeneration for a short period of time.
 }
 
 STRING 506
@@ -1441,12 +1435,6 @@ STRING 564
 Creates a shield that absorbs damage by using the Mana Seeker's mana, increases armor and returns a percentage of melee damage back.
 }
 
-STRING 600
-// Abilities: A019 (TC - Iron Defense), Name (Name)
-{
-TC - Iron Defense
-}
-
 STRING 601
 // Abilities: A04J (Chrono Atropy (dummy ENEMIES)), Hotkey (Hotkey - Normal)
 {
@@ -1580,94 +1568,45 @@ Defensive hero adept at manipulating creeps and slowly building an unstopable ar
 }
 
 STRING 674
-// Abilities: A01B (TC - Attack), Tip (Tooltip - Normal)
+// Abilities: A01B (TA - Attack), Tip (Tooltip - Normal)
 {
 Attack! - [|cffffcc00Level 1|r]
 }
 
 STRING 675
-// Abilities: A01B (TC - Attack), Tip (Tooltip - Normal)
+// Abilities: A01B (TA - Attack), Tip (Tooltip - Normal)
 {
 Attack! - [|cffffcc00Level 2|r]
 }
 
 STRING 676
-// Abilities: A01B (TC - Attack), Tip (Tooltip - Normal)
+// Abilities: A01B (TA - Attack), Tip (Tooltip - Normal)
 {
 Attack! - [|cffffcc00Level 3|r]
 }
 
 STRING 677
-// Abilities: A01B (TC - Attack), Tip (Tooltip - Normal)
+// Abilities: A01B (TA - Attack), Tip (Tooltip - Normal)
 {
 Attack! - [|cffffcc00Level 4|r]
 }
 
 STRING 678
-// Abilities: A01B (TC - Attack), Tip (Tooltip - Normal)
+// Abilities: A01B (TA - Attack), Tip (Tooltip - Normal)
 {
 Attack! - [|cffffcc00Level 5|r]
 }
 
 STRING 679
-// Abilities: A01B (TC - Attack), Tip (Tooltip - Normal)
+// Abilities: A01B (TA - Attack), Tip (Tooltip - Normal)
 {
 Attack! - [|cffffcc00Level 6|r]
 }
 
 STRING 680
-// Abilities: A01B (TC - Attack), Researchtip (Tooltip - Learn)
+// Abilities: A01B (TA - Attack), Researchtip (Tooltip - Learn)
 {
 Learn Attack! - [|cffffcc00Level %d|r]
-}
-
-STRING 682
-// Abilities: A01B (TC - Attack), Ubertip (Tooltip - Normal - Extended)
-{
-The hero tells nearby units to attack the target.  Units get increased movement speed, armor and life regeneration rate.
-
-Up to 6 units.  Lasts 10 seconds.
-
-}
-
-STRING 683
-// Abilities: A01B (TC - Attack), Ubertip (Tooltip - Normal - Extended)
-{
-The hero tells nearby units to attack the target.  Units get increased movement speed, armor and life regeneration rate.
-
-Up to 11 units.  Lasts 10 seconds.
-}
-
-STRING 684
-// Abilities: A01B (TC - Attack), Ubertip (Tooltip - Normal - Extended)
-{
-The hero tells nearby units to attack the target.  Units get increased movement speed, armor and life regeneration rate.
-
-Up to 16 units.  Lasts 10 seconds.
-}
-
-STRING 685
-// Abilities: A01B (TC - Attack), Ubertip (Tooltip - Normal - Extended)
-{
-The hero tells nearby units to attack the target.  Units get increased movement speed, armor and life regeneration rate.
-
-Up to 21 units.  Lasts 10 seconds.
-}
-
-STRING 686
-// Abilities: A01B (TC - Attack), Ubertip (Tooltip - Normal - Extended)
-{
-The hero tells nearby units to attack the target.  Units get increased movement speed, armor and life regeneration rate.
-
-Up to 26 units.  Lasts 10 seconds.
-}
-
-STRING 687
-// Abilities: A01B (TC - Attack), Ubertip (Tooltip - Normal - Extended)
-{
-The hero tells nearby units to attack the target.  Units get increased movement speed, armor and life regeneration rate.
-
-Up to 31 units.  Lasts 10 seconds.
 }
 
 STRING 688
@@ -1970,12 +1909,6 @@ STRING 806
 E
 }
 
-STRING 808
-// Abilities: A01Z (TC - Bolster), Name (Name)
-{
-TC - Bolster
-}
-
 STRING 824
 // Units: n00J (Marketplace), Name (Name)
 {
@@ -1983,43 +1916,43 @@ Marketplace
 }
 
 STRING 836
-// Abilities: A01Z (TC - Bolster), Tip (Tooltip - Normal)
+// Abilities: A01Z (TA - Bolster), Tip (Tooltip - Normal)
 {
 Bolster - [|cffffcc00Level 1|r]
 }
 
 STRING 837
-// Abilities: A01Z (TC - Bolster), Tip (Tooltip - Normal)
+// Abilities: A01Z (TA - Bolster), Tip (Tooltip - Normal)
 {
 Bolster - [|cffffcc00Level 2|r]
 }
 
 STRING 838
-// Abilities: A01Z (TC - Bolster), Tip (Tooltip - Normal)
+// Abilities: A01Z (TA - Bolster), Tip (Tooltip - Normal)
 {
 Bolster - [|cffffcc00Level 3|r]
 }
 
 STRING 839
-// Abilities: A01Z (TC - Bolster), Tip (Tooltip - Normal)
+// Abilities: A01Z (TA - Bolster), Tip (Tooltip - Normal)
 {
 Bolster - [|cffffcc00Level 4|r]
 }
 
 STRING 840
-// Abilities: A01Z (TC - Bolster), Tip (Tooltip - Normal)
+// Abilities: A01Z (TA - Bolster), Tip (Tooltip - Normal)
 {
 Bolster - [|cffffcc00Level 5|r]
 }
 
 STRING 841
-// Abilities: A01Z (TC - Bolster), Tip (Tooltip - Normal)
+// Abilities: A01Z (TA - Bolster), Tip (Tooltip - Normal)
 {
 Bolster - [|cffffcc00Level 6|r]
 }
 
 STRING 848
-// Abilities: A01Z (TC - Bolster), Researchtip (Tooltip - Learn)
+// Abilities: A01Z (TA - Bolster), Researchtip (Tooltip - Learn)
 {
 Learn Bolster - [|cffffcc00Level %d|r]
 }
@@ -2042,56 +1975,8 @@ STRING 852
 Dummy - Doom Guard - Ancient Chaos
 }
 
-STRING 858
-// Abilities: A019 (TC - Iron Defense), Ubertip (Tooltip - Normal - Extended)
-{
-Gives the Commander increased armor and Life regeneration for a short period of time.
-
-+10 armor and +3 hit point regeneration for 15 seconds.
-}
-
-STRING 859
-// Abilities: A019 (TC - Iron Defense), Ubertip (Tooltip - Normal - Extended)
-{
-Gives the Commander increased armor and Life regeneration for a short period of time.
-
-+20 armor and +6 hit point regeneration for 15 seconds.
-}
-
-STRING 860
-// Abilities: A019 (TC - Iron Defense), Ubertip (Tooltip - Normal - Extended)
-{
-Gives the Commander increased armor and Life regeneration for a short period of time.
-
-+35 armor and +10.5 hit point regeneration for 15 seconds.
-}
-
-STRING 861
-// Abilities: A019 (TC - Iron Defense), Ubertip (Tooltip - Normal - Extended)
-{
-Gives the Commander increased armor and Life regeneration for a short period of time.
-
-+55 armor and +16.5 hit point regeneration for 15 seconds.
-}
-
-STRING 862
-// Abilities: A019 (TC - Iron Defense), Ubertip (Tooltip - Normal - Extended)
-{
-Gives the Commander increased armor and Life regeneration for a short period of time.
-
-+80 armor and +24 hit point regeneration for 15 seconds.
-}
-
-STRING 863
-// Abilities: A019 (TC - Iron Defense), Ubertip (Tooltip - Normal - Extended)
-{
-Gives the Commander increased armor and Life regeneration for a short period of time.
-
-+110 armor and +33 hit point regeneration for 15 seconds.
-}
-
 STRING 871
-// Abilities: A01B (TC - Attack), Researchubertip (Tooltip - Learn - Extended)
+// Abilities: A01B (TA - Attack), Researchubertip (Tooltip - Learn - Extended)
 {
 The hero commands nearby units to attack the target.  Units get increased movement speed, life regeneration rate, attack speed and armor.
 }
@@ -2313,7 +2198,7 @@ STRING 998
 }
 
 STRING 1007
-// Abilities: A01Z (TC - Bolster), Researchhotkey (Hotkey - Learn)
+// Abilities: A01Z (TA - Bolster), Researchhotkey (Hotkey - Learn)
 {
 W
 }
@@ -7705,7 +7590,7 @@ R
 }
 
 STRING 3348
-// Abilities: A03S (MS - Unleash Mana), Researchhotkey (Hotkey - Learn)
+// Abilities: A03S (MS - Mana Storm), Researchhotkey (Hotkey - Learn)
 {
 R
 }
@@ -8064,12 +7949,6 @@ STRING 3436
 (Level 3)
 }
 
-STRING 3443
-// Abilities: A01B (TC - Attack), Name (Name)
-{
-TC - Attack
-}
-
 STRING 3459
 // Abilities: A001 (MS - Mana Shield), Untip (Tooltip - Turn Off)
 {
@@ -8347,7 +8226,7 @@ V
 }
 
 STRING 3563
-// Abilities: A01I (Raise Banner), Hotkey (Hotkey - Normal)
+// Abilities: A01I (TA - Raise Banner), Hotkey (Hotkey - Normal)
 {
 V
 }
@@ -8509,7 +8388,7 @@ Infect
 }
 
 STRING 3612
-// Abilities: A04B (Infect), EditorSuffix (Editor Suffix)
+// Abilities: A05T (Infect), EditorSuffix (Editor Suffix)
 {
  (Aspect of Death)
 }
@@ -8556,14 +8435,8 @@ STRING 3620
 TA - Inspired ( Attack )
 }
 
-STRING 3621
-// Abilities: A01I (Raise Banner), Name (Name)
-{
-Raise Banner
-}
-
 STRING 3622
-// Abilities: A01I (Raise Banner), Researchhotkey (Hotkey - Learn)
+// Abilities: A01I (TA - Raise Banner), Researchhotkey (Hotkey - Learn)
 {
 V
 }
@@ -8575,13 +8448,13 @@ V
 }
 
 STRING 3624
-// Abilities: A01I (Raise Banner), Researchtip (Tooltip - Learn)
+// Abilities: A01I (TA - Raise Banner), Researchtip (Tooltip - Learn)
 {
 Learn Raise Banner - [|cffffcc00Level %d|r].
 }
 
 STRING 3625
-// Abilities: A01I (Raise Banner), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01I (TA - Raise Banner), Ubertip (Tooltip - Normal - Extended)
 {
 Summons an immovable Banner that supports nearby units.
 
@@ -8590,7 +8463,7 @@ Grant increased Life Regeneration to nearby units.  Lasts 15 seconds.
 }
 
 STRING 3626
-// Abilities: A01I (Raise Banner), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01I (TA - Raise Banner), Ubertip (Tooltip - Normal - Extended)
 {
 Summons an immovable Banner that supports nearby units.
 
@@ -8599,7 +8472,7 @@ Grant increased Life Regeneration, and Armor to nearby units.  Lasts 20 seconds.
 }
 
 STRING 3627
-// Abilities: A01I (Raise Banner), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01I (TA - Raise Banner), Ubertip (Tooltip - Normal - Extended)
 {
 Summons an immovable Banner that supports nearby units.
 
@@ -8608,7 +8481,7 @@ Grant increased Life Regeneration, Armor and Attack to nearby units.  Lasts 25 s
 }
 
 STRING 3628
-// Abilities: A01I (Raise Banner), Researchubertip (Tooltip - Learn - Extended)
+// Abilities: A01I (TA - Raise Banner), Researchubertip (Tooltip - Learn - Extended)
 {
 Summons an immovable Banner that supports nearby units.
 
@@ -8618,19 +8491,19 @@ Level 3 - Life Regeneration + Armor + Attack
 }
 
 STRING 3629
-// Abilities: A01I (Raise Banner), Tip (Tooltip - Normal)
+// Abilities: A01I (TA - Raise Banner), Tip (Tooltip - Normal)
 {
 Raise Banner - [|cffffcc00Level 1|r]
 }
 
 STRING 3630
-// Abilities: A01I (Raise Banner), Tip (Tooltip - Normal)
+// Abilities: A01I (TA - Raise Banner), Tip (Tooltip - Normal)
 {
 Raise Banner - [|cffffcc00Level 2|r]
 }
 
 STRING 3631
-// Abilities: A01I (Raise Banner), Tip (Tooltip - Normal)
+// Abilities: A01I (TA - Raise Banner), Tip (Tooltip - Normal)
 {
 Raise Banner - [|cffffcc00Level 3|r]
 }
@@ -8687,12 +8560,6 @@ STRING 3640
 // Abilities: A042 (TA - Inspire), Tip (Tooltip - Normal)
 {
 Inspire - [|cffffcc00Level 3|r]
-}
-
-STRING 3642
-// Abilities: A042 (TA - Inspire), Researchubertip (Tooltip - Learn - Extended)
-{
-Inspires units around hero. Giving them greatly increased stats for 120 seconds.  When the unit dies, it inspires other nearby friendly units.
 }
 
 STRING 3646
@@ -8933,39 +8800,6 @@ STRING 3685
 TA - Inspired Visual
 }
 
-STRING 3686
-// Abilities: A042 (TA - Inspire), Ubertip (Tooltip - Normal - Extended)
-{
-Inspires 4 units around hero giving them greatly increased stats and healing the unit to full life for 120 seconds.  When the unit dies, it inspires 1 other nearby friendly unit.
-
-Inspired units have:
-+350 Health
-+40 Attack
-+10 Armor
-}
-
-STRING 3687
-// Abilities: A042 (TA - Inspire), Ubertip (Tooltip - Normal - Extended)
-{
-Inspires 8 units around hero giving them greatly increased stats and healing the unit to full life for 220 seconds.  When the unit dies, it inspires 2 other nearby friendly unit.
-
-Inspired units have:
-+350 Health
-+40 Attack
-+10 Armor
-}
-
-STRING 3688
-// Abilities: A042 (TA - Inspire), Ubertip (Tooltip - Normal - Extended)
-{
-Inspires 12 units around hero giving them greatly increased stats and healing the unit to full life for 320 seconds.  When the inspired unit dies, it inspires 3 other nearby friendly unit.
-
-Inspired units have:
-+350 Health
-+40 Attack
-+10 Armor
-}
-
 STRING 3689
 // Units: H00R (Mana Addict), Propernames (Proper Names)
 {
@@ -9081,7 +8915,7 @@ V
 }
 
 STRING 3709
-// Abilities: A015 (MS - Soul Bind), Researchhotkey (Hotkey - Learn)
+// Abilities: A015 (MS - Mark), Researchhotkey (Hotkey - Learn)
 {
 Q
 }
@@ -9177,7 +9011,7 @@ Creates a circle where all enemy units who enter have their attack and movement 
 }
 
 STRING 3725
-// Abilities: A015 (MS - Soul Bind), Hotkey (Hotkey - Normal)
+// Abilities: A015 (MS - Mark), Hotkey (Hotkey - Normal)
 {
 Q
 }
@@ -9345,7 +9179,7 @@ Paradox (Effect)
 }
 
 STRING 3771
-// Abilities: A03S (MS - Unleash Mana), Hotkey (Hotkey - Normal)
+// Abilities: A03S (MS - Mana Storm), Hotkey (Hotkey - Normal)
 {
 R
 }
@@ -12533,31 +12367,31 @@ STRING 4607
 }
 
 STRING 4608
-// Abilities: A03S (MS - Unleash Mana), Tip (Tooltip - Normal)
+// Abilities: A03S (MS - Mana Storm), Tip (Tooltip - Normal)
 {
 Unleash Mana
 }
 
 STRING 4612
-// Abilities: A03S (MS - Unleash Mana), Tip (Tooltip - Normal)
+// Abilities: A03S (MS - Mana Storm), Tip (Tooltip - Normal)
 {
 Unleash Mana
 }
 
 STRING 4613
-// Abilities: A03S (MS - Unleash Mana), Tip (Tooltip - Normal)
+// Abilities: A03S (MS - Mana Storm), Tip (Tooltip - Normal)
 {
 Unleash Mana
 }
 
 STRING 4615
-// Abilities: A03S (MS - Unleash Mana), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03S (MS - Mana Storm), Ubertip (Tooltip - Normal - Extended)
 {
 Channels powerful warding magic.
 }
 
 STRING 4616
-// Abilities: A03S (MS - Unleash Mana), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03S (MS - Mana Storm), Ubertip (Tooltip - Normal - Extended)
 {
 Channels powerful warding magic.
 }
@@ -12628,60 +12462,6 @@ STRING 4628
 Soul Bind
 }
 
-STRING 4638
-// Abilities: A03S (MS - Unleash Mana), Name (Name)
-{
-MS - Unleash Mana
-}
-
-STRING 4639
-// Abilities: A015 (MS - Soul Bind), Name (Name)
-{
-MS - Soul Bind
-}
-
-STRING 4640
-// Abilities: A015 (MS - Soul Bind), Researchtip (Tooltip - Learn)
-{
-Learn Soul Bind - [|cffffcc00Level %d|r]
-}
-
-STRING 4641
-// Abilities: A015 (MS - Soul Bind), Tip (Tooltip - Normal)
-{
-Soul Bind - [|cffffcc00Level 1|r]
-}
-
-STRING 4642
-// Abilities: A015 (MS - Soul Bind), Tip (Tooltip - Normal)
-{
-Soul Bind - [|cffffcc00Level 2|r]
-}
-
-STRING 4643
-// Abilities: A015 (MS - Soul Bind), Tip (Tooltip - Normal)
-{
-Soul Bind - [|cffffcc00Level 3|r]
-}
-
-STRING 4644
-// Abilities: A015 (MS - Soul Bind), Tip (Tooltip - Normal)
-{
-Soul Bind - [|cffffcc00Level 4|r]
-}
-
-STRING 4645
-// Abilities: A015 (MS - Soul Bind), Tip (Tooltip - Normal)
-{
-Soul Bind - [|cffffcc00Level 5|r]
-}
-
-STRING 4646
-// Abilities: A015 (MS - Soul Bind), Tip (Tooltip - Normal)
-{
-Soul Bind - [|cffffcc00Level 6|r]
-}
-
 STRING 4647
 // Buffs/Effects: B00F (Soul Bind), Buffubertip (Tooltip - Extended)
 {
@@ -12704,12 +12484,6 @@ STRING 4650
 // Units: h01H (Spell Dummy), EditorSuffix (Name - Editor Suffix)
 {
 (Unleash Mana)
-}
-
-STRING 4651
-// Abilities: A03S (MS - Unleash Mana), Researchtip (Tooltip - Learn)
-{
-Learn Unleash Mana - [|cffffcc00Level %d|r]
 }
 
 STRING 4652
@@ -13573,12 +13347,6 @@ STRING 4853
 // Units: h016 (Navy Marine), Name (Name)
 {
 Navy Marine
-}
-
-STRING 4854
-// Units: h018 (Navy Captian), Name (Name)
-{
-Navy Captian
 }
 
 STRING 4855
@@ -14714,7 +14482,7 @@ This unit is inspired; its health, armor and attack damage are increased.
 }
 
 STRING 5030
-// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01Z (TA - Bolster), Ubertip (Tooltip - Normal - Extended)
 {
 Bolsters the units nearby the Commander by adding additional units to their ranks.
 
@@ -14726,7 +14494,7 @@ Bolsters the units nearby the Commander by adding additional units to their rank
 }
 
 STRING 5031
-// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01Z (TA - Bolster), Ubertip (Tooltip - Normal - Extended)
 {
 Bolsters the units nearby the Commander by adding additional units to their ranks.
 
@@ -14738,7 +14506,7 @@ Bolsters the units nearby the Commander by adding additional units to their rank
 }
 
 STRING 5032
-// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01Z (TA - Bolster), Ubertip (Tooltip - Normal - Extended)
 {
 Bolsters the units nearby the Commander by adding additional units to their ranks.
 
@@ -14750,7 +14518,7 @@ Bolsters the units nearby the Commander by adding additional units to their rank
 }
 
 STRING 5033
-// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01Z (TA - Bolster), Ubertip (Tooltip - Normal - Extended)
 {
 Bolsters the units nearby the Commander by adding additional units to their ranks.
 
@@ -14762,7 +14530,7 @@ Bolsters the units nearby the Commander by adding additional units to their rank
 }
 
 STRING 5034
-// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01Z (TA - Bolster), Ubertip (Tooltip - Normal - Extended)
 {
 Bolsters the units nearby the Commander by adding additional units to their ranks.
 
@@ -14774,7 +14542,7 @@ Bolsters the units nearby the Commander by adding additional units to their rank
 }
 
 STRING 5035
-// Abilities: A01Z (TC - Bolster), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01Z (TA - Bolster), Ubertip (Tooltip - Normal - Extended)
 {
 Bolsters the units nearby the Commander by adding additional units to their ranks.
 
@@ -14786,8 +14554,331 @@ Bolsters the units nearby the Commander by adding additional units to their rank
 }
 
 STRING 5036
-// Abilities: A01Z (TC - Bolster), Researchubertip (Tooltip - Learn - Extended)
+// Abilities: A01Z (TA - Bolster), Researchubertip (Tooltip - Learn - Extended)
 {
 Bolsters the units nearby the Commander by adding additional units to their ranks that fight for a short period of time.  Levels increase amount of units, and max combined unit level.
+}
+
+STRING 5037
+// Abilities: A05T (Infect), Name (Name)
+{
+Infect
+}
+
+STRING 5039
+// Abilities: A05T (Infect), Tip (Tooltip - Normal)
+{
+Infect
+}
+
+STRING 5040
+// Abilities: A05T (Infect), Ubertip (Tooltip - Normal - Extended)
+{
+Infects <A05T,Dur1> units around the Aspect with a disease that turns them into Zombies when they die.  Infects up to 3 units on every attack.
+}
+
+STRING 5041
+// Abilities: A04B (Infect), EditorSuffix (Editor Suffix)
+{
+ (Aspect of Death Dummy Spell)
+}
+
+STRING 5042
+// Abilities: A019 (TA - Iron Defense), Name (Name)
+{
+TA - Iron Defense
+}
+
+STRING 5049
+// Abilities: A01B (TA - Attack), Name (Name)
+{
+TA - Attack
+}
+
+STRING 5050
+// Abilities: A01Z (TA - Bolster), Name (Name)
+{
+TA - Bolster
+}
+
+STRING 5051
+// Abilities: A042 (TA - Inspire), Researchubertip (Tooltip - Learn - Extended)
+{
+Inspires units around hero. Giving them greatly increased stats.  When the unit dies, it inspires other nearby friendly units.
+
+Increasing levels increases the amount of units that are initially inspired and how many other units they inspire.
+}
+
+STRING 5055
+// Abilities: A01I (TA - Raise Banner), Name (Name)
+{
+TA - Raise Banner
+}
+
+STRING 5058
+// Abilities: A01B (TA - Attack), Ubertip (Tooltip - Normal - Extended)
+{
+The hero orders nearby units to attack the target.  Units being ordered get increased movement speed, armor and life regeneration rate.
+
+Up to <A01B,HeroDur1> units.  Lasts <A01B,Dur1> seconds.
++<A04X,DataA1> Damage
++<A01E,DataC1> Armor
+<A01E,DataB1,%>% Damage Recieved
++<A01Q,DataA1,%>% Attack Speed
++<A01C,DataA1,%>% Movement Speed
+}
+
+STRING 5059
+// Abilities: A01B (TA - Attack), Ubertip (Tooltip - Normal - Extended)
+{
+The hero orders nearby units to attack the target.  Units being ordered get increased movement speed, armor and life regeneration rate.
+
+Up to <A01B,HeroDur2> units.  Lasts <A01B,Dur2> seconds.
++<A04X,DataA2> Damage
++<A01E,DataC2> Armor
+<A01E,DataB2,%>% Damage Recieved
++<A01Q,DataA2,%>% Attack Speed
++<A01C,DataA2,%>% Movement Speed
+}
+
+STRING 5060
+// Abilities: A01B (TA - Attack), Ubertip (Tooltip - Normal - Extended)
+{
+The hero orders nearby units to attack the target.  Units being ordered get increased movement speed, armor and life regeneration rate.
+
+Up to <A01B,HeroDur3> units.  Lasts <A01B,Dur3> seconds.
++<A04X,DataA3> Damage
++<A01E,DataC3> Armor
+<A01E,DataB3,%>% Damage Recieved
++<A01Q,DataA3,%>% Attack Speed
++<A01C,DataA3,%>% Movement Speed
+}
+
+STRING 5061
+// Abilities: A01B (TA - Attack), Ubertip (Tooltip - Normal - Extended)
+{
+The hero orders nearby units to attack the target.  Units being ordered get increased movement speed, armor and life regeneration rate.
+
+Up to <A01B,HeroDur4> units.  Lasts <A01B,Dur4> seconds.
++<A04X,DataA4> Damage
++<A01E,DataC4> Armor
+<A01E,DataB4,%>% Damage Recieved
++<A01Q,DataA4,%>% Attack Speed
++<A01C,DataA4,%>% Movement Speed
+}
+
+STRING 5062
+// Abilities: A01B (TA - Attack), Ubertip (Tooltip - Normal - Extended)
+{
+The hero orders nearby units to attack the target.  Units being ordered get increased movement speed, armor and life regeneration rate.
+
+Up to <A01B,HeroDur5> units.  Lasts <A01B,Dur5> seconds.
++<A04X,DataA5> Damage
++<A01E,DataC5> Armor
+<A01E,DataB5,%>% Damage Recieved
++<A01Q,DataA5,%>% Attack Speed
++<A01C,DataA5,%>% Movement Speed
+}
+
+STRING 5063
+// Abilities: A01B (TA - Attack), Ubertip (Tooltip - Normal - Extended)
+{
+The hero orders nearby units to attack the target.  Units being ordered get increased movement speed, armor and life regeneration rate.
+
+Up to <A01B,HeroDur6> units.  Lasts <A01B,Dur6> seconds.
++<A04X,DataA6> Damage
++<A01E,DataC6> Armor
+<A01E,DataB6,%>% Damage Recieved
++<A01Q,DataA6,%>% Attack Speed
++<A01C,DataA6,%>% Movement Speed
+}
+
+STRING 5064
+// Abilities: A019 (TA - Iron Defense), Researchubertip (Tooltip - Learn - Extended)
+{
+Gives the Tactition increased armor and Life regeneration for a short period of time.
+}
+
+STRING 5065
+// Abilities: A019 (TA - Iron Defense), Ubertip (Tooltip - Normal - Extended)
+{
+Gives the Commander greatly increased Armor and Healt regeneration for a short period of time.
+
++<A019,DataB1> armor
++<A019,DataC1> hit point regeneration
+<A019,HeroDur1> second duration
+}
+
+STRING 5066
+// Abilities: A019 (TA - Iron Defense), Ubertip (Tooltip - Normal - Extended)
+{
+Gives the Commander greatly increased Armor and Healt regeneration for a short period of time.
+
++<A019,DataB2> armor
++<A019,DataC2> hit point regeneration
+<A019,HeroDur2> second duration
+}
+
+STRING 5067
+// Abilities: A019 (TA - Iron Defense), Ubertip (Tooltip - Normal - Extended)
+{
+Gives the Commander greatly increased Armor and Healt regeneration for a short period of time.
+
++<A019,DataB3> armor
++<A019,DataC3> hit point regeneration
+<A019,HeroDur3> second duration
+}
+
+STRING 5068
+// Abilities: A019 (TA - Iron Defense), Ubertip (Tooltip - Normal - Extended)
+{
+Gives the Commander greatly increased Armor and Healt regeneration for a short period of time.
+
++<A019,DataB4> armor
++<A019,DataC4> hit point regeneration
+<A019,HeroDur4> second duration
+}
+
+STRING 5069
+// Abilities: A019 (TA - Iron Defense), Ubertip (Tooltip - Normal - Extended)
+{
+Gives the Commander greatly increased Armor and Healt regeneration for a short period of time.
+
++<A019,DataB5> armor
++<A019,DataC5> hit point regeneration
+<A019,HeroDur5> second duration
+}
+
+STRING 5070
+// Abilities: A019 (TA - Iron Defense), Ubertip (Tooltip - Normal - Extended)
+{
+Gives the Commander greatly increased Armor and Healt regeneration for a short period of time.
+
++<A019,DataB6> armor
++<A019,DataC6> hit point regeneration
+<A019,HeroDur6> second duration
+}
+
+STRING 5071
+// Abilities: A042 (TA - Inspire), Ubertip (Tooltip - Normal - Extended)
+{
+Inspires <A042,Rng1> units around hero giving them greatly increased stats and healing the unit to full health.  When the unit dies, it inspires <A042,HeroDur1> other nearby friendly unit.
+
+Inspired units have:
++350 Health
++40 Attack
++10 Armor
+}
+
+STRING 5072
+// Abilities: A042 (TA - Inspire), Ubertip (Tooltip - Normal - Extended)
+{
+Inspires <A042,Rng2> units around hero giving them greatly increased stats and healing the unit to full health.  When the unit dies, it inspires <A042,HeroDur2> other nearby friendly unit.
+
+Inspired units have:
++350 Health
++40 Attack
++10 Armor
+}
+
+STRING 5073
+// Abilities: A042 (TA - Inspire), Ubertip (Tooltip - Normal - Extended)
+{
+Inspires <A043,Rng3> units around hero giving them greatly increased stats and healing the unit to full health.  When the unit dies, it inspires <A043,HeroDur3> other nearby friendly unit.
+
+Inspired units have:
++350 Health
++40 Attack
++10 Armor
+}
+
+STRING 5074
+// Abilities: A03S (MS - Mana Storm), Name (Name)
+{
+MS - Mana Storm
+}
+
+STRING 5075
+// Abilities: A03S (MS - Mana Storm), Researchtip (Tooltip - Learn)
+{
+Learn Mana Storm - [|cffffcc00Level %d|r]
+}
+
+STRING 5076
+// Abilities: A05U (MA - Mana Storm), EditorSuffix (Editor Suffix)
+{
+(Feedback)
+}
+
+STRING 5077
+// Abilities: A05U (MA - Mana Storm), Name (Name)
+{
+MA - Mana Storm
+}
+
+STRING 5078
+// Units: h018 (Navy Captain), Name (Name)
+{
+Navy Captain
+}
+
+STRING 5079
+// Abilities: A015 (MS - Mark), Name (Name)
+{
+MS - Mark
+}
+
+STRING 5080
+// Abilities: A015 (MS - Mark), Researchtip (Tooltip - Learn)
+{
+Learn Mark - [|cffffcc00Level %d|r]
+}
+
+STRING 5081
+// Abilities: A015 (MS - Mark), Tip (Tooltip - Normal)
+{
+Mark - [|cffffcc00Level 1|r]
+}
+
+STRING 5082
+// Abilities: A015 (MS - Mark), Tip (Tooltip - Normal)
+{
+Mark - [|cffffcc00Level 2|r]
+}
+
+STRING 5083
+// Abilities: A015 (MS - Mark), Tip (Tooltip - Normal)
+{
+Mark - [|cffffcc00Level 3|r]
+}
+
+STRING 5084
+// Abilities: A015 (MS - Mark), Tip (Tooltip - Normal)
+{
+Mark - [|cffffcc00Level 4|r]
+}
+
+STRING 5085
+// Abilities: A015 (MS - Mark), Tip (Tooltip - Normal)
+{
+Mark - [|cffffcc00Level 5|r]
+}
+
+STRING 5086
+// Abilities: A015 (MS - Mark), Tip (Tooltip - Normal)
+{
+Mark - [|cffffcc00Level 6|r]
+}
+
+STRING 5087
+// Abilities: A05V (MA - Mark), Name (Name)
+{
+MA - Mark
+}
+
+STRING 5088
+// Abilities: A05V (MA - Mark), EditorSuffix (Editor Suffix)
+{
+(Marked Soul)
 }
 

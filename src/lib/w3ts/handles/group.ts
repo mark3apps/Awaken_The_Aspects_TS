@@ -92,7 +92,7 @@ export class Group extends Handle<group> {
 	}
 
 	public enumUnitsOfTypeID(unitId: string | number): void {
-		this.enumUnitsInRect(Rectangle.getWorldBounds(), () =>{
+		this.enumUnitsInRect(Rectangle.getWorldBounds(), () => {
 			return (typeof unitId === "string" ? FourCC(unitId) : unitId) == Unit.fromFilter().typeId
 		})
 	}
@@ -123,12 +123,32 @@ export class Group extends Handle<group> {
 
 		let u = this.first
 		while (u != null) {
-	
+
 			callback(u)
 
 			this.removeUnit(u)
 			u = this.first
 		}
+	}
+
+	public firstLoopCondition(condition: (u: Unit) => boolean, callback: (u: Unit) => void, maxUnits = 99999): void {
+
+		let u = this.first
+		let units = 0
+		while (u != null && units < maxUnits) {
+
+			if (condition) {
+				callback(u)
+				units += 1
+			}
+
+			this.removeUnit(u)
+			u = this.first
+		}
+	}
+
+	public getRandomUnit(): Unit {
+		return Unit.fromHandle(GroupPickRandomUnit(this.handle))
 	}
 
 	public get size(): number {

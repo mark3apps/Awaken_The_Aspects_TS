@@ -32,6 +32,10 @@ export class UnitAbility extends Ability {
         this.unit.issueOrderAtCoordinate(this.orderId, dest)
     }
 
+    public isCasting(): boolean {
+        return this.unit.currentOrder == this.orderId
+    }
+
     // Easy getters from Ability Class
     public get activatedTooltip(): string {
         return BlzGetAbilityActivatedTooltip(this.id, this.level)

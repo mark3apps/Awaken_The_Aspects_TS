@@ -3125,4 +3125,7 @@ export namespace MODEL {
         zombie = "Units\\Creeps\\Zombie\\Zombie.mdx",
         zombie_Portrait = "Units\\Creeps\\Zombie\\Zombie_Portrait.mdx"
     }
+    export enum Custom {
+        manaStorm = "Mana_Storm.mdx"
+    }
 }

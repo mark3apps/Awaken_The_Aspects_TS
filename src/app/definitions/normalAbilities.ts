@@ -1,3 +1,4 @@
+import { EVENT } from "app/systems/events"
 import { Ability, EffectType, TargetType } from "classes/ability"
 import { UnitAbility } from "classes/unitAbility"
 import { ID } from "lib/w3ts/globals/ids"
@@ -133,8 +134,8 @@ export namespace NORMAL_ABILITY {
 
             if (unitAbility.isCastable() &&
                 attackedUnit.isGround) {
-                    unitAbility.castAbility(attackedUnit.coordinate)
-                }
+                unitAbility.castAbility(attackedUnit.coordinate)
+            }
         }
 
         const chainLightningTower = new Ability({
@@ -152,8 +153,8 @@ export namespace NORMAL_ABILITY {
 
             if (unitAbility.isCastable() &&
                 attackedUnit.isGround) {
-                    unitAbility.castTargetAbility(attackedUnit)
-                }
+                unitAbility.castTargetAbility(attackedUnit)
+            }
         }
 
         const coneOfFireTower = new Ability({
@@ -171,8 +172,56 @@ export namespace NORMAL_ABILITY {
 
             if (unitAbility.isCastable() &&
                 attackedUnit.isGround) {
-                    unitAbility.castAbility(attackedUnit.coordinate)
-                }
+                unitAbility.castAbility(attackedUnit.coordinate)
+            }
         }
+
+
+        const aspectOfDeathInfect = new Ability({
+            four: ID.Ability.InfectAspect,
+            orderId: OrderId.Parasite,
+            buffFour: ID.Buff.Infected,
+            type: EffectType.Attacking,
+            target: TargetType.CrippleAround,
+            addEffect: true
+        })
+
+        aspectOfDeathInfect.onEffect = (): void => {
+            const eventUnit = Unit.fromAttackingUnit()
+            const g = new Group()
+
+            const unitAbility = new UnitAbility(eventUnit, aspectOfDeathInfect)
+            const unitCount = math.floor(unitAbility.normalDuration)
+
+            g.enumUnitsInRangeOfUnit(eventUnit, 400, null)
+
+            g.firstLoopCondition((u) => {
+                return (u.isAlive() &&
+                    u.isEnemy(eventUnit) &&
+                    !u.isHero &&
+                    !u.isStructure &&
+                    !u.isIllusion &&
+                    !u.isMagicImmune &&
+                    !u.hasBuff(ID.Buff.Infected))
+
+            }, (u) => {
+                const dummy = new Unit(eventUnit.owner, ID.Unit.Dummy, eventUnit.x, eventUnit.y, eventUnit.facing)
+                dummy.addAbility(ID.Ability.InfectAspectDummy)
+                dummy.issueTargetOrder(OrderId.Parasite, u)
+                dummy.applyTimedLife(ID.Buff.TimedLifeGeneric, 2)
+
+            },
+                unitCount)
+            g.destroy()
+
+        }
+
+        // Turn off Elder Ent Movement Pathing
+        EVENT.unitCreated.add(() => {
+            const eventUnit = Unit.fromEvent()
+            if (eventUnit.typeFour == ID.Unit.AncientOfWarCreep) {
+                eventUnit.setPathing(false)
+            }
+        })
     }
 }

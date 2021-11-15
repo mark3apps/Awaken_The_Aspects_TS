@@ -49,10 +49,12 @@ export const enum TargetType {
 }
 
 
+
 export interface AbilityParameters {
     four: ID.Ability,
     addEffect?: boolean,
     addGroup?: boolean,
+    addBuffDeath?: boolean,
     loopTick?: number,
     
     buffFour?: ID.Buff,
@@ -74,6 +76,7 @@ export class Ability {
     readonly target: TargetType
 
     readonly buffFour?: ID.Buff
+    readonly addBuffDeath? : boolean
     readonly orderId?: OrderId
     readonly orderIdAutoOn?: OrderId
     readonly orderIdAutoOff?: OrderId
@@ -90,6 +93,7 @@ export class Ability {
     group: Group
 
     onEffect: (ability?: Ability) => void = (): void => { return undefined }
+    onBuffDeath: (ability?: Ability) => void = (): void => { return undefined }
     onLoop: () => void = (): void => { return undefined }
 
     private static map = new Map<string, Ability>()
@@ -111,6 +115,7 @@ export class Ability {
         this.starting = ability.starting ?? false
         this.ult = ability.ult ?? false
         this.addEvent = ability.addEffect ?? false
+        this.addBuffDeath = ability.addBuffDeath ?? false
         this.loopTick = ability.loopTick ?? 0
 
         // If ability hasn't been definited before
@@ -122,6 +127,14 @@ export class Ability {
             if (this.loopTick > 0) {
                 this.loopTimer = new Timer()
                 this.loopTimer.start(this.loopTick, true, () => this.onLoop())
+            }
+
+            if (this.addBuffDeath) {
+                EVENT.unitDies.add(() => {
+                    if (Unit.fromEvent().hasBuff(this.buffId)) {
+                        this.onBuffDeath(this)
+                    }
+                })
             }
 
             // Add Trigger Event

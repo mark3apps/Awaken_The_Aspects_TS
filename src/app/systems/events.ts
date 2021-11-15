@@ -1,4 +1,5 @@
-import { Rectangle, Trigger, Unit } from "lib/w3ts/index"
+import { Rectangle, Timer, Trigger, Unit } from "lib/w3ts/index"
+import { Log } from "./log"
 
 export namespace EVENT {
 
@@ -14,10 +15,11 @@ export namespace EVENT {
     export const mapStart = new Trigger()
 
 
-    export const define = (): void  => {
+
+    export const define = (): void => {
         mapStart.registerTimerEvent(0.5, false)
         unitCreated.registerEnterRect(Rectangle.getPlayableMap())
-        unitDies.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH)
+
         unitAttacked.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
         unitOrdered.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_ORDER)
         unitOrdered.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)
@@ -28,17 +30,26 @@ export namespace EVENT {
         unitSpellEffect.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT)
         heroLevels.registerAnyUnitEvent(EVENT_PLAYER_HERO_LEVEL)
 
+        unitDies.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DAMAGED)
+        unitDies.addCondition(() => { return Unit.fromEvent().life - GetEventDamage() <= 0 })
+
 
         // When a Unit dies clear it out
         unitDies.add(() => {
+            Log.Information("Unit Died")
             const eventUnit = Unit.fromEvent()
             const killingUnit = Unit.fromHandle(GetKillingUnit())
 
-            if (!eventUnit.isHero) {
-                Unit.dataMap.delete(eventUnit)
-            }
-
             killingUnit.data.kills += 1
+
+            if (!eventUnit.isHero) {
+                const timer = new Timer()
+                timer.start(30, false, () => {
+                    eventUnit.data.custom.clear()
+                    Unit.dataMap.delete(eventUnit)
+                })
+
+            }
         })
     }
 

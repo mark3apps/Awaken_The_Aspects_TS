@@ -5,6 +5,8 @@ import { HeroType } from "../herotype"
 import { Ability, EffectType, TargetType } from "classes/ability"
 import { ID } from "lib/w3ts/globals/ids"
 import { OrderId } from "lib/w3ts/globals/order"
+import { AbilityManaStorm } from "classes/abilities/manaAddict/manaStorm"
+import { AbilityMark } from "classes/abilities/manaAddict/mark"
 
 export class ManaAddictHeroType extends HeroType {
 
@@ -78,25 +80,11 @@ export class ManaAddictHeroType extends HeroType {
         }))
 
         // Soul Bind
-        this.addAbility(new Ability({
-            four: ID.Ability.SoulBind,
-            orderId: OrderId.Clusterrockets,
-            buffFour: ID.Buff.ManaAddictSoulBind,
-            type: EffectType.Instant,
-            target: TargetType.ModifyArea,
-            permanent: true,
-            starting: true
-        }))
+        this.addAbility(new AbilityMark())
 
-        // Unleash Mana
-        this.addAbility(new Ability({
-            four: ID.Ability.UnleashMana,
-            type: EffectType.Channel,
-            orderId: OrderId.Starfall,
-            target: TargetType.DamageAround,
-            permanent: true,
-            ult: true
-        }))
+
+        // Mana Storm
+        this.addAbility(new AbilityManaStorm())
     }
 
 

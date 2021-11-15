@@ -314,16 +314,16 @@ function HeroSelector.buttonSelected(player, unitCode)
 end
 
 function HeroSelector.repick(unit, player)
-    UnitRemoveBuffsBJ(bj_REMOVEBUFFS_ALL, unit) -- this is done to undo metamorph
-    local unitCode = GetUnitTypeId(unit)
-    if unitCode == 0 then return end
+    -- UnitRemoveBuffsBJ(bj_REMOVEBUFFS_ALL, unit) -- this is done to undo metamorph
+    -- local unitCode = GetUnitTypeId(unit)
+    -- if unitCode == 0 then return end
 
-    HeroSelector.counterChangeUnitCode(unitCode, -1, player)
+    -- HeroSelector.counterChangeUnitCode(unitCode, -1, player)
 
-    if not player then player = GetOwningPlayer(unit) end
-    HeroSelector.show(true, player)
-    HeroSelector.enablePick(true, player)
-    RemoveUnit(unit)
+    -- if not player then player = GetOwningPlayer(unit) end
+    -- HeroSelector.show(true, player)
+    -- HeroSelector.enablePick(true, player)
+    -- RemoveUnit(unit)
 end
 -- =====
 -- code start

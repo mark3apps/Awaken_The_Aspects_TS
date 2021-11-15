@@ -66,7 +66,7 @@ export class AbilityBolster extends Ability {
                 const coor = eventUnit.polarOffset(math.random(80, areaOfEffect), math.random(0, 359))
                 const u = new Unit(eventUnit.owner, unitTypes[GetRandomInt(0, unitTypes.length - 1)], coor.x, coor.y, eventUnit.facing)
                 new Effect(MODEL.Ability.charmTarget, u, ATTACH.Point.overhead).destroy()
-                u.applyTimedLife("BTLF", unitDuration)
+                u.applyTimedLife(ID.Buff.TimedLifeGeneric, unitDuration)
 
                 PATHING.newOrders(u)
                 currentSummonLevel += u.level

@@ -284,10 +284,6 @@ gg_snd_Warning = nil
 gg_snd_GateEpicDeath = nil
 gg_trg_Level100 = nil
 gg_trg_fogofwar = nil
-gg_trg_Repick = nil
-gg_trg_Picking_Phase = nil
-gg_trg_AllRandom = nil
-gg_trg_Start = nil
 gg_trg_testing = nil
 gg_trg_FUNC_Calculate_Level_Factor = nil
 gg_trg_Open_Gate_Right_Murloc = nil
@@ -312,8 +308,6 @@ gg_trg_Start_Event = nil
 gg_trg_Event_Count = nil
 gg_trg_DW_Ancient_Chaos = nil
 gg_trg_Doom_Warden_End = nil
-gg_trg_Elder_Ent_Movement = nil
-gg_trg_Zombie_Infect = nil
 gg_trg_Shipyard_Left_End = nil
 gg_trg_Brawler_No_Mana = nil
 gg_trg_Brawler_Rage_GUI = nil
@@ -747,6 +741,73 @@ function InitGlobals()
     udg_Talent__Button = 0
 end
 
+
+do
+	local data = {}
+	function SetTimerData(whichTimer, dat) data[whichTimer] = dat end
+
+	-- GetData functionality doesn't even require an argument.
+	function GetTimerData(whichTimer)
+		if not whichTimer then whichTimer = GetExpiredTimer() end
+		return data[whichTimer]
+	end
+
+	-- NewTimer functionality includes optional parameter to pass data to timer.
+	function NewTimer(dat)
+		local t = CreateTimer()
+		if dat then data[t] = dat end
+		return t
+	end
+
+	-- Release functionality doesn't even need for you to pass the expired timer.
+	-- as an arg. It also returns the user data passed.
+	function ReleaseTimer(whichTimer)
+		if not whichTimer then whichTimer = GetExpiredTimer() end
+		local dat = data[whichTimer]
+		data[whichTimer] = nil
+		PauseTimer(whichTimer)
+		DestroyTimer(whichTimer)
+		return dat
+	end
+
+	local oldWait = PolledWait
+	function PolledWait(duration)
+		local thread = coroutine.running()
+		if thread then
+			TimerStart(NewTimer(thread), duration, false, function() coroutine.resume(ReleaseTimer()) end)
+			coroutine.yield(thread)
+		else
+			oldWait(duration)
+		end
+	end
+
+	local oldTSA = TriggerSleepAction
+	function TriggerSleepAction(duration) PolledWait(duration) end
+
+	local thread
+	local oldSync = SyncSelections
+	function SyncSelectionsHelper()
+		local t = thread
+		oldSync()
+		coroutine.resume(t)
+	end
+	function SyncSelections()
+		thread = coroutine.running()
+		if thread then
+			ExecuteFunc("SyncSelectionsHelper")
+			coroutine.yield(thread)
+		else
+			oldSync()
+		end
+	end
+
+	if not EnableWaits then -- Added this check to ensure compatibilitys with Lua Fast Triggers
+		local oldAction = TriggerAddAction
+		function TriggerAddAction(whichTrig, userAction)
+			oldAction(whichTrig, function() coroutine.resume(coroutine.create(function() userAction() end)) end)
+		end
+	end
+end
 TasButtonAction = {
     Set = function(frame, action)
         -- first call?
@@ -907,8 +968,8 @@ HeroSelector.BoxPosY = 0.4
 HeroSelector.BoxPosPoint = FRAMEPOINT_CENTER
 HeroSelector.AutoShow = true -- (true) shows the box and the Selection at 0.0 for all players
 -- Unique Picks
-HeroSelector.UnitCount = 2 -- each hero is in total allowed to be picked this amount of times (includes random, repicking allows a hero again).
-HeroSelector.UnitCountPerTeam = 1 -- Each Team is allowed to pick this amount of each unitType
+HeroSelector.UnitCount = 5 -- each hero is in total allowed to be picked this amount of times (includes random, repicking allows a hero again).
+HeroSelector.UnitCountPerTeam = 5 -- Each Team is allowed to pick this amount of each unitType
 HeroSelector.ToManyTooltip = "OUTOFSTOCKTOOLTIP"
 -- Ban
 HeroSelector.DelayBanUntilPick = false -- (true) baning will not be applied instantly, instead it is applied when HeroSelector.enablePick is called the next time.
@@ -1090,16 +1151,16 @@ function HeroSelector.buttonSelected(player, unitCode)
 end
 
 function HeroSelector.repick(unit, player)
-    UnitRemoveBuffsBJ(bj_REMOVEBUFFS_ALL, unit) -- this is done to undo metamorph
-    local unitCode = GetUnitTypeId(unit)
-    if unitCode == 0 then return end
+    -- UnitRemoveBuffsBJ(bj_REMOVEBUFFS_ALL, unit) -- this is done to undo metamorph
+    -- local unitCode = GetUnitTypeId(unit)
+    -- if unitCode == 0 then return end
 
-    HeroSelector.counterChangeUnitCode(unitCode, -1, player)
+    -- HeroSelector.counterChangeUnitCode(unitCode, -1, player)
 
-    if not player then player = GetOwningPlayer(unit) end
-    HeroSelector.show(true, player)
-    HeroSelector.enablePick(true, player)
-    RemoveUnit(unit)
+    -- if not player then player = GetOwningPlayer(unit) end
+    -- HeroSelector.show(true, player)
+    -- HeroSelector.enablePick(true, player)
+    -- RemoveUnit(unit)
 end
 -- =====
 -- code start
@@ -2890,7 +2951,7 @@ function CreateBuildingsForPlayer20()
     u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), -21312.0, -7680.0, 270.000, FourCC("hgtw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), -21312.0, -8256.0, 270.000, FourCC("hgtw"))
     u = BlzCreateUnitWithSkin(p, FourCC("n007"), -23936.0, -10304.0, 270.000, FourCC("n007"))
-    u = BlzCreateUnitWithSkin(p, FourCC("ncbb"), -16416.0, -7200.0, 270.000, FourCC("ncbb"))
+    u = BlzCreateUnitWithSkin(p, FourCC("ncbb"), -16416.0, -7264.0, 270.000, FourCC("ncbb"))
     u = BlzCreateUnitWithSkin(p, FourCC("h01C"), -14656.0, -11904.0, 360.000, FourCC("h01C"))
     gg_unit_n001_0048 = BlzCreateUnitWithSkin(p, FourCC("n001"), -15360.0, -8192.0, 270.000, FourCC("n001"))
     SetUnitColor(gg_unit_n001_0048, ConvertPlayerColor(9))
@@ -2935,6 +2996,7 @@ function CreateBuildingsForPlayer20()
     u = BlzCreateUnitWithSkin(p, FourCC("n000"), -23168.0, -4608.0, 270.000, FourCC("n000"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00U"), -21422.2, -11676.9, 0.000, FourCC("n00U"))
     gg_unit_eshy_0120 = BlzCreateUnitWithSkin(p, FourCC("eshy"), -21664.0, -2016.0, 270.000, FourCC("eshy"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n009"), -20992.0, -11328.0, 270.000, FourCC("n009"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00U"), -23694.2, -12963.1, 0.000, FourCC("n00U"))
     u = BlzCreateUnitWithSkin(p, FourCC("nft2"), -24768.0, -12416.0, 270.000, FourCC("nft2"))
     u = BlzCreateUnitWithSkin(p, FourCC("hlum"), -15520.0, -6880.0, 270.000, FourCC("hlum"))
@@ -4259,93 +4321,6 @@ function InitTrig_fogofwar()
     TriggerAddAction(gg_trg_fogofwar, Trig_fogofwar_Actions)
 end
 
-function Trig_Repick_Func002001002()
-    return (IsUnitType(GetFilterUnit(), UNIT_TYPE_HERO) == true)
-end
-
-function Trig_Repick_Func002A()
-        HeroSelector.repick(GetEnumUnit())
-end
-
-function Trig_Repick_Actions()
-        bj_wantDestroyGroup = true
-    ForGroupBJ(GetUnitsOfPlayerMatching(GetTriggerPlayer(), Condition(Trig_Repick_Func002001002)), Trig_Repick_Func002A)
-end
-
-function InitTrig_Repick()
-    gg_trg_Repick = CreateTrigger()
-    TriggerRegisterPlayerEventEndCinematic(gg_trg_Repick, Player(0))
-    TriggerRegisterPlayerEventEndCinematic(gg_trg_Repick, Player(1))
-    TriggerRegisterPlayerEventEndCinematic(gg_trg_Repick, Player(2))
-    TriggerRegisterPlayerEventEndCinematic(gg_trg_Repick, Player(3))
-    TriggerRegisterPlayerEventEndCinematic(gg_trg_Repick, Player(4))
-    TriggerRegisterPlayerEventEndCinematic(gg_trg_Repick, Player(5))
-    TriggerAddAction(gg_trg_Repick, Trig_Repick_Actions)
-end
-
-function Trig_Picking_Phase_Func003C()
-    if (not (udg_Count <= 5)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Picking_Phase_Func005Func002Func003C()
-    if (not (GetPlayerUnitCount(GetEnumPlayer(), false) == 0)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Picking_Phase_Func005Func002A()
-        bj_wantDestroyGroup = true
-    if (Trig_Picking_Phase_Func005Func002Func003C()) then
-                HeroSelector.forcePick(GetEnumPlayer())
-    else
-    end
-end
-
-function Trig_Picking_Phase_Func005C()
-    if (not (udg_Count <= 0)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Picking_Phase_Actions()
-    udg_Count = (26 - GetTriggerExecCount(GetTriggeringTrigger()))
-        HeroSelector.setTitleText( GetLocalizedString("DEFAULTTIMERDIALOGTEXT")..": " .. udg_Count)
-    if (Trig_Picking_Phase_Func003C()) then
-        PlaySoundBJ(gg_snd_BattleNetTick)
-    else
-    end
-    if (Trig_Picking_Phase_Func005C()) then
-        ForForce(GetPlayersAll(), Trig_Picking_Phase_Func005Func002A)
-        DisableTrigger(GetTriggeringTrigger())
-        DisableTrigger(gg_trg_Repick)
-                HeroSelector.destroy()
-    else
-    end
-end
-
-function InitTrig_Picking_Phase()
-    gg_trg_Picking_Phase = CreateTrigger()
-    DisableTrigger(gg_trg_Picking_Phase)
-    TriggerRegisterTimerEventPeriodic(gg_trg_Picking_Phase, 1.00)
-    TriggerAddAction(gg_trg_Picking_Phase, Trig_Picking_Phase_Actions)
-end
-
-function Trig_AllRandom_Actions()
-        HeroSelector.forceRandom()
-        HeroSelector.destroy()
-end
-
-function InitTrig_AllRandom()
-    gg_trg_AllRandom = CreateTrigger()
-    TriggerRegisterPlayerChatEvent(gg_trg_AllRandom, Player(0), "-ar", true)
-    TriggerAddAction(gg_trg_AllRandom, Trig_AllRandom_Actions)
-end
-
 function Trig_testing_Conditions()
     if (not (IsTerrainPathableBJ(GetRectCenter(GetPlayableMapRect()), PATHING_TYPE_WALKABILITY) == true)) then
         return false
@@ -5328,84 +5303,6 @@ function InitTrig_Doom_Warden_End()
     TriggerRegisterAnyUnitEventBJ(gg_trg_Doom_Warden_End, EVENT_PLAYER_UNIT_DEATH)
     TriggerAddCondition(gg_trg_Doom_Warden_End, Condition(Trig_Doom_Warden_End_Conditions))
     TriggerAddAction(gg_trg_Doom_Warden_End, Trig_Doom_Warden_End_Actions)
-end
-
-function Trig_Elder_Ent_Movement_Conditions()
-    if (not (GetUnitTypeId(GetEnteringUnit()) == FourCC("nwnr"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Elder_Ent_Movement_Actions()
-    SetUnitPathing(GetEnteringUnit(), false)
-end
-
-function InitTrig_Elder_Ent_Movement()
-    gg_trg_Elder_Ent_Movement = CreateTrigger()
-    TriggerRegisterEnterRectSimple(gg_trg_Elder_Ent_Movement, GetPlayableMapRect())
-    TriggerAddCondition(gg_trg_Elder_Ent_Movement, Condition(Trig_Elder_Ent_Movement_Conditions))
-    TriggerAddAction(gg_trg_Elder_Ent_Movement, Trig_Elder_Ent_Movement_Actions)
-end
-
-function Trig_Zombie_Infect_Conditions()
-    if (not (GetUnitTypeId(GetAttacker()) == FourCC("uabo"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Zombie_Infect_Func002002003001()
-    return (IsUnitType(GetFilterUnit(), UNIT_TYPE_STRUCTURE) == false)
-end
-
-function Trig_Zombie_Infect_Func002002003002001()
-    return (IsUnitEnemy(GetFilterUnit(), GetOwningPlayer(GetAttacker())) == true)
-end
-
-function Trig_Zombie_Infect_Func002002003002002()
-    return (IsUnitAliveBJ(GetFilterUnit()) == true)
-end
-
-function Trig_Zombie_Infect_Func002002003002()
-    return GetBooleanAnd(Trig_Zombie_Infect_Func002002003002001(), Trig_Zombie_Infect_Func002002003002002())
-end
-
-function Trig_Zombie_Infect_Func002002003()
-    return GetBooleanAnd(Trig_Zombie_Infect_Func002002003001(), Trig_Zombie_Infect_Func002002003002())
-end
-
-function Trig_Zombie_Infect_Func003C()
-    if (not (CountUnitsInGroup(udg_TEMP_UnitGroup) > 0)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Zombie_Infect_Actions()
-    udg_TEMP_Pos2 = GetUnitLoc(GetAttacker())
-    udg_TEMP_UnitGroup = GetUnitsInRangeOfLocMatching(200.00, udg_TEMP_Pos2, Condition(Trig_Zombie_Infect_Func002002003))
-    if (Trig_Zombie_Infect_Func003C()) then
-        udg_TEMP_IntLoop1 = 1
-        while (true) do
-            if (udg_TEMP_IntLoop1 > 3) then break end
-            CreateNUnitsAtLoc(1, FourCC("h000"), GetOwningPlayer(GetAttacker()), udg_TEMP_Pos2, bj_UNIT_FACING)
-            UnitApplyTimedLifeBJ(2.00, FourCC("BTLF"), GetLastCreatedUnit())
-            UnitAddAbilityBJ(FourCC("A04B"), GetLastCreatedUnit())
-            IssueTargetOrderBJ(GetLastCreatedUnit(), "parasite", GroupPickRandomUnit(udg_TEMP_UnitGroup))
-            udg_TEMP_IntLoop1 = udg_TEMP_IntLoop1 + 1
-        end
-    else
-    end
-        DestroyGroup ( udg_TEMP_UnitGroup )
-        RemoveLocation ( udg_TEMP_Pos2 )
-end
-
-function InitTrig_Zombie_Infect()
-    gg_trg_Zombie_Infect = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Zombie_Infect, EVENT_PLAYER_UNIT_ATTACKED)
-    TriggerAddCondition(gg_trg_Zombie_Infect, Condition(Trig_Zombie_Infect_Conditions))
-    TriggerAddAction(gg_trg_Zombie_Infect, Trig_Zombie_Infect_Actions)
 end
 
 function Trig_Shipyard_Left_End_Func009C()
@@ -6779,9 +6676,6 @@ end
 function InitCustomTriggers()
     InitTrig_Level100()
     InitTrig_fogofwar()
-    InitTrig_Repick()
-    InitTrig_Picking_Phase()
-    InitTrig_AllRandom()
     InitTrig_testing()
     InitTrig_FUNC_Calculate_Level_Factor()
     InitTrig_Open_Gate_Right_Murloc()
@@ -6806,8 +6700,6 @@ function InitCustomTriggers()
     InitTrig_Event_Count()
     InitTrig_DW_Ancient_Chaos()
     InitTrig_Doom_Warden_End()
-    InitTrig_Elder_Ent_Movement()
-    InitTrig_Zombie_Infect()
     InitTrig_Shipyard_Left_End()
     InitTrig_Brawler_No_Mana()
     InitTrig_Brawler_Rage_GUI()
