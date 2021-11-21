@@ -2090,7 +2090,7 @@ Activate Mana Shield
 }
 
 STRING 940
-// Abilities: A02D (Talents - Brawler), Hotkey (Hotkey - Normal)
+// Units: n01D (Arcane Building), EditorSuffix (Name - Editor Suffix)
 {
 C
 }
@@ -3848,7 +3848,7 @@ This contains all of the talents that have been purchased for this hero.
 }
 
 STRING 2388
-// Abilities: A02J (Talents - Mana Seeker), Hotkey (Hotkey - Normal)
+// Abilities: A02D (Talents - Brawler), Hotkey (Hotkey - Normal)
 {
 C
 }
@@ -4110,7 +4110,7 @@ This contains all of the talents that have been purchased for this hero.
 }
 
 STRING 2498
-// Abilities: A02Z (Talents - Shifter), Hotkey (Hotkey - Normal)
+// Abilities: A02J (Talents - Mana Seeker), Hotkey (Hotkey - Normal)
 {
 C
 }
@@ -7356,7 +7356,7 @@ The Mana Addict learns to create a hardened layer around her body that reduces t
 }
 
 STRING 3243
-// Upgrades: R009 (Animal War Training), Hotkey (Hotkey)
+// Units: n00S (Arcane Building), EditorSuffix (Name - Editor Suffix)
 {
 A
 }
@@ -8581,7 +8581,7 @@ This contains all of the talents that have been purchased for this hero.
 }
 
 STRING 3650
-// Abilities: A01F (Talents - Tactition), Hotkey (Hotkey - Normal)
+// Abilities: A02Z (Talents - Shifter), Hotkey (Hotkey - Normal)
 {
 C
 }
@@ -9413,7 +9413,7 @@ This contains all of the talents that have been purchased for this hero.
 }
 
 STRING 3816
-// Abilities: A04S (Talents - Time Mage), Hotkey (Hotkey - Normal)
+// Abilities: A01F (Talents - Tactition), Hotkey (Hotkey - Normal)
 {
 C
 }
@@ -13032,7 +13032,7 @@ This contains all of the talents that have been purchased for this hero.
 }
 
 STRING 4783
-// Abilities: A01R (WEAPON - Shifter), Hotkey (Hotkey - Normal)
+// Abilities: A04S (Talents - Time Mage), Hotkey (Hotkey - Normal)
 {
 C
 }
@@ -13050,7 +13050,7 @@ Wildhammer Farm
 }
 
 STRING 4790
-// Units: n00U (Arcane Tower), EditorSuffix (Name - Editor Suffix)
+// Units: n00O (City Highrise), EditorSuffix (Name - Editor Suffix)
 {
 2
 }
@@ -13091,24 +13091,6 @@ STRING 4807
 Mana Repository
 }
 
-STRING 4808
-// Units: n004 (Arcane Tower), Name (Name)
-{
-Arcane Tower
-}
-
-STRING 4809
-// Units: n00U (Arcane Tower), Name (Name)
-{
-Arcane Tower
-}
-
-STRING 4812
-// Units: n019 (Arcane Shield Generator), Name (Name)
-{
-Arcane Shield Generator
-}
-
 STRING 4813
 // Abilities: A02C (Magic Shield), Name (Name)
 {
@@ -13137,30 +13119,6 @@ STRING 4820
 // Units: n001 (Bandit Hideout), Name (Name)
 {
 Bandit Hideout
-}
-
-STRING 4821
-// Units: n00T (Arcane Violet Hold), Name (Name)
-{
-Arcane Violet Hold
-}
-
-STRING 4822
-// Units: n00V (Arcane Dome Small), Name (Name)
-{
-Arcane Dome Small
-}
-
-STRING 4823
-// Units: n01B (Arcane Dome), Name (Name)
-{
-Arcane Dome
-}
-
-STRING 4824
-// Units: n01C (Arcane Turret), Name (Name)
-{
-Arcane Turret
 }
 
 STRING 4825
@@ -14871,7 +14829,7 @@ City Highrise
 }
 
 STRING 5092
-// Units: n00D (City Highrise), EditorSuffix (Name - Editor Suffix)
+// Units: n00U (Arcane Building), EditorSuffix (Name - Editor Suffix)
 {
 1
 }
@@ -14883,7 +14841,7 @@ City Highrise
 }
 
 STRING 5094
-// Units: n00O (City Highrise), EditorSuffix (Name - Editor Suffix)
+// Units: n01K (Arcane Building), EditorSuffix (Name - Editor Suffix)
 {
 2
 }
@@ -14910,5 +14868,197 @@ STRING 5098
 // Units: n000 (Elven Tower), Name (Name)
 {
 Elven Tower
+}
+
+STRING 5099
+// Units: n01B (Sunreaver Dome), Name (Name)
+{
+Sunreaver Dome
+}
+
+STRING 5104
+// Units: n004 (Arcane Building), Name (Name)
+{
+Arcane Building
+}
+
+STRING 5105
+// Abilities: A01R (WEAPON - Shifter), Hotkey (Hotkey - Normal)
+{
+C
+}
+
+STRING 5106
+// Units: n00U (Arcane Building), Name (Name)
+{
+Arcane Building
+}
+
+STRING 5107
+// Units: n019 (Violet Citadel), Name (Name)
+{
+Violet Citadel
+}
+
+STRING 5108
+// Units: n00D (City Highrise), EditorSuffix (Name - Editor Suffix)
+{
+1
+}
+
+STRING 5109
+// Units: n00S (Arcane Building), Name (Name)
+{
+Arcane Building
+}
+
+STRING 5110
+// Units: n01D (Arcane Building), Name (Name)
+{
+Arcane Building
+}
+
+STRING 5111
+// Units: n01E (Arcane Building), Name (Name)
+{
+Arcane Building
+}
+
+STRING 5112
+// Units: n01E (Arcane Building), EditorSuffix (Name - Editor Suffix)
+{
+B
+}
+
+STRING 5113
+// Units: n01F (Arcane Building), Name (Name)
+{
+Arcane Building
+}
+
+STRING 5114
+// Units: n01F (Arcane Building), EditorSuffix (Name - Editor Suffix)
+{
+7
+}
+
+STRING 5115
+// Units: n01G (Arcane Building), Name (Name)
+{
+Arcane Building
+}
+
+STRING 5116
+// Units: n01G (Arcane Building), EditorSuffix (Name - Editor Suffix)
+{
+6
+}
+
+STRING 5117
+// Units: n01H (Arcane Building), Name (Name)
+{
+Arcane Building
+}
+
+STRING 5118
+// Units: n01H (Arcane Building), EditorSuffix (Name - Editor Suffix)
+{
+5
+}
+
+STRING 5119
+// Units: n01I (Arcane Building), Name (Name)
+{
+Arcane Building
+}
+
+STRING 5120
+// Units: n01I (Arcane Building), EditorSuffix (Name - Editor Suffix)
+{
+4
+}
+
+STRING 5121
+// Units: n01J (Arcane Building), Name (Name)
+{
+Arcane Building
+}
+
+STRING 5122
+// Units: n01J (Arcane Building), EditorSuffix (Name - Editor Suffix)
+{
+3
+}
+
+STRING 5123
+// Units: n01K (Arcane Building), Name (Name)
+{
+Arcane Building
+}
+
+STRING 5124
+// Upgrades: R009 (Animal War Training), Hotkey (Hotkey)
+{
+A
+}
+
+STRING 5125
+// Units: n01L (Enclave Spire), Name (Name)
+{
+Enclave Spire
+}
+
+STRING 5126
+// Units: n01M (Enclave Turret), Name (Name)
+{
+Enclave Turret
+}
+
+STRING 5127
+// Units: n01N (Enclave Main Structure), Name (Name)
+{
+Enclave Main Structure
+}
+
+STRING 5128
+// Units: n01O (Enclave House), Name (Name)
+{
+Enclave House
+}
+
+STRING 5129
+// Units: n01P (Enclave House), Name (Name)
+{
+Enclave House
+}
+
+STRING 5130
+// Units: n01P (Enclave House), EditorSuffix (Name - Editor Suffix)
+{
+B
+}
+
+STRING 5131
+// Units: n01Q (Magus Conservatory), Name (Name)
+{
+Magus Conservatory
+}
+
+STRING 5132
+// Units: n01R (Magus Turret), Name (Name)
+{
+Magus Turret
+}
+
+STRING 5133
+// Units: n01S (Violet Hold), Name (Name)
+{
+Violet Hold
+}
+
+STRING 5134
+// Units: n01T (Violet Hold Spire), Name (Name)
+{
+Violet Hold Spire
 }
 
