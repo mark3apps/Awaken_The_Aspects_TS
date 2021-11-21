@@ -9573,12 +9573,6 @@ STRING 3876
 Summon Fire Hounds
 }
 
-STRING 3890
-// Units: u001 (Black Citidel), Name (Name)
-{
-Black Citidel
-}
-
 STRING 3894
 // Units: nfgl (Giant Skeleton), Name (Name)
 {
@@ -15060,5 +15054,11 @@ STRING 5134
 // Units: n01T (Violet Hold Spire), Name (Name)
 {
 Violet Hold Spire
+}
+
+STRING 5138
+// Units: u001 (Black Citadel), Name (Name)
+{
+Black Citadel
 }
 

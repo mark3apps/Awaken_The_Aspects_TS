@@ -1,5 +1,4 @@
 import { Rectangle, Timer, Trigger, Unit } from "lib/w3ts/index"
-import { Log } from "./log"
 
 export namespace EVENT {
 

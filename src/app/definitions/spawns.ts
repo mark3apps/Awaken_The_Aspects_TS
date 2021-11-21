@@ -196,9 +196,10 @@ export namespace SPAWN {
 			// Murloc Spawn
 			murloc = new Spawn("murloc")
 			murloc.faction = FACTION.murloc
-			murloc.addUnit({ unitType: UNIT_TYPE.MurlocCliffRunner, amount: 3, waves: [5, 6, 7, 10] })
-			murloc.addUnit({ unitType: UNIT_TYPE.MurlocReaver, waves: [5, 7], start: 3 })
-			murloc.addUnit({ unitType: UNIT_TYPE.MurlocSnareCaster, waves: [6, 8, 10], start: 4 })
+			murloc.addUnit({ unitType: UNIT_TYPE.MurlocCliffRunner, amount: 3, waves: [5, 6, 7, 8, 9, 10] })
+			murloc.addUnit({ unitType: UNIT_TYPE.MurlocCliffRunner, amount: 2, waves: [5, 6, 7, 8], start: 5 })
+			murloc.addUnit({ unitType: UNIT_TYPE.MurlocReaver, waves: [5, 7, 9], start: 3 })
+			murloc.addUnit({ unitType: UNIT_TYPE.MurlocSnareCaster, waves: [6, 7, 8, 10], start: 4 })
 			murloc.addUnit({ unitType: UNIT_TYPE.MurlocTideWarrior, waves: [4, 8], start: 7 })
 			SPAWN.addSpawn(murloc.name)
 
@@ -207,6 +208,7 @@ export namespace SPAWN {
 			naga.faction = FACTION.naga
 			naga.addUnit({ unitType: UNIT_TYPE.NagaMyrmidon, waves: [1, 3], end: 3 })
 			naga.addUnit({ unitType: UNIT_TYPE.NagaMyrmidon, waves: [1, 2, 3, 4], start: 4, end: 6 })
+			naga.addUnit({ unitType: UNIT_TYPE.NagaMyrmidon, waves: [1, 3, 5], start: 7 })
 			naga.addUnit({ unitType: UNIT_TYPE.NagaMyrmidon, waves: [1, 2, 3, 4, 5, 6], start: 7 })
 			naga.addUnit({ unitType: UNIT_TYPE.NagaSiren, waves: [2, 4, 6], start: 3 })
 			naga.addUnit({ unitType: UNIT_TYPE.NagaRoyalGuard, waves: [2, 5], start: 6 })

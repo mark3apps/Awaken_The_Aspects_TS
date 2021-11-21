@@ -87,6 +87,7 @@ export namespace NORMAL_ABILITY {
             g.firstLoop((u) => {
 
                 if (u.isStructure &&
+                    u.typeId != eventUnit.typeId &&
                     u.isAlly(eventUnit) &&
                     u.isAlive() &&
                     u.manaPercent < 50 &&
