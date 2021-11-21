@@ -25,7 +25,7 @@ export namespace CINEMATIC {
 
 		const startCams = [
 			gg_cam_intro01, gg_cam_intro02, gg_cam_intro03, gg_cam_intro04, gg_cam_intro05, gg_cam_intro06, gg_cam_intro07,
-			gg_cam_intro08, gg_cam_intro09, gg_cam_intro10, gg_cam_intro11
+			gg_cam_intro08, gg_cam_intro09, gg_cam_intro10, gg_cam_intro11, gg_cam_intro12, gg_cam_intro13, gg_cam_intro14
 		]
 
 		for (let i = 0; i < 11; i++) {

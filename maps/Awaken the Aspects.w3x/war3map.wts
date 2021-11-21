@@ -12755,12 +12755,6 @@ STRING 4741
 High Elf Swordsman
 }
 
-STRING 4742
-// Units: ohun (Orc Spearthrower), Name (Name)
-{
-Orc Spearthrower
-}
-
 STRING 4744
 // Units: h00T (High Elf Apprentice), Name (Name)
 {
@@ -15060,5 +15054,11 @@ STRING 5138
 // Units: u001 (Black Citadel), Name (Name)
 {
 Black Citadel
+}
+
+STRING 5139
+// Units: n00T (Arcane Building), Name (Name)
+{
+Arcane Building
 }
 
