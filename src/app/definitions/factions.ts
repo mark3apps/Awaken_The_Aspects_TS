@@ -63,7 +63,7 @@ export namespace FACTION {
             federation: new Base(Unit.fromHandle(gg_unit_hvlt_0406), ARMY.Federation, LOC.sCityElf.federation, LOC.everything.alliance, 2, true, true, true)
         }
         cityFront = {
-            alliance: new Base(Unit.fromHandle(gg_unit_n00B_0364), ARMY.Alliance, LOC.sCityFront.alliance, LOC.middle.federation, 3, true, true, true),
+            alliance: new Base(Unit.fromHandle(gg_unit_h01S_0553), ARMY.Alliance, LOC.sCityFront.alliance, LOC.middle.federation, 3, true, true, true),
             federation: new Base(Unit.fromHandle(gg_unit_n00B_0399), ARMY.Federation, LOC.sCityFront.federation, LOC.middle.alliance, 3, true, true, true)
         }
         humanShipyard = {

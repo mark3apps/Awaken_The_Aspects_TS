@@ -7463,12 +7463,6 @@ STRING 3284
 Hired Gun
 }
 
-STRING 3296
-// Units: n000 (King's Tower), Name (Name)
-{
-King's Tower
-}
-
 STRING 3297
 // Units: h00G (Mana Tower), Name (Name)
 {
@@ -13109,12 +13103,6 @@ STRING 4809
 Arcane Tower
 }
 
-STRING 4810
-// Units: n01A (Arcane Tower), Name (Name)
-{
-Arcane Tower
-}
-
 STRING 4812
 // Units: n019 (Arcane Shield Generator), Name (Name)
 {
@@ -13125,12 +13113,6 @@ STRING 4813
 // Abilities: A02C (Magic Shield), Name (Name)
 {
 Magic Shield
-}
-
-STRING 4815
-// Units: n01A (Arcane Tower), EditorSuffix (Name - Editor Suffix)
-{
-2 (Large)
 }
 
 STRING 4816
@@ -13586,12 +13568,6 @@ STRING 4896
 Clock Tower
 }
 
-STRING 4897
-// Units: h019 (Dock Tower), Name (Name)
-{
-Dock Tower
-}
-
 STRING 4898
 // Units: h01B (Farm House), Name (Name)
 {
@@ -13608,12 +13584,6 @@ STRING 4900
 // Units: h01Q (Granary), Name (Name)
 {
 Granary
-}
-
-STRING 4901
-// Units: h01S (Chapel), Name (Name)
-{
-Chapel
 }
 
 STRING 4903
@@ -14880,5 +14850,65 @@ STRING 5088
 // Abilities: A05V (MA - Mark), EditorSuffix (Editor Suffix)
 {
 (Marked Soul)
+}
+
+STRING 5089
+// Units: h019 (City Tower), Name (Name)
+{
+City Tower
+}
+
+STRING 5090
+// Units: h01S (Town Center), Name (Name)
+{
+Town Center
+}
+
+STRING 5091
+// Units: n00D (City Highrise), Name (Name)
+{
+City Highrise
+}
+
+STRING 5092
+// Units: n00D (City Highrise), EditorSuffix (Name - Editor Suffix)
+{
+1
+}
+
+STRING 5093
+// Units: n00O (City Highrise), Name (Name)
+{
+City Highrise
+}
+
+STRING 5094
+// Units: n00O (City Highrise), EditorSuffix (Name - Editor Suffix)
+{
+2
+}
+
+STRING 5095
+// Units: n00P (City Highrise), Name (Name)
+{
+City Highrise
+}
+
+STRING 5096
+// Units: n00P (City Highrise), EditorSuffix (Name - Editor Suffix)
+{
+3
+}
+
+STRING 5097
+// Units: n00Q (Tavern), Name (Name)
+{
+Tavern
+}
+
+STRING 5098
+// Units: n000 (Elven Tower), Name (Name)
+{
+Elven Tower
 }
 

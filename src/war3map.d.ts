@@ -232,4 +232,5 @@ declare var gg_unit_h002_0699: unit;
 declare var gg_unit_ndh2_0876: unit;
 declare var gg_unit_edob_0304: unit;
 declare var gg_unit_edob_0315: unit;
+declare var gg_unit_h01S_0553: unit;
 declare var udg_PickedHero: unit;

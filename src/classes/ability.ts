@@ -130,7 +130,7 @@ export class Ability {
             }
 
             if (this.addBuffDeath) {
-                EVENT.unitDies.add(() => {
+                EVENT.unitDying.add(() => {
                     if (Unit.fromEvent().hasBuff(this.buffId)) {
                         this.onBuffDeath(this)
                     }

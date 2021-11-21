@@ -4,6 +4,7 @@ import { Log } from "./log"
 export namespace EVENT {
 
     export const unitDies = new Trigger()
+    export const unitDying = new Trigger()
     export const unitOrdered = new Trigger()
     export const unitAttacked = new Trigger()
     export const unitCreated = new Trigger()
@@ -29,14 +30,13 @@ export namespace EVENT {
         unitTrained.registerAnyUnitEvent(EVENT_PLAYER_UNIT_TRAIN_FINISH)
         unitSpellEffect.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT)
         heroLevels.registerAnyUnitEvent(EVENT_PLAYER_HERO_LEVEL)
-
-        unitDies.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DAMAGED)
-        unitDies.addCondition(() => { return Unit.fromEvent().life - GetEventDamage() <= 0 })
+        unitDies.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH)
+        unitDying.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DAMAGED)
+        unitDying.addCondition(() => { return GetUnitState(GetTriggerUnit(), UNIT_STATE_LIFE) - GetEventDamage() <= 0 })
 
 
         // When a Unit dies clear it out
         unitDies.add(() => {
-            Log.Information("Unit Died")
             const eventUnit = Unit.fromEvent()
             const killingUnit = Unit.fromHandle(GetKillingUnit())
 
