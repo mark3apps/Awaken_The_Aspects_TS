@@ -1343,6 +1343,7 @@ export namespace ID {
         NavyCaptain = "h018",
         NavyFootman = "h013",
         NavyMarine = "h016",
+        Crossbowman = "n00X",
         AncientOfLife = "n00F",
         LichCustom = "u000",
         Dummy = "h00U",

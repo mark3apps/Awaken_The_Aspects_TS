@@ -80,6 +80,9 @@ const SpawnedTypes = [
     UNIT_TYPE.NightElfRanger.id,
     UNIT_TYPE.NightElfEliteRanger.id,
     UNIT_TYPE.NightElfSentry.id,
+    UNIT_TYPE.NavyMarine.id,
+    UNIT_TYPE.NavyCaptain.id,
+    UNIT_TYPE.Crossbowman.id,
     UNIT_TYPE.Ogre.id,
     UNIT_TYPE.OrcWarchief.id,
     UNIT_TYPE.Rogue.id,
@@ -146,6 +149,13 @@ const BuffIdIgnore = [
     ID.Buff.AttackUnit
 ]
 
+const SummonReplace = [
+    UNIT_TYPE.NavyCaptain.id,
+    UNIT_TYPE.NavyFootman.id,
+    UNIT_TYPE.NavyMarine.id,
+    UNIT_TYPE.Crossbowman.id
+]
+
 const OrderIdIgnoreWithDelay = [
     OrderId.Rainoffire,
     OrderId.Tranquility,
@@ -203,10 +213,8 @@ export namespace PATHING {
         EVENT.unitSummoned.add(() => {
             const eventUnit = Unit.fromEvent()
 
-            Log.Verbose("Summon", eventUnit.name)
-
             if (eventUnit.inForce(FORCE.Computers)) {
-                if (eventUnit.typeId != FourCC(ID.Unit.Ancientofwind) && eventUnit.typeId != FourCC(ID.Unit.Treant)) {
+                if (SummonReplace.indexOf(eventUnit.typeId) != 0) {
                     PATHING.newOrders(eventUnit.replace(eventUnit.typeId))
                 } else {
                     PATHING.newOrders(eventUnit)
@@ -220,19 +228,16 @@ export namespace PATHING {
             const eventUnit = Unit.fromEvent()
             if (eventUnit.typeId == FourCC(ID.Unit.BanditSummon)) {
 
-                Log.Verbose("Train", eventUnit.name)
-                FORCE.Humans.pingMinimap(eventUnit.x, eventUnit.y, 10)
-
                 if (eventUnit.inForce(FORCE.Computers)) {
                     PATHING.newOrders(eventUnit)
                 }
             }
         })
 
+
         EVENT.mapStart.add(() => {
 
             const allUnits = new Group()
-
             allUnits.enumUnitsInRect(Rectangle.getWorldBounds(), null)
 
             let unit = allUnits.first
@@ -251,7 +256,6 @@ export namespace PATHING {
     export const newOrders = (unit: Unit): void => {
 
         let dest: Coordinate
-
 
         if (unit.inRegion(REGION.BigTop)) {
             Log.Verbose("top", unit.name)
