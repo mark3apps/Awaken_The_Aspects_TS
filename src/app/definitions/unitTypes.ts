@@ -118,6 +118,13 @@ export const UNIT_TYPE = {
    VillagerChild1 : new UnitType(ID.Unit.Villagerkid),
    VillagerChild2 : new UnitType(ID.Unit.Villagerkid2),
    
+   // Aspects
+   AspectOfTheTides : new UnitType(ID.Unit.AspectOfTheTides),
+   AspectOfTheStorm: new UnitType(ID.Unit.AspectOfTheStorm),
+   AspectOfTheEarth : new UnitType(ID.Unit.AspectOfTheEarth),
+   AspectOfTheForest : new UnitType(ID.Unit.AspectOfTheForest),
+   AspectOfDeath: new UnitType(ID.Unit.AspectOfDeath),
+
    // Buildings
    CastleGateOpen : new UnitType(ID.Unit.CastleGateOpen), 
    CastleGateClosed : new UnitType(ID.Unit.CastleGateClosed),

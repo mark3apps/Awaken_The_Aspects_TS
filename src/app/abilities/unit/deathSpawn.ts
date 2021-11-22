@@ -1,4 +1,5 @@
 import { UNIT_TYPE } from "app/definitions/unitTypes"
+import { Log } from "app/systems/log"
 import { PATHING } from "app/systems/pathing"
 import { UnitType } from "classes/unitType"
 import { ATTACH } from "lib/w3ts/globals/attachmentPoints"
@@ -24,7 +25,7 @@ export namespace DEATH_SPAWN {
 
     export function define(): void {
 
-        
+
         const ignoreBuildingId: number[] = [
             UNIT_TYPE.DwarvenGateClosed.id,
             UNIT_TYPE.DwarvenGateOpen.id,
@@ -107,7 +108,7 @@ export namespace DEATH_SPAWN {
         EVENT.unitDies.add(() => {
             const unit = Unit.fromEvent()
 
-            if (unit.isStructure && ignoreBuildingId.indexOf(unit.typeId) == -1 ) {
+            if (unit.isStructure && ignoreBuildingId.indexOf(unit.typeId) == -1) {
                 if (0 > (math.random() + 0.000001)) {
 
                     const uBuilding = new Unit(MapPlayer.fromHandle(Player(PLAYER_NEUTRAL_PASSIVE)), unit.typeId, unit.x, unit.y, unit.facing)
@@ -120,7 +121,7 @@ export namespace DEATH_SPAWN {
                     const switchUnits = new Timer()
                     const removeOrigUnit = new Timer()
                     switchUnits.start(0.5, false, () => {
-                        
+
                         switchUnits.destroy()
                     })
 
@@ -137,9 +138,10 @@ export namespace DEATH_SPAWN {
 
     export function spawn(unit: Unit, deathSpawn: DeathSpawn): void {
 
+        try {
             for (let i = 0; i < deathSpawn.amount; i++) {
 
-                if (deathSpawn.chance >= math.random()) {
+                if (deathSpawn.chance >= math.random() && unit.isTerrainPathable(PATHING_TYPE_WALKABILITY)) {
                     const u = new Unit(unit.owner, deathSpawn.unitId.id, unit.x, unit.y, unit.facing)
 
                     PATHING.newOrders(u)
@@ -149,6 +151,9 @@ export namespace DEATH_SPAWN {
                     }
                 }
             }
+        } catch (error) {
+            Log.Error("Death Spawn", error)
+        }
     }
 
     export function add(unitId: UnitType, deathSpawn: DeathSpawn): void {

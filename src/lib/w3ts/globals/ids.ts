@@ -1325,6 +1325,12 @@ export namespace ID {
         WirtsOtherLeg = "wolg"
     }
 
+    export const enum Destructible {
+        MassiveRuinedGateVertical = "ZTsg",
+        IcyGate = "ITg3",
+        ElvenGate = "LTe3"
+    }
+
     export const enum Unit {
         // Custom Units
         DwarvenGateOpen = "h01C",
@@ -1342,6 +1348,18 @@ export namespace ID {
         Dummy = "h00U",
         DummyManaStorm = "h01H",
         Soul = "e00D",
+        ArcaneManaTower = "h00G",
+        ArcaneFlameTower = "nft2",
+        ArcaneSorcerersTower = "n007",
+        ArcaneManaRepository = "h024",
+        BanditSummon = "n00V",
+        Treant = "e008",
+
+        AspectOfDeath = "uabo",
+        AspectOfTheTides = "nmsc",
+        AspectOfTheForest = "n00N",
+        AspectOfTheEarth = "nggg",
+        AspectOfTheStorm = "nelb",
 
 
         // Default Units

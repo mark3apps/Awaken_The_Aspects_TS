@@ -22,6 +22,7 @@ export namespace FACTION {
     export let nightElfShipyard: Faction
     export let merc: Faction
     export let dwarf: Faction
+    export let dwarfCreep: Faction
     export let naga: Faction
     export let nagaCreep: Faction
     export let murloc: Faction
@@ -64,7 +65,7 @@ export namespace FACTION {
         }
         cityFront = {
             alliance: new Base(Unit.fromHandle(gg_unit_h01S_0553), ARMY.Alliance, LOC.sCityFront.alliance, LOC.middle.federation, 3, true, true, true),
-            federation: new Base(Unit.fromHandle(gg_unit_n00B_0399), ARMY.Federation, LOC.sCityFront.federation, LOC.middle.alliance, 3, true, true, true)
+            federation: new Base(Unit.fromHandle(gg_unit_h01S_0352), ARMY.Federation, LOC.sCityFront.federation, LOC.middle.alliance, 3, true, true, true)
         }
         humanShipyard = {
             alliance: new Base(Unit.fromHandle(gg_unit_hshy_0011), ARMY.Alliance, LOC.sHumanShipyard.alliance, LOC.sHumanShipyard.federation, 1, true, true, true),
@@ -75,8 +76,8 @@ export namespace FACTION {
             federation: new Base(Unit.fromHandle(gg_unit_nheb_0036), ARMY.Federation, LOC.sElf.federation, LOC.bottom.alliance, 4, true, true, true)
         }
         highElvesCreep = {
-            alliance: new Base(Unit.fromHandle(gg_unit_nheb_0109), ARMY.Alliance, LOC.sElf.alliance, LOC.cForestMid.alliance, 1, true, true, true),
-            federation: new Base(Unit.fromHandle(gg_unit_nheb_0036), ARMY.Federation, LOC.sElf.federation, LOC.cForestMid.federation, 1, true, true, true)
+            alliance: new Base(Unit.fromHandle(gg_unit_nheb_0109), ARMY.Alliance, LOC.sElf.alliance, LOC.cForestMid.alliance, 1, false, false, false),
+            federation: new Base(Unit.fromHandle(gg_unit_nheb_0036), ARMY.Federation, LOC.sElf.federation, LOC.cForestMid.federation, 1, false, false, false)
         }
         tree = {
             alliance: new Base(Unit.fromHandle(gg_unit_e003_0058), ARMY.Alliance, LOC.sTree.alliance, LOC.top.federation, 1, true, true, false),
@@ -98,13 +99,17 @@ export namespace FACTION {
             alliance: new Base(Unit.fromHandle(gg_unit_h006_0074), ARMY.Alliance, LOC.sDwarf.alliance, LOC.bottom.federation, 3, true, true, true),
             federation: new Base(Unit.fromHandle(gg_unit_h006_0055), ARMY.Federation, LOC.sDwarf.federation, LOC.top.alliance, 3, true, true, true)
         }
+        dwarfCreep = {
+            alliance: new Base(Unit.fromHandle(gg_unit_h006_0074), ARMY.Alliance, LOC.sDwarf.alliance, LOC.cRock.alliance, 1, false, false, false),
+            federation: new Base(Unit.fromHandle(gg_unit_h006_0055), ARMY.Federation, LOC.sDwarf.federation, LOC.cRock.federation, 1, false, false, false)
+        }
         naga = {
             alliance: new Base(Unit.fromHandle(gg_unit_nntt_0135), ARMY.Alliance, LOC.sNaga.alliance, LOC.top.federation, 3, true, true, true),
             federation: new Base(Unit.fromHandle(gg_unit_nntt_0132), ARMY.Federation, LOC.sNaga.federation, LOC.bottom.alliance, 3, true, true, true)
         }
         nagaCreep = {
-            alliance: new Base(Unit.fromHandle(gg_unit_nntt_0135), ARMY.Alliance, LOC.sNaga.alliance, LOC.cTides.alliance, 1, true, true, false),
-            federation: new Base(Unit.fromHandle(gg_unit_nntt_0132), ARMY.Federation, LOC.sNaga.federation, LOC.cTides.federation, 1, true, true, false)
+            alliance: new Base(Unit.fromHandle(gg_unit_nntt_0135), ARMY.Alliance, LOC.sNaga.alliance, LOC.cTides.alliance, 1, false, false, false),
+            federation: new Base(Unit.fromHandle(gg_unit_nntt_0132), ARMY.Federation, LOC.sNaga.federation, LOC.cTides.federation, 1, false, false, false)
         }
         murloc = {
             alliance: new Base(Unit.fromHandle(gg_unit_nmh1_0735), ARMY.Alliance, LOC.sMurloc.alliance, LOC.top.federation, 2, true, true, true),

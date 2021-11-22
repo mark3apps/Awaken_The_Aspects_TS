@@ -28,11 +28,11 @@ export class Destructable extends Widget {
     SetDestructableInvulnerable(this.handle, flag);
   }
 
-  public get invulnerable() {
+  public get invulnerable(): boolean {
     return IsDestructableInvulnerable(this.handle);
   }
 
-  public get life() {
+  public get life(): number {
     return GetDestructableLife(this.handle);
   }
 
@@ -40,7 +40,7 @@ export class Destructable extends Widget {
     SetDestructableLife(this.handle, value);
   }
 
-  public get maxLife() {
+  public get maxLife(): number {
     return GetDestructableMaxLife(this.handle);
   }
 
@@ -51,11 +51,11 @@ export class Destructable extends Widget {
   /**
    * This will return different values depending on the locale.
    */
-  public get name() {
+  public get name(): string {
     return GetDestructableName(this.handle);
   }
 
-  public get occluderHeight() {
+  public get occluderHeight(): number {
     return GetDestructableOccluderHeight(this.handle);
   }
 
@@ -63,21 +63,36 @@ export class Destructable extends Widget {
     SetDestructableOccluderHeight(this.handle, value);
   }
 
-  public get typeId() {
+  public get typeId(): number {
     return GetDestructableTypeId(this.handle);
   }
 
-  public get x() {
+  public get x(): number {
     return GetDestructableX(this.handle);
   }
 
-  public get y() {
+  public get y(): number {
     return GetDestructableY(this.handle);
   }
 
-  public destroy() {
+  public destroy(): void {
     RemoveDestructable(this.handle);
   }
+
+  public openGate(): void {
+    if (this.life > 0) {
+      this.kill()
+    }
+    this.setAnim("death alternate")
+  }
+
+  public closeGate(): void {
+    if (this.life <= 0) {
+      this.heal(this.maxLife, true)
+    }
+    this.setAnim("stand")
+  }
+
 
   /**
    * Resurrects a Destructable with the specified hit points.
@@ -87,32 +102,40 @@ export class Destructable extends Widget {
    * Any value below 0.5 will give the Destructable 0.5 hit points.
    * @param birth If true, the Destructable will play its birth animation upon resurrection.
    */
-  public heal(life: number, birth: boolean) {
+  public heal(life: number, birth: boolean): void {
     DestructableRestoreLife(this.handle, life, birth);
   }
 
-  public kill() {
+  public kill(): void {
     KillDestructable(this.handle);
   }
 
-  public queueAnim(whichAnimation: string) {
+  public queueAnim(whichAnimation: string): void {
     QueueDestructableAnimation(this.handle, whichAnimation);
   }
 
-  public setAnim(whichAnimation: string) {
+  public setAnim(whichAnimation: string): void {
     SetDestructableAnimation(this.handle, whichAnimation);
   }
 
-  public setAnimSpeed(speedFactor: number) {
+  public setAnimSpeed(speedFactor: number): void {
     SetDestructableAnimationSpeed(this.handle, speedFactor);
   }
 
-  public show(flag: boolean) {
+  public show(flag: boolean): void {
     ShowDestructable(this.handle, flag);
   }
 
-  public static fromEvent() {
+  public static fromEvent(): Destructable {
     return this.fromHandle(GetTriggerDestructable());
+  }
+
+  public static fromEnum(): Destructable {
+    return this.fromHandle(GetEnumDestructable())
+  }
+
+  public static fromFilter(): Destructable {
+    return this.fromHandle(GetFilterDestructable())
   }
 
   public static fromHandle(handle: destructable): Destructable {

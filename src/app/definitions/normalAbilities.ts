@@ -15,7 +15,7 @@ export namespace NORMAL_ABILITY {
             type: EffectType.Kill,
             addEffect: true
         }).onEffect = () => {
-            const eventUnit = Unit.fromKillingUnit()
+            const eventUnit = Unit.fromKilling()
             eventUnit.addAbility(FourCC(ID.Ability.FelGruntTransformed))
         }
 
@@ -25,7 +25,7 @@ export namespace NORMAL_ABILITY {
             type: EffectType.Kill,
             addEffect: true
         }).onEffect = () => {
-            const eventUnit = Unit.fromKillingUnit()
+            const eventUnit = Unit.fromKilling()
             eventUnit.addAbility(FourCC(ID.Ability.FelOgreTransformed))
         }
 
@@ -35,7 +35,7 @@ export namespace NORMAL_ABILITY {
             type: EffectType.Kill,
             addEffect: true
         }).onEffect = () => {
-            const eventUnit = Unit.fromKillingUnit()
+            const eventUnit = Unit.fromKilling()
             if (4 <= eventUnit.data.kills) {
                 eventUnit.addAbility(FourCC(ID.Ability.FelWarlordTransformed))
             }
@@ -47,7 +47,7 @@ export namespace NORMAL_ABILITY {
             type: EffectType.Kill,
             addEffect: true
         }).onEffect = () => {
-            const eventUnit = Unit.fromKillingUnit()
+            const eventUnit = Unit.fromKilling()
             if (3 <= eventUnit.data.kills) {
                 eventUnit.addAbility(FourCC(ID.Ability.FelWarlockTransformed))
                 eventUnit.manaPercent = 100
@@ -71,14 +71,15 @@ export namespace NORMAL_ABILITY {
 
         const manaRepository = new Ability({
             four: ID.Ability.ManaRepository,
-            type: EffectType.Attacking,
+            unitType: [ID.Unit.ArcaneManaRepository],
+            type: EffectType.UnitTypeAttacking,
             target: TargetType.SupportSingle,
             orderId: OrderId.Recharge,
             addEffect: true
         })
 
         manaRepository.onEffect = () => {
-            const eventUnit = Unit.fromAttackingUnit()
+            const eventUnit = Unit.fromAttacking()
             const unitAbility = new UnitAbility(eventUnit, manaRepository)
 
             const g = new Group()
@@ -94,7 +95,7 @@ export namespace NORMAL_ABILITY {
                     unitAbility.cooldownRemaining == 0 &&
                     eventUnit.mana > 200) {
 
-                    unitAbility.castTargetAbility(u)
+                    unitAbility.castTarget(u)
                 }
             })
             g.destroy()
@@ -102,78 +103,82 @@ export namespace NORMAL_ABILITY {
 
         const manaShieldTower = new Ability({
             four: ID.Ability.ManaShieldTower,
+            unitType: [ID.Unit.ArcaneFlameTower, ID.Unit.ArcaneManaTower, ID.Unit.ArcaneSorcerersTower],
             orderId: OrderId.Manashieldon,
             buffFour: ID.Buff.ManaShield,
-            type: EffectType.Attacking,
+            type: EffectType.UnitTypeAttacking,
             target: TargetType.SupportSelf,
             addEffect: true
         })
 
         manaShieldTower.onEffect = (): void => {
-            const eventUnit = Unit.fromAttackingUnit()
+            const eventUnit = Unit.fromAttacking()
             const unitAbility = new UnitAbility(eventUnit, manaShieldTower)
 
             if (unitAbility.isCastable() &&
                 !unitAbility.hasBuff()) {
 
-                unitAbility.castImmediateAbility()
+                unitAbility.castImmediate()
             }
         }
 
         const manaShardsTower = new Ability({
             four: ID.Ability.ManaShardsTower,
             orderId: OrderId.Clusterrockets,
-            type: EffectType.Attacking,
+            unitType: [ID.Unit.ArcaneSorcerersTower],
+            type: EffectType.UnitTypeAttacking,
             target: TargetType.DamageArea,
             addEffect: true
         })
 
         manaShardsTower.onEffect = (): void => {
-            const eventUnit = Unit.fromAttackingUnit()
+            const eventUnit = Unit.fromAttacking()
             const attackedUnit = Unit.fromEvent()
             const unitAbility = new UnitAbility(eventUnit, manaShardsTower)
 
             if (unitAbility.isCastable() &&
                 attackedUnit.isGround) {
-                unitAbility.castAbility(attackedUnit.coordinate)
+                unitAbility.cast(attackedUnit.coordinate)
             }
         }
 
         const chainLightningTower = new Ability({
             four: ID.Ability.ChainLightningTower,
             orderId: OrderId.Chainlightning,
-            type: EffectType.Attacking,
+            unitType: [ID.Unit.ArcaneSorcerersTower],
+            type: EffectType.UnitTypeAttacking,
             target: TargetType.DamageSingle,
             addEffect: true
         })
 
         chainLightningTower.onEffect = (): void => {
-            const eventUnit = Unit.fromAttackingUnit()
-            const attackedUnit = Unit.fromEvent()
+            const eventUnit = Unit.fromAttacking()
+            const attackedUnit = Unit.fromAttacked()
             const unitAbility = new UnitAbility(eventUnit, chainLightningTower)
 
             if (unitAbility.isCastable() &&
                 attackedUnit.isGround) {
-                unitAbility.castTargetAbility(attackedUnit)
+                unitAbility.castTarget(attackedUnit)
             }
         }
 
         const coneOfFireTower = new Ability({
             four: ID.Ability.ConeOfFireTower,
             orderId: OrderId.Breathoffrost,
-            type: EffectType.Attacking,
+            unitType: [ID.Unit.ArcaneFlameTower],
+            type: EffectType.UnitTypeAttacking,
             target: TargetType.DamageAreaTarget,
             addEffect: true
         })
 
         coneOfFireTower.onEffect = (): void => {
-            const eventUnit = Unit.fromAttackingUnit()
-            const attackedUnit = Unit.fromEvent()
+            const eventUnit = Unit.fromAttacking()
+            const attackedUnit = Unit.fromAttacked()
             const unitAbility = new UnitAbility(eventUnit, coneOfFireTower)
 
             if (unitAbility.isCastable() &&
                 attackedUnit.isGround) {
-                unitAbility.castAbility(attackedUnit.coordinate)
+                unitAbility.cast(attackedUnit.coordinate)
             }
         }
 
@@ -182,13 +187,14 @@ export namespace NORMAL_ABILITY {
             four: ID.Ability.InfectAspect,
             orderId: OrderId.Parasite,
             buffFour: ID.Buff.Infected,
-            type: EffectType.Attacking,
+            unitType: [ID.Unit.AspectOfDeath],
+            type: EffectType.UnitTypeAttacking,
             target: TargetType.CrippleAround,
             addEffect: true
         })
 
         aspectOfDeathInfect.onEffect = (): void => {
-            const eventUnit = Unit.fromAttackingUnit()
+            const eventUnit = Unit.fromAttacking()
             const g = new Group()
 
             const unitAbility = new UnitAbility(eventUnit, aspectOfDeathInfect)

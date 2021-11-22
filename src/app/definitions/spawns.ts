@@ -43,6 +43,7 @@ export namespace SPAWN {
 		export let highElvesCreep: Spawn
 		export let merc: Spawn
 		export let dwarf: Spawn
+		export let dwarfCreep: Spawn
 		export let murloc: Spawn
 		export let naga: Spawn
 		export let nagaCreep: Spawn
@@ -75,7 +76,6 @@ export namespace SPAWN {
 			arcaneHero.addUnit({ unitType: UNIT_TYPE.MagiDefender, waves: [1, 2, 3, 5], start: 6 })
 			arcaneHero.addUnit({ unitType: UNIT_TYPE.SupremeWizard, waves: [5], start: 7 })
 			arcaneHero.addUnit({ unitType: UNIT_TYPE.SeigeGolem, waves: [4], start: 9 })
-
 			SPAWN.addSpawn(arcaneHero.name)
 
 			// Arcane Top Spawn
@@ -192,6 +192,15 @@ export namespace SPAWN {
 			dwarf.addUnit({ unitType: UNIT_TYPE.SeigeEngine, waves: [1, 2, 5], start: 6 })
 			dwarf.addUnit({ unitType: UNIT_TYPE.GryphonRider, waves: [1, 2, 3, 4, 5], start: 8 })
 			SPAWN.addSpawn(dwarf.name)
+
+			// Dwarf Creep Spawn
+			dwarfCreep = new Spawn("dwarfCreep")
+			dwarfCreep.faction = FACTION.dwarfCreep
+			dwarfCreep.addUnit({ unitType: UNIT_TYPE.IronGuard, amount: 2, waves: [1, 2, 3, 5]})
+			dwarfCreep.addUnit({ unitType: UNIT_TYPE.IronRifleman, waves: [1, 3], start: 3 })
+			dwarfCreep.addUnit({ unitType: UNIT_TYPE.IronCaptain, waves: [1, 3, 5], start: 4 })
+			dwarfCreep.addUnit({ unitType: UNIT_TYPE.IronMagi, waves: [2], start: 5 })
+			SPAWN.addSpawn(dwarfCreep.name)
 
 			// Murloc Spawn
 			murloc = new Spawn("murloc")

@@ -722,7 +722,7 @@ Passthrough
 }
 
 STRING 252
-// Abilities: A01B (TA - Attack), Researchhotkey (Hotkey - Learn)
+// Abilities: A01Y (Drain), Hotkey (Hotkey - Normal)
 {
 E
 }
@@ -1154,19 +1154,19 @@ W
 }
 
 STRING 456
-// Abilities: A01Z (TA - Bolster), Hotkey (Hotkey - Normal)
+// Abilities: A01B (TA - Attack), Researchhotkey (Hotkey - Learn)
 {
 W
 }
 
 STRING 457
-// Abilities: A01B (TA - Attack), Hotkey (Hotkey - Normal)
+// Abilities: A01Y (Drain), Researchhotkey (Hotkey - Learn)
 {
 E
 }
 
 STRING 458
-// Abilities: A01Y (Drain), Hotkey (Hotkey - Normal)
+// Abilities: A01Z (TA - Bolster), Hotkey (Hotkey - Normal)
 {
 E
 }
@@ -1448,7 +1448,7 @@ Q
 }
 
 STRING 603
-// Abilities: A01Y (Drain), Researchhotkey (Hotkey - Learn)
+// Abilities: A01Z (TA - Bolster), Researchhotkey (Hotkey - Learn)
 {
 E
 }
@@ -2198,7 +2198,7 @@ STRING 998
 }
 
 STRING 1007
-// Abilities: A01Z (TA - Bolster), Researchhotkey (Hotkey - Learn)
+// Abilities: A01B (TA - Attack), Hotkey (Hotkey - Normal)
 {
 W
 }
@@ -3947,12 +3947,6 @@ STRING 2433
 // Abilities: A02P (Life Regen Small Units), Name (Name)
 {
 Life Regen Small Units
-}
-
-STRING 2434
-// Abilities: A02Q (Summon Murlocs), Name (Name)
-{
-Summon Murlocs
 }
 
 STRING 2435
@@ -12240,12 +12234,6 @@ STRING 4569
 Pathing Blocker (Ground) (Small)
 }
 
-STRING 4570
-// Units: h01A (Farm), EditorSuffix (Name - Editor Suffix)
-{
-(Larger)
-}
-
 STRING 4572
 {
 |cffff0000THE ASPECT OF FIRE HAS APPEARRED!|r
@@ -15060,5 +15048,11 @@ STRING 5139
 // Units: n00T (Arcane Building), Name (Name)
 {
 Arcane Building
+}
+
+STRING 5140
+// Units: n00V (Bandit), EditorSuffix (Name - Editor Suffix)
+{
+(Campsite Version)
 }
 

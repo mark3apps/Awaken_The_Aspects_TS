@@ -97,7 +97,12 @@ const SpawnedTypes = [
     UNIT_TYPE.Warlock.id,
     UNIT_TYPE.WaterElemental1.id,
     UNIT_TYPE.WaterElemental2.id,
-    UNIT_TYPE.WaterElemental3.id
+    UNIT_TYPE.WaterElemental3.id,
+    UNIT_TYPE.AspectOfTheTides.id,
+    UNIT_TYPE.AspectOfDeath.id,
+    UNIT_TYPE.AspectOfTheEarth.id,
+    UNIT_TYPE.AspectOfTheForest.id,
+    UNIT_TYPE.AspectOfTheStorm.id
 ]
 
 const OrderIdIgnore = [
@@ -131,7 +136,10 @@ const OrderIdIgnore = [
     OrderId.Shockwave,
     OrderId.Dispel,
     OrderId.Innerfire,
-    OrderId.Firebolt
+    OrderId.Firebolt,
+    OrderId.Tranquility,
+    OrderId.Clusterrockets,
+    OrderId.Creepthunderclap
 ]
 
 const BuffIdIgnore = [
@@ -155,13 +163,16 @@ export namespace PATHING {
             if (eventLoc != null) {
                 const eventUnit = Unit.fromEvent()
 
-                if (eventUnit.inForce(eventLoc.forwardArmy.force)) {
-                    const dest = eventLoc.forwardLoc.randomCoordinate
+                for (let i = 0; i < eventLoc.forward.length; i++) {
+                    const element = eventLoc.forward[i]
 
-                    eventUnit.issueOrderAtCoordinate(OrderId.Attack, dest)
+                    if (eventUnit.inForce(element.army.force)) {
+                        const dest = element.loc.randomCoordinate
 
-
+                        eventUnit.issueOrderAtCoordinate(OrderId.Attack, dest)
+                    }
                 }
+
             }
         })
 
@@ -195,20 +206,26 @@ export namespace PATHING {
             Log.Verbose("Summon", eventUnit.name)
 
             if (eventUnit.inForce(FORCE.Computers)) {
+                if (eventUnit.typeId != FourCC(ID.Unit.Ancientofwind) && eventUnit.typeId != FourCC(ID.Unit.Treant)) {
+                    PATHING.newOrders(eventUnit.replace(eventUnit.typeId))
+                } else {
+                    PATHING.newOrders(eventUnit)
+                }
 
-                PATHING.newOrders(eventUnit)
             }
         })
 
-        // Unit is Trained
-        EVENT.unitTrained.add(() => {
-            const eventUnit = Unit.fromHandle(GetTrainedUnit())
+        // Unit is Spawned from Campsite
+        EVENT.unitCreated.add(() => {
+            const eventUnit = Unit.fromEvent()
+            if (eventUnit.typeId == FourCC(ID.Unit.BanditSummon)) {
 
-            Log.Verbose("Train", eventUnit.name)
+                Log.Verbose("Train", eventUnit.name)
+                FORCE.Humans.pingMinimap(eventUnit.x, eventUnit.y, 10)
 
-            if (eventUnit.inForce(FORCE.Computers)) {
-
-                PATHING.newOrders(eventUnit)
+                if (eventUnit.inForce(FORCE.Computers)) {
+                    PATHING.newOrders(eventUnit)
+                }
             }
         })
 

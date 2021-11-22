@@ -16,6 +16,7 @@ import { ATTRIBUTE } from "./definitions/attributes"
 import { ITEM_UPGRADE } from "./definitions/itemUpgrades"
 import { Ability } from "classes/ability"
 import { NORMAL_ABILITY } from "./definitions/normalAbilities"
+import { ASPECTS } from "./definitions/aspects"
 
 
 
@@ -31,7 +32,7 @@ export namespace Game {
         DEATH_SPAWN.define()
         PATHING.define()
         ATTRIBUTE.define()
-        NORMAL_ABILITY.define()
+        
         ITEM_UPGRADE.define()
         HERO_TYPE.define()
         HERO.define()
@@ -53,6 +54,8 @@ export namespace Game {
         FACTION.define()
         SPAWN.define()
         Gate.define()
+        NORMAL_ABILITY.define()
+        ASPECTS.define()
         
         CINEMATIC.setupCineCamera()
         CINEMATIC.startHeroSelector()

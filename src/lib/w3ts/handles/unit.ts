@@ -26,7 +26,6 @@ export type UnitFieldValue = boolean | number | string
 
 export class Unit extends Widget {
 	public readonly handle!: unit
-	public data: UnitData
 
 	static dataMap: WeakMap<Unit, UnitData> = new WeakMap<Unit, UnitData>()
 
@@ -43,28 +42,28 @@ export class Unit extends Widget {
 		if (Handle.initFromHandle()) {
 			super()
 
-			if (Unit.dataMap.has(this)) {
-				this.data = Unit.dataMap.get(this)
-			} else {
-				Unit.dataMap.set(this, new UnitData(this))
-				this.data = Unit.dataMap.get(this)
-			}
-
 		} else {
 			const p = typeof owner === "number" ? Player(owner) : owner.handle
 			typeof unitId === "string" ?
 				super(skinId ? BlzCreateUnitWithSkin(p, FourCC(unitId), x, y, face, skinId) : CreateUnit(p, FourCC(unitId), x, y, face)) :
 				super(skinId ? BlzCreateUnitWithSkin(p, unitId, x, y, face, skinId) : CreateUnit(p, unitId, x, y, face))
-
-			// Set default starting data
-			Unit.dataMap.set(this, new UnitData(this))
-			this.data = Unit.dataMap.get(this)
 		}
 	}
 
 
-	// STATIC METHODS
+	// Custom Data Fields
+	public get data(): UnitData {
+		if (Unit.dataMap.has(this)) {
+			return Unit.dataMap.get(this)
+		} else {
+			Unit.dataMap.set(this, new UnitData(this))
+			return Unit.dataMap.get(this)
+		}
+	}
 
+	public set data(value) {
+		Unit.dataMap.set(this, value)
+	}
 
 
 	// INSTANCE METHODS
@@ -942,6 +941,10 @@ export class Unit extends Widget {
 		return IsUnitInTransport(this.handle, whichTransport.handle)
 	}
 
+	public isTerrainPathable(pathingType: pathingtype) {
+		return !IsTerrainPathable(this.x, this.y, pathingType)
+	}
+
 	public isAlive(): boolean {
 		return UnitAlive(this.handle)
 	}
@@ -1196,10 +1199,11 @@ export class Unit extends Widget {
 		return new UnitType(this.four)
 	}
 
-	public replace(newUnitType: UnitType): Unit {
+	public replace(newUnitType: UnitType | number): Unit {
 		this.show = false
-
-		const newUnit = new Unit(this.owner, newUnitType.id, this.x, this.y, this.facing)
+		let id: number
+		typeof newUnitType === "number" ? id = newUnitType : id = newUnitType.id
+		const newUnit = new Unit(this.owner, id, this.x, this.y, this.facing)
 		newUnit.lifePercent = this.lifePercent
 		newUnit.manaPercent = this.manaPercent
 
@@ -1599,12 +1603,24 @@ export class Unit extends Widget {
 		return this.fromHandle(GetFilterUnit())
 	}
 
-	public static fromAttackingUnit() {
+	public static fromAttacked() {
+		return this.fromHandle(GetTriggerUnit())
+	}
+
+	public static fromTrained() {
+		return this.fromHandle(GetTrainedUnit())
+	}
+
+	public static fromAttacking() {
 		return this.fromHandle(GetAttacker())
 	}
 
-	public static fromKillingUnit() {
+	public static fromKilling() {
 		return this.fromHandle(GetKillingUnit())
+	}
+
+	public static fromKilled() {
+		return this.fromHandle(GetTriggerUnit())
 	}
 
 	public static fromHandle(handle: unit): Unit {

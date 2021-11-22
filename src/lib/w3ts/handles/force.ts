@@ -1,81 +1,104 @@
 /** @noSelfInFile **/
 
 import { Players } from "../globals/index"
-import { Handle } from "./handle";
-import { MapPlayer } from "./player";
+import { Handle } from "./handle"
+import { MapPlayer } from "./player"
 
 export class Force extends Handle<force> {
 
-  constructor() {
-    if (Handle.initFromHandle()) {
-      super();
-    } else {
-      super(CreateForce());
-    }
-  }
+	constructor() {
+		if (Handle.initFromHandle()) {
+			super()
+		} else {
+			super(CreateForce())
+		}
+	}
 
-  public addPlayer(whichPlayer: MapPlayer): void {
-    ForceAddPlayer(this.handle, whichPlayer.handle);
-  }
+	public addPlayer(whichPlayer: MapPlayer): void {
+		ForceAddPlayer(this.handle, whichPlayer.handle)
+	}
 
-  public addPlayers(whichPlayers: number[]): void {
-    for (let index = 0; index < whichPlayers.length; index++) {
-      const element = whichPlayers[index];
+	public addPlayers(whichPlayers: number[]): void {
+		for (let index = 0; index < whichPlayers.length; index++) {
+			const element = whichPlayers[index]
 
-      ForceAddPlayer(this.handle, Players[element].handle)
-      
-    }
-  }
+			ForceAddPlayer(this.handle, Players[element].handle)
 
-  public clear() : void {
-    ForceClear(this.handle);
-  }
+		}
+	}
 
-  public destroy(): void {
-    DestroyForce(this.handle);
-  }
+	public pingMinimap(x: number, y: number, duration: number, flashy = false): void {
+		this.pingMinimapEx(x, y, duration, flashy, 255, 255, 255)
+	}
 
-  public enumAllies(whichPlayer: MapPlayer, filter: boolexpr | (() => boolean)) {
-    ForceEnumAllies(this.handle, whichPlayer.handle, typeof filter === "function" ? Filter(filter) : filter);
-  }
+	public pingMinimapEx(x: number, y: number, duration: number, flashy: boolean, red: number, green: number, blue: number): void {
 
-  public enumEnemies(whichPlayer: MapPlayer, filter: boolexpr | (() => boolean)) {
-    ForceEnumEnemies(this.handle, whichPlayer.handle, typeof filter === "function" ? Filter(filter) : filter);
-  }
+		if (this.hasPlayer(MapPlayer.fromLocal())) {
 
-  public enumPlayers(filter: boolexpr | (() => boolean)) {
-    ForceEnumPlayers(this.handle, typeof filter === "function" ? Filter(filter) : filter);
-  }
+			//  Prevent 100% red simple and flashy pings, as they become "attack" pings.
+			red == 255 && green == 0 && blue == 0 ? red = 254 : null
+			PingMinimapEx(x, y, duration, red, green, blue, flashy)
+		}
+	}
 
-  public enumPlayersCounted(filter: boolexpr | (() => boolean), countLimit: number) {
-    ForceEnumPlayersCounted(this.handle, typeof filter === "function" ? Filter(filter) : filter, countLimit);
-  }
+	public clear(): void {
+		ForceClear(this.handle)
+	}
 
-  public for(callback: () => void) {
-    ForForce(this.handle, callback);
-  }
+	public destroy(): void {
+		DestroyForce(this.handle)
+	}
 
-  /**
-   * Returns all player handles belonging to this force
-   */
-  public getPlayers() {
-    const players: MapPlayer[] = [];
+	public displayTimedText(duration: number, message: string): void {
+		DisplayTimedTextToForce(this.handle, duration, message)
+	}
 
-    ForForce(this.handle, () => players.push(MapPlayer.fromEnum()));
+	public enumAllies(whichPlayer: MapPlayer, filter: boolexpr | (() => boolean)) {
+		ForceEnumAllies(this.handle, whichPlayer.handle, typeof filter === "function" ? Filter(filter) : filter)
+	}
 
-    return players;
-  }
+	public enumEnemies(whichPlayer: MapPlayer, filter: boolexpr | (() => boolean)) {
+		ForceEnumEnemies(this.handle, whichPlayer.handle, typeof filter === "function" ? Filter(filter) : filter)
+	}
 
-  public hasPlayer(whichPlayer: MapPlayer) {
-    return IsPlayerInForce(whichPlayer.handle, this.handle);
-  }
+	public enumPlayers(filter: boolexpr | (() => boolean)) {
+		ForceEnumPlayers(this.handle, typeof filter === "function" ? Filter(filter) : filter)
+	}
 
-  public removePlayer(whichPlayer: MapPlayer) {
-    ForceRemovePlayer(this.handle, whichPlayer.handle);
-  }
+	public enumPlayersCounted(filter: boolexpr | (() => boolean), countLimit: number) {
+		ForceEnumPlayersCounted(this.handle, typeof filter === "function" ? Filter(filter) : filter, countLimit)
+	}
 
-  public static fromHandle(handle: force): Force {
-    return this.getObject(handle);
-  }
+	public for(callback: () => void) {
+		ForForce(this.handle, callback)
+	}
+
+	/**
+	 * Returns all player handles belonging to this force
+	 */
+	public getPlayers() {
+		const players: MapPlayer[] = []
+
+		ForForce(this.handle, () => players.push(MapPlayer.fromEnum()))
+
+		return players
+	}
+
+	public getRandomPlayer(): MapPlayer {
+		const players = this.getPlayers()
+		return players[math.floor(math.random(0, players.length - 1))]
+	}
+
+	public hasPlayer(whichPlayer: MapPlayer) {
+		return IsPlayerInForce(whichPlayer.handle, this.handle)
+	}
+
+	public removePlayer(whichPlayer: MapPlayer) {
+		ForceRemovePlayer(this.handle, whichPlayer.handle)
+	}
+
+	public static fromHandle(handle: force): Force {
+		return this.getObject(handle)
+	}
 
 }

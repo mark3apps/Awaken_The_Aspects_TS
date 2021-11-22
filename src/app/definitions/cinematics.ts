@@ -30,7 +30,7 @@ export namespace CINEMATIC {
 
 		for (let i = 0; i < 11; i++) {
 
-			const startCamera = CameraSetup.fromHandle(startCams[GetRandomInt(1, startCams.length)])
+			const startCamera = CameraSetup.fromHandle(startCams[GetRandomInt(0, startCams.length - 1)])
 
 			Players[i].applyCamera(true, startCamera, 0)
 

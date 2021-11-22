@@ -6,6 +6,7 @@ export namespace EVENT {
     export const unitDying = new Trigger()
     export const unitOrdered = new Trigger()
     export const unitAttacked = new Trigger()
+    export const unitDamaged = new Trigger()
     export const unitCreated = new Trigger()
     export const unitEntersRegion = new Trigger()
     export const unitSummoned = new Trigger()
@@ -21,6 +22,7 @@ export namespace EVENT {
         unitCreated.registerEnterRect(Rectangle.getPlayableMap())
 
         unitAttacked.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
+        unitDamaged.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DAMAGED)
         unitOrdered.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_ORDER)
         unitOrdered.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)
         unitOrdered.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)
@@ -31,13 +33,13 @@ export namespace EVENT {
         heroLevels.registerAnyUnitEvent(EVENT_PLAYER_HERO_LEVEL)
         unitDies.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH)
         unitDying.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DAMAGED)
-        unitDying.addCondition(() => { return GetUnitState(GetTriggerUnit(), UNIT_STATE_LIFE) - GetEventDamage() <= 0 })
+        unitDying.addCondition(() => { return Unit.fromEvent().life - GetEventDamage() <= 0 })
 
 
         // When a Unit dies clear it out
         unitDies.add(() => {
-            const eventUnit = Unit.fromEvent()
-            const killingUnit = Unit.fromHandle(GetKillingUnit())
+            const eventUnit = Unit.fromKilled()
+            const killingUnit = Unit.fromKilling()
 
             killingUnit.data.kills += 1
 

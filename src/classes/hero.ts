@@ -278,8 +278,16 @@ export class Hero extends Unit {
         return this.fromHandle(GetFilterUnit())
     }
 
-    public static override fromAttackingUnit(): Hero {
+    public static override fromAttacking(): Hero {
         return this.fromHandle(GetAttacker())
+    }
+
+    public static override fromAttacked(): Hero {
+        return this.fromHandle(GetTriggerUnit())
+    }
+
+    public static override fromSpellTarget(): Hero {
+        return this.fromHandle(GetSpellTargetUnit())
     }
 
     public static override fromHandle(handle: unit): Hero {

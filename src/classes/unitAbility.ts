@@ -1,14 +1,16 @@
 import { Coordinate } from "lib/resources/coordinate"
 import { Unit, Widget } from "lib/w3ts/index"
-import { Ability, AbilityParameters } from "./ability"
+import { Ability } from "./ability"
 
-export class UnitAbility extends Ability {
+export class UnitAbility {
     public readonly unit!: Unit
+    public readonly ability!: Ability
 
-    constructor(unit: Unit, ability: Ability | AbilityParameters) {
+    constructor(unit: Unit, ability: Ability) {
 
-        super(ability as AbilityParameters)
+        //super(ability as AbilityParameters)
 
+        this.ability = ability
         this.unit = unit
     }
 
@@ -17,72 +19,72 @@ export class UnitAbility extends Ability {
     }
 
     public hasBuff(): boolean {
-        return this.unit.hasBuff(this.buffFour)
+        return this.unit.hasBuff(this.ability.buffFour)
     }
 
-    public castImmediateAbility(): void {
-        this.unit.issueImmediateOrder(this.orderId)
+    public castImmediate(): void {
+        this.unit.issueImmediateOrder(this.ability.orderId)
     }
 
-    public castTargetAbility(targetWidget: Widget): void {
-        this.unit.issueTargetOrder(this.orderId, targetWidget)
+    public castTarget(targetWidget: Widget): void {
+        this.unit.issueTargetOrder(this.ability.orderId, targetWidget)
     }
 
-    public castAbility(dest: Coordinate): void {
-        this.unit.issueOrderAtCoordinate(this.orderId, dest)
+    public cast(dest: Coordinate): void {
+        this.unit.issueOrderAtCoordinate(this.ability.orderId, dest)
     }
 
     public isCasting(): boolean {
-        return this.unit.currentOrder == this.orderId
+        return this.unit.currentOrder == this.ability.orderId
     }
 
     // Easy getters from Ability Class
     public get activatedTooltip(): string {
-        return BlzGetAbilityActivatedTooltip(this.id, this.level)
+        return BlzGetAbilityActivatedTooltip(this.ability.id, this.level)
     }
 
     public set activatedTooltip(value: string) {
-        BlzSetAbilityActivatedTooltip(this.id, value, this.level)
+        BlzSetAbilityActivatedTooltip(this.ability.id, value, this.level)
     }
 
     public get extendedTooltip(): string {
-        return BlzGetAbilityExtendedTooltip(this.id, this.level)
+        return BlzGetAbilityExtendedTooltip(this.ability.id, this.level)
     }
 
     public set extendedTooltip(value: string) {
-        BlzSetAbilityExtendedTooltip(this.id, value, this.level)
+        BlzSetAbilityExtendedTooltip(this.ability.id, value, this.level)
     }
 
     public get tooltip(): string {
-        return BlzGetAbilityTooltip(this.id, this.level)
+        return BlzGetAbilityTooltip(this.ability.id, this.level)
     }
 
     public set tooltip(value: string) {
-        BlzSetAbilityTooltip(this.id, value, this.level)
+        BlzSetAbilityTooltip(this.ability.id, value, this.level)
     }
 
     public get researchTooltip(): string {
-        return BlzGetAbilityResearchTooltip(this.id, this.level)
+        return BlzGetAbilityResearchTooltip(this.ability.id, this.level)
     }
 
     public set researchTooltip(value: string) {
-        BlzSetAbilityResearchTooltip(this.id, value, this.level)
+        BlzSetAbilityResearchTooltip(this.ability.id, value, this.level)
     }
 
     public get researchExtendedTooltip(): string {
-        return BlzGetAbilityResearchExtendedTooltip(this.id, this.level)
+        return BlzGetAbilityResearchExtendedTooltip(this.ability.id, this.level)
     }
 
     public set researchExtendedTooltip(value: string) {
-        BlzSetAbilityResearchExtendedTooltip(this.id, value, this.level)
+        BlzSetAbilityResearchExtendedTooltip(this.ability.id, value, this.level)
     }
 
     public get activatedExtendedTooltip(): string {
-        return BlzGetAbilityActivatedExtendedTooltip(this.id, this.level)
+        return BlzGetAbilityActivatedExtendedTooltip(this.ability.id, this.level)
     }
 
     public set activatedExtendedTooltip(value: string) {
-        BlzSetAbilityActivatedExtendedTooltip(this.id, value, this.level)
+        BlzSetAbilityActivatedExtendedTooltip(this.ability.id, value, this.level)
     }
 
 
@@ -105,15 +107,15 @@ export class UnitAbility extends Ability {
     }
 
     public get unitAbility(): ability {
-        return BlzGetUnitAbility(this.unit.handle, this.id)
+        return BlzGetUnitAbility(this.unit.handle, this.ability.id)
     }
 
     public get level(): number {
-        return GetUnitAbilityLevel(this.unit.handle, this.id)
+        return GetUnitAbilityLevel(this.unit.handle, this.ability.id)
     }
 
     public set level(level: number) {
-        SetUnitAbilityLevel(this.unit.handle, this.id, level)
+        SetUnitAbilityLevel(this.unit.handle, this.ability.id, level)
     }
 
     public set name(value: string) {
@@ -153,23 +155,23 @@ export class UnitAbility extends Ability {
     }
 
     public get cooldown(): number {
-        return BlzGetUnitAbilityCooldown(this.unit.handle, this.id, this.level)
+        return BlzGetUnitAbilityCooldown(this.unit.handle, this.ability.id, this.level)
     }
 
     public set cooldown(value: number) {
-        BlzSetUnitAbilityCooldown(this.unit.handle, this.id, this.level, value)
+        BlzSetUnitAbilityCooldown(this.unit.handle, this.ability.id, this.level, value)
     }
 
     public get cooldownRemaining(): number {
-        return BlzGetUnitAbilityCooldownRemaining(this.unit.handle, this.id)
+        return BlzGetUnitAbilityCooldownRemaining(this.unit.handle, this.ability.id)
     }
 
     public set cooldownRemaining(value: number) {
-        BlzStartUnitAbilityCooldown(this.unit.handle, this.id, value)
+        BlzStartUnitAbilityCooldown(this.unit.handle, this.ability.id, value)
     }
 
     public resetCooldown(): void {
-        BlzEndUnitAbilityCooldown(this.unit.handle, this.id)
+        BlzEndUnitAbilityCooldown(this.unit.handle, this.ability.id)
     }
 
     public get manaCost(): number {

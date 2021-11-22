@@ -4,7 +4,6 @@ import { CC2Four } from "lib/resources/library"
 import { ID } from "lib/w3ts/globals/ids"
 import { OrderId } from "lib/w3ts/globals/order"
 import { Group, Timer, Unit } from "lib/w3ts/index"
-import { UnitType } from "./unitType"
 
 export const enum EffectType {
     Channel,
@@ -16,6 +15,7 @@ export const enum EffectType {
     Kill,
     Attacked,
     Attacking,
+    UnitTypeAttacking,
     Aura,
     AutoCast,
     None
@@ -56,7 +56,7 @@ export interface AbilityParameters {
     addGroup?: boolean,
     addBuffDeath?: boolean,
     loopTick?: number,
-    
+
     buffFour?: ID.Buff,
     type?: EffectType,
     target?: TargetType,
@@ -64,7 +64,7 @@ export interface AbilityParameters {
     orderIdAutoOn?: number,
     orderIdAutoOff?: number,
     orderIdOff?: number,
-    unitType?: UnitType,
+    unitType?: ID.Unit[],
     permanent?: boolean,
     starting?: boolean,
     ult?: boolean
@@ -76,12 +76,12 @@ export class Ability {
     readonly target: TargetType
 
     readonly buffFour?: ID.Buff
-    readonly addBuffDeath? : boolean
+    readonly addBuffDeath?: boolean
     readonly orderId?: OrderId
     readonly orderIdAutoOn?: OrderId
     readonly orderIdAutoOff?: OrderId
     readonly orderIdOff?: OrderId
-    readonly unitType?: UnitType
+    readonly unitType?: {[name: number]: boolean} = {}
     readonly permanent?: boolean
     readonly starting?: boolean
     readonly ult?: boolean
@@ -109,7 +109,13 @@ export class Ability {
         this.orderIdAutoOff = ability.orderIdAutoOff
         this.orderIdAutoOn = ability.orderIdAutoOn
         this.orderIdOff = ability.orderIdOff
-        this.unitType = ability.unitType
+
+        if (ability.unitType != undefined) {
+            for (let i = 0; i < ability.unitType.length; i++) {
+                const element = ability.unitType[i];
+                this.unitType[FourCC(element)] = true
+            }
+        }
 
         this.permanent = ability.permanent ?? false
         this.starting = ability.starting ?? false
@@ -166,7 +172,15 @@ export class Ability {
 
                     case EffectType.Attacking:
                         EVENT.unitAttacked.add(() => {
-                            if (Unit.fromAttackingUnit().hasAbility(this.id)) {
+                            if (Unit.fromAttacking().hasAbility(this.id)) {
+                                this.onEffect(this)
+                            }
+                        })
+                        break
+
+                    case EffectType.UnitTypeAttacking:
+                        EVENT.unitAttacked.add(() => {
+                            if (this.unitType[GetUnitTypeId(GetAttacker())]) {
                                 this.onEffect(this)
                             }
                         })
