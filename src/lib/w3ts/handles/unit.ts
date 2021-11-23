@@ -2,6 +2,7 @@
 /** @noSelfInFile **/
 
 import { Ability } from "classes/ability"
+import { HeroType } from "classes/herotype"
 import { UnitData } from "classes/unitData"
 import { UnitType } from "classes/unitType"
 import { Coordinate } from "lib/resources/coordinate"
@@ -536,6 +537,38 @@ export class Unit extends Widget {
 
 	public get z(): number {
 		return BlzGetUnitZ(this.handle)
+	}
+
+	public get kills(): number {
+		return this.data.kills
+	}
+
+	public set kills(value: number) {
+		this.data.kills = value
+	}
+
+	public get startX(): number {
+		return this.data.startX
+	}
+
+	public get startY(): number {
+		return this.data.startY 
+	}
+
+	public get destX(): number {
+		return this.data.destX
+	}
+
+	public get destY(): number {
+		return this.data.destY
+	}
+
+	public get heroType(): HeroType {
+		return this.data.heroType
+	}
+
+	public set heroType(value: HeroType) {
+		this.data.heroType = value
 	}
 
 	public addAbility(abilityId: number | string) {

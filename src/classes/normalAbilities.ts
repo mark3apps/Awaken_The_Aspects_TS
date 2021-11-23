@@ -36,7 +36,7 @@ export class NormalAbility {
             addEffect: true
         }).onEffect = () => {
             const eventUnit = Unit.fromKilling()
-            if (4 <= eventUnit.data.kills) {
+            if (4 <= eventUnit.kills) {
                 eventUnit.addAbility(FourCC(ID.Ability.FelWarlordTransformed))
             }
         }
@@ -48,7 +48,7 @@ export class NormalAbility {
             addEffect: true
         }).onEffect = () => {
             const eventUnit = Unit.fromKilling()
-            if (3 <= eventUnit.data.kills) {
+            if (3 <= eventUnit.kills) {
                 eventUnit.addAbility(FourCC(ID.Ability.FelWarlockTransformed))
                 eventUnit.manaPercent = 100
             }

@@ -41,7 +41,7 @@ export class Event {
             const eventUnit = Unit.fromKilled()
             const killingUnit = Unit.fromKilling()
 
-            killingUnit.data.kills += 1
+            killingUnit.kills += 1
 
             if (!eventUnit.isHero) {
                 const timer = new Timer()
