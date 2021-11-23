@@ -1,13 +1,13 @@
-import { EVENT } from "app/systems/events"
+import { Event } from "classes/events"
 import { Ability, EffectType, TargetType } from "classes/ability"
 import { UnitAbility } from "classes/unitAbility"
 import { ID } from "lib/w3ts/globals/ids"
 import { OrderId } from "lib/w3ts/globals/order"
 import { Group, Unit } from "lib/w3ts/index"
 
-export namespace NORMAL_ABILITY {
+export class NormalAbility {
 
-    export const define = (): void => {
+    static define = (): void => {
 
         // Orc Abilities
         new Ability({
@@ -224,7 +224,7 @@ export namespace NORMAL_ABILITY {
         }
 
         // Turn off Elder Ent Movement Pathing
-        EVENT.unitCreated.add(() => {
+        Event.unitCreated.add(() => {
             const eventUnit = Unit.fromEvent()
             if (eventUnit.typeFour == ID.Unit.AncientOfWarCreep) {
                 eventUnit.setPathing(false)

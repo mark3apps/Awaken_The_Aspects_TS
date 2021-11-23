@@ -1,22 +1,22 @@
-import { ATTRIBUTE } from "app/definitions/attributes"
 import { Strategy } from "lib/resources/strategy"
-import { UNIT_TYPE } from "../../app/definitions/unitTypes"
 import { HeroType } from "../herotype"
 import { Ability, EffectType, TargetType } from "classes/ability"
 import { ID } from "lib/w3ts/globals/ids"
 import { OrderId } from "lib/w3ts/globals/order"
 import { AbilityManaStorm } from "classes/abilities/manaAddict/manaStorm"
 import { AbilityMark } from "classes/abilities/manaAddict/mark"
+import { HeroAttribute } from "classes/attribute"
+import { UnitType } from "classes/unitType"
 
 export class ManaAddictHeroType extends HeroType {
 
     constructor() {
-        super(UNIT_TYPE.ManaAddict, UNIT_TYPE.ManaAddictAlter, "Mana Addict",)
+        super(UnitType.ManaAddict, UnitType.ManaAddictAlter, "Mana Addict",)
 
         // Attributes
-        this.addHeroAttribute(ATTRIBUTE.intelligence)
-        this.addHeroAttribute(ATTRIBUTE.ranged)
-        this.addHeroAttribute(ATTRIBUTE.mage)
+        this.addHeroAttribute(HeroAttribute.intelligence)
+        this.addHeroAttribute(HeroAttribute.ranged)
+        this.addHeroAttribute(HeroAttribute.mage)
 
         // Items
 

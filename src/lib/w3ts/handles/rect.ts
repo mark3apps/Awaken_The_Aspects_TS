@@ -99,4 +99,6 @@ export class Rectangle extends Handle<rect> {
     return Rectangle.fromHandle(GetPlayableMapRect())
   }
 
+
+  
 }

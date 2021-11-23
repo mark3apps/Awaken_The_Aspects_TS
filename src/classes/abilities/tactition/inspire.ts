@@ -1,4 +1,4 @@
-import { FORCE } from "app/definitions/forces"
+
 import { Log } from "app/systems/log"
 import { Ability, EffectType, TargetType } from "classes/ability"
 import { UnitAbility } from "classes/unitAbility"
@@ -7,7 +7,7 @@ import { ID } from "lib/w3ts/globals/ids"
 import { Players } from "lib/w3ts/globals/index"
 import { MODEL } from "lib/w3ts/globals/models"
 import { OrderId } from "lib/w3ts/globals/order"
-import { Effect, Group, Unit } from "lib/w3ts/index"
+import { Effect, Force, Group, Unit } from "lib/w3ts/index"
 
 export class AbilityInspire extends Ability {
 
@@ -43,7 +43,7 @@ export class AbilityInspire extends Ability {
             while (u != null && pickedUnits < unitsInspired) {
 
                 if (u.isAlly(eventUnit) &&
-                    (u.inForce(FORCE.Computers) || u.owner == eventUnit.owner) &&
+                    (u.inForce(Force.Computers) || u.owner == eventUnit.owner) &&
                     !u.isHero &&
                     !u.isIllusion &&
                     !u.isStructure &&
@@ -159,7 +159,7 @@ export class AbilityInspireDeath extends Ability {
             while (u != null && pickedUnits < spreadNumber) {
 
                 if (u.isAlly(eventUnit) &&
-                    (u.inForce(FORCE.Computers) || u.owner == eventUnit.owner) &&
+                    (u.inForce(Force.Computers) || u.owner == eventUnit.owner) &&
                     !u.isHero &&
                     !u.isIllusion &&
                     !u.isStructure &&

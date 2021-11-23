@@ -37,5 +37,8 @@ export class Base {
     public randomEndCoordinate(): Coordinate {
         return this.endLoc.rect.randomCoordinate
     }
+
+
+
 }
 

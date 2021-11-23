@@ -1,21 +1,22 @@
 
-import { ATTRIBUTE } from "app/definitions/attributes"
+
 import { Strategy } from "lib/resources/strategy"
-import { UNIT_TYPE } from "../../app/definitions/unitTypes"
 import { HeroType } from "../herotype"
 import { Ability, EffectType, TargetType } from "classes/ability"
 import { ID } from "lib/w3ts/globals/ids"
 import { OrderId } from "lib/w3ts/globals/order"
+import { HeroAttribute } from "classes/attribute"
+import { UnitType } from "classes/unitType"
 
 export class ShiftMasterHeroType extends HeroType {
 
     constructor() {
-        super(UNIT_TYPE.ShiftMaster, UNIT_TYPE.ShiftMasterAlter, "Shift Master")
+        super(UnitType.ShiftMaster, UnitType.ShiftMasterAlter, "Shift Master")
 
         // Attributes
-        this.addHeroAttribute(ATTRIBUTE.agility)
-        this.addHeroAttribute(ATTRIBUTE.melee)
-        this.addHeroAttribute(ATTRIBUTE.assassin)
+        this.addHeroAttribute(HeroAttribute.agility)
+        this.addHeroAttribute(HeroAttribute.melee)
+        this.addHeroAttribute(HeroAttribute.assassin)
 
         // Items
 

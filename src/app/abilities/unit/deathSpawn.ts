@@ -1,13 +1,13 @@
-import { UNIT_TYPE } from "app/definitions/unitTypes"
+
 import { Log } from "app/systems/log"
-import { PATHING } from "app/systems/pathing"
+import { Pathing } from "app/systems/pathing"
 import { UnitType } from "classes/unitType"
 import { ATTACH } from "lib/w3ts/globals/attachmentPoints"
 import { ID } from "lib/w3ts/globals/ids"
 import { Effect, MapPlayer, Timer, Unit } from "lib/w3ts/index"
-import { EVENT } from "../../systems/events"
+import { Event } from "../../../classes/events"
 
-export interface DeathSpawn {
+interface DeathSpawnInterface {
     amount?: number,
     unitId?: UnitType,
     chance?: number,
@@ -18,94 +18,94 @@ export interface DeathSpawn {
     effectAttachSpecial?: ATTACH.Special
 }
 
-export namespace DEATH_SPAWN {
+export class DeathSpawn {
 
-    export const id: { [id: string]: DeathSpawn[] } = {}
+    static id: { [id: string]: DeathSpawnInterface[] } = {}
 
 
-    export function define(): void {
+    static define(): void {
 
 
         const ignoreBuildingId: number[] = [
-            UNIT_TYPE.DwarvenGateClosed.id,
-            UNIT_TYPE.DwarvenGateOpen.id,
-            UNIT_TYPE.CastleGateClosed.id,
-            UNIT_TYPE.CastleGateOpen.id,
-            UNIT_TYPE.MercLookout.id
+            UnitType.DwarvenGateClosed.id,
+            UnitType.DwarvenGateOpen.id,
+            UnitType.CastleGateClosed.id,
+            UnitType.CastleGateOpen.id,
+            UnitType.MercLookout.id
         ]
 
-        add(UNIT_TYPE.Knight, { amount: 1, unitId: UNIT_TYPE.Captain1 })
-        add(UNIT_TYPE.WaterElemental2, { amount: 1, unitId: UNIT_TYPE.WaterElemental1 })
-        add(UNIT_TYPE.WaterElemental3, { amount: 1, unitId: UNIT_TYPE.WaterElemental2 })
-        add(UNIT_TYPE.SeigeGolem, { amount: 2, unitId: UNIT_TYPE.WarGolem })
-        add(UNIT_TYPE.WarGolem, { amount: 2, unitId: UNIT_TYPE.BattleGolem })
-        add(UNIT_TYPE.HippogryphRider, { amount: 1, unitId: UNIT_TYPE.NightElfRanger, chance: 0.6 })
+        DeathSpawn.add(UnitType.Knight, { amount: 1, unitId: UnitType.Captain1 })
+        DeathSpawn.add(UnitType.WaterElemental2, { amount: 1, unitId: UnitType.WaterElemental1 })
+        DeathSpawn.add(UnitType.WaterElemental3, { amount: 1, unitId: UnitType.WaterElemental2 })
+        DeathSpawn.add(UnitType.SeigeGolem, { amount: 2, unitId: UnitType.WarGolem })
+        DeathSpawn.add(UnitType.WarGolem, { amount: 2, unitId: UnitType.BattleGolem })
+        DeathSpawn.add(UnitType.HippogryphRider, { amount: 1, unitId: UnitType.NightElfRanger, chance: 0.6 })
 
-        add(UNIT_TYPE.SeigeEngine, { amount: 1, unitId: UNIT_TYPE.Gyrocopter })
-        add(UNIT_TYPE.SeigeEngine, { amount: 1, unitId: UNIT_TYPE.SeigeEngineDamaged })
-        add(UNIT_TYPE.SeigeEngineDamaged, { amount: 1, unitId: UNIT_TYPE.Gyrocopter })
+        DeathSpawn.add(UnitType.SeigeEngine, { amount: 1, unitId: UnitType.Gyrocopter })
+        DeathSpawn.add(UnitType.SeigeEngine, { amount: 1, unitId: UnitType.SeigeEngineDamaged })
+        DeathSpawn.add(UnitType.SeigeEngineDamaged, { amount: 1, unitId: UnitType.Gyrocopter })
 
-        add(UNIT_TYPE.Nerubianziggurat, { amount: 7, unitId: UNIT_TYPE.SkeletonWarrior, chance: 0.7 })
-        add(UNIT_TYPE.Nerubianziggurat, { amount: 5, unitId: UNIT_TYPE.SkeletonArcher, chance: 0.7 })
+        DeathSpawn.add(UnitType.Nerubianziggurat, { amount: 7, unitId: UnitType.SkeletonWarrior, chance: 0.7 })
+        DeathSpawn.add(UnitType.Nerubianziggurat, { amount: 5, unitId: UnitType.SkeletonArcher, chance: 0.7 })
 
-        add(UNIT_TYPE.MercTent, { amount: 5, unitId: UNIT_TYPE.Bandit, chance: 0.4 })
-        add(UNIT_TYPE.MercTent, { amount: 3, unitId: UNIT_TYPE.BanditSpearman, chance: 0.5 })
-        add(UNIT_TYPE.MercTent, { amount: 2, unitId: UNIT_TYPE.Assassin, chance: 0.25 })
+        DeathSpawn.add(UnitType.MercTent, { amount: 5, unitId: UnitType.Bandit, chance: 0.4 })
+        DeathSpawn.add(UnitType.MercTent, { amount: 3, unitId: UnitType.BanditSpearman, chance: 0.5 })
+        DeathSpawn.add(UnitType.MercTent, { amount: 2, unitId: UnitType.Assassin, chance: 0.25 })
 
-        add(UNIT_TYPE.WildhammerCottage, { amount: 2, unitId: UNIT_TYPE.DwarfClansman, chance: 0.3 })
-        add(UNIT_TYPE.WildhammerCottage, { amount: 2, unitId: UNIT_TYPE.DwarfAxethrower, chance: 0.3 })
-        add(UNIT_TYPE.WildhammerCottage, { amount: 1, unitId: UNIT_TYPE.DwarfElite, chance: 0.2 })
-        add(UNIT_TYPE.WildhammerFarm, { amount: 2, unitId: UNIT_TYPE.DwarfClansman, chance: 0.2 })
-        add(UNIT_TYPE.WildhammerFarm, { amount: 2, unitId: UNIT_TYPE.DwarfAxethrower, chance: 0.2 })
-        add(UNIT_TYPE.WildhammerFarm, { amount: 1, unitId: UNIT_TYPE.DwarfElite, chance: 0.3 })
-        add(UNIT_TYPE.WildhammerFarmLarge, { amount: 2, unitId: UNIT_TYPE.DwarfClansman, chance: 0.3 })
-        add(UNIT_TYPE.WildhammerFarmLarge, { amount: 2, unitId: UNIT_TYPE.DwarfAxethrower, chance: 0.3 })
-        add(UNIT_TYPE.WildhammerFarmLarge, { amount: 1, unitId: UNIT_TYPE.DwarfElite, chance: 0.3 })
+        DeathSpawn.add(UnitType.WildhammerCottage, { amount: 2, unitId: UnitType.DwarfClansman, chance: 0.3 })
+        DeathSpawn.add(UnitType.WildhammerCottage, { amount: 2, unitId: UnitType.DwarfAxethrower, chance: 0.3 })
+        DeathSpawn.add(UnitType.WildhammerCottage, { amount: 1, unitId: UnitType.DwarfElite, chance: 0.2 })
+        DeathSpawn.add(UnitType.WildhammerFarm, { amount: 2, unitId: UnitType.DwarfClansman, chance: 0.2 })
+        DeathSpawn.add(UnitType.WildhammerFarm, { amount: 2, unitId: UnitType.DwarfAxethrower, chance: 0.2 })
+        DeathSpawn.add(UnitType.WildhammerFarm, { amount: 1, unitId: UnitType.DwarfElite, chance: 0.3 })
+        DeathSpawn.add(UnitType.WildhammerFarmLarge, { amount: 2, unitId: UnitType.DwarfClansman, chance: 0.3 })
+        DeathSpawn.add(UnitType.WildhammerFarmLarge, { amount: 2, unitId: UnitType.DwarfAxethrower, chance: 0.3 })
+        DeathSpawn.add(UnitType.WildhammerFarmLarge, { amount: 1, unitId: UnitType.DwarfElite, chance: 0.3 })
 
-        add(UNIT_TYPE.GryphonRider, { amount: 1, unitId: UNIT_TYPE.DwarfAxethrower })
+        DeathSpawn.add(UnitType.GryphonRider, { amount: 1, unitId: UnitType.DwarfAxethrower })
 
-        add(UNIT_TYPE.CityBuilding03, { amount: 1, unitId: UNIT_TYPE.VillagerMale1, chance: 0.5 })
-        add(UNIT_TYPE.CityBuilding03, { amount: 1, unitId: UNIT_TYPE.VillagerMale2, chance: 0.5 })
-        add(UNIT_TYPE.CityBuilding03, { amount: 2, unitId: UNIT_TYPE.VillagerFemale1, chance: 0.5 })
-        add(UNIT_TYPE.CityBuilding03, { amount: 1, unitId: UNIT_TYPE.VillagerChild1, chance: 0.5 })
-        add(UNIT_TYPE.CityBuilding03, { amount: 1, unitId: UNIT_TYPE.VillagerChild2, chance: 0.5 })
+        DeathSpawn.add(UnitType.CityBuilding03, { amount: 1, unitId: UnitType.VillagerMale1, chance: 0.5 })
+        DeathSpawn.add(UnitType.CityBuilding03, { amount: 1, unitId: UnitType.VillagerMale2, chance: 0.5 })
+        DeathSpawn.add(UnitType.CityBuilding03, { amount: 2, unitId: UnitType.VillagerFemale1, chance: 0.5 })
+        DeathSpawn.add(UnitType.CityBuilding03, { amount: 1, unitId: UnitType.VillagerChild1, chance: 0.5 })
+        DeathSpawn.add(UnitType.CityBuilding03, { amount: 1, unitId: UnitType.VillagerChild2, chance: 0.5 })
 
-        add(UNIT_TYPE.CityBuilding09, { amount: 1, unitId: UNIT_TYPE.VillagerMale1, chance: 0.5 })
-        add(UNIT_TYPE.CityBuilding09, { amount: 1, unitId: UNIT_TYPE.VillagerMale2, chance: 0.5 })
-        add(UNIT_TYPE.CityBuilding09, { amount: 2, unitId: UNIT_TYPE.VillagerFemale1, chance: 0.5 })
-        add(UNIT_TYPE.CityBuilding09, { amount: 1, unitId: UNIT_TYPE.VillagerChild1, chance: 0.5 })
-        add(UNIT_TYPE.CityBuilding09, { amount: 1, unitId: UNIT_TYPE.VillagerChild2, chance: 0.5 })
+        DeathSpawn.add(UnitType.CityBuilding09, { amount: 1, unitId: UnitType.VillagerMale1, chance: 0.5 })
+        DeathSpawn.add(UnitType.CityBuilding09, { amount: 1, unitId: UnitType.VillagerMale2, chance: 0.5 })
+        DeathSpawn.add(UnitType.CityBuilding09, { amount: 2, unitId: UnitType.VillagerFemale1, chance: 0.5 })
+        DeathSpawn.add(UnitType.CityBuilding09, { amount: 1, unitId: UnitType.VillagerChild1, chance: 0.5 })
+        DeathSpawn.add(UnitType.CityBuilding09, { amount: 1, unitId: UnitType.VillagerChild2, chance: 0.5 })
 
-        add(UNIT_TYPE.HumanFrigate, { amount: 2, unitId: UNIT_TYPE.Arbalist, chance: .4 })
-        add(UNIT_TYPE.HumanFrigate, { amount: 3, unitId: UNIT_TYPE.NavyMarine, chance: 0.5 })
-        add(UNIT_TYPE.HumanBattleship, { amount: 1, unitId: UNIT_TYPE.Arbalist, chance: 0.5 })
-        add(UNIT_TYPE.HumanBattleship, { amount: 4, unitId: UNIT_TYPE.NavyMarine, chance: 0.5 })
+        DeathSpawn.add(UnitType.HumanFrigate, { amount: 2, unitId: UnitType.Arbalist, chance: .4 })
+        DeathSpawn.add(UnitType.HumanFrigate, { amount: 3, unitId: UnitType.NavyMarine, chance: 0.5 })
+        DeathSpawn.add(UnitType.HumanBattleship, { amount: 1, unitId: UnitType.Arbalist, chance: 0.5 })
+        DeathSpawn.add(UnitType.HumanBattleship, { amount: 4, unitId: UnitType.NavyMarine, chance: 0.5 })
 
-        add(UNIT_TYPE.NightElfFrigate, { amount: 2, unitId: UNIT_TYPE.NightElfRanger, chance: 0.6 })
-        add(UNIT_TYPE.NightElfFrigate, { amount: 2, unitId: UNIT_TYPE.NightElfSentry, chance: 0.7 })
-        add(UNIT_TYPE.NightElfBattleship, { amount: 2, unitId: UNIT_TYPE.NightElfRanger, chance: 0.7 })
-        add(UNIT_TYPE.NightElfBattleship, { amount: 1, unitId: UNIT_TYPE.NightElfEliteRanger, chance: 0.6 })
-        add(UNIT_TYPE.NightElfBattleship, { amount: 2, unitId: UNIT_TYPE.NightElfSentry, chance: 0.8 })
+        DeathSpawn.add(UnitType.NightElfFrigate, { amount: 2, unitId: UnitType.NightElfRanger, chance: 0.6 })
+        DeathSpawn.add(UnitType.NightElfFrigate, { amount: 2, unitId: UnitType.NightElfSentry, chance: 0.7 })
+        DeathSpawn.add(UnitType.NightElfBattleship, { amount: 2, unitId: UnitType.NightElfRanger, chance: 0.7 })
+        DeathSpawn.add(UnitType.NightElfBattleship, { amount: 1, unitId: UnitType.NightElfEliteRanger, chance: 0.6 })
+        DeathSpawn.add(UnitType.NightElfBattleship, { amount: 2, unitId: UnitType.NightElfSentry, chance: 0.8 })
 
         // Add Death Spawn trigger to Unit Dieing Trigger
-        EVENT.unitDies.add(() => {
+        Event.unitDies.add(() => {
             try {
                 const unit = Unit.fromEvent()
 
-                if (id[unit.typeId] != null) {
-                    for (let i = 0; i < id[unit.typeId].length; i++) {
-                        const element = id[unit.typeId][i]
-                        spawn(unit, element)
+                if (DeathSpawn.id[unit.typeId] != null) {
+                    for (let i = 0; i < DeathSpawn.id[unit.typeId].length; i++) {
+                        const element = DeathSpawn.id[unit.typeId][i]
+                        DeathSpawn.spawn(unit, element)
                     }
 
                 }
-            } catch (e) {
-                print(e)
+            } catch (error) {
+                Log.Error("Death Spawn", error)
             }
         })
 
         // Set Buildings to Randomly Stay behind
-        EVENT.unitDies.add(() => {
+        Event.unitDies.add(() => {
             const unit = Unit.fromEvent()
 
             if (unit.isStructure && ignoreBuildingId.indexOf(unit.typeId) == -1) {
@@ -136,7 +136,7 @@ export namespace DEATH_SPAWN {
     }
 
 
-    export function spawn(unit: Unit, deathSpawn: DeathSpawn): void {
+    static spawn(unit: Unit, deathSpawn: DeathSpawnInterface): void {
 
         try {
             for (let i = 0; i < deathSpawn.amount; i++) {
@@ -144,7 +144,7 @@ export namespace DEATH_SPAWN {
                 if (deathSpawn.chance >= math.random() && unit.isTerrainPathable(PATHING_TYPE_WALKABILITY)) {
                     const u = new Unit(unit.owner, deathSpawn.unitId.id, unit.x, unit.y, unit.facing)
 
-                    PATHING.newOrders(u)
+                    Pathing.newOrders(u)
 
                     if (deathSpawn.effectPath != null) {
                         new Effect(deathSpawn.effectPath, unit, deathSpawn.effectAttach).destroy()
@@ -156,14 +156,14 @@ export namespace DEATH_SPAWN {
         }
     }
 
-    export function add(unitId: UnitType, deathSpawn: DeathSpawn): void {
+    static add(unitId: UnitType, deathSpawn: DeathSpawnInterface): void {
 
         if (deathSpawn.chance == null) { deathSpawn.chance = 1 }
 
-        if (id[unitId.id] == null) {
-            id[unitId.id] = [deathSpawn]
+        if (DeathSpawn.id[unitId.id] == null) {
+            DeathSpawn.id[unitId.id] = [deathSpawn]
         } else {
-            id[unitId.id].push(deathSpawn)
+            DeathSpawn.id[unitId.id].push(deathSpawn)
         }
     }
 }

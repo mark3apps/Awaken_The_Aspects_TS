@@ -1,10 +1,10 @@
-import { FORCE } from "app/definitions/forces"
+
 import { Ability, EffectType, TargetType } from "classes/ability"
 import { UnitAbility } from "classes/unitAbility"
 import { ID } from "lib/w3ts/globals/ids"
 import { Players } from "lib/w3ts/globals/index"
 import { OrderId } from "lib/w3ts/globals/order"
-import { Group, Timer, Unit } from "lib/w3ts/index"
+import { Force, Group, Timer, Unit } from "lib/w3ts/index"
 
         
         export class AbilityAttack extends Ability {
@@ -47,7 +47,7 @@ import { Group, Timer, Unit } from "lib/w3ts/index"
             while (u != null && unitsPicked < unitCount) {
 
                 if (u.isAlive() &&
-                    (u.inForce(FORCE.Computers) || u.owner == eventUnit.owner) &&
+                    (u.inForce(Force.Computers) || u.owner == eventUnit.owner) &&
                     u.isAlly(eventUnit) &&
                     !u.isHero &&
                     !u.isIllusion &&

@@ -1,13 +1,13 @@
-import { FORCE } from "app/definitions/forces"
+
 import { Log } from "app/systems/log"
-import { PATHING } from "app/systems/pathing"
+import { Pathing } from "app/systems/pathing"
 import { Ability, EffectType, TargetType } from "classes/ability"
 import { UnitAbility } from "classes/unitAbility"
 import { ATTACH } from "lib/w3ts/globals/attachmentPoints"
 import { ID } from "lib/w3ts/globals/ids"
 import { MODEL } from "lib/w3ts/globals/models"
 import { OrderId } from "lib/w3ts/globals/order"
-import { Effect, Group, Unit } from "lib/w3ts/index"
+import { Effect, Force, Group, Unit } from "lib/w3ts/index"
 
 export class AbilityBolster extends Ability {
 
@@ -41,7 +41,7 @@ export class AbilityBolster extends Ability {
             g.firstLoop((u) => {
 
                 if (u.isAlly(eventUnit) &&
-                    (u.inForce(FORCE.Computers) || u.owner == eventUnit.owner) &&
+                    (u.inForce(Force.Computers) || u.owner == eventUnit.owner) &&
                     !u.isHero &&
                     !u.isIllusion &&
                     !u.isStructure &&
@@ -68,7 +68,7 @@ export class AbilityBolster extends Ability {
                 new Effect(MODEL.Ability.charmTarget, u, ATTACH.Point.overhead).destroy()
                 u.applyTimedLife(ID.Buff.TimedLifeGeneric, unitDuration)
 
-                PATHING.newOrders(u)
+                Pathing.newOrders(u)
                 currentSummonLevel += u.level
                 currentSummonAmount += 1
             }

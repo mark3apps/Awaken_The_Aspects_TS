@@ -1,75 +1,94 @@
-import { ARMY } from "./definitions/armies"
-import { FACTION } from "./definitions/factions"
-import { FORCE } from "./definitions/forces"
-import { LOC } from "./definitions/locs"
-import { SPAWN } from "./definitions/spawns"
-import { EVENT } from "./systems/events"
-import { DEATH_SPAWN } from "./abilities/unit/deathSpawn"
-import { REGION } from "./definitions/regions"
-import { PATHING } from "./systems/pathing"
+
+import { Event } from "../classes/events"
+import { DeathSpawn } from "./abilities/unit/deathSpawn"
+import { Pathing } from "./systems/pathing"
 import { Log } from "./systems/log"
 import { Gate } from "classes/gate"
-import { CINEMATIC } from "./definitions/cinematics"
-import { HERO_TYPE } from "./definitions/heroTypes"
-import { HERO } from "./definitions/heroes"
-import { ATTRIBUTE } from "./definitions/attributes"
-import { ITEM_UPGRADE } from "./definitions/itemUpgrades"
+import { Cinematic } from "../classes/cinematics"
 import { Ability } from "classes/ability"
-import { NORMAL_ABILITY } from "./definitions/normalAbilities"
-import { ASPECTS } from "./definitions/aspects"
+import { NormalAbility } from "../classes/normalAbilities"
+import { HeroAttribute } from "classes/attribute"
+import { Army } from "classes/army"
+import { Force, Region } from "lib/w3ts/index"
+import { Hero } from "classes/hero"
+import { Aspect } from "classes/aspect"
+import { Loc } from "classes/loc"
+import { Faction } from "classes/faction"
+import { ItemUpgrade } from "classes/itemUpgrade"
+import { Spawn } from "classes/spawn"
+import { ItemType } from "classes/itemType"
+import { TimeMageHeroType } from "classes/heroTypes/timeMageHeroType"
+import { TacticianHeroType } from "classes/heroTypes/tacticianHeroType"
+import { ShiftMasterHeroType } from "classes/heroTypes/shiftMasterHeroType"
+import { ManaAddictHeroType } from "classes/heroTypes/manaAddictHeroType"
+import { BrawlerHeroType } from "classes/heroTypes/brawlerHeroType"
+import { UnitType } from "classes/unitType"
+import { Load } from "classes/preload"
 
 
 
-export namespace Game {
+export class Game {
 
 
-    export const mapInit = (): void => {
+    static mapInit = (): void => {
 
         Log.Verbose("Game Init Start")
+
+        UnitType.define()
+        Region.define()
+        Event.define()
         
-        REGION.define()
-        EVENT.define()
-        DEATH_SPAWN.define()
-        PATHING.define()
-        ATTRIBUTE.define()
+        DeathSpawn.define()
+        Pathing.define()
+        HeroAttribute.define()
+
+        ItemType.define()
+        ItemUpgrade.define()
         
-        ITEM_UPGRADE.define()
-        HERO_TYPE.define()
-        HERO.define()
+
+        new BrawlerHeroType()
+        new ManaAddictHeroType()
+        new ShiftMasterHeroType()
+        new TacticianHeroType()
+        new TimeMageHeroType()
+
+        Hero.define()
 
         Ability.initSpellEffects()
-        
+
         Log.Verbose("Game Init Finished")
     }
 
-    export const start = (): void => {
+    static start = (): void => {
         FogEnableOff()
         FogMaskEnableOff()
 
         Log.Verbose("Game Map Start")
 
-        FORCE.define()
-        ARMY.define()
-        LOC.define()
-        FACTION.define()
-        SPAWN.define()
+        Force.define()
+        Army.define()
+        Loc.define()
+        Faction.define()
+        Spawn.define()
         Gate.define()
-        NORMAL_ABILITY.define()
-        ASPECTS.define()
-        
-        CINEMATIC.setupCineCamera()
-        CINEMATIC.startHeroSelector()
+        NormalAbility.define()
+        Aspect.define()
+
+        Load.units()
+
+        Cinematic.setupCineCamera()
+        Cinematic.startHeroSelector()
 
         Gate.start(2, 700)
-        SPAWN.start()
+        Spawn.start()
 
         Log.Verbose("Game Map Start Finished")
 
 
         Log.Verbose("Start Hero Pick")
 
-        
-        
+
+
         // HeroSelector.addUnit('Hamg')
         // HeroSelector.addUnit('Hblm')
         // HeroSelector.addUnit('Hmkg')

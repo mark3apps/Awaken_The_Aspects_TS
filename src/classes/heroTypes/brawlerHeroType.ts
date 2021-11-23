@@ -1,20 +1,21 @@
-import { ATTRIBUTE } from "app/definitions/attributes"
+
 import { Strategy } from "lib/resources/strategy"
-import { UNIT_TYPE } from "../../app/definitions/unitTypes"
 import { HeroType } from "../herotype"
 import { Ability, EffectType, TargetType } from "classes/ability"
 import { ID } from "lib/w3ts/globals/ids"
 import { OrderId } from "lib/w3ts/globals/order"
+import { HeroAttribute } from "classes/attribute"
+import { UnitType } from "classes/unitType"
 
 export class BrawlerHeroType extends HeroType {
 
     constructor() {
-        super(UNIT_TYPE.Brawler, UNIT_TYPE.BrawlerAlter, "Brawler")
+        super(UnitType.Brawler, UnitType.BrawlerAlter, "Brawler")
 
         // Attributes
-        this.addHeroAttribute(ATTRIBUTE.strength)
-        this.addHeroAttribute(ATTRIBUTE.melee)
-        this.addHeroAttribute(ATTRIBUTE.brawler)
+        this.addHeroAttribute(HeroAttribute.strength)
+        this.addHeroAttribute(HeroAttribute.melee)
+        this.addHeroAttribute(HeroAttribute.brawler)
 
         // Items
 

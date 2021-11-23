@@ -6,15 +6,15 @@ import { Players } from "lib/w3ts/globals/index"
 import { MASK } from "lib/w3ts/globals/mask"
 import { SKY } from "lib/w3ts/globals/sky"
 import { SOUND } from "lib/w3ts/globals/sounds"
-import { CameraSetup, MapPlayer, Timer, Unit } from "lib/w3ts/index"
-import { FORCE } from "./forces"
-import { HERO } from "./heroes"
+import { CameraSetup, Force, MapPlayer, Timer, Unit } from "lib/w3ts/index"
 
 
-export namespace CINEMATIC {
 
 
-	export const setupCineCamera = (): void => {
+export class Cinematic {
+
+
+	static setupCineCamera = (): void => {
 
 
 		SetSkyModel(SKY.blizzard)
@@ -39,21 +39,29 @@ export namespace CINEMATIC {
 
 			Players[i].setTargetControllerCamera(unit, 0, 0, false)
 		}
+
+		Force.Alliance.for(() => {
+			MapPlayer.fromEnum().color = PLAYER_COLOR_RED
+		})
+
+		Force.Federation.for(() => {
+			MapPlayer.fromEnum().color = PLAYER_COLOR_BLUE
+		})
 	}
 
-	export const setupGameCamera = (): void => {
+	static setupGameCamera = (): void => {
 
 		const camLeftStart = CameraSetup.fromHandle(gg_cam_baseLeftPanStart)
 		const camLeftEnd = CameraSetup.fromHandle(gg_cam_baseLeftStart)
 		const camRightStart = CameraSetup.fromHandle(gg_cam_baseRightPanStart)
 		const camRightEnd = CameraSetup.fromHandle(gg_cam_baseRightStart)
 
-		FORCE.AlliancePlayers.for(() => {
+		Force.AlliancePlayers.for(() => {
 			MapPlayer.fromEnum().applyCamera(true, camLeftStart, 0)
 			MapPlayer.fromEnum().applyCamera(true, camLeftEnd, 2)
 		})
 
-		FORCE.FederationPlayers.for(() => {
+		Force.FederationPlayers.for(() => {
 			MapPlayer.fromEnum().applyCamera(true, camRightStart, 0)
 			MapPlayer.fromEnum().applyCamera(true, camRightEnd, 2)
 		})
@@ -61,7 +69,7 @@ export namespace CINEMATIC {
 		FogEnableOn()
 	}
 
-	export const startHeroSelector = (): void => {
+	static startHeroSelector = (): void => {
 
 		HeroSelector.show(true)
 		HeroSelector.enableBan(false)
@@ -89,8 +97,8 @@ export namespace CINEMATIC {
 					PlaySound(SOUND.warning)
 
 
-					FORCE.Humans.for(() => {
-						if (!HERO.PickedPlayers.hasPlayer(MapPlayer.fromEnum())) {
+					Force.Humans.for(() => {
+						if (!Hero.PickedPlayers.hasPlayer(MapPlayer.fromEnum())) {
 							Log.Information("Picked", MapPlayer.fromEnum().name)
 							HeroSelector.forcePick(GetEnumPlayer())
 						}
@@ -105,7 +113,7 @@ export namespace CINEMATIC {
 					countdown.destroy()
 					HeroSelector.destroy()
 
-					setupGameCamera()
+					Cinematic.setupGameCamera()
 				}
 			} catch (error) {
 				Log.Error("Hero Selector:", error)

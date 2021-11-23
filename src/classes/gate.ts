@@ -1,5 +1,4 @@
-import { UNIT_TYPE } from "app/definitions/unitTypes"
-import { EVENT } from "app/systems/events"
+import { Event } from "classes/events"
 import { Log } from "app/systems/log"
 import { Coordinate } from "lib/resources/coordinate"
 import { ANIMATION } from "lib/w3ts/globals/unitAnimations"
@@ -76,8 +75,8 @@ export class Gate {
 
     public static define(): void {
         Log.Information("Defining Gate Types")
-        new GateType(UNIT_TYPE.DwarvenGateOpen, UNIT_TYPE.DwarvenGateClosed)
-        new GateType(UNIT_TYPE.CastleGateOpen, UNIT_TYPE.CastleGateClosed)
+        new GateType(UnitType.DwarvenGateOpen, UnitType.DwarvenGateClosed)
+        new GateType(UnitType.CastleGateOpen, UnitType.CastleGateClosed)
         Log.Information("Finished Defining Gate Types")
 
         Log.Information("Defining Gates")
@@ -95,14 +94,14 @@ export class Gate {
 
 
         // Event Setup
-        EVENT.unitDies.add(() => {
+        Event.unitDies.add(() => {
             if (Unit.fromEvent().inGroup(Gate.unitGroup)) {
                 const gate = Gate.fromUnit(Unit.fromEvent())
                 gate.died()
             }
         })
 
-        EVENT.unitAttacked.add(() => {
+        Event.unitAttacked.add(() => {
             if (Unit.fromEvent().inGroup(Gate.unitGroup)) {
                 Unit.fromEvent().setAnimation(ANIMATION.Gate.standHit)
             }

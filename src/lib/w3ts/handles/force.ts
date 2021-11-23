@@ -53,30 +53,30 @@ export class Force extends Handle<force> {
 		DisplayTimedTextToForce(this.handle, duration, message)
 	}
 
-	public enumAllies(whichPlayer: MapPlayer, filter: boolexpr | (() => boolean)) {
+	public enumAllies(whichPlayer: MapPlayer, filter: boolexpr | (() => boolean)): void {
 		ForceEnumAllies(this.handle, whichPlayer.handle, typeof filter === "function" ? Filter(filter) : filter)
 	}
 
-	public enumEnemies(whichPlayer: MapPlayer, filter: boolexpr | (() => boolean)) {
+	public enumEnemies(whichPlayer: MapPlayer, filter: boolexpr | (() => boolean)): void {
 		ForceEnumEnemies(this.handle, whichPlayer.handle, typeof filter === "function" ? Filter(filter) : filter)
 	}
 
-	public enumPlayers(filter: boolexpr | (() => boolean)) {
+	public enumPlayers(filter: boolexpr | (() => boolean)): void {
 		ForceEnumPlayers(this.handle, typeof filter === "function" ? Filter(filter) : filter)
 	}
 
-	public enumPlayersCounted(filter: boolexpr | (() => boolean), countLimit: number) {
+	public enumPlayersCounted(filter: boolexpr | (() => boolean), countLimit: number): void {
 		ForceEnumPlayersCounted(this.handle, typeof filter === "function" ? Filter(filter) : filter, countLimit)
 	}
 
-	public for(callback: () => void) {
+	public for(callback: () => void): void {
 		ForForce(this.handle, callback)
 	}
 
 	/**
 	 * Returns all player handles belonging to this force
 	 */
-	public getPlayers() {
+	public getPlayers(): MapPlayer[] {
 		const players: MapPlayer[] = []
 
 		ForForce(this.handle, () => players.push(MapPlayer.fromEnum()))
@@ -89,16 +89,60 @@ export class Force extends Handle<force> {
 		return players[math.floor(math.random(0, players.length - 1))]
 	}
 
-	public hasPlayer(whichPlayer: MapPlayer) {
+	public hasPlayer(whichPlayer: MapPlayer): boolean {
 		return IsPlayerInForce(whichPlayer.handle, this.handle)
 	}
 
-	public removePlayer(whichPlayer: MapPlayer) {
+	public removePlayer(whichPlayer: MapPlayer): void {
 		ForceRemovePlayer(this.handle, whichPlayer.handle)
 	}
 
 	public static fromHandle(handle: force): Force {
 		return this.getObject(handle)
+	}
+
+
+	static Alliance: Force
+	static AlliancePlayers: Force
+	static AllianceAll: Force
+	static Federation: Force
+	static FederationPlayers: Force
+	static FederationAll: Force
+	static Computers: Force
+	static Humans: Force
+
+	static define = (): void => {
+
+		Force.Alliance = new Force()
+		Force.Alliance.addPlayers([18, 19, 20])
+
+		Force.Federation = new Force()
+		Force.Federation.addPlayers([21, 22, 23])
+
+		Force.Computers = new Force()
+		Force.Computers.addPlayers([18, 19, 20, 21, 22, 23])
+
+		Force.AlliancePlayers = new Force()
+		Force.AlliancePlayers.addPlayers([0, 1, 2, 3, 4, 5])
+
+		Force.FederationPlayers = new Force()
+		Force.FederationPlayers.addPlayers([6, 7, 8, 9, 10, 11])
+
+		Force.Humans = new Force()
+		for (let i = 0; i < 11; i++) {
+			const player = Players[i]
+
+			if (player.slotState == PLAYER_SLOT_STATE_PLAYING) {
+				Force.Humans.addPlayer(Players[i])
+			}
+		}
+
+		Force.AllianceAll = new Force()
+		Force.AllianceAll.addPlayers([0, 1, 2, 3, 4, 5, 18, 19, 20])
+
+		Force.FederationAll = new Force()
+		Force.FederationAll.addPlayers([6, 7, 8, 9, 10, 11, 21, 22, 23])
+
 	}
 
 }

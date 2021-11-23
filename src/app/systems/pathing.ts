@@ -1,172 +1,176 @@
-import { FORCE } from "app/definitions/forces"
-import { LOC } from "app/definitions/locs"
-import { REGION } from "app/definitions/regions"
-import { UNIT_TYPE } from "app/definitions/unitTypes"
+
+
+
+
 import { Loc } from "classes/loc"
+import { UnitType } from "classes/unitType"
 import { Coordinate } from "lib/resources/coordinate"
 import { ID } from "lib/w3ts/globals/ids"
 import { OrderId } from "lib/w3ts/globals/order"
-import { Group, Rectangle, Region, Timer, Unit } from "lib/w3ts/index"
-import { EVENT } from "./events"
+import { Force, Group, Rectangle, Region, Timer, Unit } from "lib/w3ts/index"
+import { Event } from "../../classes/events"
 import { Log } from "./log"
 
 
-const SpawnedTypes = [
-    UNIT_TYPE.Arbalist.id,
-    UNIT_TYPE.Assassin.id,
-    UNIT_TYPE.Bandit.id,
-    UNIT_TYPE.BanditLord.id,
-    UNIT_TYPE.BanditSpearman.id,
-    UNIT_TYPE.BattleGolem.id,
-    UNIT_TYPE.BloodElfArcher.id,
-    UNIT_TYPE.BloodElfBreaker.id,
-    UNIT_TYPE.BloodElfMage.id,
-    UNIT_TYPE.Captain1.id,
-    UNIT_TYPE.Captain2.id,
-    UNIT_TYPE.Catapult.id,
-    UNIT_TYPE.Commander.id,
-    UNIT_TYPE.DraeneiDarkslayer.id,
-    UNIT_TYPE.DraeneiDemolisher.id,
-    UNIT_TYPE.DraeneiGuardian.id,
-    UNIT_TYPE.DraeneiSeer.id,
-    UNIT_TYPE.DraeneiVindicator.id,
-    UNIT_TYPE.DragonHawk.id,
-    UNIT_TYPE.DragonTurtle.id,
-    UNIT_TYPE.DruidOfTheClaw.id,
-    UNIT_TYPE.Dryad.id,
-    UNIT_TYPE.DwarfAxethrower.id,
-    UNIT_TYPE.DwarfClansman.id,
-    UNIT_TYPE.DwarfElite.id,
-    UNIT_TYPE.Enforcer.id,
-    UNIT_TYPE.EredarWarlock.id,
-    UNIT_TYPE.Footman1.id,
-    UNIT_TYPE.Footman2.id,
-    UNIT_TYPE.Ghoul.id,
-    UNIT_TYPE.GiantSkeleton.id,
-    UNIT_TYPE.Grunt.id,
-    UNIT_TYPE.GryphonRider.id,
-    UNIT_TYPE.Gyrocopter.id,
-    UNIT_TYPE.InfernalContraption.id,
-    UNIT_TYPE.InfernalJuggernaut.id,
-    UNIT_TYPE.InfernalMachine.id,
-    UNIT_TYPE.HighElfApprenticeSwordsman.id,
-    UNIT_TYPE.HighElfArcher.id,
-    UNIT_TYPE.HighElfGuardian.id,
-    UNIT_TYPE.HighElfHealer.id,
-    UNIT_TYPE.HighElfKnight.id,
-    UNIT_TYPE.HighElfSwordsman.id,
-    UNIT_TYPE.HumanBattleship.id,
-    UNIT_TYPE.HumanFrigate.id,
-    UNIT_TYPE.IronCaptain.id,
-    UNIT_TYPE.IronGuard.id,
-    UNIT_TYPE.IronMagi.id,
-    UNIT_TYPE.IronMortarTeam.id,
-    UNIT_TYPE.IronRifleman.id,
-    UNIT_TYPE.Knight.id,
-    UNIT_TYPE.MagiDefender.id,
-    UNIT_TYPE.Militia1.id,
-    UNIT_TYPE.Militia2.id,
-    UNIT_TYPE.MountainGiant.id,
-    UNIT_TYPE.MurlocCliffRunner.id,
-    UNIT_TYPE.MurlocReaver.id,
-    UNIT_TYPE.MurlocSnareCaster.id,
-    UNIT_TYPE.MurlocTideWarrior.id,
-    UNIT_TYPE.NagaMyrmidon.id,
-    UNIT_TYPE.NagaSiren.id,
-    UNIT_TYPE.NagaRoyalGuard.id,
-    UNIT_TYPE.Necromancer.id,
-    UNIT_TYPE.NightElfBattleship.id,
-    UNIT_TYPE.NightElfFrigate.id,
-    UNIT_TYPE.NightElfRanger.id,
-    UNIT_TYPE.NightElfEliteRanger.id,
-    UNIT_TYPE.NightElfSentry.id,
-    UNIT_TYPE.NavyMarine.id,
-    UNIT_TYPE.NavyCaptain.id,
-    UNIT_TYPE.Crossbowman.id,
-    UNIT_TYPE.Ogre.id,
-    UNIT_TYPE.OrcWarchief.id,
-    UNIT_TYPE.Rogue.id,
-    UNIT_TYPE.SeigeEngine.id,
-    UNIT_TYPE.SeigeEngineDamaged.id,
-    UNIT_TYPE.SeigeGolem.id,
-    UNIT_TYPE.SkeletonMage.id,
-    UNIT_TYPE.SnapDragon.id,
-    UNIT_TYPE.Sorceress.id,
-    UNIT_TYPE.Summoner.id,
-    UNIT_TYPE.SupremeWizard.id,
-    UNIT_TYPE.StormSummoner.id,
-    UNIT_TYPE.TrollAxethrower.id,
-    UNIT_TYPE.WarGolem.id,
-    UNIT_TYPE.Warlock.id,
-    UNIT_TYPE.WaterElemental1.id,
-    UNIT_TYPE.WaterElemental2.id,
-    UNIT_TYPE.WaterElemental3.id,
-    UNIT_TYPE.AspectOfTheTides.id,
-    UNIT_TYPE.AspectOfDeath.id,
-    UNIT_TYPE.AspectOfTheEarth.id,
-    UNIT_TYPE.AspectOfTheForest.id,
-    UNIT_TYPE.AspectOfTheStorm.id
-]
 
-const OrderIdIgnore = [
-    OrderId.Move,
-    OrderId.Bearform,
-    OrderId.Rejuvination,
-    OrderId.Waterelemental,
-    OrderId.Fingerofdeath,
-    OrderId.Holybolt,
-    OrderId.Spiritlink,
-    OrderId.Raisedead,
-    OrderId.Carrionscarabs,
-    OrderId.Breathoffire,
-    OrderId.Forkedlightning,
-    OrderId.Parasite,
-    OrderId.Carrionswarm,
-    OrderId.Thunderbolt,
-    OrderId.Spiritwolf,
-    OrderId.Summongrizzly,
-    OrderId.Wateryminion,
-    OrderId.Healingwave,
-    OrderId.Roar,
-    OrderId.Inferno,
-    OrderId.Creepthunderbolt,
-    OrderId.Cripple,
-    OrderId.Recharge,
-    OrderId.Replenish,
-    OrderId.Summonfactory,
-    OrderId.Chainlightning,
-    OrderId.Polymorph,
-    OrderId.Shockwave,
-    OrderId.Dispel,
-    OrderId.Innerfire,
-    OrderId.Firebolt,
-    OrderId.Tranquility,
-    OrderId.Clusterrockets,
-    OrderId.Creepthunderclap
-]
 
-const BuffIdIgnore = [
-    ID.Buff.AttackUnit
-]
+export class Pathing {
 
-const SummonReplace = [
-    UNIT_TYPE.NavyCaptain.id,
-    UNIT_TYPE.NavyFootman.id,
-    UNIT_TYPE.NavyMarine.id,
-    UNIT_TYPE.Crossbowman.id
-]
+    static define = (): void => {
 
-const OrderIdIgnoreWithDelay = [
-    OrderId.Rainoffire,
-    OrderId.Tranquility,
-    OrderId.Stunned
-]
+        const SpawnedTypes = [
+            UnitType.Arbalist.id,
+            UnitType.Assassin.id,
+            UnitType.Bandit.id,
+            UnitType.BanditLord.id,
+            UnitType.BanditSpearman.id,
+            UnitType.BattleGolem.id,
+            UnitType.BloodElfArcher.id,
+            UnitType.BloodElfBreaker.id,
+            UnitType.BloodElfMage.id,
+            UnitType.Captain1.id,
+            UnitType.Captain2.id,
+            UnitType.Catapult.id,
+            UnitType.Commander.id,
+            UnitType.DraeneiDarkslayer.id,
+            UnitType.DraeneiDemolisher.id,
+            UnitType.DraeneiGuardian.id,
+            UnitType.DraeneiSeer.id,
+            UnitType.DraeneiVindicator.id,
+            UnitType.DragonHawk.id,
+            UnitType.DragonTurtle.id,
+            UnitType.DruidOfTheClaw.id,
+            UnitType.Dryad.id,
+            UnitType.DwarfAxethrower.id,
+            UnitType.DwarfClansman.id,
+            UnitType.DwarfElite.id,
+            UnitType.Enforcer.id,
+            UnitType.EredarWarlock.id,
+            UnitType.Footman1.id,
+            UnitType.Footman2.id,
+            UnitType.Ghoul.id,
+            UnitType.GiantSkeleton.id,
+            UnitType.Grunt.id,
+            UnitType.GryphonRider.id,
+            UnitType.Gyrocopter.id,
+            UnitType.InfernalContraption.id,
+            UnitType.InfernalJuggernaut.id,
+            UnitType.InfernalMachine.id,
+            UnitType.HighElfApprenticeSwordsman.id,
+            UnitType.HighElfArcher.id,
+            UnitType.HighElfGuardian.id,
+            UnitType.HighElfHealer.id,
+            UnitType.HighElfKnight.id,
+            UnitType.HighElfSwordsman.id,
+            UnitType.HumanBattleship.id,
+            UnitType.HumanFrigate.id,
+            UnitType.IronCaptain.id,
+            UnitType.IronGuard.id,
+            UnitType.IronMagi.id,
+            UnitType.IronMortarTeam.id,
+            UnitType.IronRifleman.id,
+            UnitType.Knight.id,
+            UnitType.MagiDefender.id,
+            UnitType.Militia1.id,
+            UnitType.Militia2.id,
+            UnitType.MountainGiant.id,
+            UnitType.MurlocCliffRunner.id,
+            UnitType.MurlocReaver.id,
+            UnitType.MurlocSnareCaster.id,
+            UnitType.MurlocTideWarrior.id,
+            UnitType.NagaMyrmidon.id,
+            UnitType.NagaSiren.id,
+            UnitType.NagaRoyalGuard.id,
+            UnitType.Necromancer.id,
+            UnitType.NightElfBattleship.id,
+            UnitType.NightElfFrigate.id,
+            UnitType.NightElfRanger.id,
+            UnitType.NightElfEliteRanger.id,
+            UnitType.NightElfSentry.id,
+            UnitType.NavyMarine.id,
+            UnitType.NavyCaptain.id,
+            UnitType.Crossbowman.id,
+            UnitType.Ogre.id,
+            UnitType.OrcWarchief.id,
+            UnitType.Rogue.id,
+            UnitType.SeigeEngine.id,
+            UnitType.SeigeEngineDamaged.id,
+            UnitType.SeigeGolem.id,
+            UnitType.SkeletonMage.id,
+            UnitType.SnapDragon.id,
+            UnitType.Sorceress.id,
+            UnitType.Summoner.id,
+            UnitType.SupremeWizard.id,
+            UnitType.StormSummoner.id,
+            UnitType.TrollAxethrower.id,
+            UnitType.WarGolem.id,
+            UnitType.Warlock.id,
+            UnitType.WaterElemental1.id,
+            UnitType.WaterElemental2.id,
+            UnitType.WaterElemental3.id,
+            UnitType.AspectOfTheTides.id,
+            UnitType.AspectOfDeath.id,
+            UnitType.AspectOfTheEarth.id,
+            UnitType.AspectOfTheForest.id,
+            UnitType.AspectOfTheStorm.id
+        ]
+        
+        const OrderIdIgnore = [
+            OrderId.Move,
+            OrderId.Bearform,
+            OrderId.Rejuvination,
+            OrderId.Waterelemental,
+            OrderId.Fingerofdeath,
+            OrderId.Holybolt,
+            OrderId.Spiritlink,
+            OrderId.Raisedead,
+            OrderId.Carrionscarabs,
+            OrderId.Breathoffire,
+            OrderId.Forkedlightning,
+            OrderId.Parasite,
+            OrderId.Carrionswarm,
+            OrderId.Thunderbolt,
+            OrderId.Spiritwolf,
+            OrderId.Summongrizzly,
+            OrderId.Wateryminion,
+            OrderId.Healingwave,
+            OrderId.Roar,
+            OrderId.Inferno,
+            OrderId.Creepthunderbolt,
+            OrderId.Cripple,
+            OrderId.Recharge,
+            OrderId.Replenish,
+            OrderId.Summonfactory,
+            OrderId.Chainlightning,
+            OrderId.Polymorph,
+            OrderId.Shockwave,
+            OrderId.Dispel,
+            OrderId.Innerfire,
+            OrderId.Firebolt,
+            OrderId.Clusterrockets,
+            OrderId.Creepthunderclap
+        ]
+        
+        const BuffIdIgnore = [
+            ID.Buff.AttackUnit
+        ]
+        
+        const SummonReplace = [
+            UnitType.NavyCaptain.id,
+            UnitType.NavyFootman.id,
+            UnitType.NavyMarine.id,
+            UnitType.Crossbowman.id
+        ]
+        
+        const OrderIdIgnoreWithDelay = [
+            OrderId.Rainoffire,
+            OrderId.Tranquility,
+            OrderId.Stunned
+        ]
 
-export namespace PATHING {
 
-    export const define = (): void => {
         // Unit Enters a Loc Forwarding Region
-        EVENT.unitEntersRegion.add(() => {
+        Event.unitEntersRegion.add(() => {
             const eventRegion = Region.fromEvent()
             const eventLoc = Loc.key[eventRegion.id]
 
@@ -187,7 +191,7 @@ export namespace PATHING {
         })
 
         // Units Ordered
-        EVENT.unitOrdered.add(() => {
+        Event.unitOrdered.add(() => {
 
             const eventOrder = GetIssuedOrderId()
             const eventUnit = Unit.fromEvent()
@@ -202,7 +206,7 @@ export namespace PATHING {
 
                 } else if (OrderIdIgnoreWithDelay.indexOf(eventOrder) != -1) {
                     const timer = new Timer()
-                    timer.start(6, false, () => {
+                    timer.start(10, false, () => {
                         eventUnit.issueLastOrder()
                     }).destroy
                 }
@@ -210,39 +214,39 @@ export namespace PATHING {
         })
 
         // Unit is Summoned
-        EVENT.unitSummoned.add(() => {
+        Event.unitSummoned.add(() => {
             const eventUnit = Unit.fromEvent()
 
-            if (eventUnit.inForce(FORCE.Computers)) {
-                if (SummonReplace.indexOf(eventUnit.typeId) != 0) {
-                    PATHING.newOrders(eventUnit.replace(eventUnit.typeId))
+            if (eventUnit.inForce(Force.Computers)) {
+                if (SummonReplace.indexOf(eventUnit.typeId) != -1) {
+                    Pathing.newOrders(eventUnit.replace(eventUnit.typeId))
                 } else {
-                    PATHING.newOrders(eventUnit)
+                    Pathing.newOrders(eventUnit)
                 }
 
             }
         })
 
         // Unit is Spawned from Campsite
-        EVENT.unitCreated.add(() => {
+        Event.unitCreated.add(() => {
             const eventUnit = Unit.fromEvent()
             if (eventUnit.typeId == FourCC(ID.Unit.BanditSummon)) {
 
-                if (eventUnit.inForce(FORCE.Computers)) {
-                    PATHING.newOrders(eventUnit)
+                if (eventUnit.inForce(Force.Computers)) {
+                    Pathing.newOrders(eventUnit)
                 }
             }
         })
 
 
-        EVENT.mapStart.add(() => {
+        Event.mapStart.add(() => {
 
             const allUnits = new Group()
             allUnits.enumUnitsInRect(Rectangle.getWorldBounds(), null)
 
             let unit = allUnits.first
             while (unit != null) {
-                if (unit.inForce(FORCE.Computers) && SpawnedTypes.indexOf(unit.typeId) != -1) { PATHING.newOrders(unit) }
+                if (unit.inForce(Force.Computers) && SpawnedTypes.indexOf(unit.typeId) != -1) { Pathing.newOrders(unit) }
 
                 allUnits.removeUnit(unit)
                 unit = allUnits.first
@@ -253,32 +257,32 @@ export namespace PATHING {
 
 
     // Namespace Functions
-    export const newOrders = (unit: Unit): void => {
+    static newOrders = (unit: Unit): void => {
 
         let dest: Coordinate
 
-        if (unit.inRegion(REGION.BigTop)) {
+        if (unit.inRegion(Region.BigTop)) {
             Log.Verbose("top", unit.name)
-            if (unit.inForce(FORCE.AllianceAll)) {
-                dest = LOC.top.federation.randomCoordinate
-            } else if (unit.inForce(FORCE.FederationAll)) {
-                dest = LOC.top.alliance.randomCoordinate
+            if (unit.inForce(Force.AllianceAll)) {
+                dest = Loc.top.federation.randomCoordinate
+            } else if (unit.inForce(Force.FederationAll)) {
+                dest = Loc.top.alliance.randomCoordinate
             }
 
-        } else if (unit.inRegion(REGION.BigMiddle)) {
+        } else if (unit.inRegion(Region.BigMiddle)) {
             Log.Verbose("middle", unit.name)
-            if (unit.inForce(FORCE.AllianceAll)) {
-                dest = LOC.middle.federation.randomCoordinate
-            } else if (unit.inForce(FORCE.FederationAll)) {
-                dest = LOC.middle.alliance.randomCoordinate
+            if (unit.inForce(Force.AllianceAll)) {
+                dest = Loc.middle.federation.randomCoordinate
+            } else if (unit.inForce(Force.FederationAll)) {
+                dest = Loc.middle.alliance.randomCoordinate
             }
 
         } else {
             Log.Verbose("bootom", unit.name)
-            if (unit.inForce(FORCE.AllianceAll)) {
-                dest = LOC.bottom.federation.randomCoordinate
-            } else if (unit.inForce(FORCE.FederationAll)) {
-                dest = LOC.bottom.alliance.randomCoordinate
+            if (unit.inForce(Force.AllianceAll)) {
+                dest = Loc.bottom.federation.randomCoordinate
+            } else if (unit.inForce(Force.FederationAll)) {
+                dest = Loc.bottom.alliance.randomCoordinate
             }
         }
 

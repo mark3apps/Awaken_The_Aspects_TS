@@ -1,6 +1,5 @@
-import { ATTRIBUTE } from "app/definitions/attributes"
+
 import { Strategy } from "lib/resources/strategy"
-import { UNIT_TYPE } from "../../app/definitions/unitTypes"
 import { HeroType } from "../herotype"
 import { Ability, EffectType, TargetType } from "classes/ability"
 import { ID } from "lib/w3ts/globals/ids"
@@ -8,6 +7,8 @@ import { OrderId } from "lib/w3ts/globals/order"
 import { AbilityInspire, AbilityInspireDeath } from "classes/abilities/tactition/inspire"
 import { AbilityAttack } from "classes/abilities/tactition/attack"
 import { AbilityBolster } from "classes/abilities/tactition/bolster"
+import { HeroAttribute } from "classes/attribute"
+import { UnitType } from "classes/unitType"
 
 
 
@@ -15,7 +16,7 @@ export class TacticianHeroType extends HeroType {
     inspire: Ability
 
     constructor() {
-        super(UNIT_TYPE.Tactician, UNIT_TYPE.TacticianAlter, "Tactician")
+        super(UnitType.Tactician, UnitType.TacticianAlter, "Tactician")
 
         this.defineAbilities()
         this.defineAttributes()
@@ -26,9 +27,9 @@ export class TacticianHeroType extends HeroType {
 
 
     public override defineAttributes(): void {
-        this.addHeroAttribute(ATTRIBUTE.strength)
-        this.addHeroAttribute(ATTRIBUTE.melee)
-        this.addHeroAttribute(ATTRIBUTE.brawler)
+        this.addHeroAttribute(HeroAttribute.strength)
+        this.addHeroAttribute(HeroAttribute.melee)
+        this.addHeroAttribute(HeroAttribute.brawler)
     }
 
 

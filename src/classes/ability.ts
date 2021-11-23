@@ -1,4 +1,4 @@
-import { EVENT } from "app/systems/events"
+import { Event } from "classes/events"
 import { Log } from "app/systems/log"
 import { CC2Four } from "lib/resources/library"
 import { ID } from "lib/w3ts/globals/ids"
@@ -98,6 +98,7 @@ export class Ability {
 
     private static map = new Map<string, Ability>()
     private static mapInstant = new Map<string, Ability>()
+    static preload: Ability[] = []
 
     constructor(ability: AbilityParameters) {
 
@@ -124,7 +125,9 @@ export class Ability {
         this.addBuffDeath = ability.addBuffDeath ?? false
         this.loopTick = ability.loopTick ?? 0
 
-        // If ability hasn't been definited before
+        Ability.preload.push(this)
+
+        // If ability hasn't been definite before
         if (!Ability.map.has(this.four)) {
 
             Ability.map.set(this.four, this)
@@ -136,7 +139,7 @@ export class Ability {
             }
 
             if (this.addBuffDeath) {
-                EVENT.unitDying.add(() => {
+                Event.unitDying.add(() => {
                     if (Unit.fromEvent().hasBuff(this.buffId)) {
                         this.onBuffDeath(this)
                     }
@@ -147,7 +150,7 @@ export class Ability {
             if (this.addEvent) {
                 switch (this.type) {
                     case EffectType.Kill:
-                        EVENT.unitDies.add(() => {
+                        Event.unitDies.add(() => {
                             if (Unit.fromHandle(GetKillingUnit()).hasAbility(this)) {
                                 this.onEffect(this)
                             }
@@ -155,7 +158,7 @@ export class Ability {
                         break
 
                     case EffectType.Death:
-                        EVENT.unitDies.add(() => {
+                        Event.unitDies.add(() => {
                             if (Unit.fromEvent().hasAbility(this)) {
                                 this.onEffect(this)
                             }
@@ -163,7 +166,7 @@ export class Ability {
                         break
 
                     case EffectType.Attacked:
-                        EVENT.unitAttacked.add(() => {
+                        Event.unitAttacked.add(() => {
                             if (Unit.fromEvent().hasAbility(this.id)) {
                                 this.onEffect(this)
                             }
@@ -171,7 +174,7 @@ export class Ability {
                         break
 
                     case EffectType.Attacking:
-                        EVENT.unitAttacked.add(() => {
+                        Event.unitAttacked.add(() => {
                             if (Unit.fromAttacking().hasAbility(this.id)) {
                                 this.onEffect(this)
                             }
@@ -179,7 +182,7 @@ export class Ability {
                         break
 
                     case EffectType.UnitTypeAttacking:
-                        EVENT.unitAttacked.add(() => {
+                        Event.unitAttacked.add(() => {
                             if (this.unitType[GetUnitTypeId(GetAttacker())]) {
                                 this.onEffect(this)
                             }
@@ -198,7 +201,7 @@ export class Ability {
 
     public static initSpellEffects(): void {
         try {
-            EVENT.unitSpellEffect.add(() => {
+            Event.unitSpellEffect.add(() => {
 
                 if (Ability.mapInstant.has(CC2Four(GetSpellAbilityId()))) {
 
