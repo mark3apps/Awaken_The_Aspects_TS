@@ -7,6 +7,8 @@ import { ID } from "lib/w3ts/globals/ids"
 import { OrderId } from "lib/w3ts/globals/order"
 import { HeroAttribute } from "app/classes/attribute"
 import { UnitType } from "app/classes/unitType"
+import { ShiftAbility } from "app/classes/abilities/shifter/shift"
+import { SwitchAbility } from "app/classes/abilities/shifter/switch"
 
 export class ShiftMasterHeroType extends HeroType {
 
@@ -66,25 +68,10 @@ export class ShiftMasterHeroType extends HeroType {
         }))
 
         // Switch
-        this.addAbility(new Ability({
-            four: ID.Ability.MirrorSwitch,
-            orderId: OrderId.Reveal,
-            type: EffectType.Instant,
-            target: TargetType.Specific,
-            permanent: true,
-            starting: true,
-            addEffect: true
-        }))
+        this.addAbility(new SwitchAbility())
 
         // Shift
-        this.addAbility(new Ability({
-            four: ID.Ability.Shift,
-            orderId: OrderId.Berserk,
-            type: EffectType.Instant,
-            target: TargetType.SupportSelf,
-            permanent: true,
-            starting: true
-        }))
+        this.addAbility(new ShiftAbility())
 
         // Falling Strike
         this.addAbility(new Ability({

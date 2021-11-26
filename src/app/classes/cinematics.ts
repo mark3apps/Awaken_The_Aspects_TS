@@ -92,7 +92,7 @@ export class Cinematic {
 		HeroSelector.enablePick(true)
 
 		const countdown = new Timer()
-		let timeLeft = 15
+		let timeLeft = 10
 
 
 		// Loop Countdown

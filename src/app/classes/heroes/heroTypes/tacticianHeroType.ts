@@ -4,9 +4,9 @@ import { HeroType } from "../herotype"
 import { Ability, EffectType, TargetType } from "app/classes/ability"
 import { ID } from "lib/w3ts/globals/ids"
 import { OrderId } from "lib/w3ts/globals/order"
-import { AbilityInspire, AbilityInspireDeath } from "app/classes/abilities/tactition/inspire"
-import { AbilityAttack } from "app/classes/abilities/tactition/attack"
-import { AbilityBolster } from "app/classes/abilities/tactition/bolster"
+import { InspireAbility, AbilityInspireDeath } from "app/classes/abilities/tactition/inspire"
+import { AttackAbility } from "app/classes/abilities/tactition/attack"
+import { BolsterAbility } from "app/classes/abilities/tactition/bolster"
 import { HeroAttribute } from "app/classes/attribute"
 import { UnitType } from "app/classes/unitType"
 
@@ -90,9 +90,9 @@ export class TacticianHeroType extends HeroType {
 
 
         // Custom Abilities
-        this.addAbility(new AbilityBolster())
-        this.addAbility(new AbilityAttack())
-        this.addAbility(new AbilityInspire())
+        this.addAbility(new BolsterAbility())
+        this.addAbility(new AttackAbility())
+        this.addAbility(new InspireAbility())
         new AbilityInspireDeath()
     }
 }

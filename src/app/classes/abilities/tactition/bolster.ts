@@ -9,7 +9,7 @@ import { MODEL } from "lib/w3ts/globals/models"
 import { OrderId } from "lib/w3ts/globals/order"
 import { Effect, Force, Group, Unit } from "lib/w3ts/index"
 
-export class AbilityBolster extends Ability {
+export class BolsterAbility extends Ability {
 
     constructor() {
         super({

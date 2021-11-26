@@ -1454,13 +1454,13 @@ E
 }
 
 STRING 608
-// Abilities: A03C (Shifter Bladestorm), Hotkey (Hotkey - Normal)
+// Abilities: A03C (SH - Shiftstorm), Hotkey (Hotkey - Normal)
 {
 R
 }
 
 STRING 609
-// Abilities: A03C (Shifter Bladestorm), Researchhotkey (Hotkey - Learn)
+// Abilities: A03C (SH - Shiftstorm), Researchhotkey (Hotkey - Learn)
 {
 R
 }
@@ -3929,11 +3929,6 @@ STRING 2442
 // Abilities: A02T (Elemental Focus), Name (Name)
 {
 Elemental Focus
-}
-
-STRING 2447
-{
-Event Started whichever team holds the middle will get an extra powerful giant to fight for it.
 }
 
 STRING 2451
@@ -7386,7 +7381,7 @@ Reduces all Meelee attacks on the unit.
 }
 
 STRING 3270
-// Abilities: A03T (Shift), Researchubertip (Tooltip - Learn - Extended)
+// Abilities: A03T (SH - Shift), Researchubertip (Tooltip - Learn - Extended)
 {
 The Shifter Moves Forward leaving a Shade of himself behind that continues to fight.
 }
@@ -7487,38 +7482,32 @@ STRING 3333
 Bladestorm
 }
 
-STRING 3334
-// Abilities: A03C (Shifter Bladestorm), Name (Name)
-{
-Shifter Bladestorm
-}
-
 STRING 3335
-// Abilities: A03C (Shifter Bladestorm), Researchtip (Tooltip - Learn)
+// Abilities: A03C (SH - Shiftstorm), Researchtip (Tooltip - Learn)
 {
 Learn Shifter Bladestorm - [|cffffcc00Level %d|r]
 }
 
 STRING 3336
-// Abilities: A03C (Shifter Bladestorm), Researchubertip (Tooltip - Learn - Extended)
+// Abilities: A03C (SH - Shiftstorm), Researchubertip (Tooltip - Learn - Extended)
 {
 Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing <AOww,DataA1> damage per second to nearby enemy land units.
 }
 
 STRING 3337
-// Abilities: A03C (Shifter Bladestorm), Tip (Tooltip - Normal)
+// Abilities: A03C (SH - Shiftstorm), Tip (Tooltip - Normal)
 {
 Shifter Bladestorm - [|cffffcc00Level %d|r]
 }
 
 STRING 3338
-// Abilities: A03C (Shifter Bladestorm), Tip (Tooltip - Normal)
+// Abilities: A03C (SH - Shiftstorm), Tip (Tooltip - Normal)
 {
 Shifter Bladestorm - [|cffffcc00Level %d|r]
 }
 
 STRING 3339
-// Abilities: A03C (Shifter Bladestorm), Tip (Tooltip - Normal)
+// Abilities: A03C (SH - Shiftstorm), Tip (Tooltip - Normal)
 {
 Shifter Bladestorm - [|cffffcc00Level %d|r]
 }
@@ -7530,7 +7519,7 @@ STRING 3343
 }
 
 STRING 3344
-// Abilities: A03C (Shifter Bladestorm), EditorSuffix (Editor Suffix)
+// Abilities: A03C (SH - Shiftstorm), EditorSuffix (Editor Suffix)
 {
  (Hero)
 }
@@ -8843,7 +8832,7 @@ V
 }
 
 STRING 3707
-// Abilities: A03T (Shift), Hotkey (Hotkey - Normal)
+// Abilities: A03T (SH - Shift), Hotkey (Hotkey - Normal)
 {
 V
 }
@@ -11679,32 +11668,26 @@ STRING 4441
 Fel Form - [|cffffcc00Level 6|r]
 }
 
-STRING 4445
-// Abilities: A03T (Shift), Name (Name)
-{
-Shift
-}
-
 STRING 4446
-// Abilities: A03T (Shift), Tip (Tooltip - Normal)
+// Abilities: A03T (SH - Shift), Tip (Tooltip - Normal)
 {
 Shift - [|cffffcc00Level 1|r]
 }
 
 STRING 4447
-// Abilities: A03T (Shift), Tip (Tooltip - Normal)
+// Abilities: A03T (SH - Shift), Tip (Tooltip - Normal)
 {
 Shift - [|cffffcc00Level 2|r]
 }
 
 STRING 4448
-// Abilities: A03T (Shift), Tip (Tooltip - Normal)
+// Abilities: A03T (SH - Shift), Tip (Tooltip - Normal)
 {
 Shift - [|cffffcc00Level 3|r]
 }
 
 STRING 4452
-// Abilities: A03T (Shift), Researchtip (Tooltip - Learn)
+// Abilities: A03T (SH - Shift), Researchtip (Tooltip - Learn)
 {
 Learn Shift - [|cffffcc00Level %d|r]
 }
@@ -11728,7 +11711,7 @@ Shift Upgraded 2
 }
 
 STRING 4456
-// Abilities: A03T (Shift), Researchhotkey (Hotkey - Learn)
+// Abilities: A03T (SH - Shift), Researchhotkey (Hotkey - Learn)
 {
 V
 }
@@ -11782,19 +11765,19 @@ Learn Switch - [|cffffcc00Level %d|r]
 }
 
 STRING 4484
-// Abilities: A03C (Shifter Bladestorm), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03C (SH - Shiftstorm), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter switches positions with a nearby friendly shade within the target circle.  if no shade exists, this spell is cancelled.
 }
 
 STRING 4485
-// Abilities: A03C (Shifter Bladestorm), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03C (SH - Shiftstorm), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter switches positions with a nearby friendly shade within the target circle.  if no shade exists, this spell is cancelled.
 }
 
 STRING 4486
-// Abilities: A03C (Shifter Bladestorm), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03C (SH - Shiftstorm), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter switches positions with a nearby friendly shade within the target circle.  if no shade exists, this spell is cancelled.
 }
@@ -11842,7 +11825,7 @@ The Shifter switches places with the selected shade nearby.
 }
 
 STRING 4508
-// Abilities: A03T (Shift), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03T (SH - Shift), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter shifts forward, leaving a Shade of himself behind that continues to fight.
 
@@ -11852,7 +11835,7 @@ Shades last <A030,Dur1> seconds.|r
 }
 
 STRING 4509
-// Abilities: A03T (Shift), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03T (SH - Shift), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter shifts forward, leaving a Shade of himself behind that continues to fight.
 
@@ -11862,7 +11845,7 @@ Shades last <A030,Dur2> seconds.|r
 }
 
 STRING 4510
-// Abilities: A03T (Shift), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03T (SH - Shift), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter shifts forward, leaving a Shade of himself behind that continues to fight.
 
@@ -12178,18 +12161,6 @@ STRING 4569
 // Destructibles: B002 (Pathing Blocker (Ground) (Small)), Name (Name)
 {
 Pathing Blocker (Ground) (Small)
-}
-
-STRING 4572
-{
-|cffff0000THE ASPECT OF FIRE HAS APPEARRED!|r
-It fights for the Federation!
-}
-
-STRING 4573
-{
-|cffff0000THE ASPECT OF FIRE HAS APPEARRED!|r
-It fights for the Alliance!
 }
 
 STRING 4586
@@ -15048,5 +15019,17 @@ STRING 5150
 // Units: n01U (Dummy), EditorSuffix (Name - Editor Suffix)
 {
 (Center Event)
+}
+
+STRING 5151
+// Abilities: A03C (SH - Shiftstorm), Name (Name)
+{
+SH - Shiftstorm
+}
+
+STRING 5152
+// Abilities: A03T (SH - Shift), Name (Name)
+{
+SH - Shift
 }
 

@@ -908,6 +908,10 @@ export class Unit extends Widget {
 		BlzUnitHideAbility(this.handle, abilId, false)
 	}
 
+	public distanceFromCoordinate(coor: Coordinate): number{
+		return SquareRoot(((coor.x - this.x) * (coor.x - this.x)) + ((coor.y - this.y) * (coor.y - this.y)))
+	}
+
 	public distanceFrom(unit: Unit): number {
 		return SquareRoot(((unit.x - this.x) * (unit.x - this.x)) + ((unit.y - this.y) * (unit.y - this.y)))
 	}

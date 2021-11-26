@@ -4,73 +4,18 @@ udg_RevivableHeros = nil
 udg_TempReal = 0.0
 udg_ReviveTimers = {}
 udg_ReviveTimerWindows = {}
-udg_PLAYERcomputers = {}
-udg_DM_CasterLoc = nil
-udg_DM_TempGroup = nil
-udg_AT_Units = nil
-udg_AT_Units_Picked = nil
-udg_TC_Player = nil
-udg_StartCameras = {}
-udg_PLAYERGRPalliedUsers = nil
-udg_PLAYERGRPfederationUsers = nil
 udg_UNIT_pickedHero = {}
 udg_UNIT_Bases = {}
 udg_UNIT_Healing = {}
-udg_BOOL_AIHealing = __jarray(false)
-udg_INT_TeamNumber = __jarray(0)
-udg_UNIT_AI_PickedDest = {}
-udg_UNIT_AI_CurHero = nil
-udg_REAL_AI_Distance = 0.0
-udg_BOOL_AI_Alive = __jarray(false)
-udg_INT_RandTemp = 0
-udg_BOOL_AI_Casting = __jarray(false)
-udg_REAL_AI_PreviousLife = __jarray(0.0)
-udg_REAL_AI_DamageTaken = __jarray(0.0)
-udg_BOOL_AI_Fleeing = __jarray(false)
-udg_REAL_AI_PreviousLife2 = __jarray(0.0)
-udg_REAL_AI_DamageTakenAverage = __jarray(0.0)
-udg_GRP_AI_HeroesAroundHero = nil
-udg_BOOL_AI_AttackingHero = __jarray(false)
-udg_POINT_AI_PursueStart = {}
-udg_INT_AI_Player = 0
 udg_TEMP_Pos_Hero = nil
 udg_TEMP_Pos2 = nil
-udg_SPAWN_NumberOfUnits = __jarray(0)
-udg_SPAWN_UnitType = __jarray(0)
-udg_SPAWN_LevelStart = __jarray(0)
-udg_SPAWN_OVER_UnitTypes = __jarray(0)
-udg_SPAWN_OVER_RegionStart = {}
-udg_SPAWN_OVER_RegionEnd = {}
-udg_SPAWN_LoopPlayer = 0
-udg_SPAWN_LoopUnitTypes = 0
-udg_SPAWN_TMP_posSTART = nil
-udg_SPAWN_TMP_TeamNumber = 0
-udg_SPAWN_TMP_NumOfUnitsREAL = 0
 udg_TEMP_IntLoop1 = 0
-udg_TMP_INT_SpawnRegion = 0
-udg_TMP_INT_SpawnUnitTypes = 0
-udg_SPAWN_OVER_UnitCondition = {}
-udg_ALL_PLAYERS = nil
-udg_TIMER_Attack = nil
-udg_Doom_Warden = nil
-udg_Doom_WardenPickedSides = false
-udg_BloodlustGroup = nil
-udg_Bloodlust_AttackSpeed = __jarray(0.0)
-udg_UnleashRage_Group = nil
 udg_BrawlerMana = __jarray(0.0)
-udg_DrainLifeCasters = nil
 udg_DrainLifeTargets = nil
-udg_TEMP_Unit = nil
 udg_TEMP_Int = 0
-udg_drainTime = __jarray(0)
 udg_TEMP_UnitGroup = nil
 udg_TEMP_Pos_Spell = nil
-udg_GRP_AI_Creeps = nil
-udg_BOOL_AI_UpdateDest = __jarray(false)
-udg_UserPlayers = nil
 udg_AI_PursueHero = {}
-udg_AI_TargetHeroPoint = {}
-udg_EventTimer = nil
 udg_DL_Index = 0
 udg_DL_Caster = {}
 udg_DL_Counter = __jarray(0.0)
@@ -82,23 +27,6 @@ udg_UR_Caster = {}
 udg_Mana_Overload_Researched = __jarray(0)
 udg_Frost_Attack_Researched = __jarray(false)
 udg_TEMP_Real = 0.0
-udg_Creep_Team = __jarray(0)
-udg_Creep_Unit = {}
-udg_Creep_Start = {}
-udg_Creep_Index = 0
-udg_Creep_Timer = __jarray(0.0)
-udg_Creep_Unit_Type = __jarray(0)
-udg_Event_Count = __jarray(0)
-udg_Event_Counter = 0
-udg_Event_Unit_Type = 0
-udg_FA_Index = 0
-udg_FA_Loop = 0
-udg_FA_Caster = {}
-udg_FA_StartPoint = {}
-udg_FA_Facing = __jarray(0.0)
-udg_FA_Counter = __jarray(0.0)
-udg_FA_Distance = __jarray(0.0)
-udg_FA_Duration = __jarray(0.0)
 udg_JD_Integers = __jarray(0)
 udg_JD_TempPoint = {}
 udg_JDA_Unit = nil
@@ -124,7 +52,6 @@ udg_JD_JumpHigh = __jarray(0.0)
 udg_JDA_Collusion = false
 udg_TEMP_Real_2 = 0.0
 udg_TEMP_Player = nil
-udg_TEMP_UnitGroup2 = nil
 udg_TEMP_Int2 = 0
 udg_SB_Caster = nil
 udg_Spell_LOC_Spell = nil
@@ -138,9 +65,6 @@ udg_Spell_Phase = 0
 udg_Spell_Unit_Target = nil
 udg_Spell_Player = nil
 udg_Hero_Levels = __jarray(0)
-udg_FA_Level = 0
-udg_TEMP_Region = nil
-udg_TEMP_Int3 = 0
 udg_CALC_Level_Factor = 0.0
 udg_CALC_Base = 0.0
 udg_CALC_Constant = 0.0
@@ -158,20 +82,8 @@ udg_TimeTravel_INTERVAL = 0.0
 udg_Spell_Damage = 0.0
 udg_UNIT_Bases_Teleport = {}
 udg_TEMP_A_REAL = __jarray(0.0)
-udg_TEMP_A_INT = __jarray(0)
-udg_TEMP_A_UNIT = {}
-udg_Count = 0
-udg_playersAll = nil
-udg_summoningStone = nil
-udg_TalentControlPreventReset = __jarray(false)
-udg_Talent__Event = 0.0
-udg_Talent__Unit = nil
-udg_Talent__UnitCode = 0
-udg_Talent__Choice = nil
-udg_Talent__Level = 0
-udg_Talent__Button = 0
-udg_PickedHero = nil
 udg_units = nil
+udg_PickedHero = nil
 gg_rct_Left_Start = nil
 gg_rct_Left_Hero = nil
 gg_rct_Camp_Top = nil
@@ -291,14 +203,6 @@ gg_trg_Level100 = nil
 gg_trg_fogofwar = nil
 gg_trg_testing = nil
 gg_trg_FUNC_Calculate_Level_Factor = nil
-gg_trg_Open_Gate_Right_Murloc = nil
-gg_trg_Open_Gate_Left_Murloc = nil
-gg_trg_Open_Gate_Right_Aspect_of_Death = nil
-gg_trg_Open_Gate_Left_Aspect_of_Death = nil
-gg_trg_Open_Gate_Left_Aspect_of_Forest = nil
-gg_trg_Open_Gate_Right_Aspect_of_Forest = nil
-gg_trg_Creep_Dies_Init = nil
-gg_trg_Creep_Revive_Count = nil
 gg_trg_Armor_Hardening = nil
 gg_trg_Slam = nil
 gg_trg_Shade_Strength_Copy = nil
@@ -309,10 +213,6 @@ gg_trg_Shade_Strength = nil
 gg_trg_Swift_Moves = nil
 gg_trg_Swift_Attacks = nil
 gg_trg_Attribute_Upgrade = nil
-gg_trg_Start_Event = nil
-gg_trg_Event_Count = nil
-gg_trg_DW_Ancient_Chaos = nil
-gg_trg_Doom_Warden_End = nil
 gg_trg_Shipyard_Left_End = nil
 gg_trg_Brawler_No_Mana = nil
 gg_trg_Brawler_Rage_GUI = nil
@@ -325,8 +225,6 @@ gg_trg_Jump_System_1 = nil
 gg_trg_Jump_System_2 = nil
 gg_trg_Actions_to_apply = nil
 gg_trg_Sample_Spell_Jump = nil
-gg_trg_FA_Start = nil
-gg_trg_FA_Loop = nil
 gg_trg_Shifter_Bladestorm_START = nil
 gg_trg_Paradox_INIT = nil
 gg_trg_Paradox_CAST = nil
@@ -425,11 +323,6 @@ function InitGlobals()
         udg_ReviveTimers[i] = CreateTimer()
         i = i + 1
     end
-    udg_DM_TempGroup = CreateGroup()
-    udg_AT_Units = CreateGroup()
-    udg_AT_Units_Picked = CreateGroup()
-    udg_PLAYERGRPalliedUsers = CreateForce()
-    udg_PLAYERGRPfederationUsers = CreateForce()
     i = 0
     while (true) do
         if ((i > 2)) then break end
@@ -442,131 +335,16 @@ function InitGlobals()
         udg_UNIT_Healing[i] = CreateGroup()
         i = i + 1
     end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_BOOL_AIHealing[i] = false
-        i = i + 1
-    end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_INT_TeamNumber[i] = 0
-        i = i + 1
-    end
-    udg_REAL_AI_Distance = 0.0
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_BOOL_AI_Alive[i] = false
-        i = i + 1
-    end
-    udg_INT_RandTemp = 0
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_BOOL_AI_Casting[i] = false
-        i = i + 1
-    end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_REAL_AI_PreviousLife[i] = 0.0
-        i = i + 1
-    end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_REAL_AI_DamageTaken[i] = 0.0
-        i = i + 1
-    end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_BOOL_AI_Fleeing[i] = false
-        i = i + 1
-    end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_REAL_AI_PreviousLife2[i] = 0.0
-        i = i + 1
-    end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_REAL_AI_DamageTakenAverage[i] = 0.0
-        i = i + 1
-    end
-    udg_GRP_AI_HeroesAroundHero = CreateGroup()
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_BOOL_AI_AttackingHero[i] = false
-        i = i + 1
-    end
-    udg_INT_AI_Player = 0
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_SPAWN_NumberOfUnits[i] = 0
-        i = i + 1
-    end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_SPAWN_LevelStart[i] = 0
-        i = i + 1
-    end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_SPAWN_OVER_UnitTypes[i] = 0
-        i = i + 1
-    end
-    udg_SPAWN_LoopPlayer = 0
-    udg_SPAWN_LoopUnitTypes = 0
-    udg_SPAWN_TMP_TeamNumber = 0
-    udg_SPAWN_TMP_NumOfUnitsREAL = 0
     udg_TEMP_IntLoop1 = 0
-    udg_TMP_INT_SpawnRegion = 0
-    udg_TMP_INT_SpawnUnitTypes = 0
-    udg_ALL_PLAYERS = CreateForce()
-    udg_TIMER_Attack = CreateTimer()
-    udg_Doom_WardenPickedSides = false
-    udg_BloodlustGroup = CreateGroup()
-    i = 0
-    while (true) do
-        if ((i > 12)) then break end
-        udg_Bloodlust_AttackSpeed[i] = 0.0
-        i = i + 1
-    end
-    udg_UnleashRage_Group = CreateGroup()
     i = 0
     while (true) do
         if ((i > 1)) then break end
         udg_BrawlerMana[i] = 150.00
         i = i + 1
     end
-    udg_DrainLifeCasters = CreateGroup()
     udg_DrainLifeTargets = CreateGroup()
     udg_TEMP_Int = 0
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_drainTime[i] = 0
-        i = i + 1
-    end
     udg_TEMP_UnitGroup = CreateGroup()
-    udg_GRP_AI_Creeps = CreateGroup()
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_BOOL_AI_UpdateDest[i] = false
-        i = i + 1
-    end
-    udg_UserPlayers = CreateForce()
-    udg_EventTimer = CreateTimer()
     udg_DL_Index = 0
     i = 0
     while (true) do
@@ -596,52 +374,6 @@ function InitGlobals()
         i = i + 1
     end
     udg_TEMP_Real = 0.0
-    i = 0
-    while (true) do
-        if ((i > 8)) then break end
-        udg_Creep_Team[i] = 0
-        i = i + 1
-    end
-    udg_Creep_Index = 0
-    i = 0
-    while (true) do
-        if ((i > 8)) then break end
-        udg_Creep_Timer[i] = 0.0
-        i = i + 1
-    end
-    i = 0
-    while (true) do
-        if ((i > 0)) then break end
-        udg_Event_Count[i] = 0
-        i = i + 1
-    end
-    udg_Event_Counter = 0
-    udg_FA_Index = 0
-    udg_FA_Loop = 0
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_FA_Facing[i] = 0.0
-        i = i + 1
-    end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_FA_Counter[i] = 0.0
-        i = i + 1
-    end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_FA_Distance[i] = 0.0
-        i = i + 1
-    end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_FA_Duration[i] = 0.0
-        i = i + 1
-    end
     i = 0
     while (true) do
         if ((i > 1)) then break end
@@ -717,7 +449,6 @@ function InitGlobals()
     end
     udg_JDA_Collusion = false
     udg_TEMP_Real_2 = 0.0
-    udg_TEMP_UnitGroup2 = CreateGroup()
     udg_TEMP_Int2 = 0
     udg_Spell_Counter = 0.0
     udg_Spell_Duration = 0.0
@@ -731,8 +462,6 @@ function InitGlobals()
         udg_Hero_Levels[i] = 0
         i = i + 1
     end
-    udg_FA_Level = 0
-    udg_TEMP_Int3 = 0
     udg_CALC_Level_Factor = 0.0
     udg_CALC_Base = 0.0
     udg_CALC_Constant = 0.0
@@ -757,23 +486,6 @@ function InitGlobals()
         udg_TEMP_A_REAL[i] = 0.0
         i = i + 1
     end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_TEMP_A_INT[i] = 0
-        i = i + 1
-    end
-    udg_Count = 0
-    udg_playersAll = CreateForce()
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_TalentControlPreventReset[i] = false
-        i = i + 1
-    end
-    udg_Talent__Event = 0.0
-    udg_Talent__Level = 0
-    udg_Talent__Button = 0
     udg_units = CreateGroup()
 end
 
@@ -4525,420 +4237,6 @@ function InitTrig_FUNC_Calculate_Level_Factor()
     TriggerAddAction(gg_trg_FUNC_Calculate_Level_Factor, Trig_FUNC_Calculate_Level_Factor_Actions)
 end
 
-function Trig_Open_Gate_Right_Murloc_Conditions()
-    if (not (RectContainsUnit(gg_rct_Big_Bottom_Right, GetDyingUnit()) == true)) then
-        return false
-    end
-    if (not (GetUnitTypeId(GetDyingUnit()) == FourCC("nmsc"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Open_Gate_Right_Murloc_Func001002()
-    ModifyGateBJ(bj_GATEOPERATION_OPEN, GetEnumDestructable())
-end
-
-function Trig_Open_Gate_Right_Murloc_Actions()
-    EnumDestructablesInRectAll(gg_rct_Murloc_Gate_Right, Trig_Open_Gate_Right_Murloc_Func001002)
-end
-
-function InitTrig_Open_Gate_Right_Murloc()
-    gg_trg_Open_Gate_Right_Murloc = CreateTrigger()
-    DisableTrigger(gg_trg_Open_Gate_Right_Murloc)
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Open_Gate_Right_Murloc, EVENT_PLAYER_UNIT_DEATH)
-    TriggerAddCondition(gg_trg_Open_Gate_Right_Murloc, Condition(Trig_Open_Gate_Right_Murloc_Conditions))
-    TriggerAddAction(gg_trg_Open_Gate_Right_Murloc, Trig_Open_Gate_Right_Murloc_Actions)
-end
-
-function Trig_Open_Gate_Left_Murloc_Conditions()
-    if (not (RectContainsUnit(gg_rct_Big_Top_Left, GetDyingUnit()) == true)) then
-        return false
-    end
-    if (not (GetUnitTypeId(GetDyingUnit()) == FourCC("nmsc"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Open_Gate_Left_Murloc_Func001002()
-    ModifyGateBJ(bj_GATEOPERATION_OPEN, GetEnumDestructable())
-end
-
-function Trig_Open_Gate_Left_Murloc_Actions()
-    EnumDestructablesInRectAll(gg_rct_Murloc_Gate_Left, Trig_Open_Gate_Left_Murloc_Func001002)
-end
-
-function InitTrig_Open_Gate_Left_Murloc()
-    gg_trg_Open_Gate_Left_Murloc = CreateTrigger()
-    DisableTrigger(gg_trg_Open_Gate_Left_Murloc)
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Open_Gate_Left_Murloc, EVENT_PLAYER_UNIT_DEATH)
-    TriggerAddCondition(gg_trg_Open_Gate_Left_Murloc, Condition(Trig_Open_Gate_Left_Murloc_Conditions))
-    TriggerAddAction(gg_trg_Open_Gate_Left_Murloc, Trig_Open_Gate_Left_Murloc_Actions)
-end
-
-function Trig_Open_Gate_Right_Aspect_of_Death_Conditions()
-    if (not (RectContainsUnit(gg_rct_Big_Middle_Right, GetDyingUnit()) == true)) then
-        return false
-    end
-    if (not (GetUnitTypeId(GetDyingUnit()) == FourCC("uabo"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Open_Gate_Right_Aspect_of_Death_Func001002()
-    ModifyGateBJ(bj_GATEOPERATION_OPEN, GetEnumDestructable())
-end
-
-function Trig_Open_Gate_Right_Aspect_of_Death_Actions()
-    EnumDestructablesInRectAll(gg_rct_Death_Gate_Right, Trig_Open_Gate_Right_Aspect_of_Death_Func001002)
-end
-
-function InitTrig_Open_Gate_Right_Aspect_of_Death()
-    gg_trg_Open_Gate_Right_Aspect_of_Death = CreateTrigger()
-    DisableTrigger(gg_trg_Open_Gate_Right_Aspect_of_Death)
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Open_Gate_Right_Aspect_of_Death, EVENT_PLAYER_UNIT_DEATH)
-    TriggerAddCondition(gg_trg_Open_Gate_Right_Aspect_of_Death, Condition(Trig_Open_Gate_Right_Aspect_of_Death_Conditions))
-    TriggerAddAction(gg_trg_Open_Gate_Right_Aspect_of_Death, Trig_Open_Gate_Right_Aspect_of_Death_Actions)
-end
-
-function Trig_Open_Gate_Left_Aspect_of_Death_Conditions()
-    if (not (RectContainsUnit(gg_rct_Big_Middle_Left, GetDyingUnit()) == true)) then
-        return false
-    end
-    if (not (GetUnitTypeId(GetDyingUnit()) == FourCC("uabo"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Open_Gate_Left_Aspect_of_Death_Func001002()
-    ModifyGateBJ(bj_GATEOPERATION_OPEN, GetEnumDestructable())
-end
-
-function Trig_Open_Gate_Left_Aspect_of_Death_Actions()
-    EnumDestructablesInRectAll(gg_rct_Death_Gate_Left, Trig_Open_Gate_Left_Aspect_of_Death_Func001002)
-end
-
-function InitTrig_Open_Gate_Left_Aspect_of_Death()
-    gg_trg_Open_Gate_Left_Aspect_of_Death = CreateTrigger()
-    DisableTrigger(gg_trg_Open_Gate_Left_Aspect_of_Death)
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Open_Gate_Left_Aspect_of_Death, EVENT_PLAYER_UNIT_DEATH)
-    TriggerAddCondition(gg_trg_Open_Gate_Left_Aspect_of_Death, Condition(Trig_Open_Gate_Left_Aspect_of_Death_Conditions))
-    TriggerAddAction(gg_trg_Open_Gate_Left_Aspect_of_Death, Trig_Open_Gate_Left_Aspect_of_Death_Actions)
-end
-
-function Trig_Open_Gate_Left_Aspect_of_Forest_Conditions()
-    if (not (RectContainsUnit(gg_rct_Big_Top_Left, GetDyingUnit()) == true)) then
-        return false
-    end
-    if (not (GetUnitTypeId(GetDyingUnit()) == FourCC("n00N"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Open_Gate_Left_Aspect_of_Forest_Func001002()
-    ModifyGateBJ(bj_GATEOPERATION_OPEN, GetEnumDestructable())
-end
-
-function Trig_Open_Gate_Left_Aspect_of_Forest_Actions()
-    EnumDestructablesInRectAll(gg_rct_Aspect_of_Forest_Left_Gate, Trig_Open_Gate_Left_Aspect_of_Forest_Func001002)
-end
-
-function InitTrig_Open_Gate_Left_Aspect_of_Forest()
-    gg_trg_Open_Gate_Left_Aspect_of_Forest = CreateTrigger()
-    DisableTrigger(gg_trg_Open_Gate_Left_Aspect_of_Forest)
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Open_Gate_Left_Aspect_of_Forest, EVENT_PLAYER_UNIT_DEATH)
-    TriggerAddCondition(gg_trg_Open_Gate_Left_Aspect_of_Forest, Condition(Trig_Open_Gate_Left_Aspect_of_Forest_Conditions))
-    TriggerAddAction(gg_trg_Open_Gate_Left_Aspect_of_Forest, Trig_Open_Gate_Left_Aspect_of_Forest_Actions)
-end
-
-function Trig_Open_Gate_Right_Aspect_of_Forest_Conditions()
-    if (not (RectContainsUnit(gg_rct_Big_Bottom_Right, GetDyingUnit()) == true)) then
-        return false
-    end
-    if (not (GetUnitTypeId(GetDyingUnit()) == FourCC("n00N"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Open_Gate_Right_Aspect_of_Forest_Func001002()
-    ModifyGateBJ(bj_GATEOPERATION_OPEN, GetEnumDestructable())
-end
-
-function Trig_Open_Gate_Right_Aspect_of_Forest_Actions()
-    EnumDestructablesInRectAll(gg_rct_Aspect_of_Forest_Right_Gate, Trig_Open_Gate_Right_Aspect_of_Forest_Func001002)
-end
-
-function InitTrig_Open_Gate_Right_Aspect_of_Forest()
-    gg_trg_Open_Gate_Right_Aspect_of_Forest = CreateTrigger()
-    DisableTrigger(gg_trg_Open_Gate_Right_Aspect_of_Forest)
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Open_Gate_Right_Aspect_of_Forest, EVENT_PLAYER_UNIT_DEATH)
-    TriggerAddCondition(gg_trg_Open_Gate_Right_Aspect_of_Forest, Condition(Trig_Open_Gate_Right_Aspect_of_Forest_Conditions))
-    TriggerAddAction(gg_trg_Open_Gate_Right_Aspect_of_Forest, Trig_Open_Gate_Right_Aspect_of_Forest_Actions)
-end
-
-function Trig_Creep_Dies_Init_Func001C()
-    if (GetUnitTypeId(GetDyingUnit()) == FourCC("nmsc")) then
-        return true
-    end
-    if (GetUnitTypeId(GetDyingUnit()) == FourCC("nelb")) then
-        return true
-    end
-    if (GetUnitTypeId(GetDyingUnit()) == FourCC("n00N")) then
-        return true
-    end
-    if (GetUnitTypeId(GetDyingUnit()) == FourCC("uabo")) then
-        return true
-    end
-    return false
-end
-
-function Trig_Creep_Dies_Init_Conditions()
-    if (not Trig_Creep_Dies_Init_Func001C()) then
-        return false
-    end
-    if (not (GetOwningPlayer(GetDyingUnit()) == Player(PLAYER_NEUTRAL_AGGRESSIVE))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Creep_Dies_Init_Func003C()
-    if (not (IsUnitAlly(GetKillingUnitBJ(), ForcePickRandomPlayer(udg_PLAYERGRPallied)) == true)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Creep_Dies_Init_Func004Func002Func001C()
-    if (RectContainsUnit(gg_rct_Big_Bottom_Left, GetDyingUnit()) == true) then
-        return true
-    end
-    if (RectContainsUnit(gg_rct_Big_Bottom_Left_Center, GetDyingUnit()) == true) then
-        return true
-    end
-    if (RectContainsUnit(gg_rct_Big_Bottom_Right_Center, GetDyingUnit()) == true) then
-        return true
-    end
-    if (RectContainsUnit(gg_rct_Big_Bottom_Right, GetDyingUnit()) == true) then
-        return true
-    end
-    return false
-end
-
-function Trig_Creep_Dies_Init_Func004Func002C()
-    if (not Trig_Creep_Dies_Init_Func004Func002Func001C()) then
-        return false
-    end
-    return true
-end
-
-function Trig_Creep_Dies_Init_Func004C()
-    if (not (GetUnitTypeId(GetDyingUnit()) == FourCC("nmsc"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Creep_Dies_Init_Func005Func003Func001C()
-    if (RectContainsUnit(gg_rct_Big_Bottom_Left, GetDyingUnit()) == true) then
-        return true
-    end
-    if (RectContainsUnit(gg_rct_Big_Bottom_Left_Center, GetDyingUnit()) == true) then
-        return true
-    end
-    if (RectContainsUnit(gg_rct_Big_Bottom_Right_Center, GetDyingUnit()) == true) then
-        return true
-    end
-    if (RectContainsUnit(gg_rct_Big_Bottom_Right, GetDyingUnit()) == true) then
-        return true
-    end
-    return false
-end
-
-function Trig_Creep_Dies_Init_Func005Func003C()
-    if (not Trig_Creep_Dies_Init_Func005Func003Func001C()) then
-        return false
-    end
-    return true
-end
-
-function Trig_Creep_Dies_Init_Func005C()
-    if (not (GetUnitTypeId(GetDyingUnit()) == FourCC("nelb"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Creep_Dies_Init_Func006Func003Func001C()
-    if (RectContainsUnit(gg_rct_Big_Middle_Left, GetDyingUnit()) == true) then
-        return true
-    end
-    return false
-end
-
-function Trig_Creep_Dies_Init_Func006Func003C()
-    if (not Trig_Creep_Dies_Init_Func006Func003Func001C()) then
-        return false
-    end
-    return true
-end
-
-function Trig_Creep_Dies_Init_Func006C()
-    if (not (GetUnitTypeId(GetDyingUnit()) == FourCC("uabo"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Creep_Dies_Init_Func007Func002Func001C()
-    if (RectContainsUnit(gg_rct_Big_Top_Left, GetDyingUnit()) == true) then
-        return true
-    end
-    return false
-end
-
-function Trig_Creep_Dies_Init_Func007Func002C()
-    if (not Trig_Creep_Dies_Init_Func007Func002Func001C()) then
-        return false
-    end
-    return true
-end
-
-function Trig_Creep_Dies_Init_Func007C()
-    if (not (GetUnitTypeId(GetDyingUnit()) == FourCC("n00N"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Creep_Dies_Init_Func009C()
-    if (not (udg_Creep_Team[udg_Creep_Index] == 1)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Creep_Dies_Init_Actions()
-    udg_Creep_Index = (udg_Creep_Index + 1)
-    if (Trig_Creep_Dies_Init_Func003C()) then
-        udg_Creep_Team[udg_Creep_Index] = 1
-    else
-        udg_Creep_Team[udg_Creep_Index] = 2
-    end
-    if (Trig_Creep_Dies_Init_Func004C()) then
-        udg_Creep_Unit_Type[udg_Creep_Index] = GetUnitTypeId(GetDyingUnit())
-        if (Trig_Creep_Dies_Init_Func004Func002C()) then
-            udg_Creep_Start[udg_Creep_Index] = gg_rct_Murloc_Right
-        else
-            udg_Creep_Start[udg_Creep_Index] = gg_rct_Murloc_Left
-        end
-    else
-    end
-    if (Trig_Creep_Dies_Init_Func005C()) then
-        udg_Creep_Unit_Type[udg_Creep_Index] = GetUnitTypeId(GetDyingUnit())
-        if (Trig_Creep_Dies_Init_Func005Func003C()) then
-            udg_Creep_Start[udg_Creep_Index] = gg_rct_Left_Elemental_Start
-        else
-            udg_Creep_Start[udg_Creep_Index] = gg_rct_Right_Elemental_Start
-        end
-    else
-    end
-    if (Trig_Creep_Dies_Init_Func006C()) then
-        udg_Creep_Unit_Type[udg_Creep_Index] = GetUnitTypeId(GetDyingUnit())
-        if (Trig_Creep_Dies_Init_Func006Func003C()) then
-            udg_Creep_Start[udg_Creep_Index] = gg_rct_Zombie_End_Left
-        else
-            udg_Creep_Start[udg_Creep_Index] = gg_rct_Zombie_End_Right
-        end
-    else
-    end
-    if (Trig_Creep_Dies_Init_Func007C()) then
-        udg_Creep_Unit_Type[udg_Creep_Index] = GetUnitTypeId(GetDyingUnit())
-        if (Trig_Creep_Dies_Init_Func007Func002C()) then
-            udg_Creep_Start[udg_Creep_Index] = gg_rct_Aspect_of_Forest_Left
-        else
-            udg_Creep_Start[udg_Creep_Index] = gg_rct_Aspect_of_Forest_Right
-        end
-    else
-    end
-    udg_TEMP_Pos2 = GetRectCenter(udg_Creep_Start[udg_Creep_Index])
-    if (Trig_Creep_Dies_Init_Func009C()) then
-        udg_TEMP_Player = ForcePickRandomPlayer(udg_PLAYERGRPallied)
-    else
-        udg_TEMP_Player = ForcePickRandomPlayer(udg_PLAYERGRPfederation)
-    end
-    CreateNUnitsAtLoc(1, udg_Creep_Unit_Type[udg_Creep_Index], udg_TEMP_Player, udg_TEMP_Pos2, bj_UNIT_FACING)
-        RemoveLocation ( udg_TEMP_Pos2 )
-    udg_Creep_Unit[udg_Creep_Index] = GetLastCreatedUnit()
-        RemoveLocation ( udg_TEMP_Pos2 )
-    EnableTrigger(gg_trg_Creep_Revive_Count)
-end
-
-function InitTrig_Creep_Dies_Init()
-    gg_trg_Creep_Dies_Init = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Creep_Dies_Init, EVENT_PLAYER_UNIT_DEATH)
-    TriggerAddCondition(gg_trg_Creep_Dies_Init, Condition(Trig_Creep_Dies_Init_Conditions))
-    TriggerAddAction(gg_trg_Creep_Dies_Init, Trig_Creep_Dies_Init_Actions)
-end
-
-function Trig_Creep_Revive_Count_Func002Func001Func002Func002C()
-    if (not (udg_Creep_Team[udg_TEMP_IntLoop1] == 1)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Creep_Revive_Count_Func002Func001Func002C()
-    if (not (udg_Creep_Timer[udg_TEMP_IntLoop1] >= 110.00)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Creep_Revive_Count_Func002Func001C()
-    if (not (IsUnitAliveBJ(udg_Creep_Unit[udg_TEMP_IntLoop1]) == false)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Creep_Revive_Count_Actions()
-    udg_TEMP_IntLoop1 = 1
-    while (true) do
-        if (udg_TEMP_IntLoop1 > udg_Creep_Index) then break end
-        if (Trig_Creep_Revive_Count_Func002Func001C()) then
-            udg_Creep_Timer[udg_TEMP_IntLoop1] = (udg_Creep_Timer[udg_TEMP_IntLoop1] + 10.00)
-            if (Trig_Creep_Revive_Count_Func002Func001Func002C()) then
-                udg_TEMP_Pos2 = GetRectCenter(udg_Creep_Start[udg_TEMP_IntLoop1])
-                if (Trig_Creep_Revive_Count_Func002Func001Func002Func002C()) then
-                    udg_TEMP_Player = ForcePickRandomPlayer(udg_PLAYERGRPallied)
-                else
-                    udg_TEMP_Player = ForcePickRandomPlayer(udg_PLAYERGRPfederation)
-                end
-                CreateNUnitsAtLoc(1, udg_Creep_Unit_Type[udg_TEMP_IntLoop1], udg_TEMP_Player, udg_TEMP_Pos2, bj_UNIT_FACING)
-                                RemoveLocation ( udg_TEMP_Pos2 )
-                udg_Creep_Unit[udg_TEMP_IntLoop1] = GetLastCreatedUnit()
-                udg_Creep_Timer[udg_TEMP_IntLoop1] = 0.00
-            else
-            end
-        else
-        end
-        udg_TEMP_IntLoop1 = udg_TEMP_IntLoop1 + 1
-    end
-end
-
-function InitTrig_Creep_Revive_Count()
-    gg_trg_Creep_Revive_Count = CreateTrigger()
-    DisableTrigger(gg_trg_Creep_Revive_Count)
-    TriggerRegisterTimerEventPeriodic(gg_trg_Creep_Revive_Count, 10.00)
-    TriggerAddAction(gg_trg_Creep_Revive_Count, Trig_Creep_Revive_Count_Actions)
-end
-
 function Trig_Armor_Hardening_Conditions()
     if (not (GetResearched() == FourCC("R00G"))) then
         return false
@@ -5277,171 +4575,6 @@ function InitTrig_Attribute_Upgrade()
     TriggerRegisterAnyUnitEventBJ(gg_trg_Attribute_Upgrade, EVENT_PLAYER_UNIT_RESEARCH_FINISH)
     TriggerAddCondition(gg_trg_Attribute_Upgrade, Condition(Trig_Attribute_Upgrade_Conditions))
     TriggerAddAction(gg_trg_Attribute_Upgrade, Trig_Attribute_Upgrade_Actions)
-end
-
-function Trig_Start_Event_Actions()
-    udg_Event_Count[1] = 0
-    udg_Event_Count[2] = 0
-    udg_Event_Counter = 0
-    DisplayTextToForce(GetPlayersAll(), "TRIGSTR_2447")
-    SetUnitAnimation(gg_unit_h002_0699, "Stand 1")
-    SetUnitFlyHeightBJ(gg_unit_h002_0699, 0.00, 3.00)
-    EnableTrigger(gg_trg_Event_Count)
-end
-
-function InitTrig_Start_Event()
-    gg_trg_Start_Event = CreateTrigger()
-    TriggerRegisterTimerExpireEventBJ(gg_trg_Start_Event, udg_EventTimer)
-    TriggerAddAction(gg_trg_Start_Event, Trig_Start_Event_Actions)
-end
-
-function Trig_Event_Count_Func002Func001Func002C()
-    if (not (IsUnitType(GetEnumUnit(), UNIT_TYPE_HERO) == true)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Event_Count_Func002Func001Func003C()
-    if (not (IsUnitType(GetEnumUnit(), UNIT_TYPE_HERO) == true)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Event_Count_Func002Func001C()
-    if (not (IsUnitAlly(GetEnumUnit(), ForcePickRandomPlayer(udg_PLAYERGRPallied)) == true)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Event_Count_Func002A()
-    if (Trig_Event_Count_Func002Func001C()) then
-        if (Trig_Event_Count_Func002Func001Func003C()) then
-            udg_Event_Count[1] = (udg_Event_Count[1] + 15)
-        else
-            udg_Event_Count[1] = (udg_Event_Count[1] + GetUnitLevel(GetEnumUnit()))
-        end
-    else
-        if (Trig_Event_Count_Func002Func001Func002C()) then
-            udg_Event_Count[2] = (udg_Event_Count[2] + 15)
-        else
-            udg_Event_Count[2] = (udg_Event_Count[2] + GetUnitLevel(GetEnumUnit()))
-        end
-    end
-end
-
-function Trig_Event_Count_Func005C()
-    if (not (udg_Event_Counter >= 50)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Event_Count_Func006Func006C()
-    if (not (udg_TEMP_Int == 1)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Event_Count_Func006Func007C()
-    if (not (udg_Event_Count[1] > udg_Event_Count[2])) then
-        return false
-    end
-    return true
-end
-
-function Trig_Event_Count_Func006C()
-    if (not (udg_Event_Counter >= 60)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Event_Count_Actions()
-    ForGroupBJ(udg_TEMP_UnitGroup, Trig_Event_Count_Func002A)
-        DestroyGroup ( udg_TEMP_UnitGroup )
-    udg_Event_Counter = (udg_Event_Counter + 1)
-    if (Trig_Event_Count_Func005C()) then
-        PlaySoundBJ(gg_snd_BattleNetTick)
-    else
-    end
-    if (Trig_Event_Count_Func006C()) then
-        udg_TEMP_Real = (I2R(udg_Event_Count[1]) / I2R(udg_Event_Count[2]))
-        DisableTrigger(GetTriggeringTrigger())
-        udg_TEMP_Int = GetRandomInt(1, 1)
-        PingMinimapLocForForce(udg_ALL_PLAYERS, udg_TEMP_Pos2, 10.00)
-        if (Trig_Event_Count_Func006Func006C()) then
-            udg_Event_Unit_Type = FourCC("n00H")
-            EnableTrigger(gg_trg_Doom_Warden_End)
-            EnableTrigger(gg_trg_DW_Ancient_Chaos)
-        else
-        end
-        if (Trig_Event_Count_Func006Func007C()) then
-            CreateNUnitsAtLoc(1, udg_Event_Unit_Type, Player(18), udg_TEMP_Pos2, bj_UNIT_FACING)
-            udg_Doom_Warden = GetLastCreatedUnit()
-            DisplayTextToForce(udg_ALL_PLAYERS, "TRIGSTR_4573")
-        else
-            CreateNUnitsAtLoc(1, udg_Event_Unit_Type, Player(21), udg_TEMP_Pos2, bj_UNIT_FACING)
-            udg_Doom_Warden = GetLastCreatedUnit()
-            DisplayTextToForce(udg_ALL_PLAYERS, "TRIGSTR_4572")
-        end
-        SetUnitUserData(GetLastCreatedUnit(), 4)
-        SetUnitPathing(udg_Doom_Warden, false)
-                RemoveLocation ( udg_TEMP_Pos2 )
-    else
-    end
-end
-
-function InitTrig_Event_Count()
-    gg_trg_Event_Count = CreateTrigger()
-    DisableTrigger(gg_trg_Event_Count)
-    TriggerRegisterTimerEventPeriodic(gg_trg_Event_Count, 1.00)
-    TriggerAddAction(gg_trg_Event_Count, Trig_Event_Count_Actions)
-end
-
-function Trig_DW_Ancient_Chaos_Actions()
-    udg_TEMP_Pos2 = GetUnitLoc(udg_Doom_Warden)
-    udg_TEMP_IntLoop1 = 1
-    while (true) do
-        if (udg_TEMP_IntLoop1 > GetRandomInt(1, 4)) then break end
-        udg_TEMP_Pos_Spell = GetRandomLocInRect(RectFromCenterSizeBJ(udg_TEMP_Pos2, 1200.00, 1200.00))
-        UnitApplyTimedLifeBJ(3.00, FourCC("BTLF"), GetLastCreatedUnit())
-        IssuePointOrderLocBJ(GetLastCreatedUnit(), "dreadlordinferno", udg_TEMP_Pos_Spell)
-                RemoveLocation ( udg_TEMP_Pos_Spell )
-        udg_TEMP_IntLoop1 = udg_TEMP_IntLoop1 + 1
-    end
-        RemoveLocation ( udg_TEMP_Pos2 )
-end
-
-function InitTrig_DW_Ancient_Chaos()
-    gg_trg_DW_Ancient_Chaos = CreateTrigger()
-    DisableTrigger(gg_trg_DW_Ancient_Chaos)
-    TriggerRegisterTimerEventPeriodic(gg_trg_DW_Ancient_Chaos, 20.00)
-    TriggerAddAction(gg_trg_DW_Ancient_Chaos, Trig_DW_Ancient_Chaos_Actions)
-end
-
-function Trig_Doom_Warden_End_Conditions()
-    if (not (GetDyingUnit() == udg_Doom_Warden)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Doom_Warden_End_Actions()
-    DisableTrigger(gg_trg_DW_Ancient_Chaos)
-    StartTimerBJ(udg_EventTimer, false, 300.00)
-    SetUnitAnimation(gg_unit_h002_0699, "Death 1")
-    SetUnitFlyHeightBJ(gg_unit_h002_0699, -60.00, 3.00)
-end
-
-function InitTrig_Doom_Warden_End()
-    gg_trg_Doom_Warden_End = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Doom_Warden_End, EVENT_PLAYER_UNIT_DEATH)
-    TriggerAddCondition(gg_trg_Doom_Warden_End, Condition(Trig_Doom_Warden_End_Conditions))
-    TriggerAddAction(gg_trg_Doom_Warden_End, Trig_Doom_Warden_End_Actions)
 end
 
 function Trig_Shipyard_Left_End_Func009C()
@@ -5905,170 +5038,6 @@ function InitTrig_Jump_System_2()
     DisableTrigger(gg_trg_Jump_System_2)
     TriggerRegisterTimerEventPeriodic(gg_trg_Jump_System_2, 0.02)
     TriggerAddAction(gg_trg_Jump_System_2, Trig_Jump_System_2_Actions)
-end
-
-function Trig_FA_Start_Func001C()
-    if (GetSpellAbilityId() == FourCC("A03T")) then
-        return true
-    end
-    return false
-end
-
-function Trig_FA_Start_Conditions()
-    if (not Trig_FA_Start_Func001C()) then
-        return false
-    end
-    return true
-end
-
-function Trig_FA_Start_Func018C()
-    if (not (GetUnitAbilityLevelSwapped(FourCC("A037"), udg_FA_Caster[udg_FA_Index]) == 1)) then
-        return false
-    end
-    return true
-end
-
-function Trig_FA_Start_Func019C()
-    if (not (GetUnitAbilityLevelSwapped(FourCC("A037"), udg_FA_Caster[udg_FA_Index]) == 2)) then
-        return false
-    end
-    return true
-end
-
-function Trig_FA_Start_Func020C()
-    if (not (GetUnitAbilityLevelSwapped(FourCC("A037"), udg_FA_Caster[udg_FA_Index]) == 3)) then
-        return false
-    end
-    return true
-end
-
-function Trig_FA_Start_Func021C()
-    if (not (GetUnitAbilityLevelSwapped(FourCC("A037"), udg_FA_Caster[udg_FA_Index]) == 4)) then
-        return false
-    end
-    return true
-end
-
-function Trig_FA_Start_Func023C()
-    if (not (udg_FA_Index == 1)) then
-        return false
-    end
-    return true
-end
-
-function Trig_FA_Start_Actions()
-    udg_FA_Index = (udg_FA_Index + 1)
-    udg_FA_Caster[udg_FA_Index] = GetSpellAbilityUnit()
-    udg_FA_Counter[udg_FA_Index] = 0.00
-    udg_FA_StartPoint[udg_FA_Index] = GetUnitLoc(udg_FA_Caster[udg_FA_Index])
-    udg_FA_Facing[udg_FA_Index] = (0.00 + GetUnitFacing(udg_FA_Caster[udg_FA_Index]))
-    udg_FA_Level = GetUnitAbilityLevelSwapped(FourCC("A03T"), udg_FA_Caster[udg_FA_Index])
-    udg_FA_Distance[udg_FA_Index] = (325.00 + (125.00 * I2R(udg_FA_Level)))
-    udg_FA_Duration[udg_FA_Index] = 0.40
-    SetUnitPathing(udg_FA_Caster[udg_FA_Index], false)
-    UnitAddAbilityBJ(FourCC("Agho"), udg_FA_Caster[udg_FA_Index])
-    AddSpecialEffectLocBJ(udg_FA_StartPoint[udg_FA_Index], "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl")
-    BlzSetSpecialEffectScale(GetLastCreatedEffectBJ(), 2.00)
-    BlzSetSpecialEffectZ(GetLastCreatedEffectBJ(), 10.00)
-    DestroyEffectBJ(GetLastCreatedEffectBJ())
-    UnitApplyTimedLifeBJ(1.00, FourCC("BTLF"), GetLastCreatedUnit())
-    if (Trig_FA_Start_Func018C()) then
-        UnitAddAbilityBJ(FourCC("AIil"), GetLastCreatedUnit())
-        SetUnitAbilityLevelSwapped(FourCC("AIil"), GetLastCreatedUnit(), udg_FA_Level)
-    else
-    end
-    if (Trig_FA_Start_Func019C()) then
-        UnitAddAbilityBJ(FourCC("A039"), GetLastCreatedUnit())
-        SetUnitAbilityLevelSwapped(FourCC("A039"), GetLastCreatedUnit(), udg_FA_Level)
-    else
-    end
-    if (Trig_FA_Start_Func020C()) then
-        UnitAddAbilityBJ(FourCC("A03B"), GetLastCreatedUnit())
-        SetUnitAbilityLevelSwapped(FourCC("A03B"), GetLastCreatedUnit(), udg_FA_Level)
-    else
-    end
-    if (Trig_FA_Start_Func021C()) then
-        UnitAddAbilityBJ(FourCC("A03A"), GetLastCreatedUnit())
-        SetUnitAbilityLevelSwapped(FourCC("A03A"), GetLastCreatedUnit(), udg_FA_Level)
-    else
-    end
-        IssueTargetOrderById( bj_lastCreatedUnit, 852274, udg_FA_Caster[ udg_FA_Index ] )
-    if (Trig_FA_Start_Func023C()) then
-        EnableTrigger(gg_trg_FA_Loop)
-    else
-    end
-end
-
-function InitTrig_FA_Start()
-    gg_trg_FA_Start = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_FA_Start, EVENT_PLAYER_UNIT_SPELL_EFFECT)
-    TriggerAddCondition(gg_trg_FA_Start, Condition(Trig_FA_Start_Conditions))
-    TriggerAddAction(gg_trg_FA_Start, Trig_FA_Start_Actions)
-end
-
-function Trig_FA_Loop_Func001Func003C()
-    if (not (IsTerrainPathableBJ(udg_TEMP_Pos2, PATHING_TYPE_WALKABILITY) == false)) then
-        return false
-    end
-    return true
-end
-
-function Trig_FA_Loop_Func001Func006Func012C()
-    if (not (udg_FA_Index == 0)) then
-        return false
-    end
-    return true
-end
-
-function Trig_FA_Loop_Func001Func006C()
-    if (not (udg_FA_Counter[udg_FA_Loop] >= (udg_FA_Duration[udg_FA_Loop] + 0.00))) then
-        return false
-    end
-    return true
-end
-
-function Trig_FA_Loop_Actions()
-    udg_FA_Loop = 1
-    while (true) do
-        if (udg_FA_Loop > udg_FA_Index) then break end
-        udg_TEMP_Pos2 = PolarProjectionBJ(udg_FA_StartPoint[udg_FA_Loop], (udg_FA_Distance[udg_FA_Loop] * (udg_FA_Counter[udg_FA_Loop] / udg_FA_Duration[udg_FA_Loop])), udg_FA_Facing[udg_FA_Loop])
-        udg_TEMP_Pos_Spell = PolarProjectionBJ(udg_FA_StartPoint[udg_FA_Loop], (udg_FA_Distance[udg_FA_Loop] * ((udg_FA_Counter[udg_FA_Loop] + 0.00) / udg_FA_Duration[udg_FA_Loop])), udg_FA_Facing[udg_FA_Loop])
-        if (Trig_FA_Loop_Func001Func003C()) then
-                        SetUnitX(udg_FA_Caster[udg_FA_Loop], GetLocationX(udg_TEMP_Pos_Spell))
-                        SetUnitY(udg_FA_Caster[udg_FA_Loop], GetLocationY(udg_TEMP_Pos_Spell))
-            udg_FA_Counter[udg_FA_Loop] = (udg_FA_Counter[udg_FA_Loop] + 0.02)
-        else
-            udg_FA_Counter[udg_FA_Loop] = udg_FA_Duration[udg_FA_Loop]
-        end
-                RemoveLocation ( udg_TEMP_Pos2 )
-                RemoveLocation ( udg_TEMP_Pos_Spell )
-        if (Trig_FA_Loop_Func001Func006C()) then
-            UnitRemoveAbilityBJ(FourCC("Agho"), udg_FA_Caster[udg_FA_Loop])
-            SetUnitPathing(udg_FA_Caster[udg_FA_Loop], true)
-                        RemoveLocation ( udg_FA_StartPoint [ udg_FA_Loop ]  )
-            udg_FA_Caster[udg_FA_Loop] = udg_FA_Caster[udg_FA_Index]
-            udg_FA_Counter[udg_FA_Loop] = udg_FA_Counter[udg_FA_Index]
-            udg_FA_Distance[udg_FA_Loop] = udg_FA_Distance[udg_FA_Index]
-            udg_FA_StartPoint[udg_FA_Loop] = udg_FA_StartPoint[udg_FA_Index]
-            udg_FA_Duration[udg_FA_Loop] = udg_FA_Duration[udg_FA_Index]
-            udg_FA_Facing[udg_FA_Loop] = udg_FA_Facing[udg_FA_Index]
-            udg_FA_Index = (udg_FA_Index - 1)
-            udg_FA_Loop = (udg_FA_Loop - 1)
-            if (Trig_FA_Loop_Func001Func006Func012C()) then
-                DisableTrigger(GetTriggeringTrigger())
-            else
-            end
-        else
-        end
-        udg_FA_Loop = udg_FA_Loop + 1
-    end
-end
-
-function InitTrig_FA_Loop()
-    gg_trg_FA_Loop = CreateTrigger()
-    DisableTrigger(gg_trg_FA_Loop)
-    TriggerRegisterTimerEventPeriodic(gg_trg_FA_Loop, 0.02)
-    TriggerAddAction(gg_trg_FA_Loop, Trig_FA_Loop_Actions)
 end
 
 function Trig_Shifter_Bladestorm_START_Conditions()
@@ -6793,8 +5762,6 @@ function Trig_baseAndHeals_Actions()
     GroupAddUnitSimple(gg_unit_nntt_0132, udg_UNIT_Healing[2])
     GroupAddUnitSimple(gg_unit_nheb_0036, udg_UNIT_Healing[2])
     GroupAddUnitSimple(gg_unit_nmh1_0783, udg_UNIT_Healing[2])
-    udg_summoningStone = gg_unit_h002_0699
-    SetUnitAnimation(gg_unit_h002_0699, "Death 1")
 end
 
 function InitTrig_baseAndHeals()
@@ -6832,14 +5799,6 @@ function InitCustomTriggers()
     InitTrig_fogofwar()
     InitTrig_testing()
     InitTrig_FUNC_Calculate_Level_Factor()
-    InitTrig_Open_Gate_Right_Murloc()
-    InitTrig_Open_Gate_Left_Murloc()
-    InitTrig_Open_Gate_Right_Aspect_of_Death()
-    InitTrig_Open_Gate_Left_Aspect_of_Death()
-    InitTrig_Open_Gate_Left_Aspect_of_Forest()
-    InitTrig_Open_Gate_Right_Aspect_of_Forest()
-    InitTrig_Creep_Dies_Init()
-    InitTrig_Creep_Revive_Count()
     InitTrig_Armor_Hardening()
     InitTrig_Slam()
     InitTrig_Shade_Strength_Copy()
@@ -6850,10 +5809,6 @@ function InitCustomTriggers()
     InitTrig_Swift_Moves()
     InitTrig_Swift_Attacks()
     InitTrig_Attribute_Upgrade()
-    InitTrig_Start_Event()
-    InitTrig_Event_Count()
-    InitTrig_DW_Ancient_Chaos()
-    InitTrig_Doom_Warden_End()
     InitTrig_Shipyard_Left_End()
     InitTrig_Brawler_No_Mana()
     InitTrig_Brawler_Rage_GUI()
@@ -6864,8 +5819,6 @@ function InitCustomTriggers()
     InitTrig_Falling_Strike_CAST()
     InitTrig_Jump_System_1()
     InitTrig_Jump_System_2()
-    InitTrig_FA_Start()
-    InitTrig_FA_Loop()
     InitTrig_Shifter_Bladestorm_START()
     InitTrig_Paradox_INIT()
     InitTrig_Paradox_CAST()

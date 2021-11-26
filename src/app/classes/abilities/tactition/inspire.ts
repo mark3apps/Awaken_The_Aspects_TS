@@ -9,7 +9,7 @@ import { MODEL } from "lib/w3ts/globals/models"
 import { OrderId } from "lib/w3ts/globals/order"
 import { Effect, Force, Group, Unit } from "lib/w3ts/index"
 
-export class AbilityInspire extends Ability {
+export class InspireAbility extends Ability {
 
     static group = new Group()
 
@@ -62,14 +62,14 @@ export class AbilityInspire extends Ability {
                     u.lifePercent = 100
                     new Effect(MODEL.Ability.resurrecttarget, u, ATTACH.Point.overhead).destroy()
 
-                    AbilityInspire.group.addUnit(u)
+                    InspireAbility.group.addUnit(u)
                     u.data.custom.set("inspireCastingPlayer", eventUnit.owner.id)
                     u.data.custom.set("inspireSpreadNumber", spreadNumber)
                     u.data.custom.set("inspireDuration", duration)
                     u.data.custom.set("inspireCounter", 0)
 
                     pickedUnits += 1
-                    if (AbilityInspire.group.size == 1) {
+                    if (InspireAbility.group.size == 1) {
                         this.loopTimer.resume()
                     }
                 }
@@ -85,10 +85,10 @@ export class AbilityInspire extends Ability {
     }
 
     public override onLoop = (): void => {
-        if (AbilityInspire.group.size == 0) {
+        if (InspireAbility.group.size == 0) {
             this.loopTimer.pause()
         } else {
-            AbilityInspire.group.for(() => {
+            InspireAbility.group.for(() => {
                 const u = Unit.fromEnum()
                 const duration = u.data.custom.get("inspireDuration") as number
                 const counter = u.data.custom.get("inspireCounter") as number + 1
@@ -104,7 +104,7 @@ export class AbilityInspire extends Ability {
                     u.data.custom.delete("inspireDuration")
                     u.data.custom.delete("inspireCounter")
                     u.data.custom.delete("inspireGroup")
-                    AbilityInspire.group.removeUnit(u)
+                    InspireAbility.group.removeUnit(u)
                 } else {
                     u.data.custom.set("inspireDuration", counter)
                 }
@@ -136,7 +136,7 @@ export class AbilityInspireDeath extends Ability {
             const duration = eventUnit.data.custom.get("inspireDuration") as number
             const owningPlayer = Players[eventUnit.data.custom.get("inspireCastingPlayer") as number]
 
-            AbilityInspire.group.removeUnit(eventUnit)
+            InspireAbility.group.removeUnit(eventUnit)
 
             // Clean Event Unit Custom Data
             eventUnit.makeAbilityPermanent(false, ID.Ability.InspireSpellBook)
@@ -176,7 +176,7 @@ export class AbilityInspireDeath extends Ability {
                     u.lifePercent = 100
                     new Effect(MODEL.Ability.resurrecttarget, u, ATTACH.Point.overhead).destroy()
 
-                    AbilityInspire.group.addUnit(u)
+                    InspireAbility.group.addUnit(u)
                     u.data.custom.set("inspireCastingPlayer", owningPlayer.id)
                     u.data.custom.set("inspireSpreadNumber", spreadNumber)
                     u.data.custom.set("inspireDuration", duration)

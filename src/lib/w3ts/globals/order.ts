@@ -151,6 +151,7 @@ export const enum OrderId{
   Holybolt = 852092,
   Howlofterror = 852588,
   Humanbuild = 851995,
+  Illusion = 852274, 
   Immolation = 852177,
   Impale = 852555,
   Incineratearrow = 852670,

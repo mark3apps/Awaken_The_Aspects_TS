@@ -332,14 +332,21 @@ export class Ability {
     }
 
     static aspectInferno: Ability
+    static shift1Dummy: Ability
+    static shift2Dummy: Ability
+    static shift3Dummy: Ability
+    static shift4Dummy: Ability
 
     static define(): void {
     
         this.aspectInferno = new Ability({
             four: ID.Ability.InfernoAspect,
-            type: EffectType.Instant,
-            target: TargetType.DamageArea,
             orderId: OrderId.Dreadlordinferno
+        })
+
+        this.shift1Dummy = new Ability({
+            four: ID.Ability.ItemIllusions,
+            orderId: OrderId.Illusion
         })
     }
 }

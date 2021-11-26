@@ -7,7 +7,7 @@ import { OrderId } from "lib/w3ts/globals/order"
 import { Force, Group, Timer, Unit } from "lib/w3ts/index"
 
         
-        export class AbilityAttack extends Ability {
+        export class AttackAbility extends Ability {
         
             constructor() {
                 super({
