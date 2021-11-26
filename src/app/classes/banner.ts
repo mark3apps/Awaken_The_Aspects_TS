@@ -17,8 +17,9 @@ export class Banner {
     currentPower = 0
     currentWinner: Side
     timer: Timer
+    scale = 0.8
 
-    constructor(unit: Unit, range = 550, tick = 1, maxPower = 80) {
+    constructor(unit: Unit, range = 550, tick = 2, maxPower = 50) {
         this.unit = unit
         this.range = range
         this.tick = tick
@@ -97,7 +98,29 @@ export class Banner {
         if (this.currentPower > this.maxPower) {
             this.currentPower = this.maxPower
         }
-        this.unit.setScale(0.8 + (this.currentPower / this.maxPower * 0.5), 1, 1)
+
+        const newScale = 0.8 + ((this.currentPower / this.maxPower) * 0.35)
+
+        if (newScale != this.scale) {
+
+            const speed = 0.6
+            const tick = 0.01
+            const tickSpeed = (newScale - this.scale) / (speed / tick)
+
+            const time = new Timer()
+            const timeStop = new Timer()
+            time.start(0.01, true, () => {
+                this.scale += tickSpeed
+                this.unit.setScale(this.scale, 1, 1)
+            })
+
+            timeStop.start(speed, false, () => {
+                this.scale = newScale
+                this.unit.setScale(this.scale, 1, 1)
+                time.destroy()
+                timeStop.destroy()
+            })
+        }
     }
 
     static center1: Banner
@@ -109,8 +132,8 @@ export class Banner {
         Banner.center1 = new Banner(Unit.fromHandle(gg_unit_o00C_1005))
         Banner.center2 = new Banner(Unit.fromHandle(gg_unit_o00C_1008))
         Banner.center3 = new Banner(Unit.fromHandle(gg_unit_o00C_1009))
-        Banner.center4 =  new Banner(Unit.fromHandle(gg_unit_o00C_1011))
-        
+        Banner.center4 = new Banner(Unit.fromHandle(gg_unit_o00C_1011))
+
         // Top and Bottom Banners
         new Banner(Unit.o00C_1013, 500, 2)
         new Banner(Unit.o00C_1016, 500, 2)
