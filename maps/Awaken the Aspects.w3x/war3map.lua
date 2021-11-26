@@ -171,7 +171,7 @@ udg_Talent__Choice = nil
 udg_Talent__Level = 0
 udg_Talent__Button = 0
 udg_PickedHero = nil
-udg_aspects = nil
+udg_units = nil
 gg_rct_Left_Start = nil
 gg_rct_Left_Hero = nil
 gg_rct_Camp_Top = nil
@@ -186,7 +186,6 @@ gg_rct_Right_Workshop = nil
 gg_rct_Camp_Bottom = nil
 gg_rct_Left_Orc = nil
 gg_rct_Right_Orc = nil
-gg_rct_Center_Events = nil
 gg_rct_Furbolg_Left = nil
 gg_rct_Furbolg_Right = nil
 gg_rct_Left_Start_Bottom = nil
@@ -343,7 +342,7 @@ gg_trg_End_Of_Game_Left = nil
 gg_trg_End_Of_Game_Right = nil
 gg_trg_Melee_Initialization = nil
 gg_trg_baseAndHeals = nil
-gg_trg_Aspects = nil
+gg_trg_units = nil
 gg_unit_h003_0015 = nil
 gg_unit_e003_0058 = nil
 gg_unit_n001_0048 = nil
@@ -392,9 +391,28 @@ gg_unit_h002_0699 = nil
 gg_unit_n00N_0939 = nil
 gg_unit_nelb_0194 = nil
 gg_unit_uabo_0263 = nil
-gg_unit_nggg_0968 = nil
 gg_unit_h01S_0352 = nil
-gg_unit_nggg_0600 = nil
+gg_unit_n01A_0569 = nil
+gg_unit_n01A_0399 = nil
+gg_unit_o00C_1008 = nil
+gg_unit_o00C_1011 = nil
+gg_unit_o00C_1005 = nil
+gg_unit_o00C_1009 = nil
+gg_rct_EventTL1 = nil
+gg_rct_EventTL2 = nil
+gg_rct_EventTL3 = nil
+gg_rct_EventBL1 = nil
+gg_rct_EventBL2 = nil
+gg_rct_EventBL3 = nil
+gg_rct_EventBR1 = nil
+gg_rct_EventBR2 = nil
+gg_rct_EventBR3 = nil
+gg_rct_EventTR1 = nil
+gg_rct_EventTR2 = nil
+gg_rct_EventTR3 = nil
+gg_rct_EventCenter = nil
+gg_unit_o00C_1016 = nil
+gg_unit_o00C_1013 = nil
 function InitGlobals()
     local i = 0
     udg_PLAYERGRPallied = CreateForce()
@@ -756,75 +774,87 @@ function InitGlobals()
     udg_Talent__Event = 0.0
     udg_Talent__Level = 0
     udg_Talent__Button = 0
-    udg_aspects = CreateGroup()
+    udg_units = CreateGroup()
+end
+
+-- Requires https://www.hiveworkshop.com/threads/lua-timerutils.316957/
+do
+    local data = {}
+    function SetTimerData(whichTimer, dat)
+        data[whichTimer] = dat
+    end
+ 
+    --GetData functionality doesn't even require an argument.
+    function GetTimerData(whichTimer)
+        if not whichTimer then whichTimer = GetExpiredTimer() end
+        return data[whichTimer]
+    end
+ 
+    --NewTimer functionality includes optional parameter to pass data to timer.
+    function NewTimer(dat)
+        local t = CreateTimer()
+        if dat then data[t] = dat end
+        return t
+    end
+ 
+    --Release functionality doesn't even need for you to pass the expired timer.
+    --as an arg. It also returns the user data passed.
+    function ReleaseTimer(whichTimer)
+        if not whichTimer then whichTimer = GetExpiredTimer() end
+        local dat = data[whichTimer]
+        data[whichTimer] = nil
+        PauseTimer(whichTimer)
+        DestroyTimer(whichTimer)
+        return dat
+    end
 end
 
 
+
 do
-	local data = {}
-	function SetTimerData(whichTimer, dat) data[whichTimer] = dat end
-
-	-- GetData functionality doesn't even require an argument.
-	function GetTimerData(whichTimer)
-		if not whichTimer then whichTimer = GetExpiredTimer() end
-		return data[whichTimer]
-	end
-
-	-- NewTimer functionality includes optional parameter to pass data to timer.
-	function NewTimer(dat)
-		local t = CreateTimer()
-		if dat then data[t] = dat end
-		return t
-	end
-
-	-- Release functionality doesn't even need for you to pass the expired timer.
-	-- as an arg. It also returns the user data passed.
-	function ReleaseTimer(whichTimer)
-		if not whichTimer then whichTimer = GetExpiredTimer() end
-		local dat = data[whichTimer]
-		data[whichTimer] = nil
-		PauseTimer(whichTimer)
-		DestroyTimer(whichTimer)
-		return dat
-	end
-
-	local oldWait = PolledWait
-	function PolledWait(duration)
-		local thread = coroutine.running()
-		if thread then
-			TimerStart(NewTimer(thread), duration, false, function() coroutine.resume(ReleaseTimer()) end)
-			coroutine.yield(thread)
-		else
-			oldWait(duration)
-		end
-	end
-
-	local oldTSA = TriggerSleepAction
-	function TriggerSleepAction(duration) PolledWait(duration) end
-
-	local thread
-	local oldSync = SyncSelections
-	function SyncSelectionsHelper()
-		local t = thread
-		oldSync()
-		coroutine.resume(t)
-	end
-	function SyncSelections()
-		thread = coroutine.running()
-		if thread then
-			ExecuteFunc("SyncSelectionsHelper")
-			coroutine.yield(thread)
-		else
-			oldSync()
-		end
-	end
-
-	if not EnableWaits then -- Added this check to ensure compatibilitys with Lua Fast Triggers
-		local oldAction = TriggerAddAction
-		function TriggerAddAction(whichTrig, userAction)
-			oldAction(whichTrig, function() coroutine.resume(coroutine.create(function() userAction() end)) end)
-		end
-	end
+    local oldWait = PolledWait
+    function PolledWait(duration)
+        local thread = coroutine.running()
+        if thread then
+            TimerStart(NewTimer(thread), duration, false, function()
+                coroutine.resume(ReleaseTimer())
+            end)
+            coroutine.yield(thread)
+        else
+            oldWait(duration)
+        end
+    end
+  
+    local oldTSA = TriggerSleepAction
+    function TriggerSleepAction(duration) PolledWait(duration) end
+  
+    local thread
+    local oldSync = SyncSelections
+    function SyncSelectionsHelper()
+        local t = thread
+        oldSync()
+        coroutine.resume(t)
+    end
+    function SyncSelections()
+        thread = coroutine.running()
+        if thread then
+            ExecuteFunc("SyncSelectionsHelper")
+            coroutine.yield(thread)
+        else
+            oldSync()
+        end
+    end
+  
+    if not EnableWaits then --Added this check to ensure compatibilitys with Lua Fast Triggers
+        local oldAction = TriggerAddAction
+        function TriggerAddAction(whichTrig, userAction)
+            oldAction(whichTrig, function()
+                coroutine.resume(coroutine.create(function()
+                    userAction()
+                end))
+            end)
+        end
+    end
 end
 TasButtonAction = {
     Set = function(frame, action)
@@ -984,7 +1014,7 @@ HeroSelector.BoxFrameName = "HeroSelectorRaceBox" -- this is the background box 
 HeroSelector.BoxPosX = 0.3
 HeroSelector.BoxPosY = 0.4
 HeroSelector.BoxPosPoint = FRAMEPOINT_CENTER
-HeroSelector.AutoShow = true -- (true) shows the box and the Selection at 0.0 for all players
+HeroSelector.AutoShow = false -- (true) shows the box and the Selection at 0.0 for all players
 -- Unique Picks
 HeroSelector.UnitCount = 5 -- each hero is in total allowed to be picked this amount of times (includes random, repicking allows a hero again).
 HeroSelector.UnitCountPerTeam = 5 -- Each Team is allowed to pick this amount of each unitType
@@ -3364,11 +3394,18 @@ function CreateUnitsForPlayer20()
     local unitID
     local t
     local life
+    u = BlzCreateUnitWithSkin(p, FourCC("h007"), -19398.4, -4642.6, 258.989, FourCC("h007"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h007"), -18982.6, -4161.8, 283.731, FourCC("h007"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h007"), -19756.0, -5806.4, 272.184, FourCC("h007"))
     u = BlzCreateUnitWithSkin(p, FourCC("h012"), -19205.6, -7809.4, 28.610, FourCC("h012"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h007"), -17839.1, -6010.1, 77.137, FourCC("h007"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h007"), -18588.3, -5996.8, 311.911, FourCC("h007"))
     u = BlzCreateUnitWithSkin(p, FourCC("h012"), -20236.3, -8518.4, 348.610, FourCC("h012"))
     u = BlzCreateUnitWithSkin(p, FourCC("h012"), -20778.3, -6521.0, 28.610, FourCC("h012"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00H"), -25794.8, -1274.8, 323.535, FourCC("h00H"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00H"), -26254.3, -2044.8, 328.798, FourCC("h00H"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h007"), -18488.2, -4393.6, 67.480, FourCC("h007"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n00C"), -21609.6, -4997.3, 217.393, FourCC("n00C"))
     u = BlzCreateUnitWithSkin(p, FourCC("o002"), -18661.5, -1475.7, 136.207, FourCC("o002"))
     u = BlzCreateUnitWithSkin(p, FourCC("o002"), -18409.5, -2049.3, 206.577, FourCC("o002"))
     u = BlzCreateUnitWithSkin(p, FourCC("h01O"), -16699.0, -11699.0, 295.398, FourCC("h01O"))
@@ -3842,6 +3879,9 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("n00L"), -14230.7, -1112.3, 302.375, FourCC("n00L"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00L"), -13433.7, -1545.6, 318.745, FourCC("n00L"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00L"), -14180.2, -1855.7, 129.478, FourCC("n00L"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h007"), -9673.3, -4767.1, 78.989, FourCC("h007"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h007"), -10089.1, -5247.9, 103.731, FourCC("h007"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h007"), -9315.7, -3603.4, 92.184, FourCC("h007"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00L"), -13293.6, -1083.7, 222.029, FourCC("n00L"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00H"), -2843.3, -7291.3, 148.798, FourCC("h00H"))
     u = BlzCreateUnitWithSkin(p, FourCC("h01O"), -12488.9, 2807.9, 154.137, FourCC("h01O"))
@@ -3862,6 +3902,10 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("nmcf"), -9192.5, -12833.4, 170.079, FourCC("nmcf"))
     u = BlzCreateUnitWithSkin(p, FourCC("nmcf"), -8496.9, -13390.5, 85.482, FourCC("nmcf"))
     u = BlzCreateUnitWithSkin(p, FourCC("nmcf"), -9444.8, -13196.1, 171.936, FourCC("nmcf"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h007"), -11232.5, -3399.6, 257.137, FourCC("h007"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h007"), -10483.4, -3412.9, 131.911, FourCC("h007"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h007"), -10583.5, -5016.2, 247.480, FourCC("h007"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n00C"), -7462.0, -4412.4, 37.393, FourCC("n00C"))
 end
 
 function CreateNeutralHostile()
@@ -3870,19 +3914,19 @@ function CreateNeutralHostile()
     local unitID
     local t
     local life
-    u = BlzCreateUnitWithSkin(p, FourCC("nvdl"), -1075.5, 2277.3, 6.175, FourCC("nvdl"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -1437.3, -26.5, 189.817, FourCC("nvdg"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -1773.4, 216.5, 28.082, FourCC("nvdg"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nvdl"), -1420.3, 2247.2, 164.064, FourCC("nvdl"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -1000.6, 2013.8, 73.105, FourCC("nvdg"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nvdl"), -1067.2, 2430.7, 6.175, FourCC("nvdl"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -1568.3, -96.9, 189.817, FourCC("nvdg"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -1904.5, 146.2, 28.082, FourCC("nvdg"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nvdl"), -1412.0, 2400.6, 164.064, FourCC("nvdl"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -992.3, 2167.3, 73.105, FourCC("nvdg"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvdw"), -1559.0, 3864.8, 128.841, FourCC("nvdw"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -1516.7, 3593.8, 147.705, FourCC("nvdg"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nvdw"), -1510.2, 254.9, 25.456, FourCC("nvdw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nvde"), -1244.3, 2022.2, 24.940, FourCC("nvde"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -1441.1, 1999.3, 73.105, FourCC("nvdg"))
-    gg_unit_nelb_0194 = BlzCreateUnitWithSkin(p, FourCC("nelb"), -1672.7, -25.0, 32.870, FourCC("nelb"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nvdw"), -1641.3, 184.5, 25.456, FourCC("nvdw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nvde"), -1236.0, 2175.7, 24.940, FourCC("nvde"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -1432.8, 2152.8, 73.105, FourCC("nvdg"))
+    gg_unit_nelb_0194 = BlzCreateUnitWithSkin(p, FourCC("nelb"), -1803.7, -95.4, 32.870, FourCC("nelb"))
     gg_unit_uabo_0263 = BlzCreateUnitWithSkin(p, FourCC("uabo"), -1754.5, -4343.7, 300.430, FourCC("uabo"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nggd"), -15639.5, -15662.6, 101.521, FourCC("nggd"))
+    gg_unit_n01A_0399 = BlzCreateUnitWithSkin(p, FourCC("n01A"), -13501.5, 6423.9, -82.669, FourCC("n01A"))
     gg_unit_nmsc_0450 = BlzCreateUnitWithSkin(p, FourCC("nmsc"), -7172.0, -13936.0, 127.640, FourCC("nmsc"))
     SetUnitState(gg_unit_nmsc_0450, UNIT_STATE_MANA, 600)
     u = BlzCreateUnitWithSkin(p, FourCC("ncks"), -3096.5, -13696.7, 184.064, FourCC("ncks"))
@@ -3917,26 +3961,26 @@ function CreateNeutralHostile()
     u = BlzCreateUnitWithSkin(p, FourCC("ngrk"), -17004.7, -15187.8, 179.215, FourCC("ngrk"))
     u = BlzCreateUnitWithSkin(p, FourCC("ngst"), -16853.6, -15126.8, 150.528, FourCC("ngst"))
     u = BlzCreateUnitWithSkin(p, FourCC("nggr"), -16072.9, -14686.2, 227.070, FourCC("nggr"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nggd"), -15369.3, -15601.9, 101.521, FourCC("nggd"))
+    gg_unit_n01A_0569 = BlzCreateUnitWithSkin(p, FourCC("n01A"), -15475.9, -15789.4, 94.029, FourCC("n01A"))
     u = BlzCreateUnitWithSkin(p, FourCC("ngrk"), -16232.7, -14623.0, 149.205, FourCC("ngrk"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvdw"), -27497.0, -13272.8, 308.841, FourCC("nvdw"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -27539.3, -13001.8, 327.705, FourCC("nvdg"))
     u = BlzCreateUnitWithSkin(p, FourCC("ngrk"), -16187.3, -14770.1, 179.215, FourCC("ngrk"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nvdl"), -27649.1, -11470.9, 344.064, FourCC("nvdl"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -28033.7, -11258.5, 253.105, FourCC("nvdg"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nvdl"), -27924.7, -11446.3, 186.175, FourCC("nvdl"))
-    gg_unit_nggg_0600 = BlzCreateUnitWithSkin(p, FourCC("nggg"), -13614.0, 6520.2, 280.390, FourCC("nggg"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nggd"), -13427.5, 6338.4, 281.521, FourCC("nggd"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nvde"), -27818.7, -11241.8, 204.940, FourCC("nvde"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nvdl"), -27649.6, -11732.7, 344.064, FourCC("nvdl"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -28034.2, -11520.2, 253.105, FourCC("nvdg"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nvdl"), -27925.2, -11708.1, 186.175, FourCC("nvdl"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n01C"), -15672.8, -15684.3, 315.845, FourCC("n01C"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n01C"), -15347.2, -15633.3, 216.470, FourCC("n01C"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nvde"), -27819.1, -11503.6, 204.940, FourCC("nvde"))
     u = BlzCreateUnitWithSkin(p, FourCC("ngrk"), -12087.8, 5708.5, 329.205, FourCC("ngrk"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -27565.7, -11238.4, 253.105, FourCC("nvdg"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -27566.2, -11500.2, 253.105, FourCC("nvdg"))
     u = BlzCreateUnitWithSkin(p, FourCC("ngrk"), -12062.4, 5863.5, 359.215, FourCC("ngrk"))
     u = BlzCreateUnitWithSkin(p, FourCC("ngst"), -12213.4, 5802.5, 330.528, FourCC("ngst"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvdw"), -27693.6, -9737.9, 205.456, FourCC("nvdw"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -27766.6, -9456.5, 9.817, FourCC("nvdg"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvdg"), -27446.4, -9667.6, 208.082, FourCC("nvdg"))
     u = BlzCreateUnitWithSkin(p, FourCC("nggr"), -12994.1, 5362.0, 47.070, FourCC("nggr"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nggd"), -13697.7, 6277.6, 281.521, FourCC("nggd"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n01C"), -13307.0, 6288.2, 247.586, FourCC("n01C"))
     gg_unit_nmsc_0644 = BlzCreateUnitWithSkin(p, FourCC("nmsc"), -21843.5, 4584.0, 127.640, FourCC("nmsc"))
     SetUnitState(gg_unit_nmsc_0644, UNIT_STATE_MANA, 600)
     gg_unit_nelb_0697 = BlzCreateUnitWithSkin(p, FourCC("nelb"), -27531.2, -9458.1, 212.870, FourCC("nelb"))
@@ -3982,7 +4026,7 @@ function CreateNeutralHostile()
     u = BlzCreateUnitWithSkin(p, FourCC("e008"), -27944.4, 877.1, 357.704, FourCC("e008"))
     u = BlzCreateUnitWithSkin(p, FourCC("e008"), -28326.7, -123.6, 357.704, FourCC("e008"))
     u = BlzCreateUnitWithSkin(p, FourCC("ngrk"), -12834.4, 5298.7, 329.205, FourCC("ngrk"))
-    gg_unit_nggg_0968 = BlzCreateUnitWithSkin(p, FourCC("nggg"), -15453.0, -15844.5, 100.390, FourCC("nggg"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n01C"), -13632.6, 6237.2, -53.556, FourCC("n01C"))
     u = BlzCreateUnitWithSkin(p, FourCC("ngrk"), -12879.7, 5445.9, 359.215, FourCC("ngrk"))
 end
 
@@ -3993,6 +4037,12 @@ function CreateNeutralPassiveBuildings()
     local t
     local life
     gg_unit_h002_0699 = BlzCreateUnitWithSkin(p, FourCC("h002"), -14528.0, -4672.0, 270.000, FourCC("h002"))
+    gg_unit_o00C_1005 = BlzCreateUnitWithSkin(p, FourCC("o00C"), -15108.0, -5242.8, 270.000, FourCC("o00C"))
+    gg_unit_o00C_1008 = BlzCreateUnitWithSkin(p, FourCC("o00C"), -15106.6, -4094.6, 270.000, FourCC("o00C"))
+    gg_unit_o00C_1009 = BlzCreateUnitWithSkin(p, FourCC("o00C"), -13953.8, -5246.8, 90.000, FourCC("o00C"))
+    gg_unit_o00C_1011 = BlzCreateUnitWithSkin(p, FourCC("o00C"), -13952.5, -4098.6, 90.000, FourCC("o00C"))
+    gg_unit_o00C_1013 = BlzCreateUnitWithSkin(p, FourCC("o00C"), -14978.6, 257.4, 270.000, FourCC("o00C"))
+    gg_unit_o00C_1016 = BlzCreateUnitWithSkin(p, FourCC("o00C"), -14077.4, -9601.4, 90.000, FourCC("o00C"))
 end
 
 function CreatePlayerBuildings()
@@ -4042,7 +4092,6 @@ function CreateRegions()
     gg_rct_Camp_Bottom = Rect(-15840.0, -8576.0, -14592.0, -7744.0)
     gg_rct_Left_Orc = Rect(-19424.0, -2784.0, -17632.0, -672.0)
     gg_rct_Right_Orc = Rect(-11456.0, -8608.0, -9632.0, -6560.0)
-    gg_rct_Center_Events = Rect(-15168.0, -5312.0, -13888.0, -4032.0)
     gg_rct_Furbolg_Left = Rect(-17984.0, 160.0, -16672.0, 1248.0)
     gg_rct_Furbolg_Right = Rect(-12448.0, -10304.0, -11296.0, -9216.0)
     gg_rct_Left_Start_Bottom = Rect(-19040.0, -13728.0, -18784.0, -7360.0)
@@ -4119,6 +4168,19 @@ function CreateRegions()
     gg_rct_Rock_Right = Rect(-13760.0, 6208.0, -13312.0, 6592.0)
     gg_rct_Rock_Gate_Right = Rect(-15904.0, 5472.0, -15584.0, 6176.0)
     gg_rct_Rock_Gate_Left = Rect(-13472.0, -15616.0, -13152.0, -14912.0)
+    gg_rct_EventTL1 = Rect(-15040.0, -4288.0, -14912.0, -4160.0)
+    gg_rct_EventTL2 = Rect(-14912.0, -4416.0, -14784.0, -4288.0)
+    gg_rct_EventTL3 = Rect(-14784.0, -4544.0, -14656.0, -4416.0)
+    gg_rct_EventBL1 = Rect(-15040.0, -5184.0, -14912.0, -5056.0)
+    gg_rct_EventBL2 = Rect(-14912.0, -5056.0, -14784.0, -4928.0)
+    gg_rct_EventBL3 = Rect(-14784.0, -4928.0, -14656.0, -4800.0)
+    gg_rct_EventBR1 = Rect(-14144.0, -5184.0, -14016.0, -5056.0)
+    gg_rct_EventBR2 = Rect(-14272.0, -5056.0, -14144.0, -4928.0)
+    gg_rct_EventBR3 = Rect(-14400.0, -4928.0, -14272.0, -4800.0)
+    gg_rct_EventTR1 = Rect(-14144.0, -4288.0, -14016.0, -4160.0)
+    gg_rct_EventTR2 = Rect(-14272.0, -4416.0, -14144.0, -4288.0)
+    gg_rct_EventTR3 = Rect(-14400.0, -4544.0, -14272.0, -4416.0)
+    gg_rct_EventCenter = Rect(-14656.0, -4800.0, -14400.0, -4544.0)
 end
 
 function CreateCameras()
@@ -5299,7 +5361,6 @@ function Trig_Event_Count_Func006C()
 end
 
 function Trig_Event_Count_Actions()
-    udg_TEMP_UnitGroup = GetUnitsInRectAll(gg_rct_Center_Events)
     ForGroupBJ(udg_TEMP_UnitGroup, Trig_Event_Count_Func002A)
         DestroyGroup ( udg_TEMP_UnitGroup )
     udg_Event_Counter = (udg_Event_Counter + 1)
@@ -5311,7 +5372,6 @@ function Trig_Event_Count_Actions()
         udg_TEMP_Real = (I2R(udg_Event_Count[1]) / I2R(udg_Event_Count[2]))
         DisableTrigger(GetTriggeringTrigger())
         udg_TEMP_Int = GetRandomInt(1, 1)
-        udg_TEMP_Pos2 = GetRectCenter(gg_rct_Center_Events)
         PingMinimapLocForForce(udg_ALL_PLAYERS, udg_TEMP_Pos2, 10.00)
         if (Trig_Event_Count_Func006Func006C()) then
             udg_Event_Unit_Type = FourCC("n00H")
@@ -5348,7 +5408,6 @@ function Trig_DW_Ancient_Chaos_Actions()
     while (true) do
         if (udg_TEMP_IntLoop1 > GetRandomInt(1, 4)) then break end
         udg_TEMP_Pos_Spell = GetRandomLocInRect(RectFromCenterSizeBJ(udg_TEMP_Pos2, 1200.00, 1200.00))
-        CreateNUnitsAtLoc(1, FourCC("h00O"), GetOwningPlayer(udg_Doom_Warden), udg_TEMP_Pos2, bj_UNIT_FACING)
         UnitApplyTimedLifeBJ(3.00, FourCC("BTLF"), GetLastCreatedUnit())
         IssuePointOrderLocBJ(GetLastCreatedUnit(), "dreadlordinferno", udg_TEMP_Pos_Spell)
                 RemoveLocation ( udg_TEMP_Pos_Spell )
@@ -5637,14 +5696,12 @@ function Trig_Unleash_Rage_Actions()
         if (udg_UR_Loop > udg_UR_Index) then break end
         udg_TEMP_Pos_Hero = GetUnitLoc(udg_UR_Caster[udg_UR_Loop])
         udg_TEMP_Pos2 = PolarProjectionBJ(udg_TEMP_Pos_Hero, 150.00, (360.00 - (udg_UR_Counter[udg_UR_Loop] * 120.00)))
-        CreateNUnitsAtLoc(1, FourCC("h00N"), GetOwningPlayer(udg_UR_Caster[udg_UR_Loop]), udg_TEMP_Pos_Hero, bj_UNIT_FACING)
         SetUnitAbilityLevelSwapped(FourCC("A01V"), GetLastCreatedUnit(), GetUnitAbilityLevelSwapped(FourCC("A029"), udg_UR_Caster[udg_UR_Loop]))
         UnitApplyTimedLifeBJ(1.50, FourCC("BTLF"), GetLastCreatedUnit())
         IssuePointOrderLocBJ(GetLastCreatedUnit(), "shockwave", udg_TEMP_Pos2)
                 RemoveLocation ( udg_TEMP_Pos2 )
         if (Trig_Unleash_Rage_Func001Func008C()) then
             udg_TEMP_Pos2 = PolarProjectionBJ(udg_TEMP_Pos_Hero, 150.00, (udg_UR_Counter[udg_UR_Loop] * 120.00))
-            CreateNUnitsAtLoc(1, FourCC("h00N"), GetOwningPlayer(udg_UR_Caster[udg_UR_Loop]), udg_TEMP_Pos_Hero, bj_UNIT_FACING)
             SetUnitAbilityLevelSwapped(FourCC("A01V"), GetLastCreatedUnit(), GetUnitAbilityLevelSwapped(FourCC("A029"), udg_UR_Caster[udg_UR_Loop]))
             UnitApplyTimedLifeBJ(1.50, FourCC("BTLF"), GetLastCreatedUnit())
             IssuePointOrderLocBJ(GetLastCreatedUnit(), "shockwave", udg_TEMP_Pos2)
@@ -5820,7 +5877,6 @@ function Trig_Jump_System_2_Actions()
                 udg_TEMP_Pos2 = GetUnitLoc(udg_JD_Unit[udg_JD_Integers[3]])
                 AddSpecialEffectLocBJ(udg_TEMP_Pos2, "Abilities\\Spells\\Orc\\WarStomp\\WarStompCaster.mdl")
                 DestroyEffectBJ(GetLastCreatedEffectBJ())
-                CreateNUnitsAtLoc(1, FourCC("h000"), GetOwningPlayer(udg_JD_Unit[udg_JD_Integers[3]]), udg_TEMP_Pos2, bj_UNIT_FACING)
                 UnitApplyTimedLifeBJ(2.00, FourCC("BTLF"), GetLastCreatedUnit())
                                 RemoveLocation (udg_TEMP_Pos2)
                 UnitAddAbilityBJ(FourCC("A00F"), GetLastCreatedUnit())
@@ -5915,7 +5971,6 @@ function Trig_FA_Start_Actions()
     BlzSetSpecialEffectScale(GetLastCreatedEffectBJ(), 2.00)
     BlzSetSpecialEffectZ(GetLastCreatedEffectBJ(), 10.00)
     DestroyEffectBJ(GetLastCreatedEffectBJ())
-    CreateNUnitsAtLoc(1, FourCC("h000"), GetOwningPlayer(udg_FA_Caster[udg_FA_Index]), udg_FA_StartPoint[udg_FA_Index], bj_UNIT_FACING)
     UnitApplyTimedLifeBJ(1.00, FourCC("BTLF"), GetLastCreatedUnit())
     if (Trig_FA_Start_Func018C()) then
         UnitAddAbilityBJ(FourCC("AIil"), GetLastCreatedUnit())
@@ -6107,7 +6162,6 @@ function Trig_Paradox_CAST_Actions()
     SaveLocationHandleBJ(udg_Spell_LOC_Cast, 1, GetHandleIdBJ(GetSpellAbilityUnit()), udg_Paradox_HASH)
     SaveIntegerBJ(udg_Spell_Level, 3, GetHandleIdBJ(GetSpellAbilityUnit()), udg_Paradox_HASH)
     SaveRealBJ(udg_Spell_Duration, 4, GetHandleIdBJ(GetSpellAbilityUnit()), udg_Paradox_HASH)
-    CreateNUnitsAtLoc(1, FourCC("h000"), GetOwningPlayer(udg_Spell_Caster), udg_Spell_LOC_Cast, bj_UNIT_FACING)
     SaveUnitHandleBJ(GetLastCreatedUnit(), 2, GetHandleIdBJ(GetTriggerUnit()), udg_Paradox_HASH)
     UnitAddAbilityBJ(FourCC("S002"), GetLastCreatedUnit())
     SetUnitAbilityLevelSwapped(FourCC("S002"), GetLastCreatedUnit(), udg_Spell_Level)
@@ -6157,7 +6211,6 @@ function Trig_Paradox_LOOP_Func001A()
     udg_Spell_Duration = LoadRealBJ(4, GetHandleIdBJ(GetEnumUnit()), udg_Paradox_HASH)
     if (Trig_Paradox_LOOP_Func001Func005C()) then
         if (Trig_Paradox_LOOP_Func001Func005Func003C()) then
-            CreateNUnitsAtLoc(1, FourCC("h000"), GetOwningPlayer(GetEnumUnit()), udg_Spell_LOC_Cast, bj_UNIT_FACING)
             UnitAddAbilityBJ(FourCC("A04O"), GetLastCreatedUnit())
             SetUnitAbilityLevelSwapped(FourCC("A04O"), GetLastCreatedUnit(), udg_Spell_Level)
             IssueImmediateOrderBJ(GetLastCreatedUnit(), "resurrection")
@@ -6204,12 +6257,10 @@ function Trig_Chrono_Atrophy_CAST_Actions()
     udg_CALC_ITERATIONS = udg_Spell_Level
     ConditionalTriggerExecute(gg_trg_FUNC_Calculate_Level_Factor)
     udg_Spell_Duration = udg_CALC_RESULT
-    CreateNUnitsAtLoc(1, FourCC("h000"), GetOwningPlayer(udg_Spell_Caster), udg_TEMP_Pos_Hero, bj_UNIT_FACING)
     UnitAddAbilityBJ(FourCC("A04J"), GetLastCreatedUnit())
     SetUnitAbilityLevelSwapped(FourCC("A04J"), GetLastCreatedUnit(), udg_Spell_Level)
     UnitApplyTimedLifeBJ(30.00, FourCC("BTLF"), GetLastCreatedUnit())
     IssuePointOrderLocBJ(GetLastCreatedUnit(), "cloudoffog", udg_TEMP_Pos_Spell)
-    CreateNUnitsAtLoc(1, FourCC("h000"), GetOwningPlayer(udg_Spell_Caster), udg_TEMP_Pos_Hero, bj_UNIT_FACING)
     UnitAddAbilityBJ(FourCC("A04M"), GetLastCreatedUnit())
     SetUnitAbilityLevelSwapped(FourCC("A04M"), GetLastCreatedUnit(), udg_Spell_Level)
     UnitApplyTimedLifeBJ(30.00, FourCC("BTLF"), GetLastCreatedUnit())
@@ -6292,7 +6343,6 @@ function Trig_Time_Travel_CAST_Func018A()
         SaveIntegerBJ(udg_Spell_Level, 3, GetHandleIdBJ(GetEnumUnit()), udg_TimeTravel_HASH)
         SaveRealBJ(udg_Spell_Duration, 4, GetHandleIdBJ(GetEnumUnit()), udg_TimeTravel_HASH)
         SavePlayerHandleBJ(udg_Spell_Player, 9, GetHandleIdBJ(GetEnumUnit()), udg_TimeTravel_HASH)
-        CreateNUnitsAtLoc(1, FourCC("h000"), udg_Spell_Player, udg_TEMP_Pos_Spell, bj_UNIT_FACING)
         if (Trig_Time_Travel_CAST_Func018Func001Func013C()) then
             UnitAddAbilityBJ(FourCC("A04Q"), GetLastCreatedUnit())
             SetUnitAbilityLevelSwapped(FourCC("A04Q"), GetLastCreatedUnit(), udg_Spell_Level)
@@ -6752,22 +6802,29 @@ function InitTrig_baseAndHeals()
     TriggerAddAction(gg_trg_baseAndHeals, Trig_baseAndHeals_Actions)
 end
 
-function Trig_Aspects_Actions()
-    GroupAddUnitSimple(gg_unit_nmsc_0644, udg_aspects)
-    GroupAddUnitSimple(gg_unit_nmsc_0450, udg_aspects)
-    GroupAddUnitSimple(gg_unit_n00N_0939, udg_aspects)
-    GroupAddUnitSimple(gg_unit_n00N_0769, udg_aspects)
-    GroupAddUnitSimple(gg_unit_nggg_0600, udg_aspects)
-    GroupAddUnitSimple(gg_unit_nggg_0968, udg_aspects)
-    GroupAddUnitSimple(gg_unit_nelb_0194, udg_aspects)
-    GroupAddUnitSimple(gg_unit_nelb_0697, udg_aspects)
-    GroupAddUnitSimple(gg_unit_uabo_0493, udg_aspects)
-    GroupAddUnitSimple(gg_unit_uabo_0263, udg_aspects)
+function Trig_units_Actions()
+    GroupAddUnitSimple(gg_unit_nmsc_0644, udg_units)
+    GroupAddUnitSimple(gg_unit_nmsc_0450, udg_units)
+    GroupAddUnitSimple(gg_unit_n00N_0939, udg_units)
+    GroupAddUnitSimple(gg_unit_n00N_0769, udg_units)
+    GroupAddUnitSimple(gg_unit_n01A_0569, udg_units)
+    GroupAddUnitSimple(gg_unit_n01A_0399, udg_units)
+    GroupAddUnitSimple(gg_unit_nelb_0194, udg_units)
+    GroupAddUnitSimple(gg_unit_nelb_0697, udg_units)
+    GroupAddUnitSimple(gg_unit_uabo_0493, udg_units)
+    GroupAddUnitSimple(gg_unit_uabo_0263, udg_units)
+    GroupAddUnitSimple(gg_unit_o00C_1008, udg_units)
+    GroupAddUnitSimple(gg_unit_o00C_1011, udg_units)
+    GroupAddUnitSimple(gg_unit_o00C_1005, udg_units)
+    GroupAddUnitSimple(gg_unit_o00C_1009, udg_units)
+    GroupAddUnitSimple(gg_unit_o00C_1016, udg_units)
+    GroupAddUnitSimple(gg_unit_o00C_1013, udg_units)
+    GroupAddUnitSimple(gg_unit_h002_0699, udg_units)
 end
 
-function InitTrig_Aspects()
-    gg_trg_Aspects = CreateTrigger()
-    TriggerAddAction(gg_trg_Aspects, Trig_Aspects_Actions)
+function InitTrig_units()
+    gg_trg_units = CreateTrigger()
+    TriggerAddAction(gg_trg_units, Trig_units_Actions)
 end
 
 function InitCustomTriggers()
@@ -6824,7 +6881,7 @@ function InitCustomTriggers()
     InitTrig_End_Of_Game_Right()
     InitTrig_Melee_Initialization()
     InitTrig_baseAndHeals()
-    InitTrig_Aspects()
+    InitTrig_units()
 end
 
 function RunInitializationTriggers()

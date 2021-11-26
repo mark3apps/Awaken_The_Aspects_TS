@@ -92,6 +92,24 @@ declare var gg_rct_Rock_Left: rect;
 declare var gg_rct_Rock_Right: rect;
 declare var gg_rct_Rock_Gate_Left: rect;
 declare var gg_rct_Rock_Gate_Right: rect;
+
+declare var gg_rct_EventTL1: rect;
+declare var gg_rct_EventTL2: rect;
+declare var gg_rct_EventTL3: rect;
+
+declare var gg_rct_EventTR1: rect;
+declare var gg_rct_EventTR2: rect;
+declare var gg_rct_EventTR3: rect;
+
+declare var gg_rct_EventBL1: rect;
+declare var gg_rct_EventBL2: rect;
+declare var gg_rct_EventBL3: rect;
+
+declare var gg_rct_EventBR1: rect;
+declare var gg_rct_EventBR2: rect;
+declare var gg_rct_EventBR3: rect;
+declare var gg_rct_EventCenter: rect;
+
 declare var gg_cam_baseLeftStart: camerasetup;
 declare var gg_cam_baseLeftPanStart: camerasetup;
 declare var gg_cam_intro06: camerasetup;
@@ -242,10 +260,16 @@ declare var gg_unit_uabo_0493: unit; // Aspect of Death Left
 declare var gg_unit_uabo_0263: unit; // Aspect of Death Right
 declare var gg_unit_nelb_0697: unit; // Aspect of the Storm Left
 declare var gg_unit_nelb_0194: unit; // Aspect of the Storm Right
-declare var gg_unit_nggg_0968: unit; // Aspect of the Earth Left
-declare var gg_unit_nggg_0600: unit; // Aspect of the Earth Right
+declare var gg_unit_n01A_0399: unit; // Aspect of the Earth Left
+declare var gg_unit_n01A_0569: unit; // Aspect of the Earth Right
 declare var gg_unit_nmsc_0644: unit; // Aspect of the Tides Left
 declare var gg_unit_nmsc_0450: unit; // Aspect of the Tides Right
 declare var gg_unit_n00N_0939: unit; // Aspect of the Forest Left
 declare var gg_unit_n00N_0769: unit; // Aspect of the Forest Right
+declare var gg_unit_o00C_1008: unit;
+declare var gg_unit_o00C_1005: unit;
+declare var gg_unit_o00C_1011: unit;
+declare var gg_unit_o00C_1009: unit;
+declare var gg_unit_o00C_1016: unit;
+declare var gg_unit_o00C_1013: unit;
 declare var udg_PickedHero: unit;

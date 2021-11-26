@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /** @noSelfInFile **/
 
-import { Ability } from "classes/ability"
-import { HeroType } from "classes/herotype"
-import { UnitData } from "classes/unitData"
-import { UnitType } from "classes/unitType"
+import { Ability } from "app/classes/ability"
+import { HeroType } from "app/classes/heroes/herotype"
+import { UnitData } from "app/classes/unitData"
+import { UnitType } from "app/classes/unitType"
 import { Coordinate } from "lib/resources/coordinate"
 import { CC2Four } from "lib/resources/library"
 import { OrderType } from "lib/resources/orderType"
+import { ID } from "../globals/ids"
 import { OrderId } from "../globals/order"
 import { PrimaryAttribute } from "../globals/primaryAttribute"
 import { Destructable } from "./destructable"
@@ -39,15 +40,20 @@ export class Unit extends Widget {
 	 * @param face The direction that the unit will be facing in degrees.
 	 * @param skinId The skin of the unit.
 	 */
-	constructor(owner: MapPlayer | number, unitId: number | string, x: number, y: number, face: number, skinId?: number) {
+	constructor(owner: MapPlayer | number, unitId: number | string | UnitType, x: number, y: number, face: number, skinId?: number) {
 		if (Handle.initFromHandle()) {
 			super()
 
 		} else {
 			const p = typeof owner === "number" ? Player(owner) : owner.handle
-			typeof unitId === "string" ?
-				super(skinId ? BlzCreateUnitWithSkin(p, FourCC(unitId), x, y, face, skinId) : CreateUnit(p, FourCC(unitId), x, y, face)) :
+			if (typeof unitId === "string") {
+				super(skinId ? BlzCreateUnitWithSkin(p, FourCC(unitId), x, y, face, skinId) : CreateUnit(p, FourCC(unitId), x, y, face))
+			} else if (typeof unitId === "number") {
 				super(skinId ? BlzCreateUnitWithSkin(p, unitId, x, y, face, skinId) : CreateUnit(p, unitId, x, y, face))
+			} else {
+				super(skinId ? BlzCreateUnitWithSkin(p, unitId.id, x, y, face, skinId) : CreateUnit(p, unitId.id, x, y, face))
+			}
+
 		}
 	}
 
@@ -80,10 +86,6 @@ export class Unit extends Widget {
 	 *
 	 * @note It is a myth that reducing acquire range with this native can limit a unit's attack range.
 	 */
-
-	public get hid(): string {
-		return "H" + this.id
-	}
 
 	public set acquireRange(value: number) {
 		SetUnitAcquireRange(this.handle, value)
@@ -552,7 +554,7 @@ export class Unit extends Widget {
 	}
 
 	public get startY(): number {
-		return this.data.startY 
+		return this.data.startY
 	}
 
 	public get destX(): number {
@@ -571,8 +573,16 @@ export class Unit extends Widget {
 		this.data.heroType = value
 	}
 
-	public addAbility(abilityId: number | string) {
-		return typeof abilityId === "number" ? UnitAddAbility(this.handle, abilityId) : UnitAddAbility(this.handle, FourCC(abilityId))
+	public addAbility(abilityId: number | string | Ability) {
+		if (typeof abilityId === "number") {
+			UnitAddAbility(this.handle, abilityId)
+		} else if (typeof abilityId === "string") {
+			UnitAddAbility(this.handle, FourCC(abilityId))
+		} else {
+			UnitAddAbility(this.handle, abilityId.id)
+		}
+
+
 	}
 
 	public addAnimationProps(animProperties: string, add: boolean) {
@@ -1395,6 +1405,16 @@ export class Unit extends Widget {
 		}
 	}
 
+	public applyTimedLifeGeneric(duration: number) {
+		UnitApplyTimedLife(this.handle, FourCC(ID.Buff.TimedLifeGeneric), duration)
+	}
+
+	public getRandomCoorAround(distanceAround: number): Coordinate {
+		const x = math.random(this.x - distanceAround, this.x + distanceAround)
+		const y = math.random(this.y - distanceAround, this.y + distanceAround)
+		return { x: x, y: y }
+	}
+
 	public setAnimationWithRarity(whichAnimation: string, rarity: raritycontrol) {
 		SetUnitAnimationWithRarity(this.handle, whichAnimation, rarity)
 	}
@@ -1670,5 +1690,16 @@ export class Unit extends Widget {
 
 	public static isUnitIdType(unitId: number, whichUnitType: unittype) {
 		return IsUnitIdType(unitId, whichUnitType)
+	}
+
+	static SummoningStone: Unit
+	static o00C_1013: Unit
+	static o00C_1016: Unit
+
+	static define() {
+		Unit.SummoningStone = Unit.fromHandle(gg_unit_h002_0699)
+		Unit.o00C_1013 = Unit.fromHandle(gg_unit_o00C_1013)
+		Unit.o00C_1016 = Unit.fromHandle(gg_unit_o00C_1016)
+
 	}
 }

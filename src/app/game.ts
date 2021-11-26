@@ -1,29 +1,30 @@
 
-import { Event } from "../classes/events"
-import { DeathSpawn } from "./abilities/unit/deathSpawn"
+
+import { DeathSpawn } from "./classes/abilities/deathSpawn"
 import { Pathing } from "./systems/pathing"
 import { Log } from "./systems/log"
-import { Gate } from "classes/gate"
-import { Cinematic } from "../classes/cinematics"
+import { Gate } from "classes/abilities/gate"
+import { Cinematic } from "./classes/cinematics"
 import { Ability } from "classes/ability"
-import { NormalAbility } from "../classes/normalAbilities"
+import { NormalAbility } from "./classes/abilities/normalAbilities"
 import { HeroAttribute } from "classes/attribute"
 import { Army } from "classes/army"
-import { Force, Region } from "lib/w3ts/index"
-import { Hero } from "classes/hero"
+import { Force, Rectangle, Region, Trigger, Unit } from "lib/w3ts/index"
+import { Hero } from "classes/heroes/heroTypes/hero"
 import { Aspect } from "classes/aspect"
 import { Loc } from "classes/loc"
 import { Faction } from "classes/faction"
-import { ItemUpgrade } from "classes/itemUpgrade"
 import { Spawn } from "classes/spawn"
-import { ItemType } from "classes/itemType"
-import { TimeMageHeroType } from "classes/heroTypes/timeMageHeroType"
-import { TacticianHeroType } from "classes/heroTypes/tacticianHeroType"
-import { ShiftMasterHeroType } from "classes/heroTypes/shiftMasterHeroType"
-import { ManaAddictHeroType } from "classes/heroTypes/manaAddictHeroType"
-import { BrawlerHeroType } from "classes/heroTypes/brawlerHeroType"
-import { UnitType } from "classes/unitType"
+import { ItemType } from "classes/heroes/itemType"
+import { TimeMageHeroType } from "classes/heroes/heroTypes/timeMageHeroType"
+import { TacticianHeroType } from "classes/heroes/heroTypes/tacticianHeroType"
+import { ShiftMasterHeroType } from "classes/heroes/heroTypes/shiftMasterHeroType"
+import { ManaAddictHeroType } from "classes/heroes/heroTypes/manaAddictHeroType"
+import { BrawlerHeroType } from "classes/heroes/heroTypes/brawlerHeroType"
 import { Load } from "classes/preload"
+import { ItemUpgrade } from "classes/heroes/itemUpgrade"
+import { Banner } from "classes/banner"
+import { AspectOfFireEvent } from "./classes/event"
 
 
 
@@ -34,9 +35,15 @@ export class Game {
 
         Log.Verbose("Game Init Start")
 
-        UnitType.define()
+        Force.define()
+        Cinematic.onInit()
+
         Region.define()
-        Event.define()
+        Rectangle.define()
+        Unit.define()
+        Trigger.define()
+        Ability.define()
+        
         
         DeathSpawn.define()
         Pathing.define()
@@ -44,17 +51,17 @@ export class Game {
 
         ItemType.define()
         ItemUpgrade.define()
+        Hero.define()
         
-
         new BrawlerHeroType()
         new ManaAddictHeroType()
         new ShiftMasterHeroType()
         new TacticianHeroType()
         new TimeMageHeroType()
 
-        Hero.define()
 
         Ability.initSpellEffects()
+
 
         Log.Verbose("Game Init Finished")
     }
@@ -65,7 +72,7 @@ export class Game {
 
         Log.Verbose("Game Map Start")
 
-        Force.define()
+        
         Army.define()
         Loc.define()
         Faction.define()
@@ -73,13 +80,17 @@ export class Game {
         Gate.define()
         NormalAbility.define()
         Aspect.define()
-
-        Load.units()
-
-        Cinematic.setupCineCamera()
-        Cinematic.startHeroSelector()
+        Banner.define()
+        AspectOfFireEvent.define()
 
         Gate.start(2, 700)
+
+        Cinematic.setupCineCamera()
+        Load.units()
+
+        Cinematic.startHeroSelector()
+        //Cinematic.setupGameCamera()
+
         Spawn.start()
 
         Log.Verbose("Game Map Start Finished")

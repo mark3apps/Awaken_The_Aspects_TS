@@ -1099,12 +1099,6 @@ STRING 400
 This Unit convert 5% of it's remaining health into that amount of Mana.
 }
 
-STRING 403
-// Units: h00H (dummy Hero Selector), Name (Name)
-{
-dummy Hero Selector
-}
-
 STRING 419
 // Abilities: A001 (MS - Mana Shield), Tip (Tooltip - Normal)
 {
@@ -1747,12 +1741,6 @@ STRING 774
 Everytime a unit attacks the Brawler, restore 1% of your total Mana.
 }
 
-STRING 775
-// Units: h00N (Dummy - Brawler - Unleash Rage), Name (Name)
-{
-Dummy - Brawler - Unleash Rage
-}
-
 STRING 776
 // Abilities: A01U (Gather Rage), Name (Name)
 {
@@ -1963,28 +1951,10 @@ STRING 850
 Ancient Chaos
 }
 
-STRING 851
-// Units: h00M (Dummy - Doom Guard - Revive Dead), Name (Name)
-{
-Dummy - Doom Guard - Revive Dead
-}
-
-STRING 852
-// Units: h00O (Dummy - Doom Guard - Ancient Chaos), Name (Name)
-{
-Dummy - Doom Guard - Ancient Chaos
-}
-
 STRING 871
 // Abilities: A01B (TA - Attack), Researchubertip (Tooltip - Learn - Extended)
 {
 The hero commands nearby units to attack the target.  Units get increased movement speed, life regeneration rate, attack speed and armor.
-}
-
-STRING 877
-// Units: h00A (Dummy - Night Stalker - Blink Takeoff), Name (Name)
-{
-Dummy - Night Stalker - Blink Takeoff
 }
 
 STRING 888
@@ -2180,13 +2150,13 @@ STRING 983
 }
 
 STRING 984
-// Units: h000 (Spell Dummy), Name (Name)
+// Units: h00V (Spell Dummy), Name (Name)
 {
 Spell Dummy
 }
 
 STRING 985
-// Units: h000 (Spell Dummy), EditorSuffix (Name - Editor Suffix)
+// Units: h00P (Feign Attack), EditorSuffix (Name - Editor Suffix)
 {
 (Generic)
 }
@@ -3949,12 +3919,6 @@ STRING 2433
 Life Regen Small Units
 }
 
-STRING 2435
-// Abilities: A02R (Summon Elite Murlocs), Name (Name)
-{
-Summon Elite Murlocs
-}
-
 STRING 2436
 // Abilities: A02S (Life Regen Huge), Name (Name)
 {
@@ -4020,7 +3984,7 @@ Feign Attack
 }
 
 STRING 2467
-// Units: h00P (Feign Attack), EditorSuffix (Name - Editor Suffix)
+// Units: h01Z (Cam Lock), EditorSuffix (Name - Editor Suffix)
 {
 (Generic)
 }
@@ -7584,7 +7548,7 @@ R
 }
 
 STRING 3366
-// Units: h00V (Spell Dummy), Name (Name)
+// Units: h01H (Spell Dummy), Name (Name)
 {
 Spell Dummy
 }
@@ -8115,24 +8079,6 @@ STRING 3542
 // Abilities: A006 (TALENT - BR - Attribute Bonus), Name (Name)
 {
 TALENT - BR - Attribute Bonus
-}
-
-STRING 3543
-// Abilities: A03V (Summon Murloc 1), Name (Name)
-{
-Summon Murloc 1
-}
-
-STRING 3544
-// Abilities: A03W (Summon Murloc 2), Name (Name)
-{
-Summon Murloc 2
-}
-
-STRING 3546
-// Abilities: A03Y (Summon Murloc 3), Name (Name)
-{
-Summon Murloc 3
 }
 
 STRING 3547
@@ -12373,7 +12319,7 @@ Channels powerful warding magic.
 }
 
 STRING 4617
-// Units: h01H (Spell Dummy), Name (Name)
+// Units: h00U (Spell Dummy), Name (Name)
 {
 Spell Dummy
 }
@@ -12636,7 +12582,7 @@ Cam Lock
 }
 
 STRING 4717
-// Units: h01Z (Cam Lock), EditorSuffix (Name - Editor Suffix)
+// Units: h00U (Spell Dummy), EditorSuffix (Name - Editor Suffix)
 {
 (Generic)
 }
@@ -13073,18 +13019,6 @@ STRING 4813
 Magic Shield
 }
 
-STRING 4816
-// Units: h00U (Spell Dummy), Name (Name)
-{
-Spell Dummy
-}
-
-STRING 4817
-// Units: h00U (Spell Dummy), EditorSuffix (Name - Editor Suffix)
-{
-(Generic)
-}
-
 STRING 4819
 // Units: h003 (Arcane Citadel |cff00ffff(Shielded)|r), Name (Name)
 {
@@ -13401,7 +13335,7 @@ Type: |Cffffcc00Structure|R
 }
 
 STRING 4879
-// Units: nggg (Aspect of the Earth), Name (Name)
+// Units: n01A (Aspect of the Earth), Name (Name)
 {
 Aspect of the Earth
 }
@@ -15054,5 +14988,65 @@ STRING 5140
 // Units: n00V (Bandit), EditorSuffix (Name - Editor Suffix)
 {
 (Campsite Version)
+}
+
+STRING 5141
+// Abilities: A02Q (Summon Murlocs), Name (Name)
+{
+Summon Murlocs
+}
+
+STRING 5142
+// Units: o00C (Banner Flag), Name (Name)
+{
+Banner Flag
+}
+
+STRING 5143
+// Abilities: A02R (Banner Defence), Name (Name)
+{
+Banner Defence
+}
+
+STRING 5144
+// Buffs/Effects: B00J (), Bufftip (Tooltip)
+{
+Banner Defence
+}
+
+STRING 5145
+// Buffs/Effects: B00J (), Buffubertip (Tooltip - Extended)
+{
+This unit is under the effects of Banner Defense Aura; it has increased armor.
+}
+
+STRING 5146
+// Abilities: A03V (Banner Attack), Name (Name)
+{
+Banner Attack
+}
+
+STRING 5147
+// Buffs/Effects: B00K (), Bufftip (Tooltip)
+{
+Banner Attack
+}
+
+STRING 5148
+// Units: h00H (Dummy Seer), Name (Name)
+{
+Dummy Seer
+}
+
+STRING 5149
+// Units: n01U (Dummy), Name (Name)
+{
+Dummy
+}
+
+STRING 5150
+// Units: n01U (Dummy), EditorSuffix (Name - Editor Suffix)
+{
+(Center Event)
 }
 

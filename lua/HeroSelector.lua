@@ -129,7 +129,7 @@ HeroSelector.BoxFrameName = "HeroSelectorRaceBox" -- this is the background box 
 HeroSelector.BoxPosX = 0.3
 HeroSelector.BoxPosY = 0.4
 HeroSelector.BoxPosPoint = FRAMEPOINT_CENTER
-HeroSelector.AutoShow = true -- (true) shows the box and the Selection at 0.0 for all players
+HeroSelector.AutoShow = false -- (true) shows the box and the Selection at 0.0 for all players
 -- Unique Picks
 HeroSelector.UnitCount = 5 -- each hero is in total allowed to be picked this amount of times (includes random, repicking allows a hero again).
 HeroSelector.UnitCountPerTeam = 5 -- Each Team is allowed to pick this amount of each unitType
