@@ -1,37 +1,45 @@
+
 import { ID } from "lib/w3ts/globals/ids"
+import { Unit } from "lib/w3ts/index"
 
 
 
 export class UnitType {
-    public readonly four!: string
-    public readonly id!: number
-    public name: string
-    public pointValue: number
-    public level: number
+    public readonly four: string
+    public readonly id: number
+    public autoOrder: boolean
+    public summonReplace: boolean
+    public campSummon: boolean
 
     static preloader: UnitType[] = []
-     static autoOrder: Map<number, boolean> = new Map()
-     static summonReplace: Map<number, boolean> = new Map()
-     static campSummon: Map<number, boolean> = new Map()
+    static readonly map: Map<number, UnitType> = new Map()
+    static autoOrder: Map<number, boolean> = new Map()
+    static summonReplace: Map<number, boolean> = new Map()
+    static campSummon: Map<number, boolean> = new Map()
 
     constructor(four: string, autoOrder = true, summonReplace = false, campSummon = false) {
         this.four = four
         this.id = FourCC(four)
+        this.autoOrder = autoOrder
+        this.summonReplace = summonReplace
+        this.campSummon = campSummon
 
-        autoOrder ? UnitType.autoOrder.set(this.id, true) : null
-        summonReplace ? UnitType.summonReplace.set(this.id, true) : null
-        campSummon ? UnitType.campSummon.set(this.id, true) : null
+        UnitType.map.set(this.id, this)
+        if (autoOrder) { UnitType.autoOrder.set(this.id, true) }
+        if (summonReplace) { UnitType.summonReplace.set(this.id, true) }
+        if (campSummon) { UnitType.campSummon.set(this.id, true) }
 
-        UnitType.preloader.push(this)
+        //static preloader.push(this)
     }
 
+    static get(unit: Unit): UnitType {
+        return this.map.get(unit.typeId)
+    }
 
     static Arbalist = new UnitType("n00X")
     static AncientOfWar = new UnitType("nwnr")
     static AncientOfLife = new UnitType(ID.Unit.AncientOfLife)
     static Assassin = new UnitType("nass")
-    static Brawler = new UnitType("E001")
-    static BrawlerAlter = new UnitType("h00I")
     static Bandit = new UnitType("n002")
     static BanditSummon = new UnitType(ID.Unit.BanditSummon, true, false, true)
     static BanditLord = new UnitType("n005")
@@ -87,8 +95,6 @@ export class UnitType {
     static Knight = new UnitType("h00L")
     static Lich = new UnitType(ID.Unit.LichCustom)
     static MagiDefender = new UnitType("h00K")
-    static ManaAddict = new UnitType("H00R")
-    static ManaAddictAlter = new UnitType("h00B")
     static Militia1 = new UnitType("h007")
     static Militia2 = new UnitType("h015")
     static MountainGiant = new UnitType("e005")
@@ -115,8 +121,6 @@ export class UnitType {
     static SeigeEngine = new UnitType("h011")
     static SeigeEngineDamaged = new UnitType("hmtt")
     static SeigeGolem = new UnitType("nsgg")
-    static ShiftMaster = new UnitType("E002")
-    static ShiftMasterAlter = new UnitType("h00Q")
     static SkeletonArcher = new UnitType("nsca")
     static SkeletonWarrior = new UnitType("nske")
     static SkeletonMage = new UnitType("uskm")
@@ -125,10 +129,6 @@ export class UnitType {
     static Summoner = new UnitType("n018")
     static SupremeWizard = new UnitType("n00A")
     static StormSummoner = new UnitType("nchp")
-    static Tactician = new UnitType("H009")
-    static TacticianAlter = new UnitType("h00Y")
-    static TimeMage = new UnitType("H00J")
-    static TimeMageAlter = new UnitType("h00Z")
     static TrollAxethrower = new UnitType("nftr")
     static WarGolem = new UnitType("nwrg")
     static Warlock = new UnitType("nw2w")
@@ -174,4 +174,18 @@ export class UnitType {
     static Dummy = new UnitType(ID.Unit.Dummy, false, false, false)
     static DummySeer = new UnitType("h00H", false, false, false)
     static DummyCenterEvent = new UnitType("n01U", false, false, false)
+
+    // Heroes
+    static Brawler = new UnitType("E001", false, false, false)
+    static ManaAddict = new UnitType("H00R", false, false, false)
+    static ShiftMaster = new UnitType("E002", false, false, false)
+    static Tactician = new UnitType("H009", false, false, false)
+    static TimeMage = new UnitType("H00J", false, false, false)
+
+    static BrawlerAlter = new UnitType("h00I", false, false, false)
+    static ManaAddictAlter = new UnitType("h00B", false, false, false)
+    static ShiftMasterAlter = new UnitType("h00Q", false, false, false)
+    static TacticianAlter = new UnitType("h00Y", false, false, false)
+    static TimeMageAlter = new UnitType("h00Z", false, false, false)
 }
+

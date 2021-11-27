@@ -10,7 +10,7 @@ import { UnitType } from "app/classes/unitType"
 export class BrawlerHeroType extends HeroType {
 
     constructor() {
-        super(UnitType.Brawler, UnitType.BrawlerAlter, "Brawler")
+        super("E001", UnitType.BrawlerAlter, "Brawler")
 
         // Attributes
         this.addHeroAttribute(HeroAttribute.strength)

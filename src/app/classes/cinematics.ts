@@ -1,7 +1,7 @@
 
 
 import { Log } from "app/systems/log"
-import { Hero } from "app/classes/heroes/heroTypes/hero"
+import { Hero } from "app/classes/heroes/hero"
 import { Players } from "lib/w3ts/globals/index"
 import { MASK } from "lib/w3ts/globals/mask"
 import { SKY } from "lib/w3ts/globals/sky"

@@ -704,8 +704,8 @@ export class Unit extends Widget {
 	 * @param damageType
 	 * @param weaponType
 	 */
-	public damageTarget(target: widget, amount: number, attack: boolean, ranged: boolean, attackType: attacktype, damageType: damagetype, weaponType: weapontype): boolean {
-		return UnitDamageTarget(this.handle, target, amount, attack, ranged, attackType, damageType, weaponType)
+	public damageTarget(target: Widget, amount: number, attack: boolean, ranged: boolean, attackType: attacktype, damageType: damagetype, weaponType: weapontype): boolean {
+		return UnitDamageTarget(this.handle, target.handle, amount, attack, ranged, attackType, damageType, weaponType)
 	}
 
 	/**
@@ -843,8 +843,12 @@ export class Unit extends Widget {
 		}
 	}
 
-	public getflyHeight() {
+	public get flyHeight() {
 		return GetUnitFlyHeight(this.handle)
+	}
+
+	public set flyHeight(value: number) {
+		SetUnitFlyHeight(this.handle, value, 100000000)
 	}
 
 	public getHeroLevel() {
@@ -920,12 +924,12 @@ export class Unit extends Widget {
 		return bj_RADTODEG * Atan2(value.y - this.y, value.x - this.x)
 	}
 
-	public polarOffset(dist: number, angle: number): Position {
+	public polarProjection(dist: number, angle: number): Position {
 		return new Position(this.x + dist * Cos(angle * bj_DEGTORAD), this.y + dist * Sin(angle * bj_DEGTORAD))
 	}
 
-	public moveToPolarOffset(dist: number, angle: number): void {
-		this.position = this.polarOffset(dist, angle)
+	public moveToPolarProjection(dist: number, angle: number): void {
+		this.position = this.polarProjection(dist, angle)
 	}
 
 	/**
@@ -1050,6 +1054,10 @@ export class Unit extends Widget {
 			? IssueInstantTargetOrder(this.handle, order, targetWidget.handle, instantTargetWidget.handle)
 			: IssueInstantTargetOrderById(this.handle, order, targetWidget.handle, instantTargetWidget.handle)
 	}
+
+	public getParabolaZ(distanceTravelled: number, fullDistance: number, maximumHeight: number): number {
+        return 4 * maximumHeight * distanceTravelled * (fullDistance - distanceTravelled) / (fullDistance * fullDistance)
+    }
 
 	public issueOrderAt(order: string | OrderId, x: number, y: number) {
 		this.data.destX = x
@@ -1241,9 +1249,9 @@ export class Unit extends Widget {
 		return CC2Four(this.id)
 	}
 
-	public get type(): UnitType {
-		return new UnitType(this.four)
-	}
+	// public get type(): UnitType {
+	// 	return new UnitType(this.four)
+	// }
 
 	public replace(newUnitType: UnitType | number): Unit {
 		this.show = false
@@ -1677,6 +1685,10 @@ export class Unit extends Widget {
 
 	public static fromKilling() {
 		return this.fromHandle(GetKillingUnit())
+	}
+
+	public static fromOrdered() {
+		return this.fromHandle(GetOrderedUnit())
 	}
 
 	public static fromKilled() {

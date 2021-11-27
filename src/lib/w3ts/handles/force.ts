@@ -143,6 +143,9 @@ export class Force extends Handle<force> {
 		Force.FederationAll = new Force()
 		Force.FederationAll.addPlayers([6, 7, 8, 9, 10, 11, 21, 22, 23])
 
+		for (let i = 0; i < Players.length; i++) {
+			Players[i].givesBounty = true
+		}
 	}
 
 }

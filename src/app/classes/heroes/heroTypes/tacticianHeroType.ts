@@ -16,7 +16,7 @@ export class TacticianHeroType extends HeroType {
     inspire: Ability
 
     constructor() {
-        super(UnitType.Tactician, UnitType.TacticianAlter, "Tactician")
+        super("H009", UnitType.TacticianAlter, "Tactician")
 
         this.defineAbilities()
         this.defineAttributes()

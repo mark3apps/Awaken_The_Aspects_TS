@@ -1,4 +1,4 @@
-import { Hero } from "./heroTypes/hero"
+import { Hero } from "./hero"
 
 export interface IState {
     name: string

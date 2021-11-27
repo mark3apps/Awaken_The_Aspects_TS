@@ -1,9 +1,9 @@
 import { Log } from "app/systems/log"
 import { OrderId } from "lib/w3ts/globals/order"
 import { Force, Group, MapPlayer, Rectangle, Timer, Trigger, Unit } from "lib/w3ts/index"
-import { HeroType } from "../herotype"
-import { IState, StateMachine } from "../stateMachine"
-import { UnitAbility } from "../../abilities/unitAbility"
+import { HeroType } from "./herotype"
+import { IState, StateMachine } from "./stateMachine"
+import { UnitAbility } from "../abilities/unitAbility"
 
 export class Hero extends Unit {
 

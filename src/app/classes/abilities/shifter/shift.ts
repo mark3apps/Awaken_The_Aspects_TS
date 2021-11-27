@@ -58,7 +58,7 @@ export class ShiftAbility extends Ability {
         const loop = new Timer()
 
         loop.start(tick, true, () => {
-            const pos = eventUnit.polarOffset(tickDistance, facing)
+            const pos = eventUnit.polarProjection(tickDistance, facing)
             
             if (pos.isTerrianPathable() && (eventUnit.distanceTo(startPostion) < distance)) {
                 eventUnit.position = pos

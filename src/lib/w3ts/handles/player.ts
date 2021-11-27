@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /** @noSelfInFile **/
 
+import { Position } from "app/classes/position"
 import { Camera, CameraSetup } from "./camera"
 import { Force } from "./force"
 import { Handle } from "./handle"
@@ -114,16 +115,16 @@ export class MapPlayer extends Handle<player> {
     return GetPlayerAlliance(this.handle, otherPlayer.handle, whichAllianceSetting)
   }
 
-  public coordsFogged(x: number, y: number) {
-    return IsFoggedToPlayer(x, y, this.handle)
+  public positionFogged(pos: Position) {
+    return IsFoggedToPlayer(pos.x, pos.y, this.handle)
   }
 
-  public coordsMasked(x: number, y: number) {
-    return IsMaskedToPlayer(x, y, this.handle)
+  public positionMasked(pos: Position) {
+    return IsMaskedToPlayer(pos.x, pos.y, this.handle)
   }
 
-  public coordsVisible(x: number, y: number) {
-    return IsVisibleToPlayer(x, y, this.handle)
+  public positionVisible(pos: Position) {
+    return IsVisibleToPlayer(pos.x, pos.y, this.handle)
   }
 
   /**
@@ -186,11 +187,11 @@ export class MapPlayer extends Handle<player> {
     return IsPlayerObserver(this.handle)
   }
 
-  public isPlayerAlly(otherPlayer: MapPlayer) {
+  public isAlly(otherPlayer: MapPlayer) {
     return IsPlayerAlly(this.handle, otherPlayer.handle)
   }
 
-  public isPlayerEnemy(otherPlayer: MapPlayer) {
+  public isEnemy(otherPlayer: MapPlayer) {
     return IsPlayerEnemy(this.handle, otherPlayer.handle)
   }
 
@@ -220,6 +221,14 @@ export class MapPlayer extends Handle<player> {
 
   public removeAllGuardPositions() {
     RemoveAllGuardPositions(this.handle)
+  }
+
+  public set givesBounty(value: boolean) {
+    SetPlayerState(this.handle, PLAYER_STATE_GIVES_BOUNTY, value ? 1 : 0)
+  }
+
+  public get givesBounty(): boolean {
+    return GetPlayerState(this.handle, PLAYER_STATE_GIVES_BOUNTY) == 1
   }
 
   public setAbilityAvailable(abilId: number, avail: boolean) {
@@ -254,7 +263,7 @@ export class MapPlayer extends Handle<player> {
     SetPlayerUnitsOwner(this.handle, newOwner)
   }
 
-  public applyCamera(doPan: boolean, camera: CameraSetup, duration: number) : void {
+  public applyCamera(doPan: boolean, camera: CameraSetup, duration: number): void {
     CameraSetupApplyForPlayer(doPan, camera.handle, this.handle, duration)
   }
 

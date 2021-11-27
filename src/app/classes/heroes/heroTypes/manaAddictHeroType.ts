@@ -11,7 +11,7 @@ import { UnitType } from "app/classes/unitType"
 export class ManaAddictHeroType extends HeroType {
 
     constructor() {
-        super(UnitType.ManaAddict, UnitType.ManaAddictAlter, "Mana Addict",)
+        super("H00R", UnitType.ManaAddictAlter, "Mana Addict",)
 
         // Attributes
         this.addHeroAttribute(HeroAttribute.intelligence)

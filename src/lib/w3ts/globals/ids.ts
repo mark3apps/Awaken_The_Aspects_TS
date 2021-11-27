@@ -65,6 +65,7 @@ export const enum Ability {
     MirrorSwitch = "A03U",
     Shift = "A03T",
     FallingStrike = "A059",
+    FallingStrikeDummy = "A00F",
     ShiftStorm = "A03C",
     FelForm = "A02Y",
 

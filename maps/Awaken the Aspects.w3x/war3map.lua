@@ -233,11 +233,6 @@ gg_trg_Drain_Start = nil
 gg_trg_Drain_Loop = nil
 gg_trg_Unleash_Rage_Start = nil
 gg_trg_Unleash_Rage = nil
-gg_trg_Falling_Strike_CAST = nil
-gg_trg_Jump_System_1 = nil
-gg_trg_Jump_System_2 = nil
-gg_trg_Actions_to_apply = nil
-gg_trg_Sample_Spell_Jump = nil
 gg_trg_Shifter_Bladestorm_START = nil
 gg_trg_Paradox_INIT = nil
 gg_trg_Paradox_CAST = nil
@@ -251,7 +246,6 @@ gg_trg_Revive_Hero = nil
 gg_trg_Revive_Hero_Timer = nil
 gg_trg_End_Of_Game_Left = nil
 gg_trg_End_Of_Game_Right = nil
-gg_trg_Melee_Initialization = nil
 gg_trg_baseAndHeals = nil
 gg_trg_units = nil
 gg_unit_h003_0015 = nil
@@ -4865,181 +4859,6 @@ function InitTrig_Unleash_Rage()
     TriggerAddAction(gg_trg_Unleash_Rage, Trig_Unleash_Rage_Actions)
 end
 
-function Trig_Falling_Strike_CAST_Conditions()
-    if (not (GetSpellAbilityId() == FourCC("A059"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Falling_Strike_CAST_Func015C()
-    if (not (IsTerrainPathableBJ(udg_JDA_TargetPoint, PATHING_TYPE_WALKABILITY) == true)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Falling_Strike_CAST_Actions()
-    udg_JDA_JumpHigh_Distance = 0.50
-    udg_JDA_DestroyTrees_Dash = false
-    udg_JDA_TargetPoint = GetSpellTargetLoc()
-    if (Trig_Falling_Strike_CAST_Func015C()) then
-    else
-        udg_JDA_Unit = GetTriggerUnit()
-        udg_JDA_Speed = 28.00
-        udg_JDA_SpecialEffect = "Abilities\\Weapons\\FaerieDragonMissile\\FaerieDragonMissile.mdl"
-        udg_JDA_Animation = "attack, slam"
-        udg_JDA_AnimationSpeed = 0.40
-        ConditionalTriggerExecute(gg_trg_Jump_System_1)
-    end
-end
-
-function InitTrig_Falling_Strike_CAST()
-    gg_trg_Falling_Strike_CAST = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Falling_Strike_CAST, EVENT_PLAYER_UNIT_SPELL_EFFECT)
-    TriggerAddCondition(gg_trg_Falling_Strike_CAST, Condition(Trig_Falling_Strike_CAST_Conditions))
-    TriggerAddAction(gg_trg_Falling_Strike_CAST, Trig_Falling_Strike_CAST_Actions)
-end
-
-function Trig_Jump_System_1_Func001C()
-    if (not (udg_JD_Integers[1] == 0)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Jump_System_1_Actions()
-    if (Trig_Jump_System_1_Func001C()) then
-        EnableTrigger(gg_trg_Jump_System_2)
-    else
-    end
-    udg_JD_Integers[1] = (udg_JD_Integers[1] + 1)
-    udg_JD_Integers[2] = (udg_JD_Integers[2] + 1)
-    udg_JD_TempPoint[1] = GetUnitLoc(udg_JDA_Unit)
-    udg_JD_Distances[udg_JD_Integers[2]] = DistanceBetweenPoints(udg_JD_TempPoint[1], udg_JDA_TargetPoint)
-    udg_JD_ReachedDistance[udg_JD_Integers[2]] = 0.00
-    udg_JD_SpeedUnits[udg_JD_Integers[2]] = udg_JDA_Speed
-    udg_JD_Unit[udg_JD_Integers[2]] = udg_JDA_Unit
-    udg_JD_Angle[udg_JD_Integers[2]] = AngleBetweenPoints(udg_JD_TempPoint[1], udg_JDA_TargetPoint)
-    udg_JD_Effect[udg_JD_Integers[2]] = udg_JDA_SpecialEffect
-    udg_JD_Animations[udg_JD_Integers[2]] = udg_JDA_Animation
-    udg_JD_TreesDestroy[udg_JD_Integers[2]] = udg_JDA_DestroyTrees_Dash
-    udg_JD_HighSettings[udg_JD_Integers[2]] = (udg_JDA_JumpHigh_Distance * udg_JD_Distances[udg_JD_Integers[2]])
-    SetUnitPathing(udg_JDA_Unit, false)
-    SetUnitTimeScalePercent(udg_JDA_Unit, (udg_JDA_AnimationSpeed * 100.00))
-    SetUnitAnimation(udg_JDA_Unit, udg_JDA_Animation)
-    GroupAddUnitSimple(udg_JDA_Unit, udg_JD_Group)
-    UnitAddAbilityBJ(FourCC("Arav"), udg_JDA_Unit)
-    UnitRemoveAbilityBJ(FourCC("Arav"), udg_JDA_Unit)
-        RemoveLocation (udg_JD_TempPoint[1])
-        RemoveLocation (udg_JDA_TargetPoint)
-end
-
-function InitTrig_Jump_System_1()
-    gg_trg_Jump_System_1 = CreateTrigger()
-    DisableTrigger(gg_trg_Jump_System_1)
-    TriggerAddAction(gg_trg_Jump_System_1, Trig_Jump_System_1_Actions)
-end
-
-function Trig_Jump_System_2_Func001Func001Func001Func018C()
-    if (not (udg_JD_Integers[1] == 0)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Jump_System_2_Func001Func001Func001Func021Func001003()
-    KillDestructable(GetEnumDestructable())
-end
-
-function Trig_Jump_System_2_Func001Func001Func001Func021C()
-    if (not (udg_JD_TreesDestroy[udg_JD_Integers[3]] == true)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Jump_System_2_Func001Func001Func001Func024C()
-    if (not (GetRandomInt(1, 5) == 1)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Jump_System_2_Func001Func001Func001C()
-    if (not (udg_JD_ReachedDistance[udg_JD_Integers[3]] < udg_JD_Distances[udg_JD_Integers[3]])) then
-        return false
-    end
-    return true
-end
-
-function Trig_Jump_System_2_Func001Func001C()
-    if (not (IsUnitInGroup(udg_JD_Unit[udg_JD_Integers[3]], udg_JD_Group) == true)) then
-        return false
-    end
-    return true
-end
-
-function Trig_Jump_System_2_Actions()
-    udg_JD_Integers[3] = 1
-    while (true) do
-        if (udg_JD_Integers[3] > udg_JD_Integers[2]) then break end
-        if (Trig_Jump_System_2_Func001Func001C()) then
-            if (Trig_Jump_System_2_Func001Func001Func001C()) then
-                SetUnitAnimation(udg_JD_Unit[udg_JD_Integers[3]], "attack slam 1")
-                udg_JD_TempPoint[1] = GetUnitLoc(udg_JD_Unit[udg_JD_Integers[3]])
-                udg_JD_TempPoint[2] = PolarProjectionBJ(udg_JD_TempPoint[1], udg_JD_SpeedUnits[udg_JD_Integers[3]], udg_JD_Angle[udg_JD_Integers[3]])
-                if (Trig_Jump_System_2_Func001Func001Func001Func021C()) then
-                    EnumDestructablesInCircleBJ(150.00, udg_JD_TempPoint[2], Trig_Jump_System_2_Func001Func001Func001Func021Func001003)
-                else
-                end
-                SetUnitPositionLoc(udg_JD_Unit[udg_JD_Integers[3]], udg_JD_TempPoint[2])
-                udg_JD_ReachedDistance[udg_JD_Integers[3]] = (udg_JD_ReachedDistance[udg_JD_Integers[3]] + udg_JD_SpeedUnits[udg_JD_Integers[3]])
-                if (Trig_Jump_System_2_Func001Func001Func001Func024C()) then
-                    AddSpecialEffectTargetUnitBJ("chest", udg_JD_Unit[udg_JD_Integers[3]], udg_JD_Effect[udg_JD_Integers[3]])
-                    DestroyEffectBJ(GetLastCreatedEffectBJ())
-                else
-                end
-                udg_JD_RealTimer[udg_JD_Integers[3]] = (udg_JD_RealTimer[udg_JD_Integers[3]] + (180.00 / (udg_JD_Distances[udg_JD_Integers[3]] / udg_JD_SpeedUnits[udg_JD_Integers[3]])))
-                udg_JD_JumpHigh[udg_JD_Integers[3]] = (SinBJ(udg_JD_RealTimer[udg_JD_Integers[3]]) * udg_JD_HighSettings[udg_JD_Integers[3]])
-                SetUnitFlyHeightBJ(udg_JD_Unit[udg_JD_Integers[3]], udg_JD_JumpHigh[udg_JD_Integers[3]], 1000000000.00)
-                                RemoveLocation (udg_JD_TempPoint[1])
-                                RemoveLocation (udg_JD_TempPoint[2])
-            else
-                QueueUnitAnimationBJ(udg_JD_Unit[udg_JD_Integers[3]], "stand")
-                udg_TEMP_Pos2 = GetUnitLoc(udg_JD_Unit[udg_JD_Integers[3]])
-                AddSpecialEffectLocBJ(udg_TEMP_Pos2, "Abilities\\Spells\\Orc\\WarStomp\\WarStompCaster.mdl")
-                DestroyEffectBJ(GetLastCreatedEffectBJ())
-                UnitApplyTimedLifeBJ(2.00, FourCC("BTLF"), GetLastCreatedUnit())
-                                RemoveLocation (udg_TEMP_Pos2)
-                UnitAddAbilityBJ(FourCC("A00F"), GetLastCreatedUnit())
-                SetUnitAbilityLevelSwapped(FourCC("A00F"), GetLastCreatedUnit(), GetUnitAbilityLevelSwapped(FourCC("A027"), udg_JD_Unit[udg_JD_Integers[3]]))
-                IssueImmediateOrderBJ(GetLastCreatedUnit(), "creepthunderclap")
-                SetUnitPathing(udg_JD_Unit[udg_JD_Integers[3]], true)
-                GroupRemoveUnitSimple(udg_JD_Unit[udg_JD_Integers[3]], udg_JD_Group)
-                SetUnitTimeScalePercent(udg_JD_Unit[udg_JD_Integers[3]], 100.00)
-                ResetUnitAnimation(udg_JD_Unit[udg_JD_Integers[3]])
-                udg_JD_RealTimer[udg_JD_Integers[3]] = 0.00
-                udg_JD_Integers[1] = (udg_JD_Integers[1] - 1)
-                if (Trig_Jump_System_2_Func001Func001Func001Func018C()) then
-                    udg_JD_Integers[2] = 0
-                    DisableTrigger(GetTriggeringTrigger())
-                else
-                end
-            end
-        else
-        end
-        udg_JD_Integers[3] = udg_JD_Integers[3] + 1
-    end
-end
-
-function InitTrig_Jump_System_2()
-    gg_trg_Jump_System_2 = CreateTrigger()
-    DisableTrigger(gg_trg_Jump_System_2)
-    TriggerRegisterTimerEventPeriodic(gg_trg_Jump_System_2, 0.02)
-    TriggerAddAction(gg_trg_Jump_System_2, Trig_Jump_System_2_Actions)
-end
-
 function Trig_Shifter_Bladestorm_START_Conditions()
     if (not (GetSpellAbilityId() == FourCC("A03C"))) then
         return false
@@ -5684,15 +5503,6 @@ function InitTrig_End_Of_Game_Right()
     TriggerAddAction(gg_trg_End_Of_Game_Right, Trig_End_Of_Game_Right_Actions)
 end
 
-function Trig_Melee_Initialization_Actions()
-        init_Lua()
-end
-
-function InitTrig_Melee_Initialization()
-    gg_trg_Melee_Initialization = CreateTrigger()
-    TriggerAddAction(gg_trg_Melee_Initialization, Trig_Melee_Initialization_Actions)
-end
-
 function Trig_baseAndHeals_Actions()
     GroupAddUnitSimple(gg_unit_o001_0078, udg_UNIT_Bases[1])
     GroupAddUnitSimple(gg_unit_n001_0049, udg_UNIT_Bases[1])
@@ -5816,9 +5626,6 @@ function InitCustomTriggers()
     InitTrig_Drain_Loop()
     InitTrig_Unleash_Rage_Start()
     InitTrig_Unleash_Rage()
-    InitTrig_Falling_Strike_CAST()
-    InitTrig_Jump_System_1()
-    InitTrig_Jump_System_2()
     InitTrig_Shifter_Bladestorm_START()
     InitTrig_Paradox_INIT()
     InitTrig_Paradox_CAST()
@@ -5832,7 +5639,6 @@ function InitCustomTriggers()
     InitTrig_Revive_Hero_Timer()
     InitTrig_End_Of_Game_Left()
     InitTrig_End_Of_Game_Right()
-    InitTrig_Melee_Initialization()
     InitTrig_baseAndHeals()
     InitTrig_units()
 end
@@ -5840,7 +5646,6 @@ end
 function RunInitializationTriggers()
     ConditionalTriggerExecute(gg_trg_Paradox_INIT)
     ConditionalTriggerExecute(gg_trg_Time_Travel_INIT)
-    ConditionalTriggerExecute(gg_trg_Melee_Initialization)
 end
 
 function InitCustomPlayerSlots()

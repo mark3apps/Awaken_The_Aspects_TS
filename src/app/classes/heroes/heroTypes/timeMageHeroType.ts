@@ -10,7 +10,7 @@ import { UnitType } from "app/classes/unitType"
 export class TimeMageHeroType extends HeroType {
 
     constructor() {
-        super(UnitType.TimeMage, UnitType.TimeMageAlter, "TimeMage")
+        super("H00J", UnitType.TimeMageAlter, "TimeMage")
 
         // Attributes
         this.addHeroAttribute(HeroAttribute.intelligence)

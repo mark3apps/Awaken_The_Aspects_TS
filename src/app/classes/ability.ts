@@ -341,6 +341,7 @@ export class Ability {
     static shift2Dummy: Ability
     static shift3Dummy: Ability
     static shift4Dummy: Ability
+    static fallingStrikeDummy: Ability
 
     static define(): void {
     
@@ -352,6 +353,11 @@ export class Ability {
         this.shift1Dummy = new Ability({
             four: ID.Ability.ItemIllusions,
             orderId: OrderId.Illusion
+        })
+
+        this.fallingStrikeDummy = new Ability({
+            four: ID.Ability.FallingStrikeDummy,
+            orderId: OrderId.Creepthunderclap
         })
     }
 }

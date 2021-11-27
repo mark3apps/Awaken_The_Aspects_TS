@@ -57,7 +57,7 @@ export class BolsterAbility extends Ability {
             let currentSummonLevel = 0
             let currentSummonAmount = 0
             while (currentSummonAmount < maxUnits && currentSummonLevel < maxCombinedLevel) {
-                const coor = eventUnit.polarOffset(math.random(80, areaOfEffect), math.random(0, 359))
+                const coor = eventUnit.polarProjection(math.random(80, areaOfEffect), math.random(0, 359))
                 const u = new Unit(eventUnit.owner, unitTypes[GetRandomInt(0, unitTypes.length - 1)], coor.x, coor.y, eventUnit.facing)
                 new Effect(MODEL.Ability.charmTarget, u, ATTACH.Point.overhead).destroy()
                 u.applyTimedLife(ID.Buff.TimedLifeGeneric, unitDuration)

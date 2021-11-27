@@ -9,10 +9,8 @@ import { UnitType } from "../unitType"
 
 export class HeroType extends UnitType {
 
-    private static Key: { [name: string]: HeroType } = {}
-    static readonly pre = "H"
+    static readonly map: Map<number, HeroType> = new Map()
 
-    readonly hid!: string
     readonly alter!: UnitType
     readonly name!: string
 
@@ -47,21 +45,20 @@ export class HeroType extends UnitType {
 
     public strategies: Strategy[] = []
 
-    constructor(type: UnitType, typeAlter: UnitType, name: string) {
+    constructor(type: string, typeAlter: UnitType, name: string) {
 
-        super(type.four)
+        super(type, false, false, false)
 
         this.name = name
-        this.hid = HeroType.pre + this.id
         this.alter = typeAlter
 
-        HeroType.Key[this.hid] = this
-        HeroSelector.addUnit(type.four)
+        HeroType.map.set(this.id, this)
+        HeroSelector.addUnit(this.four)
 
     }
 
     static get(unit: Unit): HeroType {
-        return HeroType.Key[HeroType.pre + unit.typeId]
+        return HeroType.map.get(unit.typeId)
     }
 
     public defineAbilities(): void {

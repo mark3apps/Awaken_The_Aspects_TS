@@ -61,8 +61,8 @@ export class Position {
 		this.position = this.polarOffset(dist, angle)
 	}
 
-    public getParabolaZ(distanceTravelled: number, fullDistance: number, maximumHeight: number): number {
-        return 4 * maximumHeight * distanceTravelled * (fullDistance - distanceTravelled) / (fullDistance * fullDistance)
+    public getParabolaZ(distanceTraveled: number, fullDistance: number, maximumHeight: number): number {
+        return 4 * maximumHeight * distanceTraveled * (fullDistance - distanceTraveled) / (fullDistance * fullDistance)
     }
 
     public set position(coor: Position) {

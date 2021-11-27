@@ -64,11 +64,9 @@ export class Pathing {
         Trigger.unitOrdered.add(() => {
             try {
                 const eventOrder = GetIssuedOrderId()
-                const eventUnit = Unit.fromEvent()
+                const eventUnit = Unit.fromOrdered()
 
-
-                if (UnitType.autoOrder.has(eventUnit.typeId)) {
-
+                if (UnitType.autoOrder.get(eventUnit.typeId)) {
                     if (OrderIdIgnore.indexOf(eventOrder) != -1 && !eventUnit.hasBuff(BuffIdIgnore[0])) {
                         const timer = new Timer()
                         timer.start(1, false, () => {
@@ -94,6 +92,7 @@ export class Pathing {
 
                 if (eventUnit.inForce(Force.Computers)) {
 
+
                     if (UnitType.summonReplace.has(eventUnit.typeId)) {
                         Pathing.newOrders(eventUnit.replace(eventUnit.typeId))
                     } else {
@@ -111,8 +110,6 @@ export class Pathing {
             const eventUnit = Unit.fromEvent()
 
             try {
-
-
 
                 if (UnitType.campSummon.has(eventUnit.typeId)) {
 

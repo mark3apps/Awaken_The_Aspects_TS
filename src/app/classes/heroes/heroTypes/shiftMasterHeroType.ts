@@ -9,11 +9,12 @@ import { HeroAttribute } from "app/classes/attribute"
 import { UnitType } from "app/classes/unitType"
 import { ShiftAbility } from "app/classes/abilities/shifter/shift"
 import { SwitchAbility } from "app/classes/abilities/shifter/switch"
+import { FallingStrikeAbility } from "app/classes/abilities/shifter/fallingstrike"
 
 export class ShiftMasterHeroType extends HeroType {
 
     constructor() {
-        super(UnitType.ShiftMaster, UnitType.ShiftMasterAlter, "Shift Master")
+        super("E002", UnitType.ShiftMasterAlter, "Shift Master")
 
         // Attributes
         this.addHeroAttribute(HeroAttribute.agility)
@@ -74,14 +75,7 @@ export class ShiftMasterHeroType extends HeroType {
         this.addAbility(new ShiftAbility())
 
         // Falling Strike
-        this.addAbility(new Ability({
-            four: ID.Ability.FallingStrike,
-            type: EffectType.Channel,
-            orderId: OrderId.Thunderbolt,
-            target: TargetType.DamageAreaTarget,
-            permanent: true,
-            starting: true,
-        }))
+        this.addAbility(new FallingStrikeAbility())
 
         // Fel Form
         this.addAbility(new Ability({

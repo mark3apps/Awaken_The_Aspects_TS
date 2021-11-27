@@ -1,18 +1,26 @@
 /** @noSelfInFile **/
 
-import { Handle } from "./handle";
-import { MapPlayer } from "./player";
-import { Point } from "./point";
-import { Widget } from "./widget";
+import { Position } from "app/classes/position"
+import { Handle } from "./handle"
+import { MapPlayer } from "./player"
+import { Point } from "./point"
+import { Widget } from "./widget"
 
 export class Effect extends Handle<effect> {
+
+  /**
+   * Creates a special effect at position
+   * @param modelName 
+   * @param pos  
+   */
+  constructor(modelName: string, pos: Position, blank?: number)
   /**
    * Creates a special effect.
    * @param modelName The path of the model that the effect will use.
    * @param x
    * @param y
    */
-  constructor(modelName: string, x: number, y: number);
+  constructor(modelName: string, x: number, y: number)
   /**
    * Creates a special effect attached to a widget.
    * @param modelName The path of the model that the effect will use.
@@ -22,142 +30,144 @@ export class Effect extends Handle<effect> {
    * areas for effects to be attached, whether it be from a spell or this function.
    * If the attachment point does not exist, it will attach the effect to the model's origin.
    */
-  constructor(modelName: string, targetWidget: Widget, attachPointName: string);
-  constructor(modelName: string, a: number | Widget, b: number | string) {
+  constructor(modelName: string, targetWidget: Widget, attachPointName: string)
+  constructor(modelName: string, a: number | Widget | Position, b: number | string) {
     if (Handle.initFromHandle()) {
-      super();
+      super()
     } else if (typeof a === "number" && typeof b === "number") {
-      super(AddSpecialEffect(modelName, a, b));
+      super(AddSpecialEffect(modelName, a, b))
+    } else if (a instanceof Position) {
+      super(AddSpecialEffect(modelName, a.x, a.y))
     } else if (typeof a !== "number" && typeof b === "string") {
-      super(AddSpecialEffectTarget(modelName, a.handle, b));
+      super(AddSpecialEffectTarget(modelName, a.handle, b))
     }
   }
 
   public get scale() {
-    return BlzGetSpecialEffectScale(this.handle);
+    return BlzGetSpecialEffectScale(this.handle)
   }
 
   public set scale(scale: number) {
-    BlzSetSpecialEffectScale(this.handle, scale);
+    BlzSetSpecialEffectScale(this.handle, scale)
   }
 
   /**
    * Warning: asynchronous
    */
   public get x() {
-    return BlzGetLocalSpecialEffectX(this.handle);
+    return BlzGetLocalSpecialEffectX(this.handle)
   }
 
   public set x(x: number) {
-    BlzSetSpecialEffectX(this.handle, x);
+    BlzSetSpecialEffectX(this.handle, x)
   }
 
   /**
    * Warning: asynchronous
    */
   public get y() {
-    return BlzGetLocalSpecialEffectY(this.handle);
+    return BlzGetLocalSpecialEffectY(this.handle)
   }
 
   public set y(y: number) {
-    BlzSetSpecialEffectY(this.handle, y);
+    BlzSetSpecialEffectY(this.handle, y)
   }
 
   /**
    * Warning: asynchronous
    */
   public get z() {
-    return BlzGetLocalSpecialEffectZ(this.handle);
+    return BlzGetLocalSpecialEffectZ(this.handle)
   }
 
   public set z(z: number) {
-    BlzSetSpecialEffectZ(this.handle, z);
+    BlzSetSpecialEffectZ(this.handle, z)
   }
 
   public addSubAnimation(subAnim: subanimtype) {
-    BlzSpecialEffectAddSubAnimation(this.handle, subAnim);
+    BlzSpecialEffectAddSubAnimation(this.handle, subAnim)
   }
 
   public clearSubAnimations() {
-    BlzSpecialEffectClearSubAnimations(this.handle);
+    BlzSpecialEffectClearSubAnimations(this.handle)
   }
 
   /**
    * Destroy the effect handle. This will play the effect's death animation.
    */
   public destroy() {
-    DestroyEffect(this.handle);
+    DestroyEffect(this.handle)
   }
 
   public playAnimation(animType: animtype) {
-    BlzPlaySpecialEffect(this.handle, animType);
+    BlzPlaySpecialEffect(this.handle, animType)
   }
 
   public playWithTimeScale(animType: animtype, timeScale: number) {
-    BlzPlaySpecialEffectWithTimeScale(this.handle, animType, timeScale);
+    BlzPlaySpecialEffectWithTimeScale(this.handle, animType, timeScale)
   }
 
   public removeSubAnimation(subAnim: subanimtype) {
-    BlzSpecialEffectRemoveSubAnimation(this.handle, subAnim);
+    BlzSpecialEffectRemoveSubAnimation(this.handle, subAnim)
   }
 
   public resetScaleMatrix() {
-    BlzResetSpecialEffectMatrix(this.handle);
+    BlzResetSpecialEffectMatrix(this.handle)
   }
 
   public setAlpha(alpha: number) {
-    BlzSetSpecialEffectAlpha(this.handle, alpha);
+    BlzSetSpecialEffectAlpha(this.handle, alpha)
   }
 
   public setColor(red: number, green: number, blue: number) {
-    BlzSetSpecialEffectColor(this.handle, red, green, blue);
+    BlzSetSpecialEffectColor(this.handle, red, green, blue)
   }
 
   public setColorByPlayer(whichPlayer: MapPlayer) {
-    BlzSetSpecialEffectColorByPlayer(this.handle, whichPlayer.handle);
+    BlzSetSpecialEffectColorByPlayer(this.handle, whichPlayer.handle)
   }
 
   public setHeight(height: number) {
-    BlzSetSpecialEffectHeight(this.handle, height);
+    BlzSetSpecialEffectHeight(this.handle, height)
   }
 
   public setOrientation(yaw: number, pitch: number, roll: number) {
-    BlzSetSpecialEffectOrientation(this.handle, yaw, pitch, roll);
+    BlzSetSpecialEffectOrientation(this.handle, yaw, pitch, roll)
   }
 
   public setPitch(pitch: number) {
-    BlzSetSpecialEffectPitch(this.handle, pitch);
+    BlzSetSpecialEffectPitch(this.handle, pitch)
   }
 
   public setPoint(p: Point) {
-    BlzSetSpecialEffectPositionLoc(this.handle, p.handle);
+    BlzSetSpecialEffectPositionLoc(this.handle, p.handle)
   }
 
   public setPosition(x: number, y: number, z: number) {
-    BlzSetSpecialEffectPosition(this.handle, x, y, z);
+    BlzSetSpecialEffectPosition(this.handle, x, y, z)
   }
 
   public setRoll(roll: number) {
-    BlzSetSpecialEffectRoll(this.handle, roll);
+    BlzSetSpecialEffectRoll(this.handle, roll)
   }
 
   public setScaleMatrix(x: number, y: number, z: number) {
-    BlzSetSpecialEffectMatrixScale(this.handle, x, y, z);
+    BlzSetSpecialEffectMatrixScale(this.handle, x, y, z)
   }
 
   public setTime(value: number) {
-    BlzSetSpecialEffectTime(this.handle, value);
+    BlzSetSpecialEffectTime(this.handle, value)
   }
 
   public setTimeScale(timeScale: number) {
-    BlzSetSpecialEffectTimeScale(this.handle, timeScale);
+    BlzSetSpecialEffectTimeScale(this.handle, timeScale)
   }
 
   public setYaw(y: number) {
-    BlzSetSpecialEffectYaw(this.handle, y);
+    BlzSetSpecialEffectYaw(this.handle, y)
   }
 
   public static fromHandle(handle: effect): Effect {
-    return this.getObject(handle);
+    return this.getObject(handle)
   }
 }
