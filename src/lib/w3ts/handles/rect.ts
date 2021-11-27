@@ -1,6 +1,6 @@
 /** @noSelfInFile **/
 
-import { Coordinate } from "lib/resources/coordinate"
+import { Position } from "app/classes/position"
 import { Handle } from "./handle"
 import { Point } from "./point"
 
@@ -22,8 +22,8 @@ export class Rectangle extends Handle<rect> {
     return GetRectCenterY(this.handle)
   }
 
-  public get centerCoordinate(): Coordinate {
-    return { x: this.centerX, y: this.centerY }
+  public get centerPosition(): Position {
+    return new Position(this.centerX, this.centerY)
   }
 
   public get maxX(): number {
@@ -50,8 +50,8 @@ export class Rectangle extends Handle<rect> {
     return GetRandomReal(this.minY, this.maxY)
   }
 
-  public get randomCoordinate(): Coordinate {
-    return { x: this.randomX, y: this.randomY }
+  public get randomPosition(): Position {
+    return new Position(this.randomX, this.randomY)
   }
 
   public destroy(): void {

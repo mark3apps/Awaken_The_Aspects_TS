@@ -88,7 +88,7 @@ export class Spawn {
                         const unitType = unitElement.unitType
 
                         const u = new Unit(p, unitType.id, start.x, start.y, bj_UNIT_FACING)
-                        u.issueOrderAtCoordinate(OrderId.Attack, dest)
+                        u.issueOrderAtPosition(OrderId.Attack, dest)
 
                     }
 

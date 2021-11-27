@@ -1,11 +1,10 @@
 import { Ability, EffectType, TargetType } from "app/classes/ability"
-import { GetSpellTargetCoor } from "app/classes/coordinate"
+import { Position } from "app/classes/position"
 import { Log } from "app/systems/log"
 import { ID } from "lib/w3ts/globals/ids"
 import { MODEL } from "lib/w3ts/globals/models"
 import { OrderId } from "lib/w3ts/globals/order"
 import { Effect, Group, Timer, Unit } from "lib/w3ts/index"
-import { UnitAbility } from "../unitAbility"
 
 export class SwitchAbility extends Ability {
 
@@ -26,21 +25,22 @@ export class SwitchAbility extends Ability {
 
 
             const eventUnit = Unit.fromEvent()
-            const ability = new UnitAbility(eventUnit, this)
+            const ability = this.getUnitAbility(eventUnit)
 
-            const coor = GetSpellTargetCoor()
+            const spellTargetPos = Position.fromSpellTarget()
             const range = ability.castRange
             const pickRange = ability.heroDuration
 
             const g = new Group()
-            g.enumUnitsInRangeOfCoor(coor, pickRange, () => {
+            g.enumUnitsInRange(spellTargetPos, pickRange, () => {
                 const filter = Unit.fromFilter()
                 return filter.isIllusion && filter.owner == eventUnit.owner
             })
 
-            const targetUnit = g.getClosestUnit(coor)
+            const targetUnit = g.getClosestUnit(spellTargetPos)
+            g.destroy()
 
-            if (targetUnit == null || targetUnit.distanceFrom(eventUnit) > range) {
+            if (targetUnit == null || targetUnit.distanceTo(eventUnit) > range) {
                 const delay = new Timer()
                 delay.start(0.1, false, () => {
                     eventUnit.mana += ability.manaCost
@@ -51,19 +51,17 @@ export class SwitchAbility extends Ability {
                 return
             }
 
-
-
             targetUnit.setPathing(false)
             eventUnit.setPathing(false)
 
-            const targetStart = targetUnit.coordinate
-            const eventStart = eventUnit.coordinate
+            const targetStart = targetUnit.position
+            const eventStart = eventUnit.position
 
             new Effect(MODEL.Ability.feralspirittarget, targetStart.x, targetStart.y).destroy()
             new Effect(MODEL.Ability.feralspirittarget, eventStart.x, eventStart.y).destroy()
 
-            eventUnit.coordinate = targetStart
-            targetUnit.coordinate = eventStart
+            eventUnit.position = targetStart
+            targetUnit.position = eventStart
 
             targetUnit.setPathing(true)
             eventUnit.setPathing(true)

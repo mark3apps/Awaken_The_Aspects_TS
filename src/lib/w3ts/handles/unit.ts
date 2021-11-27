@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /** @noSelfInFile **/
 
+import { UnitAbility } from "app/classes/abilities/unitAbility"
 import { Ability } from "app/classes/ability"
 import { HeroType } from "app/classes/heroes/herotype"
+import { Position } from "app/classes/position"
 import { UnitData } from "app/classes/unitData"
 import { UnitType } from "app/classes/unitType"
-import { Coordinate } from "lib/resources/coordinate"
 import { CC2Four } from "lib/resources/library"
 import { OrderType } from "lib/resources/orderType"
 import { ID } from "../globals/ids"
@@ -22,6 +23,7 @@ import { Rectangle } from "./rect"
 import { Region } from "./region"
 import { Sound } from "./sound"
 import { Widget } from "./widget"
+//import { UnitAbility } from "app/classes/abilities/unitAbility"
 
 export type UnitField = unitintegerfield | unitrealfield | unitstringfield | unitbooleanfield | unitweaponbooleanfield | unitweaponintegerfield | unitweaponrealfield | unitweaponstringfield
 export type UnitFieldValue = boolean | number | string
@@ -528,11 +530,11 @@ export class Unit extends Widget {
 		SetUnitY(this.handle, value)
 	}
 
-	public get coordinate(): Coordinate {
-		return { x: this.x, y: this.y }
+	public get position(): Position {
+		return new Position(this.x, this.y)
 	}
 
-	public set coordinate(value: Coordinate) {
+	public set position(value: Position) {
 		this.x = value.x
 		this.y = value.y
 	}
@@ -715,6 +717,7 @@ export class Unit extends Widget {
 		return DecUnitAbilityLevel(this.handle, abilCode)
 	}
 
+
 	/**
 	 * Instantly removes the unit from the game.
 	 */
@@ -742,9 +745,9 @@ export class Unit extends Widget {
 		typeof abilCode === "string" ? BlzEndUnitAbilityCooldown(this.handle, FourCC(abilCode)) : BlzEndUnitAbilityCooldown(this.handle, abilCode)
 	}
 
-	public getAbility(abilId: number | string): ability {
-		return typeof abilId === "string" ? BlzGetUnitAbility(this.handle, FourCC(abilId)) : BlzGetUnitAbility(this.handle, abilId)
-	}
+	// public getUnitAbility(ability: number | Ability): UnitAbility {
+	// 	return typeof ability === "number" ? new UnitAbility(this, Ability.fromId(ability)) : new UnitAbility(this, ability)
+	// }
 
 	public getAbilityByIndex(index: number): ability {
 		return BlzGetUnitAbilityByIndex(this.handle, index)
@@ -906,27 +909,23 @@ export class Unit extends Widget {
 
 	public showAbility(abilId: number) {
 		BlzUnitHideAbility(this.handle, abilId, false)
+
 	}
 
-	public distanceFromCoordinate(coor: Coordinate): number{
-		return SquareRoot(((coor.x - this.x) * (coor.x - this.x)) + ((coor.y - this.y) * (coor.y - this.y)))
+	public distanceTo(value: Unit | Position): number {
+		return SquareRoot(((value.x - this.x) * (value.x - this.x)) + ((value.y - this.y) * (value.y - this.y)))
 	}
 
-	public distanceFrom(unit: Unit): number {
-		return SquareRoot(((unit.x - this.x) * (unit.x - this.x)) + ((unit.y - this.y) * (unit.y - this.y)))
+	public angleTo(value: Unit | Position): number {
+		return bj_RADTODEG * Atan2(value.y - this.y, value.x - this.x)
 	}
 
-	public angleBetweenUnit(unit: Unit): number {
-		return bj_RADTODEG * Atan2(unit.y - this.y, unit.x - this.x)
+	public polarOffset(dist: number, angle: number): Position {
+		return new Position(this.x + dist * Cos(angle * bj_DEGTORAD), this.y + dist * Sin(angle * bj_DEGTORAD))
 	}
 
-	public polarOffset(dist: number, angle: number): Coordinate {
-		return { x: this.x + dist * Cos(angle * bj_DEGTORAD), y: this.y + dist * Sin(angle * bj_DEGTORAD) }
-	}
-
-	public movePolarOffset(dist: number, angle: number): void {
-		this.coordinate = this.polarOffset(dist, angle)
-
+	public moveToPolarOffset(dist: number, angle: number): void {
+		this.position = this.polarOffset(dist, angle)
 	}
 
 	/**
@@ -1060,7 +1059,7 @@ export class Unit extends Widget {
 		return typeof order === "string" ? IssuePointOrder(this.handle, order, x, y) : IssuePointOrderById(this.handle, order, x, y)
 	}
 
-	public issueOrderAtCoordinate(order: string | OrderId, dest: Coordinate) {
+	public issueOrderAtPosition(order: string | OrderId, dest: Position) {
 		this.data.destX = dest.x
 		this.data.destY = dest.y
 		this.data.orderType = OrderType.Point
@@ -1413,10 +1412,14 @@ export class Unit extends Widget {
 		UnitApplyTimedLife(this.handle, FourCC(ID.Buff.TimedLifeGeneric), duration)
 	}
 
-	public getRandomCoorAround(distanceAround: number): Coordinate {
+	public getRandomPosAround(distanceAround: number): Position {
 		const x = math.random(this.x - distanceAround, this.x + distanceAround)
 		const y = math.random(this.y - distanceAround, this.y + distanceAround)
-		return { x: x, y: y }
+		return new Position(x, y)
+	}
+
+	public getUnitAbility(ability: Ability) : UnitAbility {
+		return new UnitAbility(this, ability)
 	}
 
 	public setAnimationWithRarity(whichAnimation: string, rarity: raritycontrol) {

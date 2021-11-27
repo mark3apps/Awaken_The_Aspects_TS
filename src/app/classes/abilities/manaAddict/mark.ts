@@ -1,11 +1,11 @@
 import { Log } from "app/systems/log"
 import { Ability, EffectType, TargetType } from "app/classes/ability"
-import { UnitAbility } from "app/classes/abilities/unitAbility"
 import { ATTACH } from "lib/w3ts/globals/attachmentPoints"
 import { ID } from "lib/w3ts/globals/ids"
 import { MODEL } from "lib/w3ts/globals/models"
 import { OrderId } from "lib/w3ts/globals/order"
 import { Effect, Group, Timer, Unit } from "lib/w3ts/index"
+import { Position } from "app/classes/position"
 
 export class AbilityMark extends Ability {
 
@@ -30,15 +30,14 @@ export class AbilityMark extends Ability {
         try {
 
             const eventUnit = Unit.fromEvent()
-            const unitAbility = new UnitAbility(eventUnit, this)
-            const targetX = GetSpellTargetX()
-            const targetY = GetSpellTargetY()
+            const unitAbility = this.getUnitAbility(eventUnit)
+            const targetPos = Position.fromSpellTarget()
 
             const areaOfEffect = unitAbility.areaOfEffect
             const manaGiven = unitAbility.heroDuration
 
             const g = new Group()
-            g.enumUnitsInRange(targetX, targetY, areaOfEffect, () => {
+            g.enumUnitsInRange(targetPos, areaOfEffect, () => {
                 const u = Unit.fromFilter()
 
                 return u.isAlive() &&
@@ -51,11 +50,8 @@ export class AbilityMark extends Ability {
             })
 
             g.firstLoop((u) => {
-
                 u.data.custom.set("markManaGiven", manaGiven)
                 u.data.custom.set("markCaster", eventUnit)
-
-
             })
             g.destroy()
         } catch (error) {
@@ -82,7 +78,7 @@ export class AbilityMark extends Ability {
 
             timer.start(1, true, () => {
 
-                if (u.distanceFrom(caster) < 150) {
+                if (u.distanceTo(caster) < 150) {
                     u.kill()
                     caster.mana += manaGiven
                     new Effect(MODEL.Ability.charmTarget, caster, ATTACH.Point.chest).destroy()

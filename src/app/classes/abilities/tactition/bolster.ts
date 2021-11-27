@@ -2,7 +2,6 @@
 import { Log } from "app/systems/log"
 import { Pathing } from "app/systems/pathing"
 import { Ability, EffectType, TargetType } from "app/classes/ability"
-import { UnitAbility } from "app/classes/abilities/unitAbility"
 import { ATTACH } from "lib/w3ts/globals/attachmentPoints"
 import { ID } from "lib/w3ts/globals/ids"
 import { MODEL } from "lib/w3ts/globals/models"
@@ -23,20 +22,20 @@ export class BolsterAbility extends Ability {
     }
 
     public override onEffect = (): void => {
-        //
+        
         try {
             const eventUnit = Unit.fromEvent()
-            const unitAbility = new UnitAbility(eventUnit, this)
+            const ability = this.getUnitAbility(eventUnit)
 
-            const maxUnits = unitAbility.normalDuration
-            const maxCombinedLevel = unitAbility.heroDuration
-            const unitDuration = unitAbility.castRange
-            const areaOfEffect = unitAbility.areaOfEffect
+            const maxUnits = ability.normalDuration
+            const maxCombinedLevel = ability.heroDuration
+            const unitDuration = ability.castRange
+            const areaOfEffect = ability.areaOfEffect
 
             const unitTypes: number[] = []
 
             const g = new Group()
-            g.enumUnitsInRangeOfUnit(eventUnit, areaOfEffect, null)
+            g.enumUnitsInRange(eventUnit, areaOfEffect, null)
 
             g.firstLoop((u) => {
 
@@ -54,11 +53,6 @@ export class BolsterAbility extends Ability {
                 }
             })
             g.destroy()
-
-            for (let index = 0; index < unitTypes.length; index++) {
-                const element = unitTypes[index]
-                Log.Information("Unit Types", element)
-            }
 
             let currentSummonLevel = 0
             let currentSummonAmount = 0

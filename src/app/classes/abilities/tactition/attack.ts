@@ -1,6 +1,5 @@
 
 import { Ability, EffectType, TargetType } from "app/classes/ability"
-import { UnitAbility } from "app/classes/abilities/unitAbility"
 import { ID } from "lib/w3ts/globals/ids"
 import { Players } from "lib/w3ts/globals/index"
 import { OrderId } from "lib/w3ts/globals/order"
@@ -27,19 +26,19 @@ import { Force, Group, Timer, Unit } from "lib/w3ts/index"
 
             const eventUnit = Unit.fromEvent()
             const targetUnit = Unit.fromSpellTarget()
-            const unitAbility = new UnitAbility(eventUnit, this)
+            const ability = this.getUnitAbility(eventUnit)
             const g = new Group()
             const pickedUnits = new Group()
             const endTimer = new Timer()
 
             // Get Variable Info
-            const unitCount = math.floor(unitAbility.heroDuration)
-            const aoe = unitAbility.areaOfEffect
-            const level = unitAbility.level
-            const duration = unitAbility.normalDuration
+            const unitCount = math.floor(ability.heroDuration)
+            const aoe = ability.areaOfEffect
+            const level = ability.level
+            const duration = ability.normalDuration
 
 
-            g.enumUnitsInRangeOfUnit(eventUnit, aoe, null)
+            g.enumUnitsInRange(eventUnit, aoe, null)
 
             let unitsPicked = 0
 
@@ -68,9 +67,6 @@ import { Force, Group, Timer, Unit } from "lib/w3ts/index"
                     u.setAbilityLevel(ID.Ability.AttackLoyalty, level)
                     u.setOwner(eventUnit.owner, false)
                     u.issueTargetOrder(OrderId.Attack, targetUnit)
-
-
-
                     unitsPicked += 1
                 }
 

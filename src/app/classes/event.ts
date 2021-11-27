@@ -129,7 +129,7 @@ export class AspectOfFireEvent extends Event {
     constructor(summonUnitType: UnitType, banners: Banner[] = [], eventInterval?: number, eventTime?: number) {
 
 
-        super(summonUnitType, banners, Rectangle.EventCenter.centerCoordinate, eventInterval, eventTime)
+        super(summonUnitType, banners, Rectangle.EventCenter.centerPosition, eventInterval, eventTime)
 
         this.inferno = new Trigger()
         this.inferno.enabled = false
@@ -148,7 +148,7 @@ export class AspectOfFireEvent extends Event {
                 u.applyTimedLifeGeneric(2)
 
                 const ua = new UnitAbility(u, Ability.aspectInferno)
-                ua.cast(u.getRandomCoorAround(500))
+                ua.cast(u.getRandomPosAround(500))
             }
         } catch (error) {
             Log.Error(error)

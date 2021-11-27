@@ -19,7 +19,7 @@ export class Banner {
     timer: Timer
     scale = 0.8
 
-    constructor(unit: Unit, range = 550, tick = 2, maxPower = 50) {
+    constructor(unit: Unit, range = 550, tick = 2, maxPower = 40) {
         this.unit = unit
         this.range = range
         this.tick = tick
@@ -33,7 +33,7 @@ export class Banner {
     public onTick(): void {
 
         const g = new Group()
-        g.enumUnitsInRangeOfUnit(this.unit, this.range, null)
+        g.enumUnitsInRange(this.unit, this.range, null)
 
         let alliancePower = 0
         let federationPower = 0
@@ -135,7 +135,7 @@ export class Banner {
         Banner.center4 = new Banner(Unit.fromHandle(gg_unit_o00C_1011))
 
         // Top and Bottom Banners
-        new Banner(Unit.o00C_1013, 500, 2)
-        new Banner(Unit.o00C_1016, 500, 2)
+        new Banner(Unit.o00C_1013, 600, 2, 100)
+        new Banner(Unit.o00C_1016, 600, 2, 100)
     }
 }

@@ -1,8 +1,8 @@
 import { Log } from "app/systems/log"
-import { Coordinate } from "lib/resources/coordinate"
 import { OrderId } from "lib/w3ts/globals/order"
 import { Rectangle, Region, Trigger, Unit } from "lib/w3ts/index"
 import { Army } from "./army"
+import { Position } from "./position"
 import { UnitType } from "./unitType"
 
 
@@ -50,8 +50,8 @@ export class Loc {
         return this.rect.randomY
     }
 
-    public get randomCoordinate(): Coordinate {
-        return this.rect.randomCoordinate
+    public get randomPosition(): Position {
+        return this.rect.randomPosition
     }
 
 
@@ -248,9 +248,9 @@ export class Loc {
                             const element = eventLoc.forward[i]
 
                             if (eventUnit.inForce(element.army.force)) {
-                                const dest = element.loc.randomCoordinate
+                                const dest = element.loc.randomPosition
 
-                                eventUnit.issueOrderAtCoordinate(OrderId.Attack, dest)
+                                eventUnit.issueOrderAtPosition(OrderId.Attack, dest)
                             }
                         }
                     }

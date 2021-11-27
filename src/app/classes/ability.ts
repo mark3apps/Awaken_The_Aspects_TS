@@ -3,6 +3,7 @@ import { CC2Four } from "lib/resources/library"
 import { ID } from "lib/w3ts/globals/ids"
 import { OrderId } from "lib/w3ts/globals/order"
 import { Group, Timer, Trigger, Unit } from "lib/w3ts/index"
+import { UnitAbility } from "./abilities/unitAbility"
 
 export const enum EffectType {
     Channel,
@@ -229,6 +230,10 @@ export class Ability {
             return undefined
         }
 
+    }
+
+    public getUnitAbility(unit: Unit): UnitAbility {
+        return new UnitAbility(unit, this)
     }
 
     public get id(): number {

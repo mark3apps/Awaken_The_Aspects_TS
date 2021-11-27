@@ -79,6 +79,8 @@ export class ItemType {
     static focus2 : ItemType
     static focus3 : ItemType
 
+    static itemCheck: ItemType
+
     static define = (): void => {
         ItemType.increasedStamina1 = new ItemType("I007", "A05A")
         ItemType.increasedStamina2 = new ItemType("I00D", "A05B")
@@ -107,6 +109,8 @@ export class ItemType {
         ItemType.focus1 = new ItemType("I00J", "A05Q")
         ItemType.focus2 = new ItemType("I00K", "A05R")
         ItemType.focus3 = new ItemType("I00L", "A05S")
+
+        ItemType.itemCheck = new ItemType("I00M")
     }
 
     

@@ -1,7 +1,7 @@
 import { Log } from "app/systems/log"
-import { Coordinate } from "lib/resources/coordinate"
 import { ANIMATION } from "lib/w3ts/globals/unitAnimations"
 import { Group, MapPlayer, Rectangle, Timer, Trigger, Unit } from "lib/w3ts/index"
+import { Position } from "../position"
 import { UnitType } from "../unitType"
 
 export interface GateCheck {
@@ -50,7 +50,7 @@ export class Gate {
     public gateType: GateType
     public player: MapPlayer
     public facing: number
-    public coordinate: Coordinate
+    public coordinate: Position
     public state: GateState
 
     private static checkTimer: Timer
@@ -63,7 +63,7 @@ export class Gate {
         this.player = unit.owner
         this.gateType = GateType.get(unit)
         this.facing = unit.facing
-        this.coordinate = unit.coordinate
+        this.coordinate = unit.position
         this.state = GateState.open
 
         Gate.all.push(this)
@@ -146,7 +146,7 @@ export class Gate {
         const g = new Group()
         const check: GateCheck = { enemies: 0, allies: 0, friendlyHeroes: 0 }
 
-        g.enumUnitsInRange(gate.unit.x, gate.unit.y, range, null)
+        g.enumUnitsInRangeXY(gate.unit.x, gate.unit.y, range, null)
         g.firstLoop((u) => {
             if (u.isAlive()) {
                 if (u.isAlly(gate.unit)) {

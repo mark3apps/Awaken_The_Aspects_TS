@@ -84,7 +84,7 @@ export class NormalAbility {
             const unitAbility = new UnitAbility(eventUnit, manaRepository)
 
             const g = new Group()
-            g.enumUnitsInRangeOfUnit(eventUnit, 1300, null)
+            g.enumUnitsInRange(eventUnit, 1300, null)
 
             g.firstLoop((u) => {
 
@@ -139,7 +139,7 @@ export class NormalAbility {
 
             if (unitAbility.isCastable() &&
                 attackedUnit.isGround) {
-                unitAbility.cast(attackedUnit.coordinate)
+                unitAbility.cast(attackedUnit.position)
             }
         }
 
@@ -179,7 +179,7 @@ export class NormalAbility {
 
             if (unitAbility.isCastable() &&
                 attackedUnit.isGround) {
-                unitAbility.cast(attackedUnit.coordinate)
+                unitAbility.cast(attackedUnit.position)
             }
         }
 
@@ -201,7 +201,7 @@ export class NormalAbility {
             const unitAbility = new UnitAbility(eventUnit, aspectOfDeathInfect)
             const unitCount = math.floor(unitAbility.normalDuration)
 
-            g.enumUnitsInRangeOfUnit(eventUnit, 400, null)
+            g.enumUnitsInRange(eventUnit, 400, null)
 
             g.firstLoopCondition((u) => {
                 return (u.isAlive() &&

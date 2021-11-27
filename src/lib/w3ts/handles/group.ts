@@ -1,6 +1,6 @@
 /** @noSelfInFile **/
 
-import { Coordinate } from "lib/resources/coordinate"
+import { Position } from "app/classes/position"
 import { Handle } from "./handle"
 import { MapPlayer } from "./player"
 import { Point } from "./point"
@@ -33,13 +33,13 @@ export class Group extends Handle<group> {
 		DestroyGroup(this.handle)
 	}
 
-	public getClosestUnit(coor: Coordinate): Unit {
+	public getClosestUnit(coor: Position): Unit {
 		
 		let pickedUnit: Unit
 		let distance = 999999999999
 		this.for(() => {
 			const u = Unit.fromEnum()
-			const newDistance = u.distanceFromCoordinate(coor)
+			const newDistance = u.distanceTo(coor)
 			if (newDistance < distance) {
 				pickedUnit = u
 				distance = newDistance
@@ -49,16 +49,13 @@ export class Group extends Handle<group> {
 		return pickedUnit
 	}
 
-	public enumUnitsInRange(x: number, y: number, radius: number, filter: boolexpr | (() => boolean)): void {
+	public enumUnitsInRangeXY(x: number, y: number, radius: number, filter: boolexpr | (() => boolean)): void {
 		GroupEnumUnitsInRange(this.handle, x, y, radius, typeof filter === "function" ? Filter(filter) : filter)
 	}
 
-	public enumUnitsInRangeOfCoor(coor: Coordinate, radius: number, filter: boolexpr | (() => boolean)): void {
-		GroupEnumUnitsInRange(this.handle, coor.x, coor.y, radius, typeof filter === "function" ? Filter(filter) : filter)
-	}
 
-	public enumUnitsInRangeOfUnit(unit: Unit, radius: number, filter: boolexpr | (() => boolean)): void {
-		GroupEnumUnitsInRange(this.handle, unit.x, unit.y, radius, typeof filter === "function" ? Filter(filter) : filter)
+	public enumUnitsInRange(pos: Unit | Position, radius: number, filter: boolexpr | (() => boolean)): void {
+		GroupEnumUnitsInRange(this.handle, pos.x, pos.y, radius, typeof filter === "function" ? Filter(filter) : filter)
 	}
 
 	/**

@@ -1,5 +1,5 @@
 import { Unit } from "lib/w3ts/index"
-import { ItemType } from "./itemType"
+import { ItemType } from "../itemType"
 
 export interface ItemUpgradeStep {
     itemType: ItemType,

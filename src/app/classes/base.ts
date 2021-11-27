@@ -1,7 +1,7 @@
-import { Coordinate } from "lib/resources/coordinate"
 import { Unit } from "lib/w3ts/index"
 import { Army } from "./army"
 import { Loc } from "./loc"
+import { Position } from "./position"
 
 
 
@@ -30,12 +30,12 @@ export class Base {
         return this.baseUnit.isAlive()
     }
 
-    public randomStartCoordinate(): Coordinate {
-        return this.startLoc.rect.randomCoordinate
+    public randomStartCoordinate(): Position {
+        return this.startLoc.rect.randomPosition
     }
 
-    public randomEndCoordinate(): Coordinate {
-        return this.endLoc.rect.randomCoordinate
+    public randomEndCoordinate(): Position {
+        return this.endLoc.rect.randomPosition
     }
 
 

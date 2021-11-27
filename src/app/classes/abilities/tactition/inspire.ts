@@ -1,7 +1,6 @@
 
 import { Log } from "app/systems/log"
 import { Ability, EffectType, TargetType } from "app/classes/ability"
-import { UnitAbility } from "app/classes/abilities/unitAbility"
 import { ATTACH } from "lib/w3ts/globals/attachmentPoints"
 import { ID } from "lib/w3ts/globals/ids"
 import { Players } from "lib/w3ts/globals/index"
@@ -29,7 +28,7 @@ export class InspireAbility extends Ability {
 
     public override onEffect = (): void => {
         const eventUnit = Unit.fromEvent()
-        const unitAbility = new UnitAbility(eventUnit, this)
+        const unitAbility = this.getUnitAbility(eventUnit)
         const unitsInspired = math.floor(unitAbility.castRange)
         const spreadNumber = math.floor(unitAbility.heroDuration)
         const duration = unitAbility.normalDuration
@@ -39,7 +38,7 @@ export class InspireAbility extends Ability {
             let pickedUnits = 0
 
             const g = new Group()
-            g.enumUnitsInRangeOfUnit(eventUnit, areaOfEffect, null)
+            g.enumUnitsInRange(eventUnit, areaOfEffect, null)
             let u = g.first
             while (u != null && pickedUnits < unitsInspired) {
 
@@ -127,8 +126,6 @@ export class AbilityInspireDeath extends Ability {
     public override onEffect = (): void => {
         const eventUnit = Unit.fromEvent()
 
-        Log.Information("Inspire", eventUnit.name)
-
         try {
 
             // Get Event Unit Custom Data
@@ -149,11 +146,9 @@ export class AbilityInspireDeath extends Ability {
             eventUnit.data.custom.delete("inspireDuration")
             eventUnit.data.custom.delete("inspireCounter")
 
-            Log.Information("Attributes", spreadNumber, duration, owningPlayer.name)
-
             // Find Units around dieing unit
             const g = new Group()
-            g.enumUnitsInRangeOfUnit(eventUnit, 300, null)
+            g.enumUnitsInRange(eventUnit, 300, null)
 
             let pickedUnits = 0
             let u = g.first

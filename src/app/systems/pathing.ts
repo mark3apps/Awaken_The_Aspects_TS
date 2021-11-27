@@ -1,10 +1,6 @@
-
-
-
-
 import { Loc } from "app/classes/loc"
+import { Position } from "app/classes/position"
 import { UnitType } from "app/classes/unitType"
-import { Coordinate } from "lib/resources/coordinate"
 import { ID } from "lib/w3ts/globals/ids"
 import { OrderId } from "lib/w3ts/globals/order"
 import { Force, Group, Rectangle, Region, Timer, Trigger, Unit } from "lib/w3ts/index"
@@ -151,37 +147,37 @@ export class Pathing {
     static newOrders = (unit: Unit): void => {
         try {
 
-            let dest: Coordinate
+            let dest: Position
 
             if (unit.inRegion(Region.BigTop)) {
                 Log.Verbose("top", unit.name)
                 if (unit.inForce(Force.AllianceAll)) {
-                    dest = Loc.top.federation.randomCoordinate
+                    dest = Loc.top.federation.randomPosition
                 } else if (unit.inForce(Force.FederationAll)) {
-                    dest = Loc.top.alliance.randomCoordinate
+                    dest = Loc.top.alliance.randomPosition
                 }
 
             } else if (unit.inRegion(Region.BigMiddle)) {
                 Log.Verbose("middle", unit.name)
                 if (unit.inForce(Force.AllianceAll)) {
-                    dest = Loc.middle.federation.randomCoordinate
+                    dest = Loc.middle.federation.randomPosition
                 } else if (unit.inForce(Force.FederationAll)) {
-                    dest = Loc.middle.alliance.randomCoordinate
+                    dest = Loc.middle.alliance.randomPosition
                 }
 
             } else {
                 Log.Verbose("bootom", unit.name)
                 if (unit.inForce(Force.AllianceAll)) {
-                    dest = Loc.bottom.federation.randomCoordinate
+                    dest = Loc.bottom.federation.randomPosition
                 } else if (unit.inForce(Force.FederationAll)) {
-                    dest = Loc.bottom.alliance.randomCoordinate
+                    dest = Loc.bottom.alliance.randomPosition
                 }
             }
 
             // If 
             if (dest != null) {
                 Log.Verbose("Ordered")
-                unit.issueOrderAtCoordinate(OrderId.Attack, dest)
+                unit.issueOrderAtPosition(OrderId.Attack, dest)
             }
         } catch (error) {
             Log.Error(error)

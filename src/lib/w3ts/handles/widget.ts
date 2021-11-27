@@ -1,6 +1,6 @@
 /** @noSelfInFile **/
 
-import { Coordinate } from "lib/resources/coordinate"
+import { Position } from "app/classes/position"
 import { Handle } from "./handle"
 
 export class Widget extends Handle<widget> {
@@ -32,8 +32,8 @@ export class Widget extends Handle<widget> {
     return GetWidgetY(this.handle)
   }
 
-  public get coordinate(): Coordinate {
-    return { x: GetWidgetX(this.handle), y: GetWidgetY(this.handle) }
+  public get position(): Position {
+    return new Position( GetWidgetX(this.handle),  GetWidgetY(this.handle) )
   }
 
   public static fromEvent(): Widget {

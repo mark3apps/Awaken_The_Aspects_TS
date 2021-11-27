@@ -2,7 +2,7 @@ import { Strategy } from "lib/resources/strategy"
 import { Unit } from "lib/w3ts/index"
 import { Ability } from "../ability"
 import { HeroAttribute } from "../attribute"
-import { ItemType } from "./itemType"
+import { ItemType } from "../itemType"
 import { UnitType } from "../unitType"
 
 

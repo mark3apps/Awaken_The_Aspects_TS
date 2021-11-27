@@ -1,6 +1,5 @@
 import { Log } from "app/systems/log"
 import { Ability, EffectType, TargetType } from "app/classes/ability"
-import { UnitAbility } from "app/classes/abilities/unitAbility"
 import { ID } from "lib/w3ts/globals/ids"
 import { MODEL } from "lib/w3ts/globals/models"
 import { OrderId } from "lib/w3ts/globals/order"
@@ -26,14 +25,14 @@ export class AbilityManaStorm extends Ability {
 
 
             const eventUnit = Unit.fromEvent()
-            const unitAbility = new UnitAbility(eventUnit, this)
+            const ability = this.getUnitAbility(eventUnit)
 
             // Ability Defined Values
-            const areaOfEffect = unitAbility.areaOfEffect
-            const duration = unitAbility.getLevelField(ABILITY_RLF_FOLLOW_THROUGH_TIME) as number
-            const bolts = unitAbility.castRange
-            const manaCostPerBolt = unitAbility.normalDuration
-            const damage = unitAbility.heroDuration
+            const areaOfEffect = ability.areaOfEffect
+            const duration = ability.getLevelField(ABILITY_RLF_FOLLOW_THROUGH_TIME) as number
+            const bolts = ability.castRange
+            const manaCostPerBolt = ability.normalDuration
+            const damage = ability.heroDuration
 
             // Static Values
             const tick = 0.15
@@ -53,7 +52,7 @@ export class AbilityManaStorm extends Ability {
                 //Log.Information("Working")
 
                 const g = new Group()
-                g.enumUnitsInRangeOfUnit(eventUnit, areaOfEffect, () => {
+                g.enumUnitsInRange(eventUnit, areaOfEffect, () => {
                     const u = Unit.fromFilter()
                     return u.isEnemy(eventUnit) &&
                         u.isAlive() &&
@@ -72,18 +71,18 @@ export class AbilityManaStorm extends Ability {
                         const u = g.getRandomUnit()
                         g.removeUnit(u)
 
-                        const dummy = new Unit(eventUnit.owner, dummyId, eventUnit.x, eventUnit.y, eventUnit.angleBetweenUnit(u))
+                        const dummy = new Unit(eventUnit.owner, dummyId, eventUnit.x, eventUnit.y, eventUnit.angleTo(u))
                         dummy.weapon1Base = damage - 1
                         dummy.issueTargetOrder(OrderId.Attack, u)
                         dummy.applyTimedLife(ID.Buff.TimedLifeGeneric, 1.5)
-                        dummy.setAbilityLevel(ID.Ability.ManaStormFeedback, unitAbility.level)
+                        dummy.setAbilityLevel(ID.Ability.ManaStormFeedback, ability.level)
                         eventUnit.mana -= manaCostPerBolt
                     }
                 }
                 g.destroy()
 
                 // Stop casting if unit is no longer channelling
-                if (!unitAbility.isCasting()) {
+                if (!ability.isCasting()) {
                     sfxHero.destroy()
                     break
                 }

@@ -15,7 +15,7 @@ import { Aspect } from "classes/aspect"
 import { Loc } from "classes/loc"
 import { Faction } from "classes/faction"
 import { Spawn } from "classes/spawn"
-import { ItemType } from "classes/heroes/itemType"
+import { ItemType } from "app/classes/itemType"
 import { TimeMageHeroType } from "classes/heroes/heroTypes/timeMageHeroType"
 import { TacticianHeroType } from "classes/heroes/heroTypes/tacticianHeroType"
 import { ShiftMasterHeroType } from "classes/heroes/heroTypes/shiftMasterHeroType"
@@ -35,6 +35,9 @@ export class Game {
 
         Log.Verbose("Game Init Start")
 
+        ItemType.define()
+        ItemUpgrade.define()
+
         Force.define()
         Cinematic.onInit()
 
@@ -49,8 +52,7 @@ export class Game {
         Pathing.define()
         HeroAttribute.define()
 
-        ItemType.define()
-        ItemUpgrade.define()
+
         Hero.define()
         
         new BrawlerHeroType()

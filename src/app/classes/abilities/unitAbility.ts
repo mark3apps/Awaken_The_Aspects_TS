@@ -1,6 +1,6 @@
-import { Coordinate } from "lib/resources/coordinate"
 import { Unit, Widget } from "lib/w3ts/index"
 import { Ability } from "../ability"
+import { Position } from "../position"
 
 export class UnitAbility {
     public readonly unit!: Unit
@@ -28,8 +28,8 @@ export class UnitAbility {
         this.unit.issueTargetOrder(this.ability.orderId, targetWidget)
     }
 
-    public cast(dest: Coordinate): void {
-        this.unit.issueOrderAtCoordinate(this.ability.orderId, dest)
+    public cast(dest: Position): void {
+        this.unit.issueOrderAtPosition(this.ability.orderId, dest)
     }
 
     public isCasting(): boolean {

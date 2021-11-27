@@ -1448,19 +1448,19 @@ E
 }
 
 STRING 604
-// Abilities: A02Y (Fel Form), Researchhotkey (Hotkey - Learn)
+// Abilities: A02Y (SM - Fel Form), Researchhotkey (Hotkey - Learn)
 {
 E
 }
 
 STRING 608
-// Abilities: A03C (SH - Shiftstorm), Hotkey (Hotkey - Normal)
+// Abilities: A03C (SM - Shadestorm), Hotkey (Hotkey - Normal)
 {
 R
 }
 
 STRING 609
-// Abilities: A03C (SH - Shiftstorm), Researchhotkey (Hotkey - Learn)
+// Abilities: A03C (SM - Shadestorm), Researchhotkey (Hotkey - Learn)
 {
 R
 }
@@ -1886,7 +1886,7 @@ Drain
 }
 
 STRING 805
-// Abilities: A02Y (Fel Form), Hotkey (Hotkey - Normal)
+// Abilities: A02Y (SM - Fel Form), Hotkey (Hotkey - Normal)
 {
 E
 }
@@ -1943,12 +1943,6 @@ STRING 848
 // Abilities: A01Z (TA - Bolster), Researchtip (Tooltip - Learn)
 {
 Learn Bolster - [|cffffcc00Level %d|r]
-}
-
-STRING 850
-// Abilities: A024 (Ancient Chaos), Name (Name)
-{
-Ancient Chaos
 }
 
 STRING 871
@@ -3948,12 +3942,6 @@ STRING 2453
 Alter of Kings (|Cfffed312F8|R)
 }
 
-STRING 2456
-// Abilities: A02Y (Fel Form), Name (Name)
-{
-Fel Form
-}
-
 STRING 2462
 // Abilities: A04P (TM - Time Travel), Hotkey (Hotkey - Normal)
 {
@@ -4068,80 +4056,68 @@ STRING 2498
 C
 }
 
-STRING 2499
-// Abilities: A059 (Falling Strike), Name (Name)
-{
-Falling Strike
-}
-
 STRING 2531
 // Abilities: A032 (TM - Decay), Hotkey (Hotkey - Normal)
 {
 W
 }
 
-STRING 2533
-// Abilities: A00F (Falling Strike End), Name (Name)
-{
-Falling Strike End
-}
-
 STRING 2534
-// Abilities: A00F (Falling Strike End), Tip (Tooltip - Normal)
+// Abilities: A00F (SM - Falling Strike), Tip (Tooltip - Normal)
 {
 Slam
 }
 
 STRING 2535
-// Abilities: A00F (Falling Strike End), Tip (Tooltip - Normal)
+// Abilities: A00F (SM - Falling Strike), Tip (Tooltip - Normal)
 {
 Slam
 }
 
 STRING 2536
-// Abilities: A00F (Falling Strike End), Tip (Tooltip - Normal)
+// Abilities: A00F (SM - Falling Strike), Tip (Tooltip - Normal)
 {
 Slam
 }
 
 STRING 2537
-// Abilities: A00F (Falling Strike End), Tip (Tooltip - Normal)
+// Abilities: A00F (SM - Falling Strike), Tip (Tooltip - Normal)
 {
 Slam
 }
 
 STRING 2538
-// Abilities: A00F (Falling Strike End), Tip (Tooltip - Normal)
+// Abilities: A00F (SM - Falling Strike), Tip (Tooltip - Normal)
 {
 Slam
 }
 
 STRING 2539
-// Abilities: A00F (Falling Strike End), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A00F (SM - Falling Strike), Ubertip (Tooltip - Normal - Extended)
 {
 Slams the ground, dealing <ACt2,DataA2> points of damage and slowing the movement and attack rate of nearby enemy units.
 }
 
 STRING 2540
-// Abilities: A00F (Falling Strike End), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A00F (SM - Falling Strike), Ubertip (Tooltip - Normal - Extended)
 {
 Slams the ground, dealing <ACt2,DataA3> points of damage and slowing the movement and attack rate of nearby enemy units.
 }
 
 STRING 2541
-// Abilities: A00F (Falling Strike End), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A00F (SM - Falling Strike), Ubertip (Tooltip - Normal - Extended)
 {
 Slams the ground, dealing <ACt2,DataA4> points of damage and slowing the movement and attack rate of nearby enemy units.
 }
 
 STRING 2542
-// Abilities: A00F (Falling Strike End), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A00F (SM - Falling Strike), Ubertip (Tooltip - Normal - Extended)
 {
 Slams the ground, dealing <ACt2,DataA5> points of damage and slowing the movement and attack rate of nearby enemy units.
 }
 
 STRING 2543
-// Abilities: A00F (Falling Strike End), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A00F (SM - Falling Strike), Ubertip (Tooltip - Normal - Extended)
 {
 Slams the ground, dealing <ACt2,DataA6> points of damage and slowing the movement and attack rate of nearby enemy units.
 }
@@ -4273,37 +4249,37 @@ Altar of Kings (Shifter)
 }
 
 STRING 2633
-// Abilities: A059 (Falling Strike), Tip (Tooltip - Normal)
+// Abilities: A059 (SM - Falling Strike), Tip (Tooltip - Normal)
 {
 Falling Strike - [|cffffcc00Level 1|r]
 }
 
 STRING 2634
-// Abilities: A059 (Falling Strike), Tip (Tooltip - Normal)
+// Abilities: A059 (SM - Falling Strike), Tip (Tooltip - Normal)
 {
 Falling Strike - [|cffffcc00Level 2|r]
 }
 
 STRING 2635
-// Abilities: A059 (Falling Strike), Tip (Tooltip - Normal)
+// Abilities: A059 (SM - Falling Strike), Tip (Tooltip - Normal)
 {
 Falling Strike - [|cffffcc00Level 3|r]
 }
 
 STRING 2636
-// Abilities: A059 (Falling Strike), Tip (Tooltip - Normal)
+// Abilities: A059 (SM - Falling Strike), Tip (Tooltip - Normal)
 {
 Falling Strike - [|cffffcc00Level 4|r]
 }
 
 STRING 2637
-// Abilities: A059 (Falling Strike), Tip (Tooltip - Normal)
+// Abilities: A059 (SM - Falling Strike), Tip (Tooltip - Normal)
 {
 Falling Strike - [|cffffcc00Level 5|r]
 }
 
 STRING 2638
-// Abilities: A059 (Falling Strike), Tip (Tooltip - Normal)
+// Abilities: A059 (SM - Falling Strike), Tip (Tooltip - Normal)
 {
 Falling Strike - [|cffffcc00Level 6|r]
 }
@@ -7381,7 +7357,7 @@ Reduces all Meelee attacks on the unit.
 }
 
 STRING 3270
-// Abilities: A03T (SH - Shift), Researchubertip (Tooltip - Learn - Extended)
+// Abilities: A03T (SM - Shift), Researchubertip (Tooltip - Learn - Extended)
 {
 The Shifter Moves Forward leaving a Shade of himself behind that continues to fight.
 }
@@ -7423,13 +7399,13 @@ Mana Tower
 }
 
 STRING 3309
-// Abilities: A03O (Shifter Bladestorm), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03O (SM - Shiftstorm), Ubertip (Tooltip - Normal - Extended)
 {
 Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing <AOww,DataA2> damage per second to nearby enemy land units. |nLasts <AOww,Dur2> seconds.
 }
 
 STRING 3310
-// Abilities: A03O (Shifter Bladestorm), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03O (SM - Shiftstorm), Ubertip (Tooltip - Normal - Extended)
 {
 Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing <AOww,DataA3> damage per second to nearby enemy land units. |nLasts <AOww,Dur3> seconds.
 }
@@ -7464,62 +7440,56 @@ STRING 3330
 Shift Master
 }
 
-STRING 3331
-// Abilities: A03O (Shifter Bladestorm), Name (Name)
-{
-Shifter Bladestorm
-}
-
 STRING 3332
-// Abilities: A03O (Shifter Bladestorm), Tip (Tooltip - Normal)
+// Abilities: A03O (SM - Shiftstorm), Tip (Tooltip - Normal)
 {
 Bladestorm
 }
 
 STRING 3333
-// Abilities: A03O (Shifter Bladestorm), Tip (Tooltip - Normal)
+// Abilities: A03O (SM - Shiftstorm), Tip (Tooltip - Normal)
 {
 Bladestorm
 }
 
 STRING 3335
-// Abilities: A03C (SH - Shiftstorm), Researchtip (Tooltip - Learn)
+// Abilities: A03C (SM - Shadestorm), Researchtip (Tooltip - Learn)
 {
 Learn Shifter Bladestorm - [|cffffcc00Level %d|r]
 }
 
 STRING 3336
-// Abilities: A03C (SH - Shiftstorm), Researchubertip (Tooltip - Learn - Extended)
+// Abilities: A03C (SM - Shadestorm), Researchubertip (Tooltip - Learn - Extended)
 {
 Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing <AOww,DataA1> damage per second to nearby enemy land units.
 }
 
 STRING 3337
-// Abilities: A03C (SH - Shiftstorm), Tip (Tooltip - Normal)
+// Abilities: A03C (SM - Shadestorm), Tip (Tooltip - Normal)
 {
 Shifter Bladestorm - [|cffffcc00Level %d|r]
 }
 
 STRING 3338
-// Abilities: A03C (SH - Shiftstorm), Tip (Tooltip - Normal)
+// Abilities: A03C (SM - Shadestorm), Tip (Tooltip - Normal)
 {
 Shifter Bladestorm - [|cffffcc00Level %d|r]
 }
 
 STRING 3339
-// Abilities: A03C (SH - Shiftstorm), Tip (Tooltip - Normal)
+// Abilities: A03C (SM - Shadestorm), Tip (Tooltip - Normal)
 {
 Shifter Bladestorm - [|cffffcc00Level %d|r]
 }
 
 STRING 3343
-// Abilities: A03O (Shifter Bladestorm), EditorSuffix (Editor Suffix)
+// Abilities: A03O (SM - Shiftstorm), EditorSuffix (Editor Suffix)
 {
  (Unit)
 }
 
 STRING 3344
-// Abilities: A03C (SH - Shiftstorm), EditorSuffix (Editor Suffix)
+// Abilities: A03C (SM - Shadestorm), EditorSuffix (Editor Suffix)
 {
  (Hero)
 }
@@ -7909,13 +7879,13 @@ Activate Ultimate Mana Shield
 }
 
 STRING 3473
-// Abilities: A059 (Falling Strike), Researchubertip (Tooltip - Learn - Extended)
+// Abilities: A059 (SM - Falling Strike), Researchubertip (Tooltip - Learn - Extended)
 {
 The Shifter jumps to the target location damaging and slowing units in close proximity for a short time.
 }
 
 STRING 3479
-// Abilities: A059 (Falling Strike), Researchtip (Tooltip - Learn)
+// Abilities: A059 (SM - Falling Strike), Researchtip (Tooltip - Learn)
 {
 Learn Falling Strike - [|cffffcc00Level %d|r]
 }
@@ -7933,13 +7903,13 @@ This base has been captured.  You can now teleport to it.
 }
 
 STRING 3519
-// Abilities: A03U (Switch), Hotkey (Hotkey - Normal)
+// Abilities: A03U (SM - Switch), Hotkey (Hotkey - Normal)
 {
 Q
 }
 
 STRING 3520
-// Abilities: A03U (Switch), Researchhotkey (Hotkey - Learn)
+// Abilities: A03U (SM - Switch), Researchhotkey (Hotkey - Learn)
 {
 Q
 }
@@ -8832,7 +8802,7 @@ V
 }
 
 STRING 3707
-// Abilities: A03T (SH - Shift), Hotkey (Hotkey - Normal)
+// Abilities: A03T (SM - Shift), Hotkey (Hotkey - Normal)
 {
 V
 }
@@ -8946,13 +8916,13 @@ TM - Decay
 }
 
 STRING 3728
-// Abilities: A059 (Falling Strike), Hotkey (Hotkey - Normal)
+// Abilities: A059 (SM - Falling Strike), Hotkey (Hotkey - Normal)
 {
 W
 }
 
 STRING 3729
-// Abilities: A059 (Falling Strike), Researchhotkey (Hotkey - Learn)
+// Abilities: A059 (SM - Falling Strike), Researchhotkey (Hotkey - Learn)
 {
 W
 }
@@ -11621,73 +11591,73 @@ Shift Dummy
 }
 
 STRING 4431
-// Abilities: A02Y (Fel Form), Tip (Tooltip - Normal)
+// Abilities: A02Y (SM - Fel Form), Tip (Tooltip - Normal)
 {
 Fel Form - [|cffffcc00Level 2|r]
 }
 
 STRING 4432
-// Abilities: A02Y (Fel Form), Tip (Tooltip - Normal)
+// Abilities: A02Y (SM - Fel Form), Tip (Tooltip - Normal)
 {
 Fel Form - [|cffffcc00Level 3|r]
 }
 
 STRING 4435
-// Abilities: A02Y (Fel Form), Researchtip (Tooltip - Learn)
+// Abilities: A02Y (SM - Fel Form), Researchtip (Tooltip - Learn)
 {
 Learn Fel Form - [|cffffcc00Level %d|r]
 }
 
 STRING 4436
-// Abilities: A02Y (Fel Form), Tip (Tooltip - Normal)
+// Abilities: A02Y (SM - Fel Form), Tip (Tooltip - Normal)
 {
 Fel Form - [|cffffcc00Level 1|r]
 }
 
 STRING 4438
-// Abilities: A02Y (Fel Form), Researchubertip (Tooltip - Learn - Extended)
+// Abilities: A02Y (SM - Fel Form), Researchubertip (Tooltip - Learn - Extended)
 {
 The Shifter unleashes his inner rage, greatly increasing his fighting abilities and stamina while depleting his mana.
 }
 
 STRING 4439
-// Abilities: A02Y (Fel Form), Tip (Tooltip - Normal)
+// Abilities: A02Y (SM - Fel Form), Tip (Tooltip - Normal)
 {
 Fel Form - [|cffffcc00Level 4|r]
 }
 
 STRING 4440
-// Abilities: A02Y (Fel Form), Tip (Tooltip - Normal)
+// Abilities: A02Y (SM - Fel Form), Tip (Tooltip - Normal)
 {
 Fel Form - [|cffffcc00Level 5|r]
 }
 
 STRING 4441
-// Abilities: A02Y (Fel Form), Tip (Tooltip - Normal)
+// Abilities: A02Y (SM - Fel Form), Tip (Tooltip - Normal)
 {
 Fel Form - [|cffffcc00Level 6|r]
 }
 
 STRING 4446
-// Abilities: A03T (SH - Shift), Tip (Tooltip - Normal)
+// Abilities: A03T (SM - Shift), Tip (Tooltip - Normal)
 {
 Shift - [|cffffcc00Level 1|r]
 }
 
 STRING 4447
-// Abilities: A03T (SH - Shift), Tip (Tooltip - Normal)
+// Abilities: A03T (SM - Shift), Tip (Tooltip - Normal)
 {
 Shift - [|cffffcc00Level 2|r]
 }
 
 STRING 4448
-// Abilities: A03T (SH - Shift), Tip (Tooltip - Normal)
+// Abilities: A03T (SM - Shift), Tip (Tooltip - Normal)
 {
 Shift - [|cffffcc00Level 3|r]
 }
 
 STRING 4452
-// Abilities: A03T (SH - Shift), Researchtip (Tooltip - Learn)
+// Abilities: A03T (SM - Shift), Researchtip (Tooltip - Learn)
 {
 Learn Shift - [|cffffcc00Level %d|r]
 }
@@ -11711,121 +11681,115 @@ Shift Upgraded 2
 }
 
 STRING 4456
-// Abilities: A03T (SH - Shift), Researchhotkey (Hotkey - Learn)
+// Abilities: A03T (SM - Shift), Researchhotkey (Hotkey - Learn)
 {
 V
 }
 
-STRING 4464
-// Abilities: A03U (Switch), Name (Name)
-{
-Switch
-}
-
 STRING 4474
-// Abilities: A03U (Switch), Tip (Tooltip - Normal)
+// Abilities: A03U (SM - Switch), Tip (Tooltip - Normal)
 {
 Switch - [|cffffcc00Level 1|r]
 }
 
 STRING 4475
-// Abilities: A03U (Switch), Tip (Tooltip - Normal)
+// Abilities: A03U (SM - Switch), Tip (Tooltip - Normal)
 {
 Switch - [|cffffcc00Level 2|r]
 }
 
 STRING 4476
-// Abilities: A03U (Switch), Tip (Tooltip - Normal)
+// Abilities: A03U (SM - Switch), Tip (Tooltip - Normal)
 {
 Switch - [|cffffcc00Level 3|r]
 }
 
 STRING 4477
-// Abilities: A03U (Switch), Tip (Tooltip - Normal)
+// Abilities: A03U (SM - Switch), Tip (Tooltip - Normal)
 {
 Switch - [|cffffcc00Level 4|r]
 }
 
 STRING 4478
-// Abilities: A03U (Switch), Tip (Tooltip - Normal)
+// Abilities: A03U (SM - Switch), Tip (Tooltip - Normal)
 {
 Switch - [|cffffcc00Level 5|r]
 }
 
 STRING 4479
-// Abilities: A03U (Switch), Tip (Tooltip - Normal)
+// Abilities: A03U (SM - Switch), Tip (Tooltip - Normal)
 {
 Switch - [|cffffcc00Level 6|r]
 }
 
 STRING 4480
-// Abilities: A03U (Switch), Researchtip (Tooltip - Learn)
+// Abilities: A03U (SM - Switch), Researchtip (Tooltip - Learn)
 {
 Learn Switch - [|cffffcc00Level %d|r]
 }
 
 STRING 4484
-// Abilities: A03C (SH - Shiftstorm), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03C (SM - Shadestorm), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter switches positions with a nearby friendly shade within the target circle.  if no shade exists, this spell is cancelled.
 }
 
 STRING 4485
-// Abilities: A03C (SH - Shiftstorm), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03C (SM - Shadestorm), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter switches positions with a nearby friendly shade within the target circle.  if no shade exists, this spell is cancelled.
 }
 
 STRING 4486
-// Abilities: A03C (SH - Shiftstorm), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03C (SM - Shadestorm), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter switches positions with a nearby friendly shade within the target circle.  if no shade exists, this spell is cancelled.
 }
 
 STRING 4487
-// Abilities: A03U (Switch), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03U (SM - Switch), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter switches positions with a nearby friendly shade within the target circle.  if no shade exists, this spell is cancelled.
 }
 
 STRING 4488
-// Abilities: A03U (Switch), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03U (SM - Switch), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter switches positions with a nearby friendly shade within the target circle.  if no shade exists, this spell is cancelled.
 }
 
 STRING 4489
-// Abilities: A03U (Switch), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03U (SM - Switch), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter switches positions with a nearby friendly shade within the target circle.  if no shade exists, this spell is cancelled.
 }
 
 STRING 4490
-// Abilities: A03U (Switch), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03U (SM - Switch), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter switches positions with a nearby friendly shade within the target circle.  if no shade exists, this spell is cancelled.
 }
 
 STRING 4491
-// Abilities: A03U (Switch), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03U (SM - Switch), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter switches positions with a nearby friendly shade within the target circle.  if no shade exists, this spell is cancelled.
 }
 
 STRING 4492
-// Abilities: A03U (Switch), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03U (SM - Switch), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter switches positions with a nearby friendly shade within the target circle.  if no shade exists, this spell is cancelled.
 }
 
 STRING 4495
-// Abilities: A03U (Switch), Researchubertip (Tooltip - Learn - Extended)
+// Abilities: A03U (SM - Switch), Researchubertip (Tooltip - Learn - Extended)
 {
 The Shifter switches places with the selected shade nearby.
 }
 
 STRING 4508
-// Abilities: A03T (SH - Shift), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03T (SM - Shift), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter shifts forward, leaving a Shade of himself behind that continues to fight.
 
@@ -11835,7 +11799,7 @@ Shades last <A030,Dur1> seconds.|r
 }
 
 STRING 4509
-// Abilities: A03T (SH - Shift), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03T (SM - Shift), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter shifts forward, leaving a Shade of himself behind that continues to fight.
 
@@ -11845,7 +11809,7 @@ Shades last <A030,Dur2> seconds.|r
 }
 
 STRING 4510
-// Abilities: A03T (SH - Shift), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03T (SM - Shift), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter shifts forward, leaving a Shade of himself behind that continues to fight.
 
@@ -12769,7 +12733,7 @@ STRING 4766
 }
 
 STRING 4767
-// Abilities: A02Y (Fel Form), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A02Y (SM - Fel Form), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter unleashes his inner rage, greatly increasing his fighting abilities and stamina while depleting his mana.
 Lasts <A02Y,HeroDur1> seconds.
@@ -12781,7 +12745,7 @@ Lasts <A02Y,HeroDur1> seconds.
 }
 
 STRING 4768
-// Abilities: A02Y (Fel Form), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A02Y (SM - Fel Form), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter unleashes his inner rage, greatly increasing his fighting abilities and stamina while depleting his mana.
 Lasts <A03Y,HeroDur1> seconds.
@@ -12793,7 +12757,7 @@ Lasts <A03Y,HeroDur1> seconds.
 }
 
 STRING 4769
-// Abilities: A02Y (Fel Form), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A02Y (SM - Fel Form), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter unleashes his inner rage, greatly increasing his fighting abilities and stamina while depleting his mana.
 Lasts <A02Y,HeroDur1> seconds.
@@ -12805,7 +12769,7 @@ Lasts <A02Y,HeroDur1> seconds.
 }
 
 STRING 4770
-// Abilities: A02Y (Fel Form), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A02Y (SM - Fel Form), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter unleashes his inner rage, greatly increasing his fighting abilities and stamina while depleting his mana.
 Lasts <A04Y,HeroDur1> seconds.
@@ -12817,7 +12781,7 @@ Lasts <A04Y,HeroDur1> seconds.
 }
 
 STRING 4771
-// Abilities: A02Y (Fel Form), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A02Y (SM - Fel Form), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter unleashes his inner rage, greatly increasing his fighting abilities and stamina while depleting his mana.
 Lasts <A05Y,HeroDur1> seconds.
@@ -12829,7 +12793,7 @@ Lasts <A05Y,HeroDur1> seconds.
 }
 
 STRING 4772
-// Abilities: A02Y (Fel Form), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A02Y (SM - Fel Form), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter unleashes his inner rage, greatly increasing his fighting abilities and stamina while depleting his mana.
 Lasts <A06Y,HeroDur1> seconds.
@@ -12841,7 +12805,7 @@ Lasts <A06Y,HeroDur1> seconds.
 }
 
 STRING 4773
-// Abilities: A059 (Falling Strike), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A059 (SM - Falling Strike), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter jumps to the target dealing damage and slowing units in close proximity to the landing attack for a short time.
 
@@ -12851,7 +12815,7 @@ The Shifter jumps to the target dealing damage and slowing units in close proxim
 }
 
 STRING 4774
-// Abilities: A059 (Falling Strike), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A059 (SM - Falling Strike), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter jumps to the target dealing damage and slowing units in close proximity to the landing attack for a short time.
 
@@ -12861,7 +12825,7 @@ The Shifter jumps to the target dealing damage and slowing units in close proxim
 }
 
 STRING 4775
-// Abilities: A059 (Falling Strike), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A059 (SM - Falling Strike), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter jumps to the target dealing damage and slowing units in close proximity to the landing attack for a short time.
 
@@ -12871,7 +12835,7 @@ The Shifter jumps to the target dealing damage and slowing units in close proxim
 }
 
 STRING 4776
-// Abilities: A059 (Falling Strike), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A059 (SM - Falling Strike), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter jumps to the target dealing damage and slowing units in close proximity to the landing attack for a short time.
 
@@ -12881,7 +12845,7 @@ The Shifter jumps to the target dealing damage and slowing units in close proxim
 }
 
 STRING 4777
-// Abilities: A059 (Falling Strike), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A059 (SM - Falling Strike), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter jumps to the target dealing damage and slowing units in close proximity to the landing attack for a short time.
 
@@ -12891,7 +12855,7 @@ The Shifter jumps to the target dealing damage and slowing units in close proxim
 }
 
 STRING 4778
-// Abilities: A059 (Falling Strike), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A059 (SM - Falling Strike), Ubertip (Tooltip - Normal - Extended)
 {
 The Shifter jumps to the target dealing damage and slowing units in close proximity to the landing attack for a short time.
 
@@ -15021,15 +14985,57 @@ STRING 5150
 (Center Event)
 }
 
-STRING 5151
-// Abilities: A03C (SH - Shiftstorm), Name (Name)
+STRING 5153
+// Items: I00M (itemCheck), Name (Name)
 {
-SH - Shiftstorm
+itemCheck
 }
 
-STRING 5152
-// Abilities: A03T (SH - Shift), Name (Name)
+STRING 5154
+// Abilities: A02Y (SM - Fel Form), Name (Name)
 {
-SH - Shift
+SM - Fel Form
+}
+
+STRING 5155
+// Abilities: A00F (SM - Falling Strike), Name (Name)
+{
+SM - Falling Strike
+}
+
+STRING 5156
+// Abilities: A00F (SM - Falling Strike), EditorSuffix (Editor Suffix)
+{
+(Unit)
+}
+
+STRING 5157
+// Abilities: A03O (SM - Shiftstorm), Name (Name)
+{
+SM - Shiftstorm
+}
+
+STRING 5158
+// Abilities: A03C (SM - Shadestorm), Name (Name)
+{
+SM - Shadestorm
+}
+
+STRING 5159
+// Abilities: A059 (SM - Falling Strike), Name (Name)
+{
+SM - Falling Strike
+}
+
+STRING 5160
+// Abilities: A03U (SM - Switch), Name (Name)
+{
+SM - Switch
+}
+
+STRING 5161
+// Abilities: A03T (SM - Shift), Name (Name)
+{
+SM - Shift
 }
 

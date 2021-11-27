@@ -104,31 +104,30 @@ export class DeathSpawn {
         })
 
         // Set Buildings to Randomly Stay behind
-        Trigger.unitDies.add(() => {
+        Trigger.unitDying.add(() => {
             const unit = Unit.fromEvent()
 
             if (unit.isStructure && ignoreBuildingId.indexOf(unit.typeId) == -1) {
-                if (0 > (math.random() + 0.000001)) {
+                if (0.4 > (math.random())) {
 
-                    const uBuilding = new Unit(MapPlayer.fromHandle(Player(PLAYER_NEUTRAL_PASSIVE)), unit.typeId, unit.x, unit.y, unit.facing)
-                    uBuilding.color = unit.color
-                    uBuilding.addAbility(FourCC(ID.Ability.Invulnerable))
-                    uBuilding.addAbility(FourCC(ID.Ability.Locust))
-                    uBuilding.setAnimation("death")
-                    unit.destroy()
-
-                    const switchUnits = new Timer()
-                    const removeOrigUnit = new Timer()
-                    switchUnits.start(0.5, false, () => {
-
-                        switchUnits.destroy()
+                    BlzSetEventDamage(0)
+                    const origColor = unit.color
+                    unit.owner = MapPlayer.fromIndex(PLAYER_NEUTRAL_PASSIVE)
+                    unit.color = origColor
+                    unit.invulnerable = true
+                    unit.addAbility(FourCC(ID.Ability.Locust))
+                    unit.setAnimation("death")
+                    
+                    const time = new Timer()
+                    const loop = new Timer()
+                    time.start(1, true, () => {
+                        unit.lifePercent += 20
+                    })
+                    loop.start(5, false, () => {
+                        time.destroy()
+                        loop.destroy()
                     })
 
-                    removeOrigUnit.start(6, false, () => {
-                        //unit.destroy()
-                        uBuilding.setTimeScale(0)
-                        removeOrigUnit.destroy()
-                    })
                 }
             }
         })

@@ -1,6 +1,6 @@
 
 import { Ability } from "./ability"
-import { ItemType } from "./heroes/itemType"
+import { ItemType } from "./itemType"
 
 export class HeroAttribute {
 

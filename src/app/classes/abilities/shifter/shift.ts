@@ -4,7 +4,6 @@ import { ID } from "lib/w3ts/globals/ids"
 import { MODEL } from "lib/w3ts/globals/models"
 import { OrderId } from "lib/w3ts/globals/order"
 import { Effect, Timer, Unit } from "lib/w3ts/index"
-import { UnitAbility } from "../unitAbility"
 
 export class ShiftAbility extends Ability {
 
@@ -22,11 +21,11 @@ export class ShiftAbility extends Ability {
 
     public override onEffect = (): void => {
         const eventUnit = Unit.fromEvent()
-        const ability = new UnitAbility(eventUnit, this)
+        const ability = this.getUnitAbility(eventUnit)
 
         // Get Unit Constants
         const facing = eventUnit.facing
-        const start = eventUnit.coordinate
+        const startPostion = eventUnit.position
         
 
         // Get Ability Constants
@@ -52,24 +51,22 @@ export class ShiftAbility extends Ability {
         dummy.addAbility(Ability.shift1Dummy)
         dummy.applyTimedLifeGeneric(1)
 
-        const shiftDummyAbil = new UnitAbility(dummy, Ability.shift1Dummy)
+        const shiftDummyAbil = dummy.getUnitAbility(Ability.shift1Dummy)
         shiftDummyAbil.castTarget(eventUnit)
 
 
         const loop = new Timer()
 
         loop.start(tick, true, () => {
-            const coor = eventUnit.polarOffset(tickDistance, facing)
+            const pos = eventUnit.polarOffset(tickDistance, facing)
             
-            if (!IsTerrainPathable(coor.x, coor.y, PATHING_TYPE_WALKABILITY) && (eventUnit.distanceFromCoordinate(start) < distance)) {
-                eventUnit.coordinate = coor
+            if (pos.isTerrianPathable() && (eventUnit.distanceTo(startPostion) < distance)) {
+                eventUnit.position = pos
             } else {
                 eventUnit.removeAbility(ID.Ability.Ghost)
                 eventUnit.setPathing(true)
                 loop.destroy()
             }
-
-
         })
 
     }
