@@ -5,6 +5,7 @@ export * from "./unitAnimations"
 export * from "./fours"
 export * from "./models"
 export * from "./mask"
+export * from "./attachmentPoints"
 export * from "./icons"
 export * from "./order"
 

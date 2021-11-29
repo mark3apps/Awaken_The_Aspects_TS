@@ -1,8 +1,9 @@
 import { AbilityManaStorm } from "app/abilities/manaAddict/manaStorm"
 import { AbilityMark } from "app/abilities/manaAddict/mark"
-import { Ability } from "app/classes/ability"
+import { Ability, EffectType, TargetType } from "app/classes/ability"
 import { UnitType } from "app/classes/unitType"
 import { HeroAttribute } from "app/systems/attribute"
+import { Strategy } from "lib/resources/strategy"
 import { HeroType } from "lib/w3ts/handles/herotype"
 import { AbilityFour, Order, BuffFour } from "lib/w3ts/index"
 

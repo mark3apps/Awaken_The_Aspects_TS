@@ -1,3 +1,4 @@
+import { OrderType } from "lib/resources/orderType"
 import { Order, Widget, Unit } from "lib/w3ts/index"
 import { HeroType } from "../../lib/w3ts/handles/herotype"
 

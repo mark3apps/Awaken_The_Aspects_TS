@@ -1,4 +1,4 @@
-import { Ability } from "app/classes/ability"
+import { Ability, EffectType, TargetType } from "app/classes/ability"
 import { AbilityFour, Order, Unit, Group, Timer, Force, Players } from "lib/w3ts/index"
 
 

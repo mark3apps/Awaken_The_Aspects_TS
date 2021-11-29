@@ -3,7 +3,7 @@
 
 
 	/** Class that contains every known attachmentpoint in game */
-	declare enum AttachPoint {
+	export enum AttachPoint {
 		/** The attachmentpoint 'overhead' floats over the unit's head, but doesn't sway with it */
 		overhead = "overhead",
 		/** The attachmentpoint 'head' sways with the unit's animation */
@@ -23,7 +23,7 @@
 	}
 
 	/** Class that contains every known attachmentpointmodifier in game */
-	declare enum AttachMod {
+	export enum AttachMod {
 		left = "left",
 		right = "right",
 		/** The attachmentpointmodifier 'mount' is for mounted units only */
@@ -47,7 +47,7 @@
 	}
 
 	/** Class that contains every known special attachmentpoint in game */
-	declare enum AttachSpecial {
+	export enum AttachSpecial {
 		rightHand = "hand right",
 		leftHand = "hand left",
 		rightFoot = "foot right",

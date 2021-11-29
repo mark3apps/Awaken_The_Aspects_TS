@@ -1,4 +1,4 @@
-declare interface SpawnValues {
+export interface SpawnValues {
     levels: number,
     waves: number,
     level: number,
@@ -7,7 +7,7 @@ declare interface SpawnValues {
     base: number,
 }
 
-declare interface SpawnLoop {
+export interface SpawnLoop {
     cycle: number,
     wave: number,
     base: number

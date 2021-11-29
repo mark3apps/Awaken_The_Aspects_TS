@@ -1,4 +1,4 @@
-declare const enum OrderType {
+export const enum OrderType {
     Point,
     Target,
     Immediate

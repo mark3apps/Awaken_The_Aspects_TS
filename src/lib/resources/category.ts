@@ -1,4 +1,4 @@
-declare const enum Category {
+export const enum Category {
     Melee = 1, //autodetected
     Ranged = 2, //autodetected
     Strength = 4,

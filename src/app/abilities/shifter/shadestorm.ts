@@ -1,7 +1,7 @@
-import { Ability } from "app/classes/ability"
+import { Ability, EffectType, TargetType } from "app/classes/ability"
 import { UnitType } from "app/classes/unitType"
 import { Pathing } from "app/systems/pathing"
-import { AbilityFour, Order, Unit, Group, Timer, Effect, AbilityModel } from "lib/w3ts/index"
+import { AbilityFour, Order, Unit, Group, Timer, Effect, AbilityModel, AttachPoint } from "lib/w3ts/index"
 
 export class ShadestormAbility extends Ability {
 
