@@ -1,27 +1,20 @@
 --[[
 HeroSelector V1.6
-
 ------
 This functions are found directly below the config and belong to the config.
 They also can be hooked but you might lose the default. Could do it like it is done in TeamViewer create a Backup of the current then overwrite it and call the backup in the replacement.
-
 function HeroSelector.unitCreated(player, unitCode, isRandom)
     this function is called when an unit is picked, add here you actions that have to be done for the picked unit
-
 function HeroSelector.buttonSelected(player, unitCode)
     this function is called when an player selects an button, this is not the picking.
-
 function HeroSelector.unitBaned(player, unitCode)
     this function is called when a player bans an unitCode.
-
 function HeroSelector.repick(unit[, player])
     if player is skiped unit owner sees the selection
     this will remove the unit from the game.
     Adds thie unitcode of the unit to the randompool
-
 function HeroSelector.autoDetectCategory(unitCode)
     this called on every unit added. It is a good place for simple automatic categorizes, on default it categorizes melee as 1 and ranged as 2.
-
 function HeroSelector.initHeroes()
     this function will be called before anything is created, when not using GUI to setup data you could add the selectable heroes here.
 ------
@@ -31,7 +24,6 @@ Each hero can only be once in the grid. When using HeroSelector.addUnit it will 
 01 02 03 04
 05 06 07 08
 09 10 11 12
-
 When you want to leave fields in the grid empty use HeroSelector.addUnit(0) or HeroSelector.addUnit().
 There is a GUI setup which works with indexes, not set indexes will be empty fields.
 ------
@@ -45,27 +37,21 @@ function HeroSelector.setUnitReq(unitCode, who)
 function HeroSelector.addUnit([unitCode, onlyRandom, requirement])
     can be called without arguments to hava a empty slot calling it with 0 has the same effect
     requirement works like who in HeroSelector.setUnitReq.
-
 function HeroSelector.setUnitCategory(unitCode, category)
     sets the category of an added Option.
     Category should be a power 2 number. 1 2 4 8 16 32 ....
-
 function HeroSelector.addUnitCategory(unitCode, category)
     Keeps previous setings untouched
-
 function HeroSelector.addCategory(icon, text)
     icon is the enabled image, text is the tooltip text.
-
 function HeroSelector.clearUnitData()
     removes all current UnitData this includes limit-counters, requirements, categories.
-
 function HeroSelector.show(flag, [who])
     Shows/Hides HeroSelector to who
     flag = true show it, false = hide it
     who can be a player, a force, a teamNumber, a race or nothing = anyone
     teamNumbers are the warcraft 3 given teamNumbers starting with 0 for team 1.
     the force is expected to be kept alive
-
 function HeroSelector.setFrameText(frame, text[, who])
     uses BlzFrameSetText onto frame when the local player is included in who by the rules of function HeroSelector.includesPlayer
 function HeroSelector.setTitleText(text[, who])
@@ -74,51 +60,39 @@ function HeroSelector.setBanButtonText(text[, who])
     wrapper HeroSelector.setFrameText
 function HeroSelector.setAcceptButtonText(text[, who])
     wrapper HeroSelector.setFrameText
-
 function HeroSelector.enablePick(flag[, who])
     enable/disable the accept/random button also makes them visible for that players and hides the ban Button.
     
 function HeroSelector.enableBan(flag[, who])
     enable/disable the ban button also makes accept/random invisible for that players and shows the ban Button.
-
 function HeroSelector.forceRandom([who])
     wrapper for doRandom for player
-
 function HeroSelector.forcePick([who])
     forces to pick what currently is selected, if that fails doRandom
-
 function HeroSelector.buttonRequirementDone(unitCode, player)
-
 function HeroSelector.deselectButtons([buttonIndex])
     deselect selected buttons for all players with 0 or nil
     when an index is given only this specific buttonIndex
-
 function HeroSelector.update()
     reDo possible selection, textures and enability for all heroButtons.
-
 function HeroSelector.destroy()
     destroys and nil HeroSelector
-
 function HeroSelector.getDisabledIcon(icon)
     ReplaceableTextures\CommandButtons\BTNHeroPaladin.tga -> ReplaceableTextures\CommandButtonsDisabled\DISBTNHeroPaladin.tga
-
 function HeroSelector.showFrame(frame, flag[, who])
     Set the visibility of frame to flag when who includes the local player by the rules of function HeroSelector.includesPlayer
-
 function HeroSelector.includesPlayer(who, player)
     does player include who?
     return true, if yes.
     return false otherwise
     who can be a number(GetPlayerTeam), a race(GetPlayerRace), a player, a force(BlzForceHasPlayer) or
     nil => true    
-
 function HeroSelector.counterChangeUnitCode(unitCode, add, player)
     increases/decreases the counter for picks of unitCode for the player's team.
     This can allow/disallow picking this unit for that team.
     
 function HeroSelector.frameLoseFocus(frame)
     this disables & enables frame for the local player to free current focus (enable hotkeys, chat ...).
-
 function HeroSelector.rollOption(player, includeRandomOnly, excludedIndex, category)
     get an random Unitcode from the added options
     returns an unitcode or nil when none could be found

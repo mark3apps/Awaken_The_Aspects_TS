@@ -1,6 +1,7 @@
 import { Ability,} from "app/classes/ability"
 import { Logger } from "app/classes/log"
 import { Pathing } from "app/systems/pathing"
+import { AttachPoint } from "lib/w3ts/globals/attachmentPoints"
 import { AbilityFour, Order, Unit, Group, Force, Effect, AbilityModel, BuffFour } from "lib/w3ts/index"
 
 

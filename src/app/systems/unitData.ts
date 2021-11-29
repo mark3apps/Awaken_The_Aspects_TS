@@ -1,5 +1,5 @@
 import { Order, Widget, Unit } from "lib/w3ts/index"
-import { HeroType } from "../../lib/w3ts/handles/herotype"
+import { HeroType } from "../classes/herotype"
 
 
 export class UnitData {

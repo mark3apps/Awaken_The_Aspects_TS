@@ -1,7 +1,7 @@
 import { Ability } from "app/classes/ability"
 import { UnitType } from "app/classes/unitType"
 import { HeroAttribute } from "app/systems/attribute"
-import { HeroType } from "lib/w3ts/handles/herotype"
+import { HeroType } from "app/classes/herotype"
 import { AbilityFour, Order } from "lib/w3ts/index"
 
 export class BrawlerHeroType extends HeroType {

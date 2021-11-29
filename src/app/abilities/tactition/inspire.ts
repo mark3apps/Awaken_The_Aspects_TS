@@ -1,5 +1,6 @@
 import { Ability, } from "app/classes/ability"
 import { Logger } from "app/classes/log"
+import { AttachPoint } from "lib/w3ts/globals/attachmentPoints"
 import { Group, AbilityFour, Order, Unit, Force, BuffFour, Effect, AbilityModel, Players } from "lib/w3ts/index"
 
 export class InspireAbility extends Ability {

@@ -1,5 +1,5 @@
 import { StateMachine, IState } from "app/heroes/stateMachine"
-import { HeroType } from "lib/w3ts/handles/herotype"
+import { HeroType } from "app/classes/herotype"
 import { Unit, Timer, Group, MapPlayer, Order, Force, Trigger, Rectangle } from "lib/w3ts/index"
 import { Logger } from "./log"
 import { Position } from "./position"

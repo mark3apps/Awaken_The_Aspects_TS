@@ -2,6 +2,7 @@ import { Ability } from "app/classes/ability"
 import { Logger } from "app/classes/log"
 import { Position } from "app/classes/position"
 import { UnitType } from "app/classes/unitType"
+import { AttachPoint } from "lib/w3ts/globals/attachmentPoints"
 import { AbilityFour, Order, BuffFour, Unit, Group, Timer, Effect, AbilityModel } from "lib/w3ts/index"
 
 
