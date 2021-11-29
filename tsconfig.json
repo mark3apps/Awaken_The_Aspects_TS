@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "allowJs": true,
     "target": "es6",
     "lib": [
@@ -14,7 +14,7 @@
         "node_modules/*/index",
         "node_modules/*/dist/index",
         "node_modules/*",
-        "*"
+        "src/*"
       ]
     },
     "plugins": [

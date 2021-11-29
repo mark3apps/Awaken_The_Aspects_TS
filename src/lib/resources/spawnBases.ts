@@ -1,4 +1,4 @@
-import { Spawn } from "app/classes/spawn";
+import { Spawn } from "app/systems/spawn"
 
 export interface SpawnBases {
 	bases: {[name: string]: Spawn},

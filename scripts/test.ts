@@ -1,4 +1,4 @@
-import {exec, execFile, execSync} from "child_process";
+import {execFile, execSync} from "child_process";
 import {loadJsonFile, logger, compileMap, IProjectConfig} from "./utils";
 
 function main() {

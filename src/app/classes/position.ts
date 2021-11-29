@@ -31,8 +31,12 @@ export class Position {
         return new Position(GetCameraTargetPositionX(), GetCameraTargetPositionY(), GetCameraTargetPositionZ())
     }
 
+    static fromXY(x: number, y: number, z?: number): Position {
+        return new Position(x, y, z)
+    }
+
     public isBlighted(): boolean {
-        
+
         return IsPointBlighted(this.x, this.y)
     }
 
@@ -45,24 +49,28 @@ export class Position {
         return !IsTerrainPathable(this.x, this.y, pathingType)
     }
 
-    public distanceTo(value: Position | Unit ): number {
+    public distanceTo(value: Position | Unit): number {
         return SquareRoot(((value.x - this.x) * (value.x - this.x)) + ((value.y - this.y) * (value.y - this.y)))
     }
 
-    public angleTo(value: Position | Unit ) : number {
+    public angleTo(value: Position | Unit): number {
         return bj_RADTODEG * Atan2(value.y - this.y, value.x - this.x)
     }
 
     public polarOffset(dist: number, angle: number): Position {
-		return new Position(this.x + dist * Cos(angle * bj_DEGTORAD), this.y + dist * Sin(angle * bj_DEGTORAD))
-	}
+        return new Position(this.x + dist * Cos(angle * bj_DEGTORAD), this.y + dist * Sin(angle * bj_DEGTORAD))
+    }
 
-	public moveToPolarOffset(dist: number, angle: number): void {
-		this.position = this.polarOffset(dist, angle)
-	}
+    public moveToPolarOffset(dist: number, angle: number): void {
+        this.position = this.polarOffset(dist, angle)
+    }
 
     public getParabolaZ(distanceTraveled: number, fullDistance: number, maximumHeight: number): number {
         return 4 * maximumHeight * distanceTraveled * (fullDistance - distanceTraveled) / (fullDistance * fullDistance)
+    }
+
+    public pingMinimap(duration: number, extraEffects = false, red = 0, green = 0, blue = 0,): void {
+        PingMinimapEx(this.x, this.y, duration, red, green, blue, extraEffects)
     }
 
     public set position(coor: Position) {

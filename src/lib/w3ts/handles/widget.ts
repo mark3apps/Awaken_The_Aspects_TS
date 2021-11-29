@@ -3,6 +3,8 @@
 import { Position } from "app/classes/position"
 import { Handle } from "./handle"
 
+
+
 export class Widget extends Handle<widget> {
   /**
    * Get the Widget's life.

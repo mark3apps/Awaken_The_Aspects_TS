@@ -284,11 +284,11 @@ end
 -- what happens to the unit being picked, player is the one having pressed the button
 function HeroSelector.unitCreated(player, unitCode, isRandom)
     
-    udg_PickedHero = CreateUnit(player, unitCode,
+    udg_unit_PickedHero = CreateUnit(player, unitCode,
                                 GetPlayerStartLocationX(player),
                                 GetPlayerStartLocationY(player), 0)
 
-    HeroSelector.enablePick(false, GetOwningPlayer(udg_PickedHero))
+    HeroSelector.enablePick(false, GetOwningPlayer(udg_unit_PickedHero))
 
     -- if isRandom then
     --     --randomed

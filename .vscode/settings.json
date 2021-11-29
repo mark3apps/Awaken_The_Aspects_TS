@@ -10,5 +10,8 @@
         "text",
         "bj_lastCreatedUnit",
         "udg_PickedHero"
+    ],
+    "editor.codeActionsOnSave": [
+        "source.addMissingImports"
     ]
 }

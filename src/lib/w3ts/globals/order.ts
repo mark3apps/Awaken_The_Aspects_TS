@@ -1,4 +1,4 @@
-export const enum OrderId{
+export const enum Order{
   Absorb = 852529,
   Acidbomb = 852662,
   Acolyteharvest = 852185,

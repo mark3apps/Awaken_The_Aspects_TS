@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-namespace */
+export namespace Anim {
 
-export namespace ANIMATION {
     export enum DalaranMutant_Portrait {
         portrait1,
         portrait2,
@@ -22014,4 +22015,5 @@ export namespace ANIMATION {
         death,
         deathAlternate
     }
+
 }

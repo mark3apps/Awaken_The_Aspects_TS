@@ -1,64 +1,68 @@
-import { Loc } from "app/classes/loc"
+import { Logger } from "app/classes/log"
 import { Position } from "app/classes/position"
 import { UnitType } from "app/classes/unitType"
-import { ID } from "lib/w3ts/globals/ids"
-import { OrderId } from "lib/w3ts/globals/order"
-import { Force, Group, Rectangle, Region, Timer, Trigger, Unit } from "lib/w3ts/index"
-import { Log } from "./log"
-
+import { Order, BuffFour, Trigger, Unit, Timer, Force, Group, Rectangle, Region } from "lib/w3ts/index"
+import { Loc } from "./loc"
 
 export const OrderIdIgnore = [
-    OrderId.Move,
-    OrderId.Bearform,
-    OrderId.Rejuvination,
-    OrderId.Waterelemental,
-    OrderId.Fingerofdeath,
-    OrderId.Holybolt,
-    OrderId.Spiritlink,
-    OrderId.Raisedead,
-    OrderId.Carrionscarabs,
-    OrderId.Breathoffire,
-    OrderId.Forkedlightning,
-    OrderId.Parasite,
-    OrderId.Carrionswarm,
-    OrderId.Thunderbolt,
-    OrderId.Spiritwolf,
-    OrderId.Summongrizzly,
-    OrderId.Wateryminion,
-    OrderId.Healingwave,
-    OrderId.Roar,
-    OrderId.Inferno,
-    OrderId.Creepthunderbolt,
-    OrderId.Cripple,
-    OrderId.Recharge,
-    OrderId.Replenish,
-    OrderId.Summonfactory,
-    OrderId.Chainlightning,
-    OrderId.Polymorph,
-    OrderId.Shockwave,
-    OrderId.Dispel,
-    OrderId.Innerfire,
-    OrderId.Firebolt,
-    OrderId.Clusterrockets,
-    OrderId.Creepthunderclap,
-    OrderId.Darkportal,
-    OrderId.Breathoffire
+    Order.Move,
+    Order.Rejuvination,
+    Order.Waterelemental,
+    Order.Fingerofdeath,
+    Order.Holybolt,
+    Order.Spiritlink,
+    Order.Raisedead,
+    Order.Carrionscarabs,
+    Order.Breathoffire,
+    Order.Forkedlightning,
+    Order.Parasite,
+    Order.Carrionswarm,
+    Order.Thunderbolt,
+    Order.Spiritwolf,
+    Order.Summongrizzly,
+    Order.Wateryminion,
+    Order.Healingwave,
+    Order.Roar,
+    Order.Inferno,
+    Order.Creepthunderbolt,
+    Order.Cripple,
+    Order.Recharge,
+    Order.Replenish,
+    Order.Summonfactory,
+    Order.Chainlightning,
+    Order.Polymorph,
+    Order.Shockwave,
+    Order.Dispel,
+    Order.Innerfire,
+    Order.Firebolt,
+    Order.Clusterrockets,
+    Order.Creepthunderclap,
+    Order.Darkportal,
+    Order.Breathoffire
 ]
 
 export const BuffIdIgnore = [
-    ID.Buff.AttackUnit
+    BuffFour.AttackUnit
 ]
 
 export const OrderIdIgnoreWithDelay = [
-    OrderId.Rainoffire,
-    OrderId.Tranquility,
-    OrderId.Stunned
+    Order.Rainoffire,
+    Order.Tranquility,
+    Order.Stunned,
+    Order.Bearform,
 ]
 
 export class Pathing {
 
     static define = (): void => {
 
+        // Turn off Elder Ent Movement Pathing
+        Trigger.unitCreated.add(() => {
+            const eventUnit = Unit.fromEvent()
+            if (eventUnit.typeId == UnitType.AncientOfWar.id) {
+                eventUnit.setPathing(false)
+            }
+        })
 
         // Units Ordered
         Trigger.unitOrdered.add(() => {
@@ -81,7 +85,7 @@ export class Pathing {
                     }
                 }
             } catch (error) {
-                Log.Error(error)
+                Logger.Error(error)
             }
         })
 
@@ -101,7 +105,7 @@ export class Pathing {
 
                 }
             } catch (error) {
-                Log.Error(error)
+                Logger.Error(error)
             }
         })
 
@@ -118,7 +122,7 @@ export class Pathing {
                     }
                 }
             } catch (error) {
-                Log.Error(error)
+                Logger.Error(error)
             }
         })
 
@@ -147,7 +151,7 @@ export class Pathing {
             let dest: Position
 
             if (unit.inRegion(Region.BigTop)) {
-                Log.Verbose("top", unit.name)
+                Logger.Verbose("top", unit.name)
                 if (unit.inForce(Force.AllianceAll)) {
                     dest = Loc.top.federation.randomPosition
                 } else if (unit.inForce(Force.FederationAll)) {
@@ -155,7 +159,7 @@ export class Pathing {
                 }
 
             } else if (unit.inRegion(Region.BigMiddle)) {
-                Log.Verbose("middle", unit.name)
+                Logger.Verbose("middle", unit.name)
                 if (unit.inForce(Force.AllianceAll)) {
                     dest = Loc.middle.federation.randomPosition
                 } else if (unit.inForce(Force.FederationAll)) {
@@ -163,7 +167,7 @@ export class Pathing {
                 }
 
             } else {
-                Log.Verbose("bootom", unit.name)
+                Logger.Verbose("bottom", unit.name)
                 if (unit.inForce(Force.AllianceAll)) {
                     dest = Loc.bottom.federation.randomPosition
                 } else if (unit.inForce(Force.FederationAll)) {
@@ -173,11 +177,11 @@ export class Pathing {
 
             // If 
             if (dest != null) {
-                Log.Verbose("Ordered")
-                unit.issueOrderAtPosition(OrderId.Attack, dest)
+                Logger.Verbose("Ordered")
+                unit.issueOrderAtPosition(Order.Attack, dest)
             }
         } catch (error) {
-            Log.Error(error)
+            Logger.Error(error)
         }
     }
 }

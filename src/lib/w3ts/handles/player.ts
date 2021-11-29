@@ -2,11 +2,12 @@
 /** @noSelfInFile **/
 
 import { Position } from "app/classes/position"
-import { Camera, CameraSetup } from "./camera"
+import { CameraSetup, Camera } from "./camera"
 import { Force } from "./force"
 import { Handle } from "./handle"
 import { Point } from "./point"
 import { Unit } from "./unit"
+
 
 export class MapPlayer extends Handle<player> {
   private constructor(index: number) {

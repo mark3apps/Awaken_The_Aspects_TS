@@ -7399,13 +7399,13 @@ Mana Tower
 }
 
 STRING 3309
-// Abilities: A03O (SM - Shiftstorm), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03O (SM - Shadestorm), Ubertip (Tooltip - Normal - Extended)
 {
 Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing <AOww,DataA2> damage per second to nearby enemy land units. |nLasts <AOww,Dur2> seconds.
 }
 
 STRING 3310
-// Abilities: A03O (SM - Shiftstorm), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A03O (SM - Shadestorm), Ubertip (Tooltip - Normal - Extended)
 {
 Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing <AOww,DataA3> damage per second to nearby enemy land units. |nLasts <AOww,Dur3> seconds.
 }
@@ -7434,20 +7434,14 @@ STRING 3329
 Cannon Tower
 }
 
-STRING 3330
-// Units: o006 (Shift Master), Name (Name)
-{
-Shift Master
-}
-
 STRING 3332
-// Abilities: A03O (SM - Shiftstorm), Tip (Tooltip - Normal)
+// Abilities: A03O (SM - Shadestorm), Tip (Tooltip - Normal)
 {
 Bladestorm
 }
 
 STRING 3333
-// Abilities: A03O (SM - Shiftstorm), Tip (Tooltip - Normal)
+// Abilities: A03O (SM - Shadestorm), Tip (Tooltip - Normal)
 {
 Bladestorm
 }
@@ -7483,7 +7477,7 @@ Shifter Bladestorm - [|cffffcc00Level %d|r]
 }
 
 STRING 3343
-// Abilities: A03O (SM - Shiftstorm), EditorSuffix (Editor Suffix)
+// Abilities: A03O (SM - Shadestorm), EditorSuffix (Editor Suffix)
 {
  (Unit)
 }
@@ -14974,7 +14968,7 @@ Dummy Seer
 }
 
 STRING 5149
-// Units: n01U (Dummy), Name (Name)
+// Units: o006 (Dummy), Name (Name)
 {
 Dummy
 }
@@ -15009,14 +15003,8 @@ STRING 5156
 (Unit)
 }
 
-STRING 5157
-// Abilities: A03O (SM - Shiftstorm), Name (Name)
-{
-SM - Shiftstorm
-}
-
 STRING 5158
-// Abilities: A03C (SM - Shadestorm), Name (Name)
+// Abilities: A03O (SM - Shadestorm), Name (Name)
 {
 SM - Shadestorm
 }
@@ -15037,5 +15025,29 @@ STRING 5161
 // Abilities: A03T (SM - Shift), Name (Name)
 {
 SM - Shift
+}
+
+STRING 5162
+// Units: o006 (Dummy), EditorSuffix (Name - Editor Suffix)
+{
+(Shadestorm)
+}
+
+STRING 5163
+// Units: n01U (Dummy), Name (Name)
+{
+Dummy
+}
+
+STRING 5164
+// Abilities: A03C (SM - Shadestorm), Name (Name)
+{
+SM - Shadestorm
+}
+
+STRING 5165
+// Abilities: ANfy (Ancient of Life Spawn), Name (Name)
+{
+Ancient of Life Spawn
 }
 

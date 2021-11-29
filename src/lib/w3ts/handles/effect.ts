@@ -6,6 +6,7 @@ import { MapPlayer } from "./player"
 import { Point } from "./point"
 import { Widget } from "./widget"
 
+
 export class Effect extends Handle<effect> {
 
   /**

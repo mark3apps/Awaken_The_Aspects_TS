@@ -1,21 +1,19 @@
-udg_PLAYERGRPallied = nil
-udg_PLAYERGRPfederation = nil
-udg_RevivableHeros = nil
+udg_force_allied = nil
+udg_force_federation = nil
+udg_grp_RevivableHeroes = nil
 udg_TempReal = 0.0
-udg_ReviveTimers = {}
+udg_timer_Revive = {}
 udg_ReviveTimerWindows = {}
-udg_UNIT_pickedHero = {}
-udg_UNIT_Bases = {}
-udg_UNIT_Healing = {}
+udg_grp_UNIT_Bases = {}
+udg_grp_Healing = {}
 udg_TEMP_Pos_Hero = nil
 udg_TEMP_Pos2 = nil
 udg_TEMP_IntLoop1 = 0
 udg_BrawlerMana = __jarray(0.0)
-udg_DrainLifeTargets = nil
+udg_grp_DrainLifeTargets = nil
 udg_TEMP_Int = 0
-udg_TEMP_UnitGroup = nil
+udg_grp_TEMP_UnitGroup = nil
 udg_TEMP_Pos_Spell = nil
-udg_AI_PursueHero = {}
 udg_DL_Index = 0
 udg_DL_Caster = {}
 udg_DL_Counter = __jarray(0.0)
@@ -27,33 +25,9 @@ udg_UR_Caster = {}
 udg_Mana_Overload_Researched = __jarray(0)
 udg_Frost_Attack_Researched = __jarray(false)
 udg_TEMP_Real = 0.0
-udg_JD_Integers = __jarray(0)
-udg_JD_TempPoint = {}
-udg_JDA_Unit = nil
-udg_JD_Distances = __jarray(0.0)
-udg_JDA_TargetPoint = nil
-udg_JD_ReachedDistance = __jarray(0.0)
-udg_JD_SpeedUnits = __jarray(0.0)
-udg_JDA_Speed = 0.0
-udg_JD_Unit = {}
-udg_JD_Angle = __jarray(0.0)
-udg_JD_Effect = __jarray("")
-udg_JDA_SpecialEffect = ""
-udg_JD_Animations = __jarray("")
-udg_JDA_Animation = ""
-udg_JD_TreesDestroy = __jarray(false)
-udg_JDA_DestroyTrees_Dash = false
-udg_JD_HighSettings = __jarray(0.0)
-udg_JDA_JumpHigh_Distance = 0.0
-udg_JDA_AnimationSpeed = 0.0
-udg_JD_Group = nil
-udg_JD_RealTimer = __jarray(0.0)
-udg_JD_JumpHigh = __jarray(0.0)
-udg_JDA_Collusion = false
 udg_TEMP_Real_2 = 0.0
 udg_TEMP_Player = nil
 udg_TEMP_Int2 = 0
-udg_SB_Caster = nil
 udg_Spell_LOC_Spell = nil
 udg_Spell_LOC_Cast = nil
 udg_Spell_Counter = 0.0
@@ -80,10 +54,10 @@ udg_TimeTravel_HASH = nil
 udg_TimeTravel_GROUP = nil
 udg_TimeTravel_INTERVAL = 0.0
 udg_Spell_Damage = 0.0
-udg_UNIT_Bases_Teleport = {}
+udg_grp_Bases_Teleport = {}
 udg_TEMP_A_REAL = __jarray(0.0)
 udg_units = nil
-udg_PickedHero = nil
+udg_unit_PickedHero = nil
 gg_rct_Left_Start = nil
 gg_rct_Left_Hero = nil
 gg_rct_Camp_Top = nil
@@ -233,7 +207,6 @@ gg_trg_Drain_Start = nil
 gg_trg_Drain_Loop = nil
 gg_trg_Unleash_Rage_Start = nil
 gg_trg_Unleash_Rage = nil
-gg_trg_Shifter_Bladestorm_START = nil
 gg_trg_Paradox_INIT = nil
 gg_trg_Paradox_CAST = nil
 gg_trg_Paradox_LOOP = nil
@@ -303,30 +276,32 @@ gg_unit_o00C_1008 = nil
 gg_unit_o00C_1005 = nil
 gg_unit_o00C_1009 = nil
 gg_unit_o00C_1011 = nil
-gg_unit_o00C_1013 = nil
-gg_unit_o00C_1016 = nil
+gg_unit_o00C_1018 = nil
+gg_unit_o00C_1019 = nil
+gg_unit_o00C_1020 = nil
+gg_unit_o00C_1021 = nil
 function InitGlobals()
     local i = 0
-    udg_PLAYERGRPallied = CreateForce()
-    udg_PLAYERGRPfederation = CreateForce()
-    udg_RevivableHeros = CreateGroup()
+    udg_force_allied = CreateForce()
+    udg_force_federation = CreateForce()
+    udg_grp_RevivableHeroes = CreateGroup()
     udg_TempReal = 0.0
     i = 0
     while (true) do
         if ((i > 24)) then break end
-        udg_ReviveTimers[i] = CreateTimer()
+        udg_timer_Revive[i] = CreateTimer()
         i = i + 1
     end
     i = 0
     while (true) do
         if ((i > 2)) then break end
-        udg_UNIT_Bases[i] = CreateGroup()
+        udg_grp_UNIT_Bases[i] = CreateGroup()
         i = i + 1
     end
     i = 0
     while (true) do
         if ((i > 2)) then break end
-        udg_UNIT_Healing[i] = CreateGroup()
+        udg_grp_Healing[i] = CreateGroup()
         i = i + 1
     end
     udg_TEMP_IntLoop1 = 0
@@ -336,9 +311,9 @@ function InitGlobals()
         udg_BrawlerMana[i] = 150.00
         i = i + 1
     end
-    udg_DrainLifeTargets = CreateGroup()
+    udg_grp_DrainLifeTargets = CreateGroup()
     udg_TEMP_Int = 0
-    udg_TEMP_UnitGroup = CreateGroup()
+    udg_grp_TEMP_UnitGroup = CreateGroup()
     udg_DL_Index = 0
     i = 0
     while (true) do
@@ -368,80 +343,6 @@ function InitGlobals()
         i = i + 1
     end
     udg_TEMP_Real = 0.0
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_JD_Integers[i] = 0
-        i = i + 1
-    end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_JD_Distances[i] = 0.0
-        i = i + 1
-    end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_JD_ReachedDistance[i] = 0.0
-        i = i + 1
-    end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_JD_SpeedUnits[i] = 0.0
-        i = i + 1
-    end
-    udg_JDA_Speed = 0.0
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_JD_Angle[i] = 0.0
-        i = i + 1
-    end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_JD_Effect[i] = ""
-        i = i + 1
-    end
-    udg_JDA_SpecialEffect = ""
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_JD_Animations[i] = ""
-        i = i + 1
-    end
-    udg_JDA_Animation = ""
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_JD_TreesDestroy[i] = false
-        i = i + 1
-    end
-    udg_JDA_DestroyTrees_Dash = false
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_JD_HighSettings[i] = 0.0
-        i = i + 1
-    end
-    udg_JDA_JumpHigh_Distance = 0.0
-    udg_JDA_AnimationSpeed = 0.0
-    udg_JD_Group = CreateGroup()
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_JD_RealTimer[i] = 0.0
-        i = i + 1
-    end
-    i = 0
-    while (true) do
-        if ((i > 1)) then break end
-        udg_JD_JumpHigh[i] = 0.0
-        i = i + 1
-    end
-    udg_JDA_Collusion = false
     udg_TEMP_Real_2 = 0.0
     udg_TEMP_Int2 = 0
     udg_Spell_Counter = 0.0
@@ -471,7 +372,7 @@ function InitGlobals()
     i = 0
     while (true) do
         if ((i > 2)) then break end
-        udg_UNIT_Bases_Teleport[i] = CreateGroup()
+        udg_grp_Bases_Teleport[i] = CreateGroup()
         i = i + 1
     end
     i = 0
@@ -875,11 +776,11 @@ end
 -- what happens to the unit being picked, player is the one having pressed the button
 function HeroSelector.unitCreated(player, unitCode, isRandom)
     
-    udg_PickedHero = CreateUnit(player, unitCode,
+    udg_unit_PickedHero = CreateUnit(player, unitCode,
                                 GetPlayerStartLocationX(player),
                                 GetPlayerStartLocationY(player), 0)
 
-    HeroSelector.enablePick(false, GetOwningPlayer(udg_PickedHero))
+    HeroSelector.enablePick(false, GetOwningPlayer(udg_unit_PickedHero))
 
     -- if isRandom then
     --     --randomed
@@ -3747,8 +3648,10 @@ function CreateNeutralPassiveBuildings()
     gg_unit_o00C_1008 = BlzCreateUnitWithSkin(p, FourCC("o00C"), -15106.6, -4094.6, 270.000, FourCC("o00C"))
     gg_unit_o00C_1009 = BlzCreateUnitWithSkin(p, FourCC("o00C"), -13953.8, -5246.8, 90.000, FourCC("o00C"))
     gg_unit_o00C_1011 = BlzCreateUnitWithSkin(p, FourCC("o00C"), -13952.5, -4098.6, 90.000, FourCC("o00C"))
-    gg_unit_o00C_1013 = BlzCreateUnitWithSkin(p, FourCC("o00C"), -14978.6, 257.4, 270.000, FourCC("o00C"))
-    gg_unit_o00C_1016 = BlzCreateUnitWithSkin(p, FourCC("o00C"), -14077.4, -9601.4, 90.000, FourCC("o00C"))
+    gg_unit_o00C_1018 = BlzCreateUnitWithSkin(p, FourCC("o00C"), -10496.5, -4418.6, 90.000, FourCC("o00C"))
+    gg_unit_o00C_1019 = BlzCreateUnitWithSkin(p, FourCC("o00C"), -18559.5, -4925.4, 270.000, FourCC("o00C"))
+    gg_unit_o00C_1020 = BlzCreateUnitWithSkin(p, FourCC("o00C"), -18559.5, -5309.4, 270.000, FourCC("o00C"))
+    gg_unit_o00C_1021 = BlzCreateUnitWithSkin(p, FourCC("o00C"), -10496.5, -4034.6, 90.000, FourCC("o00C"))
 end
 
 function CreatePlayerBuildings()
@@ -4183,7 +4086,6 @@ function Trig_testing_Actions()
     BlzEndUnitAbilityCooldown(GetEnumUnit(), FourCC("AHav"))
     SetCameraTargetControllerNoZForPlayer(Player(0), GetTriggerUnit(), 0, 0, false)
     UnitUseItemTarget(GetLastCreatedUnit(), GetItemOfTypeFromUnitBJ(GetEnumUnit(), FourCC("texp")), GetEnumUnit())
-    IssueUpgradeOrderByIdBJ(udg_AI_PursueHero[0], FourCC("R00D"))
     BlzSetUnitBaseDamage(GetTriggerUnit(), 10, 0)
     UnitDamageTargetBJ(GetTriggerUnit(), GetTriggerUnit(), 500, ATTACK_TYPE_MELEE, DAMAGE_TYPE_MAGIC)
     SetUnitTimeScalePercent(GetEnumUnit(), 100)
@@ -4193,7 +4095,6 @@ function Trig_testing_Actions()
     DisableTrigger(GetTriggeringTrigger())
     SetPlayerTechResearchedSwap(FourCC("R005"), 0, Player(0))
     BlzSetUnitName(GetTriggerUnit(), "hie")
-    udg_JD_Group = GetUnitsOfTypeIdAll(FourCC("hfoo"))
 end
 
 function InitTrig_testing()
@@ -4255,8 +4156,8 @@ function Trig_Armor_Hardening_Func002A()
 end
 
 function Trig_Armor_Hardening_Actions()
-    udg_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Armor_Hardening_Func001002002))
-    ForGroupBJ(udg_TEMP_UnitGroup, Trig_Armor_Hardening_Func002A)
+    udg_grp_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Armor_Hardening_Func001002002))
+    ForGroupBJ(udg_grp_TEMP_UnitGroup, Trig_Armor_Hardening_Func002A)
         DestroyGroup ( udg_TEMP_UnitGroup )
 end
 
@@ -4291,8 +4192,8 @@ function Trig_Slam_Func002A()
 end
 
 function Trig_Slam_Actions()
-    udg_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Slam_Func001002002))
-    ForGroupBJ(udg_TEMP_UnitGroup, Trig_Slam_Func002A)
+    udg_grp_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Slam_Func001002002))
+    ForGroupBJ(udg_grp_TEMP_UnitGroup, Trig_Slam_Func002A)
         DestroyGroup ( udg_TEMP_UnitGroup )
 end
 
@@ -4327,8 +4228,8 @@ function Trig_Shade_Strength_Copy_Func002A()
 end
 
 function Trig_Shade_Strength_Copy_Actions()
-    udg_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Shade_Strength_Copy_Func001002002))
-    ForGroupBJ(udg_TEMP_UnitGroup, Trig_Shade_Strength_Copy_Func002A)
+    udg_grp_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Shade_Strength_Copy_Func001002002))
+    ForGroupBJ(udg_grp_TEMP_UnitGroup, Trig_Shade_Strength_Copy_Func002A)
         DestroyGroup ( udg_TEMP_UnitGroup )
 end
 
@@ -4348,16 +4249,12 @@ function Trig_Mana_Overload_Research_Conditions()
 end
 
 function Trig_Mana_Overload_Research_Func002C()
-    if (not (IsUnitAliveBJ(udg_UNIT_pickedHero[GetConvertedPlayerId(GetOwningPlayer(GetResearchingUnit()))]) == true)) then
-        return false
-    end
     return true
 end
 
 function Trig_Mana_Overload_Research_Actions()
     udg_Mana_Overload_Researched[GetConvertedPlayerId(GetOwningPlayer(GetResearchingUnit()))] = GetPlayerTechCountSimple(FourCC("R00C"), GetOwningPlayer(GetResearchingUnit()))
     if (Trig_Mana_Overload_Research_Func002C()) then
-        SetUnitAbilityLevelSwapped(FourCC("A02N"), udg_UNIT_pickedHero[GetConvertedPlayerId(GetOwningPlayer(GetResearchingUnit()))], udg_Mana_Overload_Researched[GetConvertedPlayerId(GetOwningPlayer(GetResearchingUnit()))])
     else
     end
 end
@@ -4411,8 +4308,8 @@ function Trig_Feedback_Func002A()
 end
 
 function Trig_Feedback_Actions()
-    udg_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Feedback_Func001002002))
-    ForGroupBJ(udg_TEMP_UnitGroup, Trig_Feedback_Func002A)
+    udg_grp_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Feedback_Func001002002))
+    ForGroupBJ(udg_grp_TEMP_UnitGroup, Trig_Feedback_Func002A)
         DestroyGroup ( udg_TEMP_UnitGroup )
 end
 
@@ -4447,8 +4344,8 @@ function Trig_Shade_Strength_Func002A()
 end
 
 function Trig_Shade_Strength_Actions()
-    udg_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Shade_Strength_Func001002002))
-    ForGroupBJ(udg_TEMP_UnitGroup, Trig_Shade_Strength_Func002A)
+    udg_grp_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Shade_Strength_Func001002002))
+    ForGroupBJ(udg_grp_TEMP_UnitGroup, Trig_Shade_Strength_Func002A)
         DestroyGroup ( udg_TEMP_UnitGroup )
 end
 
@@ -4483,8 +4380,8 @@ function Trig_Swift_Moves_Func002A()
 end
 
 function Trig_Swift_Moves_Actions()
-    udg_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Swift_Moves_Func001002002))
-    ForGroupBJ(udg_TEMP_UnitGroup, Trig_Swift_Moves_Func002A)
+    udg_grp_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Swift_Moves_Func001002002))
+    ForGroupBJ(udg_grp_TEMP_UnitGroup, Trig_Swift_Moves_Func002A)
         DestroyGroup ( udg_TEMP_UnitGroup )
 end
 
@@ -4519,8 +4416,8 @@ function Trig_Swift_Attacks_Func002A()
 end
 
 function Trig_Swift_Attacks_Actions()
-    udg_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Swift_Attacks_Func001002002))
-    ForGroupBJ(udg_TEMP_UnitGroup, Trig_Swift_Attacks_Func002A)
+    udg_grp_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Swift_Attacks_Func001002002))
+    ForGroupBJ(udg_grp_TEMP_UnitGroup, Trig_Swift_Attacks_Func002A)
         DestroyGroup ( udg_TEMP_UnitGroup )
 end
 
@@ -4559,8 +4456,8 @@ function Trig_Attribute_Upgrade_Func002A()
 end
 
 function Trig_Attribute_Upgrade_Actions()
-    udg_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Attribute_Upgrade_Func001002002))
-    ForGroupBJ(udg_TEMP_UnitGroup, Trig_Attribute_Upgrade_Func002A)
+    udg_grp_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Attribute_Upgrade_Func001002002))
+    ForGroupBJ(udg_grp_TEMP_UnitGroup, Trig_Attribute_Upgrade_Func002A)
         DestroyGroup ( udg_TEMP_UnitGroup )
 end
 
@@ -4608,12 +4505,6 @@ function InitTrig_Shipyard_Left_End()
 end
 
 function Trig_Brawler_No_Mana_Func001Func001C()
-    if (not (GetUnitTypeId(udg_UNIT_pickedHero[udg_TEMP_IntLoop1]) == FourCC("E001"))) then
-        return false
-    end
-    if (not (GetUnitStateSwap(UNIT_STATE_MANA, udg_UNIT_pickedHero[udg_TEMP_IntLoop1]) >= udg_BrawlerMana[udg_TEMP_IntLoop1])) then
-        return false
-    end
     return true
 end
 
@@ -4622,9 +4513,7 @@ function Trig_Brawler_No_Mana_Actions()
     while (true) do
         if (udg_TEMP_IntLoop1 > 12) then break end
         if (Trig_Brawler_No_Mana_Func001Func001C()) then
-            SetUnitManaBJ(udg_UNIT_pickedHero[udg_TEMP_IntLoop1], udg_BrawlerMana[udg_TEMP_IntLoop1])
         else
-            udg_BrawlerMana[udg_TEMP_IntLoop1] = GetUnitStateSwap(UNIT_STATE_MANA, udg_UNIT_pickedHero[udg_TEMP_IntLoop1])
         end
         udg_TEMP_IntLoop1 = udg_TEMP_IntLoop1 + 1
     end
@@ -4736,10 +4625,10 @@ function Trig_Drain_Loop_Actions()
         if (udg_DL_Loop > udg_DL_Index) then break end
         udg_TEMP_Pos_Hero = GetUnitLoc(udg_DL_Caster[udg_DL_Loop])
         udg_TEMP_Int = GetUnitAbilityLevelSwapped(FourCC("A01Y"), udg_DL_Caster[udg_DL_Loop])
-        udg_DrainLifeTargets = GetUnitsInRangeOfLocMatching((300.00 + (15.00 * I2R(udg_TEMP_Int))), udg_TEMP_Pos_Hero, Condition(Trig_Drain_Loop_Func001Func003002003))
+        udg_grp_DrainLifeTargets = GetUnitsInRangeOfLocMatching((300.00 + (15.00 * I2R(udg_TEMP_Int))), udg_TEMP_Pos_Hero, Condition(Trig_Drain_Loop_Func001Func003002003))
         AddSpecialEffectTargetUnitBJ("chest", udg_DL_Caster[udg_DL_Loop], "Abilities\\Spells\\Other\\Drain\\DrainCaster.mdl")
         DestroyEffectBJ(GetLastCreatedEffectBJ())
-        ForGroupBJ(udg_DrainLifeTargets, Trig_Drain_Loop_Func001Func006A)
+        ForGroupBJ(udg_grp_DrainLifeTargets, Trig_Drain_Loop_Func001Func006A)
                 RemoveLocation ( udg_TEMP_Pos_Hero )
                 DestroyGroup ( udg_DrainLifeTargets )
         udg_DL_Counter[udg_DL_Loop] = (udg_DL_Counter[udg_DL_Loop] + 0.50)
@@ -4857,55 +4746,6 @@ function InitTrig_Unleash_Rage()
     DisableTrigger(gg_trg_Unleash_Rage)
     TriggerRegisterTimerEventPeriodic(gg_trg_Unleash_Rage, 0.25)
     TriggerAddAction(gg_trg_Unleash_Rage, Trig_Unleash_Rage_Actions)
-end
-
-function Trig_Shifter_Bladestorm_START_Conditions()
-    if (not (GetSpellAbilityId() == FourCC("A03C"))) then
-        return false
-    end
-    return true
-end
-
-function Trig_Shifter_Bladestorm_START_Func004002003001()
-    return (IsUnitIllusionBJ(GetFilterUnit()) == true)
-end
-
-function Trig_Shifter_Bladestorm_START_Func004002003002()
-    return (GetOwningPlayer(GetFilterUnit()) == GetOwningPlayer(udg_SB_Caster))
-end
-
-function Trig_Shifter_Bladestorm_START_Func004002003()
-    return GetBooleanAnd(Trig_Shifter_Bladestorm_START_Func004002003001(), Trig_Shifter_Bladestorm_START_Func004002003002())
-end
-
-function Trig_Shifter_Bladestorm_START_Func006A()
-    udg_TEMP_Pos2 = GetUnitLoc(GetEnumUnit())
-    AddSpecialEffectLocBJ(udg_TEMP_Pos2, "Abilities\\Spells\\Undead\\DarkRitual\\DarkRitualTarget.mdl")
-    DestroyEffectBJ(GetLastCreatedEffectBJ())
-    RemoveUnit(GetEnumUnit())
-    CreateNUnitsAtLoc(1, FourCC("o006"), GetOwningPlayer(udg_SB_Caster), udg_TEMP_Pos2, GetRandomDirectionDeg())
-    SetUnitAbilityLevelSwapped(FourCC("A03O"), GetLastCreatedUnit(), udg_TEMP_Int)
-    UnitApplyTimedLifeBJ(14.00, FourCC("BTLF"), GetLastCreatedUnit())
-    IssueImmediateOrderBJ(GetLastCreatedUnit(), "whirlwind")
-        RemoveLocation ( udg_TEMP_Pos2 )
-end
-
-function Trig_Shifter_Bladestorm_START_Actions()
-    udg_SB_Caster = GetSpellAbilityUnit()
-    udg_TEMP_Pos_Hero = GetUnitLoc(udg_SB_Caster)
-    udg_TEMP_Int = GetUnitAbilityLevelSwapped(FourCC("A03C"), udg_SB_Caster)
-    udg_TEMP_UnitGroup = GetUnitsInRangeOfLocMatching(900.00, udg_TEMP_Pos_Hero, Condition(Trig_Shifter_Bladestorm_START_Func004002003))
-    udg_TEMP_Int2 = CountUnitsInGroup(udg_TEMP_UnitGroup)
-    ForGroupBJ(udg_TEMP_UnitGroup, Trig_Shifter_Bladestorm_START_Func006A)
-        DestroyGroup ( udg_TEMP_UnitGroup )
-        RemoveLocation ( udg_TEMP_Pos_Hero )
-end
-
-function InitTrig_Shifter_Bladestorm_START()
-    gg_trg_Shifter_Bladestorm_START = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Shifter_Bladestorm_START, EVENT_PLAYER_UNIT_SPELL_EFFECT)
-    TriggerAddCondition(gg_trg_Shifter_Bladestorm_START, Condition(Trig_Shifter_Bladestorm_START_Conditions))
-    TriggerAddAction(gg_trg_Shifter_Bladestorm_START, Trig_Shifter_Bladestorm_START_Actions)
 end
 
 function Trig_Paradox_INIT_Actions()
@@ -5166,8 +5006,8 @@ function Trig_Time_Travel_CAST_Actions()
     udg_CALC_ITERATIONS = udg_Spell_Level
     ConditionalTriggerExecute(gg_trg_FUNC_Calculate_Level_Factor)
     udg_TEMP_Real = udg_CALC_RESULT
-    udg_TEMP_UnitGroup = GetUnitsInRangeOfLocAll(150.00, udg_TEMP_Pos_Spell)
-    ForGroupBJ(udg_TEMP_UnitGroup, Trig_Time_Travel_CAST_Func018A)
+    udg_grp_TEMP_UnitGroup = GetUnitsInRangeOfLocAll(150.00, udg_TEMP_Pos_Spell)
+    ForGroupBJ(udg_grp_TEMP_UnitGroup, Trig_Time_Travel_CAST_Func018A)
         RemoveLocation ( udg_TEMP_Pos_Spell )
         DestroyGroup ( udg_TEMP_UnitGroup )
     if (Trig_Time_Travel_CAST_Func023C()) then
@@ -5250,7 +5090,7 @@ function InitTrig_Time_Travel_LOOP()
 end
 
 function Trig_Level_Up_Team_Func002C()
-    if (not (IsUnitAlly(GetLevelingUnit(), ForcePickRandomPlayer(udg_PLAYERGRPallied)) == true)) then
+    if (not (IsUnitAlly(GetLevelingUnit(), ForcePickRandomPlayer(udg_force_allied)) == true)) then
         return false
     end
     return true
@@ -5293,8 +5133,8 @@ function Trig_Level_Up_Team_Actions()
         udg_TEMP_Int2 = 2
     end
     udg_Hero_Levels[udg_TEMP_Int2] = GetHeroLevel(GetLevelingUnit())
-    udg_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Level_Up_Team_Func004002002))
-    ForGroupBJ(udg_TEMP_UnitGroup, Trig_Level_Up_Team_Func005A)
+    udg_grp_TEMP_UnitGroup = GetUnitsInRectMatching(GetPlayableMapRect(), Condition(Trig_Level_Up_Team_Func004002002))
+    ForGroupBJ(udg_grp_TEMP_UnitGroup, Trig_Level_Up_Team_Func005A)
     EnableTrigger(GetTriggeringTrigger())
 end
 
@@ -5330,10 +5170,10 @@ function Trig_Revive_Hero_Conditions()
 end
 
 function Trig_Revive_Hero_Func003Func003C()
-    if (IsPlayerInForce(GetOwningPlayer(GetDyingUnit()), udg_PLAYERGRPallied) == true) then
+    if (IsPlayerInForce(GetOwningPlayer(GetDyingUnit()), udg_force_allied) == true) then
         return true
     end
-    if (IsPlayerInForce(GetOwningPlayer(GetDyingUnit()), udg_PLAYERGRPfederation) == true) then
+    if (IsPlayerInForce(GetOwningPlayer(GetDyingUnit()), udg_force_federation) == true) then
         return true
     end
     return false
@@ -5348,13 +5188,13 @@ end
 
 function Trig_Revive_Hero_Actions()
     DisplayTextToForce(GetPlayersAll(), ((GetPlayerName(GetOwningPlayer(GetKillingUnitBJ())) .. (" (" .. (GetUnitName(GetKillingUnitBJ()) .. ") "))) .. ("killed " .. (GetPlayerName(GetOwningPlayer(GetDyingUnit())) .. (" (" .. (GetUnitName(GetDyingUnit()) .. ")"))))))
-    GroupAddUnitSimple(GetDyingUnit(), udg_RevivableHeros)
+    GroupAddUnitSimple(GetDyingUnit(), udg_grp_RevivableHeroes)
     if (Trig_Revive_Hero_Func003C()) then
         udg_TempReal = ((I2R(GetHeroLevel(GetDyingUnit())) * 3.00) + 70.00)
     else
         udg_TempReal = ((I2R(GetHeroLevel(GetDyingUnit())) * 1.50) + 8.00)
     end
-    StartTimerBJ(udg_ReviveTimers[GetConvertedPlayerId(GetOwningPlayer(GetDyingUnit()))], false, udg_TempReal)
+    StartTimerBJ(udg_timer_Revive[GetConvertedPlayerId(GetOwningPlayer(GetDyingUnit()))], false, udg_TempReal)
     CreateTimerDialogBJ(GetLastCreatedTimerBJ(), GetPlayerName(GetOwningPlayer(GetDyingUnit())))
     udg_ReviveTimerWindows[GetConvertedPlayerId(GetOwningPlayer(GetDyingUnit()))] = GetLastCreatedTimerDialogBJ()
 end
@@ -5367,24 +5207,24 @@ function InitTrig_Revive_Hero()
 end
 
 function Trig_Revive_Hero_Timer_Func001Func001Func002Func001C()
-    if (not (IsPlayerAlly(GetOwningPlayer(GetEnumUnit()), ForcePickRandomPlayer(udg_PLAYERGRPallied)) == true)) then
+    if (not (IsPlayerAlly(GetOwningPlayer(GetEnumUnit()), ForcePickRandomPlayer(udg_force_allied)) == true)) then
         return false
     end
     return true
 end
 
 function Trig_Revive_Hero_Timer_Func001Func001Func002Func003C()
-    if (not (IsPlayerInForce(GetOwningPlayer(GetEnumUnit()), udg_PLAYERGRPallied) == true)) then
+    if (not (IsPlayerInForce(GetOwningPlayer(GetEnumUnit()), udg_force_allied) == true)) then
         return false
     end
     return true
 end
 
 function Trig_Revive_Hero_Timer_Func001Func001Func002Func004C()
-    if (IsPlayerInForce(GetOwningPlayer(GetEnumUnit()), udg_PLAYERGRPallied) == true) then
+    if (IsPlayerInForce(GetOwningPlayer(GetEnumUnit()), udg_force_allied) == true) then
         return true
     end
-    if (IsPlayerInForce(GetOwningPlayer(GetEnumUnit()), udg_PLAYERGRPfederation) == true) then
+    if (IsPlayerInForce(GetOwningPlayer(GetEnumUnit()), udg_force_federation) == true) then
         return true
     end
     return false
@@ -5398,7 +5238,7 @@ function Trig_Revive_Hero_Timer_Func001Func001Func002C()
 end
 
 function Trig_Revive_Hero_Timer_Func001Func001C()
-    if (not (TimerGetRemaining(udg_ReviveTimers[GetConvertedPlayerId(GetOwningPlayer(GetEnumUnit()))]) < 1.00)) then
+    if (not (TimerGetRemaining(udg_timer_Revive[GetConvertedPlayerId(GetOwningPlayer(GetEnumUnit()))]) < 1.00)) then
         return false
     end
     return true
@@ -5425,7 +5265,7 @@ function Trig_Revive_Hero_Timer_Func001A()
             end
             ReviveHeroLoc(GetEnumUnit(), udg_TEMP_Pos_Hero, true)
         end
-        GroupRemoveUnitSimple(GetEnumUnit(), udg_RevivableHeros)
+        GroupRemoveUnitSimple(GetEnumUnit(), udg_grp_RevivableHeroes)
                 RemoveLocation ( udg_TEMP_Pos_Hero )
                 RemoveLocation ( udg_TEMP_Pos2 )
     else
@@ -5433,25 +5273,25 @@ function Trig_Revive_Hero_Timer_Func001A()
 end
 
 function Trig_Revive_Hero_Timer_Actions()
-    ForGroupBJ(udg_RevivableHeros, Trig_Revive_Hero_Timer_Func001A)
+    ForGroupBJ(udg_grp_RevivableHeroes, Trig_Revive_Hero_Timer_Func001A)
 end
 
 function InitTrig_Revive_Hero_Timer()
     gg_trg_Revive_Hero_Timer = CreateTrigger()
-    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_ReviveTimers[1])
-    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_ReviveTimers[2])
-    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_ReviveTimers[3])
-    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_ReviveTimers[4])
-    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_ReviveTimers[5])
-    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_ReviveTimers[6])
-    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_ReviveTimers[7])
-    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_ReviveTimers[8])
-    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_ReviveTimers[9])
-    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_ReviveTimers[10])
-    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_ReviveTimers[11])
-    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_ReviveTimers[12])
-    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_ReviveTimers[21])
-    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_ReviveTimers[24])
+    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_timer_Revive[1])
+    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_timer_Revive[2])
+    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_timer_Revive[3])
+    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_timer_Revive[4])
+    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_timer_Revive[5])
+    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_timer_Revive[6])
+    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_timer_Revive[7])
+    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_timer_Revive[8])
+    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_timer_Revive[9])
+    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_timer_Revive[10])
+    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_timer_Revive[11])
+    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_timer_Revive[12])
+    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_timer_Revive[21])
+    TriggerRegisterTimerExpireEventBJ(gg_trg_Revive_Hero_Timer, udg_timer_Revive[24])
     TriggerAddAction(gg_trg_Revive_Hero_Timer, Trig_Revive_Hero_Timer_Actions)
 end
 
@@ -5504,74 +5344,74 @@ function InitTrig_End_Of_Game_Right()
 end
 
 function Trig_baseAndHeals_Actions()
-    GroupAddUnitSimple(gg_unit_o001_0078, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_n001_0049, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_h006_0055, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_e003_0014, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_h003_0007, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_h00E_0081, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_nntt_0132, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_eshy_0047, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_nheb_0036, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_ndh2_0876, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_h01S_0352, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_hvlt_0406, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_n00K_0477, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_nheb_0036, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_h014_0158, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_hars_0293, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_hars_0303, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_u001_0098, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_hshy_0212, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_nmh1_0783, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_edob_0304, udg_UNIT_Bases[1])
-    GroupAddUnitSimple(gg_unit_o001_0075, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_n001_0048, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_h006_0074, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_e003_0058, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_h003_0015, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_h00E_0033, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_ndh2_0359, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_nntt_0135, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_eshy_0120, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_h01S_0553, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_hvlt_0207, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_n00K_0802, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_nheb_0109, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_h014_0017, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_hars_0355, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_hars_0292, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_u001_0097, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_hshy_0011, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_nmh1_0735, udg_UNIT_Bases[2])
-    GroupAddUnitSimple(gg_unit_edob_0315, udg_UNIT_Bases[2])
-    GroupAddGroup(udg_UNIT_Bases[2], udg_UNIT_Bases_Teleport[1])
-    GroupAddGroup(udg_UNIT_Bases[1], udg_UNIT_Bases_Teleport[2])
-    GroupAddUnitSimple(gg_unit_u001_0097, udg_UNIT_Healing[1])
-    GroupAddUnitSimple(gg_unit_o001_0075, udg_UNIT_Healing[1])
-    GroupAddUnitSimple(gg_unit_h00E_0033, udg_UNIT_Healing[1])
-    GroupAddUnitSimple(gg_unit_h003_0015, udg_UNIT_Healing[1])
-    GroupAddUnitSimple(gg_unit_e003_0058, udg_UNIT_Healing[1])
-    GroupAddUnitSimple(gg_unit_n001_0048, udg_UNIT_Healing[1])
-    GroupAddUnitSimple(gg_unit_h006_0074, udg_UNIT_Healing[1])
-    GroupAddUnitSimple(gg_unit_h01S_0553, udg_UNIT_Healing[1])
-    GroupAddUnitSimple(gg_unit_ndh2_0359, udg_UNIT_Healing[1])
-    GroupAddUnitSimple(gg_unit_nntt_0135, udg_UNIT_Healing[1])
-    GroupAddUnitSimple(gg_unit_nheb_0109, udg_UNIT_Healing[1])
-    GroupAddUnitSimple(gg_unit_h01S_0553, udg_UNIT_Healing[1])
-    GroupAddUnitSimple(gg_unit_nmh1_0735, udg_UNIT_Healing[1])
-    GroupAddUnitSimple(gg_unit_u001_0098, udg_UNIT_Healing[2])
-    GroupAddUnitSimple(gg_unit_o001_0078, udg_UNIT_Healing[2])
-    GroupAddUnitSimple(gg_unit_h00E_0081, udg_UNIT_Healing[2])
-    GroupAddUnitSimple(gg_unit_h003_0007, udg_UNIT_Healing[2])
-    GroupAddUnitSimple(gg_unit_e003_0014, udg_UNIT_Healing[2])
-    GroupAddUnitSimple(gg_unit_n001_0049, udg_UNIT_Healing[2])
-    GroupAddUnitSimple(gg_unit_h006_0055, udg_UNIT_Healing[2])
-    GroupAddUnitSimple(gg_unit_h01S_0352, udg_UNIT_Healing[2])
-    GroupAddUnitSimple(gg_unit_ndh2_0876, udg_UNIT_Healing[2])
-    GroupAddUnitSimple(gg_unit_nntt_0132, udg_UNIT_Healing[2])
-    GroupAddUnitSimple(gg_unit_nheb_0036, udg_UNIT_Healing[2])
-    GroupAddUnitSimple(gg_unit_nmh1_0783, udg_UNIT_Healing[2])
+    GroupAddUnitSimple(gg_unit_o001_0078, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_n001_0049, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_h006_0055, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_e003_0014, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_h003_0007, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_h00E_0081, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_nntt_0132, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_eshy_0047, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_nheb_0036, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_ndh2_0876, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_h01S_0352, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_hvlt_0406, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_n00K_0477, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_nheb_0036, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_h014_0158, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_hars_0293, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_hars_0303, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_u001_0098, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_hshy_0212, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_nmh1_0783, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_edob_0304, udg_grp_UNIT_Bases[1])
+    GroupAddUnitSimple(gg_unit_o001_0075, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_n001_0048, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_h006_0074, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_e003_0058, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_h003_0015, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_h00E_0033, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_ndh2_0359, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_nntt_0135, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_eshy_0120, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_h01S_0553, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_hvlt_0207, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_n00K_0802, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_nheb_0109, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_h014_0017, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_hars_0355, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_hars_0292, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_u001_0097, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_hshy_0011, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_nmh1_0735, udg_grp_UNIT_Bases[2])
+    GroupAddUnitSimple(gg_unit_edob_0315, udg_grp_UNIT_Bases[2])
+    GroupAddGroup(udg_grp_UNIT_Bases[2], udg_grp_Bases_Teleport[1])
+    GroupAddGroup(udg_grp_UNIT_Bases[1], udg_grp_Bases_Teleport[2])
+    GroupAddUnitSimple(gg_unit_u001_0097, udg_grp_Healing[1])
+    GroupAddUnitSimple(gg_unit_o001_0075, udg_grp_Healing[1])
+    GroupAddUnitSimple(gg_unit_h00E_0033, udg_grp_Healing[1])
+    GroupAddUnitSimple(gg_unit_h003_0015, udg_grp_Healing[1])
+    GroupAddUnitSimple(gg_unit_e003_0058, udg_grp_Healing[1])
+    GroupAddUnitSimple(gg_unit_n001_0048, udg_grp_Healing[1])
+    GroupAddUnitSimple(gg_unit_h006_0074, udg_grp_Healing[1])
+    GroupAddUnitSimple(gg_unit_h01S_0553, udg_grp_Healing[1])
+    GroupAddUnitSimple(gg_unit_ndh2_0359, udg_grp_Healing[1])
+    GroupAddUnitSimple(gg_unit_nntt_0135, udg_grp_Healing[1])
+    GroupAddUnitSimple(gg_unit_nheb_0109, udg_grp_Healing[1])
+    GroupAddUnitSimple(gg_unit_h01S_0553, udg_grp_Healing[1])
+    GroupAddUnitSimple(gg_unit_nmh1_0735, udg_grp_Healing[1])
+    GroupAddUnitSimple(gg_unit_u001_0098, udg_grp_Healing[2])
+    GroupAddUnitSimple(gg_unit_o001_0078, udg_grp_Healing[2])
+    GroupAddUnitSimple(gg_unit_h00E_0081, udg_grp_Healing[2])
+    GroupAddUnitSimple(gg_unit_h003_0007, udg_grp_Healing[2])
+    GroupAddUnitSimple(gg_unit_e003_0014, udg_grp_Healing[2])
+    GroupAddUnitSimple(gg_unit_n001_0049, udg_grp_Healing[2])
+    GroupAddUnitSimple(gg_unit_h006_0055, udg_grp_Healing[2])
+    GroupAddUnitSimple(gg_unit_h01S_0352, udg_grp_Healing[2])
+    GroupAddUnitSimple(gg_unit_ndh2_0876, udg_grp_Healing[2])
+    GroupAddUnitSimple(gg_unit_nntt_0132, udg_grp_Healing[2])
+    GroupAddUnitSimple(gg_unit_nheb_0036, udg_grp_Healing[2])
+    GroupAddUnitSimple(gg_unit_nmh1_0783, udg_grp_Healing[2])
 end
 
 function InitTrig_baseAndHeals()
@@ -5594,8 +5434,10 @@ function Trig_units_Actions()
     GroupAddUnitSimple(gg_unit_o00C_1011, udg_units)
     GroupAddUnitSimple(gg_unit_o00C_1005, udg_units)
     GroupAddUnitSimple(gg_unit_o00C_1009, udg_units)
-    GroupAddUnitSimple(gg_unit_o00C_1016, udg_units)
-    GroupAddUnitSimple(gg_unit_o00C_1013, udg_units)
+    GroupAddUnitSimple(gg_unit_o00C_1019, udg_units)
+    GroupAddUnitSimple(gg_unit_o00C_1018, udg_units)
+    GroupAddUnitSimple(gg_unit_o00C_1020, udg_units)
+    GroupAddUnitSimple(gg_unit_o00C_1021, udg_units)
     GroupAddUnitSimple(gg_unit_h002_0699, udg_units)
 end
 
@@ -5626,7 +5468,6 @@ function InitCustomTriggers()
     InitTrig_Drain_Loop()
     InitTrig_Unleash_Rage_Start()
     InitTrig_Unleash_Rage()
-    InitTrig_Shifter_Bladestorm_START()
     InitTrig_Paradox_INIT()
     InitTrig_Paradox_CAST()
     InitTrig_Paradox_LOOP()

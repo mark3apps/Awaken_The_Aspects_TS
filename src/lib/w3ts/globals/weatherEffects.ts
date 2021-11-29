@@ -1,4 +1,4 @@
-export const enum WEATHER {
+export const enum Weather {
     ashenvaleRainHeavy = 'RAhr', // Ashenvale Rain Heavy
     ashenvaleRainLight = 'RAlr', // Ashenvale Rain Light
     dalaranShield = 'MEds', // Dalaran Shield

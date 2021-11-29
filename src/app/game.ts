@@ -1,31 +1,27 @@
-
-
-import { DeathSpawn } from "./classes/abilities/deathSpawn"
+import { Rectangle, Unit, CameraSetup, Trigger, Force, Region } from "lib/w3ts/index"
+import { DeathSpawn } from "./abilities/deathSpawn"
+import { Gate } from "./abilities/gate"
+import { Ability } from "./classes/ability"
+import { Hero } from "./classes/hero"
+import { ItemType } from "./classes/itemType"
+import { Logger } from "./classes/log"
+import { BrawlerHeroType } from "./heroes/heroTypes/brawlerHeroType"
+import { ManaAddictHeroType } from "./heroes/heroTypes/manaAddictHeroType"
+import { ShiftMasterHeroType } from "./heroes/heroTypes/shiftMasterHeroType"
+import { TacticianHeroType } from "./heroes/heroTypes/tacticianHeroType"
+import { TimeMageHeroType } from "./heroes/heroTypes/timeMageHeroType"
+import { Army } from "./systems/army"
+import { Aspect } from "./systems/aspect"
+import { HeroAttribute } from "./systems/attribute"
+import { Banner } from "./systems/banner"
+import { Cinematic } from "./systems/cinematics"
+import { AspectOfFireEvent } from "./systems/event"
+import { Faction } from "./systems/faction"
+import { ItemUpgrade } from "./systems/itemUpgrade"
+import { Loc } from "./systems/loc"
 import { Pathing } from "./systems/pathing"
-import { Log } from "./systems/log"
-import { Gate } from "classes/abilities/gate"
-import { Cinematic } from "./classes/cinematics"
-import { Ability } from "classes/ability"
-import { NormalAbility } from "./classes/abilities/normalAbilities"
-import { HeroAttribute } from "classes/attribute"
-import { Army } from "classes/army"
-import { Force, Rectangle, Region, Trigger, Unit } from "lib/w3ts/index"
-import { Hero } from "app/classes/heroes/hero"
-import { Aspect } from "classes/aspect"
-import { Loc } from "classes/loc"
-import { Faction } from "classes/faction"
-import { Spawn } from "classes/spawn"
-import { ItemType } from "app/classes/itemType"
-import { TimeMageHeroType } from "classes/heroes/heroTypes/timeMageHeroType"
-import { TacticianHeroType } from "classes/heroes/heroTypes/tacticianHeroType"
-import { ShiftMasterHeroType } from "classes/heroes/heroTypes/shiftMasterHeroType"
-import { ManaAddictHeroType } from "classes/heroes/heroTypes/manaAddictHeroType"
-import { BrawlerHeroType } from "classes/heroes/heroTypes/brawlerHeroType"
-import { Load } from "classes/preload"
-import { ItemUpgrade } from "classes/heroes/itemUpgrade"
-import { Banner } from "classes/banner"
-import { AspectOfFireEvent } from "./classes/event"
-
+import { Load } from "./systems/preload"
+import { Spawn } from "./systems/spawn"
 
 
 export class Game {
@@ -33,7 +29,13 @@ export class Game {
 
     static mapInit = (): void => {
 
-        Log.Verbose("Game Init Start")
+        Logger.Verbose("Game Init Start")
+
+        // Define Map Globals
+        Rectangle.defineGlobals()
+        Unit.defineGlobals()
+        CameraSetup.defineGlobals()
+        Trigger.defineGlobals()
 
         ItemType.define()
         ItemUpgrade.define()
@@ -42,8 +44,7 @@ export class Game {
         Cinematic.onInit()
 
         Region.define()
-        Rectangle.define()
-        Unit.define()
+
         Trigger.define()
         Ability.define()
         
@@ -65,14 +66,14 @@ export class Game {
         Ability.initSpellEffects()
 
 
-        Log.Verbose("Game Init Finished")
+        Logger.Verbose("Game Init Finished")
     }
 
     static start = (): void => {
         FogEnableOff()
         FogMaskEnableOff()
 
-        Log.Verbose("Game Map Start")
+        Logger.Verbose("Game Map Start")
 
         
         Army.define()
@@ -80,7 +81,6 @@ export class Game {
         Faction.define()
         Spawn.define()
         Gate.define()
-        NormalAbility.define()
         Aspect.define()
         Banner.define()
         AspectOfFireEvent.define()
@@ -95,10 +95,10 @@ export class Game {
 
         Spawn.start()
 
-        Log.Verbose("Game Map Start Finished")
+        Logger.Verbose("Game Map Start Finished")
 
 
-        Log.Verbose("Start Hero Pick")
+        Logger.Verbose("Start Hero Pick")
 
 
 

@@ -1,4 +1,4 @@
-import { Log, LogLevel } from "app/systems/log"
+import { Logger, LogLevel } from "app/classes/log"
 import { addScriptHook, Timer, W3TS_HOOK } from "lib/w3ts/index"
 import { Game } from "./app/game"
 
@@ -12,13 +12,13 @@ import { Game } from "./app/game"
 
 const tsMain = () => {
 
-	Log.Level(LogLevel.Information)
+	Logger.Level(LogLevel.Information)
 
 	// Run at map Init
 	try {
 		Game.mapInit()
 	} catch (e) {
-		Log.Fatal(e)
+		Logger.Fatal(e)
 	}
 
 	// Run at Game Start
@@ -27,7 +27,7 @@ const tsMain = () => {
 		try {
 			Game.start()
 		} catch (e) {
-			Log.Fatal(e)
+			Logger.Fatal(e)
 		}
 
 	})

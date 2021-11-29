@@ -1,6 +1,5 @@
 import { UnitType } from "app/classes/unitType"
 
-
 export interface SpawnUnit {
     unitType: UnitType,
     amount?: number,
