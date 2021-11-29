@@ -91,7 +91,6 @@ export class Game {
         Load.units()
 
         Cinematic.startHeroSelector()
-        Cinematic.setupGameCamera()
 
         Spawn.start()
 
