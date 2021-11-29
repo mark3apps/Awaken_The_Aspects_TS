@@ -57,15 +57,21 @@ export class Position {
         return bj_RADTODEG * Atan2(value.y - this.y, value.x - this.x)
     }
 
-    public polarOffset(dist: number, angle: number): Position {
+    public angleZTo(value:Position): number {
+        const distance = this.distanceTo(value)
+        return bj_RADTODEG * Atan2(this.z - value.z, 0 - distance)
+    }
+
+    public polarProjection(dist: number, angle: number): Position {
         return new Position(this.x + dist * Cos(angle * bj_DEGTORAD), this.y + dist * Sin(angle * bj_DEGTORAD))
     }
 
-    public moveToPolarOffset(dist: number, angle: number): void {
-        this.position = this.polarOffset(dist, angle)
+    public moveToPolarProjection(dist: number, angle: number): void {
+        this.x = this.x + dist * Cos(angle * bj_DEGTORAD)
+        this.y = this.y + dist * Sin(angle * bj_DEGTORAD)
     }
 
-    public getParabolaZ(distanceTraveled: number, fullDistance: number, maximumHeight: number): number {
+    public getParabola(distanceTraveled: number, fullDistance: number, maximumHeight: number): number {
         return 4 * maximumHeight * distanceTraveled * (fullDistance - distanceTraveled) / (fullDistance * fullDistance)
     }
 
@@ -73,10 +79,10 @@ export class Position {
         PingMinimapEx(this.x, this.y, duration, red, green, blue, extraEffects)
     }
 
-    public set position(coor: Position) {
-        this.x = coor.x
-        this.y = coor.y
-        this.z = coor.z ?? this.z
+    public moveTo(pos: Position): void {
+        this.x = pos.x
+        this.y = pos.y
+        if (pos.z) {this.z = pos.z}
     }
 
     /**

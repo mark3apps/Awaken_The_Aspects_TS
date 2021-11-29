@@ -926,7 +926,8 @@ export class Unit extends Widget {
 	}
 
 	public moveToPolarProjection(dist: number, angle: number): void {
-		this.position = this.polarProjection(dist, angle)
+		this.x = this.x + dist * Cos(angle * bj_DEGTORAD)
+        this.y = this.y + dist * Sin(angle * bj_DEGTORAD)
 	}
 
 	/**

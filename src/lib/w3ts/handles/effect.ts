@@ -9,166 +9,176 @@ import { Widget } from "./widget"
 
 export class Effect extends Handle<effect> {
 
-  /**
-   * Creates a special effect at position
-   * @param modelName 
-   * @param pos  
-   */
-  constructor(modelName: string, pos: Position, blank?: number)
-  /**
-   * Creates a special effect.
-   * @param modelName The path of the model that the effect will use.
-   * @param x
-   * @param y
-   */
-  constructor(modelName: string, x: number, y: number)
-  /**
-   * Creates a special effect attached to a widget.
-   * @param modelName The path of the model that the effect will use.
-   * @param targetWidget The widget to attach the effect to.
-   * @param attachPointName The attachment point of the widget where the effect will
-   * be placed. Attachment points are points in a model that can be referenced to as
-   * areas for effects to be attached, whether it be from a spell or this function.
-   * If the attachment point does not exist, it will attach the effect to the model's origin.
-   */
-  constructor(modelName: string, targetWidget: Widget, attachPointName: string)
-  constructor(modelName: string, a: number | Widget | Position, b: number | string) {
-    if (Handle.initFromHandle()) {
-      super()
-    } else if (typeof a === "number" && typeof b === "number") {
-      super(AddSpecialEffect(modelName, a, b))
-    } else if (a instanceof Position) {
-      super(AddSpecialEffect(modelName, a.x, a.y))
-    } else if (typeof a !== "number" && typeof b === "string") {
-      super(AddSpecialEffectTarget(modelName, a.handle, b))
-    }
-  }
+	/**
+	 * Creates a special effect at position
+	 * @param modelName 
+	 * @param pos  
+	 */
+	constructor(modelName: string, pos: Position, blank?: number)
+	/**
+	 * Creates a special effect.
+	 * @param modelName The path of the model that the effect will use.
+	 * @param x
+	 * @param y
+	 */
+	constructor(modelName: string, x: number, y: number)
+	/**
+	 * Creates a special effect attached to a widget.
+	 * @param modelName The path of the model that the effect will use.
+	 * @param targetWidget The widget to attach the effect to.
+	 * @param attachPointName The attachment point of the widget where the effect will
+	 * be placed. Attachment points are points in a model that can be referenced to as
+	 * areas for effects to be attached, whether it be from a spell or this function.
+	 * If the attachment point does not exist, it will attach the effect to the model's origin.
+	 */
+	constructor(modelName: string, targetWidget: Widget, attachPointName: string)
+	constructor(modelName: string, a: number | Widget | Position, b: number | string) {
+		if (Handle.initFromHandle()) {
+			super()
 
-  public get scale() {
-    return BlzGetSpecialEffectScale(this.handle)
-  }
+		} else if (typeof a === "number" && typeof b === "number") {
+			super(AddSpecialEffect(modelName, a, b))
 
-  public set scale(scale: number) {
-    BlzSetSpecialEffectScale(this.handle, scale)
-  }
+		} else if (a instanceof Position) {
+			super(AddSpecialEffect(modelName, a.x, a.y))
+			if (a.z != null) { BlzSetSpecialEffectZ(this.handle, a.z) }
 
-  /**
-   * Warning: asynchronous
-   */
-  public get x() {
-    return BlzGetLocalSpecialEffectX(this.handle)
-  }
+		} else if (typeof a !== "number" && typeof b === "string") {
+			super(AddSpecialEffectTarget(modelName, a.handle, b))
+		}
+	}
 
-  public set x(x: number) {
-    BlzSetSpecialEffectX(this.handle, x)
-  }
+	public get scale(): number {
+		return BlzGetSpecialEffectScale(this.handle)
+	}
 
-  /**
-   * Warning: asynchronous
-   */
-  public get y() {
-    return BlzGetLocalSpecialEffectY(this.handle)
-  }
+	public set scale(scale: number) {
+		BlzSetSpecialEffectScale(this.handle, scale)
+	}
 
-  public set y(y: number) {
-    BlzSetSpecialEffectY(this.handle, y)
-  }
+	/**
+	 * Warning: asynchronous
+	 */
+	public get x(): number {
+		return BlzGetLocalSpecialEffectX(this.handle)
+	}
 
-  /**
-   * Warning: asynchronous
-   */
-  public get z() {
-    return BlzGetLocalSpecialEffectZ(this.handle)
-  }
+	public set x(x: number) {
+		BlzSetSpecialEffectX(this.handle, x)
+	}
 
-  public set z(z: number) {
-    BlzSetSpecialEffectZ(this.handle, z)
-  }
+	/**
+	 * Warning: asynchronous
+	 */
+	public get y(): number {
+		return BlzGetLocalSpecialEffectY(this.handle)
+	}
 
-  public addSubAnimation(subAnim: subanimtype) {
-    BlzSpecialEffectAddSubAnimation(this.handle, subAnim)
-  }
+	public set y(y: number) {
+		BlzSetSpecialEffectY(this.handle, y)
+	}
 
-  public clearSubAnimations() {
-    BlzSpecialEffectClearSubAnimations(this.handle)
-  }
+	/**
+	 * Warning: asynchronous
+	 */
+	public get z(): number {
+		return BlzGetLocalSpecialEffectZ(this.handle)
+	}
 
-  /**
-   * Destroy the effect handle. This will play the effect's death animation.
-   */
-  public destroy() {
-    DestroyEffect(this.handle)
-  }
+	public set z(z: number) {
+		BlzSetSpecialEffectZ(this.handle, z)
+	}
 
-  public playAnimation(animType: animtype) {
-    BlzPlaySpecialEffect(this.handle, animType)
-  }
+	public set position(pos: Position) {
+		BlzSetSpecialEffectX(this.handle, pos.x)
+		BlzSetSpecialEffectY(this.handle, pos.y)
+		if (pos.z != null) { BlzSetSpecialEffectZ(this.handle, pos.x) }
+	}
 
-  public playWithTimeScale(animType: animtype, timeScale: number) {
-    BlzPlaySpecialEffectWithTimeScale(this.handle, animType, timeScale)
-  }
+	public addSubAnimation(subAnim: subanimtype): void {
+		BlzSpecialEffectAddSubAnimation(this.handle, subAnim)
+	}
 
-  public removeSubAnimation(subAnim: subanimtype) {
-    BlzSpecialEffectRemoveSubAnimation(this.handle, subAnim)
-  }
+	public clearSubAnimations() {
+		BlzSpecialEffectClearSubAnimations(this.handle)
+	}
 
-  public resetScaleMatrix() {
-    BlzResetSpecialEffectMatrix(this.handle)
-  }
+	/**
+	 * Destroy the effect handle. This will play the effect's death animation.
+	 */
+	public destroy() {
+		DestroyEffect(this.handle)
+	}
 
-  public setAlpha(alpha: number) {
-    BlzSetSpecialEffectAlpha(this.handle, alpha)
-  }
+	public playAnimation(animType: animtype) {
+		BlzPlaySpecialEffect(this.handle, animType)
+	}
 
-  public setColor(red: number, green: number, blue: number) {
-    BlzSetSpecialEffectColor(this.handle, red, green, blue)
-  }
+	public playWithTimeScale(animType: animtype, timeScale: number) {
+		BlzPlaySpecialEffectWithTimeScale(this.handle, animType, timeScale)
+	}
 
-  public setColorByPlayer(whichPlayer: MapPlayer) {
-    BlzSetSpecialEffectColorByPlayer(this.handle, whichPlayer.handle)
-  }
+	public removeSubAnimation(subAnim: subanimtype) {
+		BlzSpecialEffectRemoveSubAnimation(this.handle, subAnim)
+	}
 
-  public setHeight(height: number) {
-    BlzSetSpecialEffectHeight(this.handle, height)
-  }
+	public resetScaleMatrix() {
+		BlzResetSpecialEffectMatrix(this.handle)
+	}
 
-  public setOrientation(yaw: number, pitch: number, roll: number) {
-    BlzSetSpecialEffectOrientation(this.handle, yaw, pitch, roll)
-  }
+	public setAlpha(alpha: number) {
+		BlzSetSpecialEffectAlpha(this.handle, alpha)
+	}
 
-  public setPitch(pitch: number) {
-    BlzSetSpecialEffectPitch(this.handle, pitch)
-  }
+	public setColor(red: number, green: number, blue: number) {
+		BlzSetSpecialEffectColor(this.handle, red, green, blue)
+	}
 
-  public setPoint(p: Point) {
-    BlzSetSpecialEffectPositionLoc(this.handle, p.handle)
-  }
+	public setColorByPlayer(whichPlayer: MapPlayer) {
+		BlzSetSpecialEffectColorByPlayer(this.handle, whichPlayer.handle)
+	}
 
-  public setPosition(x: number, y: number, z: number) {
-    BlzSetSpecialEffectPosition(this.handle, x, y, z)
-  }
+	public setHeight(height: number) {
+		BlzSetSpecialEffectHeight(this.handle, height)
+	}
 
-  public setRoll(roll: number) {
-    BlzSetSpecialEffectRoll(this.handle, roll)
-  }
+	public setOrientation(yaw: number, pitch: number, roll: number) {
+		BlzSetSpecialEffectOrientation(this.handle, yaw, pitch, roll)
+	}
 
-  public setScaleMatrix(x: number, y: number, z: number) {
-    BlzSetSpecialEffectMatrixScale(this.handle, x, y, z)
-  }
+	public setPitch(pitch: number) {
+		BlzSetSpecialEffectPitch(this.handle, pitch)
+	}
 
-  public setTime(value: number) {
-    BlzSetSpecialEffectTime(this.handle, value)
-  }
+	public setPoint(p: Point) {
+		BlzSetSpecialEffectPositionLoc(this.handle, p.handle)
+	}
 
-  public setTimeScale(timeScale: number) {
-    BlzSetSpecialEffectTimeScale(this.handle, timeScale)
-  }
+	public setPosition(x: number, y: number, z: number) {
+		BlzSetSpecialEffectPosition(this.handle, x, y, z)
+	}
 
-  public setYaw(y: number) {
-    BlzSetSpecialEffectYaw(this.handle, y)
-  }
+	public setRoll(roll: number) {
+		BlzSetSpecialEffectRoll(this.handle, roll)
+	}
 
-  public static fromHandle(handle: effect): Effect {
-    return this.getObject(handle)
-  }
+	public setScaleMatrix(x: number, y: number, z: number) {
+		BlzSetSpecialEffectMatrixScale(this.handle, x, y, z)
+	}
+
+	public setTime(value: number) {
+		BlzSetSpecialEffectTime(this.handle, value)
+	}
+
+	public setTimeScale(timeScale: number) {
+		BlzSetSpecialEffectTimeScale(this.handle, timeScale)
+	}
+
+	public setYaw(y: number) {
+		BlzSetSpecialEffectYaw(this.handle, y)
+	}
+
+	public static fromHandle(handle: effect): Effect {
+		return this.getObject(handle)
+	}
 }
