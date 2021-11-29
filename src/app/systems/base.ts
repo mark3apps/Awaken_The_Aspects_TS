@@ -29,11 +29,11 @@ export class Base {
         return this.baseUnit.isAlive()
     }
 
-    public randomStartCoordinate(): Position {
+    public randomStartPosition(): Position {
         return this.startLoc.rect.randomPosition
     }
 
-    public randomEndCoordinate(): Position {
+    public randomEndPosition(): Position {
         return this.endLoc.rect.randomPosition
     }
 

@@ -77,8 +77,8 @@ export class Spawn {
                 if (baseElement.isAlive()) {
                     for (let index = 0; index < unitElement.amount; index++) {
 
-                        const start = baseElement.randomStartCoordinate()
-                        const dest = baseElement.randomEndCoordinate()
+                        const start = baseElement.randomStartPosition()
+                        const dest = baseElement.randomEndPosition()
                         const p = baseElement.army.randomPlayer
                         const unitType = unitElement.unitType
 
