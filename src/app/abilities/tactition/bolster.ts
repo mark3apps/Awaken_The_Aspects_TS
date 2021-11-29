@@ -1,7 +1,7 @@
-import { Ability, EffectType, TargetType } from "app/classes/ability"
+import { Ability,} from "app/classes/ability"
 import { Logger } from "app/classes/log"
 import { Pathing } from "app/systems/pathing"
-import { AbilityFour, Order, Unit, Group, Force, Effect, AbilityModel, AttachPoint, BuffFour } from "lib/w3ts/index"
+import { AbilityFour, Order, Unit, Group, Force, Effect, AbilityModel, BuffFour } from "lib/w3ts/index"
 
 
 export class BolsterAbility extends Ability {

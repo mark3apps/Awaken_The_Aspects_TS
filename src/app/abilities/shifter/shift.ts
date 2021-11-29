@@ -1,4 +1,4 @@
-import { Ability, EffectType, TargetType } from "app/classes/ability"
+import { Ability } from "app/classes/ability"
 import { UnitType } from "app/classes/unitType"
 import { AbilityFour, Order, Unit, Effect, AbilityModel, Timer } from "lib/w3ts/index"
 

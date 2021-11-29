@@ -1,7 +1,7 @@
 import { Logger } from "app/classes/log"
 import { UnitType } from "app/classes/unitType"
 import { Pathing } from "app/systems/pathing"
-import { AttachPoint, AttachMod, AttachSpecial, Trigger, Unit, MapPlayer, AbilityFour, Timer, Effect } from "lib/w3ts/index"
+import { Trigger, Unit, MapPlayer, AbilityFour, Timer, Effect } from "lib/w3ts/index"
 
 
 

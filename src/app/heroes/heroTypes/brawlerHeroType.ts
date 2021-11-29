@@ -1,7 +1,6 @@
-import { Ability, EffectType, TargetType } from "app/classes/ability"
+import { Ability } from "app/classes/ability"
 import { UnitType } from "app/classes/unitType"
 import { HeroAttribute } from "app/systems/attribute"
-import { Strategy } from "lib/resources/strategy"
 import { HeroType } from "lib/w3ts/handles/herotype"
 import { AbilityFour, Order } from "lib/w3ts/index"
 

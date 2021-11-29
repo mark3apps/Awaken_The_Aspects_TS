@@ -1,4 +1,4 @@
-import { Ability, EffectType, TargetType } from "app/classes/ability"
+import { Ability } from "app/classes/ability"
 import { Logger } from "app/classes/log"
 import { UnitType } from "app/classes/unitType"
 import { AbilityFour, Order, Unit, Effect, CustomModel, Group, BuffFour } from "lib/w3ts/index"

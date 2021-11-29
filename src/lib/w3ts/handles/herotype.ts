@@ -2,7 +2,6 @@ import { Ability } from "app/classes/ability"
 import { ItemType } from "app/classes/itemType"
 import { UnitType } from "app/classes/unitType"
 import { HeroAttribute } from "app/systems/attribute"
-import { Strategy } from "lib/resources/strategy"
 import { Unit } from "./unit"
 
 

@@ -1,4 +1,4 @@
-import { Ability, EffectType, TargetType } from "app/classes/ability"
+import { Ability } from "app/classes/ability"
 import { Logger } from "app/classes/log"
 import { Position } from "app/classes/position"
 import { UnitType } from "app/classes/unitType"

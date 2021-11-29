@@ -1,6 +1,6 @@
 import { Logger } from "app/classes/log"
 import { CC2Four } from "lib/resources/library"
-import { AbilityFour, BuffFour, Order, AbilityModel, AttachPoint, Anim } from "../../lib/w3ts/index"
+import { AbilityFour, BuffFour, Order, AbilityModel, Anim } from "../../lib/w3ts/index"
 import { Effect } from "../../lib/w3ts/handles/effect"
 import { Group } from "../../lib/w3ts/handles/group"
 import { Timer } from "../../lib/w3ts/handles/timer"
@@ -8,51 +8,6 @@ import { Trigger } from "../../lib/w3ts/handles/trigger"
 import { Unit } from "../../lib/w3ts/handles/unit"
 import { UnitAbility } from "./unitAbility"
 import { UnitType } from "./unitType"
-
-
-
-export const enum EffectType {
-    Channel,
-    Instant,
-    InstantDelayedEffect,
-    ChannelInstantEffect,
-    Passive,
-    Death,
-    Kill,
-    Attacked,
-    Attacking,
-    UnitTypeAttacking,
-    Aura,
-    AutoCast,
-    None
-}
-
-export const enum TargetType {
-    DamageSingle,
-    DamageArea,
-    DamageAreaTarget,
-    DamageAround,
-    HealSingle,
-    HealSelf,
-    HealArea,
-    HealTargetArea,
-    HealAround,
-    CrippleSingle,
-    CrippleArea,
-    CrippleAreaTarget,
-    CrippleAround,
-    SupportSelf,
-    SupportSingle,
-    SupportArea,
-    SupportAreaTarget,
-    SupportAround,
-    ModifySingle,
-    ModifyArea,
-    ModifyAreaTarget,
-    ModifyAround,
-    Specific,
-    None
-}
 
 
 
@@ -360,7 +315,7 @@ export class Ability {
     static manaShieldTower: Ability
     static manaShardsTower: Ability
     static chainLightningTower: Ability
-    static coneOfFireTower : Ability
+    static coneOfFireTower: Ability
     static aspectOfDeathInfect: Ability
 
 
@@ -389,7 +344,7 @@ export class Ability {
                     new Effect(AbilityModel.spiritWalkerChange, eventUnit, AttachPoint.chest).destroy()
                     eventUnit.setAnimation(Anim.Footman.standVictory)
                 })
-                
+
             }
         }
 
