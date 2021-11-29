@@ -1,9 +1,8 @@
+import { Ability } from "app/classes/ability"
+import { ItemType } from "app/classes/itemType"
+import { UnitType } from "app/classes/unitType"
 import { HeroAttribute } from "app/systems/attribute"
-import { Unit } from "lib/w3ts/index"
-import { Ability } from "./ability"
-import { ItemType } from "./itemType"
-import { Logger } from "./log"
-import { UnitType } from "./unitType"
+import { Unit } from "./unit"
 
 
 export class HeroType extends UnitType {
@@ -52,7 +51,6 @@ export class HeroType extends UnitType {
         this.alter = typeAlter
 
         HeroType.map.set(this.id, this)
-        Logger.Information("Test", this.four)
         HeroSelector.addUnit(this.four)
 
     }

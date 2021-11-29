@@ -8,7 +8,7 @@ declare class HeroSelector {
     static autoDetectCategory: (unitCode: string) => null
     static initHeroes: () => null
     static setUnitReq: (unitCode: string, who) => null
-    static addUnit: (unitCode: string | number, onlyRandom?: boolean, requirement?) => null
+    static addUnit: (unitCode: string, onlyRandom?: boolean, requirement?) => null
     static setUnitCategory: (unitCode: string, category) => null
     static addUnitCategory: (unitCode: string, category) => null
     static addCategory: (icon, text) => null

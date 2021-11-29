@@ -3,7 +3,7 @@ import { AbilityMark } from "app/abilities/manaAddict/mark"
 import { Ability } from "app/classes/ability"
 import { UnitType } from "app/classes/unitType"
 import { HeroAttribute } from "app/systems/attribute"
-import { HeroType } from "app/classes/herotype"
+import { HeroType } from "lib/w3ts/handles/herotype"
 import { AbilityFour, Order, BuffFour } from "lib/w3ts/index"
 
 

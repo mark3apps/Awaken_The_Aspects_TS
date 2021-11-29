@@ -8,7 +8,6 @@ import { Trigger } from "../../lib/w3ts/handles/trigger"
 import { Unit } from "../../lib/w3ts/handles/unit"
 import { UnitAbility } from "./unitAbility"
 import { UnitType } from "./unitType"
-import { AttachPoint } from "lib/w3ts/globals/attachmentPoints"
 
 
 
