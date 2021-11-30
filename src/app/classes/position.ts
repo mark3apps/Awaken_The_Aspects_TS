@@ -1,17 +1,18 @@
+import { Orientation } from "lib/w3ts/handles/vector"
 import { Unit } from "lib/w3ts/index"
 
 
 export class Position {
-    x: number
-    y: number
-    z: number
+    protected _x: number
+    protected _y: number
+    protected _z: number
 
     private static itemType = FourCC("I00M")
 
     constructor(x: number, y: number, z?: number) {
-        this.x = x
-        this.y = y
-        this.z = z
+        this._x = x
+        this._y = y
+        this._z = z ?? 0
     }
 
     static fromSpellTarget(): Position {
@@ -19,7 +20,6 @@ export class Position {
     }
 
     static fromOrder(): Position {
-
         return new Position(GetOrderPointX(), GetOrderPointY())
     }
 
@@ -31,8 +31,28 @@ export class Position {
         return new Position(GetCameraTargetPositionX(), GetCameraTargetPositionY(), GetCameraTargetPositionZ())
     }
 
-    static fromXY(x: number, y: number, z?: number): Position {
-        return new Position(x, y, z)
+    public get x(): number {
+        return this._x
+    }
+
+    public set x(value: number) {
+        this._x = value
+    }
+
+    public get y(): number {
+        return this._y
+    }
+
+    public set y(value: number) {
+        this._y = value
+    }
+
+    public get z(): number {
+        return this._y
+    }
+
+    public set z(value: number) {
+        this._z = value
     }
 
     public isBlighted(): boolean {
@@ -53,13 +73,20 @@ export class Position {
         return SquareRoot(((value.x - this.x) * (value.x - this.x)) + ((value.y - this.y) * (value.y - this.y)))
     }
 
-    public angleTo(value: Position | Unit): number {
+    public yawTo(value: Position | Unit): number {
         return bj_RADTODEG * Atan2(value.y - this.y, value.x - this.x)
     }
 
-    public angleZTo(value:Position): number {
+    public pitchTo(value:Position): number {
         const distance = this.distanceTo(value)
         return bj_RADTODEG * Atan2(this.z - value.z, 0 - distance)
+    }
+
+    public orientationTo(pos: Position): Orientation {
+        const yaw = this.yawTo(pos)
+        const pitch = this.pitchTo(pos)
+
+        return {yaw: yaw, pitch: pitch}
     }
 
     public polarProjection(dist: number, angle: number): Position {
@@ -71,7 +98,7 @@ export class Position {
         this.y = this.y + dist * Sin(angle * bj_DEGTORAD)
     }
 
-    public getParabola(distanceTraveled: number, fullDistance: number, maximumHeight: number): number {
+    public getArc(distanceTraveled: number, fullDistance: number, maximumHeight: number): number {
         return 4 * maximumHeight * distanceTraveled * (fullDistance - distanceTraveled) / (fullDistance * fullDistance)
     }
 

@@ -1,9 +1,11 @@
 /** @noSelfInFile **/
 
 import { Position } from "app/classes/position"
+import { Color } from "../index"
 import { Handle } from "./handle"
 import { MapPlayer } from "./player"
 import { Point } from "./point"
+import { Coordinate, VectorInterface, Orientation } from "./vector"
 import { Widget } from "./widget"
 
 
@@ -14,7 +16,7 @@ export class Effect extends Handle<effect> {
 	 * @param modelName 
 	 * @param pos  
 	 */
-	constructor(modelName: string, pos: Position, blank?: number)
+	constructor(modelName: string, pos: Position, orientation?: Orientation)
 	/**
 	 * Creates a special effect.
 	 * @param modelName The path of the model that the effect will use.
@@ -32,7 +34,7 @@ export class Effect extends Handle<effect> {
 	 * If the attachment point does not exist, it will attach the effect to the model's origin.
 	 */
 	constructor(modelName: string, targetWidget: Widget, attachPointName: string)
-	constructor(modelName: string, a: number | Widget | Position, b: number | string) {
+	constructor(modelName: string, a: number | Widget | Position, b: number | string | Orientation) {
 		if (Handle.initFromHandle()) {
 			super()
 
@@ -42,6 +44,10 @@ export class Effect extends Handle<effect> {
 		} else if (a instanceof Position) {
 			super(AddSpecialEffect(modelName, a.x, a.y))
 			if (a.z != null) { BlzSetSpecialEffectZ(this.handle, a.z) }
+			if (b != null) {
+				const orientation = b as Orientation
+				BlzSetSpecialEffectOrientation(this.handle, orientation.yaw, orientation.pitch, orientation.roll)
+			}
 
 		} else if (typeof a !== "number" && typeof b === "string") {
 			super(AddSpecialEffectTarget(modelName, a.handle, b))
@@ -89,93 +95,108 @@ export class Effect extends Handle<effect> {
 		BlzSetSpecialEffectZ(this.handle, z)
 	}
 
-	public set position(pos: Position) {
+	public set position(pos: Position | Coordinate) {
 		BlzSetSpecialEffectX(this.handle, pos.x)
 		BlzSetSpecialEffectY(this.handle, pos.y)
 		if (pos.z != null) { BlzSetSpecialEffectZ(this.handle, pos.x) }
+	}
+
+
+	public set color(color: Color) {
+		BlzSetSpecialEffectColor(this.handle, color.red, color.green, color.blue)
+		BlzSetSpecialEffectAlpha(this.handle, color.alpha)
 	}
 
 	public addSubAnimation(subAnim: subanimtype): void {
 		BlzSpecialEffectAddSubAnimation(this.handle, subAnim)
 	}
 
-	public clearSubAnimations() {
+	public clearSubAnimations(): void {
 		BlzSpecialEffectClearSubAnimations(this.handle)
 	}
 
 	/**
 	 * Destroy the effect handle. This will play the effect's death animation.
 	 */
-	public destroy() {
+	public destroy(): void {
 		DestroyEffect(this.handle)
 	}
 
-	public playAnimation(animType: animtype) {
+	public playAnimation(animType: animtype): void {
 		BlzPlaySpecialEffect(this.handle, animType)
 	}
 
-	public playWithTimeScale(animType: animtype, timeScale: number) {
+	public playWithTimeScale(animType: animtype, timeScale: number): void {
 		BlzPlaySpecialEffectWithTimeScale(this.handle, animType, timeScale)
 	}
 
-	public removeSubAnimation(subAnim: subanimtype) {
+	public removeSubAnimation(subAnim: subanimtype): void {
 		BlzSpecialEffectRemoveSubAnimation(this.handle, subAnim)
 	}
 
-	public resetScaleMatrix() {
+	public resetScaleMatrix(): void {
 		BlzResetSpecialEffectMatrix(this.handle)
 	}
 
-	public setAlpha(alpha: number) {
+	public setAlpha(alpha: number): void {
 		BlzSetSpecialEffectAlpha(this.handle, alpha)
 	}
 
-	public setColor(red: number, green: number, blue: number) {
+	public setColor(red: number, green: number, blue: number): void {
 		BlzSetSpecialEffectColor(this.handle, red, green, blue)
 	}
 
-	public setColorByPlayer(whichPlayer: MapPlayer) {
+	public setColorByPlayer(whichPlayer: MapPlayer): void {
 		BlzSetSpecialEffectColorByPlayer(this.handle, whichPlayer.handle)
 	}
 
-	public setHeight(height: number) {
+	public setHeight(height: number): void {
 		BlzSetSpecialEffectHeight(this.handle, height)
 	}
 
-	public setOrientation(yaw: number, pitch: number, roll: number) {
+	public setOrientation(yaw: number, pitch: number, roll: number): void {
 		BlzSetSpecialEffectOrientation(this.handle, yaw, pitch, roll)
 	}
 
-	public setPitch(pitch: number) {
-		BlzSetSpecialEffectPitch(this.handle, pitch)
-	}
-
-	public setPoint(p: Point) {
+	public setPoint(p: Point): void {
 		BlzSetSpecialEffectPositionLoc(this.handle, p.handle)
 	}
 
-	public setPosition(x: number, y: number, z: number) {
+	public setPosition(x: number, y: number, z: number): void {
 		BlzSetSpecialEffectPosition(this.handle, x, y, z)
 	}
 
-	public setRoll(roll: number) {
-		BlzSetSpecialEffectRoll(this.handle, roll)
-	}
-
-	public setScaleMatrix(x: number, y: number, z: number) {
+	public setScaleMatrix(x: number, y: number, z: number): void {
 		BlzSetSpecialEffectMatrixScale(this.handle, x, y, z)
 	}
 
-	public setTime(value: number) {
+	public setTime(value: number): void {
 		BlzSetSpecialEffectTime(this.handle, value)
 	}
 
-	public setTimeScale(timeScale: number) {
+	public setTimeScale(timeScale: number): void {
 		BlzSetSpecialEffectTimeScale(this.handle, timeScale)
 	}
 
-	public setYaw(y: number) {
+	public set yaw(y: number) {
 		BlzSetSpecialEffectYaw(this.handle, y)
+	}
+
+	public set roll(roll: number) {
+		BlzSetSpecialEffectRoll(this.handle, roll)
+	}
+
+	public set pitch(pitch: number) {
+		BlzSetSpecialEffectPitch(this.handle, pitch)
+	}
+
+	public set orientation(ray: Orientation) {
+		BlzSetSpecialEffectOrientation(this.handle, ray.yaw, ray.pitch, ray.roll)
+	}
+
+	public set vector(vector: VectorInterface) {
+		this.position = vector
+		this.orientation = vector
 	}
 
 	public static fromHandle(handle: effect): Effect {

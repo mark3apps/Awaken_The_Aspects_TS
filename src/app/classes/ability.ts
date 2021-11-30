@@ -360,9 +360,9 @@ export class Ability {
     static manaShieldTower: Ability
     static manaShardsTower: Ability
     static chainLightningTower: Ability
-    static coneOfFireTower : Ability
+    static coneOfFireTower: Ability
     static aspectOfDeathInfect: Ability
-
+    static stormCrowForm: Ability
 
     static define(): void {
 
@@ -370,15 +370,10 @@ export class Ability {
         Ability.shift1Dummy = new Ability({ four: AbilityFour.ItemIllusions, orderId: Order.Illusion })
         Ability.fallingStrikeDummy = new Ability({ four: AbilityFour.FallingStrikeDummy, orderId: Order.Creepthunderclap })
         Ability.shadeStormDummy = new Ability({ four: "A03O", orderId: Order.Whirlwind })
+        Ability.stormCrowForm = new Ability({four: AbilityFour.StormCrowForm, orderId: Order.Ravenform})
 
         // Footman Upgrade
-        Ability.footmanUpgrade = new Ability({
-            four: AbilityFour.FootmanCharge,
-            orderId: Order.Bearform,
-            type: EffectType.Instant,
-            target: TargetType.SupportSelf,
-            addEffect: true
-        })
+        Ability.footmanUpgrade = new Ability({ four: AbilityFour.FootmanCharge, orderId: Order.Bearform, type: EffectType.Instant, target: TargetType.SupportSelf, addEffect: true })
         Ability.footmanUpgrade.onEffect = () => {
             const eventUnit = Unit.fromEvent()
             if (eventUnit.manaPercent == 100) {
@@ -389,7 +384,7 @@ export class Ability {
                     new Effect(AbilityModel.spiritWalkerChange, eventUnit, AttachPoint.chest).destroy()
                     eventUnit.setAnimation(Anim.Footman.standVictory)
                 })
-                
+
             }
         }
 
@@ -433,7 +428,8 @@ export class Ability {
             target: TargetType.SupportSingle,
             orderId: Order.Recharge,
             addEffect: true
-        })
+        }
+        )
 
         Ability.manaRepository.onEffect = () => {
             const eventUnit = Unit.fromAttacking()

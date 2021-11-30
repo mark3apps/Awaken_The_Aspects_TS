@@ -9,7 +9,7 @@ import { UnitData } from "app/systems/unitData"
 import { CC2Four } from "lib/resources/library"
 import { OrderType } from "lib/resources/orderType"
 import { PrimaryAttribute } from "../globals/primaryAttribute"
-import { Order, BuffFour } from "../index"
+import { Order, BuffFour, AbilityFour } from "../index"
 import { Destructable } from "./destructable"
 import { Force } from "./force"
 import { Group } from "./group"
@@ -527,18 +527,36 @@ export class Unit extends Widget {
 		SetUnitY(this.handle, value)
 	}
 
+	public get staticZ(): number {
+		return BlzGetUnitZ(this.handle)
+	}
+
+	public get z(): number {
+		return GetUnitFlyHeight(this.handle)
+	}
+
+	public set z(value: number) {
+
+		if (!this.data.setAsFlying && !this.isFlying) {
+			this.addAbility(AbilityFour.StormCrowForm)
+			this.removeAbility(AbilityFour.StormCrowForm)
+			this.data.setAsFlying = true
+		}
+
+		SetUnitFlyHeight(this.handle, value, 100000000)
+	}
+
+
 	public get position(): Position {
-		return new Position(this.x, this.y)
+		return new Position(this.x, this.y, this.z)
 	}
 
 	public set position(value: Position) {
 		this.x = value.x
 		this.y = value.y
+		this.z = value.z ?? this.z
 	}
 
-	public get z(): number {
-		return BlzGetUnitZ(this.handle)
-	}
 
 	public get kills(): number {
 		return this.data.kills
@@ -927,7 +945,7 @@ export class Unit extends Widget {
 
 	public moveToPolarProjection(dist: number, angle: number): void {
 		this.x = this.x + dist * Cos(angle * bj_DEGTORAD)
-        this.y = this.y + dist * Sin(angle * bj_DEGTORAD)
+		this.y = this.y + dist * Sin(angle * bj_DEGTORAD)
 	}
 
 	/**
@@ -1710,126 +1728,126 @@ export class Unit extends Widget {
 	}
 
 	//// AUTO DEFINE
-    static h003_0015: Unit
-    static e003_0058: Unit
-    static n001_0048: Unit
-    static n001_0049: Unit
-    static o001_0078: Unit
-    static h006_0074: Unit
-    static nmh1_0783: Unit
-    static h003_0007: Unit
-    static o001_0075: Unit
-    static hars_0293: Unit
-    static nntt_0135: Unit
-    static uabo_0493: Unit
-    static h006_0055: Unit
-    static h00E_0033: Unit
-    static eshy_0120: Unit
-    static nntt_0132: Unit
-    static hshy_0011: Unit
-    static hvlt_0406: Unit
-    static nmsc_0644: Unit
-    static eshy_0047: Unit
-    static h00E_0081: Unit
-    static hars_0303: Unit
-    static nheb_0036: Unit
-    static e003_0014: Unit
-    static nheb_0109: Unit
-    static n00K_0477: Unit
-    static nmsc_0450: Unit
-    static h014_0017: Unit
-    static hshy_0212: Unit
-    static n00K_0802: Unit
-    static hvlt_0207: Unit
-    static edob_0315: Unit
-    static hars_0355: Unit
-    static hars_0292: Unit
-    static h014_0158: Unit
-    static nmh1_0735: Unit
-    static h01S_0553: Unit
-    static nelb_0697: Unit
-    static u001_0097: Unit
-    static u001_0098: Unit
-    static ndh2_0359: Unit
-    static ndh2_0876: Unit
-    static edob_0304: Unit
-    static n00N_0769: Unit
-    static h002_0699: Unit
-    static n00N_0939: Unit
-    static nelb_0194: Unit
-    static uabo_0263: Unit
-    static h01S_0352: Unit
-    static n01A_0399: Unit
-    static n01A_0569: Unit
-    static o00C_1008: Unit
-    static o00C_1005: Unit
-    static o00C_1009: Unit
-    static o00C_1011: Unit
-    static o00C_1018: Unit
-    static o00C_1019: Unit
-    static o00C_1020: Unit
-    static o00C_1021: Unit
+	static h003_0015: Unit
+	static e003_0058: Unit
+	static n001_0048: Unit
+	static n001_0049: Unit
+	static o001_0078: Unit
+	static h006_0074: Unit
+	static nmh1_0783: Unit
+	static h003_0007: Unit
+	static o001_0075: Unit
+	static hars_0293: Unit
+	static nntt_0135: Unit
+	static uabo_0493: Unit
+	static h006_0055: Unit
+	static h00E_0033: Unit
+	static eshy_0120: Unit
+	static nntt_0132: Unit
+	static hshy_0011: Unit
+	static hvlt_0406: Unit
+	static nmsc_0644: Unit
+	static eshy_0047: Unit
+	static h00E_0081: Unit
+	static hars_0303: Unit
+	static nheb_0036: Unit
+	static e003_0014: Unit
+	static nheb_0109: Unit
+	static n00K_0477: Unit
+	static nmsc_0450: Unit
+	static h014_0017: Unit
+	static hshy_0212: Unit
+	static n00K_0802: Unit
+	static hvlt_0207: Unit
+	static edob_0315: Unit
+	static hars_0355: Unit
+	static hars_0292: Unit
+	static h014_0158: Unit
+	static nmh1_0735: Unit
+	static h01S_0553: Unit
+	static nelb_0697: Unit
+	static u001_0097: Unit
+	static u001_0098: Unit
+	static ndh2_0359: Unit
+	static ndh2_0876: Unit
+	static edob_0304: Unit
+	static n00N_0769: Unit
+	static h002_0699: Unit
+	static n00N_0939: Unit
+	static nelb_0194: Unit
+	static uabo_0263: Unit
+	static h01S_0352: Unit
+	static n01A_0399: Unit
+	static n01A_0569: Unit
+	static o00C_1008: Unit
+	static o00C_1005: Unit
+	static o00C_1009: Unit
+	static o00C_1011: Unit
+	static o00C_1018: Unit
+	static o00C_1019: Unit
+	static o00C_1020: Unit
+	static o00C_1021: Unit
 
-    static defineGlobals(): void {
-        Unit.h003_0015 = Unit.fromHandle(gg_unit_h003_0015)
-        Unit.e003_0058 = Unit.fromHandle(gg_unit_e003_0058)
-        Unit.n001_0048 = Unit.fromHandle(gg_unit_n001_0048)
-        Unit.n001_0049 = Unit.fromHandle(gg_unit_n001_0049)
-        Unit.o001_0078 = Unit.fromHandle(gg_unit_o001_0078)
-        Unit.h006_0074 = Unit.fromHandle(gg_unit_h006_0074)
-        Unit.nmh1_0783 = Unit.fromHandle(gg_unit_nmh1_0783)
-        Unit.h003_0007 = Unit.fromHandle(gg_unit_h003_0007)
-        Unit.o001_0075 = Unit.fromHandle(gg_unit_o001_0075)
-        Unit.hars_0293 = Unit.fromHandle(gg_unit_hars_0293)
-        Unit.nntt_0135 = Unit.fromHandle(gg_unit_nntt_0135)
-        Unit.uabo_0493 = Unit.fromHandle(gg_unit_uabo_0493)
-        Unit.h006_0055 = Unit.fromHandle(gg_unit_h006_0055)
-        Unit.h00E_0033 = Unit.fromHandle(gg_unit_h00E_0033)
-        Unit.eshy_0120 = Unit.fromHandle(gg_unit_eshy_0120)
-        Unit.nntt_0132 = Unit.fromHandle(gg_unit_nntt_0132)
-        Unit.hshy_0011 = Unit.fromHandle(gg_unit_hshy_0011)
-        Unit.hvlt_0406 = Unit.fromHandle(gg_unit_hvlt_0406)
-        Unit.nmsc_0644 = Unit.fromHandle(gg_unit_nmsc_0644)
-        Unit.eshy_0047 = Unit.fromHandle(gg_unit_eshy_0047)
-        Unit.h00E_0081 = Unit.fromHandle(gg_unit_h00E_0081)
-        Unit.hars_0303 = Unit.fromHandle(gg_unit_hars_0303)
-        Unit.nheb_0036 = Unit.fromHandle(gg_unit_nheb_0036)
-        Unit.e003_0014 = Unit.fromHandle(gg_unit_e003_0014)
-        Unit.nheb_0109 = Unit.fromHandle(gg_unit_nheb_0109)
-        Unit.n00K_0477 = Unit.fromHandle(gg_unit_n00K_0477)
-        Unit.nmsc_0450 = Unit.fromHandle(gg_unit_nmsc_0450)
-        Unit.h014_0017 = Unit.fromHandle(gg_unit_h014_0017)
-        Unit.hshy_0212 = Unit.fromHandle(gg_unit_hshy_0212)
-        Unit.n00K_0802 = Unit.fromHandle(gg_unit_n00K_0802)
-        Unit.hvlt_0207 = Unit.fromHandle(gg_unit_hvlt_0207)
-        Unit.edob_0315 = Unit.fromHandle(gg_unit_edob_0315)
-        Unit.hars_0355 = Unit.fromHandle(gg_unit_hars_0355)
-        Unit.hars_0292 = Unit.fromHandle(gg_unit_hars_0292)
-        Unit.h014_0158 = Unit.fromHandle(gg_unit_h014_0158)
-        Unit.nmh1_0735 = Unit.fromHandle(gg_unit_nmh1_0735)
-        Unit.h01S_0553 = Unit.fromHandle(gg_unit_h01S_0553)
-        Unit.nelb_0697 = Unit.fromHandle(gg_unit_nelb_0697)
-        Unit.u001_0097 = Unit.fromHandle(gg_unit_u001_0097)
-        Unit.u001_0098 = Unit.fromHandle(gg_unit_u001_0098)
-        Unit.ndh2_0359 = Unit.fromHandle(gg_unit_ndh2_0359)
-        Unit.ndh2_0876 = Unit.fromHandle(gg_unit_ndh2_0876)
-        Unit.edob_0304 = Unit.fromHandle(gg_unit_edob_0304)
-        Unit.n00N_0769 = Unit.fromHandle(gg_unit_n00N_0769)
-        Unit.h002_0699 = Unit.fromHandle(gg_unit_h002_0699)
-        Unit.n00N_0939 = Unit.fromHandle(gg_unit_n00N_0939)
-        Unit.nelb_0194 = Unit.fromHandle(gg_unit_nelb_0194)
-        Unit.uabo_0263 = Unit.fromHandle(gg_unit_uabo_0263)
-        Unit.h01S_0352 = Unit.fromHandle(gg_unit_h01S_0352)
-        Unit.n01A_0399 = Unit.fromHandle(gg_unit_n01A_0399)
-        Unit.n01A_0569 = Unit.fromHandle(gg_unit_n01A_0569)
-        Unit.o00C_1008 = Unit.fromHandle(gg_unit_o00C_1008)
-        Unit.o00C_1005 = Unit.fromHandle(gg_unit_o00C_1005)
-        Unit.o00C_1009 = Unit.fromHandle(gg_unit_o00C_1009)
-        Unit.o00C_1011 = Unit.fromHandle(gg_unit_o00C_1011)
-        Unit.o00C_1018 = Unit.fromHandle(gg_unit_o00C_1018)
-        Unit.o00C_1019 = Unit.fromHandle(gg_unit_o00C_1019)
-        Unit.o00C_1020 = Unit.fromHandle(gg_unit_o00C_1020)
-        Unit.o00C_1021 = Unit.fromHandle(gg_unit_o00C_1021)
-    }
-    //// AUTO DEFINE
+	static defineGlobals(): void {
+		Unit.h003_0015 = Unit.fromHandle(gg_unit_h003_0015)
+		Unit.e003_0058 = Unit.fromHandle(gg_unit_e003_0058)
+		Unit.n001_0048 = Unit.fromHandle(gg_unit_n001_0048)
+		Unit.n001_0049 = Unit.fromHandle(gg_unit_n001_0049)
+		Unit.o001_0078 = Unit.fromHandle(gg_unit_o001_0078)
+		Unit.h006_0074 = Unit.fromHandle(gg_unit_h006_0074)
+		Unit.nmh1_0783 = Unit.fromHandle(gg_unit_nmh1_0783)
+		Unit.h003_0007 = Unit.fromHandle(gg_unit_h003_0007)
+		Unit.o001_0075 = Unit.fromHandle(gg_unit_o001_0075)
+		Unit.hars_0293 = Unit.fromHandle(gg_unit_hars_0293)
+		Unit.nntt_0135 = Unit.fromHandle(gg_unit_nntt_0135)
+		Unit.uabo_0493 = Unit.fromHandle(gg_unit_uabo_0493)
+		Unit.h006_0055 = Unit.fromHandle(gg_unit_h006_0055)
+		Unit.h00E_0033 = Unit.fromHandle(gg_unit_h00E_0033)
+		Unit.eshy_0120 = Unit.fromHandle(gg_unit_eshy_0120)
+		Unit.nntt_0132 = Unit.fromHandle(gg_unit_nntt_0132)
+		Unit.hshy_0011 = Unit.fromHandle(gg_unit_hshy_0011)
+		Unit.hvlt_0406 = Unit.fromHandle(gg_unit_hvlt_0406)
+		Unit.nmsc_0644 = Unit.fromHandle(gg_unit_nmsc_0644)
+		Unit.eshy_0047 = Unit.fromHandle(gg_unit_eshy_0047)
+		Unit.h00E_0081 = Unit.fromHandle(gg_unit_h00E_0081)
+		Unit.hars_0303 = Unit.fromHandle(gg_unit_hars_0303)
+		Unit.nheb_0036 = Unit.fromHandle(gg_unit_nheb_0036)
+		Unit.e003_0014 = Unit.fromHandle(gg_unit_e003_0014)
+		Unit.nheb_0109 = Unit.fromHandle(gg_unit_nheb_0109)
+		Unit.n00K_0477 = Unit.fromHandle(gg_unit_n00K_0477)
+		Unit.nmsc_0450 = Unit.fromHandle(gg_unit_nmsc_0450)
+		Unit.h014_0017 = Unit.fromHandle(gg_unit_h014_0017)
+		Unit.hshy_0212 = Unit.fromHandle(gg_unit_hshy_0212)
+		Unit.n00K_0802 = Unit.fromHandle(gg_unit_n00K_0802)
+		Unit.hvlt_0207 = Unit.fromHandle(gg_unit_hvlt_0207)
+		Unit.edob_0315 = Unit.fromHandle(gg_unit_edob_0315)
+		Unit.hars_0355 = Unit.fromHandle(gg_unit_hars_0355)
+		Unit.hars_0292 = Unit.fromHandle(gg_unit_hars_0292)
+		Unit.h014_0158 = Unit.fromHandle(gg_unit_h014_0158)
+		Unit.nmh1_0735 = Unit.fromHandle(gg_unit_nmh1_0735)
+		Unit.h01S_0553 = Unit.fromHandle(gg_unit_h01S_0553)
+		Unit.nelb_0697 = Unit.fromHandle(gg_unit_nelb_0697)
+		Unit.u001_0097 = Unit.fromHandle(gg_unit_u001_0097)
+		Unit.u001_0098 = Unit.fromHandle(gg_unit_u001_0098)
+		Unit.ndh2_0359 = Unit.fromHandle(gg_unit_ndh2_0359)
+		Unit.ndh2_0876 = Unit.fromHandle(gg_unit_ndh2_0876)
+		Unit.edob_0304 = Unit.fromHandle(gg_unit_edob_0304)
+		Unit.n00N_0769 = Unit.fromHandle(gg_unit_n00N_0769)
+		Unit.h002_0699 = Unit.fromHandle(gg_unit_h002_0699)
+		Unit.n00N_0939 = Unit.fromHandle(gg_unit_n00N_0939)
+		Unit.nelb_0194 = Unit.fromHandle(gg_unit_nelb_0194)
+		Unit.uabo_0263 = Unit.fromHandle(gg_unit_uabo_0263)
+		Unit.h01S_0352 = Unit.fromHandle(gg_unit_h01S_0352)
+		Unit.n01A_0399 = Unit.fromHandle(gg_unit_n01A_0399)
+		Unit.n01A_0569 = Unit.fromHandle(gg_unit_n01A_0569)
+		Unit.o00C_1008 = Unit.fromHandle(gg_unit_o00C_1008)
+		Unit.o00C_1005 = Unit.fromHandle(gg_unit_o00C_1005)
+		Unit.o00C_1009 = Unit.fromHandle(gg_unit_o00C_1009)
+		Unit.o00C_1011 = Unit.fromHandle(gg_unit_o00C_1011)
+		Unit.o00C_1018 = Unit.fromHandle(gg_unit_o00C_1018)
+		Unit.o00C_1019 = Unit.fromHandle(gg_unit_o00C_1019)
+		Unit.o00C_1020 = Unit.fromHandle(gg_unit_o00C_1020)
+		Unit.o00C_1021 = Unit.fromHandle(gg_unit_o00C_1021)
+	}
+	//// AUTO DEFINE
 }

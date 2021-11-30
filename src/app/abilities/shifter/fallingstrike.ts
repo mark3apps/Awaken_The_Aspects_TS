@@ -35,7 +35,7 @@ export class FallingStrikeAbility extends Ability {
 
             // Calculate some vars
             let distanceTravelled = 0
-            const angle = startPos.angleTo(spellTarget)
+            const angle = startPos.yawTo(spellTarget)
             const fullDistance = startPos.distanceTo(spellTarget)
             const maximumHeight = fullDistance * 0.5
 

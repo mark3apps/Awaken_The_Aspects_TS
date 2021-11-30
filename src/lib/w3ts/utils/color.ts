@@ -1,5 +1,5 @@
 export class Color {
-  readonly alpha: ColorValue;
+  readonly alpha: ColorValue
 
   public constructor(
     readonly red: ColorValue,
@@ -8,61 +8,61 @@ export class Color {
     alpha?: ColorValue
   ) {
     if (alpha) {
-      this.alpha = alpha;
+      this.alpha = alpha
     } else {
-      this.alpha = 255;
+      this.alpha = 255
     }
   }
 
   /** Create a string code for coloring text. */
-  public get code() {
+  public get code(): string {
     return (
       `|c${toHex(this.alpha)}${toHex(this.red)}` +
       `${toHex(this.green)}${toHex(this.blue)}`
-    );
+    )
   }
 
-  public equals(other: Color) {
+  public equals(other: Color): boolean {
     return (
       this.red == other.red &&
       this.green == other.green &&
       this.blue == other.blue &&
       this.alpha == other.alpha
-    );
+    )
   }
 
   private playerColorIndex() {
-    let i = 0;
+    let i = 0
     for (; i < playerColors.length; i++) {
       if (playerColors[i].equals(this)) {
-        break;
+        break
       }
     }
-    return i;
+    return i
   }
 
   /**
    * Returns the name of this color, if it is one of other player colors.
    * Otherwise returns 'unknown'.
    */
-  public get name() {
-    const index = this.playerColorIndex();
+  public get name(): string {
+    const index = this.playerColorIndex()
     if (index < playerColors.length) {
-      return playerColorNames[index];
+      return playerColorNames[index]
     }
-    return "unknown";
+    return "unknown"
   }
 
   /**
    * Returns the `playercolor` of this color, if it is one of the player
    * colors. Otherwise, returns `PLAYER_COLOR_RED`.
    */
-  public get playerColor() {
-    const index = this.playerColorIndex();
+  public get playerColor(): playercolor {
+    const index = this.playerColorIndex()
     if (index < playerColors.length) {
-      return orderedPlayerColors[index];
+      return orderedPlayerColors[index]
     }
-    return PLAYER_COLOR_RED;
+    return PLAYER_COLOR_RED
   }
 
   /**
@@ -70,17 +70,17 @@ export class Color {
    * The provided factor should be between 0 and 1. Any color components
    * that are outside of the 0-255 range will be clamped.
    */
-  public lerp(other: Color, factor: number) {
-    const r = MathRound(this.red * (1 - factor) + other.red * factor);
-    const g = MathRound(this.green * (1 - factor) + other.green * factor);
-    const b = MathRound(this.blue * (1 - factor) + other.blue * factor);
-    const a = MathRound(this.alpha * (1 - factor) + other.alpha * factor);
+  public lerp(other: Color, factor: number): Color {
+    const r = MathRound(this.red * (1 - factor) + other.red * factor)
+    const g = MathRound(this.green * (1 - factor) + other.green * factor)
+    const b = MathRound(this.blue * (1 - factor) + other.blue * factor)
+    const a = MathRound(this.alpha * (1 - factor) + other.alpha * factor)
     return new Color(
       math.max(0, math.min(255, r)) as ColorValue,
       math.max(0, math.min(255, g)) as ColorValue,
       math.max(0, math.min(255, b)) as ColorValue,
       math.max(0, math.min(255, a)) as ColorValue
-    );
+    )
   }
 }
 
@@ -89,7 +89,7 @@ export const color = (
   green: ColorValue,
   blue: ColorValue,
   alpha?: ColorValue
-) => new Color(red, green, blue, alpha);
+): Color => new Color(red, green, blue, alpha)
 
 /**
  * The player colors sorted by index. Does not include
@@ -119,8 +119,8 @@ export const playerColors = [
   color(80, 79, 85),
   color(235, 240, 255),
   color(0, 120, 30),
-  color(164, 111, 51),
-];
+  color(164, 111, 51)
+]
 
 /** The names of players colors sorted by player index. */
 export const playerColorNames = [
@@ -148,7 +148,7 @@ export const playerColorNames = [
   "snow",
   "emerald",
   "peanut",
-];
+]
 
 /** An ordered list of `playercolor`s, for lookup */
 const orderedPlayerColors = [
@@ -176,18 +176,18 @@ const orderedPlayerColors = [
   PLAYER_COLOR_SNOW,
   PLAYER_COLOR_EMERALD,
   PLAYER_COLOR_PEANUT,
-];
+]
 
 /**
  * Converts a color value to the hex string, making sure that it is 2
  * characters in length.
  */
 function toHex(value: ColorValue) {
-  let hex = value.toString(16);
+  let hex = value.toString(16)
   if (hex.length < 2) {
-    hex = "0" + hex;
+    hex = "0" + hex
   }
-  return hex;
+  return hex
 }
 
 /**
@@ -450,4 +450,4 @@ type ColorValue =
   | 252
   | 253
   | 254
-  | 255;
+  | 255

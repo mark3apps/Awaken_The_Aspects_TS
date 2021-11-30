@@ -66,7 +66,7 @@ export class Aspect {
 
                     // Initial Timer
                     this.respawnTimer.start(3, false, () => {
-                        new Effect(AbilityModel.darkPortalTarget, this.deathPos, this.deathY).destroy()
+                        new Effect(AbilityModel.darkPortalTarget, this.deathPos).destroy()
                         this.aspect = new Unit(this.force.getRandomPlayer(), this.aspectTypeId, this.deathPos, this.deathY, 0)
                         this.aspect.issueOrderAt(Order.Attack, this.dest.randomX, this.dest.randomY)
                         this.aspectDies.registerUnitEvent(this.aspect, EVENT_UNIT_DEATH)
@@ -74,7 +74,7 @@ export class Aspect {
 
                 } else {
                     this.respawnTimer.start(this.respawnTime, false, () => {
-                        new Effect(AbilityModel.darkPortalTarget, this.deathPos, this.deathY).destroy()
+                        new Effect(AbilityModel.darkPortalTarget, this.deathPos).destroy()
                         this.aspect = new Unit(this.force.getRandomPlayer(), this.aspectTypeId, this.deathPos, this.deathY, 0)
                         this.aspect.issueOrderAt(Order.Attack, this.dest.randomX, this.dest.randomY)
                         this.aspectDies.registerUnitEvent(this.aspect, EVENT_UNIT_DEATH)

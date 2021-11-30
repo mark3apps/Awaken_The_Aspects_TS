@@ -284,6 +284,7 @@ end
 -- what happens to the unit being picked, player is the one having pressed the button
 function HeroSelector.unitCreated(player, unitCode, isRandom)
     
+---@diagnostic disable-next-line: lowercase-global
     udg_unit_PickedHero = CreateUnit(player, unitCode,
                                 GetPlayerStartLocationX(player),
                                 GetPlayerStartLocationY(player), 0)

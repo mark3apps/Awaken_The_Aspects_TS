@@ -14,6 +14,7 @@ export class UnitData {
     public kills = 0
     public assists = 0
     public heroType?: HeroType
+    public setAsFlying = false
     public custom = new Map<string, unknown>()
 
 
