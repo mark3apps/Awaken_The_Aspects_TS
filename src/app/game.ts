@@ -1,4 +1,4 @@
-import { Rectangle, Unit, CameraSetup, Trigger, Force, Region } from "lib/w3ts/index"
+import { Rectangle, Unit, CameraSetup, Trigger, Force, Region } from "lib/w3ts"
 import { DeathSpawn } from "./abilities/deathSpawn"
 import { Gate } from "./abilities/gate"
 import { Ability } from "./classes/ability"

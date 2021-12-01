@@ -1,6 +1,3 @@
-import { Logger, LogLevel } from "app/classes/log"
-import { addScriptHook, Timer, W3TS_HOOK } from "lib/w3ts/index"
-import { Game } from "./app/game"
 
 
 
@@ -8,6 +5,10 @@ import { Game } from "./app/game"
 //const BUILD_DATE = compiletime(() => new Date().toUTCString())
 //const TS_VERSION = compiletime(() => require("typescript").version)
 //const TSTL_VERSION = compiletime(() => require("typescript-to-lua").version)
+
+import { Logger, LogLevel } from "app/classes/log"
+import { Game } from "app/game"
+import { Timer, addScriptHook, W3TS_HOOK } from "lib/w3ts"
 
 
 const tsMain = () => {
