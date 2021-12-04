@@ -47,12 +47,12 @@ export class Aspect {
 				const u = Unit.fromKilled()
 				new Effect(AbilityModel.deathPactTarget, u.x, u.y).destroy()
 
-				if (u == this.origAspect) {
+				if (u === this.origAspect) {
 					this.deathPos = this.origAspect.position
 
 					// Open the Gate
 					if (this.gateRegion != null) {
-						this.gateRegion.enumDestructables(() => { return Destructable.fromFilter().typeId == this.gateTypeId }, () => {
+						this.gateRegion.enumDestructables(() => { return Destructable.fromFilter().typeId === this.gateTypeId }, () => {
 							Destructable.fromEnum().openGate()
 						})
 					}

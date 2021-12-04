@@ -37,7 +37,7 @@ export class Banner {
 		let federationPower = 0
 
 		g.firstLoop((u) => {
-			if (u.isAlive() && u != this.unit && !u.isStructure) {
+			if (u.isAlive() && u !== this.unit && !u.isStructure) {
 				if (u.inForce(Force.AllianceAll)) {
 					u.isHero ? alliancePower += 4 : alliancePower += 1
 				}
@@ -98,7 +98,7 @@ export class Banner {
 
 		const newScale = 0.8 + ((this.currentPower / this.maxPower) * 0.35)
 
-		if (newScale != this.scale) {
+		if (newScale !== this.scale) {
 			const speed = 0.6
 			const tick = 0.01
 			const tickSpeed = (newScale - this.scale) / (speed / tick)

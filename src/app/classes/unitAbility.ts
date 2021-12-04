@@ -13,7 +13,7 @@ export class UnitAbility {
 	}
 
 	public isCastable (): boolean {
-		return (this.unit.isAlive() && this.unit.mana > this.manaCost && this.cooldownRemaining == 0 && this.level > 0)
+		return (this.unit.isAlive() && this.unit.mana > this.manaCost && this.cooldownRemaining === 0 && this.level > 0)
 	}
 
 	public hasBuff (): boolean {
@@ -33,7 +33,7 @@ export class UnitAbility {
 	}
 
 	public isCasting (): boolean {
-		return this.unit.currentOrder == this.ability.orderId
+		return this.unit.currentOrder === this.ability.orderId
 	}
 
 	// Easy getters from Ability Class

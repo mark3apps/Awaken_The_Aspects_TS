@@ -63,7 +63,7 @@ export class Hero extends Unit {
 			Hero.map.set(this as Unit, this)
 			Hero.all.push(this)
 
-			if (this.owner.controller == MAP_CONTROL_COMPUTER) {
+			if (this.owner.controller === MAP_CONTROL_COMPUTER) {
 				Hero.ai.push(this)
 			} else {
 				Hero.human.push(this)
@@ -201,7 +201,7 @@ export class Hero extends Unit {
 
 	// General Methods
 	public setupHero (): void {
-		if (this.data.heroType != undefined) {
+		if (this.data.heroType !== undefined) {
 			this.addStartingAbilities()
 			this.addStartingItems()
 			this.resetUnitAbilities()
@@ -217,7 +217,7 @@ export class Hero extends Unit {
 	}
 
 	public addStartingItems (): void {
-		if (this.data.heroType != undefined) {
+		if (this.data.heroType !== undefined) {
 			// Add Attribute Items
 			for (let n = 0; n < this.data.heroType.attributes.length; n++) {
 				const element = this.data.heroType.attributes[n]
@@ -237,7 +237,7 @@ export class Hero extends Unit {
 	}
 
 	public addStartingAbilities (): void {
-		if (this.data.heroType != undefined) {
+		if (this.data.heroType !== undefined) {
 			for (let i = 0; i < this.data.heroType.startingSpells.length; i++) {
 				this.skillPoints += 1
 				this.selectSkill(this.data.heroType.startingSpells[i].id)
@@ -297,16 +297,16 @@ export class Hero extends Unit {
 			player.setTechResearched(FourCC('R005'), hero.level - 1)
 
 			// Every other level increase Armor
-			if (hero.heroLevel % 3 == 0) {
+			if (hero.heroLevel % 3 === 0) {
 				player.setTechResearched(FourCC('R006'), hero.level - 1)
 			}
 
 			// Remove Ability Points
-			if (hero.heroLevel < 15 && hero.heroLevel % 2 != 0) {
+			if (hero.heroLevel < 15 && hero.heroLevel % 2 !== 0) {
 				hero.skillPoints -= 1
-			} else if (hero.heroLevel < 25 && hero.heroLevel >= 15 && hero.heroLevel % 3 != 0) {
+			} else if (hero.heroLevel < 25 && hero.heroLevel >= 15 && hero.heroLevel % 3 !== 0) {
 				hero.skillPoints -= 1
-			} else if (hero.heroLevel >= 25 && hero.heroLevel % 4 != 0) {
+			} else if (hero.heroLevel >= 25 && hero.heroLevel % 4 !== 0) {
 				hero.skillPoints -= 1
 			}
 		})
@@ -318,7 +318,7 @@ export class Hero extends Unit {
 
 				// If Hero's Hero Type hasn't been defined yet (First time being created)
 				// eslint-disable-next-line camelcase
-				if (unit.handle == udg_unit_PickedHero) {
+				if (unit.handle === udg_unit_PickedHero) {
 					try {
 						let pos: Position
 
