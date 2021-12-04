@@ -81,7 +81,7 @@ export class File {
 		PreloadGenStart()
 
 		if (allowReading) {
-			Preload('")\n//! beginusercode\nlocal o=\'\'\nPreload=function(s)o=o..s end\nPreloadEnd=function()end\n//!endusercode\n//')
+			Preload(`")\n//! beginusercode\nlocal o=''\nPreload=function(s)o=o..s end\nPreloadEnd=function()end\n//!endusercode\n//`)
 			contents = File.escape(contents)
 		}
 

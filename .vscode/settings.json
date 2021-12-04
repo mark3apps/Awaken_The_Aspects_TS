@@ -1,17 +1,19 @@
 {
-    "search.exclude": {
-        "*/dist": true,
-        "*/maps": true
-    },
-    "files.watcherExclude": {
-        "*/maps/**": true
-    },
-    "Lua.diagnostics.globals": [
-        "text",
-        "bj_lastCreatedUnit",
-        "udg_PickedHero"
-    ],
-    "editor.codeActionsOnSave": [
-        "source.addMissingImports"
-    ]
+	"search.exclude": {
+		"*/dist": true,
+		"*/maps": true
+	},
+	"files.watcherExclude": {
+		"*/maps/**": true
+	},
+	"Lua.diagnostics.globals": [
+		"text",
+		"bj_lastCreatedUnit",
+		"udg_PickedHero"
+	],
+	"editor.codeActionsOnSave": [
+		"source.addMissingImports"
+	],
+	"editor.insertSpaces": false,
+	"IndentCaseLabels": true
 }
