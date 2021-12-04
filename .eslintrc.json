@@ -47,10 +47,6 @@
                 "variables": false
             }
         ],
-        "linebreak-style": [
-            "error",
-            "windows"
-        ],
         "no-unused-vars": "off"
     }
 }
