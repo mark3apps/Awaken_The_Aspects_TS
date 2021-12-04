@@ -1,92 +1,84 @@
-import { Ability, EffectType, TargetType } from "app/classes/ability"
-import { Logger } from "app/classes/log"
-import { Position } from "app/classes/position"
-import { UnitType } from "app/classes/unitType"
-import { AbilityFour, Order, BuffFour, Unit, Group, Timer, Effect, AbilityModel, AttachPoint } from "lib/w3ts/index"
-
+import { Ability, EffectType, TargetType } from 'app/classes/ability'
+import { Logger } from 'app/classes/log'
+import { Position } from 'app/classes/position'
+import { UnitType } from 'app/classes/unitType'
+import { AbilityFour, Order, BuffFour, Unit, Group, Timer, Effect, AbilityModel, AttachPoint } from 'lib/w3ts/index'
 
 export class AbilityMark extends Ability {
+	constructor () {
+		super({
+			four: AbilityFour.Mark,
+			orderId: Order.Clusterrockets,
+			buffFour: BuffFour.ManaAddictSoulBind,
+			type: EffectType.Instant,
+			target: TargetType.ModifyArea,
+			permanent: true,
+			starting: true,
+			addEffect: true,
+			addBuffDeath: true
+		})
+	}
 
-    constructor() {
-        super({
-            four: AbilityFour.Mark,
-            orderId: Order.Clusterrockets,
-            buffFour: BuffFour.ManaAddictSoulBind,
-            type: EffectType.Instant,
-            target: TargetType.ModifyArea,
-            permanent: true,
-            starting: true,
-            addEffect: true,
-            addBuffDeath: true
-        })
-    }
+	public override onEffect = (): void => {
+		Logger.Information('Working')
 
-    public override onEffect = (): void => {
-        
-        Logger.Information("Working")
+		try {
+			const eventUnit = Unit.fromEvent()
+			const unitAbility = this.getUnitAbility(eventUnit)
+			const targetPos = Position.fromSpellTarget()
 
-        try {
+			const areaOfEffect = unitAbility.areaOfEffect
+			const manaGiven = unitAbility.heroDuration
 
-            const eventUnit = Unit.fromEvent()
-            const unitAbility = this.getUnitAbility(eventUnit)
-            const targetPos = Position.fromSpellTarget()
+			const g = new Group()
+			g.enumUnitsInRange(targetPos, areaOfEffect, () => {
+				const u = Unit.fromFilter()
 
-            const areaOfEffect = unitAbility.areaOfEffect
-            const manaGiven = unitAbility.heroDuration
+				return u.isAlive() &&
+					!u.isStructure &&
+					!u.isHero &&
+					u.isEnemy(eventUnit) &&
+					!u.isMagicImmune &&
+					u.moveSpeed !== 0 &&
+					!u.hasBuff(this.buffId)
+			})
 
-            const g = new Group()
-            g.enumUnitsInRange(targetPos, areaOfEffect, () => {
-                const u = Unit.fromFilter()
+			g.firstLoop((u) => {
+				u.data.custom.set('markManaGiven', manaGiven)
+				u.data.custom.set('markCaster', eventUnit)
+			})
+			g.destroy()
+		} catch (error) {
+			Logger.Error('Mark', error)
+		}
+	}
 
-                return u.isAlive() &&
-                    !u.isStructure &&
-                    !u.isHero &&
-                    u.isEnemy(eventUnit) &&
-                    !u.isMagicImmune &&
-                    u.moveSpeed != 0 &&
-                    !u.hasBuff(this.buffId)
-            })
+	public override onBuffDeath = (): void => {
+		Logger.Information('Working')
+		try {
+			const eventUnit = Unit.fromEvent()
 
-            g.firstLoop((u) => {
-                u.data.custom.set("markManaGiven", manaGiven)
-                u.data.custom.set("markCaster", eventUnit)
-            })
-            g.destroy()
-        } catch (error) {
-            Logger.Error("Mark", error)
-        }
-    }
+			const manaGiven = eventUnit.data.custom.get('markManaGiven') as number
+			const caster = eventUnit.data.custom.get('markCaster') as Unit
 
-    public override onBuffDeath = (): void => {
+			const u = new Unit(caster.owner, UnitType.DummyMarkForDeath, eventUnit.position, eventUnit.facing)
 
-        Logger.Information("Working")
-        try {
+			u.issueTargetOrder(Order.Attack, caster)
 
+			const timer = new Timer()
 
-            const eventUnit = Unit.fromEvent()
-
-            const manaGiven = eventUnit.data.custom.get("markManaGiven") as number
-            const caster = eventUnit.data.custom.get("markCaster") as Unit
-
-            const u = new Unit(caster.owner, UnitType.DummyMarkForDeath, eventUnit.position, eventUnit.facing)
-
-            u.issueTargetOrder(Order.Attack, caster)
-
-            const timer = new Timer()
-
-            timer.start(1, true, () => {
-
-                if (u.distanceTo(caster) < 150) {
-                    u.kill()
-                    caster.mana += manaGiven
-                    new Effect(AbilityModel.charmTarget, caster, AttachPoint.chest).destroy()
-                    timer.destroy()
-                } else {
-                    u.issueTargetOrder(Order.Attack, caster)
-                }
-            })
-        } catch (error) {
-            Logger.Error("Mark Buff Death", error)
-        }
-    }
+			timer.start(1, true, () => {
+				if (u.distanceTo(caster) < 150) {
+					u.kill()
+					caster.mana += manaGiven
+					new Effect(AbilityModel.charmTarget, caster, AttachPoint.chest).destroy()
+					timer.destroy()
+				} else {
+					u.issueTargetOrder(Order.Attack, caster)
+				}
+			})
+		} catch (error) {
+			Logger.Error('Mark Buff Death', error)
+		}
+	}
 }

@@ -1,13 +1,14 @@
-import { Hero } from "app/classes/hero"
-import { Logger } from "app/classes/log"
-import { Sky } from "lib/w3ts/globals/sky"
-import { Sounds } from "lib/w3ts/globals/sounds"
-import { Force, MapPlayer, Group, Unit, Mask, CameraSetup, Players, Timer } from "lib/w3ts/index"
+/* eslint-disable camelcase */
+
+import { Hero } from 'app/classes/hero'
+import { Logger } from 'app/classes/log'
+import { Sky } from 'lib/w3ts/globals/sky'
+import { Sounds } from 'lib/w3ts/globals/sounds'
+import { Force, MapPlayer, Group, Unit, Mask, CameraSetup, Players, Timer } from 'lib/w3ts/index'
 
 export class Cinematic {
-
 	// On Init
-	static onInit(): void {
+	static onInit (): void {
 		Force.Alliance.for(() => {
 			MapPlayer.fromEnum().color = PLAYER_COLOR_RED
 			const g = new Group()
@@ -29,9 +30,7 @@ export class Cinematic {
 		})
 	}
 
-	static setupCineCamera(): void {
-
-
+	static setupCineCamera (): void {
 		SetSkyModel(Sky.blizzard)
 		FogEnableOff()
 
@@ -44,22 +43,18 @@ export class Cinematic {
 		]
 
 		for (let i = 0; i < 11; i++) {
-
 			const startCamera = CameraSetup.fromHandle(startCams[GetRandomInt(0, startCams.length - 1)])
 
 			Players[i].applyCamera(true, startCamera, 0)
 
-			const unit = new Unit(Players[19], FourCC("h01Z"), startCamera.position, bj_UNIT_FACING)
-			unit.applyTimedLife(FourCC("BTLF"), 30)
+			const unit = new Unit(Players[19], FourCC('h01Z'), startCamera.position, bj_UNIT_FACING)
+			unit.applyTimedLife(FourCC('BTLF'), 30)
 
 			Players[i].setTargetControllerCamera(unit, 0, 0, false)
 		}
-
-
 	}
 
 	static setupGameCamera = (): void => {
-
 		const camLeftStart = CameraSetup.fromHandle(gg_cam_baseLeftPanStart)
 		const camLeftEnd = CameraSetup.fromHandle(gg_cam_baseLeftStart)
 		const camRightStart = CameraSetup.fromHandle(gg_cam_baseRightPanStart)
@@ -79,7 +74,6 @@ export class Cinematic {
 	}
 
 	static startHeroSelector = (): void => {
-
 		HeroSelector.show(true)
 		HeroSelector.enableBan(false)
 		HeroSelector.enablePick(true)
@@ -87,28 +81,23 @@ export class Cinematic {
 		const countdown = new Timer()
 		let timeLeft = 10
 
-
 		// Loop Countdown
 		countdown.start(1, true, () => {
-
 			try {
 				timeLeft -= 1
 
-				HeroSelector.setTitleText(GetLocalizedString("DEFAULTTIMERDIALOGTEXT") + ": " + timeLeft)
+				HeroSelector.setTitleText(GetLocalizedString('DEFAULTTIMERDIALOGTEXT') + ': ' + timeLeft)
 
 				if (timeLeft < 6 && timeLeft > 0) {
 					PlaySound(Sounds.battleNetTick)
 				}
 
-
 				if (timeLeft <= 0) {
-
 					PlaySound(Sounds.warning)
 
-					Hero.PickedPlayers
 					Force.Humans.for(() => {
 						if (!Hero.PickedPlayers.hasPlayer(MapPlayer.fromEnum())) {
-							Logger.Information("Picked", MapPlayer.fromEnum().name)
+							Logger.Information('Picked', MapPlayer.fromEnum().name)
 							HeroSelector.forcePick(GetEnumPlayer())
 						}
 					})
@@ -125,9 +114,8 @@ export class Cinematic {
 					Cinematic.setupGameCamera()
 				}
 			} catch (error) {
-				Logger.Error("Hero Selector:", error)
+				Logger.Error('Hero Selector:', error)
 			}
-
 		})
 	}
 }

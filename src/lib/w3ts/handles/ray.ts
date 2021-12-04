@@ -1,272 +1,266 @@
-import { Position } from "app/classes/position"
-import { MapPlayer } from "./player"
-import { Timer } from "./timer"
-import { Unit } from "./unit"
-import { Vector } from "./vector"
+/* eslint-disable camelcase */
+import { Position } from 'app/classes/position'
+import { MapPlayer } from './player'
+import { Timer } from './timer'
+import { Unit } from './unit'
+import { Vector } from './vector'
 
 export class Ray extends Vector {
+	protected _origin: Position | Unit
+	protected _dest: Position | Unit
+	protected _tickTimer: Timer
+	protected _rayUnit: Unit
+	protected _arcMaxHeight = 0
+	protected _curve = 0
+	protected _hasRayUnit = false
 
-    protected _origin: Position | Unit
-    protected _dest: Position | Unit
-    protected _tickTimer: Timer
-    protected _rayUnit: Unit
-    protected _arcMaxHeight = 0
-    protected _curve = 0
-    protected _hasRayUnit = false
+	protected _onHit: (ray: Ray) => void
 
-    protected _onHit: (ray: Ray) => void
+	damage = 0
+	areaOfEffect = 0
+	collision: 32
+	owner: MapPlayer
+	velocity: number
+	acceleration = 0
+	ticks = 0
+	turnSpeed = 1
+	destroyAtEnd = true
 
-    damage = 0
-    areaOfEffect = 0
-    collision: 32
-    owner: MapPlayer
-    velocity: number
-    acceleration = 0
-    ticks = 0
-    turnSpeed = 1
-    destroyAtEnd = true
+	// Static Values
+	static pitchMax = 600
+	static curveMax = 800
+	static increment = 0.02
+	protected static timeDialation = 1
 
+	/**
+	 *
+	 * @param origin
+	 * @param travelDistance
+	 * @param yaw
+	 * @param initialVelocity
+	 * @param modelPath
+	 * @param increment
+	 */
+	constructor (origin: Position | Unit, travelDistance: number, yaw: number, initialVelocity: number, modelPath?: string)
+	/**
+	 *
+	 * @param origin If set to a Unit, the ray's start position will be locked to the Unit
+	 * @param dest If set to a unit, the ray's end position will be locked to the Unit. AKA Homing.
+	 * @param initialVelocity Speed that the ray moves each tick
+	 * @param modelPath Model path for a special effect to show at the ray's location
+	 * @param increment how often the ray ticks forward.  Default is 0.02 seconds
+	 * @param blank INGORE
+	 */
+	constructor (origin: Position | Unit, dest: Position | Unit, initialVelocity: number, modelPath?: string, blank?: string)
+	constructor (origin: Position | Unit, a: number | Position | Unit, b: number, c?: number | string, d?: string) {
+		super({ x: origin.x, y: origin.y, z: origin.z })
+		this._origin = origin
 
+		if (typeof a === 'number') {
+			const distance = a
+			this._yaw = b
+			this.velocity = c as number
+			this.effectPath = d
 
-    // Static Values
-    static pitchMax = 600
-    static curveMax = 800
-    static increment = 0.02
-    protected static timeDialation = 1
+			this._dest = this._origin.polarProjection(distance, this.yaw)
+		} else {
+			this._dest = a
+			this.velocity = b
+			this.effectPath = c as string
+			this.yaw = this.origin.yawTo(this.dest)
+		}
 
-    /**
-     * 
-     * @param origin 
-     * @param travelDistance 
-     * @param yaw 
-     * @param initialVelocity 
-     * @param modelPath 
-     * @param increment 
-     */
-    constructor(origin: Position | Unit, travelDistance: number, yaw: number, initialVelocity: number, modelPath?: string)
-    /**
-     * 
-     * @param origin If set to a Unit, the ray's start position will be locked to the Unit
-     * @param dest If set to a unit, the ray's end position will be locked to the Unit. AKA Homing.
-     * @param initialVelocity Speed that the ray moves each tick
-     * @param modelPath Model path for a special effect to show at the ray's location
-     * @param increment how often the ray ticks forward.  Default is 0.02 seconds
-     * @param blank INGORE
-     */
-    constructor(origin: Position | Unit, dest: Position | Unit, initialVelocity: number, modelPath?: string, blank?: string)
-    constructor(origin: Position | Unit, a: number | Position | Unit, b: number, c?: number | string, d?: string ) {
+		this._tickTimer = new Timer()
+	}
 
-        super({x:origin.x, y:origin.y, z:origin.z})
-        this._origin = origin
+	public startForward (): void {
+		this._tickTimer.start(Ray.increment, true, () => { this.tick(1) })
+	}
 
-        if (typeof a === "number") {
-            const distance = a
-            this._yaw = b
-            this.velocity = c as number
-            this.effectPath = d
+	public startBackward (): void {
+		this._tickTimer.start(Ray.increment, true, () => { this.tick(-1) })
+	}
 
-            this._dest = this._origin.polarProjection(distance, this.yaw)
+	public pause (): void {
+		this._tickTimer.pause()
+	}
 
-        } else {
-            this._dest = a
-            this.velocity = b
-            this.effectPath = c as string
-            this.yaw = this.origin.yawTo(this.dest)
-        }
+	public tick (newTicks = 1): void {
+		// Update the Angle with the new tragectery
+		this.yaw = this.yawToDest
 
-        this._tickTimer = new Timer()
-    }
+		// Push the Ray forward
+		this.x += (this.velocity * Cos(this.yaw * bj_DEGTORAD)) * newTicks
+		this.y += (this.velocity * Sin(this.yaw * bj_DEGTORAD)) * newTicks
+		this.z += (this.velocity * Tan(this.yaw * bj_DEGTORAD)) * newTicks
+		this.ticks += newTicks
+		// this.updateEffect()
+		this.updateRayUnit()
+	}
 
-    public startForward(): void {
-        this._tickTimer.start(Ray.increment, true, () => { this.tick(1) })
-    }
+	public override set x (value: number) {
+		this._x = value
+		if (this.hasEffect) { this.effect.x = value }
+		if (this.hasUnit()) { this._rayUnit.x = value }
+	}
 
-    public startBackward(): void {
-        this._tickTimer.start(Ray.increment, true, () => { this.tick(-1) })
-    }
+	public override set y (value: number) {
+		this._y = value
+		if (this.hasEffect) { this.effect.y = value }
+		if (this.hasUnit()) { this._rayUnit.y = value }
+	}
 
-    public pause(): void {
-        this._tickTimer.pause()
-    }
+	public override set z (value: number) {
+		this._z = value
+		if (this.hasEffect) { this.effect.z = value }
+		if (this.hasUnit()) { this._rayUnit.z = value }
+	}
 
-    public tick(newTicks = 1): void {
+	public get arcMaxHeight (): number {
+		return this._arcMaxHeight
+	}
 
-        // Update the Angle with the new tragectery
-        this.yaw = this.yawToDest
+	public set arcMaxHeight (value: number) {
+		this._arcMaxHeight = value
+	}
 
-        // Push the Ray forward
-        this.x += (this.velocity * Cos(this.yaw * bj_DEGTORAD)) * newTicks
-        this.y += (this.velocity * Sin(this.yaw * bj_DEGTORAD)) * newTicks
-        this.z += (this.velocity * Tan(this.yaw * bj_DEGTORAD)) * newTicks
-        this.ticks + newTicks
-        //this.updateEffect()
-        this.updateRayUnit()
-    }
+	public get curve (): number {
+		return this._curve
+	}
 
-    public override set x(value: number) {
-        this._x = value
-        if (this.hasEffect) { this.effect.x = value }
-        if (this.hasUnit()) { this._rayUnit.x = value }
-    }
+	public set curve (value: number) {
+		this._curve = value
+	}
 
-    public override set y(value: number) {
-        this._y = value
-        if (this.hasEffect) { this.effect.y = value }
-        if (this.hasUnit()) { this._rayUnit.y = value }
-    }
+	public get arc (): number {
+		return this.getArc(this.distanceToOrigin, this.distanceOriginToDest, this.arcMaxHeight)
+	}
 
-    public override set z(value: number) {
-        this._z = value
-        if (this.hasEffect) { this.effect.z = value }
-        if (this.hasUnit()) { this._rayUnit.z = value }
-    }
+	public hasUnit (): boolean {
+		return this._hasRayUnit
+	}
 
-    public get arcMaxHeight(): number {
-        return this._arcMaxHeight
-    }
+	public set rayUnit (unit: Unit) {
+		this._rayUnit = unit
+		this._hasRayUnit = true
+		this._rayUnit.position = this
+		this._rayUnit.facing = this.yaw
+	}
 
-    public set arcMaxHeight(value: number) {
-        this._arcMaxHeight = value
-    }
+	public override get yaw (): number {
+		return this._yaw
+	}
 
-    public get curve(): number {
-        return this._curve
-    }
+	/**
+	 * Only allows the angle to be changed by the max yaw set in the turn rate field each call.
+	 * Specified in Degrees
+	 */
+	public override set yaw (newYaw: number) {
+		const yawChange = newYaw - this.yaw
 
-    public set curve(value: number) {
-        this._curve = value
-    }
+		if (math.abs(yawChange) > this.turnSpeed) {
+			yawChange < 0 ? this._yaw -= this.turnSpeed : this._yaw += this.turnSpeed
+		} else {
+			this._yaw += yawChange
+		}
 
-    public get arc(): number {
-        return this.getArc(this.distanceToOrigin, this.distanceOriginToDest, this.arcMaxHeight)
-    }
+		if (this.hasEffect) { this.effect.yaw = this.yaw }
+		if (this.hasUnit()) { this._rayUnit.facing = this.yaw }
+	}
 
-    public hasUnit(): boolean {
-        return this._hasRayUnit
-    }
+	public override set pitch (newPitch: number) {
+		const pitchChange = newPitch - this.yaw
 
-    public set rayUnit(unit: Unit) {
-        this._rayUnit = unit
-        this._hasRayUnit = true
-        this._rayUnit.position = this
-        this._rayUnit.facing = this.yaw
-    }
+		if (math.abs(pitchChange) > this.turnSpeed) {
+			pitchChange < 0 ? this._pitch -= this.turnSpeed : this._pitch += this.turnSpeed
+		} else {
+			this._pitch += pitchChange
+		}
 
-    public override get yaw(): number {
-        return this._yaw
-    }
+		if (this.hasEffect) { this.effect.pitch = this.pitch }
+	}
 
-    /**
-     * Only allows the angle to be changed by the max yaw set in the turn rate field each call.
-     * Specified in Degrees
-     */
-    public override set yaw(newYaw: number) {
-        const yawChange = newYaw - this.yaw
+	public override set roll (newRoll: number) {
+		const rollChange = newRoll - this.yaw
 
-        if (math.abs(yawChange) > this.turnSpeed) {
-            yawChange < 0 ? this._yaw -= this.turnSpeed : this._yaw += this.turnSpeed
-        } else {
-            this._yaw + yawChange
-        }
+		if (math.abs(rollChange) > this.turnSpeed) {
+			rollChange < 0 ? this._roll -= this.turnSpeed : this._roll += this.turnSpeed
+		} else {
+			this._roll += rollChange
+		}
 
-        if (this.hasEffect) { this.effect.yaw = this.yaw }
-        if (this.hasUnit()) { this._rayUnit.facing = this.yaw }
-    }
+		if (this.hasEffect) { this.effect.roll = this.roll }
+	}
 
-    public override set pitch(newPitch: number) {
-        const pitchChange = newPitch - this.yaw
+	public get pitchToOrigin (): number {
+		return this.pitchTo(this.origin)
+	}
 
-        if (math.abs(pitchChange) > this.turnSpeed) {
-            pitchChange < 0 ? this._pitch -= this.turnSpeed : this._pitch += this.turnSpeed
-        } else {
-            this._pitch + pitchChange
-        }
+	public get pitchToDest (): number {
+		return this.pitchTo(this.dest)
+	}
 
-        if (this.hasEffect) { this.effect.pitch = this.pitch }
-    }
+	public get yawToDest (): number {
+		return this.yawTo(this.dest)
+	}
 
-    public override set roll(newRoll: number) {
-        const rollChange = newRoll - this.yaw
+	public get yawToOrigin (): number {
+		return this.yawTo(this.origin)
+	}
 
-        if (math.abs(rollChange) > this.turnSpeed) {
-            rollChange < 0 ? this._roll -= this.turnSpeed : this._roll += this.turnSpeed
-        } else {
-            this._roll + rollChange
-        }
+	public get yawOriginToDest (): number {
+		return this.origin.yawTo(this.dest)
+	}
 
-        if (this.hasEffect) { this.effect.roll = this.roll }
-    }
+	public get distanceToOrigin (): number {
+		return this.distanceTo(this.origin)
+	}
 
-    public get pitchToOrigin(): number {
-        return this.pitchTo(this.origin)
-    }
+	public set distanceToOrigin (value: number) {
+		const newDistance = this.distanceToOrigin - value
+		this.moveToPolarProjection(newDistance, this.yawToOrigin)
+	}
 
-    public get pitchToDest(): number {
-        return this.pitchTo(this.dest)
-    }
+	public get distanceToDest (): number {
+		return this.distanceTo(this.dest)
+	}
 
-    public get yawToDest(): number {
-        return this.yawTo(this.dest)
-    }
+	public set distanceToDest (value: number) {
+		const newDistance = this.distanceToDest - value
+		this.moveToPolarProjection(newDistance, this.yawToDest)
+	}
 
-    public get yawToOrigin(): number {
-        return this.yawTo(this.origin)
-    }
+	public get dest (): Position {
+		return this._dest instanceof Unit ? this._dest.position : this._dest
+	}
 
-    public get yawOriginToDest(): number {
-        return this.origin.yawTo(this.dest)
-    }
+	public set dest (pos: Position | Unit) {
+		this._dest = pos
+	}
 
-    public get distanceToOrigin(): number {
-        return this.distanceTo(this.origin)
-    }
+	public get origin (): Position {
+		return this._origin instanceof Unit ? this._origin.position : this._origin
+	}
 
-    public set distanceToOrigin(value: number) {
-        const newDistance = this.distanceToOrigin - value
-        this.moveToPolarProjection(newDistance, this.yawToOrigin)
-    }
+	public set origin (pos: Position) {
+		this._origin = pos
+	}
 
-    public get distanceToDest(): number {
-        return this.distanceTo(this.dest)
-    }
+	public get distanceOriginToDest (): number {
+		return this._origin.distanceTo(this._dest)
+	}
 
-    public set distanceToDest(value: number) {
-        const newDistance = this.distanceToDest - value
-        this.moveToPolarProjection(newDistance, this.yawToDest)
-    }
+	public set distanceOriginToDest (value: number) {
+		this.origin.distanceTo(this.dest)
+	}
 
-    public get dest(): Position {
-        return this._dest instanceof Unit ? this._dest.position : this._dest
-    }
+	public updateRayUnit (): void {
+		if (this.rayUnit != null) {
+			this.rayUnit.position = this
+		}
+	}
 
-    public set dest(pos: Position | Unit) {
-        this._dest = pos
-    }
-
-    public get origin(): Position {
-        return this._origin instanceof Unit ? this._origin.position : this._origin
-    }
-
-    public set origin(pos: Position) {
-        this._origin = pos
-    }
-
-    public get distanceOriginToDest(): number {
-        return this._origin.distanceTo(this._dest)
-    }
-
-    public set distanceOriginToDest(value: number) {
-        this.dest
-    }
-
-    public updateRayUnit(): void {
-        if (this.rayUnit != null) {
-            this.rayUnit.position = this
-        }
-    }
-
-    public destroyEffect(): void {
-        this.effect.destroy()
-    }
+	public destroyEffect (): void {
+		this.effect.destroy()
+	}
 }
-

@@ -2,8 +2,7 @@ import { Ability, EffectType, TargetType } from 'app/classes/ability'
 import { AbilityFour, Order } from 'lib/w3ts/index'
 
 export class ManaBombAbility extends Ability {
-
-	constructor() {
+	constructor () {
 		super({
 			four: AbilityFour.ManaBomb,
 			orderId: Order.Flamestrike,

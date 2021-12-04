@@ -1,4 +1,4 @@
-export * from "./brawlerHeroType"
+export * from './brawlerHeroType'
 export * from './manaAddictHeroType'
 export * from './shiftMasterHeroType'
 export * from './tacticianHeroType'
