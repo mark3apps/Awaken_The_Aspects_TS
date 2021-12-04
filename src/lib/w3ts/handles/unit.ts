@@ -1,28 +1,30 @@
+/* eslint-disable indent */
+/* eslint-disable camelcase */
+/* eslint-disable no-use-before-define */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /** @noSelfInFile **/
 
-import { Ability } from "app/classes/ability"
-import { Position } from "app/classes/position"
-import { UnitAbility } from "app/classes/unitAbility"
-import { UnitType } from "app/classes/unitType"
-import { UnitData } from "app/systems/unitData"
-import { CC2Four } from "lib/resources/library"
-import { OrderType } from "lib/resources/orderType"
-import { PrimaryAttribute } from "../globals/primaryAttribute"
-import { Order, BuffFour, AbilityFour } from "../index"
-import { Destructable } from "./destructable"
-import { Force } from "./force"
-import { Group } from "./group"
-import { Handle } from "./handle"
-import { HeroType } from "./herotype"
-import { Item } from "./item"
-import { MapPlayer } from "./player"
-import { Point } from "./point"
-import { Rectangle } from "./rect"
-import { Region } from "./region"
-import { Sound } from "./sound"
-import { Widget } from "./widget"
-
+import { Ability } from 'app/classes/ability'
+import { Position } from 'app/classes/position'
+import { UnitAbility } from 'app/classes/unitAbility'
+import { UnitType } from 'app/classes/unitType'
+import { UnitData } from 'app/systems/unitData'
+import { CC2Four } from 'lib/resources/library'
+import { OrderType } from 'lib/resources/orderType'
+import { PrimaryAttribute } from '../globals/primaryAttribute'
+import { Order, BuffFour, AbilityFour } from '../index'
+import { Destructable } from './destructable'
+import { Force } from './force'
+import { Group } from './group'
+import { Handle } from './handle'
+import { HeroType } from './herotype'
+import { Item } from './item'
+import { MapPlayer } from './player'
+import { Point } from './point'
+import { Rectangle } from './rect'
+import { Region } from './region'
+import { Sound } from './sound'
+import { Widget } from './widget'
 
 export type UnitField = unitintegerfield | unitrealfield | unitstringfield | unitbooleanfield | unitweaponbooleanfield | unitweaponintegerfield | unitweaponrealfield | unitweaponstringfield
 export type UnitFieldValue = boolean | number | string
@@ -41,24 +43,20 @@ export class Unit extends Widget {
 	 * @param face The direction that the unit will be facing in degrees.
 	 * @param skinId The skin of the unit.
 	 */
-	constructor(owner: MapPlayer | number, unitId: number | UnitType, pos: Position, face: number, skinId?: number) {
+	constructor (owner: MapPlayer | number, unitId: number | UnitType, pos: Position, face: number, skinId?: number) {
 		if (Handle.initFromHandle()) {
 			super()
-
 		} else {
-			const p = typeof owner === "number" ? Player(owner) : owner.handle
+			const p = typeof owner === 'number' ? Player(owner) : owner.handle
 
-			typeof unitId === "number"
+			typeof unitId === 'number'
 				? super(skinId ? BlzCreateUnitWithSkin(p, unitId, pos.x, pos.y, face, skinId) : CreateUnit(p, unitId, pos.x, pos.y, face))
 				: super(skinId ? BlzCreateUnitWithSkin(p, unitId.id, pos.x, pos.y, face, skinId) : CreateUnit(p, unitId.id, pos.x, pos.y, face))
-
-
 		}
 	}
 
-
 	// Custom Data Fields
-	public get data(): UnitData {
+	public get data (): UnitData {
 		if (Unit.dataMap.has(this)) {
 			return Unit.dataMap.get(this)
 		} else {
@@ -67,13 +65,11 @@ export class Unit extends Widget {
 		}
 	}
 
-	public set data(value) {
+	public set data (value) {
 		Unit.dataMap.set(this, value)
 	}
 
-
 	// INSTANCE METHODS
-
 
 	/**
 	 * Sets a unit's acquire range.  This is the value that a unit uses to choose targets to
@@ -86,83 +82,83 @@ export class Unit extends Widget {
 	 * @note It is a myth that reducing acquire range with this native can limit a unit's attack range.
 	 */
 
-	public set acquireRange(value: number) {
+	public set acquireRange (value: number) {
 		SetUnitAcquireRange(this.handle, value)
 	}
 
-	public get acquireRange(): number {
+	public get acquireRange (): number {
 		return GetUnitAcquireRange(this.handle)
 	}
 
-	public get agility(): number {
+	public get agility (): number {
 		return GetHeroAgi(this.handle, false)
 	}
 
-	public set agility(value: number) {
+	public set agility (value: number) {
 		SetHeroAgi(this.handle, value, true)
 	}
 
-	public get armor(): number {
+	public get armor (): number {
 		return BlzGetUnitArmor(this.handle)
 	}
 
-	public set armor(armorAmount: number) {
+	public set armor (armorAmount: number) {
 		BlzSetUnitArmor(this.handle, armorAmount)
 	}
 
-	public set canSleep(flag: boolean) {
+	public set canSleep (flag: boolean) {
 		UnitAddSleep(this.handle, flag)
 	}
 
-	public get canSleep(): boolean {
+	public get canSleep (): boolean {
 		return UnitCanSleep(this.handle)
 	}
 
-	public get weapon1Base(): number {
+	public get weapon1Base (): number {
 		return this.getField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, 1) as number
 	}
 
-	public set weapon1Base(value: number) {
+	public set weapon1Base (value: number) {
 		this.setField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, value, 1)
 	}
 
-	public get weapon2Base(): number {
+	public get weapon2Base (): number {
 		return this.getField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, 2) as number
 	}
 
-	public set weapon2Base(value: number) {
+	public set weapon2Base (value: number) {
 		this.setField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, value, 2)
 	}
 
-	public get primaryAttribute(): PrimaryAttribute {
+	public get primaryAttribute (): PrimaryAttribute {
 		return this.getField(UNIT_IF_PRIMARY_ATTRIBUTE) as PrimaryAttribute
 	}
 
-	public get collisionSize(): number {
+	public get collisionSize (): number {
 		return BlzGetUnitCollisionSize(this.handle)
 	}
 
-	public set color(whichColor: playercolor) {
+	public set color (whichColor: playercolor) {
 		SetUnitColor(this.handle, whichColor)
 	}
 
-	public get color(): playercolor {
+	public get color (): playercolor {
 		return this.owner.color
 	}
 
-	public get currentOrder(): Order {
+	public get currentOrder (): Order {
 		return GetUnitCurrentOrder(this.handle)
 	}
 
-	public get defaultAcquireRange(): number {
+	public get defaultAcquireRange (): number {
 		return GetUnitDefaultAcquireRange(this.handle)
 	}
 
-	public get defaultFlyHeight(): number {
+	public get defaultFlyHeight (): number {
 		return GetUnitDefaultFlyHeight(this.handle)
 	}
 
-	public get defaultMoveSpeed(): number {
+	public get defaultMoveSpeed (): number {
 		return GetUnitDefaultMoveSpeed(this.handle)
 	}
 
@@ -171,54 +167,54 @@ export class Unit extends Widget {
 	 * @note This function is the odd case in the asymmetric prop window API, since the
 	 * other prop window natives use radians.
 	 */
-	public get defaultPropWindow(): number {
+	public get defaultPropWindow (): number {
 		return GetUnitDefaultPropWindow(this.handle)
 	}
 
-	public get defaultTurnSpeed(): number {
+	public get defaultTurnSpeed (): number {
 		return GetUnitDefaultTurnSpeed(this.handle)
 	}
 
-	public get experience(): number {
+	public get experience (): number {
 		return GetHeroXP(this.handle)
 	}
 
-	public set experience(newXpVal: number) {
+	public set experience (newXpVal: number) {
 		SetHeroXP(this.handle, newXpVal, true)
 	}
 
-	public set facing(value: number) {
+	public set facing (value: number) {
 		SetUnitFacing(this.handle, value)
 	}
 
 	/**
 	 * @returns The units facing in degrees.
 	 */
-	public get facing(): number {
+	public get facing (): number {
 		return GetUnitFacing(this.handle)
 	}
 
-	public get foodMade(): number {
+	public get foodMade (): number {
 		return GetUnitFoodMade(this.handle)
 	}
 
-	public get foodUsed(): number {
+	public get foodUsed (): number {
 		return GetUnitFoodUsed(this.handle)
 	}
 
-	public get ignoreAlarmToggled() {
+	public get ignoreAlarmToggled () {
 		return UnitIgnoreAlarmToggled(this.handle)
 	}
 
-	public get intelligence(): number {
+	public get intelligence (): number {
 		return GetHeroInt(this.handle, false)
 	}
 
-	public set intelligence(value: number) {
+	public set intelligence (value: number) {
 		SetHeroInt(this.handle, value, true)
 	}
 
-	public get inventorySize(): number {
+	public get inventorySize (): number {
 		return UnitInventorySize(this.handle)
 	}
 
@@ -228,66 +224,66 @@ export class Unit extends Widget {
 	 * @note The native seems to employ the `'Avul'` ability, which is defined in the default AbilityData.slk.
 	 * If there is no `'Avul'` defined, this will crash the game.
 	 */
-	public set invulnerable(flag: boolean) {
+	public set invulnerable (flag: boolean) {
 		SetUnitInvulnerable(this.handle, flag)
 	}
 
-	public get invulnerable() {
+	public get invulnerable () {
 		return BlzIsUnitInvulnerable(this.handle)
 	}
 
-	public get level(): number {
+	public get level (): number {
 		return GetUnitLevel(this.handle)
 	}
 
-	public get localZ(): number {
+	public get localZ (): number {
 		return BlzGetLocalUnitZ(this.handle)
 	}
 
-	public get mana(): number {
+	public get mana (): number {
 		return this.getState(UNIT_STATE_MANA)
 	}
 
-	public set mana(value: number) {
+	public set mana (value: number) {
 		this.setState(UNIT_STATE_MANA, value)
 	}
 
-	public get maxLife(): number {
+	public get maxLife (): number {
 		return BlzGetUnitMaxHP(this.handle)
 	}
 
-	public set maxLife(value: number) {
+	public set maxLife (value: number) {
 		BlzSetUnitMaxHP(this.handle, value)
 	}
 
-	public get maxMana(): number {
+	public get maxMana (): number {
 		return BlzGetUnitMaxMana(this.handle)
 	}
 
-	public set maxMana(value: number) {
+	public set maxMana (value: number) {
 		BlzSetUnitMaxMana(this.handle, value)
 	}
 
-	public set moveSpeed(value: number) {
+	public set moveSpeed (value: number) {
 		SetUnitMoveSpeed(this.handle, value)
 	}
 
-	public get moveSpeed(): number {
+	public get moveSpeed (): number {
 		return GetUnitMoveSpeed(this.handle)
 	}
 
 	/**
 	 * @async
 	 */
-	get name() {
+	get name () {
 		return GetUnitName(this.handle)
 	}
 
-	set name(value: string) {
+	set name (value: string) {
 		BlzSetUnitName(this.handle, value)
 	}
 
-	public set nameProper(value: string) {
+	public set nameProper (value: string) {
 		BlzSetHeroProperName(this.handle, value)
 	}
 
@@ -296,15 +292,15 @@ export class Unit extends Widget {
 	 *
 	 * @note Will return 'null' on non-hero units.
 	 */
-	public get nameProper() {
+	public get nameProper () {
 		return GetHeroProperName(this.handle)
 	}
 
-	public set owner(whichPlayer: MapPlayer) {
+	public set owner (whichPlayer: MapPlayer) {
 		SetUnitOwner(this.handle, whichPlayer.handle, true)
 	}
 
-	public get owner(): MapPlayer {
+	public get owner (): MapPlayer {
 		return MapPlayer.fromHandle(GetOwningPlayer(this.handle))
 	}
 
@@ -314,14 +310,14 @@ export class Unit extends Widget {
 	 * 2. Orders are stored when paused and fired on unpause
 	 * 3. The paused unit does not accept powerups. `addItem` returns true but the item is not picked up
 	 */
-	public set paused(flag: boolean) {
+	public set paused (flag: boolean) {
 		PauseUnit(this.handle, flag)
 	}
 
 	/**
 	 * @returns true if the unit is paused
 	 */
-	public get paused() {
+	public get paused () {
 		return IsUnitPaused(this.handle)
 	}
 
@@ -330,100 +326,100 @@ export class Unit extends Widget {
 	 * of the zeppelin but the last position of the unit before it was loaded into
 	 * the zeppelin.
 	 */
-	public get point(): Point {
+	public get point (): Point {
 		return Point.fromHandle(GetUnitLoc(this.handle))
 	}
 
-	public set point(whichPoint: Point) {
+	public set point (whichPoint: Point) {
 		SetUnitPositionLoc(this.handle, whichPoint.handle)
 	}
 
-	public get pointValue(): number {
+	public get pointValue (): number {
 		return GetUnitPointValue(this.handle)
 	}
 
 	/**
-	 * Sets a unit's propulsion window to the specified angle (in radians). 
-	 * The propulsion window determines at which facing angle difference to the target 
-	 * command's location (move, attack, patrol, smart) a unit will begin to move if 
-	 * movement is required to fulfil the command, or if it will turn without movement. 
-	 * A propulsion window of 0 makes the unit unable to move at all. 
-	 * A propulsion window of 180 will force it to start moving as soon as the command 
-	 * is given (if movement is required). In practice, this means that setting a 
-	 * unit's prop window to 0 will prevent it from attacking. 
-	 * 
+	 * Sets a unit's propulsion window to the specified angle (in radians).
+	 * The propulsion window determines at which facing angle difference to the target
+	 * command's location (move, attack, patrol, smart) a unit will begin to move if
+	 * movement is required to fulfil the command, or if it will turn without movement.
+	 * A propulsion window of 0 makes the unit unable to move at all.
+	 * A propulsion window of 180 will force it to start moving as soon as the command
+	 * is given (if movement is required). In practice, this means that setting a
+	 * unit's prop window to 0 will prevent it from attacking.
+	 *
 	 * http://www.hiveworkshop.com/forums/2391397-post20.html
-  
+
 	 * @param newPropWindowAngle The propulsion window angle to assign. Should be in radians.
 	 */
-	public set propWindow(newPropWindowAngle: number) {
+	public set propWindow (newPropWindowAngle: number) {
 		SetUnitPropWindow(this.handle, newPropWindowAngle)
 	}
 
 	/**
 	 * Returns a unit's propulsion window angle in radians.
 	 */
-	public get propWindow(): number {
+	public get propWindow (): number {
 		return GetUnitPropWindow(this.handle)
 	}
 
-	public get race(): race {
+	public get race (): race {
 		return GetUnitRace(this.handle)
 	}
 
-	public get rallyDestructable(): Destructable {
+	public get rallyDestructable (): Destructable {
 		return Destructable.fromHandle(GetUnitRallyDestructable(this.handle))
 	}
 
-	public get rallyPoint(): Point {
+	public get rallyPoint (): Point {
 		return Point.fromHandle(GetUnitRallyPoint(this.handle))
 	}
 
-	public get rallyUnit(): Unit {
+	public get rallyUnit (): Unit {
 		return Unit.fromHandle(GetUnitRallyUnit(this.handle))
 	}
 
-	public set resourceAmount(amount: number) {
+	public set resourceAmount (amount: number) {
 		SetResourceAmount(this.handle, amount)
 	}
 
-	public get resourceAmount(): number {
+	public get resourceAmount (): number {
 		return GetResourceAmount(this.handle)
 	}
 
-	public get selectable() {
+	public get selectable () {
 		return BlzIsUnitSelectable(this.handle)
 	}
 
-	public set selectionScale(scale: number) {
+	public set selectionScale (scale: number) {
 		this.setField(UNIT_RF_SELECTION_SCALE, scale)
 	}
 
-	public get selectionScale(): number {
+	public get selectionScale (): number {
 		const result = this.getField(UNIT_RF_SELECTION_SCALE)
-		return typeof result === "number" ? result : 0
+		return typeof result === 'number' ? result : 0
 	}
 
-	public set show(flag: boolean) {
+	public set show (flag: boolean) {
 		ShowUnit(this.handle, flag)
 	}
 
-	public get show() {
+	public get show () {
 		return !IsUnitHidden(this.handle)
 	}
 
-	public get skin() {
+	public get skin () {
 		return BlzGetUnitSkin(this.handle)
 	}
 
-	public set skin(skinId: number) {
+	public set skin (skinId: number) {
 		BlzSetUnitSkin(this.handle, skinId)
 	}
 
 	/**
 	 * Returns the units available skill points.
 	 */
-	public get skillPoints(): number {
+	public get skillPoints (): number {
 		return GetHeroSkillPoints(this.handle)
 	}
 
@@ -437,39 +433,39 @@ export class Unit extends Widget {
 	 * actually can spend (like 9 for three 3-level abilities) only that amount will
 	 * be added. Negative `skillPointDelta` works as expected.
 	 */
-	public set skillPoints(amount: number) {
+	public set skillPoints (amount: number) {
 		UnitModifySkillPoints(this.handle, amount - this.skillPoints)
 	}
 
-	public get sleeping() {
+	public get sleeping () {
 		return UnitIsSleeping(this.handle)
 	}
 
-	public get strength(): number {
+	public get strength (): number {
 		return GetHeroStr(this.handle, false)
 	}
 
-	public set strength(value: number) {
+	public set strength (value: number) {
 		SetHeroStr(this.handle, value, true)
 	}
 
-	public set turnSpeed(value: number) {
+	public set turnSpeed (value: number) {
 		SetUnitTurnSpeed(this.handle, value)
 	}
 
-	public get turnSpeed(): number {
+	public get turnSpeed (): number {
 		return GetUnitTurnSpeed(this.handle)
 	}
 
-	public get typeId(): number {
+	public get typeId (): number {
 		return GetUnitTypeId(this.handle)
 	}
 
-	public get typeFour(): string {
+	public get typeFour (): string {
 		return CC2Four(GetUnitTypeId(this.handle))
 	}
 
-	public get userData(): number {
+	public get userData (): number {
 		return GetUnitUserData(this.handle)
 	}
 
@@ -478,23 +474,23 @@ export class Unit extends Widget {
  *
  * @note This value is not used by any standard mechanisms in Warcraft III.
  */
-	public set userData(value: number) {
+	public set userData (value: number) {
 		SetUnitUserData(this.handle, value)
 	}
 
-	public set heroLevel(value: number) {
+	public set heroLevel (value: number) {
 		value > this.getHeroLevel() ? SetHeroLevel(this.handle, value, true) : SetHeroLevel(this.handle, value, false)
 	}
 
-	public get heroLevel(): number {
+	public get heroLevel (): number {
 		return GetHeroLevel(this.handle)
 	}
 
-	public set waygateActive(flag: boolean) {
+	public set waygateActive (flag: boolean) {
 		WaygateActivate(this.handle, flag)
 	}
 
-	public get waygateActive() {
+	public get waygateActive () {
 		return WaygateIsActive(this.handle)
 	}
 
@@ -503,7 +499,7 @@ export class Unit extends Widget {
 	 * of the zeppelin but the last position of the unit before it was loaded into
 	 * the zeppelin.
 	 */
-	public get x(): number {
+	public get x (): number {
 		return GetUnitX(this.handle)
 	}
 
@@ -511,11 +507,11 @@ export class Unit extends Widget {
 	 * @note If the unit has movementspeed of zero the unit will be moved but the model of the unit will not move.
 	 * @note This does not cancel orders of the unit. `setPosition` does cancel orders.
 	 */
-	public set x(value: number) {
+	public set x (value: number) {
 		SetUnitX(this.handle, value)
 	}
 
-	public get y(): number {
+	public get y (): number {
 		return GetUnitY(this.handle)
 	}
 
@@ -523,20 +519,19 @@ export class Unit extends Widget {
 	 * @note If the unit has movementspeed of zero the unit will be moved but the model of the unit will not move.
 	 * @note This does not cancel orders of the unit. `setPosition` does cancel orders.
 	 */
-	public set y(value: number) {
+	public set y (value: number) {
 		SetUnitY(this.handle, value)
 	}
 
-	public get staticZ(): number {
+	public get staticZ (): number {
 		return BlzGetUnitZ(this.handle)
 	}
 
-	public get z(): number {
+	public get z (): number {
 		return GetUnitFlyHeight(this.handle)
 	}
 
-	public set z(value: number) {
-
+	public set z (value: number) {
 		if (!this.data.setAsFlying && !this.isFlying) {
 			this.addAbility(AbilityFour.StormCrowForm)
 			this.removeAbility(AbilityFour.StormCrowForm)
@@ -546,63 +541,59 @@ export class Unit extends Widget {
 		SetUnitFlyHeight(this.handle, value, 100000000)
 	}
 
-
-	public get position(): Position {
+	public get position (): Position {
 		return new Position(this.x, this.y, this.z)
 	}
 
-	public set position(value: Position) {
+	public set position (value: Position) {
 		this.x = value.x
 		this.y = value.y
 		this.z = value.z ?? this.z
 	}
 
-
-	public get kills(): number {
+	public get kills (): number {
 		return this.data.kills
 	}
 
-	public set kills(value: number) {
+	public set kills (value: number) {
 		this.data.kills = value
 	}
 
-	public get startX(): number {
+	public get startX (): number {
 		return this.data.startX
 	}
 
-	public get startY(): number {
+	public get startY (): number {
 		return this.data.startY
 	}
 
-	public get destX(): number {
+	public get destX (): number {
 		return this.data.destX
 	}
 
-	public get destY(): number {
+	public get destY (): number {
 		return this.data.destY
 	}
 
-	public get heroType(): HeroType {
+	public get heroType (): HeroType {
 		return this.data.heroType
 	}
 
-	public set heroType(value: HeroType) {
+	public set heroType (value: HeroType) {
 		this.data.heroType = value
 	}
 
-	public addAbility(abilityId: number | string | Ability) {
-		if (typeof abilityId === "number") {
+	public addAbility (abilityId: number | string | Ability) {
+		if (typeof abilityId === 'number') {
 			UnitAddAbility(this.handle, abilityId)
-		} else if (typeof abilityId === "string") {
+		} else if (typeof abilityId === 'string') {
 			UnitAddAbility(this.handle, FourCC(abilityId))
 		} else {
 			UnitAddAbility(this.handle, abilityId.id)
 		}
-
-
 	}
 
-	public addAnimationProps(animProperties: string, add: boolean) {
+	public addAnimationProps (animProperties: string, add: boolean) {
 		AddUnitAnimationProperties(this.handle, animProperties, add)
 	}
 
@@ -622,28 +613,27 @@ export class Unit extends Widget {
 	 * @param showEyeCandy If the boolean input is true, then the hero-level-gain
 	 * effect will be shown if the hero gains a level from the added experience.
 	 */
-	public addExperience(xpToAdd: number, showEyeCandy: boolean): void {
+	public addExperience (xpToAdd: number, showEyeCandy: boolean): void {
 		AddHeroXP(this.handle, xpToAdd, showEyeCandy)
 	}
 
-	public addIndicator(red: number, blue: number, green: number, alpha: number): void {
+	public addIndicator (red: number, blue: number, green: number, alpha: number): void {
 		UnitAddIndicator(this.handle, red, blue, green, alpha)
 	}
 
-	public addItem(whichItem: Item): boolean {
+	public addItem (whichItem: Item): boolean {
 		return UnitAddItem(this.handle, whichItem.handle)
 	}
 
-
-	public addItemById(itemId: number): Item {
+	public addItemById (itemId: number): Item {
 		return Item.fromHandle(UnitAddItemById(this.handle, itemId))
 	}
 
-	public addItemToSlotById(itemId: number, itemSlot: number): boolean {
+	public addItemToSlotById (itemId: number, itemSlot: number): boolean {
 		return UnitAddItemToSlotById(this.handle, itemId, itemSlot)
 	}
 
-	public addItemToStock(itemId: number, currentStock: number, stockMax: number): void {
+	public addItemToStock (itemId: number, currentStock: number, stockMax: number): void {
 		AddItemToStock(this.handle, itemId, currentStock, stockMax)
 	}
 
@@ -656,43 +646,43 @@ export class Unit extends Widget {
 	 * be auto-destroyed.
 	 * @param amount The amount of resources to add to the unit.
 	 */
-	public addResourceAmount(amount: number): void {
+	public addResourceAmount (amount: number): void {
 		AddResourceAmount(this.handle, amount)
 	}
 
-	public addSleepPerm(add: boolean): void {
+	public addSleepPerm (add: boolean): void {
 		UnitAddSleepPerm(this.handle, add)
 	}
 
-	public addType(whichUnitType: unittype): boolean {
+	public addType (whichUnitType: unittype): boolean {
 		return UnitAddType(this.handle, whichUnitType)
 	}
 
-	public addUnitToStock(unitId: number, currentStock: number, stockMax: number): void {
+	public addUnitToStock (unitId: number, currentStock: number, stockMax: number): void {
 		AddUnitToStock(this.handle, unitId, currentStock, stockMax)
 	}
 
-	public applyTimedLife(buffId: number | string, duration: number): void {
-		typeof buffId === "number" ? UnitApplyTimedLife(this.handle, buffId, duration) : UnitApplyTimedLife(this.handle, FourCC(buffId), duration)
+	public applyTimedLife (buffId: number | string, duration: number): void {
+		typeof buffId === 'number' ? UnitApplyTimedLife(this.handle, buffId, duration) : UnitApplyTimedLife(this.handle, FourCC(buffId), duration)
 	}
 
-	public attachSound(sound: Sound): void {
+	public attachSound (sound: Sound): void {
 		AttachSoundToUnit(sound.handle, this.handle)
 	}
 
-	public cancelTimedLife(): void {
+	public cancelTimedLife (): void {
 		BlzUnitCancelTimedLife(this.handle)
 	}
 
-	public canSleepPerm(): boolean {
+	public canSleepPerm (): boolean {
 		return UnitCanSleepPerm(this.handle)
 	}
 
-	public countBuffs(removePositive: boolean, removeNegative: boolean, magic: boolean, physical: boolean, timedLife: boolean, aura: boolean, autoDispel: boolean): number {
+	public countBuffs (removePositive: boolean, removeNegative: boolean, magic: boolean, physical: boolean, timedLife: boolean, aura: boolean, autoDispel: boolean): number {
 		return UnitCountBuffsEx(this.handle, removePositive, removeNegative, magic, physical, timedLife, aura, autoDispel)
 	}
 
-	public damageAt(
+	public damageAt (
 		delay: number,
 		radius: number,
 		x: number,
@@ -719,7 +709,7 @@ export class Unit extends Widget {
 	 * @param damageType
 	 * @param weaponType
 	 */
-	public damageTarget(target: Widget, amount: number, attack: boolean, ranged: boolean, attackType: attacktype, damageType: damagetype, weaponType: weapontype): boolean {
+	public damageTarget (target: Widget, amount: number, attack: boolean, ranged: boolean, attackType: attacktype, damageType: damagetype, weaponType: weapontype): boolean {
 		return UnitDamageTarget(this.handle, target.handle, amount, attack, ranged, attackType, damageType, weaponType)
 	}
 
@@ -728,51 +718,50 @@ export class Unit extends Widget {
 	 * @param abilCode The four digit rawcode representation of the ability.
 	 * @returns The new ability level.
 	 */
-	public decAbilityLevel(abilCode: number): number {
+	public decAbilityLevel (abilCode: number): number {
 		return DecUnitAbilityLevel(this.handle, abilCode)
 	}
-
 
 	/**
 	 * Instantly removes the unit from the game.
 	 */
-	public destroy(): void {
+	public destroy (): void {
 		RemoveUnit(this.handle)
 	}
 
-	public disableAbility(abilId: number | string, flag: boolean, hideUI: boolean): void {
-		typeof abilId === "string" ? BlzUnitDisableAbility(this.handle, FourCC(abilId), flag, hideUI) : BlzUnitDisableAbility(this.handle, abilId, flag, hideUI)
+	public disableAbility (abilId: number | string, flag: boolean, hideUI: boolean): void {
+		typeof abilId === 'string' ? BlzUnitDisableAbility(this.handle, FourCC(abilId), flag, hideUI) : BlzUnitDisableAbility(this.handle, abilId, flag, hideUI)
 	}
 
-	public dropItem(whichItem: Item, x: number, y: number): boolean {
+	public dropItem (whichItem: Item, x: number, y: number): boolean {
 		return UnitDropItemPoint(this.handle, whichItem.handle, x, y)
 	}
 
-	public dropItemFromSlot(whichItem: Item, slot: number): boolean {
+	public dropItemFromSlot (whichItem: Item, slot: number): boolean {
 		return UnitDropItemSlot(this.handle, whichItem.handle, slot)
 	}
 
-	public dropItemTarget(whichItem: Item, target: Widget /* | Unit | Item | Destructable*/): boolean {
+	public dropItemTarget (whichItem: Item, target: Widget /* | Unit | Item | Destructable */): boolean {
 		return UnitDropItemTarget(this.handle, whichItem.handle, target.handle)
 	}
 
-	public endAbilityCooldown(abilCode: number | string): void {
-		typeof abilCode === "string" ? BlzEndUnitAbilityCooldown(this.handle, FourCC(abilCode)) : BlzEndUnitAbilityCooldown(this.handle, abilCode)
+	public endAbilityCooldown (abilCode: number | string): void {
+		typeof abilCode === 'string' ? BlzEndUnitAbilityCooldown(this.handle, FourCC(abilCode)) : BlzEndUnitAbilityCooldown(this.handle, abilCode)
 	}
 
 	// public getUnitAbility(ability: number | Ability): UnitAbility {
 	// 	return typeof ability === "number" ? new UnitAbility(this, Ability.fromId(ability)) : new UnitAbility(this, ability)
 	// }
 
-	public getAbilityByIndex(index: number): ability {
+	public getAbilityByIndex (index: number): ability {
 		return BlzGetUnitAbilityByIndex(this.handle, index)
 	}
 
-	public getAbilityCooldown(abilId: number, level: number): number {
+	public getAbilityCooldown (abilId: number, level: number): number {
 		return BlzGetUnitAbilityCooldown(this.handle, abilId, level)
 	}
 
-	public getAbilityCooldownRemaining(abilId: number): number {
+	public getAbilityCooldownRemaining (abilId: number): number {
 		return BlzGetUnitAbilityCooldownRemaining(this.handle, abilId)
 	}
 
@@ -780,75 +769,75 @@ export class Unit extends Widget {
 	 * Returns the level of the ability for the unit.
 	 * @note This function is **not** zero indexed.
 	 */
-	public getAbilityLevel(abilCode: number): number {
+	public getAbilityLevel (abilCode: number): number {
 		return GetUnitAbilityLevel(this.handle, abilCode)
 	}
 
-	public getAbilityManaCost(abilId: number, level: number): number {
+	public getAbilityManaCost (abilId: number, level: number): number {
 		return BlzGetUnitAbilityManaCost(this.handle, abilId, level)
 	}
 
-	public getAgility(includeBonuses: boolean): number {
+	public getAgility (includeBonuses: boolean): number {
 		return GetHeroAgi(this.handle, includeBonuses)
 	}
 
-	public getAttackCooldown(weaponIndex: number): number {
+	public getAttackCooldown (weaponIndex: number): number {
 		return BlzGetUnitAttackCooldown(this.handle, weaponIndex)
 	}
 
-	public getBaseDamage(weaponIndex: number): number {
+	public getBaseDamage (weaponIndex: number): number {
 		return BlzGetUnitBaseDamage(this.handle, weaponIndex)
 	}
 
-	public getDiceNumber(weaponIndex: number) {
+	public getDiceNumber (weaponIndex: number) {
 		return BlzGetUnitDiceNumber(this.handle, weaponIndex)
 	}
 
-	public getDiceSides(weaponIndex: number) {
+	public getDiceSides (weaponIndex: number) {
 		return BlzGetUnitDiceSides(this.handle, weaponIndex)
 	}
 
-	public getField(field: UnitField, index = 0): UnitFieldValue {
+	public getField (field: UnitField, index = 0): UnitFieldValue {
 		const fieldType = getFieldType(field)
 
 		switch (fieldType) {
-			case "unitbooleanfield": {
+			case 'unitbooleanfield': {
 				const fieldBool: unitbooleanfield = field as unitbooleanfield
 
 				return BlzGetUnitBooleanField(this.handle, fieldBool)
 			}
-			case "unitintegerfield": {
+			case 'unitintegerfield': {
 				const fieldInt: unitintegerfield = field as unitintegerfield
 
 				return BlzGetUnitIntegerField(this.handle, fieldInt)
 			}
-			case "unitrealfield": {
+			case 'unitrealfield': {
 				const fieldReal: unitrealfield = field as unitrealfield
 
 				return BlzGetUnitRealField(this.handle, fieldReal)
 			}
-			case "unitstringfield": {
+			case 'unitstringfield': {
 				const fieldString: unitstringfield = field as unitstringfield
 
 				return BlzGetUnitStringField(this.handle, fieldString)
 			}
 
-			case "unitweaponbooleanfield": {
+			case 'unitweaponbooleanfield': {
 				const fieldBool: unitweaponbooleanfield = field as unitweaponbooleanfield
 
 				return BlzGetUnitWeaponBooleanField(this.handle, fieldBool, index)
 			}
-			case "unitweaponintegerfield": {
+			case 'unitweaponintegerfield': {
 				const fieldInt: unitweaponintegerfield = field as unitweaponintegerfield
 
 				return BlzGetUnitWeaponIntegerField(this.handle, fieldInt, index)
 			}
-			case "unitweaponrealfield": {
+			case 'unitweaponrealfield': {
 				const fieldReal: unitweaponrealfield = field as unitweaponrealfield
 
 				return BlzGetUnitWeaponRealField(this.handle, fieldReal, index)
 			}
-			case "unitweaponstringfield": {
+			case 'unitweaponstringfield': {
 				const fieldString: unitweaponstringfield = field as unitweaponstringfield
 
 				return BlzGetUnitWeaponStringField(this.handle, fieldString, index)
@@ -858,58 +847,57 @@ export class Unit extends Widget {
 		}
 	}
 
-	public get flyHeight() {
+	public get flyHeight () {
 		return GetUnitFlyHeight(this.handle)
 	}
 
-	public set flyHeight(value: number) {
+	public set flyHeight (value: number) {
 		SetUnitFlyHeight(this.handle, value, 100000000)
 	}
 
-	public getHeroLevel() {
+	public getHeroLevel () {
 		return GetHeroLevel(this.handle)
 	}
 
-	public getIgnoreAlarm(flag: boolean) {
+	public getIgnoreAlarm (flag: boolean) {
 		return UnitIgnoreAlarm(this.handle, flag)
 	}
 
-	public getIntelligence(includeBonuses: boolean) {
+	public getIntelligence (includeBonuses: boolean) {
 		return GetHeroInt(this.handle, includeBonuses)
 	}
 
-	public getItemInSlot(slot: number) {
+	public getItemInSlot (slot: number) {
 		return Item.fromHandle(UnitItemInSlot(this.handle, slot))
 	}
 
-	public getState(whichUnitState: unitstate) {
+	public getState (whichUnitState: unitstate) {
 		return GetUnitState(this.handle, whichUnitState)
 	}
 
-	public getStrength(includeBonuses: boolean) {
+	public getStrength (includeBonuses: boolean) {
 		return GetHeroStr(this.handle, includeBonuses)
 	}
 
-	public hasBuffs(removePositive: boolean, removeNegative: boolean, magic: boolean, physical: boolean, timedLife: boolean, aura: boolean, autoDispel: boolean) {
+	public hasBuffs (removePositive: boolean, removeNegative: boolean, magic: boolean, physical: boolean, timedLife: boolean, aura: boolean, autoDispel: boolean) {
 		return UnitHasBuffsEx(this.handle, removePositive, removeNegative, magic, physical, timedLife, aura, autoDispel)
 	}
 
-	public hasBuff(buffcode: number | string): boolean {
-		return typeof buffcode === "number" ? GetUnitAbilityLevel(this.handle, buffcode) > 0 : GetUnitAbilityLevel(this.handle, FourCC(buffcode)) > 0
+	public hasBuff (buffcode: number | string): boolean {
+		return typeof buffcode === 'number' ? GetUnitAbilityLevel(this.handle, buffcode) > 0 : GetUnitAbilityLevel(this.handle, FourCC(buffcode)) > 0
 	}
 
-	public hasItem(whichItem: Item) {
+	public hasItem (whichItem: Item) {
 		return UnitHasItem(this.handle, whichItem.handle)
 	}
 
-	public hasItemOfType(itemType: string | number) {
-
-		const itemId = typeof itemType === "string" ? FourCC(itemType) : itemType
+	public hasItemOfType (itemType: string | number) {
+		const itemId = typeof itemType === 'string' ? FourCC(itemType) : itemType
 
 		let index = 0
 		while (index < bj_MAX_INVENTORY) {
 			const indexItem = UnitItemInSlot(this.handle, index)
-			if ((indexItem != null) && (GetItemTypeId(indexItem) == itemId)) {
+			if ((indexItem != null) && (GetItemTypeId(indexItem) === itemId)) {
 				return true
 			}
 
@@ -918,32 +906,31 @@ export class Unit extends Widget {
 		return false
 	}
 
-	public hasAbility(ability: Ability | number): boolean {
-		return this.getAbilityLevel((typeof ability === "number" ? ability : ability.id)) >= 1
+	public hasAbility (ability: Ability | number): boolean {
+		return this.getAbilityLevel((typeof ability === 'number' ? ability : ability.id)) >= 1
 	}
 
-	public hideAbility(abilId: number) {
+	public hideAbility (abilId: number) {
 		BlzUnitHideAbility(this.handle, abilId, true)
 	}
 
-	public showAbility(abilId: number) {
+	public showAbility (abilId: number) {
 		BlzUnitHideAbility(this.handle, abilId, false)
-
 	}
 
-	public distanceTo(value: Unit | Position): number {
+	public distanceTo (value: Unit | Position): number {
 		return SquareRoot(((value.x - this.x) * (value.x - this.x)) + ((value.y - this.y) * (value.y - this.y)))
 	}
 
-	public angleTo(value: Unit | Position): number {
+	public angleTo (value: Unit | Position): number {
 		return bj_RADTODEG * Atan2(value.y - this.y, value.x - this.x)
 	}
 
-	public polarProjection(dist: number, angle: number): Position {
+	public polarProjection (dist: number, angle: number): Position {
 		return new Position(this.x + dist * Cos(angle * bj_DEGTORAD), this.y + dist * Sin(angle * bj_DEGTORAD))
 	}
 
-	public moveToPolarProjection(dist: number, angle: number): void {
+	public moveToPolarProjection (dist: number, angle: number): void {
 		this.x = this.x + dist * Cos(angle * bj_DEGTORAD)
 		this.y = this.y + dist * Sin(angle * bj_DEGTORAD)
 	}
@@ -958,155 +945,155 @@ export class Unit extends Widget {
 	 * http://www.wc3c.net/showthread.php?p=1029039#post1029039
 	 * http://www.hiveworkshop.com/forums/lab-715/silenceex-everything-you-dont-know-about-silence-274351/.
 	 */
-	public incAbilityLevel(abilCode: number) {
+	public incAbilityLevel (abilCode: number) {
 		return IncUnitAbilityLevel(this.handle, abilCode)
 	}
 
-	public inForce(whichForce: Force) {
+	public inForce (whichForce: Force) {
 		return IsUnitInForce(this.handle, whichForce.handle)
 	}
 
-	public inGroup(whichGroup: Group) {
+	public inGroup (whichGroup: Group) {
 		return IsUnitInGroup(this.handle, whichGroup.handle)
 	}
 
-	public inRegion(whichRegion: Region): boolean {
+	public inRegion (whichRegion: Region): boolean {
 		return IsUnitInRegion(whichRegion.handle, this.handle)
 	}
 
-	public inRect(whichRect: Rectangle): boolean {
+	public inRect (whichRect: Rectangle): boolean {
 		return RectContainsUnit(whichRect.handle, this.handle)
 	}
 
 	/**
 	 * Check if a unit is within range of a point. Collision size is taken into account.
 	 */
-	public inRange(x: number, y: number, distance: number) {
+	public inRange (x: number, y: number, distance: number) {
 		return IsUnitInRangeXY(this.handle, x, y, distance)
 	}
 
 	/**
 	 * Check if a unit is within range of a point. Collision size is taken into account.
 	 */
-	public inRangeOfPoint(whichPoint: Point, distance: number) {
+	public inRangeOfPoint (whichPoint: Point, distance: number) {
 		return IsUnitInRangeLoc(this.handle, whichPoint.handle, distance)
 	}
 
 	/**
 	 * Check if a unit is within range of a another unit. Collision size is taken into account.
 	 */
-	public inRangeOfUnit(otherUnit: Unit, distance: number) {
+	public inRangeOfUnit (otherUnit: Unit, distance: number) {
 		return IsUnitInRange(this.handle, otherUnit.handle, distance)
 	}
 
-	public interruptAttack() {
+	public interruptAttack () {
 		BlzUnitInterruptAttack(this.handle)
 	}
 
-	public inTransport(whichTransport: Unit) {
+	public inTransport (whichTransport: Unit) {
 		return IsUnitInTransport(this.handle, whichTransport.handle)
 	}
 
-	public isTerrainPathable(pathingType: pathingtype) {
+	public isTerrainPathable (pathingType: pathingtype) {
 		return !IsTerrainPathable(this.x, this.y, pathingType)
 	}
 
-	public isAlive(): boolean {
+	public isAlive (): boolean {
 		return UnitAlive(this.handle)
 	}
 
-	public isAlly(whichHandle: MapPlayer | Unit) {
+	public isAlly (whichHandle: MapPlayer | Unit) {
 		return whichHandle instanceof MapPlayer ? IsUnitAlly(this.handle, whichHandle.handle) : IsUnitAlly(this.handle, whichHandle.owner.handle)
 	}
 
-	public isEnemy(whichHandle: MapPlayer | Unit) {
+	public isEnemy (whichHandle: MapPlayer | Unit) {
 		return whichHandle instanceof MapPlayer ? IsUnitEnemy(this.handle, whichHandle.handle) : IsUnitEnemy(this.handle, whichHandle.owner.handle)
 	}
 
-	public get isExperienceSuspended() {
+	public get isExperienceSuspended () {
 		return IsSuspendedXP(this.handle)
 	}
 
-	public isFogged(whichPlayer: MapPlayer) {
+	public isFogged (whichPlayer: MapPlayer) {
 		return IsUnitFogged(this.handle, whichPlayer.handle)
 	}
 
-	public get isHero() {
+	public get isHero () {
 		return IsHeroUnitId(this.typeId)
 	}
 
-	public get isIllusion() {
+	public get isIllusion () {
 		return IsUnitIllusion(this.handle)
 	}
 
-	public get isLoaded() {
+	public get isLoaded () {
 		return IsUnitLoaded(this.handle)
 	}
 
-	public isMasked(whichPlayer: MapPlayer) {
+	public isMasked (whichPlayer: MapPlayer) {
 		return IsUnitMasked(this.handle, whichPlayer.handle)
 	}
 
-	public isSelected(whichPlayer: MapPlayer) {
+	public isSelected (whichPlayer: MapPlayer) {
 		return IsUnitSelected(this.handle, whichPlayer.handle)
 	}
 
-	public issueBuildOrder(unit: string | number, x: number, y: number) {
-		return typeof unit === "string" ? IssueBuildOrder(this.handle, unit, x, y) : IssueBuildOrderById(this.handle, unit, x, y)
+	public issueBuildOrder (unit: string | number, x: number, y: number) {
+		return typeof unit === 'string' ? IssueBuildOrder(this.handle, unit, x, y) : IssueBuildOrderById(this.handle, unit, x, y)
 	}
 
-	public issueImmediateOrder(order: string | Order) {
-		return typeof order === "string" ? IssueImmediateOrder(this.handle, order) : IssueImmediateOrderById(this.handle, order)
+	public issueImmediateOrder (order: string | Order) {
+		return typeof order === 'string' ? IssueImmediateOrder(this.handle, order) : IssueImmediateOrderById(this.handle, order)
 	}
 
-	public issueInstantOrderAt(order: string | Order, x: number, y: number, instantTargetWidget: Widget) {
-		return typeof order === "string"
+	public issueInstantOrderAt (order: string | Order, x: number, y: number, instantTargetWidget: Widget) {
+		return typeof order === 'string'
 			? IssueInstantPointOrder(this.handle, order, x, y, instantTargetWidget.handle)
 			: IssueInstantPointOrderById(this.handle, order, x, y, instantTargetWidget.handle)
 	}
 
-	public issueInstantTargetOrder(order: string | Order, targetWidget: Widget, instantTargetWidget: Widget) {
-		return typeof order === "string"
+	public issueInstantTargetOrder (order: string | Order, targetWidget: Widget, instantTargetWidget: Widget) {
+		return typeof order === 'string'
 			? IssueInstantTargetOrder(this.handle, order, targetWidget.handle, instantTargetWidget.handle)
 			: IssueInstantTargetOrderById(this.handle, order, targetWidget.handle, instantTargetWidget.handle)
 	}
 
-	public getParabolaZ(distanceTravelled: number, fullDistance: number, maximumHeight: number): number {
+	public getParabolaZ (distanceTravelled: number, fullDistance: number, maximumHeight: number): number {
 		return 4 * maximumHeight * distanceTravelled * (fullDistance - distanceTravelled) / (fullDistance * fullDistance)
 	}
 
-	public issueOrderAt(order: string | Order, x: number, y: number) {
+	public issueOrderAt (order: string | Order, x: number, y: number) {
 		this.data.destX = x
 		this.data.destY = y
 		this.data.orderType = OrderType.Point
-		this.data.order = typeof order === "string" ? String2OrderIdBJ(order) : order
-		return typeof order === "string" ? IssuePointOrder(this.handle, order, x, y) : IssuePointOrderById(this.handle, order, x, y)
+		this.data.order = typeof order === 'string' ? String2OrderIdBJ(order) : order
+		return typeof order === 'string' ? IssuePointOrder(this.handle, order, x, y) : IssuePointOrderById(this.handle, order, x, y)
 	}
 
-	public issueOrderAtPosition(order: string | Order, dest: Position) {
+	public issueOrderAtPosition (order: string | Order, dest: Position) {
 		this.data.destX = dest.x
 		this.data.destY = dest.y
 		this.data.orderType = OrderType.Point
-		this.data.order = typeof order === "string" ? String2OrderIdBJ(order) : order
-		return typeof order === "string" ? IssuePointOrder(this.handle, order, dest.x, dest.y) : IssuePointOrderById(this.handle, order, dest.x, dest.y)
+		this.data.order = typeof order === 'string' ? String2OrderIdBJ(order) : order
+		return typeof order === 'string' ? IssuePointOrder(this.handle, order, dest.x, dest.y) : IssuePointOrderById(this.handle, order, dest.x, dest.y)
 	}
 
-	public issuePointOrder(order: string | Order, whichPoint: Point) {
-		return typeof order === "string" ? IssuePointOrderLoc(this.handle, order, whichPoint.handle) : IssuePointOrderByIdLoc(this.handle, order, whichPoint.handle)
+	public issuePointOrder (order: string | Order, whichPoint: Point) {
+		return typeof order === 'string' ? IssuePointOrderLoc(this.handle, order, whichPoint.handle) : IssuePointOrderByIdLoc(this.handle, order, whichPoint.handle)
 	}
 
-	public issueTargetOrder(order: string | Order, targetWidget: Widget) {
+	public issueTargetOrder (order: string | Order, targetWidget: Widget) {
 		this.data.orderType = OrderType.Target
-		this.data.order = typeof order === "string" ? String2OrderIdBJ(order) : order
+		this.data.order = typeof order === 'string' ? String2OrderIdBJ(order) : order
 		this.data.targetWidget = targetWidget
-		return typeof order === "string" ? IssueTargetOrder(this.handle, order, targetWidget.handle) : IssueTargetOrderById(this.handle, order, targetWidget.handle)
+		return typeof order === 'string' ? IssueTargetOrder(this.handle, order, targetWidget.handle) : IssueTargetOrderById(this.handle, order, targetWidget.handle)
 	}
 
-	public issueLastOrder() {
-		if (this.data.orderType == OrderType.Point) {
+	public issueLastOrder () {
+		if (this.data.orderType === OrderType.Point) {
 			this.issueOrderAt(this.data.order, this.data.destX, this.data.destY)
 			return true
-		} else if (this.data.orderType == OrderType.Target) {
+		} else if (this.data.orderType === OrderType.Target) {
 			this.issueTargetOrder(this.data.order, this.data.targetWidget)
 			return true
 		} else {
@@ -1117,7 +1104,7 @@ export class Unit extends Widget {
 	/**
 	 * @note Useless. Use operator == instead.
 	 */
-	public isUnit(whichSpecifiedUnit: Unit) {
+	public isUnit (whichSpecifiedUnit: Unit) {
 		return IsUnit(this.handle, whichSpecifiedUnit.handle)
 	}
 
@@ -1128,140 +1115,138 @@ export class Unit extends Widget {
 	 * I cannot reproduce the faulty behaviour in patch 1.27 so this is only a note.
 	 * @param whichUnitType
 	 */
-	public isUnitType(whichUnitType: unittype) {
+	public isUnitType (whichUnitType: unittype) {
 		return IsUnitType(this.handle, whichUnitType)
 	}
 
-	public get isDead() {
+	public get isDead () {
 		return IsUnitType(this.handle, UNIT_TYPE_DEAD)
 	}
 
-	public get isStructure() {
+	public get isStructure () {
 		return IsUnitType(this.handle, UNIT_TYPE_STRUCTURE)
 	}
 
-	public get isFlying() {
+	public get isFlying () {
 		return IsUnitType(this.handle, UNIT_TYPE_FLYING)
 	}
 
-	public get isGround() {
+	public get isGround () {
 		return IsUnitType(this.handle, UNIT_TYPE_GROUND)
 	}
 
-	public get isAttacksFlying() {
+	public get isAttacksFlying () {
 		return IsUnitType(this.handle, UNIT_TYPE_ATTACKS_FLYING)
 	}
 
-	public get isAttacksGround() {
+	public get isAttacksGround () {
 		return IsUnitType(this.handle, UNIT_TYPE_ATTACKS_GROUND)
 	}
 
-	public get isMeleeAttacker() {
+	public get isMeleeAttacker () {
 		return IsUnitType(this.handle, UNIT_TYPE_MELEE_ATTACKER)
 	}
 
-	public get isRangedAttacker() {
+	public get isRangedAttacker () {
 		return IsUnitType(this.handle, UNIT_TYPE_RANGED_ATTACKER)
 	}
 
-	public get isGiant() {
+	public get isGiant () {
 		return IsUnitType(this.handle, UNIT_TYPE_GIANT)
 	}
 
-	public get isSummoned() {
+	public get isSummoned () {
 		return IsUnitType(this.handle, UNIT_TYPE_SUMMONED)
 	}
 
-	public get isStunned() {
+	public get isStunned () {
 		return IsUnitType(this.handle, UNIT_TYPE_STUNNED)
 	}
 
-	public get isPlagued() {
+	public get isPlagued () {
 		return IsUnitType(this.handle, UNIT_TYPE_PLAGUED)
 	}
 
-	public get isSnared() {
+	public get isSnared () {
 		return IsUnitType(this.handle, UNIT_TYPE_SNARED)
 	}
 
-	public get isUndead() {
+	public get isUndead () {
 		return IsUnitType(this.handle, UNIT_TYPE_UNDEAD)
 	}
 
-	public get isMechanical() {
+	public get isMechanical () {
 		return IsUnitType(this.handle, UNIT_TYPE_MECHANICAL)
 	}
 
-	public get isPeon() {
+	public get isPeon () {
 		return IsUnitType(this.handle, UNIT_TYPE_PEON)
 	}
 
-	public get isSapper() {
+	public get isSapper () {
 		return IsUnitType(this.handle, UNIT_TYPE_SAPPER)
 	}
 
-	public get isAncient() {
+	public get isAncient () {
 		return IsUnitType(this.handle, UNIT_TYPE_ANCIENT)
 	}
 
-	public get isTauren() {
+	public get isTauren () {
 		return IsUnitType(this.handle, UNIT_TYPE_TAUREN)
 	}
 
-	public get isPoisoned() {
+	public get isPoisoned () {
 		return IsUnitType(this.handle, UNIT_TYPE_POISONED)
 	}
 
-	public get isPolymorphed() {
+	public get isPolymorphed () {
 		return IsUnitType(this.handle, UNIT_TYPE_POLYMORPHED)
 	}
 
-	public get isSleeping() {
+	public get isSleeping () {
 		return IsUnitType(this.handle, UNIT_TYPE_SLEEPING)
 	}
 
-	public get isResistant() {
+	public get isResistant () {
 		return IsUnitType(this.handle, UNIT_TYPE_RESISTANT)
 	}
 
-	public get isEthereal() {
+	public get isEthereal () {
 		return IsUnitType(this.handle, UNIT_TYPE_ETHEREAL)
 	}
 
-	public get isMagicImmune() {
+	public get isMagicImmune () {
 		return IsUnitType(this.handle, UNIT_TYPE_MAGIC_IMMUNE)
 	}
 
-	public isVisible(whichPlayer: MapPlayer) {
+	public isVisible (whichPlayer: MapPlayer) {
 		return IsUnitVisible(this.handle, whichPlayer.handle)
 	}
-
-
 
 	/**
 	 * Kills the unit.
 	 */
-	public kill() {
+	public kill () {
 		KillUnit(this.handle)
 	}
 
-	public set lifePercent(value: number) {
+	public set lifePercent (value: number) {
 		this.life = this.maxLife * (value / 100)
 	}
 
-	public get lifePercent(): number {
+	public get lifePercent (): number {
 		return this.life / this.maxLife * 100
 	}
 
-	public set manaPercent(value: number) {
+	public set manaPercent (value: number) {
 		this.mana = this.maxMana * (value / 100)
 	}
 
-	public get manaPercent(): number {
+	public get manaPercent (): number {
 		return this.mana / this.maxMana * 100
 	}
 
-	public get four(): string {
+	public get four (): string {
 		return CC2Four(this.id)
 	}
 
@@ -1269,10 +1254,10 @@ export class Unit extends Widget {
 	// 	return new UnitType(this.four)
 	// }
 
-	public replace(newUnitType: UnitType | number): Unit {
+	public replace (newUnitType: UnitType | number): Unit {
 		this.show = false
 		let id: number
-		typeof newUnitType === "number" ? id = newUnitType : id = newUnitType.id
+		typeof newUnitType === 'number' ? id = newUnitType : id = newUnitType.id
 		const newUnit = new Unit(this.owner, id, this.position, this.facing)
 		newUnit.lifePercent = this.lifePercent
 		newUnit.manaPercent = this.manaPercent
@@ -1305,50 +1290,50 @@ export class Unit extends Widget {
 	 * @note SetUnitLookAt is affected by animation speed and blend time.
 	 * @note [How to instantly set a unit's facing](http://www.wc3c.net/showthread.php?t=105830)
 	 */
-	public lookAt(whichBone: string, lookAtTarget: Unit, offsetX: number, offsetY: number, offsetZ: number) {
+	public lookAt (whichBone: string, lookAtTarget: Unit, offsetX: number, offsetY: number, offsetZ: number) {
 		SetUnitLookAt(this.handle, whichBone, lookAtTarget.handle, offsetX, offsetY, offsetZ)
 	}
 
 	/**
 	 * This native is used to keep abilities when morphing units
 	 */
-	public makeAbilityPermanent(permanent: boolean, abilityId: number | string) {
-		typeof abilityId === "number" ? UnitMakeAbilityPermanent(this.handle, permanent, abilityId) : UnitMakeAbilityPermanent(this.handle, permanent, FourCC(abilityId))
+	public makeAbilityPermanent (permanent: boolean, abilityId: number | string) {
+		typeof abilityId === 'number' ? UnitMakeAbilityPermanent(this.handle, permanent, abilityId) : UnitMakeAbilityPermanent(this.handle, permanent, FourCC(abilityId))
 	}
 
-	public modifySkillPoints(skillPointDelta: number) {
+	public modifySkillPoints (skillPointDelta: number) {
 		return UnitModifySkillPoints(this.handle, skillPointDelta)
 	}
 
-	public pauseEx(flag: boolean) {
+	public pauseEx (flag: boolean) {
 		BlzPauseUnitEx(this.handle, flag)
 	}
 
-	public pauseTimedLife(flag: boolean) {
+	public pauseTimedLife (flag: boolean) {
 		UnitPauseTimedLife(this.handle, flag)
 	}
 
-	public queueAnimation(whichAnimation: string) {
+	public queueAnimation (whichAnimation: string) {
 		QueueUnitAnimation(this.handle, whichAnimation)
 	}
 
-	public recycleGuardPosition() {
+	public recycleGuardPosition () {
 		RecycleGuardPosition(this.handle)
 	}
 
-	public removeAbility(abilityId: number | string) {
-		return typeof abilityId === "number" ? UnitRemoveAbility(this.handle, abilityId) : UnitRemoveAbility(this.handle, FourCC(abilityId))
+	public removeAbility (abilityId: number | string) {
+		return typeof abilityId === 'number' ? UnitRemoveAbility(this.handle, abilityId) : UnitRemoveAbility(this.handle, FourCC(abilityId))
 	}
 
-	public removeBuffs(removePositive: boolean, removeNegative: boolean) {
+	public removeBuffs (removePositive: boolean, removeNegative: boolean) {
 		UnitRemoveBuffs(this.handle, removePositive, removeNegative)
 	}
 
-	public removeBuffsEx(removePositive: boolean, removeNegative: boolean, magic: boolean, physical: boolean, timedLife: boolean, aura: boolean, autoDispel: boolean) {
+	public removeBuffsEx (removePositive: boolean, removeNegative: boolean, magic: boolean, physical: boolean, timedLife: boolean, aura: boolean, autoDispel: boolean) {
 		UnitRemoveBuffsEx(this.handle, removePositive, removeNegative, magic, physical, timedLife, aura, autoDispel)
 	}
 
-	public removeGuardPosition() {
+	public removeGuardPosition () {
 		RemoveGuardPosition(this.handle)
 	}
 
@@ -1356,7 +1341,7 @@ export class Unit extends Widget {
 	 * The item is removed from the Hero and placed on the ground at the Hero's feet.
 	 * @param whichItem The item to remove.
 	 */
-	public removeItem(whichItem: Item) {
+	public removeItem (whichItem: Item) {
 		UnitRemoveItem(this.handle, whichItem.handle)
 	}
 
@@ -1365,192 +1350,191 @@ export class Unit extends Widget {
 	 * the ground at the Hero's feed
 	 * @param itemSlot
 	 */
-	public removeItemFromSlot(itemSlot: number) {
+	public removeItemFromSlot (itemSlot: number) {
 		return Item.fromHandle(UnitRemoveItemFromSlot(this.handle, itemSlot))
 	}
 
-	public removeItemFromStock(itemId: number) {
+	public removeItemFromStock (itemId: number) {
 		RemoveItemFromStock(this.handle, itemId)
 	}
 
-	public removeType(whichUnitType: unittype) {
+	public removeType (whichUnitType: unittype) {
 		return UnitAddType(this.handle, whichUnitType)
 	}
 
-	public removeUnitFromStock(itemId: number) {
+	public removeUnitFromStock (itemId: number) {
 		RemoveUnitFromStock(this.handle, itemId)
 	}
 
-	public resetCooldown() {
+	public resetCooldown () {
 		UnitResetCooldown(this.handle)
 	}
 
 	/**
 	 * Unlocks the bone oriented by `lookAt`, allowing it to move in accordance to the unit's regular animations.
 	 */
-	public resetLookAt() {
+	public resetLookAt () {
 		ResetUnitLookAt(this.handle)
 	}
 
-	public revive(x: number, y: number, doEyecandy: boolean) {
+	public revive (x: number, y: number, doEyecandy: boolean) {
 		return ReviveHero(this.handle, x, y, doEyecandy)
 	}
 
-	public reviveAtPoint(whichPoint: Point, doEyecandy: boolean) {
+	public reviveAtPoint (whichPoint: Point, doEyecandy: boolean) {
 		return ReviveHeroLoc(this.handle, whichPoint.handle, doEyecandy)
 	}
 
-	public select(flag: boolean) {
+	public select (flag: boolean) {
 		SelectUnit(this.handle, flag)
 	}
 
-	public selectSkill(abilCode: number) {
+	public selectSkill (abilCode: number) {
 		SelectHeroSkill(this.handle, abilCode)
 	}
 
-	public setAbilityCooldown(abilId: number, level: number, cooldown: number) {
+	public setAbilityCooldown (abilId: number, level: number, cooldown: number) {
 		BlzSetUnitAbilityCooldown(this.handle, abilId, level, cooldown)
 	}
 
-	public setAbilityLevel(abilCode: number | string, level: number) {
-		return typeof abilCode === "number" ? SetUnitAbilityLevel(this.handle, abilCode, level) : SetUnitAbilityLevel(this.handle, FourCC(abilCode), level)
+	public setAbilityLevel (abilCode: number | string, level: number) {
+		return typeof abilCode === 'number' ? SetUnitAbilityLevel(this.handle, abilCode, level) : SetUnitAbilityLevel(this.handle, FourCC(abilCode), level)
 	}
 
-	public setAbilityManaCost(abilId: number, level: number, manaCost: number) {
+	public setAbilityManaCost (abilId: number, level: number, manaCost: number) {
 		BlzSetUnitAbilityManaCost(this.handle, abilId, level, manaCost)
 	}
 
-	public setAgility(value: number, permanent: boolean) {
+	public setAgility (value: number, permanent: boolean) {
 		SetHeroAgi(this.handle, value, permanent)
 	}
 
-	public setAnimation(whichAnimation: string | number) {
-		if (typeof whichAnimation === "string") {
+	public setAnimation (whichAnimation: string | number) {
+		if (typeof whichAnimation === 'string') {
 			SetUnitAnimation(this.handle, whichAnimation)
 		} else {
 			SetUnitAnimationByIndex(this.handle, whichAnimation)
 		}
 	}
 
-	public applyTimedLifeGeneric(duration: number) {
+	public applyTimedLifeGeneric (duration: number) {
 		UnitApplyTimedLife(this.handle, FourCC(BuffFour.TimedLifeGeneric), duration)
 	}
 
-	public getRandomPosAround(distanceAround: number): Position {
+	public getRandomPosAround (distanceAround: number): Position {
 		const x = math.random(this.x - distanceAround, this.x + distanceAround)
 		const y = math.random(this.y - distanceAround, this.y + distanceAround)
 		return new Position(x, y)
 	}
 
-	public getUnitAbility(ability: Ability): UnitAbility {
+	public getUnitAbility (ability: Ability): UnitAbility {
 		return new UnitAbility(this, ability)
 	}
 
-	public setAnimationWithRarity(whichAnimation: string, rarity: raritycontrol) {
+	public setAnimationWithRarity (whichAnimation: string, rarity: raritycontrol) {
 		SetUnitAnimationWithRarity(this.handle, whichAnimation, rarity)
 	}
 
-	public setAttackCooldown(cooldown: number, weaponIndex: number) {
+	public setAttackCooldown (cooldown: number, weaponIndex: number) {
 		BlzSetUnitAttackCooldown(this.handle, cooldown, weaponIndex)
 	}
 
-	public setBaseDamage(baseDamage: number, weaponIndex: number) {
+	public setBaseDamage (baseDamage: number, weaponIndex: number) {
 		BlzSetUnitBaseDamage(this.handle, baseDamage, weaponIndex)
 	}
 
-	public setBlendTime(timeScale: number) {
+	public setBlendTime (timeScale: number) {
 		SetUnitBlendTime(this.handle, timeScale)
 	}
 
-	public setConstructionProgress(constructionPercentage: number) {
+	public setConstructionProgress (constructionPercentage: number) {
 		UnitSetConstructionProgress(this.handle, constructionPercentage)
 	}
 
-	public setCreepGuard(creepGuard: boolean) {
+	public setCreepGuard (creepGuard: boolean) {
 		SetUnitCreepGuard(this.handle, creepGuard)
 	}
 
-	public setDiceNumber(diceNumber: number, weaponIndex: number) {
+	public setDiceNumber (diceNumber: number, weaponIndex: number) {
 		BlzSetUnitDiceNumber(this.handle, diceNumber, weaponIndex)
 	}
 
-	public setDiceSides(diceSides: number, weaponIndex: number) {
+	public setDiceSides (diceSides: number, weaponIndex: number) {
 		BlzSetUnitDiceSides(this.handle, diceSides, weaponIndex)
 	}
 
-	public setExperience(newXpVal: number, showEyeCandy: boolean) {
+	public setExperience (newXpVal: number, showEyeCandy: boolean) {
 		SetHeroXP(this.handle, newXpVal, showEyeCandy)
 	}
 
-	public setExploded(exploded: boolean) {
+	public setExploded (exploded: boolean) {
 		SetUnitExploded(this.handle, exploded)
 	}
 
-	public setFacingEx(facingAngle: number) {
+	public setFacingEx (facingAngle: number) {
 		BlzSetUnitFacingEx(this.handle, facingAngle)
 	}
 
-	public setField(field: UnitField, value: UnitFieldValue, index = 0) {
+	public setField (field: UnitField, value: UnitFieldValue, index = 0) {
 		const fieldType = getFieldType(field)
 
-		if (fieldType === "unitbooleanfield" && typeof value === "boolean") {
+		if (fieldType === 'unitbooleanfield' && typeof value === 'boolean') {
 			return BlzSetUnitBooleanField(this.handle, field as unitbooleanfield, value)
-		} else if (fieldType === "unitintegerfield" && typeof value === "number") {
+		} else if (fieldType === 'unitintegerfield' && typeof value === 'number') {
 			return BlzSetUnitIntegerField(this.handle, field as unitintegerfield, value)
-		} else if (fieldType === "unitrealfield" && typeof value === "number") {
+		} else if (fieldType === 'unitrealfield' && typeof value === 'number') {
 			return BlzSetUnitRealField(this.handle, field as unitrealfield, value)
-		} else if (fieldType === "unitstringfield" && typeof value === "string") {
+		} else if (fieldType === 'unitstringfield' && typeof value === 'string') {
 			return BlzSetUnitStringField(this.handle, field as unitstringfield, value)
-		} else if (fieldType === "unitweaponbooleanfield" && typeof value === "boolean") {
+		} else if (fieldType === 'unitweaponbooleanfield' && typeof value === 'boolean') {
 			return BlzSetUnitWeaponBooleanField(this.handle, field as unitweaponbooleanfield, index, value)
-		} else if (fieldType === "unitweaponintegerfield" && typeof value === "number") {
+		} else if (fieldType === 'unitweaponintegerfield' && typeof value === 'number') {
 			return BlzSetUnitWeaponIntegerField(this.handle, field as unitweaponintegerfield, index, value)
-		} else if (fieldType === "unitweaponrealfield" && typeof value === "number") {
+		} else if (fieldType === 'unitweaponrealfield' && typeof value === 'number') {
 			return BlzSetUnitWeaponRealField(this.handle, field as unitweaponrealfield, index, value)
-		} else if (fieldType === "unitweaponstringfield" && typeof value === "string") {
+		} else if (fieldType === 'unitweaponstringfield' && typeof value === 'string') {
 			return BlzSetUnitWeaponStringField(this.handle, field as unitweaponstringfield, index, value)
 		}
 
 		return false
 	}
 
-	public setflyHeight(value: number, rate: number) {
+	public setflyHeight (value: number, rate: number) {
 		SetUnitFlyHeight(this.handle, value, rate)
 	}
 
-	public setHeroLevel(level: number, showEyeCandy: boolean) {
+	public setHeroLevel (level: number, showEyeCandy: boolean) {
 		SetHeroLevel(this.handle, level, showEyeCandy)
 	}
 
-	public setIntelligence(value: number, permanent: boolean) {
+	public setIntelligence (value: number, permanent: boolean) {
 		SetHeroInt(this.handle, value, permanent)
 	}
 
-	public setItemTypeSlots(slots: number) {
+	public setItemTypeSlots (slots: number) {
 		SetItemTypeSlots(this.handle, slots)
 	}
 
-	public setOwner(whichPlayer: MapPlayer, changeColor: boolean) {
+	public setOwner (whichPlayer: MapPlayer, changeColor: boolean) {
 		SetUnitOwner(this.handle, whichPlayer.handle, changeColor)
 	}
 
-	public setPathing(flag: boolean) {
+	public setPathing (flag: boolean) {
 		SetUnitPathing(this.handle, flag)
 	}
-
 
 	/**
 	 * @note This cancels the orders of the unit. If you want to move a unit without canceling its orders set `x`/`y`.
 	 */
-	public setPosition(x: number, y: number) {
+	public setPosition (x: number, y: number) {
 		SetUnitPosition(this.handle, x, y)
 	}
 
-	public setRescuable(byWhichPlayer: MapPlayer, flag: boolean) {
+	public setRescuable (byWhichPlayer: MapPlayer, flag: boolean) {
 		SetUnitRescuable(this.handle, byWhichPlayer.handle, flag)
 	}
 
-	public setRescueRange(range: number) {
+	public setRescueRange (range: number) {
 		SetUnitRescueRange(this.handle, range)
 	}
 
@@ -1560,39 +1544,39 @@ export class Unit extends Widget {
 	 * @param scaleY This parameter is not taken into account
 	 * @param scaleZ This parameter is not taken into account
 	 */
-	public setScale(scaleX: number, scaleY: number, scaleZ: number) {
+	public setScale (scaleX: number, scaleY: number, scaleZ: number) {
 		SetUnitScale(this.handle, scaleX, scaleY, scaleZ)
 	}
 
-	public setState(whichUnitState: unitstate, newVal: number) {
+	public setState (whichUnitState: unitstate, newVal: number) {
 		SetUnitState(this.handle, whichUnitState, newVal)
 	}
 
-	public setStrength(value: number, permanent: boolean) {
+	public setStrength (value: number, permanent: boolean) {
 		SetHeroStr(this.handle, value, permanent)
 	}
 
-	public setTimeScale(timeScale: number) {
+	public setTimeScale (timeScale: number) {
 		SetUnitTimeScale(this.handle, timeScale)
 	}
 
-	public setUnitAttackCooldown(cooldown: number, weaponIndex: number) {
+	public setUnitAttackCooldown (cooldown: number, weaponIndex: number) {
 		BlzSetUnitAttackCooldown(this.handle, cooldown, weaponIndex)
 	}
 
-	public setUnitTypeSlots(slots: number) {
+	public setUnitTypeSlots (slots: number) {
 		SetUnitTypeSlots(this.handle, slots)
 	}
 
-	public setUpgradeProgress(upgradePercentage: number) {
+	public setUpgradeProgress (upgradePercentage: number) {
 		UnitSetUpgradeProgress(this.handle, upgradePercentage)
 	}
 
-	public setUseAltIcon(flag: boolean) {
+	public setUseAltIcon (flag: boolean) {
 		UnitSetUsesAltIcon(this.handle, flag)
 	}
 
-	public setUseFood(useFood: boolean) {
+	public setUseFood (useFood: boolean) {
 		SetUnitUseFood(this.handle, useFood)
 	}
 
@@ -1603,131 +1587,129 @@ export class Unit extends Widget {
 	 * @param blue An integer from 0-255 determining the amount of blue color.
 	 * @param alpha An integer from 0-255 determining the amount of alpha color.
 	 */
-	public setVertexColor(red: number, green: number, blue: number, alpha: number) {
+	public setVertexColor (red: number, green: number, blue: number, alpha: number) {
 		SetUnitVertexColor(this.handle, red, green, blue, alpha)
 	}
 
-	public shareVision(whichPlayer: MapPlayer, share: boolean) {
+	public shareVision (whichPlayer: MapPlayer, share: boolean) {
 		UnitShareVision(this.handle, whichPlayer.handle, share)
 	}
 
-	public showTeamGlow(show: boolean) {
+	public showTeamGlow (show: boolean) {
 		BlzShowUnitTeamGlow(this.handle, show)
 	}
 
-	public startAbilityCooldown(abilCode: number, cooldown: number) {
+	public startAbilityCooldown (abilCode: number, cooldown: number) {
 		BlzStartUnitAbilityCooldown(this.handle, abilCode, cooldown)
 	}
 
-	public stripLevels(howManyLevels: number) {
+	public stripLevels (howManyLevels: number) {
 		return UnitStripHeroLevel(this.handle, howManyLevels)
 	}
 
-	public suspendDecay(suspend: boolean) {
+	public suspendDecay (suspend: boolean) {
 		UnitSuspendDecay(this.handle, suspend)
 	}
 
-	public suspendExperience(flag: boolean) {
+	public suspendExperience (flag: boolean) {
 		SuspendHeroXP(this.handle, flag)
 	}
 
-	public useItem(whichItem: Item) {
+	public useItem (whichItem: Item) {
 		return UnitUseItem(this.handle, whichItem.handle)
 	}
 
-	public useItemAt(whichItem: Item, x: number, y: number) {
+	public useItemAt (whichItem: Item, x: number, y: number) {
 		return UnitUseItemPoint(this.handle, whichItem.handle, x, y)
 	}
 
-	public useItemTarget(whichItem: Item, target: Widget) {
+	public useItemTarget (whichItem: Item, target: Widget) {
 		return UnitUseItemTarget(this.handle, whichItem.handle, target.handle)
 	}
 
-	public wakeUp() {
+	public wakeUp () {
 		UnitWakeUp(this.handle)
 	}
 
-	public waygateGetDestinationX() {
+	public waygateGetDestinationX () {
 		return WaygateGetDestinationX(this.handle)
 	}
 
-	public waygateGetDestinationY() {
+	public waygateGetDestinationY () {
 		return WaygateGetDestinationY(this.handle)
 	}
 
-	public waygateSetDestination(x: number, y: number) {
+	public waygateSetDestination (x: number, y: number) {
 		WaygateSetDestination(this.handle, x, y)
 	}
 
-
-
 	// Static Events
 
-	public static foodMadeByType(unitId: number) {
+	public static foodMadeByType (unitId: number) {
 		return GetFoodMade(unitId)
 	}
 
-	public static foodUsedByType(unitId: number) {
+	public static foodUsedByType (unitId: number) {
 		return GetFoodUsed(unitId)
 	}
 
-	public static fromEnum() {
+	public static fromEnum () {
 		return this.fromHandle(GetEnumUnit())
 	}
 
-	public static fromEvent() {
+	public static fromEvent () {
 		return this.fromHandle(GetTriggerUnit())
 	}
 
-	public static fromSpellTarget() {
+	public static fromSpellTarget () {
 		return this.fromHandle(GetSpellTargetUnit())
 	}
 
-	public static fromFilter() {
+	public static fromFilter () {
 		return this.fromHandle(GetFilterUnit())
 	}
 
-	public static fromAttacked() {
+	public static fromAttacked () {
 		return this.fromHandle(GetTriggerUnit())
 	}
 
-	public static fromTrained() {
+	public static fromTrained () {
 		return this.fromHandle(GetTrainedUnit())
 	}
 
-	public static fromAttacking() {
+	public static fromAttacking () {
 		return this.fromHandle(GetAttacker())
 	}
 
-	public static fromKilling() {
+	public static fromKilling () {
 		return this.fromHandle(GetKillingUnit())
 	}
 
-	public static fromOrdered() {
+	public static fromOrdered () {
 		return this.fromHandle(GetOrderedUnit())
 	}
 
-	public static fromKilled() {
+	public static fromKilled () {
 		return this.fromHandle(GetTriggerUnit())
 	}
 
-	public static fromHandle(handle: unit): Unit {
+	public static fromHandle (handle: unit): Unit {
 		return this.getObject(handle)
 	}
 
-	public static getPointValueByType(unitType: number) {
+	public static getPointValueByType (unitType: number) {
 		return GetUnitPointValueByType(unitType)
 	}
 
-	public static isUnitIdHero(unitId: number) {
+	public static isUnitIdHero (unitId: number) {
 		return IsHeroUnitId(unitId)
 	}
 
-	public static isUnitIdType(unitId: number, whichUnitType: unittype) {
+	public static isUnitIdType (unitId: number, whichUnitType: unittype) {
 		return IsUnitIdType(unitId, whichUnitType)
 	}
 
-	//// AUTO DEFINE
+	/// / AUTO DEFINE
 	static h003_0015: Unit
 	static e003_0058: Unit
 	static n001_0048: Unit
@@ -1788,7 +1770,7 @@ export class Unit extends Widget {
 	static o00C_1020: Unit
 	static o00C_1021: Unit
 
-	static defineGlobals(): void {
+	static defineGlobals (): void {
 		Unit.h003_0015 = Unit.fromHandle(gg_unit_h003_0015)
 		Unit.e003_0058 = Unit.fromHandle(gg_unit_e003_0058)
 		Unit.n001_0048 = Unit.fromHandle(gg_unit_n001_0048)
@@ -1849,9 +1831,9 @@ export class Unit extends Widget {
 		Unit.o00C_1020 = Unit.fromHandle(gg_unit_o00C_1020)
 		Unit.o00C_1021 = Unit.fromHandle(gg_unit_o00C_1021)
 	}
-	//// AUTO DEFINE
+	/// / AUTO DEFINE
 }
 
 const getFieldType = (field: UnitField): string => {
-	return field.toString().substr(0, field.toString().indexOf(":"))
+	return field.toString().substr(0, field.toString().indexOf(':'))
 }

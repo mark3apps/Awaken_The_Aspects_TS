@@ -11,12 +11,17 @@
     "dev": "npm-watch",
     "build:defs": "ts-node scripts/dev"
   },
-  "dependencies": {
-  },
   "devDependencies": {
     "@types/fs-extra": "8.1.1",
     "@types/node": "12.19.1",
     "@types/pako": "1.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
     "fs-extra": "8.1.0",
     "lua-types": "2.8.0",
     "luamin": "1.0.4",
