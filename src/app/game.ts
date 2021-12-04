@@ -1,27 +1,8 @@
+import { DeathSpawn, Gate } from "app/abilities"
+import { Logger, ItemType, Ability, Hero } from "app/classes"
+import { BrawlerHeroType, ManaAddictHeroType, ShiftMasterHeroType, TacticianHeroType, TimeMageHeroType } from "app/heroes/heroTypes"
+import { ItemUpgrade, Cinematic, Pathing, HeroAttribute, Army, Loc, Faction, Spawn, Aspect, Banner, AspectOfFireEvent, Load } from "app/systems"
 import { Rectangle, Unit, CameraSetup, Trigger, Force, Region } from "lib/w3ts"
-import { DeathSpawn } from "./abilities/deathSpawn"
-import { Gate } from "./abilities/gate"
-import { Ability } from "./classes/ability"
-import { Hero } from "./classes/hero"
-import { ItemType } from "./classes/itemType"
-import { Logger } from "./classes/log"
-import { BrawlerHeroType } from "./heroes/heroTypes/brawlerHeroType"
-import { ManaAddictHeroType } from "./heroes/heroTypes/manaAddictHeroType"
-import { ShiftMasterHeroType } from "./heroes/heroTypes/shiftMasterHeroType"
-import { TacticianHeroType } from "./heroes/heroTypes/tacticianHeroType"
-import { TimeMageHeroType } from "./heroes/heroTypes/timeMageHeroType"
-import { Army } from "./systems/army"
-import { Aspect } from "./systems/aspect"
-import { HeroAttribute } from "./systems/attribute"
-import { Banner } from "./systems/banner"
-import { Cinematic } from "./systems/cinematics"
-import { AspectOfFireEvent } from "./systems/event"
-import { Faction } from "./systems/faction"
-import { ItemUpgrade } from "./systems/itemUpgrade"
-import { Loc } from "./systems/loc"
-import { Pathing } from "./systems/pathing"
-import { Load } from "./systems/preload"
-import { Spawn } from "./systems/spawn"
 
 
 export class Game {
@@ -47,15 +28,15 @@ export class Game {
 
         Trigger.define()
         Ability.define()
-        
-        
+
+
         DeathSpawn.define()
         Pathing.define()
         HeroAttribute.define()
 
 
         Hero.define()
-        
+
         new BrawlerHeroType()
         new ManaAddictHeroType()
         new ShiftMasterHeroType()
@@ -75,7 +56,7 @@ export class Game {
 
         Logger.Verbose("Game Map Start")
 
-        
+
         Army.define()
         Loc.define()
         Faction.define()

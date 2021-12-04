@@ -1,8 +1,6 @@
-import { Logger } from "app/classes/log"
-import { UnitType } from "app/classes/unitType"
-import { Pathing } from "app/systems/pathing"
-import { AttachPoint, AttachMod, AttachSpecial, Trigger, Unit, MapPlayer, AbilityFour, Timer, Effect } from "lib/w3ts/index"
-
+import { UnitType, Logger } from "app/classes"
+import { Pathing } from "app/systems"
+import { AttachPoint, AttachMod, AttachSpecial, Trigger, Unit, MapPlayer, AbilityFour, Timer, Effect } from "lib/w3ts"
 
 
 interface DeathSpawnInterface {
@@ -107,7 +105,7 @@ export class DeathSpawn {
                     unit.invulnerable = true
                     unit.addAbility(FourCC(AbilityFour.Locust))
                     unit.setAnimation("death")
-                    
+
                     const time = new Timer()
                     const loop = new Timer()
                     time.start(1, true, () => {

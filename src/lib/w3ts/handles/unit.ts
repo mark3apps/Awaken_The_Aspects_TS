@@ -809,7 +809,7 @@ export class Unit extends Widget {
 	}
 
 	public getField(field: UnitField, index = 0): UnitFieldValue {
-		const fieldType = field.toString().substr(0, field.toString().indexOf(":"))
+		const fieldType = getFieldType(field)
 
 		switch (fieldType) {
 			case "unitbooleanfield": {
@@ -1491,7 +1491,7 @@ export class Unit extends Widget {
 	}
 
 	public setField(field: UnitField, value: UnitFieldValue, index = 0) {
-		const fieldType = field.toString().substr(0, field.toString().indexOf(":"))
+		const fieldType = getFieldType(field)
 
 		if (fieldType === "unitbooleanfield" && typeof value === "boolean") {
 			return BlzSetUnitBooleanField(this.handle, field as unitbooleanfield, value)
@@ -1850,4 +1850,8 @@ export class Unit extends Widget {
 		Unit.o00C_1021 = Unit.fromHandle(gg_unit_o00C_1021)
 	}
 	//// AUTO DEFINE
+}
+
+const getFieldType = (field: UnitField): string => {
+	return field.toString().substr(0, field.toString().indexOf(":"))
 }

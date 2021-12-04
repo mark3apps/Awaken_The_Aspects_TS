@@ -1,7 +1,8 @@
-import { Logger } from "app/classes/log"
-import { Position } from "app/classes/position"
-import { UnitType } from "app/classes/unitType"
-import { Unit, MapPlayer, Timer, Group, Rectangle, Trigger, Anim } from "lib/w3ts/index"
+import { Logger } from 'app/classes/log'
+import { Position } from 'app/classes/position'
+import { UnitType } from 'app/classes/unitType'
+import { Unit, MapPlayer, Timer, Group, Rectangle, Trigger, Anim } from 'lib/w3ts/index'
+
 
 export interface GateCheck {
     enemies: number,
