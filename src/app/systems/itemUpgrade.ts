@@ -11,7 +11,7 @@ export class ItemUpgrade {
 	public itemTypes: ItemUpgradeStep[] = []
 
 	public getNextItem (itemType: ItemType): ItemUpgradeStep {
-		const index = this.itemTypes.findIndex(p => p.itemType == itemType)
+		const index = this.itemTypes.findIndex(p => p.itemType === itemType)
 
 		return this.itemTypes[index]
 	}
