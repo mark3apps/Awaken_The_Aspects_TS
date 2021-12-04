@@ -1,7 +1,6 @@
 import * as fs from "fs-extra"
 import { loadJsonFile, logger } from "./utils"
 
-
 const types = {
     "cam": "camerasetup",
     "dest": "destructable",
@@ -30,17 +29,15 @@ const typesReverse = {
     "boolean": "boolean"
 }
 
-
-
 export class War3TSTLHelper {
     contents: string
     varTypes: { [name: string]: string } = {}
 
-    constructor(luaCode: string) {
+    constructor (luaCode: string) {
         this.contents = luaCode
     }
 
-    genTSDefinitions(): string {
+    genTSDefinitions (): string {
         const lines = this.contents.split("\n")
 
         let output = ""
@@ -63,7 +60,6 @@ export class War3TSTLHelper {
                     if (name in this.varTypes == false) {
                         output += `declare const ${name}: ${type};\n`
 
-
                         this.varTypes[name] = type
                     }
                 }
@@ -82,7 +78,6 @@ export class War3TSTLHelper {
                     if (name in this.varTypes == false && type != undefined) {
                         output += `declare let ${name}: ${type};\n`
 
-
                         this.varTypes[name] = type
                     }
                 }
@@ -92,11 +87,10 @@ export class War3TSTLHelper {
         return output
     }
 
-    getGlobals(): string {
+    getGlobals (): string {
         const source = this.contents.match(/function InitGlobals\(\).+?(?=\nend)/gs)[0]
         const lines = source.split("\n")
         let output = ""
-
 
         lines.forEach(line => {
             line = line.replace(/\s+/g, "")
@@ -134,7 +128,6 @@ export class War3TSTLHelper {
                     if (name in this.varTypes == false && type != undefined) {
                         output += `declare let ${name}: ${type}${extra};\n`
 
-
                         this.varTypes[name] = type
                     }
                 }
@@ -143,12 +136,11 @@ export class War3TSTLHelper {
         return output
     }
 
-    getDefinitions(
+    getDefinitions (
         source: string,
         filterType: string,
         searchValue: { [Symbol.replace](string: string, replaceValue: string): string },
         replaceClass: string): string {
-
         try {
             const definitions = fs.readFileSync("src/war3map.d.ts", "utf8")
             const lines = definitions.split("\n")
@@ -163,16 +155,13 @@ export class War3TSTLHelper {
                     const varName = parts[2]
                     const varType = parts[3]
 
-
                     if (filterType == varType) {
                         const shortName = varName.replace(`gg_${typesReverse[varType]}_`, "")
 
                         staticText += `    static ${shortName}: ${replaceClass}\n`
                         defineText += `        ${replaceClass}.${shortName} = ${replaceClass}.fromHandle(${varName})\n`
                     }
-
                 }
-
             })
 
             const outputFull = `//// AUTO DEFINE\n${staticText}\n    static defineGlobals(): void {\n${defineText}    }\n    //// AUTO DEFINE`
@@ -186,8 +175,6 @@ export class War3TSTLHelper {
         }
     }
 }
-
-
 
 const config = loadJsonFile("config.json")
 

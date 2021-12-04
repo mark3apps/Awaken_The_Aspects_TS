@@ -10,7 +10,6 @@ export interface IState {
 let idCount = 0
 
 export class StateMachine {
-
     private id = (++idCount).toString()
     private hero?: Hero
     private changeStateQueue: string[] = []
@@ -20,12 +19,12 @@ export class StateMachine {
 
     private isChangingState = false
 
-    constructor(hero?: Hero, id?: string) {
+    constructor (hero?: Hero, id?: string) {
         this.id = id ?? this.id
         this.hero = hero
     }
 
-    addState(state: IState): StateMachine {
+    addState (state: IState): StateMachine {
         const context = this.hero
         const name = state.name
 
@@ -39,10 +38,9 @@ export class StateMachine {
         return this
     }
 
-    setState(name: string): void {
-
+    setState (name: string): void {
         if (!this.states.has(name)) {
-            //Log.Warning(`Tried to change to unknown state: ${name}`)
+            // Log.Warning(`Tried to change to unknown state: ${name}`)
             return
         }
 
@@ -57,7 +55,7 @@ export class StateMachine {
 
         this.isChangingState = true
 
-        //Log.Information(`[StateMachine (${this.id})] change from ${this.currentState.name} to ${name}`)
+        // Log.Information(`[StateMachine (${this.id})] change from ${this.currentState.name} to ${name}`)
 
         if (this.currentState && this.currentState.onExit) {
             this.currentState.onExit()
@@ -72,7 +70,7 @@ export class StateMachine {
         this.isChangingState = false
     }
 
-    isCurrentState(name: string): boolean {
+    isCurrentState (name: string): boolean {
         if (!this.currentState) {
             return false
         }
@@ -80,7 +78,7 @@ export class StateMachine {
         return this.currentState.name === name
     }
 
-    update(): void {
+    update (): void {
         if (this.changeStateQueue.length > 0) {
             this.setState(this.changeStateQueue.shift())
             return

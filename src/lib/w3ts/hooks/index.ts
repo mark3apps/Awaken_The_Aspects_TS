@@ -1,38 +1,38 @@
 /** @noSelfInFile */
 
-declare var main: () => void;
-declare var config: () => void;
+declare let main: () => void
+declare let config: () => void
 
-const oldMain = main;
-const oldConfig = config;
+const oldMain = main
+const oldConfig = config
 
 type scriptHookSignature = () => void;
 
-const hooksMainBefore: scriptHookSignature[] = [];
-const hooksMainAfter: scriptHookSignature[] = [];
-const hooksConfigBefore: scriptHookSignature[] = [];
-const hooksConfigAfter: scriptHookSignature[] = [];
+const hooksMainBefore: scriptHookSignature[] = []
+const hooksMainAfter: scriptHookSignature[] = []
+const hooksConfigBefore: scriptHookSignature[] = []
+const hooksConfigAfter: scriptHookSignature[] = []
 
-export const executeHooksMainBefore = () => hooksMainBefore.forEach((func) => func());
-export const executeHooksMainAfter = () => hooksMainAfter.forEach((func) => func());
+export const executeHooksMainBefore = () => hooksMainBefore.forEach((func) => func())
+export const executeHooksMainAfter = () => hooksMainAfter.forEach((func) => func())
 
-export function hookedMain() {
-  executeHooksMainBefore();
-  oldMain();
-  executeHooksMainAfter();
+export function hookedMain () {
+  executeHooksMainBefore()
+  oldMain()
+  executeHooksMainAfter()
 }
 
-export const executeHooksConfigBefore = () => hooksConfigBefore.forEach((func) => func());
-export const executeHooksConfigAfter = () => hooksConfigAfter.forEach((func) => func());
+export const executeHooksConfigBefore = () => hooksConfigBefore.forEach((func) => func())
+export const executeHooksConfigAfter = () => hooksConfigAfter.forEach((func) => func())
 
-export function hookedConfig() {
-  executeHooksConfigBefore();
-  oldConfig();
-  executeHooksConfigAfter();
+export function hookedConfig () {
+  executeHooksConfigBefore()
+  oldConfig()
+  executeHooksConfigAfter()
 }
 
-main = hookedMain;
-config = hookedConfig;
+main = hookedMain
+config = hookedConfig
 
 export enum W3TS_HOOK {
   MAIN_BEFORE = "main::before",
@@ -46,12 +46,12 @@ const entryPoints: { [key: string]: scriptHookSignature[]; } = {
   [W3TS_HOOK.MAIN_AFTER]: hooksMainAfter,
   [W3TS_HOOK.CONFIG_BEFORE]: hooksConfigBefore,
   [W3TS_HOOK.CONFIG_AFTER]: hooksConfigAfter,
-};
+}
 
-export function addScriptHook(entryPoint: string, hook: scriptHookSignature): boolean {
+export function addScriptHook (entryPoint: string, hook: scriptHookSignature): boolean {
   if (!(entryPoint in entryPoints)) {
-    return false;
+    return false
   }
-  entryPoints[entryPoint].push(hook);
-  return true;
+  entryPoints[entryPoint].push(hook)
+  return true
 }
