@@ -3,6 +3,7 @@ import { Logger, ItemType, Ability, Hero } from 'app/classes'
 import { BrawlerHeroType, ManaAddictHeroType, ShiftMasterHeroType, TacticianHeroType, TimeMageHeroType } from 'app/heroes/heroTypes'
 import { ItemUpgrade, Cinematic, Pathing, HeroAttribute, Army, Loc, Faction, Spawn, Aspect, Banner, AspectOfFireEvent, Load } from 'app/systems'
 import { Rectangle, Unit, CameraSetup, Trigger, Force, Region } from 'lib/w3ts'
+import { Initialize } from './systems/talents/talents'
 
 export class Game {
 	static mapInit = (): void => {
@@ -63,6 +64,7 @@ export class Game {
 		Load.units()
 
 		Cinematic.startHeroSelector()
+		Initialize()
 
 		Spawn.start()
 

@@ -1,9 +1,9 @@
-import { IBasicTalentTreeViewModelConfig } from '../UI/STK/ViewModels/BasicTalentTreeViewModel'
-import { IBasicTalentViewModelConfig } from '../UI/STK/ViewModels/BasicTalentViewModel'
-import { IBasicTalentTreeViewConfig } from '../UI/STK/Views/BasicTalentTreeView'
-import { IBasicTalentViewConfig } from '../UI/STK/Views/BasicTalentView'
+import { IBasicTalentTreeViewModelConfig } from 'lib/STK/UI/STK/ViewModels/BasicTalentTreeViewModel'
+import { IBasicTalentViewModelConfig } from 'lib/STK/UI/STK/ViewModels/BasicTalentViewModel'
+import { IBasicTalentTreeViewConfig } from 'lib/STK/UI/STK/Views/BasicTalentTreeView'
+import { IBasicTalentViewConfig } from 'lib/STK/UI/STK/Views/BasicTalentView'
 
-export class Config {
+export class TalentConfig {
 	talentTreeView: IBasicTalentTreeViewConfig = {
 		window: {
 			// x: 0.050574000,

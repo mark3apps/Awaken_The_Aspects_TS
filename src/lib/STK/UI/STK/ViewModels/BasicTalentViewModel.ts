@@ -71,7 +71,7 @@ export class BasicTalentViewModel implements ITalentSlot {
 		let description = ''
 		let text = ''
 
-		if (GetLocalPlayer() != this.watcher.handle || !this._talent) return
+		if (GetLocalPlayer() !== this.watcher.handle || !this._talent) return
 
 		const t = this._talent
 		description = t.description
@@ -82,9 +82,9 @@ export class BasicTalentViewModel implements ITalentSlot {
 			text += '\n\n|cffffc04d[Cost ' + I2S(cost) + ']|r '
 		}
 		try {
-			if ((cost > 0) && requirements && (requirements != '')) {
+			if ((cost > 0) && requirements && (requirements !== '')) {
 				text += '|cffff6450Requires: ' + requirements + '|r\n\n' + description
-			} else if (requirements && (requirements != '')) {
+			} else if (requirements && (requirements !== '')) {
 				text += '\n\n|cffff6450Requires: ' + requirements + '|r\n\n' + description
 			} else {
 				text += '\n\n' + description
@@ -103,7 +103,7 @@ export class BasicTalentViewModel implements ITalentSlot {
 		let texture = this._talent.iconDisabled
 		if (this._rank && this._rank > 0) { texture = this._talent.iconEnabled }
 
-		if (GetLocalPlayer() != this.watcher.handle) return
+		if (GetLocalPlayer() !== this.watcher.handle) return
 		this._view.button.image.setTexture(texture, 0, true)
 		this._view.button.main.enabled = v
 		this._view.highlight.visible = v
@@ -115,7 +115,7 @@ export class BasicTalentViewModel implements ITalentSlot {
 		this._isAvailable = false
 		this.SetTooltip(null, 0)
 
-		if (GetLocalPlayer() != this.watcher.handle) return
+		if (GetLocalPlayer() !== this.watcher.handle) return
 		this._view.button.image.setTexture(this._talent.iconEnabled, 0, true)
 		this._view.button.main.enabled = false
 		this._view.highlight.visible = false
@@ -136,7 +136,7 @@ export class BasicTalentViewModel implements ITalentSlot {
 		this._linkVisibility.right = depRight.link
 		this._linkVisibility.down = depDown.link
 
-		if (GetLocalPlayer() != this.watcher.handle) return
+		if (GetLocalPlayer() !== this.watcher.handle) return
 
 		this.UpdateLinkVisibility()
 
@@ -154,7 +154,7 @@ export class BasicTalentViewModel implements ITalentSlot {
 		const width = this._view.links.up.width
 		const height = this._view.links.left.height
 
-		if (GetLocalPlayer() != this.watcher.handle) return
+		if (GetLocalPlayer() !== this.watcher.handle) return
 
 		this._view.button.main.setPoint(point, relative, relativePoint, x, y)
 
@@ -176,11 +176,11 @@ export class BasicTalentViewModel implements ITalentSlot {
 	}
 
 	SetAsLink () {
-		if (GetLocalPlayer() != this.watcher.handle) return
+		if (GetLocalPlayer() !== this.watcher.handle) return
 
 		this._view.highlight.visible = false
 
-		if (this._talent && this._talent.iconEnabled && this._talent.iconEnabled != '') {
+		if (this._talent && this._talent.iconEnabled && this._talent.iconEnabled !== '') {
 			this._view.button.main.visible = true
 			this._view.button.main.enabled = false
 
@@ -195,7 +195,7 @@ export class BasicTalentViewModel implements ITalentSlot {
 	}
 
 	UpdateLinkVisibility () {
-		if (GetLocalPlayer() != this.watcher.handle) return
+		if (GetLocalPlayer() !== this.watcher.handle) return
 
 		this._view.links.down.visible = this._linkVisibility.down
 		this._view.links.right.visible = this._linkVisibility.right
@@ -211,7 +211,7 @@ export class BasicTalentViewModel implements ITalentSlot {
 	public set visible (v: boolean) {
 		this._visible = v
 
-		if (GetLocalPlayer() != this.watcher.handle) return
+		if (GetLocalPlayer() !== this.watcher.handle) return
 
 		if (this.talent && this.talent.isLink) {
 			this._view.linkIntersection.visible = v && this.talent.isLink
@@ -251,8 +251,8 @@ export class BasicTalentViewModel implements ITalentSlot {
 		const rankText = v.toString() + '/' + this.talent.maxRank
 		const tooltip = 'Rank ' + rankText
 
-		if (GetLocalPlayer() != this.watcher.handle) return
-		if (this.talent.maxRank == 1) {
+		if (GetLocalPlayer() !== this.watcher.handle) return
+		if (this.talent.maxRank === 1) {
 			this._view.rank.image.visible = false
 			this._view.rank.text.visible = false
 		} else {
