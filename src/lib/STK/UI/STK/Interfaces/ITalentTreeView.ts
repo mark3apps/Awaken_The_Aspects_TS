@@ -5,14 +5,14 @@ export interface ITalentTreeView {
 	talentTreeContainer: Frame,
 	backgroundArt: Frame,
 	titleText: Frame,
-	// confirm: {
-	//     buttonMain: Frame,
-	//     text: Frame
-	// },
-	// cancel: {
-	//     buttonMain: Frame,
-	//     text: Frame
-	// },
+	confirm?: {
+		buttonMain: Frame,
+		text: Frame
+	},
+	cancel?: {
+		buttonMain: Frame,
+		text: Frame
+	},
 	close: {
 		buttonMain: Frame,
 		text: Frame

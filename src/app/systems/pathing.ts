@@ -68,7 +68,7 @@ export class Pathing {
 				const eventOrder = GetIssuedOrderId()
 				const eventUnit = Unit.fromOrdered()
 
-				if (UnitType.autoOrder.get(eventUnit.typeId)) {
+				if (UnitType.order.get(eventUnit.typeId)) {
 					if (OrderIdIgnore.indexOf(eventOrder) !== -1 && !eventUnit.hasBuff(BuffIdIgnore[0])) {
 						const timer = new Timer()
 						timer.start(1, false, () => {
@@ -92,7 +92,7 @@ export class Pathing {
 				const eventUnit = Unit.fromEvent()
 
 				if (eventUnit.inForce(Force.Computers)) {
-					if (UnitType.summonReplace.has(eventUnit.typeId)) {
+					if (UnitType.replaceOnSummon.has(eventUnit.typeId)) {
 						Pathing.newOrders(eventUnit.replace(eventUnit.typeId))
 					} else {
 						Pathing.newOrders(eventUnit)
@@ -108,7 +108,7 @@ export class Pathing {
 			const eventUnit = Unit.fromEvent()
 
 			try {
-				if (UnitType.campSummon.has(eventUnit.typeId)) {
+				if (UnitType.factorySummon.has(eventUnit.typeId)) {
 					if (eventUnit.inForce(Force.Computers)) {
 						Pathing.newOrders(eventUnit)
 					}
@@ -124,7 +124,7 @@ export class Pathing {
 
 			let unit = allUnits.first
 			while (unit != null) {
-				if (unit.inForce(Force.Computers) && UnitType.autoOrder.has(unit.typeId)) { Pathing.newOrders(unit) }
+				if (unit.inForce(Force.Computers) && UnitType.order.has(unit.typeId)) { Pathing.newOrders(unit) }
 
 				allUnits.removeUnit(unit)
 				unit = allUnits.first

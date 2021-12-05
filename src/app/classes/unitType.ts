@@ -4,30 +4,30 @@ import { Unit, UnitFour } from 'lib/w3ts/index'
 export class UnitType {
 	public readonly four: string
 	public readonly id: number
-	public autoOrder: boolean
-	public summonReplace: boolean
-	public campSummon: boolean
+	public order: boolean
+	public replaceOnSummon: boolean
+	public factorySummon: boolean
 	public leaveCorpse: boolean
 
 	static preloader: UnitType[] = []
 	static readonly map: Map<number, UnitType> = new Map()
-	static autoOrder: Map<number, boolean> = new Map()
-	static summonReplace: Map<number, boolean> = new Map()
-	static campSummon: Map<number, boolean> = new Map()
+	static order: Map<number, boolean> = new Map()
+	static replaceOnSummon: Map<number, boolean> = new Map()
+	static factorySummon: Map<number, boolean> = new Map()
 	static leaveCorpse: Map<number, boolean> = new Map()
 
-	constructor (four: string, autoOrder = true, summonReplace = false, campSummon = false, leaveCorpse = false, preload = false) {
+	constructor (four: string, order = true, replaceOnSummon = false, factorySummon = false, leaveCorpse = false, preload = false) {
 		this.four = four
 		this.id = FourCC(four)
-		this.autoOrder = autoOrder
-		this.summonReplace = summonReplace
-		this.campSummon = campSummon
+		this.order = order
+		this.replaceOnSummon = replaceOnSummon
+		this.factorySummon = factorySummon
 		this.leaveCorpse = leaveCorpse
 
 		UnitType.map.set(this.id, this)
-		if (autoOrder) { UnitType.autoOrder.set(this.id, true) }
-		if (summonReplace) { UnitType.summonReplace.set(this.id, true) }
-		if (campSummon) { UnitType.campSummon.set(this.id, true) }
+		if (order) { UnitType.order.set(this.id, true) }
+		if (replaceOnSummon) { UnitType.replaceOnSummon.set(this.id, true) }
+		if (factorySummon) { UnitType.factorySummon.set(this.id, true) }
 		if (leaveCorpse) { UnitType.leaveCorpse.set(this.id, true) }
 		if (preload) { UnitType.preloader.push(this) }
 	}
@@ -145,12 +145,12 @@ export class UnitType {
 	static CorruptedTreant = new UnitType('e008')
 
 	// Aspects
-	static AspectOfTheTides = new UnitType(UnitFour.Murgulshadowcaster)
-	static AspectOfTheStorm = new UnitType(UnitFour.Bereserkelemental)
-	static AspectOfTheEarth = new UnitType('n01A')
-	static AspectOfTheForest = new UnitType('n00N')
-	static AspectOfDeath = new UnitType(UnitFour.Abomination)
-	static AspectOfFire = new UnitType('n00H')
+	static AspectOfTheTides = new UnitType(UnitFour.Murgulshadowcaster, true, false, false, false, true)
+	static AspectOfTheStorm = new UnitType(UnitFour.Bereserkelemental, true, false, false, false, true)
+	static AspectOfTheEarth = new UnitType('n01A', true, false, false, false, true)
+	static AspectOfTheForest = new UnitType('n00N', true, false, false, false, true)
+	static AspectOfDeath = new UnitType(UnitFour.Abomination, true, false, false, false, true)
+	static AspectOfFire = new UnitType('n00H', true, false, false, false, true)
 
 	// Buildings
 	static CastleGateOpen = new UnitType('h020')

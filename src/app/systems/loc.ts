@@ -239,7 +239,7 @@ export class Loc {
 			try {
 				if (eventLoc != null) {
 					const eventUnit = Unit.fromEvent()
-					if (UnitType.autoOrder.has(eventUnit.typeId)) {
+					if (UnitType.order.has(eventUnit.typeId)) {
 						for (let i = 0; i < eventLoc.forward.length; i++) {
 							const element = eventLoc.forward[i]
 

@@ -10,9 +10,9 @@ export class TalentConfig {
 			// y: 0.530800,
 			// width: 0.5155,
 			// height: 0.3785,
-			x: 0.334,
-			y: 0.56,
-			width: 0.3,
+			x: 0.370,
+			y: 0.55,
+			width: 0.25,
 			height: 0.38
 		},
 		title: {

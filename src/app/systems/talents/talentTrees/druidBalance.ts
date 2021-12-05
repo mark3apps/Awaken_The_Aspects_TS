@@ -1,6 +1,7 @@
 import { ITalentTreeBuilder } from 'lib/STK/UI/STK/Interfaces/ITalentTreeBuilder'
 import { ActivationEvent } from 'lib/STK/UI/STK/Models/Talent'
 import { TalentTree } from 'lib/STK/UI/STK/Models/TalentTree'
+import { Icon } from 'lib/w3ts'
 
 export class DruidBalanceTree extends TalentTree {
 	get talentPoints (): number {
@@ -29,7 +30,6 @@ export class DruidBalanceTree extends TalentTree {
 	public Initialize (builder: ITalentTreeBuilder): void {
 		builder.SetColumnsRows(4, 7)
 		builder.title = 'Balance (' + builder.talentPoints + ' Points Remaining)'
-		builder.talentPoints = 6
 		builder.backgroundImage = 'balancebg.blp'
 
 		// The tree should be built with talents here
@@ -38,9 +38,9 @@ export class DruidBalanceTree extends TalentTree {
 		// Improved Wrath <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		// Rank 1
 		builder.AddTalent(0, 6, {
-			Name: 'Improved Wrath',
+			Name: 'Improved Wrath |cff5190f5[Passive]|r',
 			Description: 'Reduces the cast time of your Wrath spell by 0.1 sec.',
-			Icon: 'spell_nature_abolishmagic',
+			Icon: Icon.Abomination,
 			OnActivate: (e) => this.ActivateCallSheep(e)
 
 		}).NextRank({
@@ -263,8 +263,8 @@ export class DruidBalanceTree extends TalentTree {
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	ActivateCallSheep (e: ActivationEvent): void {
-		// let u = thistype.GetEventUnit()
-		// CreateUnit(GetOwningPlayer(u), 'nshe', GetUnitX(u), GetUnitY(u), GetRandomDirectionDeg())
+		//  let u = thistype.GetEventUnit()
+		//  CreateUnit(GetOwningPlayer(u), 'nshe', GetUnitX(u), GetUnitY(u), GetRandomDirectionDeg())
 	}
 
 	ActivateCallFlyingSheep (e: ActivationEvent) {

@@ -3,8 +3,8 @@ import { TalentState, LinkInfo, IKickTalentSlot } from '../../../../lib/STK/UI/S
 import { ITalentView } from '../../../../lib/STK/UI/STK/Interfaces/ITalentView'
 import { Talent } from '../../../../lib/STK/UI/STK/Models/Talent'
 
-export class GoldTalentViewModel implements IKickTalentSlot {
-	private costPreName = '|cffffc04dGold: '
+export class SkillTalentViewModel implements IKickTalentSlot {
+	private costPreName = '|cffffc04dSkills: '
 	private costPostName = '|r'
 
 	private _view: ITalentView

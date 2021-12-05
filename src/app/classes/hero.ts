@@ -1,11 +1,11 @@
 /* eslint-disable no-use-before-define */
 import { IState, StateMachine } from 'app/heroes/stateMachine'
-import { TalentConfig } from 'app/systems/talents/config'
+import { TalentConfig } from 'app/systems/talents/talentConfig'
 import { GoldTalentViewModel } from 'app/systems/talents/viewModels/GoldTalentViewModel'
-import { GenerateSwitchedTalentTreeView } from 'app/systems/talents/views/SwitchedTalentTreeView'
+import { SkillTalentViewModel } from 'app/systems/talents/viewModels/SkillTalentViewModel'
+import { GenerateNoButtonTalentTreeView } from 'app/systems/talents/views/NoButtonTalentTreeView'
+import { GenerateNoButtonTalentView } from 'app/systems/talents/views/NoButtonTalentView'
 import { BasicTalentTreeViewModel } from 'lib/STK/UI/STK/ViewModels/BasicTalentTreeViewModel'
-import { BasicTalentViewModel } from 'lib/STK/UI/STK/ViewModels/BasicTalentViewModel'
-import { GenerateBasicTalentView } from 'lib/STK/UI/STK/Views/BasicTalentView'
 import { HeroType } from 'lib/w3ts/handles/herotype'
 import { Force, Frame, Group, MapPlayer, Order, Rectangle, Timer, Trigger, Unit } from 'lib/w3ts/index'
 import { Logger } from './log'
@@ -221,16 +221,16 @@ export class Hero extends Unit {
 	public setupTalentTrees () {
 		const config = new TalentConfig()
 
-		const treeUi = GenerateSwitchedTalentTreeView(config.talentTreeView, Frame.fromOrigin(ORIGIN_FRAME_GAME_UI, 0))
+		const treeUi = GenerateNoButtonTalentTreeView(config.talentTreeView, Frame.fromOrigin(ORIGIN_FRAME_GAME_UI, 0))
 
 		this.skillTree = new BasicTalentTreeViewModel(
 			config.talentTreeViewModel,
 			this.owner,
 			treeUi,
 			(i) =>
-				new BasicTalentViewModel(
+				new SkillTalentViewModel(
 					config.talentViewModel,
-					GenerateBasicTalentView(
+					GenerateNoButtonTalentView(
 						config.talentView,
 						treeUi.talentTreeContainer,
 						i.toString())))
@@ -242,7 +242,7 @@ export class Hero extends Unit {
 			(i) =>
 				new GoldTalentViewModel(
 					config.talentViewModel,
-					GenerateBasicTalentView(
+					GenerateNoButtonTalentView(
 						config.talentView,
 						treeUi.talentTreeContainer,
 						i.toString())))
@@ -254,7 +254,7 @@ export class Hero extends Unit {
 			(i) =>
 				new GoldTalentViewModel(
 					config.talentViewModel,
-					GenerateBasicTalentView(
+					GenerateNoButtonTalentView(
 						config.talentView,
 						treeUi.talentTreeContainer,
 						i.toString())))

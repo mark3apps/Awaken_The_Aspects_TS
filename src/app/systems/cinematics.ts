@@ -45,35 +45,35 @@ export class Cinematic {
 				// Create Hero Bar Background UI Texture
 				const heroBarUI = new Frame('image', Frame.fromName(Frame.DefaultName.consoleUIBackdrop, 0), 1, 0, Frame.Type.backdrop, Frame.DefaultName.buttonBackdropTemplate)
 				heroBarUI.setTexture('UI\\ResourceBar_combined.dds', 0, true)
-					.setAbsPoint(FRAMEPOINT_TOPLEFT, x + 0.046, y + 0.255)
-					.setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, x + 0.17, y + 0.126)
+					.setAbsPoint(FramePoint.TL, x + 0.046, y + 0.255)
+					.setAbsPoint(FramePoint.BR, x + 0.17, y + 0.126)
 					.setLevel(1)
 
 				// Remove Upper Button Bar Back
 				Frame.fromName(Frame.DefaultName.consoleUI, 0)
-					.setAbsPoint(FRAMEPOINT_TOPLEFT, 0, -0.1)
-					.setAbsPoint(FRAMEPOINT_BOTTOM, 0, 0)
+					.setAbsPoint(FramePoint.TL, 0, -0.1)
+					.setAbsPoint(FramePoint.B, 0, 0)
 
 				// Hide Upper Button Bar Buttons
 				Frame.fromName(Frame.DefaultName.upperButtonBarAlliesButton, 0)
 					.clearPoints()
-					.setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0, 1.5)
+					.setAbsPoint(FramePoint.BL, 0, 1.5)
 				Frame.fromName(Frame.DefaultName.upperButtonBarQuestsButton, 0)
 					.clearPoints()
-					.setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0, 1.5)
+					.setAbsPoint(FramePoint.BL, 0, 1.5)
 
 				// Move Upper Button Bar Buttons we like
 				Frame.fromName(Frame.DefaultName.upperButtonBarMenuButton, 0)
 					.clearPoints()
-					.setAbsPoint(FRAMEPOINT_TOPLEFT, 0.255, 0.60)
+					.setAbsPoint(FramePoint.TL, 0.255, 0.60)
 				Frame.fromName(Frame.DefaultName.upperButtonBarChatButton, 0)
 					.clearPoints()
-					.setAbsPoint(FRAMEPOINT_TOPLEFT, 0.463, 0.60)
+					.setAbsPoint(FramePoint.TL, 0.463, 0.60)
 
 				// Move Gold Bar
 				Frame.fromName(Frame.DefaultName.resourceBarGoldText, 0)
 					.clearPoints()
-					.setAbsPoint(FRAMEPOINT_TOPLEFT, x + 0.060, y + 0.210)
+					.setAbsPoint(FramePoint.TL, x + 0.060, y + 0.210)
 				Frame.fromName(Frame.DefaultName.resourceBarLumberText, 0).clearPoints()
 					.clearPoints()
 					.setAbsPoint(FRAMEPOINT_TOPLEFT, x + 0.087, y + 0.210)
@@ -81,7 +81,7 @@ export class Cinematic {
 				// Hide Resource Bar
 				Frame.fromName(Frame.DefaultName.resourceBarFrame, 0)
 					.clearPoints()
-					.setAbsPoint(FRAMEPOINT_TOPLEFT, 0.0, 1.5)
+					.setAbsPoint(FramePoint.TL, 0.0, 1.5)
 
 				Frame.fromName(Frame.DefaultName.resourceBarUpkeepText, 0).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0, 1.5)
 				Frame.fromName(Frame.DefaultName.resourceBarSupplyText, 0).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0, 1.5)
@@ -89,7 +89,7 @@ export class Cinematic {
 				// Hero Bar
 				Frame.fromOrigin(ORIGIN_FRAME_HERO_BAR, 0)
 					.clearPoints()
-					.setAbsPoint(FRAMEPOINT_TOPLEFT, x + 0.01, y + 0.214)
+					.setAbsPoint(FramePoint.TL, x + 0.01, y + 0.214)
 
 				Frame.fromOrigin(ORIGIN_FRAME_HERO_BUTTON, 0)
 					.setScale(1.25)
@@ -97,13 +97,13 @@ export class Cinematic {
 				// HP Bar
 				Frame.fromOrigin(ORIGIN_FRAME_HERO_HP_BAR, 0)
 					.clearPoints()
-					.setAbsPoint(FRAMEPOINT_BOTTOMLEFT, x + 0.065, y + 0.181)
+					.setAbsPoint(FramePoint.BL, x + 0.065, y + 0.181)
 					.setScale(2.3)
 
 				// Mana Bar
 				Frame.fromOrigin(ORIGIN_FRAME_HERO_MANA_BAR, 0)
 					.clearPoints()
-					.setAbsPoint(FRAMEPOINT_BOTTOMLEFT, x + 0.065, y + 0.175)
+					.setAbsPoint(FramePoint.BL, x + 0.065, y + 0.175)
 					.setScale(2.3)
 			}
 		}
@@ -199,4 +199,16 @@ export class Cinematic {
 			}
 		})
 	}
+}
+
+const FramePoint = {
+	C: FRAMEPOINT_CENTER,
+	T: FRAMEPOINT_TOP,
+	B: FRAMEPOINT_BOTTOM,
+	TL: FRAMEPOINT_TOPLEFT,
+	TR: FRAMEPOINT_TOPRIGHT,
+	BL: FRAMEPOINT_BOTTOMLEFT,
+	BR: FRAMEPOINT_BOTTOMRIGHT,
+	L: FRAMEPOINT_LEFT,
+	R: FRAMEPOINT_RIGHT
 }

@@ -1,7 +1,8 @@
-import { Frame } from 'lib/w3ts'
-import { ITalentTreeView } from '../../../../lib/STK/UI/STK/Interfaces/ITalentTreeView'
 
-export function GenerateSwitchedTalentTreeView (cfg: IBasicTalentTreeViewConfig, parent: Frame): ITalentTreeView {
+import { ITalentTreeView } from 'lib/STK/UI/STK/Interfaces/ITalentTreeView'
+import { Frame } from 'lib/w3ts'
+
+export function GenerateNoButtonTalentTreeView (cfg: IBasicTalentTreeViewConfig, parent: Frame): ITalentTreeView {
 	const window = Frame.fromHandle(BlzCreateFrame('EscMenuBackdrop', parent.handle, 0, 0))
 	const talentTreeContainer = new Frame('ListBoxWar3', window, 0, 0)
 	const backgroundArt = Frame.fromHandle(BlzCreateFrameByType('BACKDROP', 'TreeBackground', talentTreeContainer.handle, '', 0))

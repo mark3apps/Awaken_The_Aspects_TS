@@ -63,14 +63,14 @@ export function GenerateBasicTalentTreeView (cfg: IBasicTalentTreeViewConfig, pa
 		talentTreeContainer,
 		backgroundArt,
 		titleText,
-		// confirm: {
-		// 	buttonMain: confirmButton,
-		// 	text: confirmText
-		// },
-		// cancel: {
-		// 	buttonMain: cancelButton,
-		// 	text: cancelText
-		// },
+		confirm: {
+			buttonMain: confirmButton,
+			text: confirmText
+		},
+		cancel: {
+			buttonMain: cancelButton,
+			text: cancelText
+		},
 		close: {
 			buttonMain: closeButton,
 			text: closeText

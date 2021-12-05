@@ -1,4 +1,4 @@
-import { TalentConfig } from 'app/systems/talents/config'
+import { TalentConfig } from 'app/systems/talents/talentConfig'
 import { DruidBalanceTree } from 'app/systems/talents/talentTrees/druidBalance'
 import { BasicTalentTreeViewModel } from 'lib/STK/UI/STK/ViewModels/BasicTalentTreeViewModel'
 import { BasicTalentViewModel } from 'lib/STK/UI/STK/ViewModels/BasicTalentViewModel'
