@@ -444,6 +444,7 @@ export class Frame extends Handle<framehandle> {
 		confirmQuitQuitButtonText: 'ConfirmQuitQuitButtonText',
 		confirmQuitTitleText: 'ConfirmQuitTitleText',
 		consoleUI: 'ConsoleUI',
+		consoleUIBackdrop: 'ConsoleUIBackdrop',
 		customKeysLabel: 'CustomKeysLabel',
 		customKeysValue: 'CustomKeysValue',
 		decoratedMapListBox: 'DecoratedMapListBox',

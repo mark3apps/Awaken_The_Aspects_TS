@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
-/* eslint-disable indent */
 import { Logger } from 'app/classes/log'
 import { CC2Four } from 'lib/resources/library'
 import { AbilityFour, BuffFour, Order, AbilityModel, AttachPoint, Anim } from '../../lib/w3ts/index'
@@ -11,6 +10,7 @@ import { Trigger } from '../../lib/w3ts/handles/trigger'
 import { Unit } from '../../lib/w3ts/handles/unit'
 import { UnitAbility } from './unitAbility'
 import { UnitType } from './unitType'
+import { Hero } from '.'
 
 export const enum EffectType {
 	Channel,
@@ -205,6 +205,7 @@ export class Ability {
 	public static initSpellEffects (): void {
 		try {
 			Trigger.unitSpellEffect.add(() => {
+				// Logger.Information('Ability', CC2Four(GetSpellAbilityId()))
 				if (Ability.mapInstant.has(CC2Four(GetSpellAbilityId()))) {
 					const ability = this.fromSpellEvent()
 					ability.onEffect()
@@ -355,6 +356,7 @@ export class Ability {
 	static coneOfFireTower: Ability
 	static aspectOfDeathInfect: Ability
 	static stormCrowForm: Ability
+	static openSkillTree: Ability
 
 	static define (): void {
 		Ability.aspectInferno = new Ability({ four: AbilityFour.InfernoAspect, orderId: Order.Dreadlordinferno })
@@ -552,8 +554,7 @@ export class Ability {
 				dummy.addAbility(AbilityFour.InfectAspectDummy)
 				dummy.issueTargetOrder(Order.Parasite, u)
 				dummy.applyTimedLife(BuffFour.TimedLifeGeneric, 2)
-			},
-				unitCount)
+			}, unitCount)
 			g.destroy()
 		}
 	}

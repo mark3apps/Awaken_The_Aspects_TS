@@ -14,7 +14,7 @@ export enum LogLevel {
 
 export interface Events {
 	logLevel: LogLevel,
-	message: string,
+	text: string,
 }
 
 const Prefix: Record<LogLevel, string> =
@@ -52,9 +52,9 @@ const Brackets: Record<string, boolean> =
 	userdata: true
 }
 
-const log = (logLevel: LogLevel, message: string, ...events: unknown[]) => {
+const log = (logLevel: LogLevel, text: string, ...events: unknown[]) => {
 	if (logLevel >= Logger.logLevel) {
-		let messagePost = Prefix[logLevel] + ' ' + message
+		let messagePost = Prefix[logLevel] + ' ' + text
 
 		let parameters = ''
 
@@ -101,31 +101,31 @@ export class Logger {
 
 	arg: unknown[]
 
-	static Fatal = (message: string, ...args: unknown[]): void => {
-		log(LogLevel.Fatal, message, ...args)
+	static Fatal = (text: string, ...args: unknown[]): void => {
+		log(LogLevel.Fatal, text, ...args)
 	}
 
-	static Error = (message: string, ...args: unknown[]): void => {
-		log(LogLevel.Error, message, ...args)
+	static Error = (text: string, ...args: unknown[]): void => {
+		log(LogLevel.Error, text, ...args)
 	}
 
-	static Warning = (message: string, ...args: unknown[]): void => {
-		log(LogLevel.Warning, message, ...args)
+	static Warning = (text: string, ...args: unknown[]): void => {
+		log(LogLevel.Warning, text, ...args)
 	}
 
-	static Information = (message: string, ...args: unknown[]): void => {
-		log(LogLevel.Information, message, ...args)
+	static Information = (text: string, ...args: unknown[]): void => {
+		log(LogLevel.Information, text, ...args)
 	}
 
-	static Debug = (message: string, ...args: unknown[]): void => {
-		log(LogLevel.Debug, message, ...args)
+	static Debug = (text: string, ...args: unknown[]): void => {
+		log(LogLevel.Debug, text, ...args)
 	}
 
-	static Message = (message: string, ...args: unknown[]): void => {
-		log(LogLevel.Message, message, ...args)
+	static Message = (text: string, ...args: unknown[]): void => {
+		log(LogLevel.Message, text, ...args)
 	}
 
-	static Verbose = (message: string, ...args: unknown[]): void => {
-		log(LogLevel.Verbose, message, ...args)
+	static Verbose = (text: string, ...args: unknown[]): void => {
+		log(LogLevel.Verbose, text, ...args)
 	}
 }

@@ -1,15 +1,15 @@
 import { Frame } from 'lib/w3ts'
-import { ITalentTreeView } from '../Interfaces/ITalentTreeView'
+import { ITalentTreeView } from '../../../../lib/STK/UI/STK/Interfaces/ITalentTreeView'
 
-export function GenerateBasicTalentTreeView (cfg: IBasicTalentTreeViewConfig, parent: Frame): ITalentTreeView {
+export function GenerateSwitchedTalentTreeView (cfg: IBasicTalentTreeViewConfig, parent: Frame): ITalentTreeView {
 	const window = Frame.fromHandle(BlzCreateFrame('EscMenuBackdrop', parent.handle, 0, 0))
 	const talentTreeContainer = new Frame('ListBoxWar3', window, 0, 0)
 	const backgroundArt = Frame.fromHandle(BlzCreateFrameByType('BACKDROP', 'TreeBackground', talentTreeContainer.handle, '', 0))
 	const titleBackground = Frame.fromHandle(BlzCreateFrameByType('BACKDROP', 'TitleBackground', talentTreeContainer.handle, '', 0))
 	const titleText = Frame.fromHandle(BlzCreateFrameByType('TEXT', 'TitleText', titleBackground.handle, '', 0))
-	const confirmButton = new Frame('ScriptDialogButton', window, 0, 0)
+	// const confirmButton = new Frame('ScriptDialogButton', window, 0, 0)
 	const confirmText = Frame.fromName('ScriptDialogButtonText', 0)
-	const cancelButton = new Frame('ScriptDialogButton', window, 0, 0)
+	// const cancelButton = new Frame('ScriptDialogButton', window, 0, 0)
 	const cancelText = Frame.fromName('ScriptDialogButtonText', 0)
 	const closeButton = new Frame('ScriptDialogButton', window, 0, 0)
 	const closeText = Frame.fromName('ScriptDialogButtonText', 0)
@@ -40,17 +40,17 @@ export function GenerateBasicTalentTreeView (cfg: IBasicTalentTreeViewConfig, pa
 		.setScale(cfg.title.textScale)
 	BlzFrameSetTextAlignment(titleText.handle, TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_MIDDLE)
 
-	confirmButton
-		.clearPoints()
-		.setPoint(FramePoint.BR, window, FramePoint.BL, cfg.confirmButton.x, cfg.confirmButton.y)
-		.setSize(cfg.confirmButton.width, cfg.confirmButton.height)
-		.text = cfg.confirmButton.text
+	// confirmButton
+	// 	.clearPoints()
+	// 	.setPoint(FramePoint.BR, window, FramePoint.BR, cfg.confirmButton.x, cfg.confirmButton.y)
+	// 	.setSize(cfg.confirmButton.width, cfg.confirmButton.height)
+	// 	.text = cfg.confirmButton.text
 
-	cancelButton
-		.clearPoints()
-		.setPoint(FramePoint.BL, window, FramePoint.BR, cfg.cancelButton.x, cfg.cancelButton.y)
-		.setSize(cfg.cancelButton.width, cfg.cancelButton.height)
-		.text = cfg.cancelButton.text
+	// cancelButton
+	// 	.clearPoints()
+	// 	.setPoint(FramePoint.BL, window, FramePoint.BL, cfg.cancelButton.x, cfg.cancelButton.y)
+	// 	.setSize(cfg.cancelButton.width, cfg.cancelButton.height)
+	// 	.text = cfg.cancelButton.text
 
 	closeButton
 		.clearPoints()

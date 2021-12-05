@@ -2,7 +2,7 @@ import { ITalentTreeBuilder } from 'lib/STK/UI/STK/Interfaces/ITalentTreeBuilder
 import { ActivationEvent } from 'lib/STK/UI/STK/Models/Talent'
 import { TalentTree } from 'lib/STK/UI/STK/Models/TalentTree'
 
-export class DruidBalance extends TalentTree {
+export class DruidBalanceTree extends TalentTree {
 	get talentPoints (): number {
 		return this.ownerPlayer.getState(PLAYER_STATE_RESOURCE_LUMBER)
 	}
@@ -28,7 +28,7 @@ export class DruidBalance extends TalentTree {
 
 	public Initialize (builder: ITalentTreeBuilder): void {
 		builder.SetColumnsRows(4, 7)
-		builder.title = 'Balance'
+		builder.title = 'Balance (' + builder.talentPoints + ' Points Remaining)'
 		builder.talentPoints = 6
 		builder.backgroundImage = 'balancebg.blp'
 

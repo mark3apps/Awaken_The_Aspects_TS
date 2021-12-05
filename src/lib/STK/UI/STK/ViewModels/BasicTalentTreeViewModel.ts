@@ -42,12 +42,12 @@ export class BasicTalentTreeViewModel {
 		this._talentSlotFactory = talentSlotFactory
 
 		this._frameClickTrigger = new Trigger()
-		this._frameClickTrigger.triggerRegisterFrameEvent(view.confirm.buttonMain, FRAMEEVENT_CONTROL_CLICK)
-		this._frameClickTrigger.triggerRegisterFrameEvent(view.cancel.buttonMain, FRAMEEVENT_CONTROL_CLICK)
+		// this._frameClickTrigger.triggerRegisterFrameEvent(view.confirm.buttonMain, FRAMEEVENT_CONTROL_CLICK)
+		// this._frameClickTrigger.triggerRegisterFrameEvent(view.cancel.buttonMain, FRAMEEVENT_CONTROL_CLICK)
 		this._frameClickTrigger.triggerRegisterFrameEvent(view.close.buttonMain, FRAMEEVENT_CONTROL_CLICK)
 
-		this._frameEvent[view.confirm.buttonMain.id] = () => this._watcher.handle === GetTriggerPlayer() && this.OnConfirm()
-		this._frameEvent[view.cancel.buttonMain.id] = () => this._watcher.handle === GetTriggerPlayer() && this.OnCancel()
+		// this._frameEvent[view.confirm.buttonMain.id] = () => this._watcher.handle === GetTriggerPlayer() && this.OnConfirm()
+		// this._frameEvent[view.cancel.buttonMain.id] = () => this._watcher.handle === GetTriggerPlayer() && this.OnCancel()
 		this._frameEvent[view.close.buttonMain.id] = () => this._watcher.handle === GetTriggerPlayer() && this.OnClose()
 
 		this._frameClickTrigger.addAction(() => this.OnFrameButtonClicked())
@@ -177,7 +177,7 @@ export class BasicTalentTreeViewModel {
 			}
 		}
 
-		if (GetLocalPlayer() !== this._watcher.handle) return
+		if (MapPlayer.fromLocal() !== this._watcher) return
 
 		this._view.window.visible = true
 		this._view.talentTreeContainer.visible = true
@@ -186,7 +186,7 @@ export class BasicTalentTreeViewModel {
 	Hide (): void {
 		this._watched = false
 
-		if (GetLocalPlayer() !== this._watcher.handle) return
+		if (MapPlayer.fromLocal() !== this._watcher) return
 
 		this._view.window.visible = false
 	}

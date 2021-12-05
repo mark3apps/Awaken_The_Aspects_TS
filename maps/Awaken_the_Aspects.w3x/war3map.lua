@@ -276,10 +276,10 @@ gg_unit_o00C_1008 = nil
 gg_unit_o00C_1005 = nil
 gg_unit_o00C_1009 = nil
 gg_unit_o00C_1011 = nil
-gg_unit_o00C_1018 = nil
-gg_unit_o00C_1019 = nil
 gg_unit_o00C_1020 = nil
 gg_unit_o00C_1021 = nil
+gg_unit_o00C_1018 = nil
+gg_unit_o00C_1019 = nil
 function InitGlobals()
     local i = 0
     udg_force_allied = CreateForce()

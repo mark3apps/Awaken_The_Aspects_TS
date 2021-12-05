@@ -2,9 +2,11 @@ import { FallingStrikeAbility } from 'app/abilities/shifter/fallingstrike'
 import { ShadestormAbility } from 'app/abilities/shifter/shadestorm'
 import { ShiftAbility } from 'app/abilities/shifter/shift'
 import { SwitchAbility } from 'app/abilities/shifter/switch'
+import { Hero } from 'app/classes'
 import { Ability, EffectType, TargetType } from 'app/classes/ability'
 import { UnitType } from 'app/classes/unitType'
 import { HeroAttribute } from 'app/systems/attribute'
+import { DruidBalanceTree } from 'app/systems/talents/talentTrees/druidBalance'
 import { Strategy } from 'lib/resources/strategy'
 import { HeroType } from 'lib/w3ts/handles/herotype'
 import { AbilityFour, Order } from 'lib/w3ts/index'
@@ -12,6 +14,16 @@ import { AbilityFour, Order } from 'lib/w3ts/index'
 export class ShiftMasterHeroType extends HeroType {
 	constructor () {
 		super('E002', UnitType.ShiftMasterAlter, 'Shift Master')
+
+		this.talentTrees = (u: Hero) => {
+			const skill = new DruidBalanceTree(u)
+			const guard = new DruidBalanceTree(u)
+			const armor = new DruidBalanceTree(u)
+
+			u.skillTree.SetTree(skill)
+			u.guardTree.SetTree(skill)
+			u.armorTree.SetTree(skill)
+		}
 
 		// Attributes
 		this.addHeroAttribute(HeroAttribute.agility)

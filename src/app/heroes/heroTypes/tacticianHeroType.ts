@@ -1,9 +1,11 @@
 import { AttackAbility } from 'app/abilities/tactition/attack'
 import { BolsterAbility } from 'app/abilities/tactition/bolster'
 import { InspireAbility, AbilityInspireDeath } from 'app/abilities/tactition/inspire'
+import { Hero } from 'app/classes'
 import { Ability, EffectType, TargetType } from 'app/classes/ability'
 import { UnitType } from 'app/classes/unitType'
 import { HeroAttribute } from 'app/systems/attribute'
+import { DruidBalanceTree } from 'app/systems/talents/talentTrees/druidBalance'
 import { Strategy } from 'lib/resources/strategy'
 import { HeroType } from 'lib/w3ts/handles/herotype'
 import { AbilityFour, Order } from 'lib/w3ts/index'
@@ -12,7 +14,20 @@ export class TacticianHeroType extends HeroType {
 	inspire: Ability
 
 	constructor () {
-		super('H009', UnitType.TacticianAlter, 'Tactician')
+		super(
+			'H009',
+			UnitType.TacticianAlter,
+			'Tactician')
+
+		this.talentTrees = (u: Hero) => {
+			const skill = new DruidBalanceTree(u)
+			const guard = new DruidBalanceTree(u)
+			const armor = new DruidBalanceTree(u)
+
+			u.skillTree.SetTree(skill)
+			u.guardTree.SetTree(guard)
+			u.armorTree.SetTree(armor)
+		}
 
 		this.defineAbilities()
 		this.defineAttributes()

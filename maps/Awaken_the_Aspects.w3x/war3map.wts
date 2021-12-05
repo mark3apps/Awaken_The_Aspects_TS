@@ -15051,3 +15051,75 @@ STRING 5165
 Ancient of Life Spawn
 }
 
+STRING 5166
+// Abilities: A024 (Tree - Skill), Name (Name)
+{
+Tree - Skill
+}
+
+STRING 5167
+// Abilities: A024 (Tree - Skill), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 5168
+// Abilities: A024 (Tree - Skill), Tip (Tooltip - Normal)
+{
+Open Skill Tree
+}
+
+STRING 5169
+// Abilities: A024 (Tree - Skill), Ubertip (Tooltip - Normal - Extended)
+{
+Opens the Hero's Skill Tree.
+}
+
+STRING 5170
+// Abilities: A03W (Tree - Armor), Name (Name)
+{
+Tree - Armor
+}
+
+STRING 5171
+// Abilities: A03W (Tree - Armor), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 5172
+// Abilities: A03W (Tree - Armor), Tip (Tooltip - Normal)
+{
+Open Armor Upgrades
+}
+
+STRING 5173
+// Abilities: A03W (Tree - Armor), Ubertip (Tooltip - Normal - Extended)
+{
+Opens the Hero's Skill Tree.
+}
+
+STRING 5174
+// Abilities: A03Y (Tree - Guard), Name (Name)
+{
+Tree - Guard
+}
+
+STRING 5175
+// Abilities: A03Y (Tree - Guard), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 5176
+// Abilities: A03Y (Tree - Guard), Tip (Tooltip - Normal)
+{
+Open Guard Upgrades
+}
+
+STRING 5177
+// Abilities: A03Y (Tree - Guard), Ubertip (Tooltip - Normal - Extended)
+{
+Opens the Hero's Skill Tree.
+}
+

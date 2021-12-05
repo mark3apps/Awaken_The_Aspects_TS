@@ -10,10 +10,10 @@ export class TalentConfig {
 			// y: 0.530800,
 			// width: 0.5155,
 			// height: 0.3785,
-			x: 0.134,
-			y: 0.54,
+			x: 0.334,
+			y: 0.56,
 			width: 0.3,
-			height: 0.40
+			height: 0.38
 		},
 		title: {
 			backgroundArt: 'UI/Glues/Loading/LoadBar/Loading-BarBorder.blp',
@@ -23,22 +23,22 @@ export class TalentConfig {
 		},
 		cancelButton: {
 			text: 'Cancel',
-			x: -0.103,
-			y: 0,
+			x: 0.039,
+			y: -0.005,
 			width: 0.103,
 			height: 0.02941
 		},
 		confirmButton: {
 			text: 'Confirm',
-			x: 0.103,
-			y: 0,
+			x: -0.039,
+			y: -0.005,
 			width: 0.103,
 			height: 0.02941
 		},
 		closeButton: {
 			text: '|cffFCD20D×|r',
-			x: 0.005,
-			y: -0.005,
+			x: -0.001,
+			y: -0.001,
 			height: 0.025,
 			width: 0.025
 		},

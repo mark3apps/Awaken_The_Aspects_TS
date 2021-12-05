@@ -1,5 +1,5 @@
 import { DeathSpawn, Gate } from 'app/abilities'
-import { Logger, ItemType, Ability, Hero } from 'app/classes'
+import { Logger, ItemType, Ability, Hero, EffectType } from 'app/classes'
 import { BrawlerHeroType, ManaAddictHeroType, ShiftMasterHeroType, TacticianHeroType, TimeMageHeroType } from 'app/heroes/heroTypes'
 import { ItemUpgrade, Cinematic, Pathing, HeroAttribute, Army, Loc, Faction, Spawn, Aspect, Banner, AspectOfFireEvent, Load } from 'app/systems'
 import { Rectangle, Unit, CameraSetup, Trigger, Force, Region } from 'lib/w3ts'
@@ -64,7 +64,45 @@ export class Game {
 		Load.units()
 
 		Cinematic.startHeroSelector()
-		Initialize()
+
+		// Skill Tree Open & Close
+		new Ability({ four: 'A024', type: EffectType.Instant, addEffect: true }).onEffect = () => {
+			try {
+				Logger.Information('Skill')
+				const eventUnit = Hero.fromEvent()
+				if (eventUnit.guardTree.IsWatched()) eventUnit.guardTree.Hide()
+				if (eventUnit.armorTree.IsWatched()) eventUnit.armorTree.Hide()
+				eventUnit.skillTree.IsWatched() ? eventUnit.skillTree.Hide() : eventUnit.skillTree.Show()
+			} catch (error) {
+				Logger.Error(error)
+			}
+		}
+
+		// Guard Tree Open & Close
+		new Ability({ four: 'A03Y', type: EffectType.Instant, addEffect: true }).onEffect = () => {
+			try {
+				Logger.Information('Guard')
+				const eventUnit = Hero.fromEvent()
+				if (eventUnit.skillTree.IsWatched()) eventUnit.skillTree.Hide()
+				if (eventUnit.armorTree.IsWatched()) eventUnit.armorTree.Hide()
+				eventUnit.guardTree.IsWatched() ? eventUnit.guardTree.Hide() : eventUnit.guardTree.Show()
+			} catch (error) {
+				Logger.Error(error)
+			}
+		}
+
+		// Armor Tree Open & Close
+		new Ability({ four: 'A03W', type: EffectType.Instant, addEffect: true }).onEffect = () => {
+			try {
+				Logger.Information('Armor')
+				const eventUnit = Hero.fromEvent()
+				if (eventUnit.guardTree.IsWatched()) eventUnit.guardTree.Hide()
+				if (eventUnit.skillTree.IsWatched()) eventUnit.skillTree.Hide()
+				eventUnit.armorTree.IsWatched() ? eventUnit.armorTree.Hide() : eventUnit.armorTree.Show()
+			} catch (error) {
+				Logger.Error(error)
+			}
+		}
 
 		Spawn.start()
 

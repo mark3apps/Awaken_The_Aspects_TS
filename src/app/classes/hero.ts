@@ -1,7 +1,13 @@
 /* eslint-disable no-use-before-define */
-import { StateMachine, IState } from 'app/heroes/stateMachine'
+import { IState, StateMachine } from 'app/heroes/stateMachine'
+import { TalentConfig } from 'app/systems/talents/config'
+import { GoldTalentViewModel } from 'app/systems/talents/viewModels/GoldTalentViewModel'
+import { GenerateSwitchedTalentTreeView } from 'app/systems/talents/views/SwitchedTalentTreeView'
+import { BasicTalentTreeViewModel } from 'lib/STK/UI/STK/ViewModels/BasicTalentTreeViewModel'
+import { BasicTalentViewModel } from 'lib/STK/UI/STK/ViewModels/BasicTalentViewModel'
+import { GenerateBasicTalentView } from 'lib/STK/UI/STK/Views/BasicTalentView'
 import { HeroType } from 'lib/w3ts/handles/herotype'
-import { Unit, Timer, Group, MapPlayer, Order, Force, Trigger, Rectangle } from 'lib/w3ts/index'
+import { Force, Frame, Group, MapPlayer, Order, Rectangle, Timer, Trigger, Unit } from 'lib/w3ts/index'
 import { Logger } from './log'
 import { Position } from './position'
 import { UnitAbility } from './unitAbility'
@@ -13,6 +19,9 @@ export class Hero extends Unit {
 	private AITickTimer = new Timer()
 	private AITickIncrement = 1.2
 	private AIActivated = false
+	public skillTree: BasicTalentTreeViewModel
+	public guardTree: BasicTalentTreeViewModel
+	public armorTree: BasicTalentTreeViewModel
 
 	AIpowerBase = 0
 	AIpowerHero = 0
@@ -205,7 +214,52 @@ export class Hero extends Unit {
 			this.addStartingAbilities()
 			this.addStartingItems()
 			this.resetUnitAbilities()
+			this.setupTalentTrees()
 		}
+	}
+
+	public setupTalentTrees () {
+		const config = new TalentConfig()
+
+		const treeUi = GenerateSwitchedTalentTreeView(config.talentTreeView, Frame.fromOrigin(ORIGIN_FRAME_GAME_UI, 0))
+
+		this.skillTree = new BasicTalentTreeViewModel(
+			config.talentTreeViewModel,
+			this.owner,
+			treeUi,
+			(i) =>
+				new BasicTalentViewModel(
+					config.talentViewModel,
+					GenerateBasicTalentView(
+						config.talentView,
+						treeUi.talentTreeContainer,
+						i.toString())))
+
+		this.guardTree = new BasicTalentTreeViewModel(
+			config.talentTreeViewModel,
+			this.owner,
+			treeUi,
+			(i) =>
+				new GoldTalentViewModel(
+					config.talentViewModel,
+					GenerateBasicTalentView(
+						config.talentView,
+						treeUi.talentTreeContainer,
+						i.toString())))
+
+		this.armorTree = new BasicTalentTreeViewModel(
+			config.talentTreeViewModel,
+			this.owner,
+			treeUi,
+			(i) =>
+				new GoldTalentViewModel(
+					config.talentViewModel,
+					GenerateBasicTalentView(
+						config.talentView,
+						treeUi.talentTreeContainer,
+						i.toString())))
+
+		this.heroType.talentTrees(this)
 	}
 
 	public resetUnitAbilities (): void {
@@ -273,13 +327,7 @@ export class Hero extends Unit {
 	}
 
 	public static override fromHandle (handle: unit): Hero {
-		const unit: Unit = this.getObject(handle)
-
-		if (!unit.isHero) {
-			return null
-		} else {
-			return unit as Hero
-		}
+		return this.get(this.getObject(handle))
 	}
 
 	static define = (): void => {

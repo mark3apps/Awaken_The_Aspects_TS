@@ -1,11 +1,22 @@
-import { UnitType, Ability, EffectType, TargetType } from 'app/classes'
+import { UnitType, Ability, EffectType, TargetType, Hero } from 'app/classes'
 import { HeroAttribute } from 'app/systems'
+import { DruidBalanceTree } from 'app/systems/talents/talentTrees/druidBalance'
 import { Strategy } from 'lib/resources/strategy'
 import { HeroType, AbilityFour, Order } from 'lib/w3ts'
-
 export class TimeMageHeroType extends HeroType {
 	constructor () {
 		super('H00J', UnitType.TimeMageAlter, 'TimeMage')
+
+		// Set up Talent Trees
+		this.talentTrees = (u: Hero) => {
+			const skill = new DruidBalanceTree(u)
+			const guard = new DruidBalanceTree(u)
+			const armor = new DruidBalanceTree(u)
+
+			u.skillTree.SetTree(skill)
+			u.guardTree.SetTree(guard)
+			u.armorTree.SetTree(armor)
+		}
 
 		// Attributes
 		this.addHeroAttribute(HeroAttribute.intelligence)

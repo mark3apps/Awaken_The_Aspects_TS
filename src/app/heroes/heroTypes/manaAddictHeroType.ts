@@ -1,8 +1,10 @@
 import { AbilityManaStorm } from 'app/abilities/manaAddict/manaStorm'
 import { AbilityMark } from 'app/abilities/manaAddict/mark'
+import { Hero } from 'app/classes'
 import { Ability, EffectType, TargetType } from 'app/classes/ability'
 import { UnitType } from 'app/classes/unitType'
 import { HeroAttribute } from 'app/systems/attribute'
+import { DruidBalanceTree } from 'app/systems/talents/talentTrees/druidBalance'
 import { Strategy } from 'lib/resources/strategy'
 import { HeroType } from 'lib/w3ts/handles/herotype'
 import { AbilityFour, Order, BuffFour } from 'lib/w3ts/index'
@@ -10,6 +12,16 @@ import { AbilityFour, Order, BuffFour } from 'lib/w3ts/index'
 export class ManaAddictHeroType extends HeroType {
 	constructor () {
 		super('H00R', UnitType.ManaAddictAlter, 'Mana Addict')
+
+		this.talentTrees = (u: Hero) => {
+			const skill = new DruidBalanceTree(u)
+			const guard = new DruidBalanceTree(u)
+			const armor = new DruidBalanceTree(u)
+
+			u.skillTree.SetTree(skill)
+			u.guardTree.SetTree(skill)
+			u.armorTree.SetTree(skill)
+		}
 
 		// Attributes
 		this.addHeroAttribute(HeroAttribute.intelligence)

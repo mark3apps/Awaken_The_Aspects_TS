@@ -43,11 +43,7 @@
 			}
 		],
 		"indent": [
-			"error",
-			"tab",
-			{
-				"SwitchCase": 1
-			}
+			"off"
 		],
 		"no-tabs": "off",
 		"no-use-before-define": [

@@ -1,9 +1,11 @@
 /* eslint-disable no-use-before-define */
+import { Hero } from 'app/classes'
 import { Ability } from 'app/classes/ability'
 import { ItemType } from 'app/classes/itemType'
 import { UnitType } from 'app/classes/unitType'
 import { HeroAttribute } from 'app/systems/attribute'
 import { Strategy } from 'lib/resources/strategy'
+import { TalentTree } from 'lib/STK/UI/STK/Models/TalentTree'
 import { Unit } from './unit'
 
 export class HeroType extends UnitType {
@@ -19,7 +21,6 @@ export class HeroType extends UnitType {
 	public spells: Ability[] = []
 
 	public items: ItemType[] = []
-	public talents = []
 
 	// AI Globals
 	public lifeFactor = 1
@@ -35,6 +36,7 @@ export class HeroType extends UnitType {
 	public unitClumpRange = 100
 	public intelRange = 1100
 	public intelCloseRange = 500
+	public talentTrees = (unit: Hero): void => { }
 
 	public traitAgressive = 50
 	public traitDefensive = 50
