@@ -14,10 +14,7 @@ export class TacticianHeroType extends HeroType {
 	inspire: Ability
 
 	constructor () {
-		super(
-			'H009',
-			UnitType.TacticianAlter,
-			'Tactician')
+		super('H009', 'Tactician')
 
 		this.talentTrees = (u: Hero) => {
 			const skill = new DruidBalanceTree(u)

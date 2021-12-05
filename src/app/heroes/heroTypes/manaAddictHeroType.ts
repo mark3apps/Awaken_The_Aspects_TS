@@ -11,7 +11,7 @@ import { AbilityFour, Order, BuffFour } from 'lib/w3ts/index'
 
 export class ManaAddictHeroType extends HeroType {
 	constructor () {
-		super('H00R', UnitType.ManaAddictAlter, 'Mana Addict')
+		super('H00R', 'Mana Addict')
 
 		this.talentTrees = (u: Hero) => {
 			const skill = new DruidBalanceTree(u)

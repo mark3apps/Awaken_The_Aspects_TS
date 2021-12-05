@@ -9,7 +9,7 @@ import { AbilityFour, Order } from 'lib/w3ts/index'
 
 export class BrawlerHeroType extends HeroType {
 	constructor () {
-		super('E001', UnitType.BrawlerAlter, 'Brawler')
+		super('E001', 'Brawler')
 
 		this.talentTrees = (u: Hero) => {
 			const skill = new DruidBalanceTree(u)

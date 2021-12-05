@@ -188,10 +188,4 @@ export class UnitType {
 	static ShiftMaster = new UnitType('E002', false, false, false)
 	static Tactician = new UnitType('H009', false, false, false)
 	static TimeMage = new UnitType('H00J', false, false, false)
-
-	static BrawlerAlter = new UnitType('h00I', false, false, false)
-	static ManaAddictAlter = new UnitType('h00B', false, false, false)
-	static ShiftMasterAlter = new UnitType('h00Q', false, false, false)
-	static TacticianAlter = new UnitType('h00Y', false, false, false)
-	static TimeMageAlter = new UnitType('h00Z', false, false, false)
 }

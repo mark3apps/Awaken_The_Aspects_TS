@@ -2454,114 +2454,6 @@ function InitSounds()
     SetSoundVolume(gg_snd_GateEpicDeath, 127)
 end
 
-function CreateBuildingsForPlayer0()
-    local p = Player(0)
-    local u
-    local unitID
-    local t
-    local life
-    u = BlzCreateUnitWithSkin(p, FourCC("halt"), -24992.0, -4576.0, 270.000, FourCC("halt"))
-end
-
-function CreateBuildingsForPlayer1()
-    local p = Player(1)
-    local u
-    local unitID
-    local t
-    local life
-    u = BlzCreateUnitWithSkin(p, FourCC("halt"), -24992.0, -4896.0, 270.000, FourCC("halt"))
-end
-
-function CreateBuildingsForPlayer2()
-    local p = Player(2)
-    local u
-    local unitID
-    local t
-    local life
-    u = BlzCreateUnitWithSkin(p, FourCC("halt"), -24992.0, -5216.0, 270.000, FourCC("halt"))
-end
-
-function CreateBuildingsForPlayer3()
-    local p = Player(3)
-    local u
-    local unitID
-    local t
-    local life
-    u = BlzCreateUnitWithSkin(p, FourCC("halt"), -23328.0, -3552.0, 270.000, FourCC("halt"))
-end
-
-function CreateBuildingsForPlayer4()
-    local p = Player(4)
-    local u
-    local unitID
-    local t
-    local life
-    u = BlzCreateUnitWithSkin(p, FourCC("halt"), -23648.0, -3552.0, 270.000, FourCC("halt"))
-end
-
-function CreateBuildingsForPlayer5()
-    local p = Player(5)
-    local u
-    local unitID
-    local t
-    local life
-    u = BlzCreateUnitWithSkin(p, FourCC("halt"), -23968.0, -3552.0, 270.000, FourCC("halt"))
-end
-
-function CreateBuildingsForPlayer6()
-    local p = Player(6)
-    local u
-    local unitID
-    local t
-    local life
-    u = BlzCreateUnitWithSkin(p, FourCC("halt"), -5728.0, -5792.0, 270.000, FourCC("halt"))
-end
-
-function CreateBuildingsForPlayer7()
-    local p = Player(7)
-    local u
-    local unitID
-    local t
-    local life
-    u = BlzCreateUnitWithSkin(p, FourCC("halt"), -5408.0, -5792.0, 270.000, FourCC("halt"))
-end
-
-function CreateBuildingsForPlayer8()
-    local p = Player(8)
-    local u
-    local unitID
-    local t
-    local life
-    u = BlzCreateUnitWithSkin(p, FourCC("halt"), -5088.0, -5792.0, 270.000, FourCC("halt"))
-end
-
-function CreateBuildingsForPlayer9()
-    local p = Player(9)
-    local u
-    local unitID
-    local t
-    local life
-    u = BlzCreateUnitWithSkin(p, FourCC("halt"), -4064.0, -4768.0, 270.000, FourCC("halt"))
-end
-
-function CreateBuildingsForPlayer10()
-    local p = Player(10)
-    local u
-    local unitID
-    local t
-    local life
-    u = BlzCreateUnitWithSkin(p, FourCC("halt"), -4064.0, -4448.0, 270.000, FourCC("halt"))
-end
-
-function CreateBuildingsForPlayer11()
-    local p = Player(11)
-    local u
-    local unitID
-    local t
-    local life
-    u = BlzCreateUnitWithSkin(p, FourCC("halt"), -4064.0, -4128.0, 270.000, FourCC("halt"))
-end
-
 function CreateBuildingsForPlayer20()
     local p = Player(20)
     local u
@@ -3655,18 +3547,6 @@ function CreateNeutralPassiveBuildings()
 end
 
 function CreatePlayerBuildings()
-    CreateBuildingsForPlayer0()
-    CreateBuildingsForPlayer1()
-    CreateBuildingsForPlayer2()
-    CreateBuildingsForPlayer3()
-    CreateBuildingsForPlayer4()
-    CreateBuildingsForPlayer5()
-    CreateBuildingsForPlayer6()
-    CreateBuildingsForPlayer7()
-    CreateBuildingsForPlayer8()
-    CreateBuildingsForPlayer9()
-    CreateBuildingsForPlayer10()
-    CreateBuildingsForPlayer11()
     CreateBuildingsForPlayer20()
     CreateBuildingsForPlayer23()
 end

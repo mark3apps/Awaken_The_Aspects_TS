@@ -13,7 +13,7 @@ import { AbilityFour, Order } from 'lib/w3ts/index'
 
 export class ShiftMasterHeroType extends HeroType {
 	constructor () {
-		super('E002', UnitType.ShiftMasterAlter, 'Shift Master')
+		super('E002', 'Shift Master')
 
 		this.talentTrees = (u: Hero) => {
 			const skill = new DruidBalanceTree(u)

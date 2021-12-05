@@ -5,7 +5,7 @@ import { Strategy } from 'lib/resources/strategy'
 import { HeroType, AbilityFour, Order } from 'lib/w3ts'
 export class TimeMageHeroType extends HeroType {
 	constructor () {
-		super('H00J', UnitType.TimeMageAlter, 'TimeMage')
+		super('H00J', 'TimeMage')
 
 		// Set up Talent Trees
 		this.talentTrees = (u: Hero) => {

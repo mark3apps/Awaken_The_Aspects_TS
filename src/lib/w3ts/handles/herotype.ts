@@ -5,13 +5,11 @@ import { ItemType } from 'app/classes/itemType'
 import { UnitType } from 'app/classes/unitType'
 import { HeroAttribute } from 'app/systems/attribute'
 import { Strategy } from 'lib/resources/strategy'
-import { TalentTree } from 'lib/STK/UI/STK/Models/TalentTree'
 import { Unit } from './unit'
 
 export class HeroType extends UnitType {
 	static readonly map: Map<number, HeroType> = new Map()
 
-	readonly alter!: UnitType
 	readonly name!: string
 
 	public attributes: HeroAttribute[] = []
@@ -45,11 +43,10 @@ export class HeroType extends UnitType {
 
 	public strategies: Strategy[] = []
 
-	constructor (type: string, typeAlter: UnitType, name: string) {
+	constructor (type: string, name: string) {
 		super(type, false, false, false)
 
 		this.name = name
-		this.alter = typeAlter
 
 		HeroType.map.set(this.id, this)
 		HeroSelector.addUnit(this.four)
