@@ -30,7 +30,7 @@ export class AttackAbility extends Ability {
 		const level = ability.level
 		const duration = ability.normalDuration
 
-		g.enumUnitsInRange(eventUnit, aoe, null)
+		g.enumUnitsInRange(eventUnit, aoe)
 
 		let unitsPicked = 0
 

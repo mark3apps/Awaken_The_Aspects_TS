@@ -25,48 +25,43 @@ export interface VectorInterface {
 
 export class Vector extends Position {
 	// Hidden Variables with Getter/Setter
-	protected _yaw: number
-	protected _pitch: number
-	protected _roll: number
-	protected _effectPath: string
+	protected _yaw = 0
+	protected _pitch = 0
+	protected _roll = 0
+	protected _effectPath: string | undefined
 
-	// Read Only Variables
-	protected hasEffect: boolean
-
-	// Open Variables
-	effect: Effect
+	effect: Effect | null = null
 
 	constructor (line: VectorInterface, effectPath?: string) {
 		super(line.x, line.y, line.z)
-		this.yaw = line.yaw
-		this.pitch = line.pitch
-		this.roll = line.roll
-		this._effectPath = effectPath
+		if (line.yaw) this.yaw = line.yaw
+		if (line.pitch) this.pitch = line.pitch
+		if (line.roll) this.roll = line.roll
+		this._effectPath = effectPath as string
 
-		if (this._effectPath != null) {
-			this.hasEffect = true
+		if (this._effectPath !== undefined) {
 			this.effect = new Effect(this._effectPath, this, this.orientation)
 		}
 	}
 
 	public override set x (value: number) {
 		this._x = value
-		if (this.hasEffect) { this.effect.x = value }
+		if (this.effect) this.effect.x = value
 	}
 
 	public override set y (value: number) {
 		this._y = value
-		if (this.hasEffect) { this.effect.y = value }
+		if (this.effect) this.effect.y = value
 	}
 
 	public override set z (value: number) {
 		this._z = value
-		if (this.hasEffect) { this.effect.z = value }
+		if (this.effect) this.effect.z = value
 	}
 
 	public set yaw (value: number) {
 		this._yaw = value
-		if (this.hasEffect) { this.effect.yaw = value }
+		if (this.effect) { this.effect.yaw = value }
 	}
 
 	public get yaw (): number {
@@ -75,7 +70,7 @@ export class Vector extends Position {
 
 	public set pitch (value: number) {
 		this._pitch = value
-		if (this.hasEffect) { this.effect.pitch = value }
+		if (this.effect) { this.effect.pitch = value }
 	}
 
 	public get pitch (): number {
@@ -84,11 +79,11 @@ export class Vector extends Position {
 
 	public set roll (value: number) {
 		this._roll = value
-		if (this.hasEffect) { this.effect.roll = value }
+		if (this.effect) { this.effect.roll = value }
 	}
 
 	public get roll (): number {
-		return this._roll
+		return this._roll as number
 	}
 
 	public get orientation (): Orientation {
@@ -99,29 +94,29 @@ export class Vector extends Position {
 		this.yaw = orientation.yaw ?? this.yaw
 		this.pitch = orientation.pitch ?? this.pitch
 		this.roll = orientation.roll ?? this.roll
-		if (this.hasEffect) { this.effect.orientation = this.orientation }
+		if (this.effect) { this.effect.orientation = this.orientation }
 	}
 
 	public get line (): VectorInterface {
 		return { x: this.x, y: this.y, z: this.z, yaw: this.yaw, pitch: this.pitch, roll: this.roll }
 	}
 
-	public set effectPath (path: string) {
+	public set effectPath (path: string | undefined) {
 		// Check to see if the model path is different
 		if (this.effectPath !== path) {
 			// Destroy the Existing Effect
-			if (this._effectPath != null) {
-				this.effect.destroy()
-			}
+			if (this.effect) this.effect.destroy()
 
 			// Create the new Effect
 			this._effectPath = path
-			this.effect = new Effect(this._effectPath, this)
-			this.effect.z = this.z
+			if (this._effectPath) {
+				this.effect = new Effect(this._effectPath, this)
+				this.effect.z = this.z
+			}
 		}
 	}
 
-	public get effectPath (): string {
+	public get effectPath (): string | undefined {
 		return this._effectPath
 	}
 
@@ -143,14 +138,12 @@ export class Vector extends Position {
 	}
 
 	public get effectScale (): number {
-		return this.effect.scale
+		return this.effect ? this.effect.scale : 0
 	}
 
 	public set effectScale (value: number) {
-		this.effect.scale = value
+		if (this.effect) this.effect.scale = value
 	}
-
-	public
 }
 
 // const pos = new Vector(3, 45)

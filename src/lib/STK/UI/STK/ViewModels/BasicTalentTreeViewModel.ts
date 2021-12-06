@@ -89,7 +89,7 @@ export class BasicTalentTreeViewModel {
 
 		if (this._tree) {
 			this._view.titleText.text = this._tree.title
-			this._view.backgroundArt.setTexture(this._tree.backgroundImage, 0, true)
+			this._view.backgroundArt.setTexture(this._tree.backgroundImage ?? 'UI/Widgets/EscMenu/Human/blank-background.blp', 0, true)
 		}
 	}
 

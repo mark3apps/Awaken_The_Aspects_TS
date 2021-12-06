@@ -30,7 +30,7 @@ export class DruidBalanceTree extends TalentTree {
 	public Initialize (builder: ITalentTreeBuilder): void {
 		builder.SetColumnsRows(4, 7)
 		builder.title = 'Balance (' + builder.talentPoints + ' Points Remaining)'
-		builder.backgroundImage = 'balancebg.blp'
+		// builder.backgroundImage = 'balancebg.blp'
 
 		// The tree should be built with talents here
 		// ==============================================

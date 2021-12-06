@@ -2,35 +2,34 @@
 import { Order } from 'lib/w3ts/index'
 
 export class ItemType {
-	name: string
 	four: string
 	id: number
-	abilityFour: string
-	abilityId: number
-	orderFour: string
-	orderId: Order
+	abilityFour: string | undefined
+	abilityId: number | undefined
+	orderFour: string | undefined
+	orderId: Order | undefined
 	instant: boolean
 	castTime: number[]
 
 	static readonly map: Map<number, ItemType> = new Map()
 
-	constructor (four: string, abilityFour = null, orderFour = null, instant = true, castTime: number[] = []) {
+	constructor (four: string, abilityFour?: string, orderFour?: string, instant = true, castTime: number[] = []) {
 		this.four = four
 		this.id = FourCC(four)
 		this.abilityFour = abilityFour
 
-		if (abilityFour != null) {
+		if (abilityFour) {
 			this.abilityId = FourCC(abilityFour)
 		} else {
-			this.abilityId = null
+			this.abilityId = undefined
 		}
 
 		this.orderFour = orderFour
 
-		if (orderFour != null) {
+		if (orderFour) {
 			this.orderId = FourCC(orderFour)
 		} else {
-			this.orderFour = null
+			this.orderFour = undefined
 		}
 
 		this.instant = instant
@@ -39,7 +38,7 @@ export class ItemType {
 		ItemType.map.set(this.id, this)
 	}
 
-	public static get (id: number | string): ItemType {
+	public static get (id: number | string): ItemType | undefined {
 		return typeof id === 'number' ? ItemType.map.get(id) : ItemType.map.get(FourCC(id))
 	}
 
@@ -82,9 +81,9 @@ export class ItemType {
 		ItemType.blink2 = new ItemType('I00A', 'A03G', 'blink', false, [2])
 		ItemType.blink3 = new ItemType('I00B', 'A044', 'blink', false, [2])
 
-		ItemType.teleport1 = new ItemType('I000', 'A03H', null, false, [8])
-		ItemType.teleport2 = new ItemType('I008', 'A03Q', null, false, [5])
-		ItemType.teleport3 = new ItemType('I009', 'A01M', null, false, [3])
+		ItemType.teleport1 = new ItemType('I000', 'A03H', undefined, false, [8])
+		ItemType.teleport2 = new ItemType('I008', 'A03Q', undefined, false, [5])
+		ItemType.teleport3 = new ItemType('I009', 'A01M', undefined, false, [3])
 
 		ItemType.toughenUp1 = new ItemType('I002', 'A01A')
 		ItemType.toughenUp2 = new ItemType('I003', 'A020')

@@ -86,7 +86,7 @@ export class Ability {
 	readonly orderIdAutoOn?: Order
 	readonly orderIdAutoOff?: Order
 	readonly orderIdOff?: Order
-	readonly unitType?: { [name: number]: boolean } = {}
+	readonly unitType: { [name: number]: boolean } = {}
 	readonly permanent?: boolean
 	readonly starting?: boolean
 	readonly ult?: boolean
@@ -94,8 +94,8 @@ export class Ability {
 	readonly addGroup?: boolean
 	readonly loopTick?: number
 
-	loopTimer: Timer
-	group: Group
+	loopTimer: Timer | undefined
+	group: Group | undefined
 
 	onEffect: () => void = (): void => { return undefined }
 	onBuffDeath: () => void = (): void => { return undefined }
@@ -143,7 +143,7 @@ export class Ability {
 
 			if (this.addBuffDeath) {
 				Trigger.unitDying.add(() => {
-					if (Unit.fromEvent().hasBuff(this.buffId)) {
+					if (Unit.fromEvent().hasBuff(this.buffId as number)) {
 						this.onBuffDeath()
 					}
 				})
@@ -208,7 +208,7 @@ export class Ability {
 				// Logger.Information('Ability', CC2Four(GetSpellAbilityId()))
 				if (Ability.mapInstant.has(CC2Four(GetSpellAbilityId()))) {
 					const ability = this.fromSpellEvent()
-					ability.onEffect()
+					if (ability) ability.onEffect()
 				}
 			})
 		} catch (error) {
@@ -216,8 +216,8 @@ export class Ability {
 		}
 	}
 
-	public static fromSpellEvent (): Ability {
-		return Ability.fromId(GetSpellAbilityId())
+	public static fromSpellEvent (): Ability | undefined {
+		return Ability.fromId(GetSpellAbilityId()) as Ability
 	}
 
 	public static fromId (id: string | number): Ability | undefined {
@@ -239,8 +239,8 @@ export class Ability {
 		return FourCC(this.four)
 	}
 
-	public get buffId (): number {
-		return FourCC(this.buffFour)
+	public get buffId (): number | undefined {
+		return this.buffFour ? FourCC(this.buffFour) : undefined
 	}
 
 	public get icon (): string {
@@ -428,7 +428,7 @@ export class Ability {
 			const unitAbility = eventUnit.getUnitAbility(Ability.manaRepository)
 
 			const g = new Group()
-			g.enumUnitsInRange(eventUnit, 1300, null)
+			g.enumUnitsInRange(eventUnit, 1300)
 
 			g.firstLoop((u) => {
 				if (u.isStructure &&
@@ -540,7 +540,7 @@ export class Ability {
 			const unitCount = math.floor(unitAbility.normalDuration)
 
 			const g = new Group()
-			g.enumUnitsInRange(eventUnit, 400, null)
+			g.enumUnitsInRange(eventUnit, 400)
 			g.firstLoopCondition((u) => {
 				return (u.isAlive() &&
 					u.isEnemy(eventUnit) &&

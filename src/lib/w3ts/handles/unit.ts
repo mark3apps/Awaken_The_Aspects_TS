@@ -58,10 +58,10 @@ export class Unit extends Widget {
 	// Custom Data Fields
 	public get data (): UnitData {
 		if (Unit.dataMap.has(this)) {
-			return Unit.dataMap.get(this)
+			return Unit.dataMap.get(this) as UnitData
 		} else {
 			Unit.dataMap.set(this, new UnitData(this))
-			return Unit.dataMap.get(this)
+			return Unit.dataMap.get(this) as UnitData
 		}
 	}
 
@@ -567,20 +567,12 @@ export class Unit extends Widget {
 		return this.data.startY
 	}
 
-	public get destX (): number {
+	public get destX (): number | undefined {
 		return this.data.destX
 	}
 
-	public get destY (): number {
+	public get destY (): number | undefined {
 		return this.data.destY
-	}
-
-	public get heroType (): HeroType {
-		return this.data.heroType
-	}
-
-	public set heroType (value: HeroType) {
-		this.data.heroType = value
 	}
 
 	public addAbility (abilityId: number | string | Ability) {
@@ -709,8 +701,8 @@ export class Unit extends Widget {
 	 * @param damageType
 	 * @param weaponType
 	 */
-	public damageTarget (target: Widget, amount: number, attack: boolean, ranged: boolean, attackType: attacktype, damageType: damagetype, weaponType: weapontype): boolean {
-		return UnitDamageTarget(this.handle, target.handle, amount, attack, ranged, attackType, damageType, weaponType)
+	public damageTarget (target: Widget, amount: number, attack: boolean, ranged: boolean, attackType: attacktype, damageType: damagetype, weaponType?: weapontype): boolean {
+		return UnitDamageTarget(this.handle, target.handle, amount, attack, ranged, attackType, damageType, weaponType ?? WEAPON_TYPE_WHOKNOWS)
 	}
 
 	/**
@@ -1090,10 +1082,10 @@ export class Unit extends Widget {
 	}
 
 	public issueLastOrder () {
-		if (this.data.orderType === OrderType.Point) {
+		if (this.data.orderType === OrderType.Point && this.data.order && this.data.destX && this.data.destY) {
 			this.issueOrderAt(this.data.order, this.data.destX, this.data.destY)
 			return true
-		} else if (this.data.orderType === OrderType.Target) {
+		} else if (this.data.orderType === OrderType.Target && this.data.order && this.data.targetWidget) {
 			this.issueTargetOrder(this.data.order, this.data.targetWidget)
 			return true
 		} else {

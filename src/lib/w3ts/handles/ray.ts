@@ -9,17 +9,17 @@ export class Ray extends Vector {
 	protected _origin: Position | Unit
 	protected _dest: Position | Unit
 	protected _tickTimer: Timer
-	protected _rayUnit: Unit
+	protected _rayUnit: Unit | undefined
 	protected _arcMaxHeight = 0
 	protected _curve = 0
 	protected _hasRayUnit = false
 
-	protected _onHit: (ray: Ray) => void
+	protected _onHit = (ray: Ray) => { }
 
 	damage = 0
 	areaOfEffect = 0
-	collision: 32
-	owner: MapPlayer
+	collision = 32
+	owner: MapPlayer | undefined
 	velocity: number
 	acceleration = 0
 	ticks = 0
@@ -100,20 +100,20 @@ export class Ray extends Vector {
 
 	public override set x (value: number) {
 		this._x = value
-		if (this.hasEffect) { this.effect.x = value }
-		if (this.hasUnit()) { this._rayUnit.x = value }
+		if (this.effect) { this.effect.x = value }
+		if (this._rayUnit) { this._rayUnit.x = value }
 	}
 
 	public override set y (value: number) {
 		this._y = value
-		if (this.hasEffect) { this.effect.y = value }
-		if (this.hasUnit()) { this._rayUnit.y = value }
+		if (this.effect) { this.effect.y = value }
+		if (this._rayUnit) { this._rayUnit.y = value }
 	}
 
 	public override set z (value: number) {
 		this._z = value
-		if (this.hasEffect) { this.effect.z = value }
-		if (this.hasUnit()) { this._rayUnit.z = value }
+		if (this.effect) { this.effect.z = value }
+		if (this._rayUnit) { this._rayUnit.z = value }
 	}
 
 	public get arcMaxHeight (): number {
@@ -144,10 +144,10 @@ export class Ray extends Vector {
 		this._rayUnit = unit
 		this._hasRayUnit = true
 		this._rayUnit.position = this
-		this._rayUnit.facing = this.yaw
+		if (this._rayUnit) this._rayUnit.facing = this.yaw
 	}
 
-	public override get yaw (): number {
+	public override get yaw (): number | undefined {
 		return this._yaw
 	}
 
@@ -164,8 +164,8 @@ export class Ray extends Vector {
 			this._yaw += yawChange
 		}
 
-		if (this.hasEffect) { this.effect.yaw = this.yaw }
-		if (this.hasUnit()) { this._rayUnit.facing = this.yaw }
+		if (this.effect) { this.effect.yaw = this.yaw }
+		if (this._rayUnit) { this._rayUnit.facing = this.yaw }
 	}
 
 	public override set pitch (newPitch: number) {
@@ -177,7 +177,7 @@ export class Ray extends Vector {
 			this._pitch += pitchChange
 		}
 
-		if (this.hasEffect) { this.effect.pitch = this.pitch }
+		if (this.effect) { this.effect.pitch = this.pitch }
 	}
 
 	public override set roll (newRoll: number) {
@@ -189,7 +189,7 @@ export class Ray extends Vector {
 			this._roll += rollChange
 		}
 
-		if (this.hasEffect) { this.effect.roll = this.roll }
+		if (this.effect) { this.effect.roll = this.roll }
 	}
 
 	public get pitchToOrigin (): number {
@@ -261,6 +261,6 @@ export class Ray extends Vector {
 	}
 
 	public destroyEffect (): void {
-		this.effect.destroy()
+		if (this.effect) this.effect.destroy()
 	}
 }

@@ -99,33 +99,31 @@ export class Logger {
 		Logger.logLevel = level
 	}
 
-	arg: unknown[]
-
-	static Fatal = (text: string, ...args: unknown[]): void => {
-		log(LogLevel.Fatal, text, ...args)
+	static Fatal = (text: unknown, ...args: unknown[]): void => {
+		log(LogLevel.Fatal, text as string, ...args)
 	}
 
-	static Error = (text: string, ...args: unknown[]): void => {
-		log(LogLevel.Error, text, ...args)
+	static Error = (text: unknown, ...args: unknown[]): void => {
+		log(LogLevel.Error, text as string, ...args)
 	}
 
-	static Warning = (text: string, ...args: unknown[]): void => {
-		log(LogLevel.Warning, text, ...args)
+	static Warning = (text: unknown, ...args: unknown[]): void => {
+		log(LogLevel.Warning, text as string, ...args)
 	}
 
-	static Information = (text: string, ...args: unknown[]): void => {
-		log(LogLevel.Information, text, ...args)
+	static Information = (text: unknown, ...args: unknown[]): void => {
+		log(LogLevel.Information, text as string, ...args)
 	}
 
-	static Debug = (text: string, ...args: unknown[]): void => {
-		log(LogLevel.Debug, text, ...args)
+	static Debug = (text: unknown, ...args: unknown[]): void => {
+		log(LogLevel.Debug, text as string, ...args)
 	}
 
-	static Message = (text: string, ...args: unknown[]): void => {
-		log(LogLevel.Message, text, ...args)
+	static Message = (text: unknown, ...args: unknown[]): void => {
+		log(LogLevel.Message, text as string, ...args)
 	}
 
-	static Verbose = (text: string, ...args: unknown[]): void => {
-		log(LogLevel.Verbose, text, ...args)
+	static Verbose = (text: unknown, ...args: unknown[]): void => {
+		log(LogLevel.Verbose, text as string, ...args)
 	}
 }

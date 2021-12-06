@@ -24,7 +24,7 @@ export function GenerateBasicTalentTreeView (cfg: IBasicTalentTreeViewConfig, pa
 		.setPoint(FramePoint.TL, window, FramePoint.TL, cfg.talentTreeContainer.topLeftOffset[0], cfg.talentTreeContainer.topLeftOffset[1])
 		.setPoint(FramePoint.BR, window, FramePoint.BR, cfg.talentTreeContainer.bottomRightOffset[0], cfg.talentTreeContainer.bottomRightOffset[1])
 
-	backgroundArt
+		// backgroundArt
 		.setPoint(FramePoint.TL, talentTreeContainer, FramePoint.TL, cfg.talentTreeContainer.backgroundArt.topLeftOffset[0], cfg.talentTreeContainer.backgroundArt.topLeftOffset[1])
 		.setPoint(FramePoint.BR, talentTreeContainer, FramePoint.BR, cfg.talentTreeContainer.backgroundArt.bottomRightOffset[0], cfg.talentTreeContainer.backgroundArt.bottomRightOffset[1])
 		.setTexture('', 0, true)

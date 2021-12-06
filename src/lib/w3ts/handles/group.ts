@@ -33,8 +33,8 @@ export class Group extends Handle<group> {
 		DestroyGroup(this.handle)
 	}
 
-	public getClosestUnit (coor: Position): Unit {
-		let pickedUnit: Unit
+	public getClosestUnit (coor: Position): Unit | undefined {
+		let pickedUnit: Unit | undefined
 		let distance = 999999999999
 		this.for(() => {
 			const u = Unit.fromEnum()
@@ -48,12 +48,28 @@ export class Group extends Handle<group> {
 		return pickedUnit
 	}
 
-	public enumUnitsInRangeXY (x: number, y: number, radius: number, filter: boolexpr | (() => boolean)): void {
-		GroupEnumUnitsInRange(this.handle, x, y, radius, typeof filter === 'function' ? Filter(filter) : filter)
+	public enumUnitsInRangeXY (x: number, y: number, radius: number, filter?: boolexpr | (() => boolean)): void {
+		let typedFiler
+		if (filter === undefined) {
+			typedFiler = null
+		} else if (typeof filter === 'function') {
+			typedFiler = Filter(filter)
+		} else {
+			typedFiler = filter
+		}
+		GroupEnumUnitsInRange(this.handle, x, y, radius, typedFiler)
 	}
 
-	public enumUnitsInRange (pos: Unit | Position, radius: number, filter: boolexpr | (() => boolean)): void {
-		GroupEnumUnitsInRange(this.handle, pos.x, pos.y, radius, typeof filter === 'function' ? Filter(filter) : filter)
+	public enumUnitsInRange (pos: Unit | Position, radius: number, filter?: boolexpr | (() => boolean)): void {
+		let typedFiler
+		if (filter === undefined) {
+			typedFiler = null
+		} else if (typeof filter === 'function') {
+			typedFiler = Filter(filter)
+		} else {
+			typedFiler = filter
+		}
+		GroupEnumUnitsInRange(this.handle, pos.x, pos.y, radius, typedFiler)
 	}
 
 	/**
@@ -74,8 +90,16 @@ export class Group extends Handle<group> {
 		GroupEnumUnitsInRangeOfLocCounted(this.handle, whichPoint.handle, radius, typeof filter === 'function' ? Filter(filter) : filter, countLimit)
 	}
 
-	public enumUnitsInRect (r: Rectangle, filter: boolexpr | (() => boolean)): void {
-		GroupEnumUnitsInRect(this.handle, r.handle, typeof filter === 'function' ? Filter(filter) : filter)
+	public enumUnitsInRect (r: Rectangle, filter?: boolexpr | (() => boolean)): void {
+		let typedFiler
+		if (filter === undefined) {
+			typedFiler = null
+		} else if (typeof filter === 'function') {
+			typedFiler = Filter(filter)
+		} else {
+			typedFiler = filter
+		}
+		GroupEnumUnitsInRect(this.handle, r.handle, typedFiler)
 	}
 
 	/**
@@ -123,9 +147,9 @@ export class Group extends Handle<group> {
 	 * holds a reference to that unit but that unit is pretty much null.
 	 * See http://wc3c.net/showthread.php?t=104464.
 	 */
-	public get first (): Unit {
+	public get first (): Unit | null {
 		const unit = FirstOfGroup(this.handle)
-		return unit == null ? null : Unit.fromHandle(unit)
+		return unit === undefined ? null : Unit.fromHandle(unit)
 	}
 
 	/**
@@ -149,7 +173,7 @@ export class Group extends Handle<group> {
 		let u = this.first
 		let units = 0
 		while (u != null && units < maxUnits) {
-			if (condition) {
+			if (condition(u)) {
 				callback(u)
 				units += 1
 			}

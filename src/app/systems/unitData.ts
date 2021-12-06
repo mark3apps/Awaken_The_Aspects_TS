@@ -1,6 +1,5 @@
 import { OrderType } from 'lib/resources/orderType'
 import { Order, Widget, Unit } from 'lib/w3ts/index'
-import { HeroType } from '../../lib/w3ts/handles/herotype'
 
 export class UnitData {
 	public startX: number
@@ -12,7 +11,6 @@ export class UnitData {
 	public targetWidget?: Widget
 	public kills = 0
 	public assists = 0
-	public heroType?: HeroType
 	public setAsFlying = false
 	public custom = new Map<string, unknown>()
 

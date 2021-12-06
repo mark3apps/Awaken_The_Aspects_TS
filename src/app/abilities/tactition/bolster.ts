@@ -28,7 +28,7 @@ export class BolsterAbility extends Ability {
 			const unitTypes: number[] = []
 
 			const g = new Group()
-			g.enumUnitsInRange(eventUnit, areaOfEffect, null)
+			g.enumUnitsInRange(eventUnit, areaOfEffect)
 
 			g.firstLoop((u) => {
 				if (u.isAlly(eventUnit) &&

@@ -72,7 +72,7 @@ export class FallingStrikeAbility extends Ability {
 						})
 
 						g.firstLoop((u) => {
-							eventUnit.damageTarget(u, damage, false, false, ATTACK_TYPE_MAGIC, DAMAGE_TYPE_NORMAL, null)
+							eventUnit.damageTarget(u, damage, false, false, ATTACK_TYPE_MAGIC, DAMAGE_TYPE_NORMAL)
 						})
 						g.destroy()
 

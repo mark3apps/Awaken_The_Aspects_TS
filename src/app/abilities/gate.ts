@@ -32,7 +32,7 @@ export class GateType {
 		GateType.typeIds.push(this.closedGate.id)
 	}
 
-	public static get (unit: Unit): GateType {
+	public static get (unit: Unit): GateType | undefined {
 		for (let i = 0; i < GateType._key.length; i++) {
 			const element = GateType._key[i]
 
@@ -45,7 +45,7 @@ export class GateType {
 
 export class Gate {
 	public unit: Unit
-	public gateType: GateType
+	public gateType: GateType | undefined
 	public player: MapPlayer
 	public facing: number
 	public coordinate: Position
@@ -79,7 +79,7 @@ export class Gate {
 		Logger.Information('Defining Gates')
 
 		const g = new Group()
-		g.enumUnitsInRect(Rectangle.getPlayableMap(), null)
+		g.enumUnitsInRect(Rectangle.getPlayableMap())
 
 		g.firstLoop((u) => {
 			if (GateType.typeIds.indexOf(u.typeId) !== -1 && u != null) {
@@ -93,7 +93,7 @@ export class Gate {
 		Trigger.unitDies.add(() => {
 			if (Unit.fromEvent().inGroup(Gate.unitGroup)) {
 				const gate = Gate.fromUnit(Unit.fromEvent())
-				gate.died()
+				if (gate) gate.died()
 			}
 		})
 
@@ -141,7 +141,7 @@ export class Gate {
 		const g = new Group()
 		const check: GateCheck = { enemies: 0, allies: 0, friendlyHeroes: 0 }
 
-		g.enumUnitsInRangeXY(gate.unit.x, gate.unit.y, range, null)
+		g.enumUnitsInRangeXY(gate.unit.x, gate.unit.y, range)
 		g.firstLoop((u) => {
 			if (u.isAlive()) {
 				if (u.isAlly(gate.unit)) {
@@ -160,12 +160,12 @@ export class Gate {
 		return check
 	}
 
-	public static fromUnit (unit: Unit): Gate {
+	public static fromUnit (unit: Unit): Gate | undefined {
 		for (let i = 0; i < Gate.all.length; i++) {
 			const element = Gate.all[i]
 
 			if (element.unit === unit) {
-				return element
+				return element as Gate
 			}
 		}
 	}
@@ -173,7 +173,7 @@ export class Gate {
 	public open (): void {
 		Gate.unitGroup.removeUnit(this.unit)
 		Logger.Debug('Opening Gate', this.unit.owner)
-		this.unit = this.unit.replace(this.gateType.openGate)
+		if (this.gateType) this.unit = this.unit.replace(this.gateType.openGate)
 		Gate.unitGroup.addUnit(this.unit)
 
 		this.unit.setAnimation(Anim.Gate.deathAlternate)
@@ -184,7 +184,7 @@ export class Gate {
 		Logger.Debug('Closing Gate', this.unit.owner)
 
 		Gate.unitGroup.removeUnit(this.unit)
-		this.unit = this.unit.replace(this.gateType.closedGate)
+		if (this.gateType) this.unit = this.unit.replace(this.gateType.closedGate)
 		Gate.unitGroup.addUnit(this.unit)
 
 		this.state = GateState.closed
@@ -194,7 +194,7 @@ export class Gate {
 	public died (): void {
 		Gate.unitGroup.removeUnit(this.unit)
 
-		this.unit = new Unit(MapPlayer.fromHandle(Player(PLAYER_NEUTRAL_PASSIVE)), this.gateType.openGate.id, this.unit.position, this.unit.facing)
+		if (this.gateType) this.unit = new Unit(MapPlayer.fromHandle(Player(PLAYER_NEUTRAL_PASSIVE)), this.gateType.openGate.id, this.unit.position, this.unit.facing)
 		this.unit.setAnimation(Anim.Gate.death)
 		this.state = GateState.died
 	}
