@@ -3,8 +3,8 @@ import { Pathing } from 'app/systems'
 import { AttachPoint, AttachMod, AttachSpecial, Trigger, Unit, MapPlayer, AbilityFour, Timer, Effect } from 'lib/w3ts'
 
 interface DeathSpawnInterface {
-	amount?: number,
-	unitId?: UnitType,
+	amount: number,
+	unitId: UnitType,
 	chance?: number,
 	animation?: string,
 	effectPath?: string,
@@ -117,14 +117,14 @@ export class DeathSpawn {
 	static spawn (unit: Unit, deathSpawn: DeathSpawnInterface): void {
 		try {
 			for (let i = 0; i < deathSpawn.amount; i++) {
-				if (deathSpawn.chance >= math.random() && unit.isTerrainPathable(PATHING_TYPE_WALKABILITY)) {
+				if (deathSpawn.chance as number >= math.random() && unit.isTerrainPathable(PATHING_TYPE_WALKABILITY)) {
 					const u = new Unit(unit.owner, deathSpawn.unitId.id, unit.position, unit.facing)
 
 					// if ()
 					Pathing.newOrders(u)
 
 					if (deathSpawn.effectPath != null) {
-						new Effect(deathSpawn.effectPath, unit, deathSpawn.effectAttach).destroy()
+						new Effect(deathSpawn.effectPath, unit, deathSpawn.effectAttach as string).destroy()
 					}
 				}
 			}
@@ -134,9 +134,9 @@ export class DeathSpawn {
 	}
 
 	static add (unitId: UnitType, deathSpawn: DeathSpawnInterface): void {
-		if (deathSpawn.chance == null) { deathSpawn.chance = 1 }
+		if (deathSpawn.chance === undefined) deathSpawn.chance = 1
 
-		if (DeathSpawn.id[unitId.id] == null) {
+		if (DeathSpawn.id[unitId.id] === null) {
 			DeathSpawn.id[unitId.id] = [deathSpawn]
 		} else {
 			DeathSpawn.id[unitId.id].push(deathSpawn)

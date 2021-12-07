@@ -22,7 +22,7 @@ export class Loc {
 	readonly rect: Rectangle
 	readonly region: Region
 	forward: ForwardMove[]
-	forwardArmy: Army
+	forwardArmy?: Army
 
 	public static map: Map<number, Loc> = new Map()
 
@@ -36,8 +36,8 @@ export class Loc {
 		Loc.map.set(this.region.id, this)
 	}
 
-	public static get (region: Region): LocKey {
-		return Loc.map.get[region.id]
+	public static get (region: Region): Loc | undefined {
+		return Loc.map.get(region.id)
 	}
 
 	public get randomX (): number {

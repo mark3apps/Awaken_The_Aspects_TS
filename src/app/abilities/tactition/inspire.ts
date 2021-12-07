@@ -31,7 +31,7 @@ export class InspireAbility extends Ability {
 			let pickedUnits = 0
 
 			const g = new Group()
-			g.enumUnitsInRange(eventUnit, areaOfEffect, null)
+			g.enumUnitsInRange(eventUnit, areaOfEffect)
 			let u = g.first
 			while (u != null && pickedUnits < unitsInspired) {
 				if (u.isAlly(eventUnit) &&
@@ -59,7 +59,7 @@ export class InspireAbility extends Ability {
 					u.data.custom.set('inspireCounter', 0)
 
 					pickedUnits += 1
-					if (InspireAbility.group.size === 1) {
+					if (InspireAbility.group.size === 1 && this.loopTimer) {
 						this.loopTimer.resume()
 					}
 				}
@@ -74,7 +74,7 @@ export class InspireAbility extends Ability {
 	}
 
 	public override onLoop = (): void => {
-		if (InspireAbility.group.size === 0) {
+		if (InspireAbility.group.size === 0 && this.loopTimer) {
 			this.loopTimer.pause()
 		} else {
 			InspireAbility.group.for(() => {
@@ -135,7 +135,7 @@ export class AbilityInspireDeath extends Ability {
 
 			// Find Units around dieing unit
 			const g = new Group()
-			g.enumUnitsInRange(eventUnit, 300, null)
+			g.enumUnitsInRange(eventUnit, 300)
 
 			let pickedUnits = 0
 			let u = g.first

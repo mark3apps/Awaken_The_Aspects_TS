@@ -11,8 +11,6 @@ import { HeroType } from 'lib/w3ts/handles/herotype'
 import { AbilityFour, Order } from 'lib/w3ts/index'
 
 export class TacticianHeroType extends HeroType {
-	inspire: Ability
-
 	constructor () {
 		super('H009', 'Tactician')
 

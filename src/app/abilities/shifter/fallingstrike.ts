@@ -56,7 +56,7 @@ export class FallingStrikeAbility extends Ability {
 					eventUnit.flyHeight = eventUnit.getParabolaZ(distanceTravelled, fullDistance, maximumHeight)
 
 					if (distanceTravelled >= fullDistance) {
-						new Effect(AbilityModel.warStompCaster, eventUnit.position).destroy()
+						new Effect(AbilityModel.warStompCaster, eventUnit.position, {}).destroy()
 						eventUnit.invulnerable = false
 						eventUnit.setPathing(true)
 						eventUnit.flyHeight = eventUnit.defaultFlyHeight

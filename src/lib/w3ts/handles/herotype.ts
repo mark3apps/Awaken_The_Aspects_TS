@@ -15,7 +15,7 @@ export class HeroType extends UnitType {
 	public attributes: HeroAttribute[] = []
 	public permanentSpells: Ability[] = []
 	public startingSpells: Ability[] = []
-	public ultSpell: Ability
+	public ultSpell?: Ability
 	public spells: Ability[] = []
 
 	public items: ItemType[] = []
@@ -52,7 +52,7 @@ export class HeroType extends UnitType {
 		HeroSelector.addUnit(this.four)
 	}
 
-	static get (unit: Unit): HeroType {
+	static get (unit: Unit): HeroType | undefined {
 		return HeroType.map.get(unit.typeId)
 	}
 

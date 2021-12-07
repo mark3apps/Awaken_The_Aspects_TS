@@ -54,7 +54,7 @@ export class ShadestormAbility extends Ability {
 				const duration = shadeAbility.normalDuration
 				const killTimer = new Timer()
 				killTimer.start(duration, false, () => {
-					new Effect(AbilityModel.mirrorImageDeathCaster, shade.position).destroy()
+					new Effect(AbilityModel.mirrorImageDeathCaster, shade.position, {}).destroy()
 					shade.destroy()
 				})
 			})

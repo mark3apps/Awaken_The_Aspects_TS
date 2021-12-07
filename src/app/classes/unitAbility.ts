@@ -17,19 +17,19 @@ export class UnitAbility {
 	}
 
 	public hasBuff (): boolean {
-		return this.unit.hasBuff(this.ability.buffFour)
+		return this.ability.buffFour ? this.unit.hasBuff(this.ability.buffFour) : false
 	}
 
 	public castImmediate (): void {
-		this.unit.issueImmediateOrder(this.ability.orderId)
+		if (this.ability.orderId) this.unit.issueImmediateOrder(this.ability.orderId)
 	}
 
 	public castTarget (targetWidget: Widget): void {
-		this.unit.issueTargetOrder(this.ability.orderId, targetWidget)
+		if (this.ability.orderId) this.unit.issueTargetOrder(this.ability.orderId, targetWidget)
 	}
 
 	public cast (dest: Position): void {
-		this.unit.issueOrderAtPosition(this.ability.orderId, dest)
+		if (this.ability.orderId) this.unit.issueOrderAtPosition(this.ability.orderId, dest)
 	}
 
 	public isCasting (): boolean {
@@ -229,7 +229,7 @@ export class UnitAbility {
 	 * @param field
 	 * @returns an array of items from the abilitylevelfield for all levels
 	 */
-	public getLevelFieldArray (field: abilitybooleanlevelfield | abilitystringlevelfield | abilityreallevelfield | abilityintegerlevelfield): string[] | number[] | boolean[] {
+	public getLevelFieldArray (field: abilitybooleanlevelfield | abilitystringlevelfield | abilityreallevelfield | abilityintegerlevelfield): (string | number | boolean)[] {
 		const fields = []
 
 		for (let i = 0; i < this.levels; i++) {

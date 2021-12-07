@@ -1,18 +1,19 @@
 import { UnitType } from 'app/classes/unitType'
 import { SpawnValues, SpawnLoop } from 'lib/resources/spawnCheck'
-import { SpawnUnit } from 'lib/resources/spawnUnit'
+import { SpawnUnit, SpawnUnitDefined } from 'lib/resources/spawnUnit'
 import { Unit, Order, Timer } from 'lib/w3ts/index'
 import { Base } from './base'
 import { Faction } from './faction'
 
 export class Spawn {
 	private _faction: Faction
-	private units: SpawnUnit[]
+	private units: SpawnUnitDefined[]
 	public name: string
 
-	constructor (name: string) {
+	constructor (name: string, faction: Faction) {
 		this.name = name
 		this.units = []
+		this._faction = faction
 	}
 
 	//
@@ -28,11 +29,12 @@ export class Spawn {
 	}
 
 	public addUnit (sUnit: SpawnUnit): void {
-		if (sUnit.start == null) { sUnit.start = 1 }
-		if (sUnit.end == null) { sUnit.end = 12 }
-		if (sUnit.amount == null) { sUnit.amount = 1 }
+		if (sUnit.start === undefined) { sUnit.start = 1 }
+		if (sUnit.end === undefined) { sUnit.end = 12 }
+		if (sUnit.amount === undefined) { sUnit.amount = 1 }
 
-		this.units.push(sUnit)
+		const sUnitDefined = sUnit as SpawnUnitDefined
+		this.units.push(sUnitDefined)
 	}
 
 	public unitInWave (check: SpawnValues): boolean {
@@ -66,7 +68,7 @@ export class Spawn {
 
 		if (this.unitReady(check)) {
 			for (let b = 0; b < 2; b++) {
-				const baseElement: Base = this._faction[['alliance', 'federation'][b]]
+				const baseElement: Base = b === 0 ? this.faction.alliance : this.faction.federation
 
 				if (baseElement.isAlive()) {
 					for (let index = 0; index < unitElement.amount; index++) {
@@ -164,16 +166,14 @@ export class Spawn {
 
 	static define = (): void => {
 		// Arcane
-		Spawn.base.arcane = new Spawn('arcane')
-		Spawn.base.arcane.faction = Faction.arcane
+		Spawn.base.arcane = new Spawn('arcane', Faction.arcane)
 		Spawn.base.arcane.addUnit({ unitType: UnitType.Sorceress, waves: [6, 7, 8, 9, 10], start: 3 })
 		Spawn.base.arcane.addUnit({ unitType: UnitType.StormSummoner, waves: [6, 7, 8, 9, 10], start: 5 })
 		Spawn.base.arcane.addUnit({ unitType: UnitType.MagiDefender, waves: [6, 8], start: 7 })
 		Spawn.addSpawn(Spawn.base.arcane.name)
 
 		// Arcane Creep
-		Spawn.base.arcaneCreep = new Spawn('arcaneCreep')
-		Spawn.base.arcaneCreep.faction = Faction.arcaneCreep
+		Spawn.base.arcaneCreep = new Spawn('arcaneCreep', Faction.arcaneCreep)
 		Spawn.base.arcaneCreep.addUnit({ unitType: UnitType.BattleGolem, waves: [1, 2, 3, 4], start: 1 })
 		Spawn.base.arcaneCreep.addUnit({ unitType: UnitType.WaterElemental2, waves: [1, 3], start: 3 })
 		Spawn.base.arcaneCreep.addUnit({ unitType: UnitType.WaterElemental3, waves: [2, 3], start: 4 })
@@ -181,32 +181,28 @@ export class Spawn {
 		Spawn.addSpawn(Spawn.base.arcaneCreep.name)
 
 		// Arcane Hero Spawn
-		Spawn.base.arcaneHero = new Spawn('arcaneHero')
-		Spawn.base.arcaneHero.faction = Faction.arcaneHero
+		Spawn.base.arcaneHero = new Spawn('arcaneHero', Faction.arcaneHero)
 		Spawn.base.arcaneHero.addUnit({ unitType: UnitType.MagiDefender, waves: [1, 2, 3, 5], start: 6 })
 		Spawn.base.arcaneHero.addUnit({ unitType: UnitType.SupremeWizard, waves: [5], start: 7 })
 		Spawn.base.arcaneHero.addUnit({ unitType: UnitType.SeigeGolem, waves: [4], start: 9 })
 		Spawn.addSpawn(Spawn.base.arcaneHero.name)
 
 		// Arcane Top Spawn
-		Spawn.base.arcaneTop = new Spawn('arcaneTop')
-		Spawn.base.arcaneTop.faction = Faction.arcaneTop
+		Spawn.base.arcaneTop = new Spawn('arcaneTop', Faction.arcaneTop)
 		Spawn.base.arcaneTop.addUnit({ unitType: UnitType.BattleGolem, amount: 2, waves: [4, 5, 6] })
 		Spawn.base.arcaneTop.addUnit({ unitType: UnitType.WaterElemental2, waves: [4, 6], start: 4 })
 		Spawn.base.arcaneTop.addUnit({ unitType: UnitType.Summoner, waves: [4], start: 8 })
 		Spawn.addSpawn(Spawn.base.arcaneTop.name)
 
 		// Arcane Bottom Spawn
-		Spawn.base.arcaneBottom = new Spawn('arcaneBottom')
-		Spawn.base.arcaneBottom.faction = Faction.arcaneBottom
+		Spawn.base.arcaneBottom = new Spawn('arcaneBottom', Faction.arcaneBottom)
 		Spawn.base.arcaneBottom.addUnit({ unitType: UnitType.BattleGolem, amount: 2, waves: [1, 2, 3], start: 2 })
 		Spawn.base.arcaneBottom.addUnit({ unitType: UnitType.WaterElemental2, waves: [1, 3], start: 4 })
 		Spawn.base.arcaneBottom.addUnit({ unitType: UnitType.Summoner, waves: [1], start: 8 })
 		Spawn.addSpawn(Spawn.base.arcaneBottom.name)
 
 		// High City Spawn
-		Spawn.base.highCity = new Spawn('highCity')
-		Spawn.base.highCity.faction = Faction.highCity
+		Spawn.base.highCity = new Spawn('highCity', Faction.highCity)
 		Spawn.base.highCity.addUnit({ unitType: UnitType.Militia2, amount: 2, waves: [1, 2, 3, 4, 5, 6], end: 7 })
 		Spawn.base.highCity.addUnit({ unitType: UnitType.Arbalist, waves: [1, 2, 3, 4], start: 1, end: 4 })
 		Spawn.base.highCity.addUnit({ unitType: UnitType.Arbalist, waves: [1, 2, 3, 4, 5, 6, 7], start: 5 })
@@ -216,14 +212,12 @@ export class Spawn {
 		Spawn.addSpawn(Spawn.base.highCity.name)
 
 		// Castle Spawn
-		Spawn.base.castle = new Spawn('castle')
-		Spawn.base.castle.faction = Faction.castle
+		Spawn.base.castle = new Spawn('castle', Faction.castle)
 		Spawn.base.castle.addUnit({ unitType: UnitType.Captain2, waves: [1, 2, 3], start: 8 })
 		Spawn.addSpawn(Spawn.base.castle.name)
 
 		// City Elves
-		Spawn.base.cityElves = new Spawn('cityElves')
-		Spawn.base.cityElves.faction = Faction.cityElves
+		Spawn.base.cityElves = new Spawn('cityElves', Faction.cityElves)
 		Spawn.base.cityElves.addUnit({ unitType: UnitType.BloodElfArcher, waves: [1, 3, 5], end: 1 })
 		Spawn.base.cityElves.addUnit({ unitType: UnitType.BloodElfArcher, waves: [1, 2, 3, 4, 5, 6], start: 2 })
 		Spawn.base.cityElves.addUnit({ unitType: UnitType.BloodElfArcher, waves: [2, 3, 4, 5], start: 4 })
@@ -235,8 +229,7 @@ export class Spawn {
 		Spawn.addSpawn(Spawn.base.cityElves.name)
 
 		// City Front Spawn
-		Spawn.base.cityFront = new Spawn('cityFront')
-		Spawn.base.cityFront.faction = Faction.cityFront
+		Spawn.base.cityFront = new Spawn('cityFront', Faction.cityFront)
 		Spawn.base.cityFront.addUnit({ unitType: UnitType.Militia1, amount: 3, waves: [1, 2, 3, 4, 5, 6], end: 2 })
 		Spawn.base.cityFront.addUnit({ unitType: UnitType.Militia2, amount: 2, waves: [1, 2, 3, 4, 5, 6, 7], start: 3, end: 4 })
 		Spawn.base.cityFront.addUnit({ unitType: UnitType.Footman1, amount: 3, waves: [1, 2, 3, 5, 6, 7], start: 5 })
@@ -247,8 +240,7 @@ export class Spawn {
 		Spawn.addSpawn(Spawn.base.cityFront.name)
 
 		// Draenei Spawn
-		Spawn.base.draenei = new Spawn('draenei')
-		Spawn.base.draenei.faction = Faction.draenei
+		Spawn.base.draenei = new Spawn('draenei', Faction.draenei)
 		Spawn.base.draenei.addUnit({ unitType: UnitType.DraeneiGuardian, amount: 2, waves: [5, 6, 7, 8, 9, 10] })
 		Spawn.base.draenei.addUnit({ unitType: UnitType.DraeneiGuardian, waves: [7, 8, 9], start: 5 })
 		Spawn.base.draenei.addUnit({ unitType: UnitType.DraeneiDarkslayer, waves: [6, 7, 8, 9, 10], start: 3 })
@@ -258,8 +250,7 @@ export class Spawn {
 		Spawn.addSpawn(Spawn.base.draenei.name)
 
 		// High Elves
-		Spawn.base.highElves = new Spawn('highElves')
-		Spawn.base.highElves.faction = Faction.highElves
+		Spawn.base.highElves = new Spawn('highElves', Faction.highElves)
 		Spawn.base.highElves.addUnit({ unitType: UnitType.HighElfApprenticeSwordsman, waves: [1, 2, 3, 5], end: 3 })
 		Spawn.base.highElves.addUnit({ unitType: UnitType.HighElfApprenticeSwordsman, waves: [1, 3], start: 4 })
 		Spawn.base.highElves.addUnit({ unitType: UnitType.HighElfArcher, waves: [1, 3, 5], start: 2 })
@@ -270,8 +261,7 @@ export class Spawn {
 		Spawn.addSpawn(Spawn.base.highElves.name)
 
 		// High Elves Creep
-		Spawn.base.highElvesCreep = new Spawn('highElvesCreep')
-		Spawn.base.highElvesCreep.faction = Faction.highElvesCreep
+		Spawn.base.highElvesCreep = new Spawn('highElvesCreep', Faction.highElvesCreep)
 		Spawn.base.highElvesCreep.addUnit({ unitType: UnitType.HighElfSwordsman, waves: [1, 2, 3, 4] })
 		Spawn.base.highElvesCreep.addUnit({ unitType: UnitType.HighElfArcher, waves: [1, 3, 5], start: 2 })
 		Spawn.base.highElvesCreep.addUnit({ unitType: UnitType.HighElfHealer, waves: [1, 3], start: 4 })
@@ -279,8 +269,7 @@ export class Spawn {
 		Spawn.addSpawn(Spawn.base.highElvesCreep.name)
 
 		// Merc Spawn
-		Spawn.base.merc = new Spawn('merc')
-		Spawn.base.merc.faction = Faction.merc
+		Spawn.base.merc = new Spawn('merc', Faction.merc)
 		Spawn.base.merc.addUnit({ unitType: UnitType.Rogue, amount: 2, waves: [4, 5, 6, 7] })
 		Spawn.base.merc.addUnit({ unitType: UnitType.BanditSpearman, waves: [3, 4, 5, 6, 7, 8, 9], start: 2 })
 		Spawn.base.merc.addUnit({ unitType: UnitType.Bandit, amount: 2, waves: [3, 5, 6, 7], start: 3 })
@@ -290,8 +279,7 @@ export class Spawn {
 		Spawn.addSpawn(Spawn.base.merc.name)
 
 		// Dwarf Spawn
-		Spawn.base.dwarf = new Spawn('dwarf')
-		Spawn.base.dwarf.faction = Faction.dwarf
+		Spawn.base.dwarf = new Spawn('dwarf', Faction.dwarf)
 		Spawn.base.dwarf.addUnit({ unitType: UnitType.IronGuard, amount: 2, waves: [1, 2, 3, 5, 6], end: 1 })
 		Spawn.base.dwarf.addUnit({ unitType: UnitType.IronGuard, amount: 3, waves: [1, 2, 3, 4, 5, 6, 7], start: 2 })
 		Spawn.base.dwarf.addUnit({ unitType: UnitType.IronRifleman, waves: [1, 2, 3, 4, 5, 6], start: 2 })
@@ -303,8 +291,7 @@ export class Spawn {
 		Spawn.addSpawn(Spawn.base.dwarf.name)
 
 		// Dwarf Creep Spawn
-		Spawn.base.dwarfCreep = new Spawn('dwarfCreep')
-		Spawn.base.dwarfCreep.faction = Faction.dwarfCreep
+		Spawn.base.dwarfCreep = new Spawn('dwarfCreep', Faction.dwarfCreep)
 		Spawn.base.dwarfCreep.addUnit({ unitType: UnitType.IronGuard, amount: 2, waves: [5, 6, 7, 8] })
 		Spawn.base.dwarfCreep.addUnit({ unitType: UnitType.IronRifleman, waves: [5, 7], start: 3 })
 		Spawn.base.dwarfCreep.addUnit({ unitType: UnitType.IronCaptain, waves: [5, 7, 8], start: 4 })
@@ -312,8 +299,7 @@ export class Spawn {
 		Spawn.addSpawn(Spawn.base.dwarfCreep.name)
 
 		// Murloc Spawn
-		Spawn.base.murloc = new Spawn('murloc')
-		Spawn.base.murloc.faction = Faction.murloc
+		Spawn.base.murloc = new Spawn('murloc', Faction.murloc)
 		Spawn.base.murloc.addUnit({ unitType: UnitType.MurlocCliffRunner, amount: 3, waves: [5, 6, 7, 8, 9, 10] })
 		Spawn.base.murloc.addUnit({ unitType: UnitType.MurlocCliffRunner, amount: 2, waves: [5, 6, 7, 8], start: 5 })
 		Spawn.base.murloc.addUnit({ unitType: UnitType.MurlocReaver, waves: [5, 7, 9], start: 3 })
@@ -322,8 +308,7 @@ export class Spawn {
 		Spawn.addSpawn(Spawn.base.murloc.name)
 
 		// Naga Spawn
-		Spawn.base.naga = new Spawn('naga')
-		Spawn.base.naga.faction = Faction.naga
+		Spawn.base.naga = new Spawn('naga', Faction.naga)
 		Spawn.base.naga.addUnit({ unitType: UnitType.NagaMyrmidon, waves: [1, 3], end: 3 })
 		Spawn.base.naga.addUnit({ unitType: UnitType.NagaMyrmidon, waves: [1, 2, 3, 4], start: 4, end: 6 })
 		Spawn.base.naga.addUnit({ unitType: UnitType.NagaMyrmidon, waves: [1, 3, 5], start: 7 })
@@ -334,16 +319,14 @@ export class Spawn {
 		Spawn.addSpawn(Spawn.base.naga.name)
 
 		// Naga Creep Spawn
-		Spawn.base.nagaCreep = new Spawn('nagaCreep')
-		Spawn.base.nagaCreep.faction = Faction.nagaCreep
+		Spawn.base.nagaCreep = new Spawn('nagaCreep', Faction.nagaCreep)
 		Spawn.base.nagaCreep.addUnit({ unitType: UnitType.NagaMyrmidon, waves: [1, 2], start: 2 })
 		Spawn.base.nagaCreep.addUnit({ unitType: UnitType.NagaSiren, waves: [2, 4], start: 3 })
 		Spawn.base.nagaCreep.addUnit({ unitType: UnitType.SnapDragon, waves: [2, 3, 4], start: 5 })
 		Spawn.addSpawn(Spawn.base.nagaCreep.name)
 
 		// Tree Spawn
-		Spawn.base.tree = new Spawn('tree')
-		Spawn.base.tree.faction = Faction.tree
+		Spawn.base.tree = new Spawn('tree', Faction.tree)
 		Spawn.base.tree.addUnit({ unitType: UnitType.Dryad, waves: [7, 8, 9, 10], start: 3 })
 		Spawn.base.tree.addUnit({ unitType: UnitType.DruidOfTheClaw, waves: [6, 7, 8, 9, 10], start: 4 })
 		Spawn.base.tree.addUnit({ unitType: UnitType.MountainGiant, waves: [5, 9], start: 5 })
@@ -352,8 +335,7 @@ export class Spawn {
 		Spawn.addSpawn(Spawn.base.tree.name)
 
 		// Night Elves Spawn
-		Spawn.base.nightElf = new Spawn('nightElf')
-		Spawn.base.nightElf.faction = Faction.nightElf
+		Spawn.base.nightElf = new Spawn('nightElf', Faction.nightElf)
 		Spawn.base.nightElf.addUnit({ unitType: UnitType.NightElfRanger, waves: [5, 6, 7, 8, 9, 10] })
 		Spawn.base.nightElf.addUnit({ unitType: UnitType.NightElfEliteRanger, waves: [6, 7, 8, 9, 10], start: 2 })
 		Spawn.base.nightElf.addUnit({ unitType: UnitType.NightElfSentry, waves: [6, 7, 8, 9, 10], start: 2 })
@@ -363,8 +345,7 @@ export class Spawn {
 		Spawn.addSpawn(Spawn.base.nightElf.name)
 
 		// Orc Spawn
-		Spawn.base.orc = new Spawn('orc')
-		Spawn.base.orc.faction = Faction.orc
+		Spawn.base.orc = new Spawn('orc', Faction.orc)
 		Spawn.base.orc.addUnit({ unitType: UnitType.Grunt, amount: 2, waves: [1, 3, 5, 6] })
 		Spawn.base.orc.addUnit({ unitType: UnitType.Grunt, waves: [2, 4, 6, 7], start: 3 })
 		Spawn.base.orc.addUnit({ unitType: UnitType.TrollAxethrower, waves: [2, 4, 6, 7], start: 2 })
@@ -374,8 +355,7 @@ export class Spawn {
 		Spawn.addSpawn(Spawn.base.orc.name)
 
 		// Human Shipyard Spawn
-		Spawn.base.humanShipyard = new Spawn('humanShipyard')
-		Spawn.base.humanShipyard.faction = Faction.humanShipyard
+		Spawn.base.humanShipyard = new Spawn('humanShipyard', Faction.humanShipyard)
 		Spawn.base.humanShipyard.addUnit({ unitType: UnitType.HumanFrigate, waves: [2], end: 2 })
 		Spawn.base.humanShipyard.addUnit({ unitType: UnitType.HumanFrigate, waves: [2, 6], start: 3, end: 5 })
 		Spawn.base.humanShipyard.addUnit({ unitType: UnitType.HumanFrigate, waves: [2, 4, 7], start: 6, end: 8 })
@@ -385,8 +365,7 @@ export class Spawn {
 		Spawn.addSpawn(Spawn.base.humanShipyard.name)
 
 		// Night Elf Shipyard Spawn
-		Spawn.base.nightElfShipyard = new Spawn('nightElfShipyard')
-		Spawn.base.nightElfShipyard.faction = Faction.nightElfShipyard
+		Spawn.base.nightElfShipyard = new Spawn('nightElfShipyard', Faction.nightElfShipyard)
 		Spawn.base.nightElfShipyard.addUnit({ unitType: UnitType.NightElfFrigate, waves: [3], end: 3 })
 		Spawn.base.nightElfShipyard.addUnit({ unitType: UnitType.NightElfFrigate, waves: [1, 3], start: 4, end: 5 })
 		Spawn.base.nightElfShipyard.addUnit({ unitType: UnitType.NightElfFrigate, waves: [1, 3, 6], start: 6 })
@@ -394,8 +373,7 @@ export class Spawn {
 		Spawn.addSpawn(Spawn.base.nightElfShipyard.name)
 
 		// Undead Spawn
-		Spawn.base.undead = new Spawn('undead')
-		Spawn.base.undead.faction = Faction.undead
+		Spawn.base.undead = new Spawn('undead', Faction.undead)
 		Spawn.base.undead.addUnit({ unitType: UnitType.Ghoul, amount: 4, waves: [4, 5, 6, 7, 8] })
 		Spawn.base.undead.addUnit({ unitType: UnitType.Necromancer, waves: [4, 6, 8], start: 2 })
 		Spawn.base.undead.addUnit({ unitType: UnitType.Lich, waves: [5, 7, 9], start: 4 })

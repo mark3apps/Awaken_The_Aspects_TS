@@ -147,7 +147,7 @@ export class Ray extends Vector {
 		if (this._rayUnit) this._rayUnit.facing = this.yaw
 	}
 
-	public override get yaw (): number | undefined {
+	public override get yaw (): number {
 		return this._yaw
 	}
 
@@ -156,7 +156,7 @@ export class Ray extends Vector {
 	 * Specified in Degrees
 	 */
 	public override set yaw (newYaw: number) {
-		const yawChange = newYaw - this.yaw
+		const yawChange = newYaw - this._yaw
 
 		if (math.abs(yawChange) > this.turnSpeed) {
 			yawChange < 0 ? this._yaw -= this.turnSpeed : this._yaw += this.turnSpeed

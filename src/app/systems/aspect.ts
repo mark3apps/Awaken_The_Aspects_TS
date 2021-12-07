@@ -10,10 +10,10 @@ export class Aspect {
 	readonly gateTypeId?: number
 	readonly dependent!: Unit
 	readonly force!: Force
-	private deathPos: Position
-	private deathY: number
+	private deathPos?: Position
+	private deathFacing?: number
 
-	aspect: Unit
+	aspect?: Unit
 	respawnTime: number
 	dest: Loc
 
@@ -23,7 +23,7 @@ export class Aspect {
 	respawnTimer = new Timer()
 
 	constructor (respawnTime: number, unit: unit, dependentUnit: unit, force: Force, dest: Loc, gateRegion?: rect, gateTypeId?: DestructibleFour) {
-		if (gateRegion != null) {
+		if (gateRegion && gateTypeId) {
 			this.gateRegion = Rectangle.fromHandle(gateRegion)
 			this.gateTypeId = FourCC(gateTypeId)
 		}
@@ -49,6 +49,7 @@ export class Aspect {
 
 				if (u === this.origAspect) {
 					this.deathPos = this.origAspect.position
+					this.deathFacing = this.origAspect.facing
 
 					// Open the Gate
 					if (this.gateRegion != null) {
@@ -62,15 +63,15 @@ export class Aspect {
 
 					// Initial Timer
 					this.respawnTimer.start(3, false, () => {
-						new Effect(AbilityModel.darkPortalTarget, this.deathPos).destroy()
-						this.aspect = new Unit(this.force.getRandomPlayer(), this.aspectTypeId, this.deathPos, this.deathY, 0)
+						new Effect(AbilityModel.darkPortalTarget, this.deathPos as Position, {}).destroy()
+						this.aspect = new Unit(this.force.getRandomPlayer(), this.aspectTypeId, this.deathPos as Position, this.deathFacing ?? 0, 0)
 						this.aspect.issueOrderAt(Order.Attack, this.dest.randomX, this.dest.randomY)
 						this.aspectDies.registerUnitEvent(this.aspect, EVENT_UNIT_DEATH)
 					})
 				} else {
 					this.respawnTimer.start(this.respawnTime, false, () => {
-						new Effect(AbilityModel.darkPortalTarget, this.deathPos).destroy()
-						this.aspect = new Unit(this.force.getRandomPlayer(), this.aspectTypeId, this.deathPos, this.deathY, 0)
+						new Effect(AbilityModel.darkPortalTarget, this.deathPos as Position, {}).destroy()
+						this.aspect = new Unit(this.force.getRandomPlayer(), this.aspectTypeId, this.deathPos as Position, this.deathFacing ?? 0, 0)
 						this.aspect.issueOrderAt(Order.Attack, this.dest.randomX, this.dest.randomY)
 						this.aspectDies.registerUnitEvent(this.aspect, EVENT_UNIT_DEATH)
 					})

@@ -110,7 +110,7 @@ export class Vector extends Position {
 			// Create the new Effect
 			this._effectPath = path
 			if (this._effectPath) {
-				this.effect = new Effect(this._effectPath, this)
+				this.effect = new Effect(this._effectPath, this, {})
 				this.effect.z = this.z
 			}
 		}

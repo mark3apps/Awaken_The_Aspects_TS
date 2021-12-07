@@ -14,7 +14,7 @@ export class Event {
 	eventDuration: number
 	timer: Timer
 	count = 0
-	eventUnit: Unit
+	eventUnit?: Unit
 	spawnPos: Position
 
 	allianceScore = 0
@@ -113,7 +113,7 @@ export class Event {
 
 export class AspectOfFireEvent extends Event {
 	inferno: Trigger
-	wisp: Unit
+	wisp?: Unit
 
 	constructor (summonUnitType: UnitType, banners: Banner[] = [], eventInterval?: number, eventTime?: number) {
 		super(summonUnitType, banners, Rectangle.EventCenter.centerPosition, eventInterval, eventTime)
@@ -125,7 +125,7 @@ export class AspectOfFireEvent extends Event {
 	}
 
 	public infernoAbility (): void {
-		try {
+		if (this.eventUnit) {
 			const count = math.floor(math.random(2, 4))
 
 			for (let i = 0; i < count; i++) {
@@ -136,8 +136,6 @@ export class AspectOfFireEvent extends Event {
 				const ua = new UnitAbility(u, Ability.aspectInferno)
 				ua.cast(u.getRandomPosAround(500))
 			}
-		} catch (error) {
-			Logger.Error(error)
 		}
 	}
 
@@ -153,10 +151,12 @@ export class AspectOfFireEvent extends Event {
 	}
 
 	public override onEventLoop (): void {
-		if (this.allianceScore > this.federationScore) {
-			this.wisp.owner = Force.Alliance.getRandomPlayer()
-		} else {
-			this.wisp.owner = Force.Federation.getRandomPlayer()
+		if (this.wisp) {
+			if (this.allianceScore > this.federationScore) {
+				this.wisp.owner = Force.Alliance.getRandomPlayer()
+			} else {
+				this.wisp.owner = Force.Federation.getRandomPlayer()
+			}
 		}
 	}
 

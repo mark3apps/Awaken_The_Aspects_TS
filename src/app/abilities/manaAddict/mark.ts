@@ -40,7 +40,7 @@ export class AbilityMark extends Ability {
 					u.isEnemy(eventUnit) &&
 					!u.isMagicImmune &&
 					u.moveSpeed !== 0 &&
-					!u.hasBuff(this.buffId)
+					!u.hasBuff(this.buffId as number)
 			})
 
 			g.firstLoop((u) => {

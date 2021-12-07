@@ -14,7 +14,7 @@ export class Effect extends Handle<effect> {
 	 * @param modelName
 	 * @param pos
 	 */
-	constructor (modelName: string, pos: Position, orientation?: Orientation)
+	constructor (modelName: string, pos: Position, orientation: Orientation)
 	/**
 	 * Creates a special effect.
 	 * @param modelName The path of the model that the effect will use.
@@ -39,10 +39,10 @@ export class Effect extends Handle<effect> {
 			super(AddSpecialEffect(modelName, a, b))
 		} else if (a instanceof Position) {
 			super(AddSpecialEffect(modelName, a.x, a.y))
-			if (a.z != null) { BlzSetSpecialEffectZ(this.handle, a.z) }
-			if (b != null) {
+			if (a.z !== undefined) { BlzSetSpecialEffectZ(this.handle, a.z) }
+			if (b !== undefined) {
 				const orientation = b as Orientation
-				BlzSetSpecialEffectOrientation(this.handle, orientation.yaw, orientation.pitch, orientation.roll)
+				BlzSetSpecialEffectOrientation(this.handle, orientation.yaw ?? 0, orientation.pitch ?? 0, orientation.roll ?? 0)
 			}
 		} else {
 			a = a as Widget
@@ -193,7 +193,7 @@ export class Effect extends Handle<effect> {
 
 	// eslint-disable-next-line accessor-pairs
 	public set orientation (ray: Orientation) {
-		BlzSetSpecialEffectOrientation(this.handle, ray.yaw, ray.pitch, ray.roll)
+		BlzSetSpecialEffectOrientation(this.handle, ray.yaw ?? 0, ray.pitch ?? 0, ray.roll ?? 0)
 	}
 
 	// eslint-disable-next-line accessor-pairs

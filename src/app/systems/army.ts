@@ -5,13 +5,13 @@ export class Army {
 	public force!: Force
 	public name!: string
 	public captial!: Unit
-	public _enemy: Army
+	public _enemy?: Army
 
-	public get enemy (): Army {
+	public get enemy (): Army | undefined {
 		return this._enemy
 	}
 
-	public set enemy (army: Army) {
+	public set enemy (army: Army | undefined) {
 		this._enemy = army
 	}
 
@@ -19,8 +19,8 @@ export class Army {
 		return this.captial.isAlive()
 	}
 
-	public get enemyForce (): Force {
-		return this._enemy.force
+	public get enemyForce (): Force | undefined {
+		return this._enemy ? this._enemy.force : undefined
 	}
 
 	public get randomPlayer (): MapPlayer {

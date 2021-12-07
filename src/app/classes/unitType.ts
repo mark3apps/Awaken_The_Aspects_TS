@@ -32,7 +32,7 @@ export class UnitType {
 		if (preload) { UnitType.preloader.push(this) }
 	}
 
-	static get (unit: Unit | string): UnitType {
+	static get (unit: Unit | string): UnitType | undefined {
 		return typeof unit === 'string' ? this.map.get(FourCC(unit)) : this.map.get(unit.typeId)
 	}
 

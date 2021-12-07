@@ -31,7 +31,7 @@ export class Banner {
 
 	public onTick (): void {
 		const g = new Group()
-		g.enumUnitsInRange(this.unit, this.range, null)
+		g.enumUnitsInRange(this.unit, this.range)
 
 		let alliancePower = 0
 		let federationPower = 0

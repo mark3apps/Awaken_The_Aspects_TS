@@ -120,7 +120,7 @@ export class Pathing {
 
 		Trigger.mapStart.add(() => {
 			const allUnits = new Group()
-			allUnits.enumUnitsInRect(Rectangle.getWorldBounds(), null)
+			allUnits.enumUnitsInRect(Rectangle.getWorldBounds())
 
 			let unit = allUnits.first
 			while (unit != null) {
@@ -136,7 +136,7 @@ export class Pathing {
 	// Namespace Functions
 	static newOrders = (unit: Unit): void => {
 		try {
-			let dest: Position
+			let dest: Position | undefined
 
 			if (unit.inRegion(Region.BigTop)) {
 				Logger.Verbose('top', unit.name)
@@ -162,10 +162,7 @@ export class Pathing {
 			}
 
 			// If
-			if (dest != null) {
-				Logger.Verbose('Ordered')
-				unit.issueOrderAtPosition(Order.Attack, dest)
-			}
+			if (dest) unit.issueOrderAtPosition(Order.Attack, dest)
 		} catch (error) {
 			Logger.Error(error)
 		}
