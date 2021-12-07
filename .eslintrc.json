@@ -54,6 +54,7 @@
 				"variables": false
 			}
 		],
-		"no-unused-vars": "off"
+		"no-unused-vars": "off",
+		"no-extra-semi": "off"
 	}
 }
