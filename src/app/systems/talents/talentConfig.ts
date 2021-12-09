@@ -6,10 +6,6 @@ import { IBasicTalentViewConfig } from 'lib/STK/UI/STK/Views/BasicTalentView'
 export class TalentConfig {
 	talentTreeView: IBasicTalentTreeViewConfig = {
 		window: {
-			// x: 0.050574000,
-			// y: 0.530800,
-			// width: 0.5155,
-			// height: 0.3785,
 			x: 0.370,
 			y: 0.55,
 			width: 0.25,
