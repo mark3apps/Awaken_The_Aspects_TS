@@ -44,7 +44,7 @@ export class HeroType extends UnitType {
 	public strategies: Strategy[] = []
 
 	constructor (type: string, name: string) {
-		super(type, false, false, false)
+		super({ four: type, order: false })
 
 		this.name = name
 
