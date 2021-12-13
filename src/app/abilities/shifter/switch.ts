@@ -1,3 +1,4 @@
+import { Skill } from 'app/classes'
 import { Ability, EffectType, TargetType } from 'app/classes/ability'
 import { Logger } from 'app/classes/log'
 import { Position } from 'app/classes/position'
@@ -19,7 +20,7 @@ export class SwitchAbility extends Ability {
 	public override onEffect = (): void => {
 		try {
 			const eventUnit = Unit.fromEvent()
-			const ability = this.getUnitAbility(eventUnit)
+			const ability = Skill.get(eventUnit, this)
 
 			const spellTargetPos = Position.fromSpellTarget()
 			const range = ability.castRange

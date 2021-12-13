@@ -10,10 +10,8 @@ import { HeroType } from 'lib/w3ts/handles/herotype'
 import { Force, Frame, Group, MapPlayer, Order, Rectangle, Timer, Trigger, Unit } from 'lib/w3ts/index'
 import { Logger } from './log'
 import { Position } from './position'
-import { UnitAbility } from './unitAbility'
 
 export class Hero extends Unit {
-	unitAbilities: UnitAbility[] = []
 	private stateMachine: StateMachine | undefined
 
 	private AITickTimer = new Timer()
@@ -256,15 +254,6 @@ export class Hero extends Unit {
 	protected setupHero (): void {
 		this.addStartingAbilities()
 		this.addStartingItems()
-		this.resetUnitAbilities()
-	}
-
-	public resetUnitAbilities (): void {
-		this.unitAbilities = []
-		for (let i = 0; i < this.heroType.spells.length; i++) {
-			const element = this.heroType.spells[i]
-			this.unitAbilities.push(new UnitAbility(this, element))
-		}
 	}
 
 	public addStartingItems (): void {

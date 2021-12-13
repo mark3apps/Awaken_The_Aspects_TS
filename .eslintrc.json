@@ -18,7 +18,7 @@
 		"no-new": "off",
 		"no-undef": "off",
 		"quotes": [
-			"error",
+			"off",
 			"single",
 			{
 				"avoidEscape": true,

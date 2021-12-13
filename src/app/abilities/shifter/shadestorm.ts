@@ -1,3 +1,4 @@
+import { Skill } from 'app/classes'
 import { Ability, EffectType, TargetType } from 'app/classes/ability'
 import { UnitType } from 'app/classes/unitType'
 import { Pathing } from 'app/systems/pathing'
@@ -18,7 +19,7 @@ export class ShadestormAbility extends Ability {
 
 	public override onEffect = (): void => {
 		const eventUnit = Unit.fromEvent()
-		const ability = this.getUnitAbility(eventUnit)
+		const ability = Skill.get(eventUnit, this)
 
 		const aoe = ability.areaOfEffect
 
@@ -46,7 +47,7 @@ export class ShadestormAbility extends Ability {
 				const shade = u.replace(UnitType.DummyShiftstorm)
 				shade.addAbility(Ability.shadeStormDummy)
 
-				const shadeAbility = shade.getUnitAbility(Ability.shadeStormDummy)
+				const shadeAbility = Skill.get(shade, Ability.shadeStormDummy)
 				shadeAbility.level = ability.level
 				shadeAbility.castImmediate()
 				Pathing.newOrders(shade)

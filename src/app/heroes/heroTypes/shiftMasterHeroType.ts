@@ -1,10 +1,9 @@
 import { FallingStrikeAbility } from 'app/abilities/shifter/fallingstrike'
 import { ShadestormAbility } from 'app/abilities/shifter/shadestorm'
-import { ShiftAbility } from 'app/abilities/shifter/shift'
 import { SwitchAbility } from 'app/abilities/shifter/switch'
 import { Hero } from 'app/classes'
 import { Ability, EffectType, TargetType } from 'app/classes/ability'
-import { UnitType } from 'app/classes/unitType'
+import { ShiftSkill } from 'app/classes/heroAbility'
 import { HeroAttribute } from 'app/systems/attribute'
 import { DruidBalanceTree } from 'app/systems/talents/talentTrees/druidBalance'
 import { Strategy } from 'lib/resources/strategy'
@@ -80,7 +79,16 @@ export class ShiftMasterHeroType extends HeroType {
 		this.addAbility(new SwitchAbility())
 
 		// Shift
-		this.addAbility(new ShiftAbility())
+		this.addAbility(new Ability({
+			four: AbilityFour.Shift,
+			orderId: Order.Berserk,
+			type: EffectType.Instant,
+			target: TargetType.SupportSelf,
+			permanent: true,
+			starting: true,
+			addEffect: true,
+			onEffect: () => { ShiftSkill.fromEvent().onEffect() }
+		}))
 
 		// Falling Strike
 		this.addAbility(new FallingStrikeAbility())

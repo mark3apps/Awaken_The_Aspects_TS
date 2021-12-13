@@ -1,15 +1,35 @@
-/* eslint-disable indent */
 import { Unit, Widget } from 'lib/w3ts/index'
+import { Hero } from '.'
 import { Ability } from './ability'
 import { Position } from './position'
 
-export class UnitAbility {
-	public readonly unit!: Unit
+export class Skill {
+	public readonly unit!: Unit | Hero
 	public readonly ability!: Ability
 
-	constructor (unit: Unit, ability: Ability) {
+	protected static map: WeakMap<ability, Skill> = new WeakMap()
+
+	constructor (unit: Unit | Hero, ability: Ability) {
 		this.ability = ability
 		this.unit = unit
+
+		Skill.map.set(this.handle, this)
+	}
+
+	static get (unit: Unit, ability: Ability) {
+		return Skill.map.get(Skill.getHandle(unit, ability)) ?? new Skill(unit, ability)
+	}
+
+	static fromEvent () {
+		return Skill.get(Unit.fromEvent(), Ability.fromSpellEvent())
+	}
+
+	static getHandle (unit: Unit, ability: Ability) {
+		return BlzGetUnitAbility(unit.handle, ability.id)
+	}
+
+	public get handle (): ability {
+		return BlzGetUnitAbility(this.unit.handle, this.ability.id)
 	}
 
 	public isCastable (): boolean {
@@ -101,10 +121,6 @@ export class UnitAbility {
 
 	public get heroDuration (): number {
 		return this.getLevelField(ABILITY_RLF_DURATION_HERO) as number
-	}
-
-	public get unitAbility (): ability {
-		return BlzGetUnitAbility(this.unit.handle, this.ability.id)
 	}
 
 	public get level (): number {
@@ -243,13 +259,13 @@ export class UnitAbility {
 		const fieldType = field.toString().substr(0, field.toString().indexOf(':'))
 
 		if (fieldType === 'abilitybooleanfield' && typeof value === 'boolean') {
-			return BlzSetAbilityBooleanField(this.unitAbility, field as abilitybooleanfield, value)
+			return BlzSetAbilityBooleanField(this.handle, field as abilitybooleanfield, value)
 		} else if (fieldType === 'abilityintegerfield' && typeof value === 'number') {
-			return BlzSetAbilityIntegerField(this.unitAbility, field as abilityintegerfield, value)
+			return BlzSetAbilityIntegerField(this.handle, field as abilityintegerfield, value)
 		} else if (fieldType === 'abilityrealfield' && typeof value === 'number') {
-			return BlzSetAbilityRealField(this.unitAbility, field as abilityrealfield, value)
+			return BlzSetAbilityRealField(this.handle, field as abilityrealfield, value)
 		} else if (fieldType === 'abilitystringfield' && typeof value === 'string') {
-			return BlzSetAbilityStringField(this.unitAbility, field as abilitystringfield, value)
+			return BlzSetAbilityStringField(this.handle, field as abilitystringfield, value)
 		}
 
 		return false
@@ -259,13 +275,13 @@ export class UnitAbility {
 		const fieldType = field.toString().substr(0, field.toString().indexOf(':'))
 
 		if (fieldType === 'abilitybooleanlevelfield' && typeof value === 'boolean') {
-			return BlzSetAbilityBooleanLevelField(this.unitAbility, field as abilitybooleanlevelfield, level, value)
+			return BlzSetAbilityBooleanLevelField(this.handle, field as abilitybooleanlevelfield, level, value)
 		} else if (fieldType === 'abilityintegerlevelfield' && typeof value === 'number') {
-			return BlzSetAbilityIntegerLevelField(this.unitAbility, field as abilityintegerlevelfield, level, value)
+			return BlzSetAbilityIntegerLevelField(this.handle, field as abilityintegerlevelfield, level, value)
 		} else if (fieldType === 'abilityreallevelfield' && typeof value === 'number') {
-			return BlzSetAbilityRealLevelField(this.unitAbility, field as abilityreallevelfield, level, value)
+			return BlzSetAbilityRealLevelField(this.handle, field as abilityreallevelfield, level, value)
 		} else if (fieldType === 'abilitystringlevelfield' && typeof value === 'string') {
-			return BlzSetAbilityStringLevelField(this.unitAbility, field as abilitystringlevelfield, level, value)
+			return BlzSetAbilityStringLevelField(this.handle, field as abilitystringlevelfield, level, value)
 		}
 
 		return false
@@ -278,22 +294,22 @@ export class UnitAbility {
 			case 'abilitybooleanfield': {
 				const fieldBool = field as abilitybooleanfield
 
-				return BlzGetAbilityBooleanField(this.unitAbility, fieldBool) as boolean
+				return BlzGetAbilityBooleanField(this.handle, fieldBool) as boolean
 			}
 			case 'abilityintegerfield': {
 				const fieldInt = field as abilityintegerfield
 
-				return BlzGetAbilityIntegerField(this.unitAbility, fieldInt) as number
+				return BlzGetAbilityIntegerField(this.handle, fieldInt) as number
 			}
 			case 'abilityrealfield': {
 				const fieldReal = field as abilityrealfield
 
-				return BlzGetAbilityRealField(this.unitAbility, fieldReal) as number
+				return BlzGetAbilityRealField(this.handle, fieldReal) as number
 			}
 			case 'abilitystringfield': {
 				const fieldString = field as abilitystringfield
 
-				return BlzGetAbilityStringField(this.unitAbility, fieldString) as string
+				return BlzGetAbilityStringField(this.handle, fieldString) as string
 			}
 			default:
 				return 0
@@ -308,22 +324,22 @@ export class UnitAbility {
 			case 'abilitybooleanlevelfield': {
 				const fieldBool = field as abilitybooleanlevelfield
 
-				return BlzGetAbilityBooleanLevelField(this.unitAbility, fieldBool, level) as boolean
+				return BlzGetAbilityBooleanLevelField(this.handle, fieldBool, level) as boolean
 			}
 			case 'abilityintegerlevelfield': {
 				const fieldInt = field as abilityintegerlevelfield
 
-				return BlzGetAbilityIntegerLevelField(this.unitAbility, fieldInt, level) as number
+				return BlzGetAbilityIntegerLevelField(this.handle, fieldInt, level) as number
 			}
 			case 'abilityreallevelfield': {
 				const fieldReal = field as abilityreallevelfield
 
-				return BlzGetAbilityRealLevelField(this.unitAbility, fieldReal, level) as number
+				return BlzGetAbilityRealLevelField(this.handle, fieldReal, level) as number
 			}
 			case 'abilitystringlevelfield': {
 				const fieldString = field as abilitystringlevelfield
 
-				return BlzGetAbilityStringLevelField(this.unitAbility, fieldString, level) as string
+				return BlzGetAbilityStringLevelField(this.handle, fieldString, level) as string
 			}
 			default:
 				return 0

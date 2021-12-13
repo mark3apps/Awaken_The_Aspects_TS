@@ -1,3 +1,4 @@
+import { Skill } from 'app/classes'
 import { Ability, EffectType, TargetType } from 'app/classes/ability'
 import { Logger } from 'app/classes/log'
 import { Position } from 'app/classes/position'
@@ -24,7 +25,7 @@ export class AbilityMark extends Ability {
 
 		try {
 			const eventUnit = Unit.fromEvent()
-			const unitAbility = this.getUnitAbility(eventUnit)
+			const unitAbility = Skill.get(eventUnit, this)
 			const targetPos = Position.fromSpellTarget()
 
 			const areaOfEffect = unitAbility.areaOfEffect

@@ -6,7 +6,7 @@
 
 import { Ability } from 'app/classes/ability'
 import { Position } from 'app/classes/position'
-import { UnitAbility } from 'app/classes/unitAbility'
+import { Skill } from 'app/classes/unitAbility'
 import { UnitType } from 'app/classes/unitType'
 import { UnitData } from 'app/systems/unitData'
 import { CC2Four } from 'lib/resources/library'
@@ -17,7 +17,6 @@ import { Destructable } from './destructable'
 import { Force } from './force'
 import { Group } from './group'
 import { Handle } from './handle'
-import { HeroType } from './herotype'
 import { Item } from './item'
 import { MapPlayer } from './player'
 import { Point } from './point'
@@ -741,10 +740,6 @@ export class Unit extends Widget {
 		typeof abilCode === 'string' ? BlzEndUnitAbilityCooldown(this.handle, FourCC(abilCode)) : BlzEndUnitAbilityCooldown(this.handle, abilCode)
 	}
 
-	// public getUnitAbility(ability: number | Ability): UnitAbility {
-	// 	return typeof ability === "number" ? new UnitAbility(this, Ability.fromId(ability)) : new UnitAbility(this, ability)
-	// }
-
 	public getAbilityByIndex (index: number): ability {
 		return BlzGetUnitAbilityByIndex(this.handle, index)
 	}
@@ -1417,10 +1412,6 @@ export class Unit extends Widget {
 		const x = math.random(this.x - distanceAround, this.x + distanceAround)
 		const y = math.random(this.y - distanceAround, this.y + distanceAround)
 		return new Position(x, y)
-	}
-
-	public getUnitAbility (ability: Ability): UnitAbility {
-		return new UnitAbility(this, ability)
 	}
 
 	public setAnimationWithRarity (whichAnimation: string, rarity: raritycontrol) {

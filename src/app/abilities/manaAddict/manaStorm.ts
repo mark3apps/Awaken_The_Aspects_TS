@@ -1,3 +1,4 @@
+import { Skill } from 'app/classes'
 import { Ability, EffectType, TargetType } from 'app/classes/ability'
 import { Logger } from 'app/classes/log'
 import { UnitType } from 'app/classes/unitType'
@@ -19,7 +20,7 @@ export class AbilityManaStorm extends Ability {
 	public override onEffect = (): void => {
 		try {
 			const eventUnit = Unit.fromEvent()
-			const ability = this.getUnitAbility(eventUnit)
+			const ability = Skill.get(eventUnit, this)
 
 			// Ability Defined Values
 			const areaOfEffect = ability.areaOfEffect

@@ -1,3 +1,4 @@
+import { Skill } from 'app/classes'
 import { Ability, EffectType, TargetType } from 'app/classes/ability'
 import { AbilityFour, Order, Unit, Group, Timer, Force, Players } from 'lib/w3ts/index'
 
@@ -19,7 +20,7 @@ export class AttackAbility extends Ability {
 	public override onEffect = (): void => {
 		const eventUnit = Unit.fromEvent()
 		const targetUnit = Unit.fromSpellTarget()
-		const ability = this.getUnitAbility(eventUnit)
+		const ability = Skill.get(eventUnit, this)
 		const g = new Group()
 		const pickedUnits = new Group()
 		const endTimer = new Timer()

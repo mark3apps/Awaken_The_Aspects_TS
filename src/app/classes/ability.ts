@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-use-before-define */
 import { Logger } from 'app/classes/log'
 import { CC2Four } from 'lib/resources/library'
 import { AbilityFour, BuffFour, Order, AbilityModel, AttachPoint, Anim } from '../../lib/w3ts/index'
@@ -8,9 +6,10 @@ import { Group } from '../../lib/w3ts/handles/group'
 import { Timer } from '../../lib/w3ts/handles/timer'
 import { Trigger } from '../../lib/w3ts/handles/trigger'
 import { Unit } from '../../lib/w3ts/handles/unit'
-import { UnitAbility } from './unitAbility'
+import { Skill } from './unitAbility'
 import { UnitType } from './unitType'
 import { Hero } from '.'
+import { ShiftSkill } from './heroAbility'
 
 export const enum EffectType {
 	Channel,
@@ -61,7 +60,7 @@ export interface AbilityParameters {
 	addGroup?: boolean,
 	addBuffDeath?: boolean,
 	loopTick?: number,
-
+	onEffect?: () => void,
 	buffFour?: BuffFour,
 	type?: EffectType,
 	target?: TargetType,
@@ -97,7 +96,7 @@ export class Ability {
 	loopTimer: Timer | undefined
 	group: Group | undefined
 
-	onEffect: () => void = (): void => { return undefined }
+	onEffect: () => void
 	onBuffDeath: () => void = (): void => { return undefined }
 	onLoop: () => void = (): void => { return undefined }
 
@@ -114,6 +113,7 @@ export class Ability {
 		this.orderIdAutoOff = ability.orderIdAutoOff
 		this.orderIdAutoOn = ability.orderIdAutoOn
 		this.orderIdOff = ability.orderIdOff
+		this.onEffect = ability.onEffect ?? (() => { })
 
 		if (ability.unitType !== undefined) {
 			for (let i = 0; i < ability.unitType.length; i++) {
@@ -205,7 +205,6 @@ export class Ability {
 	public static initSpellEffects (): void {
 		try {
 			Trigger.unitSpellEffect.add(() => {
-				// Logger.Information('Ability', CC2Four(GetSpellAbilityId()))
 				if (Ability.mapInstant.has(CC2Four(GetSpellAbilityId()))) {
 					const ability = this.fromSpellEvent()
 					if (ability) ability.onEffect()
@@ -216,23 +215,15 @@ export class Ability {
 		}
 	}
 
-	public static fromSpellEvent (): Ability | undefined {
-		return Ability.fromId(GetSpellAbilityId()) as Ability
+	public static fromSpellEvent () {
+		return Ability.fromId(GetSpellAbilityId())
 	}
 
-	public static fromId (id: string | number): Ability | undefined {
+	public static fromId (id: string | number): Ability {
 		let four: string
 		typeof id === 'string' ? four = id : four = CC2Four(id)
 
-		if (Ability.map.has(four)) {
-			return Ability.map.get(four)
-		} else {
-			return undefined
-		}
-	}
-
-	public getUnitAbility (unit: Unit): UnitAbility {
-		return new UnitAbility(unit, this)
+		return Ability.map.get(four) ?? new Ability({ four: four })
 	}
 
 	public get id (): number {
@@ -370,7 +361,7 @@ export class Ability {
 		Ability.footmanUpgrade.onEffect = () => {
 			const eventUnit = Unit.fromEvent()
 			if (eventUnit.manaPercent === 100) {
-				eventUnit.getUnitAbility(Ability.footmanUpgrade).castImmediate()
+				Skill.get(eventUnit, Ability.footmanUpgrade).castImmediate()
 				eventUnit.lifePercent += 25
 				const upgrade = new Timer()
 				upgrade.start(0.05, false, () => {
@@ -425,7 +416,7 @@ export class Ability {
 
 		Ability.manaRepository.onEffect = () => {
 			const eventUnit = Unit.fromAttacking()
-			const unitAbility = eventUnit.getUnitAbility(Ability.manaRepository)
+			const unitAbility = Skill.get(eventUnit, Ability.manaRepository)
 
 			const g = new Group()
 			g.enumUnitsInRange(eventUnit, 1300)
@@ -456,7 +447,7 @@ export class Ability {
 
 		Ability.manaShieldTower.onEffect = (): void => {
 			const eventUnit = Unit.fromAttacking()
-			const unitAbility = new UnitAbility(eventUnit, Ability.manaShieldTower)
+			const unitAbility = new Skill(eventUnit, Ability.manaShieldTower)
 
 			if (unitAbility.isCastable() &&
 				!unitAbility.hasBuff()) {
@@ -476,7 +467,7 @@ export class Ability {
 		Ability.manaShardsTower.onEffect = (): void => {
 			const eventUnit = Unit.fromAttacking()
 			const attackedUnit = Unit.fromEvent()
-			const unitAbility = eventUnit.getUnitAbility(Ability.manaShardsTower)
+			const unitAbility = Skill.get(eventUnit, Ability.manaShardsTower)
 
 			if (unitAbility.isCastable() &&
 				attackedUnit.isGround) {
@@ -496,7 +487,7 @@ export class Ability {
 		Ability.chainLightningTower.onEffect = (): void => {
 			const eventUnit = Unit.fromAttacking()
 			const attackedUnit = Unit.fromAttacked()
-			const unitAbility = new UnitAbility(eventUnit, Ability.chainLightningTower)
+			const unitAbility = new Skill(eventUnit, Ability.chainLightningTower)
 
 			if (unitAbility.isCastable() &&
 				attackedUnit.isGround) {
@@ -516,7 +507,7 @@ export class Ability {
 		Ability.coneOfFireTower.onEffect = (): void => {
 			const eventUnit = Unit.fromAttacking()
 			const attackedUnit = Unit.fromAttacked()
-			const unitAbility = new UnitAbility(eventUnit, Ability.coneOfFireTower)
+			const unitAbility = new Skill(eventUnit, Ability.coneOfFireTower)
 
 			if (unitAbility.isCastable() &&
 				attackedUnit.isGround) {
@@ -536,7 +527,7 @@ export class Ability {
 
 		Ability.aspectOfDeathInfect.onEffect = (): void => {
 			const eventUnit = Unit.fromAttacking()
-			const unitAbility = new UnitAbility(eventUnit, Ability.aspectOfDeathInfect)
+			const unitAbility = new Skill(eventUnit, Ability.aspectOfDeathInfect)
 			const unitCount = math.floor(unitAbility.normalDuration)
 
 			const g = new Group()

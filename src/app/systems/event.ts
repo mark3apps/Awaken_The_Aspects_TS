@@ -1,7 +1,7 @@
 import { Ability } from 'app/classes/ability'
 import { Logger } from 'app/classes/log'
 import { Position } from 'app/classes/position'
-import { UnitAbility } from 'app/classes/unitAbility'
+import { Skill } from 'app/classes/unitAbility'
 import { UnitType } from 'app/classes/unitType'
 import { Timer, Unit, Trigger, Force, Order, Rectangle, Anim, Effect, AbilityModel, DoodadModel } from 'lib/w3ts/index'
 import { Banner, Side } from './banner'
@@ -133,7 +133,7 @@ export class AspectOfFireEvent extends Event {
 				u.addAbility(Ability.aspectInferno)
 				u.applyTimedLifeGeneric(2)
 
-				const ua = new UnitAbility(u, Ability.aspectInferno)
+				const ua = new Skill(u, Ability.aspectInferno)
 				ua.cast(u.getRandomPosAround(500))
 			}
 		}

@@ -1,3 +1,4 @@
+import { Skill } from 'app/classes'
 import { Ability, EffectType, TargetType } from 'app/classes/ability'
 import { Logger } from 'app/classes/log'
 import { Position } from 'app/classes/position'
@@ -20,7 +21,7 @@ export class FallingStrikeAbility extends Ability {
 	public override onEffect = (): void => {
 		try {
 			const eventUnit = Unit.fromEvent()
-			const ability = this.getUnitAbility(eventUnit)
+			const ability = Skill.get(eventUnit, this)
 
 			// Get Attributes
 			const startPos = eventUnit.position
@@ -63,7 +64,7 @@ export class FallingStrikeAbility extends Ability {
 
 						const u = new Unit(eventUnit.owner, UnitType.Dummy, eventUnit.position, 0)
 						u.addAbility(Ability.fallingStrikeDummy)
-						u.getUnitAbility(Ability.fallingStrikeDummy).castImmediate()
+						Skill.get(u, Ability.fallingStrikeDummy).castImmediate()
 						u.applyTimedLifeGeneric(1)
 						const g = new Group()
 						g.enumUnitsInRange(spellTarget, aoe, () => {

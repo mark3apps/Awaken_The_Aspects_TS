@@ -1,3 +1,4 @@
+import { Skill } from 'app/classes'
 import { Ability, EffectType, TargetType } from 'app/classes/ability'
 import { Logger } from 'app/classes/log'
 import { Pathing } from 'app/systems/pathing'
@@ -18,7 +19,7 @@ export class BolsterAbility extends Ability {
 	public override onEffect = (): void => {
 		try {
 			const eventUnit = Unit.fromEvent()
-			const ability = this.getUnitAbility(eventUnit)
+			const ability = Skill.get(eventUnit, this)
 
 			const maxUnits = ability.normalDuration
 			const maxCombinedLevel = ability.heroDuration
