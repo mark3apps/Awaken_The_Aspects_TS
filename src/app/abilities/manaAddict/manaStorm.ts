@@ -1,10 +1,10 @@
-import { Skill } from 'app/classes'
-import { Ability, EffectType, TargetType } from 'app/classes/ability'
+import { Ability } from 'app/classes'
+import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
 import { Logger } from 'app/classes/log'
 import { UnitType } from 'app/classes/unitType'
 import { AbilityFour, Order, Unit, Effect, CustomModel, Group, BuffFour } from 'lib/w3ts/index'
 
-export class AbilityManaStorm extends Ability {
+export class AbilityManaStorm extends AbilityType {
 	constructor () {
 		super({
 			four: AbilityFour.ManaStorm,
@@ -20,7 +20,7 @@ export class AbilityManaStorm extends Ability {
 	public override onEffect = (): void => {
 		try {
 			const eventUnit = Unit.fromEvent()
-			const ability = Skill.get(eventUnit, this)
+			const ability = Ability.get(eventUnit, this)
 
 			// Ability Defined Values
 			const areaOfEffect = ability.areaOfEffect

@@ -1,11 +1,12 @@
-import { Skill } from 'app/classes'
-import { Ability, EffectType, TargetType } from 'app/classes/ability'
+import { Ability } from 'app/classes'
+import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
 import { Logger } from 'app/classes/log'
 import { Position } from 'app/classes/position'
 import { UnitType } from 'app/classes/unitType'
+import { Globals } from 'app/globals'
 import { AbilityFour, Order, Unit, Timer, Anim, Effect, AbilityModel, Group } from 'lib/w3ts/index'
 
-export class FallingStrikeAbility extends Ability {
+export class FallingStrikeAbility extends AbilityType {
 	constructor () {
 		super({
 			four: AbilityFour.FallingStrike,
@@ -20,8 +21,11 @@ export class FallingStrikeAbility extends Ability {
 
 	public override onEffect = (): void => {
 		try {
+			const G = Globals.getInstance()
+
 			const eventUnit = Unit.fromEvent()
-			const ability = Skill.get(eventUnit, this)
+			const ability = Ability.get(eventUnit, this)
+			if (!ability) return
 
 			// Get Attributes
 			const startPos = eventUnit.position
@@ -63,9 +67,10 @@ export class FallingStrikeAbility extends Ability {
 						eventUnit.flyHeight = eventUnit.defaultFlyHeight
 
 						const u = new Unit(eventUnit.owner, UnitType.Dummy, eventUnit.position, 0)
-						u.addAbility(Ability.fallingStrikeDummy)
-						Skill.get(u, Ability.fallingStrikeDummy).castImmediate()
+						u.addAbility(G.abilityType.fallingStrikeDummy)
+						Ability.get(u, G.abilityType.fallingStrikeDummy).castImmediate()
 						u.applyTimedLifeGeneric(1)
+
 						const g = new Group()
 						g.enumUnitsInRange(spellTarget, aoe, () => {
 							const u = Unit.fromFilter()

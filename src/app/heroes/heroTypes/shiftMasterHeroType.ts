@@ -2,8 +2,8 @@ import { FallingStrikeAbility } from 'app/abilities/shifter/fallingstrike'
 import { ShadestormAbility } from 'app/abilities/shifter/shadestorm'
 import { SwitchAbility } from 'app/abilities/shifter/switch'
 import { Hero } from 'app/classes'
-import { Ability, EffectType, TargetType } from 'app/classes/ability'
-import { ShiftSkill } from 'app/classes/heroAbility'
+import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
+import { ShiftAbility } from 'app/abilities/shifter/shift'
 import { HeroAttribute } from 'app/systems/attribute'
 import { DruidBalanceTree } from 'app/systems/talents/talentTrees/druidBalance'
 import { Strategy } from 'lib/resources/strategy'
@@ -58,19 +58,19 @@ export class ShiftMasterHeroType extends HeroType {
 		// Abilities
 
 		// Shade Strength
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.ShadeStrength,
 			permanent: true
 		}))
 
 		// Swift Moves
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.SwiftMoves,
 			permanent: true
 		}))
 
 		// Swift Attacks
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.SwiftAttacks,
 			permanent: true
 		}))
@@ -79,7 +79,7 @@ export class ShiftMasterHeroType extends HeroType {
 		this.addAbility(new SwitchAbility())
 
 		// Shift
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.Shift,
 			orderId: Order.Berserk,
 			type: EffectType.Instant,
@@ -87,14 +87,14 @@ export class ShiftMasterHeroType extends HeroType {
 			permanent: true,
 			starting: true,
 			addEffect: true,
-			onEffect: () => { ShiftSkill.fromEvent().onEffect() }
+			onEffect: () => { print("Working"); ShiftAbility.fromEvent().onEffect() }
 		}))
 
 		// Falling Strike
 		this.addAbility(new FallingStrikeAbility())
 
 		// Fel Form
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.FelForm,
 			orderId: Order.Metamorphosis,
 			type: EffectType.Instant,

@@ -1,10 +1,10 @@
-import { Skill } from 'app/classes'
-import { Ability, EffectType, TargetType } from 'app/classes/ability'
+import { Ability } from 'app/classes'
+import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
 import { Logger } from 'app/classes/log'
 import { Pathing } from 'app/systems/pathing'
 import { AbilityFour, Order, Unit, Group, Force, Effect, AbilityModel, AttachPoint, BuffFour } from 'lib/w3ts/index'
 
-export class BolsterAbility extends Ability {
+export class BolsterAbility extends AbilityType {
 	constructor () {
 		super({
 			four: AbilityFour.Bolster,
@@ -19,7 +19,7 @@ export class BolsterAbility extends Ability {
 	public override onEffect = (): void => {
 		try {
 			const eventUnit = Unit.fromEvent()
-			const ability = Skill.get(eventUnit, this)
+			const ability = Ability.get(eventUnit, this)
 
 			const maxUnits = ability.normalDuration
 			const maxCombinedLevel = ability.heroDuration

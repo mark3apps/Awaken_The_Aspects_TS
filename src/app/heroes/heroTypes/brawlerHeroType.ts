@@ -1,5 +1,5 @@
 import { Hero } from 'app/classes'
-import { Ability, EffectType, TargetType } from 'app/classes/ability'
+import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
 import { UnitType } from 'app/classes/unitType'
 import { HeroAttribute } from 'app/systems/attribute'
 import { DruidBalanceTree } from 'app/systems/talents/talentTrees/druidBalance'
@@ -55,7 +55,7 @@ export class BrawlerHeroType extends HeroType {
 		// Abilities
 
 		// Drain
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.Drain,
 			type: EffectType.Channel,
 			orderId: Order.Stomp,
@@ -64,7 +64,7 @@ export class BrawlerHeroType extends HeroType {
 		}))
 
 		// Bloodlust
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.Bloodlust,
 			orderId: Order.Stomp,
 			type: EffectType.Instant,
@@ -74,7 +74,7 @@ export class BrawlerHeroType extends HeroType {
 		}))
 
 		// Warstomp
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.Warstomp,
 			orderId: Order.Stomp,
 			type: EffectType.Instant,
@@ -84,7 +84,7 @@ export class BrawlerHeroType extends HeroType {
 		}))
 
 		// Unleash Rage
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.UnleashRage,
 			type: EffectType.Channel,
 			orderId: Order.Stomp,

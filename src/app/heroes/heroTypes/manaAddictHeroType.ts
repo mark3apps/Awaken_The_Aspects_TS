@@ -1,7 +1,7 @@
 import { AbilityManaStorm } from 'app/abilities/manaAddict/manaStorm'
 import { AbilityMark } from 'app/abilities/manaAddict/mark'
 import { Hero } from 'app/classes'
-import { Ability, EffectType, TargetType } from 'app/classes/ability'
+import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
 import { UnitType } from 'app/classes/unitType'
 import { HeroAttribute } from 'app/systems/attribute'
 import { DruidBalanceTree } from 'app/systems/talents/talentTrees/druidBalance'
@@ -57,7 +57,7 @@ export class ManaAddictHeroType extends HeroType {
 		// Abilities
 
 		// Mana Shield
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.ManaShield,
 			orderId: Order.Manashieldon,
 			orderIdOff: Order.Manashieldoff,
@@ -69,7 +69,7 @@ export class ManaAddictHeroType extends HeroType {
 		}))
 
 		// Mana Bomb
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.ManaBomb,
 			orderId: Order.Flamestrike,
 			type: EffectType.Instant,
@@ -79,7 +79,7 @@ export class ManaAddictHeroType extends HeroType {
 		}))
 
 		// Mana Explosion
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.ManaExplosion,
 			orderId: Order.Thunderclap,
 			type: EffectType.Instant,

@@ -2,7 +2,7 @@ import { AttackAbility } from 'app/abilities/tactition/attack'
 import { BolsterAbility } from 'app/abilities/tactition/bolster'
 import { InspireAbility, AbilityInspireDeath } from 'app/abilities/tactition/inspire'
 import { Hero } from 'app/classes'
-import { Ability, EffectType, TargetType } from 'app/classes/ability'
+import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
 import { UnitType } from 'app/classes/unitType'
 import { HeroAttribute } from 'app/systems/attribute'
 import { DruidBalanceTree } from 'app/systems/talents/talentTrees/druidBalance'
@@ -69,7 +69,7 @@ export class TacticianHeroType extends HeroType {
 		// Standard Abilities
 
 		// Iron Defense
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.IronDefense,
 			orderId: Order.Roar,
 			type: EffectType.Instant,
@@ -79,7 +79,7 @@ export class TacticianHeroType extends HeroType {
 		}))
 
 		// Raise Banner
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.RaiseBanner,
 			orderId: Order.Healingward,
 			type: EffectType.Instant,

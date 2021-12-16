@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 import { Hero } from 'app/classes'
-import { Ability } from 'app/classes/ability'
+import { AbilityType } from 'app/classes/abilityType'
 import { ItemType } from 'app/classes/itemType'
 import { UnitType } from 'app/classes/unitType'
 import { HeroAttribute } from 'app/systems/attribute'
@@ -13,10 +13,10 @@ export class HeroType extends UnitType {
 	readonly name!: string
 
 	public attributes: HeroAttribute[] = []
-	public permanentSpells: Ability[] = []
-	public startingSpells: Ability[] = []
-	public ultSpell?: Ability
-	public spells: Ability[] = []
+	public permanentSpells: AbilityType[] = []
+	public startingSpells: AbilityType[] = []
+	public ultSpell?: AbilityType
+	public spells: AbilityType[] = []
 
 	public items: ItemType[] = []
 
@@ -76,7 +76,7 @@ export class HeroType extends UnitType {
 		this.attributes.push(attribute)
 	}
 
-	public addAbility (ability: Ability): void {
+	public addAbility (ability: AbilityType): void {
 		this.spells.push(ability)
 
 		if (ability.permanent) { this.permanentSpells.push(ability) }

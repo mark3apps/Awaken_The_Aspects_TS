@@ -1,7 +1,7 @@
-import { Ability, EffectType, TargetType } from 'app/classes/ability'
+import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
 import { AbilityFour, Order } from 'lib/w3ts/index'
 
-export class ManaBombAbility extends Ability {
+export class ManaBombAbility extends AbilityType {
 	constructor () {
 		super({
 			four: AbilityFour.ManaBomb,

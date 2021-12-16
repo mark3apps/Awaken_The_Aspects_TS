@@ -1,10 +1,11 @@
-import { Skill } from 'app/classes'
-import { Ability, EffectType, TargetType } from 'app/classes/ability'
+import { Ability } from 'app/classes'
+import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
 import { UnitType } from 'app/classes/unitType'
+import { Globals } from 'app/globals'
 import { Pathing } from 'app/systems/pathing'
 import { AbilityFour, Order, Unit, Group, Timer, Effect, AbilityModel, AttachPoint } from 'lib/w3ts/index'
 
-export class ShadestormAbility extends Ability {
+export class ShadestormAbility extends AbilityType {
 	constructor () {
 		super({
 			four: AbilityFour.ShiftStorm,
@@ -18,8 +19,10 @@ export class ShadestormAbility extends Ability {
 	}
 
 	public override onEffect = (): void => {
+		const G = Globals.getInstance()
+
 		const eventUnit = Unit.fromEvent()
-		const ability = Skill.get(eventUnit, this)
+		const ability = Ability.get(eventUnit, this)
 
 		const aoe = ability.areaOfEffect
 
@@ -45,9 +48,9 @@ export class ShadestormAbility extends Ability {
 
 			g.firstLoop((u) => {
 				const shade = u.replace(UnitType.DummyShiftstorm)
-				shade.addAbility(Ability.shadeStormDummy)
+				shade.addAbility(G.abilityType.shadeStormDummy)
 
-				const shadeAbility = Skill.get(shade, Ability.shadeStormDummy)
+				const shadeAbility = Ability.get(shade, G.abilityType.shadeStormDummy)
 				shadeAbility.level = ability.level
 				shadeAbility.castImmediate()
 				Pathing.newOrders(shade)

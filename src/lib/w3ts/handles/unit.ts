@@ -4,9 +4,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /** @noSelfInFile **/
 
-import { Ability } from 'app/classes/ability'
+import { AbilityType } from 'app/classes/abilityType'
 import { Position } from 'app/classes/position'
-import { Skill } from 'app/classes/unitAbility'
 import { UnitType } from 'app/classes/unitType'
 import { UnitData } from 'app/systems/unitData'
 import { CC2Four } from 'lib/resources/library'
@@ -574,7 +573,7 @@ export class Unit extends Widget {
 		return this.data.destY
 	}
 
-	public addAbility (abilityId: number | string | Ability) {
+	public addAbility (abilityId: number | string | AbilityType) {
 		if (typeof abilityId === 'number') {
 			UnitAddAbility(this.handle, abilityId)
 		} else if (typeof abilityId === 'string') {
@@ -893,7 +892,7 @@ export class Unit extends Widget {
 		return false
 	}
 
-	public hasAbility (ability: Ability | number): boolean {
+	public hasAbility (ability: AbilityType | number): boolean {
 		return this.getAbilityLevel((typeof ability === 'number' ? ability : ability.id)) >= 1
 	}
 
@@ -1673,6 +1672,10 @@ export class Unit extends Widget {
 	}
 
 	public static fromKilled () {
+		return this.fromHandle(GetTriggerUnit())
+	}
+
+	public static fromCaster () {
 		return this.fromHandle(GetTriggerUnit())
 	}
 

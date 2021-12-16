@@ -1,552 +1,371 @@
-import { Logger } from 'app/classes/log'
-import { CC2Four } from 'lib/resources/library'
-import { AbilityFour, BuffFour, Order, AbilityModel, AttachPoint, Anim } from '../../lib/w3ts/index'
-import { Effect } from '../../lib/w3ts/handles/effect'
-import { Group } from '../../lib/w3ts/handles/group'
-import { Timer } from '../../lib/w3ts/handles/timer'
-import { Trigger } from '../../lib/w3ts/handles/trigger'
-import { Unit } from '../../lib/w3ts/handles/unit'
-import { Skill } from './unitAbility'
-import { UnitType } from './unitType'
+import { Handle, HandleMap, Unit, Widget } from 'lib/w3ts/index'
 import { Hero } from '.'
-import { ShiftSkill } from './heroAbility'
+import { AbilityType } from './abilityType'
+import { Position } from './position'
 
-export const enum EffectType {
-	Channel,
-	Instant,
-	InstantDelayedEffect,
-	ChannelInstantEffect,
-	Passive,
-	Death,
-	Kill,
-	Attacked,
-	Attacking,
-	UnitTypeAttacking,
-	Aura,
-	AutoCast,
-	None
-}
+export class Ability extends Handle<ability> {
+	public readonly unit!: Unit | Hero
+	public readonly ability!: AbilityType
+	public readonly handle!: ability
 
-export const enum TargetType {
-	DamageSingle,
-	DamageArea,
-	DamageAreaTarget,
-	DamageAround,
-	HealSingle,
-	HealSelf,
-	HealArea,
-	HealTargetArea,
-	HealAround,
-	CrippleSingle,
-	CrippleArea,
-	CrippleAreaTarget,
-	CrippleAround,
-	SupportSelf,
-	SupportSingle,
-	SupportArea,
-	SupportAreaTarget,
-	SupportAround,
-	ModifySingle,
-	ModifyArea,
-	ModifyAreaTarget,
-	ModifyAround,
-	Specific,
-	None
-}
+	constructor (unit: Unit | Hero, ability: AbilityType) {
+		super(Ability.getHandle(unit, ability))
 
-export interface AbilityParameters {
-	four: AbilityFour | string,
-	addEffect?: boolean,
-	addGroup?: boolean,
-	addBuffDeath?: boolean,
-	loopTick?: number,
-	onEffect?: () => void,
-	buffFour?: BuffFour,
-	type?: EffectType,
-	target?: TargetType,
-	orderId?: number,
-	orderIdAutoOn?: number,
-	orderIdAutoOff?: number,
-	orderIdOff?: number,
-	unitType?: UnitType[],
-	permanent?: boolean,
-	starting?: boolean,
-	ult?: boolean
-}
-
-export class Ability {
-	readonly four: string
-	readonly type: EffectType
-	readonly target: TargetType
-
-	readonly buffFour?: BuffFour
-	readonly addBuffDeath?: boolean
-	readonly orderId?: Order
-	readonly orderIdAutoOn?: Order
-	readonly orderIdAutoOff?: Order
-	readonly orderIdOff?: Order
-	readonly unitType: { [name: number]: boolean } = {}
-	readonly permanent?: boolean
-	readonly starting?: boolean
-	readonly ult?: boolean
-	readonly addEvent?: boolean
-	readonly addGroup?: boolean
-	readonly loopTick?: number
-
-	loopTimer: Timer | undefined
-	group: Group | undefined
-
-	onEffect: () => void
-	onBuffDeath: () => void = (): void => { return undefined }
-	onLoop: () => void = (): void => { return undefined }
-
-	private static map = new Map<string, Ability>()
-	private static mapInstant = new Map<string, Ability>()
-	static preload: Ability[] = []
-
-	constructor (ability: AbilityParameters) {
-		this.four = ability.four
-		this.buffFour = ability.buffFour
-		this.type = ability.type ?? EffectType.None
-		this.target = ability.target ?? TargetType.None
-		this.orderId = ability.orderId
-		this.orderIdAutoOff = ability.orderIdAutoOff
-		this.orderIdAutoOn = ability.orderIdAutoOn
-		this.orderIdOff = ability.orderIdOff
-		this.onEffect = ability.onEffect ?? (() => { })
-
-		if (ability.unitType !== undefined) {
-			for (let i = 0; i < ability.unitType.length; i++) {
-				const element = ability.unitType[i]
-				this.unitType[element.id] = true
-			}
-		}
-
-		this.permanent = ability.permanent ?? false
-		this.starting = ability.starting ?? false
-		this.ult = ability.ult ?? false
-		this.addEvent = ability.addEffect ?? false
-		this.addBuffDeath = ability.addBuffDeath ?? false
-		this.loopTick = ability.loopTick ?? 0
-
-		Ability.preload.push(this)
-
-		// If ability hasn't been definite before
-		if (!Ability.map.has(this.four)) {
-			Ability.map.set(this.four, this)
-
-			// Start Ability loop
-			if (this.loopTick > 0) {
-				this.loopTimer = new Timer()
-				this.loopTimer.start(this.loopTick, true, () => this.onLoop())
-			}
-
-			if (this.addBuffDeath) {
-				Trigger.unitDying.add(() => {
-					if (Unit.fromEvent().hasBuff(this.buffId as number)) {
-						this.onBuffDeath()
-					}
-				})
-			}
-
-			// Add Trigger Trigger
-			if (this.addEvent) {
-				switch (this.type) {
-					case EffectType.Kill:
-						Trigger.unitDies.add(() => {
-							if (Unit.fromHandle(GetKillingUnit()).hasAbility(this)) {
-								this.onEffect()
-							}
-						})
-						break
-
-					case EffectType.Death:
-						Trigger.unitDies.add(() => {
-							if (Unit.fromEvent().hasAbility(this)) {
-								this.onEffect()
-							}
-						})
-						break
-
-					case EffectType.Attacked:
-						Trigger.unitAttacked.add(() => {
-							if (Unit.fromEvent().hasAbility(this.id)) {
-								this.onEffect()
-							}
-						})
-						break
-
-					case EffectType.Attacking:
-						Trigger.unitAttacked.add(() => {
-							if (Unit.fromAttacking().hasAbility(this.id)) {
-								this.onEffect()
-							}
-						})
-						break
-
-					case EffectType.UnitTypeAttacking:
-						Trigger.unitAttacked.add(() => {
-							if (this.unitType[GetUnitTypeId(GetAttacker())]) {
-								this.onEffect()
-							}
-						})
-						break
-
-					case EffectType.Instant:
-						Ability.mapInstant.set(this.four, this)
-						break
-					default:
-						break
-				}
-			}
-		}
+		this.ability = ability
+		this.unit = unit
 	}
 
-	public static initSpellEffects (): void {
-		try {
-			Trigger.unitSpellEffect.add(() => {
-				if (Ability.mapInstant.has(CC2Four(GetSpellAbilityId()))) {
-					const ability = this.fromSpellEvent()
-					if (ability) ability.onEffect()
-				}
-			})
-		} catch (error) {
-			Logger.Error('Cast Spell', error)
-		}
+	// Blank On Effect Trigger
+	onEffect = () => { }
+	onEffectEnd = () => { }
+
+	public isCastable (): boolean {
+		return (this.unit.isAlive() && this.unit.mana > this.manaCost && this.cooldownRemaining === 0 && this.level > 0)
 	}
 
-	public static fromSpellEvent () {
-		return Ability.fromId(GetSpellAbilityId())
+	public hasBuff (): boolean {
+		return this.ability.buffFour ? this.unit.hasBuff(this.ability.buffFour) : false
 	}
 
-	public static fromId (id: string | number): Ability {
-		let four: string
-		typeof id === 'string' ? four = id : four = CC2Four(id)
-
-		return Ability.map.get(four) ?? new Ability({ four: four })
+	public castImmediate (): void {
+		if (this.ability.orderId) this.unit.issueImmediateOrder(this.ability.orderId)
 	}
 
-	public get id (): number {
-		return FourCC(this.four)
+	public castTarget (targetWidget: Widget): void {
+		if (this.ability.orderId) this.unit.issueTargetOrder(this.ability.orderId, targetWidget)
 	}
 
-	public get buffId (): number | undefined {
-		return this.buffFour ? FourCC(this.buffFour) : undefined
+	public cast (dest: Position): void {
+		if (this.ability.orderId) this.unit.issueOrderAtPosition(this.ability.orderId, dest)
 	}
 
-	public get icon (): string {
-		return BlzGetAbilityIcon(this.id)
+	public isCasting (): boolean {
+		return this.unit.currentOrder === this.ability.orderId
 	}
 
-	public get iconActivated (): string {
-		return BlzGetAbilityActivatedIcon(this.id)
+	// Easy getters from Ability Class
+	public get activatedTooltip (): string {
+		return BlzGetAbilityActivatedTooltip(this.ability.id, this.level)
+	}
+
+	public set activatedTooltip (value: string) {
+		BlzSetAbilityActivatedTooltip(this.ability.id, value, this.level)
+	}
+
+	public get extendedTooltip (): string {
+		return BlzGetAbilityExtendedTooltip(this.ability.id, this.level)
+	}
+
+	public set extendedTooltip (value: string) {
+		BlzSetAbilityExtendedTooltip(this.ability.id, value, this.level)
+	}
+
+	public get tooltip (): string {
+		return BlzGetAbilityTooltip(this.ability.id, this.level)
+	}
+
+	public set tooltip (value: string) {
+		BlzSetAbilityTooltip(this.ability.id, value, this.level)
+	}
+
+	public get researchTooltip (): string {
+		return BlzGetAbilityResearchTooltip(this.ability.id, this.level)
+	}
+
+	public set researchTooltip (value: string) {
+		BlzSetAbilityResearchTooltip(this.ability.id, value, this.level)
+	}
+
+	public get researchExtendedTooltip (): string {
+		return BlzGetAbilityResearchExtendedTooltip(this.ability.id, this.level)
+	}
+
+	public set researchExtendedTooltip (value: string) {
+		BlzSetAbilityResearchExtendedTooltip(this.ability.id, value, this.level)
+	}
+
+	public get activatedExtendedTooltip (): string {
+		return BlzGetAbilityActivatedExtendedTooltip(this.ability.id, this.level)
+	}
+
+	public set activatedExtendedTooltip (value: string) {
+		BlzSetAbilityActivatedExtendedTooltip(this.ability.id, value, this.level)
+	}
+
+	// Getters and Setters unique
+
+	public get areaOfEffect (): number {
+		return this.getLevelField(ABILITY_RLF_AREA_OF_EFFECT) as number
+	}
+
+	public set areaOfEffect (value: number) {
+		this.setLevelField(ABILITY_RLF_AREA_OF_EFFECT, value)
+	}
+
+	public get normalDuration (): number {
+		return this.getLevelField(ABILITY_RLF_DURATION_NORMAL) as number
+	}
+
+	public get heroDuration (): number {
+		return this.getLevelField(ABILITY_RLF_DURATION_HERO) as number
+	}
+
+	public get level (): number {
+		return GetUnitAbilityLevel(this.unit.handle, this.ability.id)
+	}
+
+	public set level (level: number) {
+		SetUnitAbilityLevel(this.unit.handle, this.ability.id, level)
+	}
+
+	public set name (value: string) {
+		this.setField(ABILITY_SF_NAME, value)
 	}
 
 	public get name (): string {
-		return GetAbilityName(this.id)
+		return this.getField(ABILITY_SF_NAME) as string
 	}
 
-	public get activatedPosX (): number {
-		return BlzGetAbilityActivatedPosX(this.id)
+	public get levels (): number {
+		return this.getField(ABILITY_IF_LEVELS) as number
 	}
 
-	public get activatedPosY (): number {
-		return BlzGetAbilityActivatedPosY(this.id)
+	public get levelSkip (): number {
+		return this.getField(ABILITY_IF_LEVEL_SKIP_REQUIREMENT) as number
 	}
 
-	public get posX (): number {
-		return BlzGetAbilityPosX(this.id)
+	public set levelSkip (value: number) {
+		this.setField(ABILITY_IF_LEVEL_SKIP_REQUIREMENT, value)
 	}
 
-	public get posY (): number {
-		return BlzGetAbilityPosY(this.id)
+	public get requiredLevel (): number {
+		return this.getField(ABILITY_IF_REQUIRED_LEVEL) as number
 	}
 
-	public defaultManaCost (level: number): number {
-		return BlzGetAbilityManaCost(this.id, level)
+	public set requiredLevel (value: number) {
+		this.setField(ABILITY_IF_REQUIRED_LEVEL, value)
 	}
 
-	public getCooldown (level: number): number {
-		return BlzGetAbilityCooldown(this.id, level)
+	public get isHeroAbility (): boolean {
+		return this.getField(ABILITY_BF_HERO_ABILITY) as boolean
 	}
 
-	public getEffect (t: effecttype, index: number): string {
-		return GetAbilityEffectById(this.id, t, index)
+	public get isItemAbility (): boolean {
+		return this.getField(ABILITY_BF_ITEM_ABILITY) as boolean
 	}
 
-	public getSound (t: soundtype): string {
-		return GetAbilitySoundById(this.id, t)
+	public get cooldown (): number {
+		return BlzGetUnitAbilityCooldown(this.unit.handle, this.ability.id, this.level)
 	}
 
-	public getActivatedTooltip (level: number): string {
-		return BlzGetAbilityActivatedTooltip(this.id, level)
+	public set cooldown (value: number) {
+		BlzSetUnitAbilityCooldown(this.unit.handle, this.ability.id, this.level, value)
 	}
 
-	public setActivatedTooltip (level: number, value: string): void {
-		BlzSetAbilityActivatedTooltip(this.id, value, level)
+	public get cooldownRemaining (): number {
+		return BlzGetUnitAbilityCooldownRemaining(this.unit.handle, this.ability.id)
 	}
 
-	public getExtendedTooltip (level: number): string {
-		return BlzGetAbilityExtendedTooltip(this.id, level)
+	public set cooldownRemaining (value: number) {
+		BlzStartUnitAbilityCooldown(this.unit.handle, this.ability.id, value)
 	}
 
-	public setExtendedTooltip (level: number, value: string): void {
-		BlzSetAbilityExtendedTooltip(this.id, value, level)
+	public resetCooldown (): void {
+		BlzEndUnitAbilityCooldown(this.unit.handle, this.ability.id)
 	}
 
-	public getTooltip (level: number): string {
-		return BlzGetAbilityTooltip(this.id, level)
+	public get manaCost (): number {
+		return this.getLevelField(ABILITY_ILF_MANA_COST) as number
 	}
 
-	public setTooltip (level: number, value: string): void {
-		BlzSetAbilityTooltip(this.id, value, level)
+	public set manaCost (value: number) {
+		this.setLevelField(ABILITY_ILF_MANA_COST, value)
 	}
 
-	public getResearchTooltip (level: number): string {
-		return BlzGetAbilityResearchTooltip(this.id, level)
+	public get manaCostAllLevels (): number[] {
+		return this.getLevelFieldArray(ABILITY_ILF_MANA_COST) as number[]
 	}
 
-	public setResearchTooltip (level: number, value: string): void {
-		BlzSetAbilityResearchTooltip(this.id, value, level)
+	public set manaCostAllLevels (value: number[]) {
+		this.setLevelFieldArray(ABILITY_ILF_MANA_COST, value)
 	}
 
-	public getResearchExtendedTooltip (level: number): string {
-		return BlzGetAbilityResearchExtendedTooltip(this.id, level)
+	public get castTime (): number {
+		return this.getLevelField(ABILITY_RLF_CASTING_TIME) as number
 	}
 
-	public setResearchExtendedTooltip (level: number, value: string): void {
-		BlzSetAbilityResearchExtendedTooltip(this.id, value, level)
+	public set castTime (value: number) {
+		this.setLevelField(ABILITY_RLF_CASTING_TIME, value)
 	}
 
-	public getActivatedExtendedTooltip (level: number): string {
-		return BlzGetAbilityActivatedExtendedTooltip(this.id, level)
+	public get castRange (): number {
+		return this.getLevelField(ABILITY_RLF_CAST_RANGE) as number
 	}
 
-	public setActivatedExtendedTooltip (level: number, value: string): void {
-		BlzSetAbilityActivatedExtendedTooltip(this.id, value, level)
+	public get castTimeAllLevels (): number[] {
+		return this.getLevelFieldArray(ABILITY_RLF_CASTING_TIME) as number[]
 	}
 
-	static aspectInferno: Ability
-	static shift1Dummy: Ability
-	static shift2Dummy: Ability
-	static shift3Dummy: Ability
-	static shift4Dummy: Ability
-	static fallingStrikeDummy: Ability
-	static shadeStormDummy: Ability
+	public set castTimeAllLevels (value: number[]) {
+		this.setLevelFieldArray(ABILITY_RLF_CASTING_TIME, value)
+	}
 
-	static footmanUpgrade: Ability
-	static felGrunt: Ability
-	static felOgre: Ability
-	static felWarlord: Ability
-	static felWarlock: Ability
+	/**
+	 * Runs an function through all of the levels of a abilitylevelfield item
+	 * @param field
+	 * @param expression this will be run on every level of the abilitylevelfield item
+	 */
+	public forEachLevelField (field: abilitybooleanlevelfield | abilitystringlevelfield | abilityreallevelfield | abilityintegerlevelfield, expression: (value: string | number | boolean) => string | number | boolean): void {
+		for (let i = 0; i < this.levels; i++) {
+			this.setLevelField(field, expression(this.getLevelField(field, i)), i)
+		}
+	}
 
-	static manaRepository: Ability
-	static manaShieldTower: Ability
-	static manaShardsTower: Ability
-	static chainLightningTower: Ability
-	static coneOfFireTower: Ability
-	static aspectOfDeathInfect: Ability
-	static stormCrowForm: Ability
-	static openSkillTree: Ability
+	public setLevelFieldArray (field: abilitybooleanlevelfield | abilitystringlevelfield | abilityreallevelfield | abilityintegerlevelfield, value: string[] | number[] | boolean[]): void {
+		for (let i = 0; i < this.levels; i++) {
+			this.setLevelField(field, value[i])
+		}
+	}
 
-	static define (): void {
-		Ability.aspectInferno = new Ability({ four: AbilityFour.InfernoAspect, orderId: Order.Dreadlordinferno })
-		Ability.shift1Dummy = new Ability({ four: AbilityFour.ItemIllusions, orderId: Order.Illusion })
-		Ability.fallingStrikeDummy = new Ability({ four: AbilityFour.FallingStrikeDummy, orderId: Order.Creepthunderclap })
-		Ability.shadeStormDummy = new Ability({ four: 'A03O', orderId: Order.Whirlwind })
-		Ability.stormCrowForm = new Ability({ four: AbilityFour.StormCrowForm, orderId: Order.Ravenform })
+	/**
+	 * Returns all levels of an abilitylevelfield as an array
+	 * @param field
+	 * @returns an array of items from the abilitylevelfield for all levels
+	 */
+	public getLevelFieldArray (field: abilitybooleanlevelfield | abilitystringlevelfield | abilityreallevelfield | abilityintegerlevelfield): (string | number | boolean)[] {
+		const fields = []
 
-		// Footman Upgrade
-		Ability.footmanUpgrade = new Ability({ four: AbilityFour.FootmanCharge, orderId: Order.Bearform, type: EffectType.Instant, target: TargetType.SupportSelf, addEffect: true })
-		Ability.footmanUpgrade.onEffect = () => {
-			const eventUnit = Unit.fromEvent()
-			if (eventUnit.manaPercent === 100) {
-				Skill.get(eventUnit, Ability.footmanUpgrade).castImmediate()
-				eventUnit.lifePercent += 25
-				const upgrade = new Timer()
-				upgrade.start(0.05, false, () => {
-					new Effect(AbilityModel.spiritWalkerChange, eventUnit, AttachPoint.chest).destroy()
-					eventUnit.setAnimation(Anim.Footman.standVictory)
-				})
+		for (let i = 0; i < this.levels; i++) {
+			fields.push(this.getLevelField(field, i))
+		}
+
+		return fields
+	}
+
+	public setField (field: abilitybooleanfield | abilitystringfield | abilityrealfield | abilityintegerfield, value: boolean | number | string): boolean {
+		const fieldType = field.toString().substr(0, field.toString().indexOf(':'))
+
+		if (fieldType === 'abilitybooleanfield' && typeof value === 'boolean') {
+			return BlzSetAbilityBooleanField(this.handle, field as abilitybooleanfield, value)
+		} else if (fieldType === 'abilityintegerfield' && typeof value === 'number') {
+			return BlzSetAbilityIntegerField(this.handle, field as abilityintegerfield, value)
+		} else if (fieldType === 'abilityrealfield' && typeof value === 'number') {
+			return BlzSetAbilityRealField(this.handle, field as abilityrealfield, value)
+		} else if (fieldType === 'abilitystringfield' && typeof value === 'string') {
+			return BlzSetAbilityStringField(this.handle, field as abilitystringfield, value)
+		}
+
+		return false
+	}
+
+	public setLevelField (field: abilitybooleanlevelfield | abilitystringlevelfield | abilityreallevelfield | abilityintegerlevelfield, value: boolean | number | string, level: number = this.level): boolean {
+		const fieldType = field.toString().substr(0, field.toString().indexOf(':'))
+
+		if (fieldType === 'abilitybooleanlevelfield' && typeof value === 'boolean') {
+			return BlzSetAbilityBooleanLevelField(this.handle, field as abilitybooleanlevelfield, level, value)
+		} else if (fieldType === 'abilityintegerlevelfield' && typeof value === 'number') {
+			return BlzSetAbilityIntegerLevelField(this.handle, field as abilityintegerlevelfield, level, value)
+		} else if (fieldType === 'abilityreallevelfield' && typeof value === 'number') {
+			return BlzSetAbilityRealLevelField(this.handle, field as abilityreallevelfield, level, value)
+		} else if (fieldType === 'abilitystringlevelfield' && typeof value === 'string') {
+			return BlzSetAbilityStringLevelField(this.handle, field as abilitystringlevelfield, level, value)
+		}
+
+		return false
+	}
+
+	public getField (field: abilitybooleanfield | abilitystringfield | abilityrealfield | abilityintegerfield): (boolean | number | string) {
+		const fieldType = field.toString().substr(0, field.toString().indexOf(':'))
+
+		switch (fieldType) {
+			case 'abilitybooleanfield': {
+				const fieldBool = field as abilitybooleanfield
+
+				return BlzGetAbilityBooleanField(this.handle, fieldBool) as boolean
+			}
+			case 'abilityintegerfield': {
+				const fieldInt = field as abilityintegerfield
+
+				return BlzGetAbilityIntegerField(this.handle, fieldInt) as number
+			}
+			case 'abilityrealfield': {
+				const fieldReal = field as abilityrealfield
+
+				return BlzGetAbilityRealField(this.handle, fieldReal) as number
+			}
+			case 'abilitystringfield': {
+				const fieldString = field as abilitystringfield
+
+				return BlzGetAbilityStringField(this.handle, fieldString) as string
+			}
+			default:
+				return 0
+		}
+	}
+
+	public getLevelField (field: abilitybooleanlevelfield | abilitystringlevelfield | abilityreallevelfield | abilityintegerlevelfield, level: number = this.level): (boolean | number | string) {
+		const fieldType = field.toString().substr(0, field.toString().indexOf(':'))
+		level -= 1
+
+		switch (fieldType) {
+			case 'abilitybooleanlevelfield': {
+				const fieldBool = field as abilitybooleanlevelfield
+
+				return BlzGetAbilityBooleanLevelField(this.handle, fieldBool, level) as boolean
+			}
+			case 'abilityintegerlevelfield': {
+				const fieldInt = field as abilityintegerlevelfield
+
+				return BlzGetAbilityIntegerLevelField(this.handle, fieldInt, level) as number
+			}
+			case 'abilityreallevelfield': {
+				const fieldReal = field as abilityreallevelfield
+
+				return BlzGetAbilityRealLevelField(this.handle, fieldReal, level) as number
+			}
+			case 'abilitystringlevelfield': {
+				const fieldString = field as abilitystringlevelfield
+
+				return BlzGetAbilityStringLevelField(this.handle, fieldString, level) as string
+			}
+			default:
+				return 0
+		}
+	}
+
+	// Static Methods
+
+	static fromHandle (handle: ability) {
+		if (handle) {
+			const obj = HandleMap.get(handle)
+			if (obj !== undefined) {
+				return obj
 			}
 		}
 
-		// Fel Grunt
-		Ability.felGrunt = new Ability({ four: AbilityFour.FelGrunt, type: EffectType.Kill, addEffect: true })
-		Ability.felGrunt.onEffect = () => {
-			const eventUnit = Unit.fromKilling()
-			eventUnit.addAbility(FourCC(AbilityFour.FelGruntTransformed))
+		return undefined
+	}
+
+	static fromEvent (): Ability {
+		return this.get(Unit.fromCaster(), AbilityType.fromSpellEvent())
+	}
+
+	static get (unit: Unit, ability: AbilityType): Ability {
+		return Ability._getAbility(unit, ability)
+	}
+
+	static _getAbility (unit: Unit, ability: AbilityType) {
+		const abil = this.fromHandle(BlzGetUnitAbility(unit.handle, ability.id))
+
+		if (abil) {
+			return abil
+		} else {
+			unit.addAbility(ability)
+			return Ability.fromHandle(Ability.getHandle(unit, ability))
 		}
+	}
 
-		// Fel Ogre
-		Ability.felOgre = new Ability({ four: AbilityFour.FelOgre, type: EffectType.Kill, addEffect: true })
-		Ability.felOgre.onEffect = () => {
-			const eventUnit = Unit.fromKilling()
-			eventUnit.addAbility(FourCC(AbilityFour.FelOgreTransformed))
-		}
-
-		// Fel Warlord
-		Ability.felWarlord = new Ability({ four: AbilityFour.FelWarlord, type: EffectType.Kill, addEffect: true })
-		Ability.felWarlord.onEffect = () => {
-			const eventUnit = Unit.fromKilling()
-			if (eventUnit.kills >= 4) {
-				eventUnit.addAbility(FourCC(AbilityFour.FelWarlordTransformed))
-			}
-		}
-
-		// Fel Warlock
-		Ability.felWarlock = new Ability({ four: AbilityFour.FelWarlock, type: EffectType.Kill, addEffect: true })
-		Ability.felWarlock.onEffect = () => {
-			const eventUnit = Unit.fromKilling()
-			if (eventUnit.kills >= 3) {
-				eventUnit.addAbility(FourCC(AbilityFour.FelWarlockTransformed))
-				eventUnit.manaPercent = 100
-			}
-		}
-
-		Ability.manaRepository = new Ability({
-			four: AbilityFour.ManaRepository,
-			unitType: [UnitType.ArcaneManaRepository],
-			type: EffectType.UnitTypeAttacking,
-			target: TargetType.SupportSingle,
-			orderId: Order.Recharge,
-			addEffect: true
-		}
-		)
-
-		Ability.manaRepository.onEffect = () => {
-			const eventUnit = Unit.fromAttacking()
-			const unitAbility = Skill.get(eventUnit, Ability.manaRepository)
-
-			const g = new Group()
-			g.enumUnitsInRange(eventUnit, 1300)
-
-			g.firstLoop((u) => {
-				if (u.isStructure &&
-					u.typeId !== eventUnit.typeId &&
-					u.isAlly(eventUnit) &&
-					u.isAlive() &&
-					u.manaPercent < 50 &&
-					unitAbility.cooldownRemaining === 0 &&
-					eventUnit.mana > 200) {
-					unitAbility.castTarget(u)
-				}
-			})
-			g.destroy()
-		}
-
-		Ability.manaShieldTower = new Ability({
-			four: AbilityFour.ManaShieldTower,
-			unitType: [UnitType.ArcaneFlameTower, UnitType.ArcaneManaTower, UnitType.ArcaneSorcerersTower],
-			orderId: Order.Manashieldon,
-			buffFour: BuffFour.ManaShield,
-			type: EffectType.UnitTypeAttacking,
-			target: TargetType.SupportSelf,
-			addEffect: true
-		})
-
-		Ability.manaShieldTower.onEffect = (): void => {
-			const eventUnit = Unit.fromAttacking()
-			const unitAbility = new Skill(eventUnit, Ability.manaShieldTower)
-
-			if (unitAbility.isCastable() &&
-				!unitAbility.hasBuff()) {
-				unitAbility.castImmediate()
-			}
-		}
-
-		Ability.manaShardsTower = new Ability({
-			four: AbilityFour.ManaShardsTower,
-			orderId: Order.Clusterrockets,
-			unitType: [UnitType.ArcaneSorcerersTower],
-			type: EffectType.UnitTypeAttacking,
-			target: TargetType.DamageArea,
-			addEffect: true
-		})
-
-		Ability.manaShardsTower.onEffect = (): void => {
-			const eventUnit = Unit.fromAttacking()
-			const attackedUnit = Unit.fromEvent()
-			const unitAbility = Skill.get(eventUnit, Ability.manaShardsTower)
-
-			if (unitAbility.isCastable() &&
-				attackedUnit.isGround) {
-				unitAbility.cast(attackedUnit.position)
-			}
-		}
-
-		Ability.chainLightningTower = new Ability({
-			four: AbilityFour.ChainLightningTower,
-			orderId: Order.Chainlightning,
-			unitType: [UnitType.ArcaneSorcerersTower],
-			type: EffectType.UnitTypeAttacking,
-			target: TargetType.DamageSingle,
-			addEffect: true
-		})
-
-		Ability.chainLightningTower.onEffect = (): void => {
-			const eventUnit = Unit.fromAttacking()
-			const attackedUnit = Unit.fromAttacked()
-			const unitAbility = new Skill(eventUnit, Ability.chainLightningTower)
-
-			if (unitAbility.isCastable() &&
-				attackedUnit.isGround) {
-				unitAbility.castTarget(attackedUnit)
-			}
-		}
-
-		Ability.coneOfFireTower = new Ability({
-			four: AbilityFour.ConeOfFireTower,
-			orderId: Order.Breathoffrost,
-			unitType: [UnitType.ArcaneFlameTower],
-			type: EffectType.UnitTypeAttacking,
-			target: TargetType.DamageAreaTarget,
-			addEffect: true
-		})
-
-		Ability.coneOfFireTower.onEffect = (): void => {
-			const eventUnit = Unit.fromAttacking()
-			const attackedUnit = Unit.fromAttacked()
-			const unitAbility = new Skill(eventUnit, Ability.coneOfFireTower)
-
-			if (unitAbility.isCastable() &&
-				attackedUnit.isGround) {
-				unitAbility.cast(attackedUnit.position)
-			}
-		}
-
-		Ability.aspectOfDeathInfect = new Ability({
-			four: AbilityFour.InfectAspect,
-			orderId: Order.Parasite,
-			buffFour: BuffFour.Infected,
-			unitType: [UnitType.AspectOfDeath],
-			type: EffectType.UnitTypeAttacking,
-			target: TargetType.CrippleAround,
-			addEffect: true
-		})
-
-		Ability.aspectOfDeathInfect.onEffect = (): void => {
-			const eventUnit = Unit.fromAttacking()
-			const unitAbility = new Skill(eventUnit, Ability.aspectOfDeathInfect)
-			const unitCount = math.floor(unitAbility.normalDuration)
-
-			const g = new Group()
-			g.enumUnitsInRange(eventUnit, 400)
-			g.firstLoopCondition((u) => {
-				return (u.isAlive() &&
-					u.isEnemy(eventUnit) &&
-					!u.isHero &&
-					!u.isStructure &&
-					!u.isIllusion &&
-					!u.isMagicImmune &&
-					!u.hasBuff(BuffFour.Infected))
-			}, (u) => {
-				const dummy = new Unit(eventUnit.owner, UnitType.Dummy, eventUnit.position, eventUnit.facing)
-				dummy.addAbility(AbilityFour.InfectAspectDummy)
-				dummy.issueTargetOrder(Order.Parasite, u)
-				dummy.applyTimedLife(BuffFour.TimedLifeGeneric, 2)
-			}, unitCount)
-			g.destroy()
-		}
+	static getHandle (unit: Unit, ability: AbilityType) {
+		return BlzGetUnitAbility(unit.handle, ability.id)
 	}
 }

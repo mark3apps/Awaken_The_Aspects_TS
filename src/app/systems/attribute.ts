@@ -1,15 +1,15 @@
-import { Ability } from 'app/classes/ability'
+import { AbilityType } from 'app/classes/abilityType'
 import { ItemType } from 'app/classes/itemType'
 
 export class HeroAttribute {
 	public items: ItemType[] = []
-	public abilities: Ability[] = []
+	public abilities: AbilityType[] = []
 
 	public addItem (itemType: ItemType): void {
 		this.items.push(itemType)
 	}
 
-	public addAbility (ability: Ability): void {
+	public addAbility (ability: AbilityType): void {
 		this.abilities.push(ability)
 	}
 

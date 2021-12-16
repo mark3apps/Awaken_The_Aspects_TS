@@ -1,9 +1,9 @@
-import { Skill } from 'app/classes'
-import { Ability, EffectType, TargetType } from 'app/classes/ability'
+import { Ability } from 'app/classes'
+import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
 import { Logger } from 'app/classes/log'
 import { Group, AbilityFour, Order, Unit, Force, BuffFour, Effect, AbilityModel, AttachPoint, Players } from 'lib/w3ts/index'
 
-export class InspireAbility extends Ability {
+export class InspireAbility extends AbilityType {
 	static group = new Group()
 
 	constructor () {
@@ -22,7 +22,7 @@ export class InspireAbility extends Ability {
 
 	public override onEffect = (): void => {
 		const eventUnit = Unit.fromEvent()
-		const unitAbility = Skill.get(eventUnit, this)
+		const unitAbility = Ability.get(eventUnit, this)
 		const unitsInspired = math.floor(unitAbility.castRange)
 		const spreadNumber = math.floor(unitAbility.heroDuration)
 		const duration = unitAbility.normalDuration
@@ -103,7 +103,7 @@ export class InspireAbility extends Ability {
 	}
 }
 
-export class AbilityInspireDeath extends Ability {
+export class AbilityInspireDeath extends AbilityType {
 	constructor () {
 		super({
 			four: AbilityFour.InspireSpellBook,

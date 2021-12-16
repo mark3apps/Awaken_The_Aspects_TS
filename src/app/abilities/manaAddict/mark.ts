@@ -1,11 +1,11 @@
-import { Skill } from 'app/classes'
-import { Ability, EffectType, TargetType } from 'app/classes/ability'
+import { Ability } from 'app/classes'
+import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
 import { Logger } from 'app/classes/log'
 import { Position } from 'app/classes/position'
 import { UnitType } from 'app/classes/unitType'
 import { AbilityFour, Order, BuffFour, Unit, Group, Timer, Effect, AbilityModel, AttachPoint } from 'lib/w3ts/index'
 
-export class AbilityMark extends Ability {
+export class AbilityMark extends AbilityType {
 	constructor () {
 		super({
 			four: AbilityFour.Mark,
@@ -25,11 +25,12 @@ export class AbilityMark extends Ability {
 
 		try {
 			const eventUnit = Unit.fromEvent()
-			const unitAbility = Skill.get(eventUnit, this)
+			const ability = Ability.get(eventUnit, this)
+
 			const targetPos = Position.fromSpellTarget()
 
-			const areaOfEffect = unitAbility.areaOfEffect
-			const manaGiven = unitAbility.heroDuration
+			const areaOfEffect = ability.areaOfEffect
+			const manaGiven = ability.heroDuration
 
 			const g = new Group()
 			g.enumUnitsInRange(targetPos, areaOfEffect, () => {

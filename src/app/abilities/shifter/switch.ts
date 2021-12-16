@@ -1,10 +1,10 @@
-import { Skill } from 'app/classes'
-import { Ability, EffectType, TargetType } from 'app/classes/ability'
+import { Ability } from 'app/classes'
+import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
 import { Logger } from 'app/classes/log'
 import { Position } from 'app/classes/position'
 import { AbilityFour, Order, Unit, Group, Timer, Effect, AbilityModel } from 'lib/w3ts/index'
 
-export class SwitchAbility extends Ability {
+export class SwitchAbility extends AbilityType {
 	constructor () {
 		super({
 			four: AbilityFour.MirrorSwitch,
@@ -20,7 +20,7 @@ export class SwitchAbility extends Ability {
 	public override onEffect = (): void => {
 		try {
 			const eventUnit = Unit.fromEvent()
-			const ability = Skill.get(eventUnit, this)
+			const ability = Ability.get(eventUnit, this)
 
 			const spellTargetPos = Position.fromSpellTarget()
 			const range = ability.castRange

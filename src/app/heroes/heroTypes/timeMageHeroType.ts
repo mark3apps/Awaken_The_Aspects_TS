@@ -1,4 +1,4 @@
-import { UnitType, Ability, EffectType, TargetType, Hero } from 'app/classes'
+import { UnitType, AbilityType, EffectType, TargetType, Hero } from 'app/classes'
 import { HeroAttribute } from 'app/systems'
 import { DruidBalanceTree } from 'app/systems/talents/talentTrees/druidBalance'
 import { Strategy } from 'lib/resources/strategy'
@@ -52,7 +52,7 @@ export class TimeMageHeroType extends HeroType {
 		// Abilities
 
 		// Chrono Atrophy
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.ChronoAtrophy,
 			orderId: Order.Flamestrike,
 			type: EffectType.Instant,
@@ -63,7 +63,7 @@ export class TimeMageHeroType extends HeroType {
 		}))
 
 		// Decay
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.Decay,
 			orderId: Order.Shadowstrike,
 			type: EffectType.Instant,
@@ -74,7 +74,7 @@ export class TimeMageHeroType extends HeroType {
 		}))
 
 		// Time Travel
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.TimeTravel,
 			orderId: Order.Clusterrockets,
 			type: EffectType.Instant,
@@ -85,7 +85,7 @@ export class TimeMageHeroType extends HeroType {
 		}))
 
 		// Paradox
-		this.addAbility(new Ability({
+		this.addAbility(new AbilityType({
 			four: AbilityFour.Paradox,
 			orderId: Order.Tranquility,
 			type: EffectType.Channel,
