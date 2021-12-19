@@ -1,22 +1,18 @@
-/* eslint-disable no-use-before-define */
 import { Hero } from 'app/classes'
-import { AbilityType } from 'app/classes/abilityType'
+import { HeroAbilityType, iHeroAbilityType } from 'app/classes/heroAbility'
 import { ItemType } from 'app/classes/itemType'
 import { UnitType } from 'app/classes/unitType'
 import { HeroAttribute } from 'app/systems/attribute'
 import { Strategy } from 'lib/resources/strategy'
 import { Unit } from './unit'
-
 export class HeroType extends UnitType {
 	static readonly map: Map<number, HeroType> = new Map()
 
 	readonly name!: string
 
 	public attributes: HeroAttribute[] = []
-	public permanentSpells: AbilityType[] = []
-	public startingSpells: AbilityType[] = []
-	public ultSpell?: AbilityType
-	public spells: AbilityType[] = []
+	public ultSpell?: HeroAbilityType
+	public abilityTypes: HeroAbilityType[] = []
 
 	public items: ItemType[] = []
 
@@ -34,7 +30,7 @@ export class HeroType extends UnitType {
 	public unitClumpRange = 100
 	public intelRange = 1100
 	public intelCloseRange = 500
-	public talentTrees = (unit: Hero): void => { }
+	public talentTrees = (hero: Hero): void => { }
 
 	public traitAgressive = 50
 	public traitDefensive = 50
@@ -76,12 +72,12 @@ export class HeroType extends UnitType {
 		this.attributes.push(attribute)
 	}
 
-	public addAbility (ability: AbilityType): void {
-		this.spells.push(ability)
+	public addHeroAbilityType (heroAbilityType: iHeroAbilityType): void {
+		const heroAbility = new HeroAbilityType(heroAbilityType)
 
-		if (ability.permanent) { this.permanentSpells.push(ability) }
-		if (ability.starting) { this.startingSpells.push(ability) }
-		if (ability.ult) { this.ultSpell = ability }
+		this.abilityTypes.push(heroAbility)
+
+		if (heroAbilityType.ult) { this.ultSpell = heroAbility }
 	}
 
 	public addItem (itemType: ItemType): void {

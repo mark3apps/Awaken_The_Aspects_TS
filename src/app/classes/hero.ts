@@ -5,22 +5,29 @@ import { GoldTalentViewModel } from 'app/systems/talents/viewModels/GoldTalentVi
 import { SkillTalentViewModel } from 'app/systems/talents/viewModels/SkillTalentViewModel'
 import { GenerateNoButtonTalentTreeView } from 'app/systems/talents/views/NoButtonTalentTreeView'
 import { GenerateNoButtonTalentView } from 'app/systems/talents/views/NoButtonTalentView'
+import { AbilityField } from 'lib/resources/fields'
 import { BasicTalentTreeViewModel } from 'lib/STK/UI/STK/ViewModels/BasicTalentTreeViewModel'
 import { HeroType } from 'lib/w3ts/handles/herotype'
 import { Force, Frame, Group, MapPlayer, Order, Rectangle, Timer, Trigger, Unit } from 'lib/w3ts/index'
+import { Ability } from '.'
+import { AbilityMap } from './AbilityMap'
 import { Logger } from './log'
 import { Position } from './position'
 
-export class Hero extends Unit {
+export class Hero {
 	private stateMachine: StateMachine | undefined
 
 	private AITickTimer = new Timer()
 	private AITickIncrement = 1.2
 	private AIActivated = false
+
+	readonly unit: Unit
 	readonly heroType: HeroType
 	public skillTree: BasicTalentTreeViewModel
 	public guardTree: BasicTalentTreeViewModel
 	public armorTree: BasicTalentTreeViewModel
+
+	abilities: Map<string, any> = new Map()
 
 	AIpowerBase = 0
 	AIpowerHero = 0
@@ -55,19 +62,19 @@ export class Hero extends Unit {
 	AIweightedHealthMax = 0
 	AIweightedHealthPercent = 0
 
-	static map: Map<Unit, Hero> = new Map<Unit, Hero>()
+	static map: WeakMap<handle, Hero> = new Map<handle, Hero>()
 	static readonly all: Hero[] = []
 	static human: Hero[] = []
 	static ai: Hero[] = []
 	static PickedPlayers: Force
 
 	constructor (owner: MapPlayer | number, unitId: number, pos: Position, face: number, skinId?: number) {
-		super(owner, unitId, pos, face, skinId)
+		this.unit = new Unit(owner, unitId, pos, face, skinId)
 
-		this.heroType = HeroType.get(this) as HeroType
+		this.heroType = HeroType.get(this.unit) as HeroType
 
 		if (this.heroType) {
-			this.setupHero()
+			// this.setupHero()
 
 			// Define Skill Trees
 			const config = new TalentConfig()
@@ -75,7 +82,7 @@ export class Hero extends Unit {
 
 			this.skillTree = new BasicTalentTreeViewModel(
 				config.talentTreeViewModel,
-				this.owner,
+				this.unit.owner,
 				treeUi,
 				(i) =>
 					new SkillTalentViewModel(
@@ -87,7 +94,7 @@ export class Hero extends Unit {
 
 			this.guardTree = new BasicTalentTreeViewModel(
 				config.talentTreeViewModel,
-				this.owner,
+				this.unit.owner,
 				treeUi,
 				(i) =>
 					new GoldTalentViewModel(
@@ -99,7 +106,7 @@ export class Hero extends Unit {
 
 			this.armorTree = new BasicTalentTreeViewModel(
 				config.talentTreeViewModel,
-				this.owner,
+				this.unit.owner,
 				treeUi,
 				(i) =>
 					new GoldTalentViewModel(
@@ -112,10 +119,10 @@ export class Hero extends Unit {
 			this.heroType.talentTrees(this)
 
 			// Add to Hero Map
-			Hero.map.set(this as Unit, this)
+			Hero.map.set(this.unit.handle, this)
 			Hero.all.push(this)
 
-			if (this.owner.controller === MAP_CONTROL_COMPUTER) {
+			if (this.unit.owner.controller === MAP_CONTROL_COMPUTER) {
 				Hero.ai.push(this)
 			} else {
 				Hero.human.push(this)
@@ -125,17 +132,17 @@ export class Hero extends Unit {
 		}
 	}
 
-	public static get (unit: Unit): Hero | undefined {
-		if (Hero.map.has(unit)) {
-			return Hero.map.get(unit) as Hero
-		} else {
-			return undefined
-		}
+	public static get (unit: Unit) {
+		return (Hero.map.has(unit.handle)) ? Hero.map.get(unit.handle) : undefined
+	}
+
+	public static fromEvent () {
+		return this.get(Unit.fromEvent())
 	}
 
 	// AI Methods
-	public AIstart (tick = this.AITickIncrement): void {
-		Logger.Information('Starting AI for', this.nameProper)
+	public AIstart (tick = this.AITickIncrement) {
+		Logger.Information('Starting AI for', this.unit.nameProper)
 
 		this.stateMachine = new StateMachine(this)
 		this.AITickIncrement = tick
@@ -154,11 +161,11 @@ export class Hero extends Unit {
 		this.AITickTimer.start(tick, true, () => this.AIexecute())
 	}
 
-	public AIpause (): void {
+	public AIpause () {
 		this.AITickTimer.pause()
 	}
 
-	public AIexecute (): void {
+	public AIexecute () {
 		if (this.stateMachine) {
 			this.AIintel()
 			this.stateMachine.update()
@@ -166,11 +173,11 @@ export class Hero extends Unit {
 		// Nothing at the moment
 	}
 
-	public AIintel (): void {
+	public AIintel () {
 		//
 	}
 
-	public AIlevelup (): void {
+	public AIlevelup () {
 		//
 	}
 
@@ -224,7 +231,7 @@ export class Hero extends Unit {
 			name: 'attack',
 			onEnter: () => {
 				// Log.Information("Attack", this.nameProper)
-				this.issueOrderAt(Order.Attack, 0, 0)
+				this.unit.issueOrderAt(Order.Attack, 0, 0)
 			},
 			onUpdate: () => {
 				// Log.Information("Attacking")
@@ -256,6 +263,28 @@ export class Hero extends Unit {
 		this.addStartingItems()
 	}
 
+	addStartingAbilities = () => {
+		try {
+			if (this.heroType !== undefined) {
+				for (let i = 0; i < this.heroType.abilityTypes.length; i++) {
+					const heroAbilityType = this.heroType.abilityTypes[i]
+					this.unit.addAbility(heroAbilityType.type)
+
+					const ability = heroAbilityType.type.getAbility(this.unit)
+					const abilityTyped = AbilityMap.fromHandle(this.unit, heroAbilityType.type) as Ability
+					// Logger.Information(abilityTyped.getLevelField(AbilityField.TOOLTIP_NORMAL))
+					if (heroAbilityType.starting === false) this.unit.hideAbility(heroAbilityType.type)
+					this.abilities.set(heroAbilityType.type.four, ability)
+
+					abilityTyped.updateTooltip()
+					abilityTyped.updateExtendedTooltop()
+				}
+			}
+		} catch (error) {
+			Logger.Error("Hero.addStartingAbilities", error)
+		}
+	}
+
 	public addStartingItems (): void {
 		if (this.heroType !== undefined) {
 			// Add Attribute Items
@@ -264,56 +293,16 @@ export class Hero extends Unit {
 
 				for (let i = 0; i < element.items.length; i++) {
 					const item = element.items[i].id
-					this.addItemById(item)
+					this.unit.addItemById(item)
 				}
 			}
 
 			// Add Specific Hero Type Items
 			for (let i = 0; i < this.heroType.items.length; i++) {
 				const item = this.heroType.items[i].id
-				this.addItemById(item)
+				this.unit.addItemById(item)
 			}
 		}
-	}
-
-	public addStartingAbilities (): void {
-		if (this.heroType !== undefined) {
-			for (let i = 0; i < this.heroType.startingSpells.length; i++) {
-				this.skillPoints += 1
-				this.selectSkill(this.heroType.startingSpells[i].id)
-				this.skillPoints -= 1
-			}
-		}
-	}
-
-	// Static Trigger Overrides
-
-	public static override fromEnum (): Hero {
-		return this.fromHandle(GetEnumUnit())
-	}
-
-	public static override fromEvent (): Hero {
-		return this.fromHandle(GetTriggerUnit())
-	}
-
-	public static override fromFilter (): Hero {
-		return this.fromHandle(GetFilterUnit())
-	}
-
-	public static override fromAttacking (): Hero {
-		return this.fromHandle(GetAttacker())
-	}
-
-	public static override fromAttacked (): Hero {
-		return this.fromHandle(GetTriggerUnit())
-	}
-
-	public static override fromSpellTarget (): Hero {
-		return this.fromHandle(GetSpellTargetUnit())
-	}
-
-	public static override fromHandle (handle: unit): Hero {
-		return this.get(this.getObject(handle)) as Hero
 	}
 
 	static define = (): void => {
@@ -324,25 +313,25 @@ export class Hero extends Unit {
 			const hero = Hero.get(Unit.fromEvent())
 
 			if (hero) {
-				const player = hero.owner
+				const player = hero.unit.owner
 
-				Logger.Information('Hero Leveled Up:', hero.name)
+				Logger.Information('Hero Leveled Up:', hero.unit.name)
 
 				// Every Level increase Attack
-				player.setTechResearched(FourCC('R005'), hero.level - 1)
+				player.setTechResearched(FourCC('R005'), hero.unit.level - 1)
 
 				// Every other level increase Armor
-				if (hero.heroLevel % 3 === 0) {
-					player.setTechResearched(FourCC('R006'), hero.level - 1)
+				if (hero.unit.heroLevel % 3 === 0) {
+					player.setTechResearched(FourCC('R006'), hero.unit.level - 1)
 				}
 
 				// Remove Ability Points
-				if (hero.heroLevel < 15 && hero.heroLevel % 2 !== 0) {
-					hero.skillPoints -= 1
-				} else if (hero.heroLevel < 25 && hero.heroLevel >= 15 && hero.heroLevel % 3 !== 0) {
-					hero.skillPoints -= 1
-				} else if (hero.heroLevel >= 25 && hero.heroLevel % 4 !== 0) {
-					hero.skillPoints -= 1
+				if (hero.unit.heroLevel < 15 && hero.unit.heroLevel % 2 !== 0) {
+					hero.unit.skillPoints -= 1
+				} else if (hero.unit.heroLevel < 25 && hero.unit.heroLevel >= 15 && hero.unit.heroLevel % 3 !== 0) {
+					hero.unit.skillPoints -= 1
+				} else if (hero.unit.heroLevel >= 25 && hero.unit.heroLevel % 4 !== 0) {
+					hero.unit.skillPoints -= 1
 				}
 			}
 		})
@@ -365,11 +354,12 @@ export class Hero extends Unit {
 						}
 
 						const hero = new Hero(unit.owner, unit.typeId, pos, 180)
+						hero.setupHero()
 						unit.destroy()
 
-						Hero.PickedPlayers.addPlayer(hero.owner)
+						Hero.PickedPlayers.addPlayer(hero.unit.owner)
 
-						Logger.Information('Name', hero.name)
+						Logger.Information('Name', hero.unit.name)
 
 						unit.show = false
 					} catch (error) {

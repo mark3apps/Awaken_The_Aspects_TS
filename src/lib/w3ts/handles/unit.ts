@@ -896,12 +896,12 @@ export class Unit extends Widget {
 		return this.getAbilityLevel((typeof ability === 'number' ? ability : ability.id)) >= 1
 	}
 
-	public hideAbility (abilId: number) {
-		BlzUnitHideAbility(this.handle, abilId, true)
+	public hideAbility (abilId: AbilityType | number) {
+		typeof abilId === "number" ? BlzUnitHideAbility(this.handle, abilId, true) : BlzUnitHideAbility(this.handle, abilId.id, true)
 	}
 
-	public showAbility (abilId: number) {
-		BlzUnitHideAbility(this.handle, abilId, false)
+	public showAbility (abilId: number | AbilityType) {
+		typeof abilId === "number" ? BlzUnitHideAbility(this.handle, abilId, false) : BlzUnitHideAbility(this.handle, abilId.id, false)
 	}
 
 	public distanceTo (value: Unit | Position): number {
@@ -912,13 +912,22 @@ export class Unit extends Widget {
 		return bj_RADTODEG * Atan2(value.y - this.y, value.x - this.x)
 	}
 
-	public polarProjection (dist: number, angle: number): Position {
-		return new Position(this.x + dist * Cos(angle * bj_DEGTORAD), this.y + dist * Sin(angle * bj_DEGTORAD))
+	public polarProjection (distance: number, angle: number): Position {
+		return new Position(this.x + distance * Cos(angle * bj_DEGTORAD), this.y + distance * Sin(angle * bj_DEGTORAD))
 	}
 
-	public moveToPolarProjection (dist: number, angle: number): void {
-		this.x = this.x + dist * Cos(angle * bj_DEGTORAD)
-		this.y = this.y + dist * Sin(angle * bj_DEGTORAD)
+	public moveToPolarProjection (distance: number, angle: number): void {
+		this.x = this.x + distance * Cos(angle * bj_DEGTORAD)
+		this.y = this.y + distance * Sin(angle * bj_DEGTORAD)
+	}
+
+	public projection (distance: number): Position {
+		return new Position(this.x + distance * Cos(this.facing * bj_DEGTORAD), this.y + distance * Sin(this.facing * bj_DEGTORAD))
+	}
+
+	public moveToProjection (distance: number): void {
+		this.x = this.x + distance * Cos(this.facing * bj_DEGTORAD)
+		this.y = this.y + distance * Sin(this.facing * bj_DEGTORAD)
 	}
 
 	/**
@@ -996,7 +1005,7 @@ export class Unit extends Widget {
 		return whichHandle instanceof MapPlayer ? IsUnitEnemy(this.handle, whichHandle.handle) : IsUnitEnemy(this.handle, whichHandle.owner.handle)
 	}
 
-	public get isExperienceSuspended () {
+	public isExperienceSuspended () {
 		return IsSuspendedXP(this.handle)
 	}
 
@@ -1659,7 +1668,7 @@ export class Unit extends Widget {
 		return this.fromHandle(GetTrainedUnit())
 	}
 
-	public static fromAttacking () {
+	public static fromAttacker () {
 		return this.fromHandle(GetAttacker())
 	}
 

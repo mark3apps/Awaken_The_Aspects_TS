@@ -1,19 +1,25 @@
-import { Handle, HandleMap, Unit, Widget } from 'lib/w3ts/index'
-import { Hero } from '.'
+import { AbilityField } from 'lib/resources/fields'
+import { Unit, Widget } from 'lib/w3ts/index'
+import { AbilityMap } from './AbilityMap'
 import { AbilityType } from './abilityType'
 import { Position } from './position'
 
-export class Ability extends Handle<ability> {
-	public readonly unit!: Unit | Hero
+export class Ability {
+	public readonly unit!: Unit
 	public readonly ability!: AbilityType
-	public readonly handle!: ability
 
-	constructor (unit: Unit | Hero, ability: AbilityType) {
-		super(Ability.getHandle(unit, ability))
-
+	constructor (unit: Unit, ability: AbilityType) {
 		this.ability = ability
 		this.unit = unit
+
+		AbilityMap.map.set(this.handle, this)
 	}
+
+	get handle () {
+		return BlzGetUnitAbility(this.unit.handle, this.ability.id)
+	}
+
+	// onCreate = () => { }
 
 	// Blank On Effect Trigger
 	onEffect = () => { }
@@ -45,51 +51,51 @@ export class Ability extends Handle<ability> {
 
 	// Easy getters from Ability Class
 	public get activatedTooltip (): string {
-		return BlzGetAbilityActivatedTooltip(this.ability.id, this.level)
+		return BlzGetAbilityActivatedTooltip(this.ability.id, this.level - 1)
 	}
 
 	public set activatedTooltip (value: string) {
-		BlzSetAbilityActivatedTooltip(this.ability.id, value, this.level)
+		BlzSetAbilityActivatedTooltip(this.ability.id, value, this.level - 1)
 	}
 
 	public get extendedTooltip (): string {
-		return BlzGetAbilityExtendedTooltip(this.ability.id, this.level)
+		return this.getLevelField(AbilityField.TOOLTIP_NORMAL_EXTENDED, this.level - 1) as string
 	}
 
 	public set extendedTooltip (value: string) {
-		BlzSetAbilityExtendedTooltip(this.ability.id, value, this.level)
+		this.setLevelField(AbilityField.TOOLTIP_NORMAL_EXTENDED, value, this.level - 1)
 	}
 
 	public get tooltip (): string {
-		return BlzGetAbilityTooltip(this.ability.id, this.level)
+		return this.getLevelField(AbilityField.TOOLTIP_NORMAL, this.level - 1) as string
 	}
 
 	public set tooltip (value: string) {
-		BlzSetAbilityTooltip(this.ability.id, value, this.level)
+		this.setLevelField(AbilityField.TOOLTIP_NORMAL, value, this.level - 1)
 	}
 
 	public get researchTooltip (): string {
-		return BlzGetAbilityResearchTooltip(this.ability.id, this.level)
+		return BlzGetAbilityResearchTooltip(this.ability.id, this.level - 1)
 	}
 
 	public set researchTooltip (value: string) {
-		BlzSetAbilityResearchTooltip(this.ability.id, value, this.level)
+		BlzSetAbilityResearchTooltip(this.ability.id, value, this.level - 1)
 	}
 
 	public get researchExtendedTooltip (): string {
-		return BlzGetAbilityResearchExtendedTooltip(this.ability.id, this.level)
+		return BlzGetAbilityResearchExtendedTooltip(this.ability.id, this.level - 1)
 	}
 
 	public set researchExtendedTooltip (value: string) {
-		BlzSetAbilityResearchExtendedTooltip(this.ability.id, value, this.level)
+		BlzSetAbilityResearchExtendedTooltip(this.ability.id, value, this.level - 1)
 	}
 
 	public get activatedExtendedTooltip (): string {
-		return BlzGetAbilityActivatedExtendedTooltip(this.ability.id, this.level)
+		return BlzGetAbilityActivatedExtendedTooltip(this.ability.id, this.level - 1)
 	}
 
 	public set activatedExtendedTooltip (value: string) {
-		BlzSetAbilityActivatedExtendedTooltip(this.ability.id, value, this.level)
+		BlzSetAbilityActivatedExtendedTooltip(this.ability.id, value, this.level - 1)
 	}
 
 	// Getters and Setters unique
@@ -106,8 +112,16 @@ export class Ability extends Handle<ability> {
 		return this.getLevelField(ABILITY_RLF_DURATION_NORMAL) as number
 	}
 
+	public set normalDuration (value: number) {
+		this.setLevelField(AbilityField.DURATION_NORMAL, value)
+	}
+
 	public get heroDuration (): number {
 		return this.getLevelField(ABILITY_RLF_DURATION_HERO) as number
+	}
+
+	public set heroDuration (value: number) {
+		this.setLevelField(AbilityField.DURATION_HERO, value)
 	}
 
 	public get level (): number {
@@ -155,11 +169,11 @@ export class Ability extends Handle<ability> {
 	}
 
 	public get cooldown (): number {
-		return BlzGetUnitAbilityCooldown(this.unit.handle, this.ability.id, this.level)
+		return BlzGetUnitAbilityCooldown(this.unit.handle, this.ability.id, this.level - 1)
 	}
 
 	public set cooldown (value: number) {
-		BlzSetUnitAbilityCooldown(this.unit.handle, this.ability.id, this.level, value)
+		BlzSetUnitAbilityCooldown(this.unit.handle, this.ability.id, this.level - 1, value)
 	}
 
 	public get cooldownRemaining (): number {
@@ -333,39 +347,37 @@ export class Ability extends Handle<ability> {
 		}
 	}
 
+	updateTooltip () {
+		this.tooltip = "HI THERE"
+	}
+
+	updateExtendedTooltop () {
+		this.extendedTooltip = "ARE You here?"
+	}
+
+	updateTooltips () {
+		this.updateTooltip()
+		this.updateExtendedTooltop()
+	}
+
 	// Static Methods
 
-	static fromHandle (handle: ability) {
-		if (handle) {
-			const obj = HandleMap.get(handle)
-			if (obj !== undefined) {
-				return obj
-			}
-		}
-
-		return undefined
+	static fromCast (): Ability {
+		return this.getAbility(Unit.fromCaster(), AbilityType.fromSpellEvent())
 	}
 
-	static fromEvent (): Ability {
-		return this.get(Unit.fromCaster(), AbilityType.fromSpellEvent())
+	static get (unit: Unit, abilityType: AbilityType): Ability {
+		return this.getAbility(unit, abilityType)
 	}
 
-	static get (unit: Unit, ability: AbilityType): Ability {
-		return Ability._getAbility(unit, ability)
-	}
+	protected static getAbility (unit: Unit, abilityType: AbilityType) {
+		const ability = AbilityMap.fromHandle(BlzGetUnitAbility(unit.handle, abilityType.id))
 
-	static _getAbility (unit: Unit, ability: AbilityType) {
-		const abil = this.fromHandle(BlzGetUnitAbility(unit.handle, ability.id))
-
-		if (abil) {
-			return abil
+		if (ability) {
+			return ability
 		} else {
-			unit.addAbility(ability)
-			return Ability.fromHandle(Ability.getHandle(unit, ability))
+			unit.addAbility(abilityType)
+			return new this(unit, abilityType)
 		}
-	}
-
-	static getHandle (unit: Unit, ability: AbilityType) {
-		return BlzGetUnitAbility(unit.handle, ability.id)
 	}
 }

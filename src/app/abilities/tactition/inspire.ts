@@ -12,9 +12,6 @@ export class InspireAbility extends AbilityType {
 			orderId: Order.Channel,
 			type: EffectType.Instant,
 			target: TargetType.SupportAround,
-			permanent: true,
-			ult: true,
-			addEffect: true,
 			addGroup: true,
 			loopTick: 1
 		})

@@ -125,7 +125,7 @@ export class AspectOfFireEvent extends Event {
 	}
 
 	public infernoAbility (): void {
-		const G = Globals.getInstance()
+		const G = Globals.get()
 
 		if (this.eventUnit) {
 			const count = math.floor(math.random(2, 4))

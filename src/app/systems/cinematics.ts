@@ -184,8 +184,8 @@ export class Cinematic {
 					})
 
 					for (let i = 0; i < Hero.all.length; i++) {
-						const element = Hero.all[i]
-						element.show = true
+						const hero = Hero.all[i]
+						hero.unit.show = true
 					}
 
 					countdown.pause()

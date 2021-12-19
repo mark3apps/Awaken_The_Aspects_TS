@@ -2,96 +2,96 @@ import { Hero } from 'app/classes'
 import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
 import { UnitType } from 'app/classes/unitType'
 import { HeroAttribute } from 'app/systems/attribute'
-import { DruidBalanceTree } from 'app/systems/talents/talentTrees/druidBalance'
+import { ShiftMasterSkillTree } from 'app/heroes/ShiftMaster/shiftMasterSkillTree'
 import { Strategy } from 'lib/resources/strategy'
 import { HeroType } from 'lib/w3ts/handles/herotype'
 import { AbilityFour, Order } from 'lib/w3ts/index'
 
 export class BrawlerHeroType extends HeroType {
-	constructor () {
-		super('E001', 'Brawler')
+	// constructor () {
+	// 	super('E001', 'Brawler')
 
-		this.talentTrees = (u: Hero) => {
-			const skill = new DruidBalanceTree(u)
-			const guard = new DruidBalanceTree(u)
-			const armor = new DruidBalanceTree(u)
+	// 	this.talentTrees = (u: Hero) => {
+	// 		const skill = new DruidBalanceTree(u)
+	// 		const guard = new DruidBalanceTree(u)
+	// 		const armor = new DruidBalanceTree(u)
 
-			u.skillTree.SetTree(skill)
-			u.guardTree.SetTree(guard)
-			u.armorTree.SetTree(armor)
-		}
+	// 		u.skillTree.SetTree(skill)
+	// 		u.guardTree.SetTree(guard)
+	// 		u.armorTree.SetTree(armor)
+	// 	}
 
-		// Attributes
-		this.addHeroAttribute(HeroAttribute.strength)
-		this.addHeroAttribute(HeroAttribute.melee)
-		this.addHeroAttribute(HeroAttribute.brawler)
+	// 	// Attributes
+	// 	this.addHeroAttribute(HeroAttribute.strength)
+	// 	this.addHeroAttribute(HeroAttribute.melee)
+	// 	this.addHeroAttribute(HeroAttribute.brawler)
 
-		// Items
+	// 	// Items
 
-		// AI Setup
-		this.lifeFactor = 1
-		this.manaFactor = 0.02
-		this.lifeHighPercent = 65
-		this.lifeLowPercent = 20
-		this.lifeLowNumber = 400
-		this.highDamageSingle = 17
-		this.highDamageAverage = 25
-		this.powerBase = 500
-		this.powerLevel = 200
-		this.unitClumpCheck = true
-		this.unitClumpRange = 100
-		this.intelRange = 1100
-		this.intelCloseRange = 500
+	// 	// AI Setup
+	// 	this.lifeFactor = 1
+	// 	this.manaFactor = 0.02
+	// 	this.lifeHighPercent = 65
+	// 	this.lifeLowPercent = 20
+	// 	this.lifeLowNumber = 400
+	// 	this.highDamageSingle = 17
+	// 	this.highDamageAverage = 25
+	// 	this.powerBase = 500
+	// 	this.powerLevel = 200
+	// 	this.unitClumpCheck = true
+	// 	this.unitClumpRange = 100
+	// 	this.intelRange = 1100
+	// 	this.intelCloseRange = 500
 
-		this.traitAgressive = 80
-		this.traitDefensive = 60
-		this.traitSupport = 30
-		this.traitAssassinate = 0
+	// 	this.traitAgressive = 80
+	// 	this.traitDefensive = 60
+	// 	this.traitSupport = 30
+	// 	this.traitAssassinate = 0
 
-		this.addStrategy(Strategy.Agressive)
-		this.addStrategy(Strategy.Neutral)
-		this.addStrategy(Strategy.Defensive)
+	// 	this.addStrategy(Strategy.Agressive)
+	// 	this.addStrategy(Strategy.Neutral)
+	// 	this.addStrategy(Strategy.Defensive)
 
-		// Abilities
+	// 	// Abilities
 
-		// Drain
-		this.addAbility(new AbilityType({
-			four: AbilityFour.Drain,
-			type: EffectType.Channel,
-			orderId: Order.Stomp,
-			target: TargetType.DamageAround,
-			permanent: true
-		}))
+	// 	// Drain
+	// 	this.addHeroAbilityType(new AbilityType({
+	// 		four: AbilityFour.Drain,
+	// 		type: EffectType.Channel,
+	// 		orderId: Order.Stomp,
+	// 		target: TargetType.DamageAround,
+	// 		permanent: true
+	// 	}))
 
-		// Bloodlust
-		this.addAbility(new AbilityType({
-			four: AbilityFour.Bloodlust,
-			orderId: Order.Stomp,
-			type: EffectType.Instant,
-			target: TargetType.SupportSelf,
-			permanent: true,
-			starting: true
-		}))
+	// 	// Bloodlust
+	// 	this.addHeroAbilityType(new AbilityType({
+	// 		four: AbilityFour.Bloodlust,
+	// 		orderId: Order.Stomp,
+	// 		type: EffectType.Instant,
+	// 		target: TargetType.SupportSelf,
+	// 		permanent: true,
+	// 		starting: true
+	// 	}))
 
-		// Warstomp
-		this.addAbility(new AbilityType({
-			four: AbilityFour.Warstomp,
-			orderId: Order.Stomp,
-			type: EffectType.Instant,
-			target: TargetType.DamageAround,
-			permanent: true,
-			starting: true
-		}))
+	// 	// Warstomp
+	// 	this.addHeroAbilityType(new AbilityType({
+	// 		four: AbilityFour.Warstomp,
+	// 		orderId: Order.Stomp,
+	// 		type: EffectType.Instant,
+	// 		target: TargetType.DamageAround,
+	// 		permanent: true,
+	// 		starting: true
+	// 	}))
 
-		// Unleash Rage
-		this.addAbility(new AbilityType({
-			four: AbilityFour.UnleashRage,
-			type: EffectType.Channel,
-			orderId: Order.Stomp,
-			target: TargetType.DamageAround,
-			permanent: true,
-			starting: false,
-			ult: true
-		}))
-	}
+	// 	// Unleash Rage
+	// 	this.addHeroAbilityType(new AbilityType({
+	// 		four: AbilityFour.UnleashRage,
+	// 		type: EffectType.Channel,
+	// 		orderId: Order.Stomp,
+	// 		target: TargetType.DamageAround,
+	// 		permanent: true,
+	// 		starting: false,
+	// 		ult: true
+	// 	}))
+	// }
 }

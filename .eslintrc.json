@@ -45,6 +45,7 @@
 		"indent": [
 			"off"
 		],
+		"no-useless-constructor": "off",
 		"no-tabs": "off",
 		"no-use-before-define": [
 			"off",

@@ -89,6 +89,22 @@ export class MapPlayer extends Handle<player> {
 		return BlzGetPlayerTownHallCount(this.handle)
 	}
 
+	public get lumber () {
+		return GetPlayerState(this.handle, PLAYER_STATE_RESOURCE_LUMBER)
+	}
+
+	public set lumber (value: number) {
+		SetPlayerState(this.handle, PLAYER_STATE_RESOURCE_LUMBER, value)
+	}
+
+	public get gold () {
+		return GetPlayerState(this.handle, PLAYER_STATE_RESOURCE_GOLD)
+	}
+
+	public set gold (value: number) {
+		SetPlayerState(this.handle, PLAYER_STATE_RESOURCE_GOLD, value)
+	}
+
 	/**
    * In upgrades that have multiple levels, it will research the upgrade by the number of levels specified.
    * @param techId The four digit rawcode ID of the upgrade.

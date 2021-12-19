@@ -11656,24 +11656,6 @@ STRING 4452
 Learn Shift - [|cffffcc00Level %d|r]
 }
 
-STRING 4453
-// Abilities: A039 (Shift Upgraded 1), Name (Name)
-{
-Shift Upgraded 1
-}
-
-STRING 4454
-// Abilities: A03A (Shift Upgraded 3), Name (Name)
-{
-Shift Upgraded 3
-}
-
-STRING 4455
-// Abilities: A03B (Shift Upgraded 2), Name (Name)
-{
-Shift Upgraded 2
-}
-
 STRING 4456
 // Abilities: A03T (SM - Shift), Researchhotkey (Hotkey - Learn)
 {
@@ -15121,5 +15103,11 @@ STRING 5177
 // Abilities: A03Y (Tree - Guard), Ubertip (Tooltip - Normal - Extended)
 {
 Opens the Hero's Skill Tree.
+}
+
+STRING 5178
+// Abilities: A059 (SM - Falling Strike), EditorSuffix (Editor Suffix)
+{
+(Hero)
 }
 

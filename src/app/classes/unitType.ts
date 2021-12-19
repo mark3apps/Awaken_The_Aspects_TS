@@ -13,11 +13,11 @@ export type IUnitType = {
 export class UnitType {
 	public readonly four: string
 	public readonly id: number
-	public order: boolean
-	public replaceOnSummon: boolean
-	public factorySummon: boolean
-	public leaveCorpse: boolean
-	public preload: boolean
+	public order: boolean = true
+	public replaceOnSummon: boolean = false
+	public factorySummon: boolean = false
+	public leaveCorpse: boolean = false
+	public preload: boolean = false
 
 	static preloader: UnitType[] = []
 	static readonly map: Map<number, UnitType> = new Map()
@@ -31,18 +31,18 @@ export class UnitType {
 		this.id = FourCC(config.four)
 
 		// Default Booleans
-		this.order = config.order ?? true
-		this.replaceOnSummon = config.replaceOnSummon ?? false
-		this.factorySummon = config.factorySummon ?? false
-		this.leaveCorpse = config.leaveCorpse ?? false
-		this.preload = config.preload ?? true
+		if (config.order !== undefined) this.order = config.order
+		if (config.replaceOnSummon !== undefined) this.replaceOnSummon = config.replaceOnSummon
+		if (config.factorySummon !== undefined) this.factorySummon = config.factorySummon
+		if (config.leaveCorpse !== undefined) this.leaveCorpse = config.leaveCorpse
+		if (config.preload !== undefined) this.preload = config.preload
 
 		UnitType.map.set(this.id, this)
-		if (config.order) { UnitType.order.set(this.id, true) }
-		if (config.replaceOnSummon) { UnitType.replaceOnSummon.set(this.id, true) }
-		if (config.factorySummon) { UnitType.factorySummon.set(this.id, true) }
-		if (config.leaveCorpse) { UnitType.leaveCorpse.set(this.id, true) }
-		if (config.preload) { UnitType.preloader.push(this) }
+		if (this.order) { UnitType.order.set(this.id, true) }
+		if (this.replaceOnSummon) { UnitType.replaceOnSummon.set(this.id, true) }
+		if (this.factorySummon) { UnitType.factorySummon.set(this.id, true) }
+		if (this.leaveCorpse) { UnitType.leaveCorpse.set(this.id, true) }
+		if (this.preload) { UnitType.preloader.push(this) }
 	}
 
 	static get (unit: Unit | string): UnitType | undefined {

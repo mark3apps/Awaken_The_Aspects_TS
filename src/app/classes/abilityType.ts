@@ -54,6 +54,9 @@ export interface iAbilityType {
 	four: AbilityFour | string,
 	addEffect?: boolean,
 	addGroup?: boolean,
+	permanent?: boolean,
+	starting?: boolean,
+	ult?: boolean,
 	addBuffDeath?: boolean,
 	loopTick?: number,
 	onEffect?: () => void,
@@ -64,15 +67,8 @@ export interface iAbilityType {
 	orderIdAutoOn?: number,
 	orderIdAutoOff?: number,
 	orderIdOff?: number,
-	unitType?: UnitType[],
-	permanent?: boolean,
-	starting?: boolean,
-	ult?: boolean
+	unitType?: UnitType[]
 }
-
-const map = new Map<string, AbilityType>()
-const mapInstant = new Map<string, AbilityType>()
-const preload: AbilityType[] = []
 
 export class AbilityType {
 	readonly four!: string
@@ -95,9 +91,13 @@ export class AbilityType {
 	loopTimer: Timer | undefined
 	group: Group | undefined
 
-	onEffect: () => void = () => { }
+	onEffect?: () => void
 	onBuffDeath: () => void = () => { }
 	onLoop: () => void = () => { }
+	getAbility: (unit: Unit) => any = (unit: Unit) => { }
+	protected static map = new Map<string, any>()
+	protected static mapInstant = new Map<string, any>()
+	protected static preload: any[] = []
 
 	constructor (ability: iAbilityType) {
 		//
@@ -123,17 +123,14 @@ export class AbilityType {
 			}
 		}
 
-		this.permanent = ability.permanent ?? false
-		this.starting = ability.starting ?? false
-		this.ult = ability.ult ?? false
 		if (ability.addBuffDeath !== undefined) this.addBuffDeath = ability.addBuffDeath
 		this.loopTick = ability.loopTick ?? 0
 
-		preload.push(this)
+		AbilityType.preload.push(this)
 
 		// If ability hasn't been definite before
-		if (!map.has(this.four)) {
-			map.set(this.four, this)
+		if (!AbilityType.map.has(this.four)) {
+			AbilityType.map.set(this.four, this)
 
 			// Start Ability loop
 			if (this.loopTick > 0) {
@@ -150,12 +147,12 @@ export class AbilityType {
 			}
 
 			// Add Trigger Trigger
-			if (this.onEffect !== (() => { })) {
+			if (this.onEffect) {
 				switch (this.type) {
 					case EffectType.Kill:
 						Trigger.unitDies.add(() => {
 							if (Unit.fromHandle(GetKillingUnit()).hasAbility(this)) {
-								this.onEffect()
+								if (this.onEffect) this.onEffect()
 							}
 						})
 						break
@@ -163,7 +160,7 @@ export class AbilityType {
 					case EffectType.Death:
 						Trigger.unitDies.add(() => {
 							if (Unit.fromEvent().hasAbility(this)) {
-								this.onEffect()
+								if (this.onEffect) this.onEffect()
 							}
 						})
 						break
@@ -171,15 +168,15 @@ export class AbilityType {
 					case EffectType.Attacked:
 						Trigger.unitAttacked.add(() => {
 							if (Unit.fromEvent().hasAbility(this.id)) {
-								this.onEffect()
+								if (this.onEffect) this.onEffect()
 							}
 						})
 						break
 
 					case EffectType.Attacking:
 						Trigger.unitAttacked.add(() => {
-							if (Unit.fromAttacking().hasAbility(this.id)) {
-								this.onEffect()
+							if (Unit.fromAttacker().hasAbility(this.id)) {
+								if (this.onEffect) this.onEffect()
 							}
 						})
 						break
@@ -187,13 +184,13 @@ export class AbilityType {
 					case EffectType.UnitTypeAttacking:
 						Trigger.unitAttacked.add(() => {
 							if (this.unitType[GetUnitTypeId(GetAttacker())]) {
-								this.onEffect()
+								if (this.onEffect) this.onEffect()
 							}
 						})
 						break
 
 					case EffectType.Instant:
-						mapInstant.set(this.four, this)
+						AbilityType.mapInstant.set(this.four, this)
 						break
 					default:
 						break
@@ -205,9 +202,9 @@ export class AbilityType {
 	public static initSpellEffects (): void {
 		try {
 			Trigger.unitSpellEffect.add(() => {
-				if (mapInstant.has(CC2Four(GetSpellAbilityId()))) {
+				if (AbilityType.mapInstant.has(CC2Four(GetSpellAbilityId()))) {
 					const ability = this.fromSpellEvent()
-					if (ability) ability.onEffect()
+					if (ability && ability.onEffect) ability.onEffect()
 				}
 			})
 		} catch (error) {
@@ -216,14 +213,16 @@ export class AbilityType {
 	}
 
 	public static fromSpellEvent () {
-		return AbilityType.fromId(GetSpellAbilityId())
+		return this.fromId(GetSpellAbilityId())
 	}
 
-	public static fromId (id: string | number): AbilityType {
-		let four: string
-		typeof id === 'string' ? four = id : four = CC2Four(id)
+	public static fromId (id: number) {
+		const four = CC2Four(id)
+		return AbilityType.map.get(four) ?? new this({ four: four })
+	}
 
-		return map.get(four) ?? new AbilityType({ four: four })
+	public static fromFour (four: string) {
+		return AbilityType.map.get(four) ?? new AbilityType({ four: four })
 	}
 
 	public get id (): number {
