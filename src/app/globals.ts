@@ -42,22 +42,22 @@ class DefineUnits {
 class DefineAbilityTypes {
 	private static instance: DefineAbilityTypes
 
-	aspectInferno?: AbilityType
-	shift1Dummy?: AbilityType
-	fallingStrikeDummy?: AbilityType
-	shadeStormDummy?: AbilityType
-	stormCrowForm?: AbilityType
-	footmanUpgrade?: AbilityType
-	felGrunt?: AbilityType
-	felOgre?: AbilityType
-	felWarlord?: AbilityType
-	felWarlock?: AbilityType
-	manaRepository?: AbilityType
-	manaShieldTower?: AbilityType
-	manaShardsTower?: AbilityType
-	chainLightningTower?: AbilityType
-	coneOfFireTower?: AbilityType
-	aspectOfDeathInfect?: AbilityType
+	aspectInferno: AbilityType
+	shift1Dummy: AbilityType
+	fallingStrikeDummy: AbilityType
+	shadeStormDummy: AbilityType
+	stormCrowForm: AbilityType
+	footmanUpgrade: AbilityType
+	felGrunt: AbilityType
+	felOgre: AbilityType
+	felWarlord: AbilityType
+	felWarlock: AbilityType
+	manaRepository: AbilityType
+	manaShieldTower: AbilityType
+	manaShardsTower: AbilityType
+	chainLightningTower: AbilityType
+	coneOfFireTower: AbilityType
+	aspectOfDeathInfect: AbilityType
 
 	static getInstance () {
 		if (!DefineAbilityTypes.instance) {
