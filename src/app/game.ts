@@ -65,48 +65,6 @@ export class Game {
 
 		Players[0].lumber = 50
 
-		// Skill Tree Open & Close
-		new AbilityType({
-			four: 'A024',
-			type: EffectType.Instant,
-			onEffect: () => {
-				const hero = Hero.fromEvent()
-				if (hero) {
-					if (hero.guardTree.IsWatched()) hero.guardTree.Hide()
-					if (hero.armorTree.IsWatched()) hero.armorTree.Hide()
-					hero.skillTree.IsWatched() ? hero.skillTree.Hide() : hero.skillTree.Show()
-				}
-			}
-		})
-
-		// Guard Tree Open & Close
-		new AbilityType({
-			four: 'A03Y',
-			type: EffectType.Instant,
-			onEffect: () => {
-				const hero = Hero.fromEvent()
-				if (hero) {
-					if (hero.skillTree.IsWatched()) hero.skillTree.Hide()
-					if (hero.armorTree.IsWatched()) hero.armorTree.Hide()
-					hero.guardTree.IsWatched() ? hero.guardTree.Hide() : hero.guardTree.Show()
-				}
-			}
-		})
-
-		// Armor Tree Open & Close
-		new AbilityType({
-			four: 'A03W',
-			type: EffectType.Instant,
-			onEffect: () => {
-				const hero = Hero.fromEvent()
-				if (hero) {
-					if (hero.guardTree.IsWatched()) hero.guardTree.Hide()
-					if (hero.skillTree.IsWatched()) hero.skillTree.Hide()
-					hero.armorTree.IsWatched() ? hero.armorTree.Hide() : hero.armorTree.Show()
-				}
-			}
-		})
-
 		Spawn.start()
 
 		Logger.Verbose('Game Map Start Finished')

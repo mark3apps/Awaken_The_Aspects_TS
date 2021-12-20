@@ -3247,20 +3247,8 @@ STRING 2142
 Research Armor Boost Level 25
 }
 
-STRING 2168
-// Abilities: A02D (Talents - Brawler), Tip (Tooltip - Normal)
-{
-Talents
-}
-
-STRING 2169
-// Abilities: A02J (Talents - Mana Seeker), Tip (Tooltip - Normal)
-{
-Talents
-}
-
 STRING 2170
-// Abilities: A02D (Talents - Brawler), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01F (Skills), Ubertip (Tooltip - Normal - Extended)
 {
 This contains all of the talents that have been purchased for this hero.
 }
@@ -3781,12 +3769,6 @@ STRING 2381
 TALENT - BR - Bash
 }
 
-STRING 2382
-// Abilities: A02D (Talents - Brawler), Name (Name)
-{
-Talents - Brawler
-}
-
 STRING 2383
 // Abilities: A02E (TALENT - BR - Reincarnation), Name (Name)
 {
@@ -3799,20 +3781,14 @@ STRING 2385
 TALENT - MS - Feedback
 }
 
-STRING 2386
-// Abilities: A02J (Talents - Mana Seeker), Name (Name)
-{
-Talents - Mana Seeker
-}
-
 STRING 2387
-// Abilities: A02J (Talents - Mana Seeker), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A01R (WEAPON - Shifter), Ubertip (Tooltip - Normal - Extended)
 {
 This contains all of the talents that have been purchased for this hero.
 }
 
 STRING 2388
-// Abilities: A02D (Talents - Brawler), Hotkey (Hotkey - Normal)
+// Abilities: A01R (WEAPON - Shifter), Hotkey (Hotkey - Normal)
 {
 C
 }
@@ -4032,28 +4008,10 @@ STRING 2492
 V
 }
 
-STRING 2495
-// Abilities: A02Z (Talents - Shifter), Name (Name)
-{
-Talents - Shifter
-}
-
-STRING 2496
-// Abilities: A02Z (Talents - Shifter), Tip (Tooltip - Normal)
-{
-Talents
-}
-
 STRING 2497
-// Abilities: A02Z (Talents - Shifter), Ubertip (Tooltip - Normal - Extended)
+// Abilities: Z000 (Hidden - Basic Abilities), Ubertip (Tooltip - Normal - Extended)
 {
 This contains all of the talents that have been purchased for this hero.
-}
-
-STRING 2498
-// Abilities: A02J (Talents - Mana Seeker), Hotkey (Hotkey - Normal)
-{
-C
 }
 
 STRING 2531
@@ -4144,12 +4102,6 @@ STRING 2550
 // Abilities: A056 (TALENT - SH - Swift Moves), Tip (Tooltip - Normal)
 {
 Swift Moves - [|cffffcc00Level 3|r]
-}
-
-STRING 2555
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Name (Name)
-{
-TALENT - SH - Attribute Bonus
 }
 
 STRING 2586
@@ -4558,12 +4510,6 @@ STRING 2714
 // Upgrades: R000 (Iron Forged Swords,Steel Forged Swords,Mithril Forged Swords), Hotkey (Hotkey)
 {
 S
-}
-
-STRING 2716
-// Abilities: A036 (TALENT - MS - Attribute Bonus), Name (Name)
-{
-TALENT - MS - Attribute Bonus
 }
 
 STRING 2717
@@ -7657,133 +7603,133 @@ Mana Overflow - [|cffffcc00Level 3r]
 }
 
 STRING 3404
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 5|r]
 }
 
 STRING 3405
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 6|r]
 }
 
 STRING 3406
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 7|r]
 }
 
 STRING 3407
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 8|r]
 }
 
 STRING 3408
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 9|r]
 }
 
 STRING 3409
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 10|r]
 }
 
 STRING 3410
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 11|r]
 }
 
 STRING 3411
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 12|r]
 }
 
 STRING 3412
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 13|r]
 }
 
 STRING 3413
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 14|r]
 }
 
 STRING 3414
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 15|r]
 }
 
 STRING 3415
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 16|r]
 }
 
 STRING 3416
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 17|r]
 }
 
 STRING 3417
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 18|r]
 }
 
 STRING 3418
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 19|r]
 }
 
 STRING 3419
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 20|r]
 }
 
 STRING 3420
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 21|r]
 }
 
 STRING 3421
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 22|r]
 }
 
 STRING 3422
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 23|r]
 }
 
 STRING 3423
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 24|r]
 }
 
 STRING 3424
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 25|r]
 }
 
 STRING 3425
-// Abilities: A031 (TALENT - SH - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 26|r]
 }
@@ -8026,12 +7972,6 @@ STRING 3540
 // Abilities: A027 (Tower Heal Hero - Normal), Ubertip (Tooltip - Normal - Extended)
 {
 Heals a target friendly unit for <Arej,DataA10> hit points over <Arej,Dur10> seconds.
-}
-
-STRING 3542
-// Abilities: A006 (TALENT - BR - Attribute Bonus), Name (Name)
-{
-TALENT - BR - Attribute Bonus
 }
 
 STRING 3547
@@ -8453,168 +8393,6 @@ STRING 3646
 // Units: h00Y (Altar of Kings (Tactition)), Name (Name)
 {
 Altar of Kings (Tactition)
-}
-
-STRING 3647
-// Abilities: A01F (Talents - Tactition), Name (Name)
-{
-Talents - Tactition
-}
-
-STRING 3648
-// Abilities: A01F (Talents - Tactition), Tip (Tooltip - Normal)
-{
-Talents
-}
-
-STRING 3649
-// Abilities: A01F (Talents - Tactition), Ubertip (Tooltip - Normal - Extended)
-{
-This contains all of the talents that have been purchased for this hero.
-}
-
-STRING 3650
-// Abilities: A02Z (Talents - Shifter), Hotkey (Hotkey - Normal)
-{
-C
-}
-
-STRING 3651
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Name (Name)
-{
-TALENT - TA - Attribute Bonus
-}
-
-STRING 3652
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 5|r]
-}
-
-STRING 3653
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 6|r]
-}
-
-STRING 3654
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 7|r]
-}
-
-STRING 3655
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 8|r]
-}
-
-STRING 3656
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 9|r]
-}
-
-STRING 3657
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 10|r]
-}
-
-STRING 3658
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 11|r]
-}
-
-STRING 3659
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 12|r]
-}
-
-STRING 3660
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 13|r]
-}
-
-STRING 3661
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 14|r]
-}
-
-STRING 3662
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 15|r]
-}
-
-STRING 3663
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 16|r]
-}
-
-STRING 3664
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 17|r]
-}
-
-STRING 3665
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 18|r]
-}
-
-STRING 3666
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 19|r]
-}
-
-STRING 3667
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 20|r]
-}
-
-STRING 3668
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 21|r]
-}
-
-STRING 3669
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 22|r]
-}
-
-STRING 3670
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 23|r]
-}
-
-STRING 3671
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 24|r]
-}
-
-STRING 3672
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 25|r]
-}
-
-STRING 3673
-// Abilities: A04G (TALENT - TA - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 26|r]
 }
 
 STRING 3674
@@ -9285,168 +9063,6 @@ Allies get +45% current & max life and +2 armor.
 Enemies get -45% current & max life and -2 armor.
 
 
-}
-
-STRING 3813
-// Abilities: A04S (Talents - Time Mage), Name (Name)
-{
-Talents - Time Mage
-}
-
-STRING 3814
-// Abilities: A04S (Talents - Time Mage), Tip (Tooltip - Normal)
-{
-Talents
-}
-
-STRING 3815
-// Abilities: A04S (Talents - Time Mage), Ubertip (Tooltip - Normal - Extended)
-{
-This contains all of the talents that have been purchased for this hero.
-}
-
-STRING 3816
-// Abilities: A01F (Talents - Tactition), Hotkey (Hotkey - Normal)
-{
-C
-}
-
-STRING 3817
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Name (Name)
-{
-TALENT - TM - Attribute Bonus
-}
-
-STRING 3818
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 5|r]
-}
-
-STRING 3819
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 6|r]
-}
-
-STRING 3820
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 7|r]
-}
-
-STRING 3821
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 8|r]
-}
-
-STRING 3822
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 9|r]
-}
-
-STRING 3823
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 10|r]
-}
-
-STRING 3824
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 11|r]
-}
-
-STRING 3825
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 12|r]
-}
-
-STRING 3826
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 13|r]
-}
-
-STRING 3827
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 14|r]
-}
-
-STRING 3828
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 15|r]
-}
-
-STRING 3829
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 16|r]
-}
-
-STRING 3830
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 17|r]
-}
-
-STRING 3831
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 18|r]
-}
-
-STRING 3832
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 19|r]
-}
-
-STRING 3833
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 20|r]
-}
-
-STRING 3834
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 21|r]
-}
-
-STRING 3835
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 22|r]
-}
-
-STRING 3836
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 23|r]
-}
-
-STRING 3837
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 24|r]
-}
-
-STRING 3838
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 25|r]
-}
-
-STRING 3839
-// Abilities: A04T (TALENT - TM - Attribute Bonus), Tip (Tooltip - Normal)
-{
-Attribute Bonus - [|cffffcc00Level 26|r]
 }
 
 STRING 3860
@@ -12858,18 +12474,6 @@ STRING 4781
 Shifter Weapon
 }
 
-STRING 4782
-// Abilities: A01R (WEAPON - Shifter), Ubertip (Tooltip - Normal - Extended)
-{
-This contains all of the talents that have been purchased for this hero.
-}
-
-STRING 4783
-// Abilities: A04S (Talents - Time Mage), Hotkey (Hotkey - Normal)
-{
-C
-}
-
 STRING 4784
 // Units: h01F (Wildhammer Farm), EditorSuffix (Name - Editor Suffix)
 {
@@ -14703,12 +14307,6 @@ STRING 5104
 Arcane Building
 }
 
-STRING 5105
-// Abilities: A01R (WEAPON - Shifter), Hotkey (Hotkey - Normal)
-{
-C
-}
-
 STRING 5106
 // Units: n00U (Arcane Building), Name (Name)
 {
@@ -15063,18 +14661,6 @@ STRING 5170
 Tree - Armor
 }
 
-STRING 5171
-// Abilities: A03W (Tree - Armor), Hotkey (Hotkey - Normal)
-{
-Q
-}
-
-STRING 5172
-// Abilities: A03W (Tree - Armor), Tip (Tooltip - Normal)
-{
-Open Armor Upgrades
-}
-
 STRING 5173
 // Abilities: A03W (Tree - Armor), Ubertip (Tooltip - Normal - Extended)
 {
@@ -15085,12 +14671,6 @@ STRING 5174
 // Abilities: A03Y (Tree - Guard), Name (Name)
 {
 Tree - Guard
-}
-
-STRING 5175
-// Abilities: A03Y (Tree - Guard), Hotkey (Hotkey - Normal)
-{
-Q
 }
 
 STRING 5176
@@ -15109,5 +14689,65 @@ STRING 5178
 // Abilities: A059 (SM - Falling Strike), EditorSuffix (Editor Suffix)
 {
 (Hero)
+}
+
+STRING 5179
+// Abilities: A03W (Tree - Armor), Tip (Tooltip - Normal)
+{
+Open Equipment Upgrades
+}
+
+STRING 5180
+// Abilities: A03W (Tree - Armor), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 5181
+// Abilities: A03Y (Tree - Guard), Hotkey (Hotkey - Normal)
+{
+E
+}
+
+STRING 5182
+// Abilities: A01F (Skills), Name (Name)
+{
+Skills
+}
+
+STRING 5183
+// Abilities: A01F (Skills), Tip (Tooltip - Normal)
+{
+Skills
+}
+
+STRING 5184
+// Abilities: A01F (Skills), Hotkey (Hotkey - Normal)
+{
+B
+}
+
+STRING 5185
+// Abilities: Z010 (Hidden - Attribute Bonus), Name (Name)
+{
+Hidden - Attribute Bonus
+}
+
+STRING 5186
+// Abilities: Z000 (Hidden - Basic Abilities), Name (Name)
+{
+Hidden - Basic Abilities
+}
+
+STRING 5187
+// Abilities: Z000 (Hidden - Basic Abilities), Tip (Tooltip - Normal)
+{
+Skills
+}
+
+STRING 5188
+// Abilities: Z000 (Hidden - Basic Abilities), Hotkey (Hotkey - Normal)
+{
+B
 }
 

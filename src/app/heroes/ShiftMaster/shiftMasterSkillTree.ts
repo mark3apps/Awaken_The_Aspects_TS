@@ -4,6 +4,8 @@ import { ITalentTreeBuilder } from 'lib/STK/UI/STK/Interfaces/ITalentTreeBuilder
 import { ActivationEvent } from 'lib/STK/UI/STK/Models/Talent'
 import { TalentTree } from 'lib/STK/UI/STK/Models/TalentTree'
 import { AbilityFour, Icon } from 'lib/w3ts'
+import { FelFormAbility } from './abilities/felForm'
+import { BonusStatsAbility } from 'app/abilities/bonus/bonusStats'
 
 export class ShiftMasterSkillTree extends TalentTree {
 	get talentPoints (): number {
@@ -37,10 +39,10 @@ export class ShiftMasterSkillTree extends TalentTree {
 		// The tree should be built with talents here
 		// ==============================================
 
-		builder.AddMultirankTalent(0, 7, 2, lvl => {
-			const distance = [50, 100]
-			const shadeDamageTaken = ["-5%", "-10%"]
-			const shadeDamageDealt = ["5%", "10%"]
+		builder.AddMultirankTalent(0, 7, 3, lvl => {
+			const distance = [25, 50, 75]
+			const shadeDamageTaken = ["-5%", "-10%", "-15%"]
+			const shadeDamageDealt = ["5%", "10%", "15%"]
 			return {
 				Name: "Improved Shift",
 				Icon: Icon.MirrorImage,
@@ -49,18 +51,17 @@ export class ShiftMasterSkillTree extends TalentTree {
 				OnAllocate: (e) => this.ActivateImprovedShift(e)
 			}
 		})
-		builder.AddMultirankTalent(0, 6, 2, lvl => {
-			const distance = [50, 100]
-			const shadeDamageTaken = ["-5%", "-10%"]
-			const shadeDamageDealt = ["5%", "10%"]
-			const shadeDuration = [3, 6]
+		builder.AddMultirankTalent(0, 6, 1, lvl => {
+			const shadeDamageTaken = ["-10%"]
+			const shadeDamageDealt = ["+10%"]
+			const shadeDuration = [3]
 			return {
 				Name: "Mastered Shift",
 				Icon: Icon.MirrorImage,
-				Description: `Increases Shifts effectiveness.|n+${distance[lvl - 1]} Distance Travelled|n${shadeDamageTaken[lvl - 1]} Shade Damage Taken|n${shadeDamageDealt[lvl - 1]} Shade Damage DealtShade Duration +${shadeDuration[lvl - 1]}`,
+				Description: `Increases Shifts effectiveness.|n${shadeDamageTaken[lvl - 1]} Shade Damage Taken|n${shadeDamageDealt[lvl - 1]} Shade Damage DealtShade Duration +${shadeDuration[lvl - 1]}`,
 				Cost: 2,
 				OnAllocate: (e) => this.ActivateMasteredShift(e),
-				Dependency: { up: 1 }
+				Dependency: { up: 3 }
 			}
 		})
 
@@ -77,7 +78,7 @@ export class ShiftMasterSkillTree extends TalentTree {
 		})
 
 		// Improved Shade Strength <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		builder.AddMultirankTalent(1, 6, 5, lvl => {
+		builder.AddMultirankTalent(2, 7, 5, lvl => {
 			const shadeDamageDealt = ["5%", "10%", "15%", "20%", "25%"]
 			return {
 				Name: 'Shade Strength',
@@ -89,7 +90,7 @@ export class ShiftMasterSkillTree extends TalentTree {
 		})
 
 		// Improved Shade Health <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		builder.AddMultirankTalent(2, 6, 5, lvl => {
+		builder.AddMultirankTalent(1, 6, 5, lvl => {
 			const shadeDamageDealt = ["8%", "16%", "24%", "32%", "40%"]
 			return {
 				Name: 'Shade Health',
@@ -100,178 +101,129 @@ export class ShiftMasterSkillTree extends TalentTree {
 			}
 		})
 
-		// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// // Nature's Grasp <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// builder.AddTalent(1, 6, {
+		//
+		// Fel Form
+		//
 
-		// 	Name: "Nature's Grasp",
-		// 	Description: 'While active, any time an enemy strikes the caster they have a 35% chance to become afflicted by Entangling Roots (Rank 1).  Only useable outdoors.  1 charge.  Lasts 45 sec.',
-		// 	Icon: 'spell_nature_natureswrath',
-		// 	OnActivate: (e) => this.ActivateCallFlyingSheep(e)
-		// })
-		// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// // Improved Nature's Grasp <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// builder.AddMultirankTalent(2, 6, 4, lvl => {
-		// 	const entangleChanceBonus = [15, 30, 45, 65]
-		// 	return {
-		// 		Name: "Improved Nature's Grasp",
-		// 		Description: `Increases the chance for your Nature's Grasp to entangle an enemy by ${entangleChanceBonus[lvl - 1]}%.`,
-		// 		Icon: 'spell_nature_natureswrath',
-		// 		OnActivate: (e) => this.ActivateCallFlyingSheep(e),
-		// 		Dependency: { left: 1 }
-		// 	}
-		// })
-		// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// // Improved Entangling Roots <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// builder.AddMultirankTalent(0, 5, 3, lvl => {
-		// 	const chance = [40, 70, 100]
-		// 	return {
-		// 		Name: 'Improved Entangling Roots',
-		// 		Description: `Gives you a ${chance[lvl - 1]}% chance to avoid interruption caused by damage while casting Entangling Roots.`,
-		// 		Icon: 'EntanglingRoots',
-		// 		OnActivate: (e) => this.ActivateCallFlyingSheep(e)
-		// 	}
-		// })
-		// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// // Improved Moonfire <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// builder.AddMultirankTalent(1, 5, 5, lvl => {
-		// 	return {
-		// 		Name: 'Improved Moonfire',
-		// 		Description: `Increases the damage and critical strike chance of your Moonfire spell by ${lvl * 2}%.`,
-		// 		Icon: 'Starfall',
-		// 		OnActivate: (e) => this.ActivateCallFlyingSheep(e)
-		// 	}
-		// })
-		// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// // Natural Weapons <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// builder.AddMultirankTalent(2, 5, 5, lvl => {
-		// 	return {
-		// 		Name: 'Natural Weapons',
-		// 		Description: `Increases the damage you deal with physical attacks in all forms by ${lvl * 2}%.`,
-		// 		Icon: 'AdvancedStrengthOfTheMoon',
-		// 		OnActivate: (e) => this.ActivateCallFlyingSheep(e)
-		// 	}
-		// })
-		// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// // Natural Shapeshifter <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// builder.AddMultirankTalent(3, 5, 3, lvl => {
-		// 	return {
-		// 		Name: 'Natural Shapeshifter',
-		// 		Description: `Reduces the mana cost of all shapeshifting by ${lvl * 10}%.`,
-		// 		Icon: 'WispSplode',
-		// 		OnActivate: (e) => this.ActivateCallFlyingSheep(e)
-		// 	}
-		// })
-		// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// // Improved Thorns <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// builder.AddMultirankTalent(0, 4, 3, lvl => {
-		// 	return {
-		// 		Name: 'Improved Thorns',
-		// 		Description: `Increases damage caused by your Thorns spell by ${lvl * 25}%.`,
-		// 		Icon: 'Thorns',
-		// 		OnActivate: (e) => this.ActivateCallFlyingSheep(e)
-		// 	}
-		// })
-		// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		// Learn <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		builder.AddTalent(3, 7, {
+			Name: "Learn Fel Form",
+			Description: "",
+			Icon: Icon.ChaosGrom,
+			OnAllocate: (e) => this.FelFormLearn(e),
+			Requirements: (e) => {
+				return [e.unit.heroLevel >= 8, "Level 8 Required"]
+			}
+		})
 
-		// // Link >>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// builder.AddTalent(1, 4, {
-		// 	Name: 'Link',
-		// 	Description: 'Links',
-		// 	Dependency: { up: 5 },
-		// 	IsLink: true
-		// })
-		// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		builder.AddMultirankTalent(3, 6, 4, lvl => {
+			const stats = [
+				{ hp: 0, attack: 5, regen: 2, armor: 2, attSpeed: 1.5 },
+				{ hp: 0, attack: 5, regen: 2, armor: 2, attSpeed: 1.5 },
+				{ hp: 0, attack: 5, regen: 2, armor: 2, attSpeed: 1.5 },
+				{ hp: 0, attack: 5, regen: 2, armor: 2, attSpeed: 1.5 }
+			]
+			return {
+				Name: "Improved Fel Form",
+				Description: "Here",
+				Icon: Icon.ChaosGrom,
+				OnAllocate: (e) => this.FelFormImproved(e),
+				Dependency: { up: 1 },
+				Cost: 2
+			}
+		})
 
-		// // Omen of Clarity <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// builder.AddTalent(2, 4, {
-		// 	Name: 'Omen of Clarity',
-		// 	Description: "Imbues the Druid with natural energy.  Each of the Druid's melee attacks has a chance of causing the caster to enter a Clearcasting state.  The Clearcasting state reduces the Mana, Rage or Energy cost of your next damage or healing spell or offensive ability by 100%.  Lasts 10 min.",
-		// 	Icon: 'CrystalBall',
-		// 	OnActivate: (e) => this.ActivateCallFlyingSheep(e),
-		// 	Dependency: { up: 5 }
-		// })
-		// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// // Nature's Reach <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// builder.AddMultirankTalent(3, 4, 2, lvl => {
-		// 	return {
-		// 		Name: "Nature's Reach",
-		// 		Description: `Increases the range of your Wrath, Entangling Roots, Faerie Fire, Moonfire, Starfire, and Hurricane spells by ${lvl * 10}%.`,
-		// 		Icon: 'spell_nature_naturetouchgrow',
-		// 		OnActivate: (e) => this.ActivateCallFlyingSheep(e)
-		// 	}
-		// })
-		// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// // Vengeance <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// builder.AddMultirankTalent(1, 3, 5, lvl => {
-		// 	return {
-		// 		Name: 'Vengeance',
-		// 		Description: `Increases the critical strike damage bonus of your Starfire, Moonfire, and Wrath spells by ${lvl * 20}%.`,
-		// 		Icon: 'Purge',
-		// 		OnActivate: (e) => this.ActivateCallFlyingSheep(e),
-		// 		Dependency: { up: 1 }
-		// 	}
-		// })
-		// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// // Improved Starfire <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// builder.AddMultirankTalent(2, 3, 5, lvl => {
-		// 	return {
-		// 		Name: 'Improved Starfire',
-		// 		Description: `Reduces the cast time of Starfire by ${lvl * 0.1} sec and has a 3% chance to stun the target for 3 sec.`,
-		// 		Icon: 'spell_arcane_starfire',
-		// 		OnActivate: (e) => this.ActivateCallFlyingSheep(e)
-		// 	}
-		// })
-		// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// // Nature's Grace <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// builder.AddTalent(1, 2, {
-		// 	Name: "Nature's Grace",
-		// 	Description: 'All spell criticals grace you with a blessing of nature, reducing the casting time of your next spell by 0.5 sec.',
-		// 	Icon: 'NaturesBlessing',
-		// 	OnActivate: (e) => this.ActivateCallFlyingSheep(e)
-		// })
-		// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// // Moonglow <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// builder.AddMultirankTalent(2, 2, 3, lvl => {
-		// 	return {
-		// 		Name: 'Moonglow',
-		// 		Description: `Reduces the Mana cost of your Moonfire, Starfire, Wrath, Healing Touch, Regrowth and Rejuvenation spells by ${lvl * 3}%.`,
-		// 		Icon: 'Sentinel',
-		// 		OnActivate: (e) => this.ActivateCallFlyingSheep(e)
-		// 	}
-		// })
-		// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// // Moonfury <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// builder.AddMultirankTalent(1, 1, 5, lvl => {
-		// 	return {
-		// 		Name: 'Moonfury',
-		// 		Description: `Increases the damage done by your Starfire, Moonfire and Wrath spells by ${lvl * 2}%.`,
-		// 		Icon: 'spell_nature_moonglow',
-		// 		OnActivate: (e) => this.ActivateCallFlyingSheep(e),
-		// 		Dependency: { up: 1 }
-		// 	}
-		// })
-		// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// // Moonkin Form <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// builder.AddTalent(1, 0, {
-		// 	Name: 'Moonkin Form',
-		// 	Description: 'Transforms the Druid into Moonkin Form.  While in this form the armor contribution from items is increased by 360% and all party members within 30 yards have their spell critical chance increased by 3%.  The Moonkin can only cast Balance spells while shapeshifted.\n\nThe act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.',
-		// 	Icon: 'spell_nature_forceofnature',
-		// 	OnActivate: (e) => this.ActivateCallFlyingSheep(e)
-		// })
-		// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		builder.AddTalent(2, 6, {
+			Name: "Fel Stability",
+			Description: "Increases the duration of Fel Form by 4 seconds.",
+			Icon: Icon.ChaosGrom,
+			OnAllocate: (e) => this.FelStability(e),
+			Dependency: { right: 2 }
+		})
 
-		// Only need to this if some talents start with certain rank
-		// this.SaveTalentRankState()
+		builder.AddTalent(3, 5, {
+			Name: "Mastered Fel Form",
+			Description: "",
+			Icon: Icon.ChaosGrom,
+			OnAllocate: (e) => this.FelFormMastered(e),
+			Cost: 3,
+			Dependency: { up: 4 }
+		})
+
+		builder.AddTalent(3, 0, {
+			Name: "Learn Shade Storm",
+			Description: "",
+			Icon: Icon.Whirlwind,
+			OnAllocate: (e) => this.LearnShiftstorm(e),
+			Cost: 2,
+			Requirements: (e) => {
+				return [e.unit.heroLevel >= 15, "Level 15 Required"]
+			}
+		})
 	}
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// Can use these methods inside Activate/Deactivate/Allocate/Deallocate/Requirements functions
 
-	ActivateCallFlyingSheep (e: ActivationEvent) {
-		// local unit u = thistype.GetEventUnit()
-		// CreateUnit(GetOwningPlayer(u), 'nshf', GetUnitX(u), GetUnitY(u), GetRandomDirectionDeg())
+	//
+	// Shift Storm
+	//
+
+	LearnShiftstorm (e: ActivationEvent) {
+		const hero = Hero.get(e.unit)
+		if (hero) {
+			const ability = hero.abilities.get(AbilityFour.ShiftStorm) as FelFormAbility
+			// ability.show()
+		}
 	}
+
+	//
+	// Fel Form
+	//
+
+	FelFormLearn (e: ActivationEvent) {
+		const hero = Hero.get(e.unit)
+		if (hero) {
+			try {
+				const ability = hero.abilities.get(AbilityFour.FelForm) as FelFormAbility
+				ability.enable()
+
+				hero.agilityBonus += 5
+				hero.strengthBonus += 15
+				hero.intelligenceBonus += 10
+			} catch (error) {
+				print(error)
+			}
+		}
+	}
+
+	FelFormImproved (e: ActivationEvent) {
+		const hero = Hero.get(e.unit)
+		if (hero) {
+			const ability = hero.abilities.get(AbilityFour.FelForm) as FelFormAbility
+			// ability.show()
+		}
+	}
+
+	FelFormMastered (e: ActivationEvent) {
+		const hero = Hero.get(e.unit)
+		if (hero) {
+			const ability = hero.abilities.get(AbilityFour.FelForm) as FelFormAbility
+			// ability.show()
+		}
+	}
+
+	FelStability (e: ActivationEvent) {
+		const hero = Hero.get(e.unit)
+		if (hero) {
+			const ability = hero.abilities.get(AbilityFour.FelForm) as FelFormAbility
+			// ability.show()
+		}
+	}
+
+	//
+	// Shift
+	//
 
 	ActivateImprovedShift (e: ActivationEvent) {
 		const hero = Hero.get(e.unit)

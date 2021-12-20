@@ -12,6 +12,7 @@ export class UnitData {
 	public kills = 0
 	public assists = 0
 	public setAsFlying = false
+	public abilities = new Map<string, any>()
 	public custom = new Map<string, unknown>()
 
 	constructor (unit: Unit) {

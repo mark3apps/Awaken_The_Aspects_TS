@@ -2,7 +2,7 @@ import { AbilityFour, Order, Unit, BuffFour } from 'lib/w3ts'
 import { AspectOfDeathInfectAbility } from './abilities/units/aspectOfDeathInfectAbility'
 import { FootmanUpgradeAbility } from './abilities/units/footmanUpgradeAbility'
 import { ManaRepositoryAbility } from './abilities/units/manaRespositoryAbility'
-import { Ability, AbilityType, EffectType, Hero, TargetType, UnitType } from './classes'
+import { Ability, AbilityType, EffectType, TargetType, UnitType } from './classes'
 
 // Base Thing
 export class Globals {
@@ -17,10 +17,7 @@ export class Globals {
 	}
 
 	static get () {
-		if (!Globals.instance) {
-			Globals.instance = new Globals()
-		}
-
+		if (!Globals.instance) Globals.instance = new Globals()
 		return Globals.instance
 	}
 }
@@ -45,22 +42,22 @@ class DefineUnits {
 class DefineAbilityTypes {
 	private static instance: DefineAbilityTypes
 
-	aspectInferno: AbilityType
-	shift1Dummy: AbilityType
-	fallingStrikeDummy: AbilityType
-	shadeStormDummy: AbilityType
-	stormCrowForm: AbilityType
-	footmanUpgrade: AbilityType
-	felGrunt: AbilityType
-	felOgre: AbilityType
-	felWarlord: AbilityType
-	felWarlock: AbilityType
-	manaRepository: AbilityType
-	manaShieldTower: AbilityType
-	manaShardsTower: AbilityType
-	chainLightningTower: AbilityType
-	coneOfFireTower: AbilityType
-	aspectOfDeathInfect: AbilityType
+	aspectInferno
+	shift1Dummy
+	fallingStrikeDummy
+	shadeStormDummy
+	stormCrowForm
+	footmanUpgrade
+	felGrunt
+	felOgre
+	felWarlord
+	felWarlock
+	manaRepository
+	manaShieldTower
+	manaShardsTower
+	chainLightningTower
+	coneOfFireTower
+	aspectOfDeathInfect
 
 	static getInstance () {
 		if (!DefineAbilityTypes.instance) {

@@ -16,6 +16,7 @@ export class ShiftAbility extends Ability {
 	constructor (unit: Unit, ability: AbilityType) {
 		super(unit, ability)
 		this.cooldown = 11
+		this.onCreate()
 	}
 
 	override updateTooltip (): void {

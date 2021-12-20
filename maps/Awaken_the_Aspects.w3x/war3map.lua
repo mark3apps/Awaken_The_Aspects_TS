@@ -4328,11 +4328,6 @@ function Trig_Attribute_Upgrade_Func001002002()
 end
 
 function Trig_Attribute_Upgrade_Func002A()
-    SetUnitAbilityLevelSwapped(FourCC("A031"), GetEnumUnit(), (GetPlayerTechCountSimple(FourCC("R000"), GetOwningPlayer(GetResearchingUnit())) + 1))
-    SetUnitAbilityLevelSwapped(FourCC("A036"), GetEnumUnit(), (GetPlayerTechCountSimple(FourCC("R000"), GetOwningPlayer(GetResearchingUnit())) + 1))
-    SetUnitAbilityLevelSwapped(FourCC("A006"), GetEnumUnit(), (GetPlayerTechCountSimple(FourCC("R000"), GetOwningPlayer(GetResearchingUnit())) + 1))
-    SetUnitAbilityLevelSwapped(FourCC("A04G"), GetEnumUnit(), (GetPlayerTechCountSimple(FourCC("R000"), GetOwningPlayer(GetResearchingUnit())) + 1))
-    SetUnitAbilityLevelSwapped(FourCC("A04T"), GetEnumUnit(), (GetPlayerTechCountSimple(FourCC("R000"), GetOwningPlayer(GetResearchingUnit())) + 1))
 end
 
 function Trig_Attribute_Upgrade_Actions()

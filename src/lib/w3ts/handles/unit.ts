@@ -549,27 +549,35 @@ export class Unit extends Widget {
 		this.z = value.z ?? this.z
 	}
 
-	public get kills (): number {
+	public get kills () {
 		return this.data.kills
 	}
 
-	public set kills (value: number) {
+	public set kills (value) {
 		this.data.kills = value
 	}
 
-	public get startX (): number {
+	public get abilities () {
+		return this.data.abilities
+	}
+
+	public set abilities (value) {
+		this.data.abilities = value
+	}
+
+	public get startX () {
 		return this.data.startX
 	}
 
-	public get startY (): number {
+	public get startY () {
 		return this.data.startY
 	}
 
-	public get destX (): number | undefined {
+	public get destX () {
 		return this.data.destX
 	}
 
-	public get destY (): number | undefined {
+	public get destY () {
 		return this.data.destY
 	}
 

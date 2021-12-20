@@ -10,6 +10,9 @@ import { HeroType } from 'lib/w3ts/handles/herotype'
 import { AbilityFour, Order, Unit } from 'lib/w3ts/index'
 import { ShiftAbility } from 'app/heroes/ShiftMaster/abilities'
 import { FelFormAbility } from 'app/heroes/ShiftMaster/abilities/felForm'
+import { Globals } from 'app/globals'
+import { DefineBonusAbilities } from 'app/abilities/bonus/defineBonusAbilities'
+import { DefineTreeAbilities } from 'app/abilities/bonus/defineTreeAbilities'
 
 export class ShiftMasterHeroType extends HeroType {
 	constructor () {
@@ -21,9 +24,11 @@ export class ShiftMasterHeroType extends HeroType {
 			const armor = new ShiftMasterSkillTree(u.unit)
 
 			u.skillTree.SetTree(skill)
-			u.guardTree.SetTree(skill)
-			u.armorTree.SetTree(skill)
+			u.guardTree.SetTree(guard)
+			u.armorTree.SetTree(armor)
 		}
+
+		// const G = Globals.get()
 
 		// Attributes
 		this.addHeroAttribute(HeroAttribute.agility)
@@ -108,39 +113,22 @@ export class ShiftMasterHeroType extends HeroType {
 		// Add Abilities
 		//
 
-		// Shift
-		this.addHeroAbilityType({
-			type: shiftAbility,
-			starting: true,
-			ult: false
-		})
+		this.addHeroAbilityType({ type: shiftAbility, starting: true, ult: false })
+		this.addHeroAbilityType({ type: switchAbility, starting: true, ult: false })
+		this.addHeroAbilityType({ type: fallingstrike, starting: true, ult: false })
+		this.addHeroAbilityType({ type: felFormAbility, starting: false, ult: false })
+		this.addHeroAbilityType({ type: shiftStormAbility, starting: false, ult: true })
 
-		// Switch
-		this.addHeroAbilityType({
-			type: switchAbility,
-			starting: true,
-			ult: false
-		})
+		// Set Default Abilities for all Heroes
+		const bonus = DefineBonusAbilities.get()
+		const tree = DefineTreeAbilities.get()
+		this.addHeroAbilityType({ type: tree.collection, starting: true, ult: false })
+		this.addHeroAbilityType({ type: tree.armor, starting: true, ult: false })
+		this.addHeroAbilityType({ type: tree.skill, starting: true, ult: false })
+		this.addHeroAbilityType({ type: tree.guard, starting: true, ult: false })
 
-		// Falling Strike
-		this.addHeroAbilityType({
-			type: fallingstrike,
-			starting: true,
-			ult: false
-		})
-
-		// Fel Form
-		this.addHeroAbilityType({
-			type: felFormAbility,
-			starting: false,
-			ult: false
-		})
-
-		// Shift Storm
-		this.addHeroAbilityType({
-			type: shiftStormAbility,
-			starting: false,
-			ult: true
-		})
+		// Default Bonus Abilities
+		this.addHeroAbilityType({ type: bonus.collection, starting: true, ult: false, hidden: true })
+		this.addHeroAbilityType({ type: bonus.stats, starting: true, ult: false, hidden: false })
 	}
 }

@@ -1,16 +1,14 @@
-/* eslint-disable no-use-before-define */
+import { BonusStatsAbility } from 'app/abilities/bonus/bonusStats'
 import { IState, StateMachine } from 'app/heroes/stateMachine'
 import { TalentConfig } from 'app/systems/talents/talentConfig'
 import { GoldTalentViewModel } from 'app/systems/talents/viewModels/GoldTalentViewModel'
 import { SkillTalentViewModel } from 'app/systems/talents/viewModels/SkillTalentViewModel'
 import { GenerateNoButtonTalentTreeView } from 'app/systems/talents/views/NoButtonTalentTreeView'
 import { GenerateNoButtonTalentView } from 'app/systems/talents/views/NoButtonTalentView'
-import { AbilityField } from 'lib/resources/fields'
 import { BasicTalentTreeViewModel } from 'lib/STK/UI/STK/ViewModels/BasicTalentTreeViewModel'
 import { HeroType } from 'lib/w3ts/handles/herotype'
-import { Force, Frame, Group, MapPlayer, Order, Rectangle, Timer, Trigger, Unit } from 'lib/w3ts/index'
+import { AbilityFour, Force, Frame, Group, MapPlayer, Order, Rectangle, Timer, Trigger, Unit } from 'lib/w3ts/index'
 import { Ability } from '.'
-import { AbilityMap } from './AbilityMap'
 import { Logger } from './log'
 import { Position } from './position'
 
@@ -26,8 +24,6 @@ export class Hero {
 	public skillTree: BasicTalentTreeViewModel
 	public guardTree: BasicTalentTreeViewModel
 	public armorTree: BasicTalentTreeViewModel
-
-	abilities: Map<string, any> = new Map()
 
 	AIpowerBase = 0
 	AIpowerHero = 0
@@ -258,6 +254,15 @@ export class Hero {
 	}
 
 	// General Methods
+
+	get abilities () {
+		return this.unit.data.abilities
+	}
+
+	set abilities (value) {
+		this.unit.data.abilities = value
+	}
+
 	protected setupHero (): void {
 		this.addStartingAbilities()
 		this.addStartingItems()
@@ -268,21 +273,43 @@ export class Hero {
 			if (this.heroType !== undefined) {
 				for (let i = 0; i < this.heroType.abilityTypes.length; i++) {
 					const heroAbilityType = this.heroType.abilityTypes[i]
-					this.unit.addAbility(heroAbilityType.type)
-
-					const ability = heroAbilityType.type.getAbility(this.unit)
-					const abilityTyped = AbilityMap.fromHandle(this.unit, heroAbilityType.type) as Ability
-					// Logger.Information(abilityTyped.getLevelField(AbilityField.TOOLTIP_NORMAL))
-					if (heroAbilityType.starting === false) this.unit.hideAbility(heroAbilityType.type)
-					this.abilities.set(heroAbilityType.type.four, ability)
-
-					abilityTyped.updateTooltip()
-					abilityTyped.updateExtendedTooltop()
+					const ability = heroAbilityType.type.getAbility(this.unit) as Ability
+					ability.permanent = true
+					if (!heroAbilityType.starting) ability.disable()
+					if (heroAbilityType.hidden) ability.hide()
 				}
 			}
 		} catch (error) {
 			Logger.Error("Hero.addStartingAbilities", error)
 		}
+	}
+
+	get strengthBonus () {
+		return this.getStatBonus().strength
+	}
+
+	set strengthBonus (value) {
+		this.getStatBonus().strength = value
+	}
+
+	get agilityBonus () {
+		return this.getStatBonus().agility
+	}
+
+	set agilityBonus (value) {
+		this.getStatBonus().agility = value
+	}
+
+	get intelligenceBonus () {
+		return this.getStatBonus().intelligence
+	}
+
+	set intelligenceBonus (value) {
+		this.getStatBonus().intelligence = value
+	}
+
+	private getStatBonus () {
+		return this.abilities.get(AbilityFour.BonusStats) as BonusStatsAbility
 	}
 
 	public addStartingItems (): void {

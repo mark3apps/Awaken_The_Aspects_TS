@@ -1,3 +1,4 @@
+import { DefineBonusAbilities } from 'app/abilities/bonus/defineBonusAbilities'
 import { Hero } from 'app/classes'
 import { HeroAbilityType, iHeroAbilityType } from 'app/classes/heroAbility'
 import { ItemType } from 'app/classes/itemType'
@@ -5,6 +6,7 @@ import { UnitType } from 'app/classes/unitType'
 import { HeroAttribute } from 'app/systems/attribute'
 import { Strategy } from 'lib/resources/strategy'
 import { Unit } from './unit'
+
 export class HeroType extends UnitType {
 	static readonly map: Map<number, HeroType> = new Map()
 
@@ -50,22 +52,6 @@ export class HeroType extends UnitType {
 
 	static get (unit: Unit): HeroType | undefined {
 		return HeroType.map.get(unit.typeId)
-	}
-
-	public defineAbilities (): void {
-		// Empty
-	}
-
-	public defineAI (): void {
-		// Empty
-	}
-
-	public defineAttributes (): void {
-		// Empty
-	}
-
-	public defineItems (): void {
-		// Empty
 	}
 
 	public addHeroAttribute (attribute: HeroAttribute): void {

@@ -1,5 +1,6 @@
 import { AbilityField } from 'lib/resources/fields'
 import { Unit, Widget } from 'lib/w3ts/index'
+import { Logger } from '.'
 import { AbilityMap } from './AbilityMap'
 import { AbilityType } from './abilityType'
 import { Position } from './position'
@@ -12,14 +13,20 @@ export class Ability {
 		this.ability = ability
 		this.unit = unit
 
-		AbilityMap.map.set(this.handle, this)
+		if (!unit.hasAbility(ability)) UnitAddAbility(this.unit.handle, this.ability.id)
+
+		this.updateTooltips()
+
+		this.unit.data.abilities.set(this.ability.four, this)
 	}
 
 	get handle () {
 		return BlzGetUnitAbility(this.unit.handle, this.ability.id)
 	}
 
-	// onCreate = () => { }
+	onCreate = () => {
+		this.updateTooltips()
+	}
 
 	// Blank On Effect Trigger
 	onEffect = () => { }
@@ -27,6 +34,14 @@ export class Ability {
 
 	public isCastable (): boolean {
 		return (this.unit.isAlive() && this.unit.mana > this.manaCost && this.cooldownRemaining === 0 && this.level > 0)
+	}
+
+	public incLevel () {
+		IncUnitAbilityLevel(this.unit.handle, this.ability.id)
+	}
+
+	public decLevel () {
+		DecUnitAbilityLevel(this.unit.handle, this.ability.id)
 	}
 
 	public hasBuff (): boolean {
@@ -47,6 +62,10 @@ export class Ability {
 
 	public isCasting (): boolean {
 		return this.unit.currentOrder === this.ability.orderId
+	}
+
+	public set permanent (value: boolean) {
+		UnitMakeAbilityPermanent(this.unit.handle, value, this.ability.id)
 	}
 
 	// Easy getters from Ability Class
@@ -224,6 +243,22 @@ export class Ability {
 		this.setLevelFieldArray(ABILITY_RLF_CASTING_TIME, value)
 	}
 
+	public hide () {
+		BlzUnitHideAbility(this.unit.handle, this.ability.id, true)
+	}
+
+	public show () {
+		BlzUnitHideAbility(this.unit.handle, this.ability.id, false)
+	}
+
+	public enable (hideUI: boolean = false) {
+		BlzUnitDisableAbility(this.unit.handle, this.ability.id, false, hideUI)
+	}
+
+	public disable (hideUI: boolean = true) {
+		BlzUnitDisableAbility(this.unit.handle, this.ability.id, true, hideUI)
+	}
+
 	/**
 	 * Runs an function through all of the levels of a abilitylevelfield item
 	 * @param field
@@ -348,11 +383,11 @@ export class Ability {
 	}
 
 	updateTooltip () {
-		this.tooltip = "HI THERE"
+		//
 	}
 
 	updateExtendedTooltop () {
-		this.extendedTooltip = "ARE You here?"
+		//
 	}
 
 	updateTooltips () {
@@ -371,13 +406,7 @@ export class Ability {
 	}
 
 	protected static getAbility (unit: Unit, abilityType: AbilityType) {
-		const ability = AbilityMap.fromHandle(BlzGetUnitAbility(unit.handle, abilityType.id))
-
-		if (ability) {
-			return ability
-		} else {
-			unit.addAbility(abilityType)
-			return new this(unit, abilityType)
-		}
+		const ability = unit.data.abilities.get(abilityType.four)
+		return ability ?? new this(unit, abilityType)
 	}
 }
