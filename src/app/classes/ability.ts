@@ -15,8 +15,6 @@ export class Ability {
 
 		if (!unit.hasAbility(ability)) UnitAddAbility(this.unit.handle, this.ability.id)
 
-		this.updateTooltips()
-
 		this.unit.data.abilities.set(this.ability.four, this)
 	}
 
