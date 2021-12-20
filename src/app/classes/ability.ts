@@ -1,7 +1,5 @@
 import { AbilityField } from 'lib/resources/fields'
 import { Unit, Widget } from 'lib/w3ts/index'
-import { Logger } from '.'
-import { AbilityMap } from './AbilityMap'
 import { AbilityType } from './abilityType'
 import { Position } from './position'
 

@@ -9,7 +9,7 @@ import { BasicTalentTreeViewModel } from 'lib/STK/UI/STK/ViewModels/BasicTalentT
 import { HeroType } from 'lib/w3ts/handles/herotype'
 import { AbilityFour, Force, Frame, Group, MapPlayer, Order, Rectangle, Timer, Trigger, Unit } from 'lib/w3ts/index'
 import { Ability } from '.'
-import { Logger } from './log'
+import { Logger } from '../log'
 import { Position } from './position'
 
 export class Hero {

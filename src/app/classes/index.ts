@@ -1,7 +1,6 @@
 export * from './abilityType'
 export * from './hero'
 export * from './itemType'
-export * from './log'
 export * from './position'
 export * from './ability'
 export * from './unitType'

@@ -3,7 +3,7 @@
 // const TS_VERSION = compiletime(() => require("typescript").version)
 // const TSTL_VERSION = compiletime(() => require("typescript-to-lua").version)
 
-import { Logger, LogLevel } from 'app/classes/log'
+import { Logger, LogLevel } from 'app/log'
 import { Game } from 'app/game'
 import { Timer, addScriptHook, W3TS_HOOK } from 'lib/w3ts/index'
 

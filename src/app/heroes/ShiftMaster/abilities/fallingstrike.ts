@@ -1,5 +1,5 @@
 import { Ability, AbilityType } from 'app/classes'
-import { Logger } from 'app/classes/log'
+import { Logger } from 'app/log'
 import { Position } from 'app/classes/position'
 import { UnitType } from 'app/classes/unitType'
 import { Globals } from 'app/globals'

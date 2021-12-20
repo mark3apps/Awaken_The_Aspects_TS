@@ -1,7 +1,8 @@
+import { Ability, AbilityType, UnitType } from 'app/classes'
 import { Globals } from 'app/globals'
+import { Logger } from 'app/log'
 import { AbilityField } from 'lib/resources/fields'
 import { AbilityFour, Effect, AbilityModel, Unit, Timer } from 'lib/w3ts'
-import { AbilityType, Ability, UnitType, Logger } from '../../../classes'
 
 export class ShiftAbility extends Ability {
 	augments = 0

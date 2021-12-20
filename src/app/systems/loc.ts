@@ -1,4 +1,4 @@
-import { Logger } from 'app/classes/log'
+import { Logger } from 'app/log'
 import { Position } from 'app/classes/position'
 import { UnitType } from 'app/classes/unitType'
 import { Rectangle, Region, Trigger, Unit, Order } from 'lib/w3ts/index'

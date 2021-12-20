@@ -1,11 +1,8 @@
-import { Logger } from 'app/classes/log'
+
+import { Logger } from 'app/log'
 import { CC2Four } from 'lib/resources/library'
-import { AbilityFour, BuffFour, Order } from '../../lib/w3ts/index'
-import { Group } from '../../lib/w3ts/handles/group'
-import { Timer } from '../../lib/w3ts/handles/timer'
-import { Trigger } from '../../lib/w3ts/handles/trigger'
-import { Unit } from '../../lib/w3ts/handles/unit'
-import { UnitType } from './unitType'
+import { AbilityFour, BuffFour, Order, Timer, Group, Unit, Trigger } from 'lib/w3ts'
+import { UnitType } from '.'
 
 export const enum EffectType {
 	Channel,

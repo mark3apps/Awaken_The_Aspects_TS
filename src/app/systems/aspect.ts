@@ -1,4 +1,4 @@
-import { Logger } from 'app/classes/log'
+import { Logger } from 'app/log'
 import { Position } from 'app/classes/position'
 import { Unit, Rectangle, Force, Trigger, Timer, DestructibleFour, Effect, AbilityModel, Destructable, Order } from 'lib/w3ts/index'
 import { Loc } from './loc'

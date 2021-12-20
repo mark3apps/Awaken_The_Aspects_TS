@@ -1,4 +1,4 @@
-import { Logger } from 'app/classes/log'
+import { Logger } from 'app/log'
 import { Position } from 'app/classes/position'
 import { Ability } from 'app/classes/ability'
 import { UnitType } from 'app/classes/unitType'

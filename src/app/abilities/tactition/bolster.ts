@@ -1,6 +1,6 @@
 import { Ability } from 'app/classes'
 import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
-import { Logger } from 'app/classes/log'
+import { Logger } from 'app/log'
 import { Pathing } from 'app/systems/pathing'
 import { AbilityFour, Order, Unit, Group, Force, Effect, AbilityModel, AttachPoint, BuffFour } from 'lib/w3ts/index'
 

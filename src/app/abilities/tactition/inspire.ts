@@ -1,6 +1,6 @@
 import { Ability } from 'app/classes'
 import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
-import { Logger } from 'app/classes/log'
+import { Logger } from 'app/log'
 import { Group, AbilityFour, Order, Unit, Force, BuffFour, Effect, AbilityModel, AttachPoint, Players } from 'lib/w3ts/index'
 
 export class InspireAbility extends AbilityType {

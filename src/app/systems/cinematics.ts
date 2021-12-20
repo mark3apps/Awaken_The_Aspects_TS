@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 
 import { Hero } from 'app/classes/hero'
-import { Logger } from 'app/classes/log'
+import { Logger } from 'app/log'
 import { Sky } from 'lib/w3ts/globals/sky'
 import { Sounds } from 'lib/w3ts/globals/sounds'
 import { Force, MapPlayer, Group, Unit, Mask, CameraSetup, Players, Timer, Frame } from 'lib/w3ts/index'
