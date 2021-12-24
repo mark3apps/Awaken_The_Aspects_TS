@@ -1,4 +1,5 @@
 import { Ability, AbilityType } from 'app/classes'
+import { AbilityTypeMap } from 'app/classes/abilityTypeMap'
 import { AbilityModel, Anim, AttachPoint, Effect, Timer, Unit } from 'lib/w3ts'
 
 export class FootmanUpgradeAbility extends Ability {
@@ -15,7 +16,7 @@ export class FootmanUpgradeAbility extends Ability {
 	}
 
 	static override fromCast (): FootmanUpgradeAbility {
-		return this.getAbility(Unit.fromCaster(), AbilityType.fromSpellEvent())
+		return this.getAbility(Unit.fromCaster(), AbilityTypeMap.fromSpellEvent())
 	}
 
 	static override get (unit: Unit, ability: AbilityType): FootmanUpgradeAbility {

@@ -1,4 +1,5 @@
 import { Ability, AbilityType, UnitType } from 'app/classes'
+import { AbilityTypeMap } from 'app/classes/abilityTypeMap'
 import { AbilityFour, BuffFour, Group, Order, Unit } from 'lib/w3ts'
 
 export class AspectOfDeathInfectAbility extends Ability {
@@ -25,7 +26,7 @@ export class AspectOfDeathInfectAbility extends Ability {
 	}
 
 	static override fromCast (): AspectOfDeathInfectAbility {
-		return this.getAbility(Unit.fromAttacker(), AbilityType.fromSpellEvent())
+		return this.getAbility(Unit.fromAttacker(), AbilityTypeMap.fromSpellEvent())
 	}
 
 	static override get (unit: Unit, ability: AbilityType): AspectOfDeathInfectAbility {

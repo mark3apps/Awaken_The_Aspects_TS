@@ -1,5 +1,3 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable no-unused-vars */
 import { Logger } from 'app/log'
 import { Position } from 'app/classes/position'
 import { UnitType } from 'app/classes/unitType'

@@ -45,8 +45,8 @@ export class UnitType {
 		if (this.preload) { UnitType.preloader.push(this) }
 	}
 
-	static get (unit: Unit | string): UnitType | undefined {
-		return typeof unit === 'string' ? this.map.get(FourCC(unit)) : this.map.get(unit.typeId)
+	static get (unit: Unit | number): UnitType | undefined {
+		return typeof unit === 'number' ? this.map.get(unit) : this.map.get(unit.typeId)
 	}
 
 	static Arbalist = new UnitType({ four: 'n00X' })
@@ -194,6 +194,13 @@ export class UnitType {
 	static DummySeer = new UnitType({ four: 'h00H', order: false })
 	static DummyCenterEvent = new UnitType({ four: 'n01U', order: false })
 	static DummyShiftstorm = new UnitType({ four: 'o006' })
+
+	static FelShifter1 = new UnitType({ four: "E004", order: false })
+	static FelShifter2 = new UnitType({ four: "E009", order: false })
+	static FelShifter3 = new UnitType({ four: "E006", order: false })
+	static FelShifter4 = new UnitType({ four: "E00A", order: false })
+	static FelShifter5 = new UnitType({ four: "E00B", order: false })
+	static FelShifter6 = new UnitType({ four: "E00C", order: false })
 
 	// Heroes
 	static Brawler = new UnitType({ four: 'E001', order: false })

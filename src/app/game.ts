@@ -1,8 +1,9 @@
 import { DeathSpawn, Gate } from 'app/abilities'
-import { ItemType, AbilityType, Hero, EffectType } from 'app/classes'
+import { ItemType, Hero } from 'app/classes'
 import { BrawlerHeroType, ManaAddictHeroType, ShiftMasterHeroType, TacticianHeroType, TimeMageHeroType } from 'app/heroes/heroTypes'
 import { ItemUpgrade, Cinematic, Pathing, HeroAttribute, Army, Loc, Faction, Spawn, Aspect, Banner, AspectOfFireEvent, Load } from 'app/systems'
 import { Rectangle, Unit, CameraSetup, Trigger, Force, Region, Players } from 'lib/w3ts'
+import { AbilityTypeMap } from './classes/abilityTypeMap'
 import { Logger } from './log'
 
 export class Game {
@@ -37,7 +38,7 @@ export class Game {
 		// new TacticianHeroType()
 		// new TimeMageHeroType()
 
-		AbilityType.initSpellEffects()
+		AbilityTypeMap.initSpellEffects()
 
 		Logger.Verbose('Game Init Finished')
 	}

@@ -1,8 +1,7 @@
 
-import { Logger } from 'app/log'
-import { CC2Four } from 'lib/resources/library'
 import { AbilityFour, BuffFour, Order, Timer, Group, Unit, Trigger } from 'lib/w3ts'
 import { UnitType } from '.'
+import { AbilityTypeMap } from './abilityTypeMap'
 
 export const enum EffectType {
 	Channel,
@@ -92,9 +91,7 @@ export class AbilityType {
 	onBuffDeath: () => void = () => { }
 	onLoop: () => void = () => { }
 	getAbility: (unit: Unit) => any = (unit: Unit) => { }
-	protected static map = new Map<string, any>()
-	protected static mapInstant = new Map<string, any>()
-	protected static preload: any[] = []
+
 
 	constructor (ability: iAbilityType) {
 		//
@@ -123,11 +120,11 @@ export class AbilityType {
 		if (ability.addBuffDeath !== undefined) this.addBuffDeath = ability.addBuffDeath
 		this.loopTick = ability.loopTick ?? 0
 
-		AbilityType.preload.push(this)
+		AbilityTypeMap.preload.push(this)
 
 		// If ability hasn't been definite before
-		if (!AbilityType.map.has(this.four)) {
-			AbilityType.map.set(this.four, this)
+		if (!AbilityTypeMap.map.has(this.four)) {
+			AbilityTypeMap.map.set(this.four, this)
 
 			// Start Ability loop
 			if (this.loopTick > 0) {
@@ -187,39 +184,13 @@ export class AbilityType {
 						break
 
 					case EffectType.Instant:
-						AbilityType.mapInstant.set(this.four, this)
+						AbilityTypeMap.mapInstant.set(this.four, this)
 						break
 					default:
 						break
 				}
 			}
 		}
-	}
-
-	public static initSpellEffects (): void {
-		try {
-			Trigger.unitSpellEffect.add(() => {
-				if (AbilityType.mapInstant.has(CC2Four(GetSpellAbilityId()))) {
-					const ability = this.fromSpellEvent()
-					if (ability && ability.onEffect) ability.onEffect()
-				}
-			})
-		} catch (error) {
-			Logger.Error('Cast Spell', error)
-		}
-	}
-
-	public static fromSpellEvent () {
-		return this.fromId(GetSpellAbilityId())
-	}
-
-	public static fromId (id: number) {
-		const four = CC2Four(id)
-		return AbilityType.map.get(four) ?? new this({ four: four })
-	}
-
-	public static fromFour (four: string) {
-		return AbilityType.map.get(four) ?? new AbilityType({ four: four })
 	}
 
 	public get id (): number {

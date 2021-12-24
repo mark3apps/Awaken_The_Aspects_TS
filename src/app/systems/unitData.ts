@@ -13,6 +13,7 @@ export class UnitData {
 	public assists = 0
 	public setAsFlying = false
 	public abilities = new Map<string, any>()
+	public abilityFours: string[] = []
 	public custom = new Map<string, unknown>()
 
 	constructor (unit: Unit) {

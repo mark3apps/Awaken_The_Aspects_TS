@@ -1,4 +1,5 @@
 import { Ability, AbilityType, UnitType } from 'app/classes'
+import { AbilityTypeMap } from 'app/classes/abilityTypeMap'
 import { Globals } from 'app/globals'
 import { Logger } from 'app/log'
 import { AbilityField } from 'lib/resources/fields'
@@ -17,7 +18,7 @@ export class ShiftAbility extends Ability {
 	constructor (unit: Unit, ability: AbilityType) {
 		super(unit, ability)
 		this.cooldown = 11
-		this.onCreate()
+		this.updateTooltips()
 	}
 
 	override updateTooltip (): void {
@@ -28,9 +29,9 @@ export class ShiftAbility extends Ability {
 		this.extendedTooltip =
 			`The Shifter shifts forward, leaving a Shade of himself behind that continues to fight.
 
-Shifts ${this.distance} units forward in ${this.speed} seconds.
-Shades recieve ${math.floor(this.shadeDamageTaken * 100) / 100}x more damage, deal ${math.floor(this.shadeDamageDealt * 100) / 100}% damage, and last ${this.shadeDuration} seconds.
-cooldown ${this.cooldown} seconds.`
+Shifts |cff00ffff${this.distance}|r units forward in |cff00ffff${this.speed}|r seconds.
+Shades recieve |cff00ffff${math.floor(this.shadeDamageTaken * 100 / 100)}|r times more damage, deal |cff00ffff${math.floor(this.shadeDamageDealt * 100 / 100)}%|r damage, and last |cff00ffff${this.shadeDuration}|r seconds.
+cooldown |cff00ffff${math.floor(this.cooldown)}|r seconds.`
 	}
 
 	get tickDistance () {
@@ -90,7 +91,7 @@ cooldown ${this.cooldown} seconds.`
 	}
 
 	static override fromCast (): ShiftAbility {
-		return this.getAbility(Unit.fromCaster(), AbilityType.fromSpellEvent())
+		return this.getAbility(Unit.fromCaster(), AbilityTypeMap.fromSpellEvent())
 	}
 
 	static override get (unit: Unit, ability: AbilityType): ShiftAbility {

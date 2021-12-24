@@ -1,6 +1,7 @@
 import { AbilityField } from 'lib/resources/fields'
 import { Unit, Widget } from 'lib/w3ts/index'
 import { AbilityType } from './abilityType'
+import { AbilityTypeMap } from "./abilityTypeMap"
 import { Position } from './position'
 
 export class Ability {
@@ -14,17 +15,16 @@ export class Ability {
 		if (!unit.hasAbility(ability)) UnitAddAbility(this.unit.handle, this.ability.id)
 
 		this.unit.data.abilities.set(this.ability.four, this)
+		this.unit.data.abilityFours.push(this.ability.four)
+		this.onCreate()
 	}
 
 	get handle () {
 		return BlzGetUnitAbility(this.unit.handle, this.ability.id)
 	}
 
-	onCreate = () => {
-		this.updateTooltips()
-	}
-
-	// Blank On Effect Trigger
+	// Blank "On" Trigger
+	onCreate = () => { }
 	onEffect = () => { }
 	onEffectEnd = () => { }
 
@@ -394,7 +394,7 @@ export class Ability {
 	// Static Methods
 
 	static fromCast (): Ability {
-		return this.getAbility(Unit.fromCaster(), AbilityType.fromSpellEvent())
+		return this.getAbility(Unit.fromCaster(), AbilityTypeMap.fromSpellEvent())
 	}
 
 	static get (unit: Unit, abilityType: AbilityType): Ability {

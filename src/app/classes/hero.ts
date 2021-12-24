@@ -10,6 +10,7 @@ import { HeroType } from 'lib/w3ts/handles/herotype'
 import { AbilityFour, Force, Frame, Group, MapPlayer, Order, Rectangle, Timer, Trigger, Unit } from 'lib/w3ts/index'
 import { Ability } from '.'
 import { Logger } from '../log'
+import { AbilityTypeMap } from './abilityTypeMap'
 import { Position } from './position'
 
 export class Hero {
@@ -281,6 +282,20 @@ export class Hero {
 			}
 		} catch (error) {
 			Logger.Error("Hero.addStartingAbilities", error)
+		}
+	}
+
+	getAbility = (typeFour: string) => {
+		return this.abilities.get(typeFour)
+	}
+
+	updateAbilityTooltips = () => {
+		for (let i = 0; i < this.unit.data.abilityFours.length; i++) {
+			const abilityType = AbilityTypeMap.fromId(this.unit.data.abilityFours[i])
+			if (abilityType) {
+				const ability = abilityType.getAbility(this.unit)
+				ability.updateTooltips()
+			}
 		}
 	}
 

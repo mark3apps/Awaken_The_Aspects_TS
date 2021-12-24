@@ -1,5 +1,5 @@
 import { Ability, AbilityType } from 'app/classes'
-import { AbilityFour, Unit } from 'lib/w3ts'
+import { AbilityFour } from 'lib/w3ts'
 import { BonusStatsAbility } from './bonusStats'
 
 export class DefineBonusAbilities {

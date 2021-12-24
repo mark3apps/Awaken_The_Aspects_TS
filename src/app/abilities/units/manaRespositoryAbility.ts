@@ -1,4 +1,5 @@
 import { Ability, AbilityType } from 'app/classes'
+import { AbilityTypeMap } from 'app/classes/abilityTypeMap'
 import { Group, Unit } from 'lib/w3ts'
 
 export class ManaRepositoryAbility extends Ability {
@@ -21,7 +22,7 @@ export class ManaRepositoryAbility extends Ability {
 	}
 
 	static override fromCast (): ManaRepositoryAbility {
-		return this.getAbility(Unit.fromAttacker(), AbilityType.fromSpellEvent())
+		return this.getAbility(Unit.fromAttacker(), AbilityTypeMap.fromSpellEvent())
 	}
 
 	static override get (unit: Unit, ability: AbilityType): ManaRepositoryAbility {
