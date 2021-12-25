@@ -1,11 +1,12 @@
 import { AttackType, DamageType } from 'lib/resources/types'
-import { Unit } from 'lib/w3ts'
+import { Color, MapPlayer, playerColors, Unit } from 'lib/w3ts'
 import { ArcTag } from '../arcTags/arctags'
 
 
 export class DamageEvent {
 	source: Unit
 	target: Unit
+	modifier?: DamageModifier
 
 	constructor () {
 		this.source = Unit.fromDamageSource()
@@ -51,6 +52,24 @@ export class DamageEvent {
 		// print(`Damage ORG: ${this.damage}`)
 
 		if (this.isSpell()) this.damage *= this.source.spellDamage * this.target.spellResistance
+		if (this.isAttack()) {
+
+			if (this.source.critical > 0) {
+				const rand = math.random()
+				if (rand <= this.source.critical) {
+					this.damage *= this.source.criticalMultiplier
+					this.modifier = DamageModifier.Critical
+				}
+			}
+
+			if (this.target.evade > 0) {
+				const rand = math.random()
+				if (rand <= this.target.evade) {
+					this.damage = 0
+					this.modifier = DamageModifier.Evade
+				}
+			}
+		}
 		const displayDamage = this.damage
 
 		if (this.target.shield > 0) {
@@ -63,8 +82,29 @@ export class DamageEvent {
 			}
 		}
 
-		if (this.source.owner.controller == MAP_CONTROL_USER) new ArcTag(`${math.floor(displayDamage)}`, this.target)
+		if (this.target.isVisible(MapPlayer.fromLocal())) {
+			switch (this.modifier) {
+				case DamageModifier.Critical:
+					new ArcTag(`${math.floor(displayDamage)}`, this.target, new Color(255, 0, 0))
+					break
+
+				case DamageModifier.Evade:
+					new ArcTag(`miss`, this.source, new Color(255, 0, 0))
+					break
+
+				default:
+					//if (this.source.owner.controller == MAP_CONTROL_USER) {
+					new ArcTag(`${math.floor(displayDamage)}`, this.target)
+					//}
+					break
+			}
+		}
 
 		// print(`Damage ADJ: ${this.damage}`)
 	}
+}
+
+const enum DamageModifier {
+	Evade,
+	Critical
 }

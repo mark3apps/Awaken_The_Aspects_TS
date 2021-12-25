@@ -40,8 +40,7 @@ export const OrderIdIgnore = [
 	Order.Creepthunderclap,
 	Order.Darkportal,
 	Order.Breathoffire,
-	Order.Bearform,
-	Order.Stop
+	Order.Bearform
 ]
 
 export const BuffIdIgnore = [

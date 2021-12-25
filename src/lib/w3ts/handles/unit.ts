@@ -32,6 +32,9 @@ export class Unit extends Widget {
 	public spellDamage: number
 	public spellResistance: number
 	public shield: number
+	public critical: number
+	public criticalMultiplier: number
+	public evade: number
 
 	static dataMap: WeakMap<Unit, UnitData> = new WeakMap<Unit, UnitData>()
 
@@ -58,6 +61,9 @@ export class Unit extends Widget {
 		this.spellDamage = 1
 		this.spellResistance = 1
 		this.shield = 0
+		this.critical = 0.3
+		this.criticalMultiplier = 1.5
+		this.evade = 0.3
 	}
 
 	// Custom Data Fields

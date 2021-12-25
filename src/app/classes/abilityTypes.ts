@@ -106,7 +106,8 @@ export class AbilityTypes {
 			unitType: [UnitType.ArcaneManaRepository],
 			type: EffectType.UnitTypeAttacking,
 			target: TargetType.SupportSingle,
-			orderId: Order.Recharge
+			orderId: Order.Recharge,
+			onEffect: () => { }
 		})
 
 		this.manaRepository.onEffect = () => {
