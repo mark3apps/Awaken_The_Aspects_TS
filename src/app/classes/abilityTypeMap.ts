@@ -1,6 +1,6 @@
 import { Logger } from 'app/log'
-import { CC2Four } from 'lib/resources/library'
-import { Trigger } from 'lib/w3ts'
+import { CC2Four, GetSpellAbilityFour } from 'lib/resources/library'
+import { Triggers } from 'lib/w3ts/handles/TriggerMap'
 import { AbilityType } from './abilityType'
 
 export class AbilityTypeMap {
@@ -8,8 +8,9 @@ export class AbilityTypeMap {
 	static mapInstant = new Map<string, AbilityType>();
 	static preload: AbilityType[] = [];
 
+
 	public static fromSpellEvent () {
-		return this.fromId(GetSpellAbilityId()) as AbilityType
+		return this.fromId(GetSpellAbilityFour())
 	}
 
 	public static fromId (id: number | string) {
@@ -17,10 +18,10 @@ export class AbilityTypeMap {
 		return ability
 	}
 
-	public static initSpellEffects (): void {
+	public static initSpellEffects () {
 		try {
-			Trigger.unitSpellEffect.add(() => {
-				if (this.mapInstant.has(CC2Four(GetSpellAbilityId()))) {
+			Triggers.unitSpellEffect.add(() => {
+				if (this.mapInstant.has(GetSpellAbilityFour())) {
 					const ability = this.fromSpellEvent()
 					if (ability && ability.onEffect)
 						ability.onEffect()
@@ -31,3 +32,5 @@ export class AbilityTypeMap {
 		}
 	}
 }
+
+

@@ -4009,7 +4009,7 @@ V
 }
 
 STRING 2497
-// Abilities: Z000 (Hidden - Basic Abilities), Ubertip (Tooltip - Normal - Extended)
+// Abilities: Z000 (Bonus - 0 - Basic Abilities), Ubertip (Tooltip - Normal - Extended)
 {
 This contains all of the talents that have been purchased for this hero.
 }
@@ -7603,133 +7603,133 @@ Mana Overflow - [|cffffcc00Level 3r]
 }
 
 STRING 3404
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 5|r]
 }
 
 STRING 3405
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 6|r]
 }
 
 STRING 3406
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 7|r]
 }
 
 STRING 3407
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 8|r]
 }
 
 STRING 3408
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 9|r]
 }
 
 STRING 3409
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 10|r]
 }
 
 STRING 3410
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 11|r]
 }
 
 STRING 3411
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 12|r]
 }
 
 STRING 3412
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 13|r]
 }
 
 STRING 3413
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 14|r]
 }
 
 STRING 3414
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 15|r]
 }
 
 STRING 3415
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 16|r]
 }
 
 STRING 3416
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 17|r]
 }
 
 STRING 3417
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 18|r]
 }
 
 STRING 3418
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 19|r]
 }
 
 STRING 3419
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 20|r]
 }
 
 STRING 3420
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 21|r]
 }
 
 STRING 3421
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 22|r]
 }
 
 STRING 3422
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 23|r]
 }
 
 STRING 3423
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 24|r]
 }
 
 STRING 3424
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 25|r]
 }
 
 STRING 3425
-// Abilities: Z010 (Hidden - Attribute Bonus), Tip (Tooltip - Normal)
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Tip (Tooltip - Normal)
 {
 Attribute Bonus - [|cffffcc00Level 26|r]
 }
@@ -14727,27 +14727,105 @@ STRING 5184
 B
 }
 
-STRING 5185
-// Abilities: Z010 (Hidden - Attribute Bonus), Name (Name)
-{
-Hidden - Attribute Bonus
-}
-
-STRING 5186
-// Abilities: Z000 (Hidden - Basic Abilities), Name (Name)
-{
-Hidden - Basic Abilities
-}
-
 STRING 5187
-// Abilities: Z000 (Hidden - Basic Abilities), Tip (Tooltip - Normal)
+// Abilities: Z000 (Bonus - 0 - Basic Abilities), Tip (Tooltip - Normal)
 {
 Skills
 }
 
 STRING 5188
-// Abilities: Z000 (Hidden - Basic Abilities), Hotkey (Hotkey - Normal)
+// Abilities: Z000 (Bonus - 0 - Basic Abilities), Hotkey (Hotkey - Normal)
 {
 B
+}
+
+STRING 5189
+// Abilities: Z000 (Bonus - 0 - Basic Abilities), Name (Name)
+{
+Bonus - 0 - Basic Abilities
+}
+
+STRING 5190
+// Abilities: Z001 (Bonus - 1 - Armor), Name (Name)
+{
+Bonus - 1 - Armor
+}
+
+STRING 5191
+// Abilities: Z003 (Bonus - 3 - Critical Strike), Name (Name)
+{
+Bonus - 3 - Critical Strike
+}
+
+STRING 5192
+// Abilities: Z004 (Bonus - 4 - Damage), Name (Name)
+{
+Bonus - 4 - Damage
+}
+
+STRING 5193
+// Abilities: Z005 (Bonus - 5 - Evasion), Name (Name)
+{
+Bonus - 5 - Evasion
+}
+
+STRING 5194
+// Abilities: Z006 (Bonus - 6 - Health), Name (Name)
+{
+Bonus - 6 - Health
+}
+
+STRING 5195
+// Abilities: Z007 (Bonus - 7 - HealthRegen), Name (Name)
+{
+Bonus - 7 - HealthRegen
+}
+
+STRING 5196
+// Abilities: Z008 (Bonus - 8 - HealthSteal), Name (Name)
+{
+Bonus - 8 - HealthSteal
+}
+
+STRING 5197
+// Abilities: Z009 (Bonus - 9 - Mana), Name (Name)
+{
+Bonus - 9 - Mana
+}
+
+STRING 5198
+// Abilities: Z002 (Bonus - 2 - Attribute Bonus), Name (Name)
+{
+Bonus - 2 - Attribute Bonus
+}
+
+STRING 5199
+// Abilities: Z00A (Bonus - A - Mana Regen), Name (Name)
+{
+Bonus - A - Mana Regen
+}
+
+STRING 5200
+// Abilities: Z00B (Bonus - B - Attack Speed), Name (Name)
+{
+Bonus - B - Attack Speed
+}
+
+STRING 5201
+// Abilities: Z00C (Bonus - C - MovementSpeed), Name (Name)
+{
+Bonus - C - MovementSpeed
+}
+
+STRING 5202
+// Abilities: Z00D (Bonus - D - Magic Resistence), Name (Name)
+{
+Bonus - D - Magic Resistence
+}
+
+STRING 5203
+// Abilities: Z00E (Bonus - E - Sight Range), Name (Name)
+{
+Bonus - E - Sight Range
 }
 

@@ -63,7 +63,7 @@ export class AbilityMark extends AbilityType {
 			const manaGiven = eventUnit.data.custom.get('markManaGiven') as number
 			const caster = eventUnit.data.custom.get('markCaster') as Unit
 
-			const u = new Unit(caster.owner, UnitType.DummyMarkForDeath, eventUnit.position, eventUnit.facing)
+			const u = new Unit(caster.owner, UnitType.DummyMarkForDeath, eventUnit.coordinate, eventUnit.facing)
 
 			u.issueTargetOrder(Order.Attack, caster)
 

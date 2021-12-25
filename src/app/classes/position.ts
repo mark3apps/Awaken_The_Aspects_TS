@@ -1,18 +1,26 @@
 /* eslint-disable camelcase */
-import { Orientation } from 'lib/w3ts/handles/vector'
+import { Coordinate, Orientation } from 'lib/w3ts/handles/vector'
 import { Unit } from 'lib/w3ts/index'
 
-export class Position {
+export class Position implements Coordinate {
 	protected _x: number
 	protected _y: number
 	protected _z: number
 
 	private static itemType = FourCC('I00M')
+	constructor (coordinate: Coordinate)
+	constructor (x: number, y: number, z?: number)
+	constructor (a: number | Coordinate, b?: number, c?: number) {
+		if (typeof a === "number") {
+			this._x = a
+			this._y = b ?? 0
+			this._z = c ?? 0
+		} else {
+			this._x = a.x
+			this._y = a.y
+			this._z = a.z ?? 0
+		}
 
-	constructor (x: number, y: number, z?: number) {
-		this._x = x
-		this._y = y
-		this._z = z ?? 0
 	}
 
 	static fromSpellTarget (): Position {

@@ -1,6 +1,6 @@
-import { Ability, AbilityType, UnitType } from 'app/classes'
+import { Ability, AbilityType, Position, UnitType } from 'app/classes'
 import { AbilityTypeMap } from 'app/classes/abilityTypeMap'
-import { Globals } from 'app/globals'
+import { AbilityTypes } from 'app/classes/abilityTypes'
 import { Logger } from 'app/log'
 import { AbilityField } from 'lib/resources/fields'
 import { AbilityFour, Effect, AbilityModel, Unit, Timer } from 'lib/w3ts'
@@ -40,11 +40,11 @@ cooldown |cff00ffff${math.floor(this.cooldown)}|r seconds.`
 
 	override onEffect = () => {
 		try {
-			const G = Globals.get()
+			const abilityTypes = AbilityTypes.getInstance()
 
 			// Get Unit Constants
 			const facing = this.unit.facing
-			const startPostion = this.unit.position
+			const startPostion = new Position(this.unit.coordinate)
 
 			// Add Start Abilitys
 			this.unit.addAbility(AbilityFour.Ghost)
@@ -57,11 +57,11 @@ cooldown |cff00ffff${math.floor(this.cooldown)}|r seconds.`
 			startEffect.destroy()
 
 			// Cast Illusion on Hero
-			const dummy = new Unit(this.unit.owner, UnitType.Dummy, this.unit.position, 0)
-			dummy.addAbility(G.abilityType.shift1Dummy)
+			const dummy = new Unit(this.unit.owner, UnitType.Dummy, this.unit.coordinate, 0)
+			dummy.addAbility(abilityTypes.shift1Dummy)
 			dummy.applyTimedLifeGeneric(1)
 
-			const shiftDummyAbil = Ability.get(dummy, G.abilityType.shift1Dummy)
+			const shiftDummyAbil = Ability.get(dummy, abilityTypes.shift1Dummy)
 			shiftDummyAbil.setLevelField(AbilityField.DAMAGE_DEALT_PERCENT_OF_NORMAL, this.shadeDamageDealt, 0)
 			shiftDummyAbil.setLevelField(AbilityField.DAMAGE_RECEIVED_MULTIPLIER, this.shadeDamageTaken, 0)
 			shiftDummyAbil.heroDuration = this.shadeDuration
@@ -70,10 +70,10 @@ cooldown |cff00ffff${math.floor(this.cooldown)}|r seconds.`
 
 			const loop = new Timer()
 			loop.start(this.tick, true, () => {
-				const pos = this.unit.polarProjection(this.tickDistance, facing)
+				const pos = new Position(this.unit.polarProjection(this.tickDistance, facing))
 
 				if (pos.isTerrianPathable() && (this.unit.distanceTo(startPostion) < this.distance)) {
-					this.unit.position = pos
+					this.unit.coordinate = pos
 				} else {
 					this.unit.removeAbility(AbilityFour.Ghost)
 					this.unit.setPathing(true)

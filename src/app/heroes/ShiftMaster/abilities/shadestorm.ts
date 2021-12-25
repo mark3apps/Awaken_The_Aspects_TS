@@ -1,8 +1,8 @@
 import { Ability } from 'app/classes'
 import { AbilityType } from 'app/classes/abilityType'
 import { AbilityTypeMap } from "app/classes/abilityTypeMap"
+import { AbilityTypes } from 'app/classes/abilityTypes'
 import { UnitType } from 'app/classes/unitType'
-import { Globals } from 'app/globals'
 import { Pathing } from 'app/systems/pathing'
 import { AbilityField } from 'lib/resources/fields'
 import { Unit, Group, Timer, Effect, AbilityModel, AttachPoint } from 'lib/w3ts/index'
@@ -31,7 +31,7 @@ export class ShadestormAbility extends Ability {
 	}
 
 	override onEffect = (): void => {
-		const G = Globals.get()
+		const abilityTypes = AbilityTypes.getInstance()
 
 		const aoe = this.areaOfEffect
 
@@ -59,9 +59,9 @@ export class ShadestormAbility extends Ability {
 			g.firstLoop((u) => {
 				if (unitsPicked < this.maxShades) {
 					const shade = u.replace(UnitType.DummyShiftstorm)
-					shade.addAbility(G.abilityType.shadeStormDummy)
+					shade.addAbility(abilityTypes.shadeStormDummy)
 
-					const shadeAbility = Ability.get(shade, G.abilityType.shadeStormDummy)
+					const shadeAbility = Ability.get(shade, abilityTypes.shadeStormDummy)
 					shadeAbility.setLevelField(AbilityField.DAMAGE_PER_SECOND_OWW1, this.damage)
 					shadeAbility.normalDuration = this.duration
 					shadeAbility.castImmediate()
@@ -69,7 +69,7 @@ export class ShadestormAbility extends Ability {
 
 					const killTimer = new Timer()
 					killTimer.start(this.duration, false, () => {
-						new Effect(AbilityModel.mirrorImageDeathCaster, shade.position, {}).destroy()
+						new Effect(AbilityModel.mirrorImageDeathCaster, shade.coordinate, {}).destroy()
 						shade.destroy()
 					})
 				}

@@ -2,10 +2,10 @@ import { Ability, AbilityType } from 'app/classes'
 import { Logger } from 'app/log'
 import { Position } from 'app/classes/position'
 import { UnitType } from 'app/classes/unitType'
-import { Globals } from 'app/globals'
-import { AbilityFour, Unit, Timer, Anim, Effect, AbilityModel, Group, Order } from 'lib/w3ts/index'
+import { AbilityFour, Unit, Timer, Anim, Group, Order } from 'lib/w3ts/index'
 import { AttackType, DamageType } from 'lib/resources/types'
 import { AbilityTypeMap } from 'app/classes/abilityTypeMap'
+import { AbilityTypes } from 'app/classes/abilityTypes'
 
 export class FallingStrikeAbility extends Ability {
 
@@ -36,10 +36,10 @@ export class FallingStrikeAbility extends Ability {
 
 	override onEffect = () => {
 		try {
-			const G = Globals.get()
+			const abilityTypes = AbilityTypes.getInstance()
 
 			// Get Attributes
-			const startPos = this.unit.position
+			const startPos = new Position(this.unit.coordinate)
 			const spellTarget = Position.fromSpellTarget()
 
 			// Calculate some vars
@@ -72,11 +72,11 @@ export class FallingStrikeAbility extends Ability {
 						this.unit.setPathing(true)
 						this.unit.flyHeight = this.unit.defaultFlyHeight
 
-						const u = new Unit(this.unit.owner, UnitType.Dummy, this.unit.position, 0)
-						u.addAbility(G.abilityType.fallingStrikeDummy)
+						const u = new Unit(this.unit.owner, UnitType.Dummy, this.unit.coordinate, 0)
+						u.addAbility(abilityTypes.fallingStrikeDummy)
 						u.applyTimedLifeGeneric(1)
 
-						const ability = Ability.get(u, G.abilityType.fallingStrikeDummy)
+						const ability = Ability.get(u, abilityTypes.fallingStrikeDummy)
 						ability.heroDuration = this.slowDuration
 						ability.normalDuration = this.slowDuration
 						ability.areaOfEffect = this.areaOfEffect

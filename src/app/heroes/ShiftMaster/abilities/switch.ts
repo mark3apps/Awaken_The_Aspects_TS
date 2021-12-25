@@ -47,14 +47,14 @@ export class SwitchAbility extends Ability {
 			targetUnit.setPathing(false)
 			this.unit.setPathing(false)
 
-			const targetStart = targetUnit.position
-			const eventStart = this.unit.position
+			const targetStart = targetUnit.coordinate
+			const eventStart = this.unit.coordinate
 
 			new Effect(AbilityModel.feralspirittarget, targetStart.x, targetStart.y).destroy()
 			new Effect(AbilityModel.feralspirittarget, eventStart.x, eventStart.y).destroy()
 
-			this.unit.position = targetStart
-			targetUnit.position = eventStart
+			this.unit.coordinate = targetStart
+			targetUnit.coordinate = eventStart
 
 			targetUnit.setPathing(true)
 			this.unit.setPathing(true)

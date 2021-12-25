@@ -5,7 +5,8 @@ import { UnitType } from 'app/classes/unitType'
 import { Timer, Unit, Trigger, Force, Order, Rectangle, Anim, Effect, AbilityModel, DoodadModel } from 'lib/w3ts/index'
 import { Banner, Side } from './banner'
 import { Loc } from './loc'
-import { Globals } from 'app/globals'
+import { Units } from 'lib/w3ts/handles/Units'
+import { AbilityTypes } from "app/classes/abilityTypes"
 
 export class Event {
 	banners: Banner[] = []
@@ -125,28 +126,28 @@ export class AspectOfFireEvent extends Event {
 	}
 
 	public infernoAbility (): void {
-		const G = Globals.get()
+		const abilityTypes = AbilityTypes.getInstance()
 
 		if (this.eventUnit) {
 			const count = math.floor(math.random(2, 4))
 
 			for (let i = 0; i < count; i++) {
-				const u = new Unit(this.eventUnit.owner, UnitType.Dummy.id, this.eventUnit.position, 0)
-				u.addAbility(G.abilityType.aspectInferno)
+				const u = new Unit(this.eventUnit.owner, UnitType.Dummy.id, this.eventUnit.coordinate, 0)
+				u.addAbility(abilityTypes.aspectInferno)
 				u.applyTimedLifeGeneric(2)
 
-				const ua = new Ability(u, G.abilityType.aspectInferno)
+				const ua = new Ability(u, abilityTypes.aspectInferno)
 				ua.cast(u.getRandomPosAround(500))
 			}
 		}
 	}
 
 	public override onEventInit (): void {
-		Unit.h002_0699.setAnimation(Anim.EyeOfSargeras.death)
+		Units.h002_0699.setAnimation(Anim.EyeOfSargeras.death)
 	}
 
 	public override onEventStart (): void {
-		Unit.h002_0699.setAnimation(Anim.EyeOfSargeras.stand)
+		Units.h002_0699.setAnimation(Anim.EyeOfSargeras.stand)
 		this.wisp = new Unit(PLAYER_NEUTRAL_PASSIVE, UnitType.DummyCenterEvent.id, this.spawnPos, 0)
 		this.wisp.applyTimedLifeGeneric(this.eventDuration + 4)
 		Logger.Information('Event Started')
@@ -194,7 +195,7 @@ export class AspectOfFireEvent extends Event {
 			})
 
 			endTimer.start(4, false, () => {
-				Unit.h002_0699.show = false
+				Units.h002_0699.show = false
 				new Effect(AbilityModel.doomDeath, Rectangle.EventCenter.centerX, Rectangle.EventCenter.centerY).destroy()
 
 				startEffect1.destroy()
@@ -213,8 +214,8 @@ export class AspectOfFireEvent extends Event {
 
 	public override onEventUnitDeath (): void {
 		this.inferno.enabled = false
-		Unit.h002_0699.show = true
-		Unit.h002_0699.setAnimation(Anim.EyeOfSargeras.death)
+		Units.h002_0699.show = true
+		Units.h002_0699.setAnimation(Anim.EyeOfSargeras.death)
 	}
 
 	static define (): void {

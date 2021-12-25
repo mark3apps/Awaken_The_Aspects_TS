@@ -7,7 +7,8 @@ import { GenerateNoButtonTalentTreeView } from 'app/systems/talents/views/NoButt
 import { GenerateNoButtonTalentView } from 'app/systems/talents/views/NoButtonTalentView'
 import { BasicTalentTreeViewModel } from 'lib/STK/UI/STK/ViewModels/BasicTalentTreeViewModel'
 import { HeroType } from 'lib/w3ts/handles/herotype'
-import { AbilityFour, Force, Frame, Group, MapPlayer, Order, Rectangle, Timer, Trigger, Unit } from 'lib/w3ts/index'
+import { Triggers } from 'lib/w3ts/handles/TriggerMap'
+import { AbilityFour, Force, Frame, Group, MapPlayer, Order, Rectangle, Timer, Unit } from 'lib/w3ts/index'
 import { Ability } from '.'
 import { Logger } from '../log'
 import { AbilityTypeMap } from './abilityTypeMap'
@@ -351,7 +352,7 @@ export class Hero {
 		Hero.PickedPlayers = new Force()
 
 		// When a Hero Levels up
-		Trigger.heroLevels.add(() => {
+		Triggers.heroLevels.add(() => {
 			const hero = Hero.get(Unit.fromEvent())
 
 			if (hero) {
@@ -379,7 +380,7 @@ export class Hero {
 		})
 
 		// When a new hero is created add it to the index
-		Trigger.unitCreated.add(() => {
+		Triggers.unitCreated.add(() => {
 			if (Unit.fromEvent().isHero) {
 				const unit = Unit.fromEvent()
 

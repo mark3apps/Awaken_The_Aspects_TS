@@ -5,7 +5,6 @@ import { ActivationEvent } from 'lib/STK/UI/STK/Models/Talent'
 import { TalentTree } from 'lib/STK/UI/STK/Models/TalentTree'
 import { AbilityFour, Icon } from 'lib/w3ts'
 import { FelFormAbility } from './abilities/felForm'
-import { BonusStatsAbility } from 'app/abilities/bonus/bonusStats'
 
 export class ShiftMasterSkillTree extends TalentTree {
 	get talentPoints (): number {

@@ -14,7 +14,7 @@ export class Effect extends Handle<effect> {
 	 * @param modelName
 	 * @param pos
 	 */
-	constructor (modelName: string, pos: Position, orientation: Orientation)
+	constructor (modelName: string, pos: Coordinate, orientation: Orientation)
 	/**
 	 * Creates a special effect.
 	 * @param modelName The path of the model that the effect will use.
@@ -32,22 +32,22 @@ export class Effect extends Handle<effect> {
 	 * If the attachment point does not exist, it will attach the effect to the model's origin.
 	 */
 	constructor (modelName: string, targetWidget: Widget, attachPointName: string)
-	constructor (modelName: string, a: number | Widget | Position, b: number | string | Orientation) {
+	constructor (modelName: string, a: number | Widget | Coordinate, b: number | string | Orientation) {
 		if (Handle.initFromHandle()) {
 			super()
 		} else if (typeof a === 'number' && typeof b === 'number') {
 			super(AddSpecialEffect(modelName, a, b))
-		} else if (a instanceof Position) {
+		} else if (a instanceof Widget) {
+			b = b as string
+			super(AddSpecialEffectTarget(modelName, a.handle, b))
+		} else {
+			a = a as Coordinate
 			super(AddSpecialEffect(modelName, a.x, a.y))
-			if (a.z !== undefined) { BlzSetSpecialEffectZ(this.handle, a.z) }
-			if (b !== undefined) {
+			if (a.z) { BlzSetSpecialEffectZ(this.handle, a.z) }
+			if (b) {
 				const orientation = b as Orientation
 				BlzSetSpecialEffectOrientation(this.handle, orientation.yaw ?? 0, orientation.pitch ?? 0, orientation.roll ?? 0)
 			}
-		} else {
-			a = a as Widget
-			b = b as string
-			super(AddSpecialEffectTarget(modelName, a.handle, b))
 		}
 	}
 

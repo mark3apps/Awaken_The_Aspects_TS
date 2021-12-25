@@ -1,6 +1,7 @@
 
-import { AbilityFour, BuffFour, Order, Timer, Group, Unit, Trigger } from 'lib/w3ts'
-import { UnitType } from '.'
+import { AbilityFour, BuffFour, Order, Timer, Group, Unit } from 'lib/w3ts'
+import { Triggers } from 'lib/w3ts/handles/TriggerMap'
+import { Ability, UnitType } from '.'
 import { AbilityTypeMap } from './abilityTypeMap'
 
 export const enum EffectType {
@@ -133,7 +134,7 @@ export class AbilityType {
 			}
 
 			if (this.addBuffDeath) {
-				Trigger.unitDying.add(() => {
+				Triggers.unitDying.add(() => {
 					if (Unit.fromEvent().hasBuff(this.buffId as number)) {
 						this.onBuffDeath()
 					}
@@ -141,10 +142,10 @@ export class AbilityType {
 			}
 
 			// Add Trigger Trigger
-			if (this.onEffect) {
+			if (this.onEffect !== undefined) {
 				switch (this.type) {
 					case EffectType.Kill:
-						Trigger.unitDies.add(() => {
+						Triggers.unitDies.add(() => {
 							if (Unit.fromHandle(GetKillingUnit()).hasAbility(this)) {
 								if (this.onEffect) this.onEffect()
 							}
@@ -152,7 +153,7 @@ export class AbilityType {
 						break
 
 					case EffectType.Death:
-						Trigger.unitDies.add(() => {
+						Triggers.unitDies.add(() => {
 							if (Unit.fromEvent().hasAbility(this)) {
 								if (this.onEffect) this.onEffect()
 							}
@@ -160,7 +161,7 @@ export class AbilityType {
 						break
 
 					case EffectType.Attacked:
-						Trigger.unitAttacked.add(() => {
+						Triggers.unitAttacked.add(() => {
 							if (Unit.fromEvent().hasAbility(this.id)) {
 								if (this.onEffect) this.onEffect()
 							}
@@ -168,7 +169,7 @@ export class AbilityType {
 						break
 
 					case EffectType.Attacking:
-						Trigger.unitAttacked.add(() => {
+						Triggers.unitAttacked.add(() => {
 							if (Unit.fromAttacker().hasAbility(this.id)) {
 								if (this.onEffect) this.onEffect()
 							}
@@ -176,7 +177,7 @@ export class AbilityType {
 						break
 
 					case EffectType.UnitTypeAttacking:
-						Trigger.unitAttacked.add(() => {
+						Triggers.unitAttacked.add(() => {
 							if (this.unitType[GetUnitTypeId(GetAttacker())]) {
 								if (this.onEffect) this.onEffect()
 							}

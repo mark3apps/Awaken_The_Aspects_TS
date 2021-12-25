@@ -1,8 +1,7 @@
 import { AbilityField } from 'lib/resources/fields'
-import { Unit, Widget } from 'lib/w3ts/index'
+import { Coordinate, Unit, Widget } from 'lib/w3ts/index'
 import { AbilityType } from './abilityType'
 import { AbilityTypeMap } from "./abilityTypeMap"
-import { Position } from './position'
 
 export class Ability {
 	public readonly unit!: Unit
@@ -52,8 +51,8 @@ export class Ability {
 		if (this.ability.orderId) this.unit.issueTargetOrder(this.ability.orderId, targetWidget)
 	}
 
-	public cast (dest: Position): void {
-		if (this.ability.orderId) this.unit.issueOrderAtPosition(this.ability.orderId, dest)
+	public cast (dest: Coordinate): void {
+		if (this.ability.orderId) this.unit.issueOrderAtCoordinate(this.ability.orderId, dest)
 	}
 
 	public isCasting (): boolean {
@@ -401,8 +400,11 @@ export class Ability {
 		return this.getAbility(unit, abilityType)
 	}
 
-	protected static getAbility (unit: Unit, abilityType: AbilityType) {
-		const ability = unit.data.abilities.get(abilityType.four)
-		return ability ?? new this(unit, abilityType)
+	protected static getAbility (unit: Unit, abilityType?: AbilityType) {
+		if (abilityType) {
+			const ability = unit.data.abilities.get(abilityType.four)
+			return ability ?? new this(unit, abilityType)
+		}
+		return undefined
 	}
 }

@@ -10,7 +10,6 @@ import { HeroType } from 'lib/w3ts/handles/herotype'
 import { AbilityFour, Order, Unit } from 'lib/w3ts/index'
 import { ShiftAbility } from 'app/heroes/ShiftMaster/abilities'
 import { FelFormAbility } from 'app/heroes/ShiftMaster/abilities/felForm'
-import { Globals } from 'app/globals'
 import { DefineBonusAbilities } from 'app/abilities/bonus/defineBonusAbilities'
 import { DefineTreeAbilities } from 'app/abilities/bonus/defineTreeAbilities'
 

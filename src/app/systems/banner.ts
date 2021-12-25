@@ -1,4 +1,5 @@
 /* eslint-disable indent */
+import { Units } from 'lib/w3ts/handles/Units'
 import { AbilityModel, Effect, Force, Group, Timer, Unit } from 'lib/w3ts/index'
 
 export const enum Side {
@@ -125,15 +126,15 @@ export class Banner {
 	static center4: Banner
 
 	static define (): void {
-		Banner.center1 = new Banner(Unit.o00C_1005)
-		Banner.center2 = new Banner(Unit.o00C_1008)
-		Banner.center3 = new Banner(Unit.o00C_1009)
-		Banner.center4 = new Banner(Unit.o00C_1011)
+		Banner.center1 = new Banner(Units.o00C_1005)
+		Banner.center2 = new Banner(Units.o00C_1008)
+		Banner.center3 = new Banner(Units.o00C_1009)
+		Banner.center4 = new Banner(Units.o00C_1011)
 
 		// Main Gate
-		new Banner(Unit.o00C_1018, 400, 2, 200)
-		new Banner(Unit.o00C_1019, 400, 2, 200)
-		new Banner(Unit.o00C_1020, 400, 2, 200)
-		new Banner(Unit.o00C_1021, 400, 2, 200)
+		new Banner(Units.o00C_1018, 400, 2, 200)
+		new Banner(Units.o00C_1019, 400, 2, 200)
+		new Banner(Units.o00C_1020, 400, 2, 200)
+		new Banner(Units.o00C_1021, 400, 2, 200)
 	}
 }

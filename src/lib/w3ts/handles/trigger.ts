@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /** @noSelfInFile **/
 
+import { DamageEvent } from 'app/systems/damageEvent/damageEvent'
 import { Dialog, DialogButton } from './dialog'
 import { Frame } from './frame'
 import { Handle } from './handle'
 import { MapPlayer } from './player'
 import { Rectangle } from './rect'
-import { Timer } from './timer'
 import { Unit } from './unit'
 import { Widget } from './widget'
 
@@ -282,128 +282,4 @@ export class Trigger extends Handle<trigger> {
 	public static fromHandle (handle: trigger): Trigger {
 		return this.getObject(handle)
 	}
-
-	static unitDies = new Trigger()
-	static unitDying = new Trigger()
-	static unitOrdered = new Trigger()
-	static unitAttacked = new Trigger()
-	static unitDamaged = new Trigger()
-	static unitCreated = new Trigger()
-	static unitEntersRegion = new Trigger()
-	static unitSummoned = new Trigger()
-	static unitTrained = new Trigger()
-	static unitSpellEffect = new Trigger()
-	static heroLevels = new Trigger()
-	static mapStart = new Trigger()
-
-	static define = (): void => {
-		Trigger.mapStart.registerTimerEvent(0.5, false)
-		Trigger.unitCreated.registerEnterRect(Rectangle.getPlayableMap())
-
-		Trigger.unitAttacked.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
-		Trigger.unitDamaged.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DAMAGED)
-		Trigger.unitOrdered.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_ORDER)
-		Trigger.unitOrdered.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)
-		Trigger.unitOrdered.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)
-		Trigger.unitOrdered.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_UNIT_ORDER)
-		Trigger.unitSummoned.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SUMMON)
-		Trigger.unitTrained.registerAnyUnitEvent(EVENT_PLAYER_UNIT_TRAIN_FINISH)
-		Trigger.unitSpellEffect.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT)
-		Trigger.heroLevels.registerAnyUnitEvent(EVENT_PLAYER_HERO_LEVEL)
-		Trigger.unitDies.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH)
-		Trigger.unitDying.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DAMAGED)
-		Trigger.unitDying.addCondition(() => { return Unit.fromEvent().life - GetEventDamage() <= 0 })
-
-		// When a Unit dies clear it out
-		Trigger.unitDies.add(() => {
-			const eventUnit = Unit.fromKilled()
-			const killingUnit = Unit.fromKilling()
-
-			killingUnit.kills += 1
-
-			if (!eventUnit.isHero) {
-				const timer = new Timer()
-				timer.start(30, false, () => {
-					eventUnit.data.custom.clear()
-					Unit.dataMap.delete(eventUnit)
-				})
-			}
-		})
-	}
-
-	/// / AUTO DEFINE
-	static Level100: Trigger
-	static fogofwar: Trigger
-	static testing: Trigger
-	static FUNC_Calculate_Level_Factor: Trigger
-	static Armor_Hardening: Trigger
-	static Slam: Trigger
-	static Shade_Strength_Copy: Trigger
-	static Mana_Overload_Research: Trigger
-	static Frost_Attack_Research: Trigger
-	static Feedback: Trigger
-	static Shade_Strength: Trigger
-	static Swift_Moves: Trigger
-	static Swift_Attacks: Trigger
-	static Attribute_Upgrade: Trigger
-	static Shipyard_Left_End: Trigger
-	static Brawler_No_Mana: Trigger
-	static Brawler_Rage_GUI: Trigger
-	static Drain_Start: Trigger
-	static Drain_Loop: Trigger
-	static Unleash_Rage_Start: Trigger
-	static Unleash_Rage: Trigger
-	static Paradox_INIT: Trigger
-	static Paradox_CAST: Trigger
-	static Paradox_LOOP: Trigger
-	static Chrono_Atrophy_CAST: Trigger
-	static Time_Travel_INIT: Trigger
-	static Time_Travel_CAST: Trigger
-	static Time_Travel_LOOP: Trigger
-	static Level_Up_Team: Trigger
-	static Revive_Hero: Trigger
-	static Revive_Hero_Timer: Trigger
-	static End_Of_Game_Left: Trigger
-	static End_Of_Game_Right: Trigger
-	static baseAndHeals: Trigger
-	static units: Trigger
-
-	static defineGlobals (): void {
-		Trigger.Level100 = Trigger.fromHandle(gg_trg_Level100)
-		Trigger.fogofwar = Trigger.fromHandle(gg_trg_fogofwar)
-		Trigger.testing = Trigger.fromHandle(gg_trg_testing)
-		Trigger.FUNC_Calculate_Level_Factor = Trigger.fromHandle(gg_trg_FUNC_Calculate_Level_Factor)
-		Trigger.Armor_Hardening = Trigger.fromHandle(gg_trg_Armor_Hardening)
-		Trigger.Slam = Trigger.fromHandle(gg_trg_Slam)
-		Trigger.Shade_Strength_Copy = Trigger.fromHandle(gg_trg_Shade_Strength_Copy)
-		Trigger.Mana_Overload_Research = Trigger.fromHandle(gg_trg_Mana_Overload_Research)
-		Trigger.Frost_Attack_Research = Trigger.fromHandle(gg_trg_Frost_Attack_Research)
-		Trigger.Feedback = Trigger.fromHandle(gg_trg_Feedback)
-		Trigger.Shade_Strength = Trigger.fromHandle(gg_trg_Shade_Strength)
-		Trigger.Swift_Moves = Trigger.fromHandle(gg_trg_Swift_Moves)
-		Trigger.Swift_Attacks = Trigger.fromHandle(gg_trg_Swift_Attacks)
-		Trigger.Attribute_Upgrade = Trigger.fromHandle(gg_trg_Attribute_Upgrade)
-		Trigger.Shipyard_Left_End = Trigger.fromHandle(gg_trg_Shipyard_Left_End)
-		Trigger.Brawler_No_Mana = Trigger.fromHandle(gg_trg_Brawler_No_Mana)
-		Trigger.Brawler_Rage_GUI = Trigger.fromHandle(gg_trg_Brawler_Rage_GUI)
-		Trigger.Drain_Start = Trigger.fromHandle(gg_trg_Drain_Start)
-		Trigger.Drain_Loop = Trigger.fromHandle(gg_trg_Drain_Loop)
-		Trigger.Unleash_Rage_Start = Trigger.fromHandle(gg_trg_Unleash_Rage_Start)
-		Trigger.Unleash_Rage = Trigger.fromHandle(gg_trg_Unleash_Rage)
-		Trigger.Paradox_INIT = Trigger.fromHandle(gg_trg_Paradox_INIT)
-		Trigger.Paradox_CAST = Trigger.fromHandle(gg_trg_Paradox_CAST)
-		Trigger.Paradox_LOOP = Trigger.fromHandle(gg_trg_Paradox_LOOP)
-		Trigger.Chrono_Atrophy_CAST = Trigger.fromHandle(gg_trg_Chrono_Atrophy_CAST)
-		Trigger.Time_Travel_INIT = Trigger.fromHandle(gg_trg_Time_Travel_INIT)
-		Trigger.Time_Travel_CAST = Trigger.fromHandle(gg_trg_Time_Travel_CAST)
-		Trigger.Time_Travel_LOOP = Trigger.fromHandle(gg_trg_Time_Travel_LOOP)
-		Trigger.Level_Up_Team = Trigger.fromHandle(gg_trg_Level_Up_Team)
-		Trigger.Revive_Hero = Trigger.fromHandle(gg_trg_Revive_Hero)
-		Trigger.Revive_Hero_Timer = Trigger.fromHandle(gg_trg_Revive_Hero_Timer)
-		Trigger.End_Of_Game_Left = Trigger.fromHandle(gg_trg_End_Of_Game_Left)
-		Trigger.End_Of_Game_Right = Trigger.fromHandle(gg_trg_End_Of_Game_Right)
-		Trigger.baseAndHeals = Trigger.fromHandle(gg_trg_baseAndHeals)
-		Trigger.units = Trigger.fromHandle(gg_trg_units)
-	}
-	/// / AUTO DEFINE
 }

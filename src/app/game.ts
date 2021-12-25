@@ -2,8 +2,12 @@ import { DeathSpawn, Gate } from 'app/abilities'
 import { ItemType, Hero } from 'app/classes'
 import { BrawlerHeroType, ManaAddictHeroType, ShiftMasterHeroType, TacticianHeroType, TimeMageHeroType } from 'app/heroes/heroTypes'
 import { ItemUpgrade, Cinematic, Pathing, HeroAttribute, Army, Loc, Faction, Spawn, Aspect, Banner, AspectOfFireEvent, Load } from 'app/systems'
-import { Rectangle, Unit, CameraSetup, Trigger, Force, Region, Players } from 'lib/w3ts'
+import { Rectangle, CameraSetup, Force, Region, Players } from 'lib/w3ts'
+import { Triggers } from 'lib/w3ts/handles/TriggerMap'
+import { Units } from 'lib/w3ts/handles/Units'
 import { AbilityTypeMap } from './classes/abilityTypeMap'
+import { AbilityTypes } from './classes/abilityTypes'
+import { Globals } from './globals'
 import { Logger } from './log'
 
 export class Game {
@@ -12,9 +16,8 @@ export class Game {
 
 		// Define Map Globals
 		Rectangle.defineGlobals()
-		Unit.defineGlobals()
+		Units.defineGlobals()
 		CameraSetup.defineGlobals()
-		Trigger.defineGlobals()
 
 		ItemType.define()
 		ItemUpgrade.define()
@@ -24,7 +27,7 @@ export class Game {
 
 		Region.define()
 
-		Trigger.define()
+		Triggers.define()
 
 		DeathSpawn.define()
 		Pathing.define()
@@ -32,13 +35,12 @@ export class Game {
 
 		Hero.define()
 
+
 		// new BrawlerHeroType()
 		// new ManaAddictHeroType()
 		new ShiftMasterHeroType()
 		// new TacticianHeroType()
 		// new TimeMageHeroType()
-
-		AbilityTypeMap.initSpellEffects()
 
 		Logger.Verbose('Game Init Finished')
 	}
@@ -62,6 +64,9 @@ export class Game {
 
 		Cinematic.setupCineCamera()
 		Load.units()
+
+		AbilityTypes.getInstance()
+		AbilityTypeMap.initSpellEffects()
 
 		Cinematic.startHeroSelector()
 

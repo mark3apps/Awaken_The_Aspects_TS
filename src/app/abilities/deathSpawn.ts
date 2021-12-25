@@ -1,7 +1,8 @@
 import { UnitType } from 'app/classes'
 import { Logger } from 'app/log'
 import { Pathing } from 'app/systems'
-import { AttachPoint, AttachMod, AttachSpecial, Trigger, Unit, MapPlayer, AbilityFour, Timer, Effect } from 'lib/w3ts'
+import { AttachPoint, AttachMod, AttachSpecial, Unit, MapPlayer, AbilityFour, Timer, Effect } from 'lib/w3ts'
+import { Triggers } from 'lib/w3ts/handles/TriggerMap'
 
 interface DeathSpawnInterface {
 	amount: number,
@@ -72,7 +73,7 @@ export class DeathSpawn {
 		DeathSpawn.add(UnitType.NightElfBattleship, { amount: 3, unitId: UnitType.NightElfSentry, chance: 0.8 })
 
 		// Add Death Spawn trigger to Unit Dieing Trigger
-		Trigger.unitDies.add(() => {
+		Triggers.unitDies.add(() => {
 			try {
 				const unit = Unit.fromEvent()
 
@@ -88,7 +89,7 @@ export class DeathSpawn {
 		})
 
 		// Set Buildings to Randomly Stay behind
-		Trigger.unitDying.add(() => {
+		Triggers.unitDying.add(() => {
 			const unit = Unit.fromEvent()
 
 			if (unit.isStructure && UnitType.leaveCorpse.has(unit.typeId)) {
@@ -119,7 +120,7 @@ export class DeathSpawn {
 		try {
 			for (let i = 0; i < deathSpawn.amount; i++) {
 				if (deathSpawn.chance as number >= math.random() && unit.isTerrainPathable(PATHING_TYPE_WALKABILITY)) {
-					const u = new Unit(unit.owner, deathSpawn.unitId.id, unit.position, unit.facing)
+					const u = new Unit(unit.owner, deathSpawn.unitId.id, unit.coordinate, unit.facing)
 
 					// if ()
 					Pathing.newOrders(u)

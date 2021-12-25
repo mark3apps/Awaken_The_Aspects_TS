@@ -1,7 +1,8 @@
 import { Logger } from 'app/log'
 import { Position } from 'app/classes/position'
 import { UnitType } from 'app/classes/unitType'
-import { Unit, MapPlayer, Timer, Group, Rectangle, Trigger, Anim } from 'lib/w3ts/index'
+import { Unit, MapPlayer, Timer, Group, Rectangle, Anim } from 'lib/w3ts/index'
+import { Triggers } from 'lib/w3ts/handles/TriggerMap'
 
 export interface GateCheck {
 	enemies: number,
@@ -46,7 +47,7 @@ export class Gate {
 	public gateType: GateType | undefined
 	public player: MapPlayer
 	public facing: number
-	public coordinate: Position
+	public position: Position
 	public state: GateState
 
 	private static checkTimer: Timer
@@ -59,7 +60,7 @@ export class Gate {
 		this.player = unit.owner
 		this.gateType = GateType.get(unit)
 		this.facing = unit.facing
-		this.coordinate = unit.position
+		this.position = new Position(unit.coordinate)
 		this.state = GateState.open
 
 		Gate.all.push(this)
@@ -88,14 +89,14 @@ export class Gate {
 		g.destroy()
 
 		// Trigger Setup
-		Trigger.unitDies.add(() => {
+		Triggers.unitDies.add(() => {
 			if (Unit.fromEvent().inGroup(Gate.unitGroup)) {
 				const gate = Gate.fromUnit(Unit.fromEvent())
 				if (gate) gate.died()
 			}
 		})
 
-		Trigger.unitAttacked.add(() => {
+		Triggers.unitAttacked.add(() => {
 			if (Unit.fromEvent().inGroup(Gate.unitGroup)) {
 				Unit.fromEvent().setAnimation(Anim.Gate.standHit)
 			}
@@ -192,7 +193,7 @@ export class Gate {
 	public died (): void {
 		Gate.unitGroup.removeUnit(this.unit)
 
-		if (this.gateType) this.unit = new Unit(MapPlayer.fromHandle(Player(PLAYER_NEUTRAL_PASSIVE)), this.gateType.openGate.id, this.unit.position, this.unit.facing)
+		if (this.gateType) this.unit = new Unit(MapPlayer.fromHandle(Player(PLAYER_NEUTRAL_PASSIVE)), this.gateType.openGate.id, this.unit.coordinate, this.unit.facing)
 		this.unit.setAnimation(Anim.Gate.death)
 		this.state = GateState.died
 	}

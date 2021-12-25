@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { Position } from 'app/classes/position'
+import { Coordinate } from '.'
 import { MapPlayer } from './player'
 import { Timer } from './timer'
 import { Unit } from './unit'
@@ -62,7 +63,7 @@ export class Ray extends Vector {
 			this.velocity = c as number
 			this.effectPath = d
 
-			this._dest = this._origin.polarProjection(distance, this.yaw)
+			this._dest = new Position(this._origin.polarProjection(distance, this.yaw))
 		} else {
 			this._dest = a
 			this.velocity = b
@@ -143,7 +144,7 @@ export class Ray extends Vector {
 	public set rayUnit (unit: Unit) {
 		this._rayUnit = unit
 		this._hasRayUnit = true
-		this._rayUnit.position = this
+		this._rayUnit.coordinate = this
 		if (this._rayUnit) this._rayUnit.facing = this.yaw
 	}
 
@@ -231,15 +232,15 @@ export class Ray extends Vector {
 	}
 
 	public get dest (): Position {
-		return this._dest instanceof Unit ? this._dest.position : this._dest
+		return this._dest instanceof Unit ? new Position(this._dest.coordinate) : this._dest
 	}
 
-	public set dest (pos: Position | Unit) {
+	public set dest (pos: Unit | Position) {
 		this._dest = pos
 	}
 
 	public get origin (): Position {
-		return this._origin instanceof Unit ? this._origin.position : this._origin
+		return this._origin instanceof Unit ? new Position(this._origin.coordinate) : this._origin
 	}
 
 	public set origin (pos: Position) {
@@ -256,7 +257,7 @@ export class Ray extends Vector {
 
 	public updateRayUnit (): void {
 		if (this.rayUnit != null) {
-			this.rayUnit.position = this
+			this.rayUnit.coordinate = this
 		}
 	}
 

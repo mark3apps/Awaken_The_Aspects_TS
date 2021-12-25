@@ -48,7 +48,7 @@ export class Aspect {
 				new Effect(AbilityModel.deathPactTarget, u.x, u.y).destroy()
 
 				if (u === this.origAspect) {
-					this.deathPos = this.origAspect.position
+					this.deathPos = new Position(this.origAspect.coordinate)
 					this.deathFacing = this.origAspect.facing
 
 					// Open the Gate

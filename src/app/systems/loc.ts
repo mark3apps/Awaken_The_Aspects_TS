@@ -1,8 +1,9 @@
 import { Logger } from 'app/log'
 import { Position } from 'app/classes/position'
 import { UnitType } from 'app/classes/unitType'
-import { Rectangle, Region, Trigger, Unit, Order } from 'lib/w3ts/index'
+import { Rectangle, Region, Unit, Order } from 'lib/w3ts/index'
 import { Army } from './army'
+import { Triggers } from 'lib/w3ts/handles/TriggerMap'
 
 interface LocInterface {
 	alliance: Loc,
@@ -32,7 +33,7 @@ export class Loc {
 		this.region.addRect(r)
 		this.forward = forward ?? []
 
-		Trigger.unitEntersRegion.registerEnterRegion(this.region.handle, null)
+		Triggers.unitEntersRegion.registerEnterRegion(this.region.handle, null)
 		Loc.map.set(this.region.id, this)
 	}
 
@@ -232,7 +233,7 @@ export class Loc {
 		}
 
 		// Unit Enters a Loc Forwarding Region
-		Trigger.unitEntersRegion.add(() => {
+		Triggers.unitEntersRegion.add(() => {
 			const eventRegion = Region.fromEvent()
 			const eventLoc = Loc.map.get(eventRegion.id)
 
@@ -246,7 +247,7 @@ export class Loc {
 							if (eventUnit.inForce(element.army.force)) {
 								const dest = element.loc.randomPosition
 
-								eventUnit.issueOrderAtPosition(Order.Attack, dest)
+								eventUnit.issueOrderAtCoordinate(Order.Attack, dest)
 							}
 						}
 					}

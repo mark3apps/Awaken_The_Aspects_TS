@@ -1,8 +1,9 @@
 import { Logger } from 'app/log'
 import { Position } from 'app/classes/position'
 import { UnitType } from 'app/classes/unitType'
-import { Order, BuffFour, Trigger, Unit, Timer, Force, Group, Rectangle, Region } from 'lib/w3ts/index'
+import { Order, BuffFour, Unit, Timer, Force, Group, Rectangle, Region } from 'lib/w3ts/index'
 import { Loc } from './loc'
+import { Triggers } from 'lib/w3ts/handles/TriggerMap'
 
 export const OrderIdIgnore = [
 	Order.Move,
@@ -38,7 +39,9 @@ export const OrderIdIgnore = [
 	Order.Clusterrockets,
 	Order.Creepthunderclap,
 	Order.Darkportal,
-	Order.Breathoffire
+	Order.Breathoffire,
+	Order.Bearform,
+	Order.Stop
 ]
 
 export const BuffIdIgnore = [
@@ -48,14 +51,13 @@ export const BuffIdIgnore = [
 export const OrderIdIgnoreWithDelay = [
 	Order.Rainoffire,
 	Order.Tranquility,
-	Order.Stunned,
-	Order.Bearform
+	Order.Stunned
 ]
 
 export class Pathing {
 	static define = (): void => {
 		// Turn off Elder Ent Movement Pathing
-		Trigger.unitCreated.add(() => {
+		Triggers.unitCreated.add(() => {
 			const eventUnit = Unit.fromEvent()
 			if (eventUnit.typeId === UnitType.AncientOfWar.id) {
 				eventUnit.setPathing(false)
@@ -63,22 +65,22 @@ export class Pathing {
 		})
 
 		// Units Ordered
-		Trigger.unitOrdered.add(() => {
+		Triggers.unitOrdered.add(() => {
 			try {
 				const eventOrder = GetIssuedOrderId()
 				const eventUnit = Unit.fromOrdered()
 
-				if (UnitType.order.get(eventUnit.typeId)) {
+				if (UnitType.order.get(eventUnit.typeId) === true) {
 					if (OrderIdIgnore.indexOf(eventOrder) !== -1 && !eventUnit.hasBuff(BuffIdIgnore[0])) {
 						const timer = new Timer()
 						timer.start(1, false, () => {
 							eventUnit.issueLastOrder()
-						}).destroy()
+						})
 					} else if (OrderIdIgnoreWithDelay.indexOf(eventOrder) !== -1) {
 						const timer = new Timer()
 						timer.start(10, false, () => {
 							eventUnit.issueLastOrder()
-						}).destroy()
+						})
 					}
 				}
 			} catch (error) {
@@ -87,7 +89,7 @@ export class Pathing {
 		})
 
 		// Unit is Summoned
-		Trigger.unitSummoned.add(() => {
+		Triggers.unitSummoned.add(() => {
 			try {
 				const eventUnit = Unit.fromEvent()
 
@@ -104,7 +106,7 @@ export class Pathing {
 		})
 
 		// Unit is Spawned from Campsite
-		Trigger.unitCreated.add(() => {
+		Triggers.unitCreated.add(() => {
 			const eventUnit = Unit.fromEvent()
 
 			try {
@@ -118,7 +120,7 @@ export class Pathing {
 			}
 		})
 
-		Trigger.mapStart.add(() => {
+		Triggers.mapStart.add(() => {
 			const allUnits = new Group()
 			allUnits.enumUnitsInRect(Rectangle.getWorldBounds())
 
@@ -162,7 +164,7 @@ export class Pathing {
 			}
 
 			// If
-			if (dest) unit.issueOrderAtPosition(Order.Attack, dest)
+			if (dest) unit.issueOrderAtCoordinate(Order.Attack, dest)
 		} catch (error) {
 			Logger.Error(error)
 		}

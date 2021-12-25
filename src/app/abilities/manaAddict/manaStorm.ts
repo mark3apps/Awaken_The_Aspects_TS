@@ -64,7 +64,7 @@ export class AbilityManaStorm extends AbilityType {
 						const u = g.getRandomUnit()
 						g.removeUnit(u)
 
-						const dummy = new Unit(eventUnit.owner, dummyId, eventUnit.position, eventUnit.angleTo(u))
+						const dummy = new Unit(eventUnit.owner, dummyId, eventUnit.coordinate, eventUnit.angleTo(u))
 						dummy.weapon1Base = damage - 1
 						dummy.issueTargetOrder(Order.Attack, u)
 						dummy.applyTimedLife(BuffFour.TimedLifeGeneric, 1.5)

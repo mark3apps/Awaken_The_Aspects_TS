@@ -38,11 +38,11 @@ export class UnitType {
 		if (config.preload !== undefined) this.preload = config.preload
 
 		UnitType.map.set(this.id, this)
-		if (this.order) { UnitType.order.set(this.id, true) }
-		if (this.replaceOnSummon) { UnitType.replaceOnSummon.set(this.id, true) }
-		if (this.factorySummon) { UnitType.factorySummon.set(this.id, true) }
-		if (this.leaveCorpse) { UnitType.leaveCorpse.set(this.id, true) }
-		if (this.preload) { UnitType.preloader.push(this) }
+		if (this.order === true) { UnitType.order.set(this.id, true) }
+		if (this.replaceOnSummon === true) { UnitType.replaceOnSummon.set(this.id, true) }
+		if (this.factorySummon === true) { UnitType.factorySummon.set(this.id, true) }
+		if (this.leaveCorpse === true) { UnitType.leaveCorpse.set(this.id, true) }
+		if (this.preload === true) { UnitType.preloader.push(this) }
 	}
 
 	static get (unit: Unit | number): UnitType | undefined {
