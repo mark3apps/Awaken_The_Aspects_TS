@@ -43,7 +43,6 @@ export class Game {
 
 		Heroes.define()
 
-
 		// new BrawlerHeroType()
 		// new ManaAddictHeroType()
 		new ShiftMasterHeroType()

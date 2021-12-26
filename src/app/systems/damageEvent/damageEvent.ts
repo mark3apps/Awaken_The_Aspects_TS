@@ -55,7 +55,6 @@ export class DamageEvent {
 	applyCustomDamage = () => {
 		if (this.isSpell()) this.damage *= this.source.spellDamage * this.target.spellResistance
 		if (this.isAttack()) {
-
 			if (this.source.critical > 0) {
 				const rand = math.random()
 				if (rand <= this.source.critical) {

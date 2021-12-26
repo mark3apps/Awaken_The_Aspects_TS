@@ -1,6 +1,5 @@
 import { ItemType } from './itemType'
 
-
 export class ItemTypes {
 	static increasedStamina1: ItemType
 	static increasedStamina2: ItemType

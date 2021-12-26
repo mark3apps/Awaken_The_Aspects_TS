@@ -117,7 +117,6 @@ export class Gate {
 	}
 
 	public died (): void {
-
 		if (this.gateType) this.unit = new Unit(MapPlayer.fromHandle(Player(PLAYER_NEUTRAL_PASSIVE)), this.gateType.openGate.id, this.unit.coordinate, this.unit.facing)
 		this.unit.setAnimation(Anim.Gate.death)
 		this.state = GateState.died

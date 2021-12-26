@@ -6,7 +6,6 @@ import { Hero } from './hero'
 import { Rectangles } from 'lib/w3ts/handles/Rectangles'
 import { Forces } from 'lib/w3ts/handles/Forces'
 
-
 export class Heroes {
 	static define = (): void => {
 		Hero.PickedPlayers = new Force()

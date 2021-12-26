@@ -20,7 +20,6 @@ export class Position implements Coordinate {
 			this._y = a.y
 			this._z = a.z ?? 0
 		}
-
 	}
 
 	static fromSpellTarget (): Position {
