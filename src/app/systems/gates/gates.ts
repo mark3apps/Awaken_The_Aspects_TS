@@ -4,7 +4,6 @@ import { Triggers } from 'lib/w3ts/handles/triggers'
 import { GateType } from './gateType'
 import { Gate } from './gate'
 
-
 export class Gates {
 	public static define (): void {
 		new GateType(UnitType.DwarvenGateOpen, UnitType.DwarvenGateClosed)
@@ -29,7 +28,6 @@ export class Gates {
 		})
 
 		Triggers.unitDamaged.addAction(() => {
-
 			if (Unit.fromDamageTarget().userData == 15 && GetEventDamage() > 5) {
 				Unit.fromDamageTarget().setAnimation(Anim.Gate.standHit)
 			}

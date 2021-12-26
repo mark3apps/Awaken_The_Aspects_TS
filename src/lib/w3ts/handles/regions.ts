@@ -1,7 +1,6 @@
 import { Rectangle } from './rect'
 import { Region } from './region'
 
-
 export class Regions {
 	static BigTop: Region
 	static BigMiddle: Region

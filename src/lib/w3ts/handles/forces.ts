@@ -1,7 +1,6 @@
 import { Players } from '../globals/index'
 import { Force } from './force'
 
-
 export class Forces {
 	static Alliance: Force
 	static AlliancePlayers: Force

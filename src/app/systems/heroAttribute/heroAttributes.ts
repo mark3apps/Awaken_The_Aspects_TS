@@ -1,7 +1,6 @@
 import { ItemTypes } from 'app/classes/ItemTypes'
 import { HeroAttribute } from './heroAttribute'
 
-
 export class HeroAttributes {
 	static strength: HeroAttribute
 	static agility: HeroAttribute

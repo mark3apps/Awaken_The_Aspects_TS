@@ -1,6 +1,5 @@
 import { Rectangle } from './rect'
 
-
 export class Rectangles {
 	/// / AUTO DEFINE
 	static Left_Start: Rectangle

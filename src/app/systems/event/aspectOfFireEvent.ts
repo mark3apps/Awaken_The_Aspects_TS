@@ -9,7 +9,6 @@ import { Event } from './event'
 import { Rectangles } from 'lib/w3ts/handles/Rectangles'
 import { Forces } from 'lib/w3ts/handles/Forces'
 
-
 export class AspectOfFireEvent extends Event {
 	inferno: Trigger
 	wisp?: Unit

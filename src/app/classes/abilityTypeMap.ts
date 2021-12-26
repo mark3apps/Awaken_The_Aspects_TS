@@ -8,7 +8,6 @@ export class AbilityTypeMap {
 	static mapInstant = new Map<string, AbilityType>();
 	static preload: AbilityType[] = [];
 
-
 	public static fromSpellEvent () {
 		return this.fromId(GetSpellAbilityFour())
 	}
@@ -23,8 +22,7 @@ export class AbilityTypeMap {
 			Triggers.unitSpellEffect.addAction(() => {
 				if (this.mapInstant.has(GetSpellAbilityFour())) {
 					const ability = this.fromSpellEvent()
-					if (ability && ability.onEffect)
-						ability.onEffect()
+					if (ability && ability.onEffect) { ability.onEffect() }
 				}
 			})
 		} catch (error) {
@@ -32,5 +30,3 @@ export class AbilityTypeMap {
 		}
 	}
 }
-
-

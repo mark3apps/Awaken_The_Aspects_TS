@@ -1,6 +1,5 @@
 import { CameraSetup } from './camera'
 
-
 export class CameraSetups {
 	/// / AUTO DEFINE
 	static baseLeftStart: CameraSetup

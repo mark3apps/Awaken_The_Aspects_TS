@@ -8,7 +8,6 @@ import { AbilityField } from 'lib/resources/fields'
 import { Unit, Group, Timer, Effect, AbilityModel, AttachPoint } from 'lib/w3ts/index'
 
 export class ShadestormAbility extends Ability {
-
 	damage = 100
 	maxShades = 2
 	duration = 10

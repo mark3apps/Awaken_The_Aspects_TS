@@ -110,5 +110,3 @@ export class Event {
 		//
 	}
 }
-
-

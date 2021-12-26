@@ -1,7 +1,6 @@
 import { Units } from 'lib/w3ts/handles/Units'
 import { Banner } from './banner'
 
-
 export class Banners {
 	static center1: Banner
 	static center2: Banner
