@@ -1,2 +1,2 @@
 export * from './deathSpawn'
-export * from './gate'
+export * from '../systems/gates/gate'

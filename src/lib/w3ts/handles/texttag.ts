@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 /** @noSelfInFile **/
 
 import { Handle } from './handle'

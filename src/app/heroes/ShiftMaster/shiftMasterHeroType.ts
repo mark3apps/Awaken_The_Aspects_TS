@@ -3,7 +3,6 @@ import { ShadestormAbility } from 'app/heroes/ShiftMaster/abilities/shadestorm'
 import { SwitchAbility } from 'app/heroes/ShiftMaster/abilities/switch'
 import { Hero } from 'app/classes'
 import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
-import { HeroAttribute } from 'app/systems/attribute'
 import { ShiftMasterSkillTree } from 'app/heroes/ShiftMaster/shiftMasterSkillTree'
 import { Strategy } from 'lib/resources/strategy'
 import { HeroType } from 'lib/w3ts/handles/herotype'
@@ -12,6 +11,7 @@ import { ShiftAbility } from 'app/heroes/ShiftMaster/abilities'
 import { FelFormAbility } from 'app/heroes/ShiftMaster/abilities/felForm'
 import { DefineBonusAbilities } from 'app/abilities/bonus/defineBonusAbilities'
 import { DefineTreeAbilities } from 'app/abilities/bonus/defineTreeAbilities'
+import { HeroAttributes } from 'app/systems/heroAttribute/heroAttributes'
 
 export class ShiftMasterHeroType extends HeroType {
 	constructor () {
@@ -30,9 +30,9 @@ export class ShiftMasterHeroType extends HeroType {
 		// const G = Globals.get()
 
 		// Attributes
-		this.addHeroAttribute(HeroAttribute.agility)
-		this.addHeroAttribute(HeroAttribute.melee)
-		this.addHeroAttribute(HeroAttribute.assassin)
+		this.addHeroAttribute(HeroAttributes.agility)
+		this.addHeroAttribute(HeroAttributes.melee)
+		this.addHeroAttribute(HeroAttributes.assassin)
 
 		// Items
 

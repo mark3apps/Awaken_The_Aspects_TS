@@ -1,4 +1,6 @@
 
+import { Forces } from 'lib/w3ts/handles/Forces'
+import { Units } from 'lib/w3ts/handles/Units'
 import { Force, MapPlayer, Unit } from 'lib/w3ts/index'
 
 export class Army {
@@ -32,13 +34,13 @@ export class Army {
 
 	static define = (): void => {
 		Army.Alliance = new Army()
-		Army.Alliance.force = Force.Alliance
+		Army.Alliance.force = Forces.Alliance
 		Army.Alliance.enemy = Army.Federation
-		Army.Alliance.captial = Unit.fromHandle(gg_unit_h00E_0033)
+		Army.Alliance.captial = Units.h00E_0033
 
 		Army.Federation = new Army()
-		Army.Federation.force = Force.Federation
+		Army.Federation.force = Forces.Federation
 		Army.Federation.enemy = Army.Alliance
-		Army.Federation.captial = Unit.fromHandle(gg_unit_h00E_0081)
+		Army.Federation.captial = Units.h00E_0081
 	}
 }

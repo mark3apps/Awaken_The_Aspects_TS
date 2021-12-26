@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /** @noSelfInFile **/
 
 import { Position } from 'app/classes/position'

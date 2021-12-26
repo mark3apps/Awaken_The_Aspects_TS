@@ -1,6 +1,7 @@
 import { Ability } from 'app/classes'
 import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
-import { AbilityFour, Order, Unit, Group, Timer, Force, Players } from 'lib/w3ts/index'
+import { Forces } from 'lib/w3ts/handles/Forces'
+import { AbilityFour, Order, Unit, Group, Timer, Players } from 'lib/w3ts/index'
 
 export class AttackAbility extends AbilityType {
 	constructor () {
@@ -38,7 +39,7 @@ export class AttackAbility extends AbilityType {
 		let u = g.first
 		while (u != null && unitsPicked < unitCount) {
 			if (u.isAlive() &&
-				(u.inForce(Force.Computers) || u.owner === eventUnit.owner) &&
+				(u.inForce(Forces.Computers) || u.owner === eventUnit.owner) &&
 				u.isAlly(eventUnit) &&
 				!u.isHero &&
 				!u.isIllusion &&
@@ -47,9 +48,9 @@ export class AttackAbility extends AbilityType {
 				u.moveSpeed > 0) {
 				pickedUnits.addUnit(u)
 
-				u.data.custom.set('attackOriginalOwner', u.owner.id)
-				u.data.custom.set('attackOrigDestX', u.data.destX)
-				u.data.custom.set('attackOrigDestY', u.data.destY)
+				u.custom.set('attackOriginalOwner', u.owner.id)
+				u.custom.set('attackOrigDestX', u.destX)
+				u.custom.set('attackOrigDestY', u.destY)
 
 				u.addAbility(AbilityFour.AttackSpellBook)
 				u.setAbilityLevel(AbilityFour.AttackDamage, level)
@@ -72,15 +73,15 @@ export class AttackAbility extends AbilityType {
 
 				u.removeAbility(AbilityFour.AttackSpellBook)
 
-				u.setOwner(Players[u.data.custom.get('attackOriginalOwner') as number], false)
-				const x = u.data.custom.get('attackOrigDestX') as number
-				const y = u.data.custom.get('attackOrigDestY') as number
+				u.setOwner(Players[u.custom.get('attackOriginalOwner') as number], false)
+				const x = u.custom.get('attackOrigDestX') as number
+				const y = u.custom.get('attackOrigDestY') as number
 				u.issueOrderAt(Order.Attack, x, y)
 
 				// Clean up Custom Data
-				u.data.custom.delete('attackOriginalOwner')
-				u.data.custom.delete('attackOrigDestX')
-				u.data.custom.delete('attackOrigDestY')
+				u.custom.delete('attackOriginalOwner')
+				u.custom.delete('attackOrigDestX')
+				u.custom.delete('attackOrigDestY')
 			})
 
 			// Clean Up Handles

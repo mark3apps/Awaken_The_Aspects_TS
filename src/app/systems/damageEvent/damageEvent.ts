@@ -1,18 +1,23 @@
 import { AttackType, DamageType } from 'lib/resources/types'
-import { Color, MapPlayer, playerColors, Unit } from 'lib/w3ts'
+import { Color, MapPlayer, Unit } from 'lib/w3ts'
 import { ArcTag } from '../arcTags/arctags'
-
-
 export class DamageEvent {
 	source: Unit
 	target: Unit
 	modifier?: DamageModifier
+
+	protected static _last: DamageEvent
 
 	constructor () {
 		this.source = Unit.fromDamageSource()
 		this.target = Unit.fromDamageTarget()
 
 		this.applyCustomDamage()
+		DamageEvent._last = this
+	}
+
+	static get () {
+		return DamageEvent._last
 	}
 
 	get attackType () {
@@ -48,9 +53,6 @@ export class DamageEvent {
 	}
 
 	applyCustomDamage = () => {
-		// print(`Source: ${this.source.name} | Target: ${this.target.name} | isA: ${this.isAttack()} | isS ${this.isSpell()}`)
-		// print(`Damage ORG: ${this.damage}`)
-
 		if (this.isSpell()) this.damage *= this.source.spellDamage * this.target.spellResistance
 		if (this.isAttack()) {
 
@@ -93,14 +95,13 @@ export class DamageEvent {
 					break
 
 				default:
-					//if (this.source.owner.controller == MAP_CONTROL_USER) {
-					new ArcTag(`${math.floor(displayDamage)}`, this.target)
-					//}
 					break
 			}
-		}
 
-		// print(`Damage ADJ: ${this.damage}`)
+			if (this.source.owner.controller == MAP_CONTROL_USER && this.damage > 5) {
+				new ArcTag(`${math.floor(displayDamage)}`, this.target)
+			}
+		}
 	}
 }
 

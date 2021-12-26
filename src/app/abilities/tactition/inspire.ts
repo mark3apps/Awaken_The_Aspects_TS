@@ -1,7 +1,8 @@
 import { Ability } from 'app/classes'
 import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
 import { Logger } from 'app/log'
-import { Group, AbilityFour, Order, Unit, Force, BuffFour, Effect, AbilityModel, AttachPoint, Players } from 'lib/w3ts/index'
+import { Forces } from 'lib/w3ts/handles/Forces'
+import { Group, AbilityFour, Order, Unit, BuffFour, Effect, AbilityModel, AttachPoint, Players } from 'lib/w3ts/index'
 
 export class InspireAbility extends AbilityType {
 	static group = new Group()
@@ -33,7 +34,7 @@ export class InspireAbility extends AbilityType {
 			let u = g.first
 			while (u != null && pickedUnits < unitsInspired) {
 				if (u.isAlly(eventUnit) &&
-					(u.inForce(Force.Computers) || u.owner === eventUnit.owner) &&
+					(u.inForce(Forces.Computers) || u.owner === eventUnit.owner) &&
 					!u.isHero &&
 					!u.isIllusion &&
 					!u.isStructure &&
@@ -51,10 +52,10 @@ export class InspireAbility extends AbilityType {
 					new Effect(AbilityModel.resurrecttarget, u, AttachPoint.overhead).destroy()
 
 					InspireAbility.group.addUnit(u)
-					u.data.custom.set('inspireCastingPlayer', eventUnit.owner.id)
-					u.data.custom.set('inspireSpreadNumber', spreadNumber)
-					u.data.custom.set('inspireDuration', duration)
-					u.data.custom.set('inspireCounter', 0)
+					u.custom.set('inspireCastingPlayer', eventUnit.owner.id)
+					u.custom.set('inspireSpreadNumber', spreadNumber)
+					u.custom.set('inspireDuration', duration)
+					u.custom.set('inspireCounter', 0)
 
 					pickedUnits += 1
 					if (InspireAbility.group.size === 1 && this.loopTimer) {
@@ -77,8 +78,8 @@ export class InspireAbility extends AbilityType {
 		} else {
 			InspireAbility.group.for(() => {
 				const u = Unit.fromEnum()
-				const duration = u.data.custom.get('inspireDuration') as number
-				const counter = u.data.custom.get('inspireCounter') as number + 1
+				const duration = u.custom.get('inspireDuration') as number
+				const counter = u.custom.get('inspireCounter') as number + 1
 
 				if (counter > duration) {
 					u.makeAbilityPermanent(false, AbilityFour.InspireSpellBook)
@@ -86,14 +87,14 @@ export class InspireAbility extends AbilityType {
 					u.makeAbilityPermanent(false, AbilityFour.InspireDefence)
 					u.makeAbilityPermanent(false, AbilityFour.InspireHealth)
 					u.removeAbility(AbilityFour.InspireSpellBook)
-					u.data.custom.delete('inspireCastingPlayer')
-					u.data.custom.delete('inspireSpreadNumber')
-					u.data.custom.delete('inspireDuration')
-					u.data.custom.delete('inspireCounter')
-					u.data.custom.delete('inspireGroup')
+					u.custom.delete('inspireCastingPlayer')
+					u.custom.delete('inspireSpreadNumber')
+					u.custom.delete('inspireDuration')
+					u.custom.delete('inspireCounter')
+					u.custom.delete('inspireGroup')
 					InspireAbility.group.removeUnit(u)
 				} else {
-					u.data.custom.set('inspireDuration', counter)
+					u.custom.set('inspireDuration', counter)
 				}
 			})
 		}
@@ -114,9 +115,9 @@ export class AbilityInspireDeath extends AbilityType {
 
 		try {
 			// Get Event Unit Custom Data
-			const spreadNumber = eventUnit.data.custom.get('inspireSpreadNumber') as number
-			const duration = eventUnit.data.custom.get('inspireDuration') as number
-			const owningPlayer = Players[eventUnit.data.custom.get('inspireCastingPlayer') as number]
+			const spreadNumber = eventUnit.custom.get('inspireSpreadNumber') as number
+			const duration = eventUnit.custom.get('inspireDuration') as number
+			const owningPlayer = Players[eventUnit.custom.get('inspireCastingPlayer') as number]
 
 			InspireAbility.group.removeUnit(eventUnit)
 
@@ -126,10 +127,10 @@ export class AbilityInspireDeath extends AbilityType {
 			eventUnit.makeAbilityPermanent(false, AbilityFour.InspireDefence)
 			eventUnit.makeAbilityPermanent(false, AbilityFour.InspireHealth)
 			eventUnit.removeAbility(AbilityFour.InspireSpellBook)
-			eventUnit.data.custom.delete('inspireCastingPlayer')
-			eventUnit.data.custom.delete('inspireSpreadNumber')
-			eventUnit.data.custom.delete('inspireDuration')
-			eventUnit.data.custom.delete('inspireCounter')
+			eventUnit.custom.delete('inspireCastingPlayer')
+			eventUnit.custom.delete('inspireSpreadNumber')
+			eventUnit.custom.delete('inspireDuration')
+			eventUnit.custom.delete('inspireCounter')
 
 			// Find Units around dieing unit
 			const g = new Group()
@@ -139,7 +140,7 @@ export class AbilityInspireDeath extends AbilityType {
 			let u = g.first
 			while (u != null && pickedUnits < spreadNumber) {
 				if (u.isAlly(eventUnit) &&
-					(u.inForce(Force.Computers) || u.owner === eventUnit.owner) &&
+					(u.inForce(Forces.Computers) || u.owner === eventUnit.owner) &&
 					!u.isHero &&
 					!u.isIllusion &&
 					!u.isStructure &&
@@ -155,10 +156,10 @@ export class AbilityInspireDeath extends AbilityType {
 					new Effect(AbilityModel.resurrecttarget, u, AttachPoint.overhead).destroy()
 
 					InspireAbility.group.addUnit(u)
-					u.data.custom.set('inspireCastingPlayer', owningPlayer.id)
-					u.data.custom.set('inspireSpreadNumber', spreadNumber)
-					u.data.custom.set('inspireDuration', duration)
-					u.data.custom.set('inspireCounter', 0)
+					u.custom.set('inspireCastingPlayer', owningPlayer.id)
+					u.custom.set('inspireSpreadNumber', spreadNumber)
+					u.custom.set('inspireDuration', duration)
+					u.custom.set('inspireCounter', 0)
 
 					pickedUnits += 1
 				}

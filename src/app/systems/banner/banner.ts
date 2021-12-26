@@ -1,6 +1,5 @@
-/* eslint-disable indent */
-import { Units } from 'lib/w3ts/handles/Units'
-import { AbilityModel, Effect, Force, Group, Timer, Unit } from 'lib/w3ts/index'
+import { Forces } from 'lib/w3ts/handles/Forces'
+import { AbilityModel, Effect, Group, Timer, Unit } from 'lib/w3ts/index'
 
 export const enum Side {
 	Alliance,
@@ -39,11 +38,11 @@ export class Banner {
 
 		g.firstLoop((u) => {
 			if (u.isAlive() && u !== this.unit && !u.isStructure) {
-				if (u.inForce(Force.AllianceAll)) {
+				if (u.inForce(Forces.AllianceAll)) {
 					u.isHero ? alliancePower += 4 : alliancePower += 1
 				}
 
-				if (u.inForce(Force.FederationAll)) {
+				if (u.inForce(Forces.FederationAll)) {
 					u.isHero ? federationPower += 4 : federationPower += 1
 				}
 			}
@@ -56,7 +55,7 @@ export class Banner {
 
 				if (this.currentPower < 0) {
 					this.currentPower *= -1
-					this.unit.owner = Force.Federation.getRandomPlayer()
+					this.unit.owner = Forces.Federation.getRandomPlayer()
 					this.currentWinner = Side.Federation
 					new Effect(AbilityModel.tomeOfRetrainingCaster, this.unit.x, this.unit.y).destroy()
 				}
@@ -68,7 +67,7 @@ export class Banner {
 
 				if (this.currentPower < 0) {
 					this.currentPower *= -1
-					this.unit.owner = Force.Alliance.getRandomPlayer()
+					this.unit.owner = Forces.Alliance.getRandomPlayer()
 					this.currentWinner = Side.Alliance
 					new Effect(AbilityModel.tomeOfRetrainingCaster, this.unit.x, this.unit.y).destroy()
 				}
@@ -78,12 +77,12 @@ export class Banner {
 			case Side.Neutral: {
 				if (alliancePower > federationPower) {
 					this.currentPower += alliancePower - federationPower
-					this.unit.owner = Force.Alliance.getRandomPlayer()
+					this.unit.owner = Forces.Alliance.getRandomPlayer()
 					this.currentWinner = Side.Alliance
 					new Effect(AbilityModel.tomeOfRetrainingCaster, this.unit.x, this.unit.y).destroy()
 				} else if (alliancePower < federationPower) {
 					this.currentPower += federationPower - alliancePower
-					this.unit.owner = Force.Federation.getRandomPlayer()
+					this.unit.owner = Forces.Federation.getRandomPlayer()
 					this.currentWinner = Side.Federation
 					new Effect(AbilityModel.tomeOfRetrainingCaster, this.unit.x, this.unit.y).destroy()
 				}
@@ -118,23 +117,5 @@ export class Banner {
 				timeStop.destroy()
 			})
 		}
-	}
-
-	static center1: Banner
-	static center2: Banner
-	static center3: Banner
-	static center4: Banner
-
-	static define (): void {
-		Banner.center1 = new Banner(Units.o00C_1005)
-		Banner.center2 = new Banner(Units.o00C_1008)
-		Banner.center3 = new Banner(Units.o00C_1009)
-		Banner.center4 = new Banner(Units.o00C_1011)
-
-		// Main Gate
-		new Banner(Units.o00C_1018, 400, 2, 200)
-		new Banner(Units.o00C_1019, 400, 2, 200)
-		new Banner(Units.o00C_1020, 400, 2, 200)
-		new Banner(Units.o00C_1021, 400, 2, 200)
 	}
 }

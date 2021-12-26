@@ -1,7 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable camelcase */
-/* eslint-disable no-use-before-define */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /** @noSelfInFile **/
 
 import { AbilityType } from 'app/classes/abilityType'
@@ -35,8 +31,17 @@ export class Unit extends Widget {
 	public critical: number
 	public criticalMultiplier: number
 	public evade: number
+	public kills: number
+	public startX: number
+	public startY: number
+	public destX?: number
+	public destY?: number
+	public order?: Order
+	public orderType?: OrderType
+	public targetWidget?: Widget
+	public setAsFlying: boolean
 
-	static dataMap: WeakMap<Unit, UnitData> = new WeakMap<Unit, UnitData>()
+	private static dataMap = new WeakMap<handle, UnitData>()
 
 	/**
 	 * Creates a unit.
@@ -47,7 +52,7 @@ export class Unit extends Widget {
 	 * @param face The direction that the unit will be facing in degrees.
 	 * @param skinId The skin of the unit.
 	 */
-	constructor (owner: MapPlayer | number, unitId: number | UnitType, pos: Coordinate, face: number, skinId?: number) {
+	constructor (owner: MapPlayer | number, unitId: number | UnitType, pos: Coordinate, face: number, skinId?: number, critical?: number, criticalMult?: number, evade?: number) {
 		if (Handle.initFromHandle()) {
 			super()
 		} else {
@@ -61,23 +66,47 @@ export class Unit extends Widget {
 		this.spellDamage = 1
 		this.spellResistance = 1
 		this.shield = 0
-		this.critical = 0.3
-		this.criticalMultiplier = 1.5
-		this.evade = 0.3
+		this.critical = critical ?? 0.01
+		this.criticalMultiplier = criticalMult ?? 1.5
+		this.evade = evade ?? 0.01
+		this.kills = 0
+		this.startX = this.x
+		this.startY = this.y
+		this.setAsFlying = false
 	}
 
 	// Custom Data Fields
-	public get data (): UnitData {
-		if (Unit.dataMap.has(this)) {
-			return Unit.dataMap.get(this) as UnitData
+	protected get data () {
+		if (Unit.dataMap.has(this.handle)) {
+			return Unit.dataMap.get(this.handle) as UnitData
 		} else {
-			Unit.dataMap.set(this, new UnitData(this))
-			return Unit.dataMap.get(this) as UnitData
+			Unit.dataMap.set(this.handle, { abilities: new Map(), abilityFours: [], custom: new Map() })
+			return Unit.dataMap.get(this.handle) as UnitData
 		}
 	}
 
-	public set data (value) {
-		Unit.dataMap.set(this, value)
+	protected set data (value) {
+		Unit.dataMap.set(this.handle, value)
+	}
+
+	public get abilityFours () {
+		return this.data.abilityFours
+	}
+
+	public set abilityFours (value) {
+		this.data.abilityFours = value
+	}
+
+	public get custom () {
+		return this.data.custom
+	}
+
+	public set custom (value) {
+		this.data.custom = value
+	}
+
+	public removeData () {
+		Unit.dataMap.delete(this.handle)
 	}
 
 	// INSTANCE METHODS
@@ -543,10 +572,10 @@ export class Unit extends Widget {
 	}
 
 	public set z (value: number) {
-		if (!this.data.setAsFlying && !this.isFlying) {
+		if (!this.setAsFlying && !this.isFlying) {
 			this.addAbility(AbilityFour.StormCrowForm)
 			this.removeAbility(AbilityFour.StormCrowForm)
-			this.data.setAsFlying = true
+			this.setAsFlying = true
 		}
 
 		SetUnitFlyHeight(this.handle, value, 100000000)
@@ -564,36 +593,12 @@ export class Unit extends Widget {
 		this.z = value.z ?? this.z
 	}
 
-	public get kills () {
-		return this.data.kills
-	}
-
-	public set kills (value) {
-		this.data.kills = value
-	}
-
 	public get abilities () {
 		return this.data.abilities
 	}
 
 	public set abilities (value) {
 		this.data.abilities = value
-	}
-
-	public get startX () {
-		return this.data.startX
-	}
-
-	public get startY () {
-		return this.data.startY
-	}
-
-	public get destX () {
-		return this.data.destX
-	}
-
-	public get destY () {
-		return this.data.destY
 	}
 
 	public addAbility (abilityId: number | string | AbilityType) {
@@ -1077,18 +1082,18 @@ export class Unit extends Widget {
 	}
 
 	public issueOrderAt (order: Order, x: number, y: number) {
-		this.data.destX = x
-		this.data.destY = y
-		this.data.orderType = OrderType.Point
-		this.data.order = typeof order === 'string' ? String2OrderIdBJ(order) : order
+		this.destX = x
+		this.destY = y
+		this.orderType = OrderType.Point
+		this.order = typeof order === 'string' ? String2OrderIdBJ(order) : order
 		return IssuePointOrderById(this.handle, order, x, y)
 	}
 
 	public issueOrderAtCoordinate (order: Order, dest: Coordinate) {
-		this.data.destX = dest.x
-		this.data.destY = dest.y
-		this.data.orderType = OrderType.Point
-		this.data.order = typeof order === 'string' ? String2OrderIdBJ(order) : order
+		this.destX = dest.x
+		this.destY = dest.y
+		this.orderType = OrderType.Point
+		this.order = typeof order === 'string' ? String2OrderIdBJ(order) : order
 		return IssuePointOrderById(this.handle, order, dest.x, dest.y)
 	}
 
@@ -1097,19 +1102,19 @@ export class Unit extends Widget {
 	}
 
 	public issueTargetOrder (order: Order, targetWidget: Widget) {
-		this.data.orderType = OrderType.Target
-		this.data.order = order
-		this.data.targetWidget = targetWidget
+		this.orderType = OrderType.Target
+		this.order = order
+		this.targetWidget = targetWidget
 		return IssueTargetOrderById(this.handle, order, targetWidget.handle)
 	}
 
 	public issueLastOrder () {
-		if (this.data.orderType === OrderType.Point && this.data.order && this.data.destX && this.data.destY) {
-			this.issueOrderAt(this.data.order, this.data.destX, this.data.destY)
+		if (this.orderType === OrderType.Point && this.order && this.destX && this.destY) {
+			this.issueOrderAt(this.order, this.destX, this.destY)
 			return true
 		}
-		if (this.data.orderType === OrderType.Target && this.data.order && this.data.targetWidget) {
-			this.issueTargetOrder(this.data.order, this.data.targetWidget)
+		if (this.orderType === OrderType.Target && this.order && this.targetWidget) {
+			this.issueTargetOrder(this.order, this.targetWidget)
 			return true
 		}
 		return false

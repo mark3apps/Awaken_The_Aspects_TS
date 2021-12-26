@@ -2,6 +2,7 @@ import { Logger } from 'app/log'
 import { Position } from 'app/classes/position'
 import { Unit, Rectangle, Force, Trigger, Timer, DestructibleFour, Effect, AbilityModel, Destructable, Order } from 'lib/w3ts/index'
 import { Loc } from './loc'
+import { Forces } from 'lib/w3ts/handles/Forces'
 
 export class Aspect {
 	readonly origAspect!: Unit
@@ -58,7 +59,7 @@ export class Aspect {
 						})
 					}
 
-					Force.Humans.displayTimedText(10, `BEWARE!  ${this.dependent.owner.name} has bested the ${u.name}!  It will now enter the fray allied to them!`)
+					Forces.Humans.displayTimedText(10, `BEWARE!  ${this.dependent.owner.name} has bested the ${u.name}!  It will now enter the fray allied to them!`)
 					this.deathPos.pingMinimap(10, true, 255)
 
 					// Initial Timer
@@ -89,23 +90,23 @@ export class Aspect {
 
 	static define = (): void => {
 		// Aspect of the Tides
-		new Aspect(80, gg_unit_nmsc_0644, gg_unit_nntt_0135, Force.Alliance, Loc.top.federation, gg_rct_Murloc_Gate_Left, DestructibleFour.MassiveRuinedGateVertical)
-		new Aspect(80, gg_unit_nmsc_0450, gg_unit_nntt_0132, Force.Federation, Loc.bottom.alliance, gg_rct_Murloc_Gate_Right, DestructibleFour.MassiveRuinedGateVertical)
+		new Aspect(80, gg_unit_nmsc_0644, gg_unit_nntt_0135, Forces.Alliance, Loc.top.federation, gg_rct_Murloc_Gate_Left, DestructibleFour.MassiveRuinedGateVertical)
+		new Aspect(80, gg_unit_nmsc_0450, gg_unit_nntt_0132, Forces.Federation, Loc.bottom.alliance, gg_rct_Murloc_Gate_Right, DestructibleFour.MassiveRuinedGateVertical)
 
 		// Aspect of the Earth
-		new Aspect(80, gg_unit_n01A_0569, gg_unit_h006_0074, Force.Alliance, Loc.sCityFront.federation, gg_rct_Rock_Gate_Left, DestructibleFour.IcyGate)
-		new Aspect(80, gg_unit_n01A_0399, gg_unit_h006_0055, Force.Federation, Loc.sCityFront.alliance, gg_rct_Rock_Gate_Right, DestructibleFour.IcyGate)
+		new Aspect(80, gg_unit_n01A_0569, gg_unit_h006_0074, Forces.Alliance, Loc.sCityFront.federation, gg_rct_Rock_Gate_Left, DestructibleFour.IcyGate)
+		new Aspect(80, gg_unit_n01A_0399, gg_unit_h006_0055, Forces.Federation, Loc.sCityFront.alliance, gg_rct_Rock_Gate_Right, DestructibleFour.IcyGate)
 
 		// Aspect of the Storm
-		new Aspect(80, gg_unit_nelb_0697, gg_unit_h003_0015, Force.Alliance, Loc.bottom.federation)
-		new Aspect(80, gg_unit_nelb_0194, gg_unit_h003_0007, Force.Federation, Loc.top.alliance)
+		new Aspect(80, gg_unit_nelb_0697, gg_unit_h003_0015, Forces.Alliance, Loc.bottom.federation)
+		new Aspect(80, gg_unit_nelb_0194, gg_unit_h003_0007, Forces.Federation, Loc.top.alliance)
 
 		// Aspect of the Forest
-		new Aspect(80, gg_unit_n00N_0939, gg_unit_nheb_0109, Force.Alliance, Loc.top.federation, gg_rct_Aspect_of_Forest_Left_Gate, DestructibleFour.ElvenGate)
-		new Aspect(80, gg_unit_n00N_0769, gg_unit_nheb_0036, Force.Federation, Loc.bottom.alliance, gg_rct_Aspect_of_Forest_Right_Gate, DestructibleFour.ElvenGate)
+		new Aspect(80, gg_unit_n00N_0939, gg_unit_nheb_0109, Forces.Alliance, Loc.top.federation, gg_rct_Aspect_of_Forest_Left_Gate, DestructibleFour.ElvenGate)
+		new Aspect(80, gg_unit_n00N_0769, gg_unit_nheb_0036, Forces.Federation, Loc.bottom.alliance, gg_rct_Aspect_of_Forest_Right_Gate, DestructibleFour.ElvenGate)
 
 		// Aspect of Death
-		new Aspect(80, gg_unit_uabo_0493, gg_unit_n00K_0802, Force.Alliance, Loc.middle.federation)
-		new Aspect(80, gg_unit_uabo_0263, gg_unit_n00K_0477, Force.Federation, Loc.middle.alliance)
+		new Aspect(80, gg_unit_uabo_0493, gg_unit_n00K_0802, Forces.Alliance, Loc.middle.federation)
+		new Aspect(80, gg_unit_uabo_0263, gg_unit_n00K_0477, Forces.Federation, Loc.middle.alliance)
 	}
 }

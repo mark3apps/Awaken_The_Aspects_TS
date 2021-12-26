@@ -1,6 +1,6 @@
 import { Logger } from 'app/log'
 import { CC2Four, GetSpellAbilityFour } from 'lib/resources/library'
-import { Triggers } from 'lib/w3ts/handles/TriggerMap'
+import { Triggers } from 'lib/w3ts/handles/triggers'
 import { AbilityType } from './abilityType'
 
 export class AbilityTypeMap {
@@ -20,7 +20,7 @@ export class AbilityTypeMap {
 
 	public static initSpellEffects () {
 		try {
-			Triggers.unitSpellEffect.add(() => {
+			Triggers.unitSpellEffect.addAction(() => {
 				if (this.mapInstant.has(GetSpellAbilityFour())) {
 					const ability = this.fromSpellEvent()
 					if (ability && ability.onEffect)

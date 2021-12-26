@@ -1,7 +1,7 @@
 import { Hero } from 'app/classes'
 import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
 import { UnitType } from 'app/classes/unitType'
-import { HeroAttribute } from 'app/systems/attribute'
+import { HeroAttribute } from 'app/systems/heroAttribute/heroAttribute'
 import { ShiftMasterSkillTree } from 'app/heroes/ShiftMaster/shiftMasterSkillTree'
 import { Strategy } from 'lib/resources/strategy'
 import { HeroType } from 'lib/w3ts/handles/herotype'

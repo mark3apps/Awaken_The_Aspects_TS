@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import { Position } from 'app/classes/position'
-import { Coordinate } from '.'
 import { MapPlayer } from './player'
 import { Timer } from './timer'
 import { Unit } from './unit'

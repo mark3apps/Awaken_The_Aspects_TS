@@ -96,49 +96,4 @@ export class Force extends Handle<force> {
 	public static fromHandle (handle: force): Force {
 		return this.getObject(handle)
 	}
-
-	static Alliance: Force
-	static AlliancePlayers: Force
-	static AllianceAll: Force
-	static Federation: Force
-	static FederationPlayers: Force
-	static FederationAll: Force
-	static Computers: Force
-	static Humans: Force
-
-	static define = (): void => {
-		Force.Alliance = new Force()
-		Force.Alliance.addPlayers([18, 19, 20])
-
-		Force.Federation = new Force()
-		Force.Federation.addPlayers([21, 22, 23])
-
-		Force.Computers = new Force()
-		Force.Computers.addPlayers([18, 19, 20, 21, 22, 23])
-
-		Force.AlliancePlayers = new Force()
-		Force.AlliancePlayers.addPlayers([0, 1, 2, 3, 4, 5])
-
-		Force.FederationPlayers = new Force()
-		Force.FederationPlayers.addPlayers([6, 7, 8, 9, 10, 11])
-
-		Force.Humans = new Force()
-		for (let i = 0; i < 11; i++) {
-			const player = Players[i]
-
-			if (player.slotState === PLAYER_SLOT_STATE_PLAYING) {
-				Force.Humans.addPlayer(Players[i])
-			}
-		}
-
-		Force.AllianceAll = new Force()
-		Force.AllianceAll.addPlayers([0, 1, 2, 3, 4, 5, 18, 19, 20])
-
-		Force.FederationAll = new Force()
-		Force.FederationAll.addPlayers([6, 7, 8, 9, 10, 11, 21, 22, 23])
-
-		for (let i = 0; i < Players.length; i++) {
-			Players[i].givesBounty = true
-		}
-	}
 }

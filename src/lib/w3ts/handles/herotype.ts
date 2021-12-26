@@ -1,9 +1,8 @@
-import { DefineBonusAbilities } from 'app/abilities/bonus/defineBonusAbilities'
 import { Hero } from 'app/classes'
 import { HeroAbilityType, iHeroAbilityType } from 'app/classes/heroAbility'
 import { ItemType } from 'app/classes/itemType'
 import { UnitType } from 'app/classes/unitType'
-import { HeroAttribute } from 'app/systems/attribute'
+import { HeroAttribute } from 'app/systems/heroAttribute/heroAttribute'
 import { Strategy } from 'lib/resources/strategy'
 import { Unit } from './unit'
 

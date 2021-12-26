@@ -46,8 +46,8 @@ export class AbilityMark extends AbilityType {
 			})
 
 			g.firstLoop((u) => {
-				u.data.custom.set('markManaGiven', manaGiven)
-				u.data.custom.set('markCaster', eventUnit)
+				u.custom.set('markManaGiven', manaGiven)
+				u.custom.set('markCaster', eventUnit)
 			})
 			g.destroy()
 		} catch (error) {
@@ -60,8 +60,8 @@ export class AbilityMark extends AbilityType {
 		try {
 			const eventUnit = Unit.fromEvent()
 
-			const manaGiven = eventUnit.data.custom.get('markManaGiven') as number
-			const caster = eventUnit.data.custom.get('markCaster') as Unit
+			const manaGiven = eventUnit.custom.get('markManaGiven') as number
+			const caster = eventUnit.custom.get('markCaster') as Unit
 
 			const u = new Unit(caster.owner, UnitType.DummyMarkForDeath, eventUnit.coordinate, eventUnit.facing)
 

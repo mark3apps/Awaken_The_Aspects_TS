@@ -1,7 +1,5 @@
 import { Unit } from './unit'
 
-
-
 export class Units {
 	/// / AUTO DEFINE
 	static h003_0015: Unit

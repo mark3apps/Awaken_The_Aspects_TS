@@ -62,29 +62,4 @@ export class Region extends Handle<region> {
 	public static fromHandle (handle: region): Region {
 		return this.getObject(handle)
 	}
-
-	static BigTop: Region
-	static BigMiddle: Region
-	static BigBottom: Region
-
-	static define = (): void => {
-		Region.BigTop = new Region()
-		Region.BigMiddle = new Region()
-		Region.BigBottom = new Region()
-
-		Region.BigTop.addRect(Rectangle.fromHandle(gg_rct_Big_Top_Left))
-		Region.BigTop.addRect(Rectangle.fromHandle(gg_rct_Big_Top_Left_Center))
-		Region.BigTop.addRect(Rectangle.fromHandle(gg_rct_Big_Top_Right))
-		Region.BigTop.addRect(Rectangle.fromHandle(gg_rct_Big_Top_Right_Center))
-
-		Region.BigMiddle.addRect(Rectangle.fromHandle(gg_rct_Big_Middle_Left))
-		Region.BigMiddle.addRect(Rectangle.fromHandle(gg_rct_Big_Middle_Left_Center))
-		Region.BigMiddle.addRect(Rectangle.fromHandle(gg_rct_Big_Middle_Right))
-		Region.BigMiddle.addRect(Rectangle.fromHandle(gg_rct_Big_Middle_Right_Center))
-
-		Region.BigBottom.addRect(Rectangle.fromHandle(gg_rct_Big_Bottom_Left))
-		Region.BigBottom.addRect(Rectangle.fromHandle(gg_rct_Big_Bottom_Left_Center))
-		Region.BigBottom.addRect(Rectangle.fromHandle(gg_rct_Big_Bottom_Right))
-		Region.BigBottom.addRect(Rectangle.fromHandle(gg_rct_Big_Bottom_Right_Center))
-	}
 }

@@ -13,8 +13,8 @@ export class Ability {
 
 		if (!unit.hasAbility(ability)) UnitAddAbility(this.unit.handle, this.ability.id)
 
-		this.unit.data.abilities.set(this.ability.four, this)
-		this.unit.data.abilityFours.push(this.ability.four)
+		this.unit.abilities.set(this.ability.four, this)
+		this.unit.abilityFours.push(this.ability.four)
 		this.onCreate()
 	}
 
@@ -402,7 +402,7 @@ export class Ability {
 
 	protected static getAbility (unit: Unit, abilityType?: AbilityType) {
 		if (abilityType) {
-			const ability = unit.data.abilities.get(abilityType.four)
+			const ability = unit.abilities.get(abilityType.four)
 			return ability ?? new this(unit, abilityType)
 		}
 		return undefined

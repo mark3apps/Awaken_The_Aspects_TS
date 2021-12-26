@@ -1,7 +1,7 @@
 
 import { AbilityFour, BuffFour, Order, Timer, Group, Unit } from 'lib/w3ts'
-import { Triggers } from 'lib/w3ts/handles/TriggerMap'
-import { Ability, UnitType } from '.'
+import { Triggers } from 'lib/w3ts/handles/triggers'
+import { UnitType } from '.'
 import { AbilityTypeMap } from './abilityTypeMap'
 
 export const enum EffectType {
@@ -134,7 +134,7 @@ export class AbilityType {
 			}
 
 			if (this.addBuffDeath) {
-				Triggers.unitDying.add(() => {
+				Triggers.unitDying.addAction(() => {
 					if (Unit.fromEvent().hasBuff(this.buffId as number)) {
 						this.onBuffDeath()
 					}
@@ -145,7 +145,7 @@ export class AbilityType {
 			if (this.onEffect !== undefined) {
 				switch (this.type) {
 					case EffectType.Kill:
-						Triggers.unitDies.add(() => {
+						Triggers.unitDies.addAction(() => {
 							if (Unit.fromHandle(GetKillingUnit()).hasAbility(this)) {
 								if (this.onEffect) this.onEffect()
 							}
@@ -153,7 +153,7 @@ export class AbilityType {
 						break
 
 					case EffectType.Death:
-						Triggers.unitDies.add(() => {
+						Triggers.unitDies.addAction(() => {
 							if (Unit.fromEvent().hasAbility(this)) {
 								if (this.onEffect) this.onEffect()
 							}
@@ -161,7 +161,7 @@ export class AbilityType {
 						break
 
 					case EffectType.Attacked:
-						Triggers.unitAttacked.add(() => {
+						Triggers.unitAttacked.addAction(() => {
 							if (Unit.fromEvent().hasAbility(this.id)) {
 								if (this.onEffect) this.onEffect()
 							}
@@ -169,7 +169,7 @@ export class AbilityType {
 						break
 
 					case EffectType.Attacking:
-						Triggers.unitAttacked.add(() => {
+						Triggers.unitAttacked.addAction(() => {
 							if (Unit.fromAttacker().hasAbility(this.id)) {
 								if (this.onEffect) this.onEffect()
 							}
@@ -177,7 +177,7 @@ export class AbilityType {
 						break
 
 					case EffectType.UnitTypeAttacking:
-						Triggers.unitAttacked.add(() => {
+						Triggers.unitAttacked.addAction(() => {
 							if (this.unitType[GetUnitTypeId(GetAttacker())]) {
 								if (this.onEffect) this.onEffect()
 							}

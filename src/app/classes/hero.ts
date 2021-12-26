@@ -7,8 +7,7 @@ import { GenerateNoButtonTalentTreeView } from 'app/systems/talents/views/NoButt
 import { GenerateNoButtonTalentView } from 'app/systems/talents/views/NoButtonTalentView'
 import { BasicTalentTreeViewModel } from 'lib/STK/UI/STK/ViewModels/BasicTalentTreeViewModel'
 import { HeroType } from 'lib/w3ts/handles/herotype'
-import { Triggers } from 'lib/w3ts/handles/TriggerMap'
-import { AbilityFour, Force, Frame, Group, MapPlayer, Order, Rectangle, Timer, Unit } from 'lib/w3ts/index'
+import { AbilityFour, Force, Frame, Group, MapPlayer, Order, Timer, Unit } from 'lib/w3ts/index'
 import { Ability } from '.'
 import { Logger } from '../log'
 import { AbilityTypeMap } from './abilityTypeMap'
@@ -72,7 +71,7 @@ export class Hero {
 		this.heroType = HeroType.get(this.unit) as HeroType
 
 		if (this.heroType) {
-			// this.setupHero()
+			this.setupHero()
 
 			// Define Skill Trees
 			const config = new TalentConfig()
@@ -258,11 +257,11 @@ export class Hero {
 	// General Methods
 
 	get abilities () {
-		return this.unit.data.abilities
+		return this.unit.abilities
 	}
 
 	set abilities (value) {
-		this.unit.data.abilities = value
+		this.unit.abilities = value
 	}
 
 	protected setupHero (): void {
@@ -291,8 +290,8 @@ export class Hero {
 	}
 
 	updateAbilityTooltips = () => {
-		for (let i = 0; i < this.unit.data.abilityFours.length; i++) {
-			const abilityType = AbilityTypeMap.fromId(this.unit.data.abilityFours[i])
+		for (let i = 0; i < this.unit.abilityFours.length; i++) {
+			const abilityType = AbilityTypeMap.fromId(this.unit.abilityFours[i])
 			if (abilityType) {
 				const ability = abilityType.getAbility(this.unit)
 				ability.updateTooltips()
@@ -346,70 +345,5 @@ export class Hero {
 				this.unit.addItemById(item)
 			}
 		}
-	}
-
-	static define = (): void => {
-		Hero.PickedPlayers = new Force()
-
-		// When a Hero Levels up
-		Triggers.heroLevels.add(() => {
-			const hero = Hero.get(Unit.fromEvent())
-
-			if (hero) {
-				const player = hero.unit.owner
-
-				Logger.Information('Hero Leveled Up:', hero.unit.name)
-
-				// Every Level increase Attack
-				player.setTechResearched(FourCC('R005'), hero.unit.level - 1)
-
-				// Every other level increase Armor
-				if (hero.unit.heroLevel % 3 === 0) {
-					player.setTechResearched(FourCC('R006'), hero.unit.level - 1)
-				}
-
-				// Remove Ability Points
-				if (hero.unit.heroLevel < 15 && hero.unit.heroLevel % 2 !== 0) {
-					hero.unit.skillPoints -= 1
-				} else if (hero.unit.heroLevel < 25 && hero.unit.heroLevel >= 15 && hero.unit.heroLevel % 3 !== 0) {
-					hero.unit.skillPoints -= 1
-				} else if (hero.unit.heroLevel >= 25 && hero.unit.heroLevel % 4 !== 0) {
-					hero.unit.skillPoints -= 1
-				}
-			}
-		})
-
-		// When a new hero is created add it to the index
-		Triggers.unitCreated.add(() => {
-			if (Unit.fromEvent().isHero) {
-				const unit = Unit.fromEvent()
-
-				// If Hero's Hero Type hasn't been defined yet (First time being created)
-				// eslint-disable-next-line camelcase
-				if (unit.handle === udg_unit_PickedHero) {
-					try {
-						let pos: Position
-
-						if (unit.owner.inForce(Force.AlliancePlayers)) {
-							pos = Rectangle.Left_Castle.centerPosition
-						} else {
-							pos = Rectangle.Right_Castle.centerPosition
-						}
-
-						const hero = new Hero(unit.owner, unit.typeId, pos, 180)
-						hero.setupHero()
-						unit.destroy()
-
-						Hero.PickedPlayers.addPlayer(hero.unit.owner)
-
-						Logger.Information('Name', hero.unit.name)
-
-						unit.show = false
-					} catch (error) {
-						Logger.Error('Error', error)
-					}
-				}
-			}
-		})
 	}
 }

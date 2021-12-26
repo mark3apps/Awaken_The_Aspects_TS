@@ -1,6 +1,5 @@
 /** @noSelfInFile **/
 
-import { Position } from 'app/classes/position'
 import { Coordinate } from '.'
 import { Handle } from './handle'
 

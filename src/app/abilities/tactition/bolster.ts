@@ -2,7 +2,8 @@ import { Ability } from 'app/classes'
 import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
 import { Logger } from 'app/log'
 import { Pathing } from 'app/systems/pathing'
-import { AbilityFour, Order, Unit, Group, Force, Effect, AbilityModel, AttachPoint, BuffFour } from 'lib/w3ts/index'
+import { Forces } from 'lib/w3ts/handles/Forces'
+import { AbilityFour, Order, Unit, Group, Effect, AbilityModel, AttachPoint, BuffFour } from 'lib/w3ts/index'
 
 export class BolsterAbility extends AbilityType {
 	constructor () {
@@ -33,7 +34,7 @@ export class BolsterAbility extends AbilityType {
 
 			g.firstLoop((u) => {
 				if (u.isAlly(eventUnit) &&
-					(u.inForce(Force.Computers) || u.owner === eventUnit.owner) &&
+					(u.inForce(Forces.Computers) || u.owner === eventUnit.owner) &&
 					!u.isHero &&
 					!u.isIllusion &&
 					!u.isStructure &&

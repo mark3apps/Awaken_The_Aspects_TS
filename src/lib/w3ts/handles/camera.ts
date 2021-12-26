@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /** @noSelfInFile **/
 
 import { Position } from 'app/classes/position'
@@ -400,46 +399,5 @@ export class CameraSetup extends Handle<camerasetup> {
 	public static fromHandle (handle: camerasetup): CameraSetup {
 		return this.getObject(handle)
 	}
-
-	/// / AUTO DEFINE
-	static baseLeftStart: CameraSetup
-	static intro06: CameraSetup
-	static intro01: CameraSetup
-	static intro02: CameraSetup
-	static intro03: CameraSetup
-	static intro04: CameraSetup
-	static intro05: CameraSetup
-	static baseRightStart: CameraSetup
-	static intro07: CameraSetup
-	static intro08: CameraSetup
-	static intro09: CameraSetup
-	static intro10: CameraSetup
-	static intro11: CameraSetup
-	static intro12: CameraSetup
-	static intro13: CameraSetup
-	static baseLeftPanStart: CameraSetup
-	static baseRightPanStart: CameraSetup
-	static intro14: CameraSetup
-
-	static defineGlobals (): void {
-		CameraSetup.baseLeftStart = CameraSetup.fromHandle(gg_cam_baseLeftStart)
-		CameraSetup.intro06 = CameraSetup.fromHandle(gg_cam_intro06)
-		CameraSetup.intro01 = CameraSetup.fromHandle(gg_cam_intro01)
-		CameraSetup.intro02 = CameraSetup.fromHandle(gg_cam_intro02)
-		CameraSetup.intro03 = CameraSetup.fromHandle(gg_cam_intro03)
-		CameraSetup.intro04 = CameraSetup.fromHandle(gg_cam_intro04)
-		CameraSetup.intro05 = CameraSetup.fromHandle(gg_cam_intro05)
-		CameraSetup.baseRightStart = CameraSetup.fromHandle(gg_cam_baseRightStart)
-		CameraSetup.intro07 = CameraSetup.fromHandle(gg_cam_intro07)
-		CameraSetup.intro08 = CameraSetup.fromHandle(gg_cam_intro08)
-		CameraSetup.intro09 = CameraSetup.fromHandle(gg_cam_intro09)
-		CameraSetup.intro10 = CameraSetup.fromHandle(gg_cam_intro10)
-		CameraSetup.intro11 = CameraSetup.fromHandle(gg_cam_intro11)
-		CameraSetup.intro12 = CameraSetup.fromHandle(gg_cam_intro12)
-		CameraSetup.intro13 = CameraSetup.fromHandle(gg_cam_intro13)
-		CameraSetup.baseLeftPanStart = CameraSetup.fromHandle(gg_cam_baseLeftPanStart)
-		CameraSetup.baseRightPanStart = CameraSetup.fromHandle(gg_cam_baseRightPanStart)
-		CameraSetup.intro14 = CameraSetup.fromHandle(gg_cam_intro14)
-	}
-	/// / AUTO DEFINE
 }
+

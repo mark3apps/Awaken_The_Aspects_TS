@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /** @noSelfInFile **/
 
-import { DamageEvent } from 'app/systems/damageEvent/damageEvent'
 import { Dialog, DialogButton } from './dialog'
 import { Frame } from './frame'
 import { Handle } from './handle'
@@ -83,14 +81,6 @@ export class Trigger extends Handle<trigger> {
    */
 	public addCondition (condition: boolexpr | (() => boolean)): triggercondition {
 		return TriggerAddCondition(this.handle, typeof condition === 'function' ? Condition(condition) : condition)
-	}
-
-	public add (event: () => void) {
-		const trigFormatted = function () {
-			event()
-		}
-
-		TriggerAddAction(this.handle, trigFormatted)
 	}
 
 	/**

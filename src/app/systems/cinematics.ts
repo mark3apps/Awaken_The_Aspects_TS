@@ -1,15 +1,15 @@
-/* eslint-disable camelcase */
-
 import { Hero } from 'app/classes/hero'
 import { Logger } from 'app/log'
 import { Sky } from 'lib/w3ts/globals/sky'
 import { Sounds } from 'lib/w3ts/globals/sounds'
-import { Force, MapPlayer, Group, Unit, Mask, CameraSetup, Players, Timer, Frame } from 'lib/w3ts/index'
+import { CameraSetups } from 'lib/w3ts/handles/CameraSetups'
+import { Forces } from 'lib/w3ts/handles/Forces'
+import { MapPlayer, Group, Unit, Mask, Players, Timer, Frame } from 'lib/w3ts/index'
 
 export class Cinematic {
 	// On Init
 	static onInit (): void {
-		Force.Alliance.for(() => {
+		Forces.Alliance.for(() => {
 			MapPlayer.fromEnum().color = PLAYER_COLOR_RED
 			const g = new Group()
 			g.enumUnitsOfPlayer(MapPlayer.fromEnum(), () => {
@@ -19,7 +19,7 @@ export class Cinematic {
 			g.destroy()
 		})
 
-		Force.Federation.for(() => {
+		Forces.Federation.for(() => {
 			MapPlayer.fromEnum().color = PLAYER_COLOR_BLUE
 			const g = new Group()
 			g.enumUnitsOfPlayer(MapPlayer.fromEnum(), () => {
@@ -117,12 +117,12 @@ export class Cinematic {
 		CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 3.00, Mask.black, 0, 0, 0, 0)
 
 		const startCams = [
-			gg_cam_intro01, gg_cam_intro02, gg_cam_intro03, gg_cam_intro04, gg_cam_intro05, gg_cam_intro06, gg_cam_intro07,
-			gg_cam_intro08, gg_cam_intro09, gg_cam_intro10, gg_cam_intro11, gg_cam_intro12, gg_cam_intro13, gg_cam_intro14
+			CameraSetups.intro01, CameraSetups.intro02, CameraSetups.intro03, CameraSetups.intro04, CameraSetups.intro05, CameraSetups.intro06, CameraSetups.intro07,
+			CameraSetups.intro08, CameraSetups.intro09, CameraSetups.intro10, CameraSetups.intro11, CameraSetups.intro12, CameraSetups.intro13, CameraSetups.intro14
 		]
 
 		for (let i = 0; i < 11; i++) {
-			const startCamera = CameraSetup.fromHandle(startCams[GetRandomInt(0, startCams.length - 1)])
+			const startCamera = startCams[GetRandomInt(0, startCams.length - 1)]
 
 			Players[i].applyCamera(true, startCamera, 0)
 
@@ -136,17 +136,17 @@ export class Cinematic {
 	}
 
 	static setupGameCamera = (): void => {
-		const camLeftStart = CameraSetup.fromHandle(gg_cam_baseLeftPanStart)
-		const camLeftEnd = CameraSetup.fromHandle(gg_cam_baseLeftStart)
-		const camRightStart = CameraSetup.fromHandle(gg_cam_baseRightPanStart)
-		const camRightEnd = CameraSetup.fromHandle(gg_cam_baseRightStart)
+		const camLeftStart = CameraSetups.baseLeftPanStart
+		const camLeftEnd = CameraSetups.baseLeftStart
+		const camRightStart = CameraSetups.baseRightPanStart
+		const camRightEnd = CameraSetups.baseRightStart
 
-		Force.AlliancePlayers.for(() => {
+		Forces.AlliancePlayers.for(() => {
 			MapPlayer.fromEnum().applyCamera(true, camLeftStart, 0)
 			MapPlayer.fromEnum().applyCamera(true, camLeftEnd, 2)
 		})
 
-		Force.FederationPlayers.for(() => {
+		Forces.FederationPlayers.for(() => {
 			MapPlayer.fromEnum().applyCamera(true, camRightStart, 0)
 			MapPlayer.fromEnum().applyCamera(true, camRightEnd, 2)
 		})
@@ -176,7 +176,7 @@ export class Cinematic {
 				if (timeLeft <= 0) {
 					PlaySound(Sounds.warning)
 
-					Force.Humans.for(() => {
+					Forces.Humans.for(() => {
 						if (!Hero.PickedPlayers.hasPlayer(MapPlayer.fromEnum())) {
 							Logger.Information('Picked', MapPlayer.fromEnum().name)
 							HeroSelector.forcePick(GetEnumPlayer())

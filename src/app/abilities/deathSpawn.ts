@@ -2,7 +2,7 @@ import { UnitType } from 'app/classes'
 import { Logger } from 'app/log'
 import { Pathing } from 'app/systems'
 import { AttachPoint, AttachMod, AttachSpecial, Unit, MapPlayer, AbilityFour, Timer, Effect } from 'lib/w3ts'
-import { Triggers } from 'lib/w3ts/handles/TriggerMap'
+import { Triggers } from 'lib/w3ts/handles/triggers'
 
 interface DeathSpawnInterface {
 	amount: number,
@@ -73,7 +73,7 @@ export class DeathSpawn {
 		DeathSpawn.add(UnitType.NightElfBattleship, { amount: 3, unitId: UnitType.NightElfSentry, chance: 0.8 })
 
 		// Add Death Spawn trigger to Unit Dieing Trigger
-		Triggers.unitDies.add(() => {
+		Triggers.unitDies.addAction(() => {
 			try {
 				const unit = Unit.fromEvent()
 
@@ -89,7 +89,7 @@ export class DeathSpawn {
 		})
 
 		// Set Buildings to Randomly Stay behind
-		Triggers.unitDying.add(() => {
+		Triggers.unitDying.addAction(() => {
 			const unit = Unit.fromEvent()
 
 			if (unit.isStructure && UnitType.leaveCorpse.has(unit.typeId)) {

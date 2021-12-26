@@ -1,6 +1,4 @@
 import { Rectangle } from './rect'
-import { Timer } from './timer'
-import { Unit } from './unit'
 import { Trigger } from './trigger'
 import { DamageEvent } from 'app/systems/damageEvent/damageEvent'
 
@@ -34,27 +32,11 @@ export class Triggers {
 		Triggers.heroLevels.registerAnyUnitEvent(EVENT_PLAYER_HERO_LEVEL)
 		Triggers.unitDies.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH)
 		Triggers.unitDying.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DAMAGED)
-		Triggers.unitDying.addCondition(() => { return Unit.fromEvent().life - GetEventDamage() <= 0 })
-
-		// Init Damage Adjustments
-		Triggers.unitDamaged.add(() => {
-			const damageEvent = new DamageEvent()
+		Triggers.unitDying.addCondition(() => {
+			const damage = new DamageEvent()
+			return damage.target.life - damage.damage <= 0
 		})
 
-		// When a Unit dies clear it out
-		Triggers.unitDies.add(() => {
-			const eventUnit = Unit.fromKilled()
-			const killingUnit = Unit.fromKilling()
-
-			killingUnit.kills += 1
-
-			if (!eventUnit.isHero) {
-				const timer = new Timer()
-				timer.start(30, false, () => {
-					eventUnit.data.custom.clear()
-					Unit.dataMap.delete(eventUnit)
-				})
-			}
-		})
+		Triggers.unitDying.addAction(() => { DamageEvent.get().source.kills += 1 })
 	};
 }

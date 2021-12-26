@@ -1,39 +1,47 @@
-import { DeathSpawn, Gate } from 'app/abilities'
-import { ItemType, Hero } from 'app/classes'
+import { DeathSpawn } from 'app/abilities'
 import { BrawlerHeroType, ManaAddictHeroType, ShiftMasterHeroType, TacticianHeroType, TimeMageHeroType } from 'app/heroes/heroTypes'
-import { ItemUpgrade, Cinematic, Pathing, HeroAttribute, Army, Loc, Faction, Spawn, Aspect, Banner, AspectOfFireEvent, Load } from 'app/systems'
-import { Rectangle, CameraSetup, Force, Region, Players } from 'lib/w3ts'
-import { Triggers } from 'lib/w3ts/handles/TriggerMap'
+import { ItemUpgrade, Cinematic, Pathing, Army, Loc, Faction, Spawn, Aspect, Load } from 'app/systems'
+import { Players } from 'lib/w3ts'
+import { CameraSetups } from 'lib/w3ts/handles/CameraSetups'
+import { Forces } from 'lib/w3ts/handles/Forces'
+import { Rectangles } from 'lib/w3ts/handles/Rectangles'
+import { Regions } from 'lib/w3ts/handles/Regions'
+import { Triggers } from 'lib/w3ts/handles/triggers'
 import { Units } from 'lib/w3ts/handles/Units'
 import { AbilityTypeMap } from './classes/abilityTypeMap'
 import { AbilityTypes } from './classes/abilityTypes'
-import { Globals } from './globals'
+import { Heroes } from './classes/Heroes'
+import { ItemTypes } from './classes/ItemTypes'
 import { Logger } from './log'
+import { Banners } from './systems/banner/banners'
+import { Events } from './systems/event/Events'
+import { Gates } from './systems/gates/gates'
+import { HeroAttributes } from './systems/heroAttribute/heroAttributes'
 
 export class Game {
 	static mapInit = (): void => {
 		Logger.Verbose('Game Init Start')
 
 		// Define Map Globals
-		Rectangle.defineGlobals()
+		Rectangles.defineGlobals()
 		Units.defineGlobals()
-		CameraSetup.defineGlobals()
+		CameraSetups.defineGlobals()
 
-		ItemType.define()
+		ItemTypes.define()
 		ItemUpgrade.define()
 
-		Force.define()
+		Forces.define()
 		Cinematic.onInit()
 
-		Region.define()
+		Regions.define()
 
 		Triggers.define()
 
 		DeathSpawn.define()
 		Pathing.define()
-		HeroAttribute.define()
+		HeroAttributes.define()
 
-		Hero.define()
+		Heroes.define()
 
 
 		// new BrawlerHeroType()
@@ -55,12 +63,10 @@ export class Game {
 		Loc.define()
 		Faction.define()
 		Spawn.define()
-		Gate.define()
+		Gates.define()
 		Aspect.define()
-		Banner.define()
-		AspectOfFireEvent.define()
-
-		Gate.start(2, 700)
+		Banners.define()
+		Events.define()
 
 		Cinematic.setupCineCamera()
 		Load.units()

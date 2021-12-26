@@ -1,7 +1,7 @@
 import { Ability, AbilityType } from 'app/classes'
 import { Logger } from 'app/log'
 import { Position } from 'app/classes/position'
-import { Unit, Group, Timer, Effect, AbilityModel, Order } from 'lib/w3ts/index'
+import { Unit, Group, Effect, AbilityModel, Order } from 'lib/w3ts/index'
 import { AbilityTypeMap } from 'app/classes/abilityTypeMap'
 
 export class SwitchAbility extends Ability {

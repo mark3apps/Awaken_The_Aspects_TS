@@ -1,9 +1,11 @@
 import { Logger } from 'app/log'
 import { Position } from 'app/classes/position'
 import { UnitType } from 'app/classes/unitType'
-import { Order, BuffFour, Unit, Timer, Force, Group, Rectangle, Region } from 'lib/w3ts/index'
+import { Order, BuffFour, Unit, Timer, Group, Rectangle } from 'lib/w3ts/index'
 import { Loc } from './loc'
-import { Triggers } from 'lib/w3ts/handles/TriggerMap'
+import { Triggers } from 'lib/w3ts/handles/triggers'
+import { Forces } from 'lib/w3ts/handles/Forces'
+import { Regions } from 'lib/w3ts/handles/Regions'
 
 export const OrderIdIgnore = [
 	Order.Move,
@@ -56,7 +58,7 @@ export const OrderIdIgnoreWithDelay = [
 export class Pathing {
 	static define = (): void => {
 		// Turn off Elder Ent Movement Pathing
-		Triggers.unitCreated.add(() => {
+		Triggers.unitCreated.addAction(() => {
 			const eventUnit = Unit.fromEvent()
 			if (eventUnit.typeId === UnitType.AncientOfWar.id) {
 				eventUnit.setPathing(false)
@@ -64,7 +66,7 @@ export class Pathing {
 		})
 
 		// Units Ordered
-		Triggers.unitOrdered.add(() => {
+		Triggers.unitOrdered.addAction(() => {
 			try {
 				const eventOrder = GetIssuedOrderId()
 				const eventUnit = Unit.fromOrdered()
@@ -88,11 +90,11 @@ export class Pathing {
 		})
 
 		// Unit is Summoned
-		Triggers.unitSummoned.add(() => {
+		Triggers.unitSummoned.addAction(() => {
 			try {
 				const eventUnit = Unit.fromEvent()
 
-				if (eventUnit.inForce(Force.Computers)) {
+				if (eventUnit.inForce(Forces.Computers)) {
 					if (UnitType.replaceOnSummon.has(eventUnit.typeId)) {
 						Pathing.newOrders(eventUnit.replace(eventUnit.typeId))
 					} else {
@@ -105,12 +107,12 @@ export class Pathing {
 		})
 
 		// Unit is Spawned from Campsite
-		Triggers.unitCreated.add(() => {
+		Triggers.unitCreated.addAction(() => {
 			const eventUnit = Unit.fromEvent()
 
 			try {
 				if (UnitType.factorySummon.has(eventUnit.typeId)) {
-					if (eventUnit.inForce(Force.Computers)) {
+					if (eventUnit.inForce(Forces.Computers)) {
 						Pathing.newOrders(eventUnit)
 					}
 				}
@@ -119,13 +121,13 @@ export class Pathing {
 			}
 		})
 
-		Triggers.mapStart.add(() => {
+		Triggers.mapStart.addAction(() => {
 			const allUnits = new Group()
 			allUnits.enumUnitsInRect(Rectangle.getWorldBounds())
 
 			let unit = allUnits.first
 			while (unit != null) {
-				if (unit.inForce(Force.Computers) && UnitType.order.has(unit.typeId)) { Pathing.newOrders(unit) }
+				if (unit.inForce(Forces.Computers) && UnitType.order.has(unit.typeId)) { Pathing.newOrders(unit) }
 
 				allUnits.removeUnit(unit)
 				unit = allUnits.first
@@ -139,25 +141,25 @@ export class Pathing {
 		try {
 			let dest: Position | undefined
 
-			if (unit.inRegion(Region.BigTop)) {
+			if (unit.inRegion(Regions.BigTop)) {
 				Logger.Verbose('top', unit.name)
-				if (unit.inForce(Force.AllianceAll)) {
+				if (unit.inForce(Forces.AllianceAll)) {
 					dest = Loc.top.federation.randomPosition
-				} else if (unit.inForce(Force.FederationAll)) {
+				} else if (unit.inForce(Forces.FederationAll)) {
 					dest = Loc.top.alliance.randomPosition
 				}
-			} else if (unit.inRegion(Region.BigMiddle)) {
+			} else if (unit.inRegion(Regions.BigMiddle)) {
 				Logger.Verbose('middle', unit.name)
-				if (unit.inForce(Force.AllianceAll)) {
+				if (unit.inForce(Forces.AllianceAll)) {
 					dest = Loc.middle.federation.randomPosition
-				} else if (unit.inForce(Force.FederationAll)) {
+				} else if (unit.inForce(Forces.FederationAll)) {
 					dest = Loc.middle.alliance.randomPosition
 				}
 			} else {
 				Logger.Verbose('bottom', unit.name)
-				if (unit.inForce(Force.AllianceAll)) {
+				if (unit.inForce(Forces.AllianceAll)) {
 					dest = Loc.bottom.federation.randomPosition
-				} else if (unit.inForce(Force.FederationAll)) {
+				} else if (unit.inForce(Forces.FederationAll)) {
 					dest = Loc.bottom.alliance.randomPosition
 				}
 			}

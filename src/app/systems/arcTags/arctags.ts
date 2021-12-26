@@ -1,4 +1,4 @@
-import { Color, MapPlayer, TextTag, Timer, Unit } from 'lib/w3ts'
+import { Color, TextTag, Timer, Unit } from 'lib/w3ts'
 
 export class ArcTag {
 
