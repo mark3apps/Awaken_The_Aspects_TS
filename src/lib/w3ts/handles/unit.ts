@@ -1740,5 +1740,3 @@ export class Unit extends Widget {
 const getFieldType = (field: UnitField): string => {
 	return field.toString().substr(0, field.toString().indexOf(':'))
 }
-
-

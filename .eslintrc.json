@@ -39,12 +39,7 @@
 				"allowTemplateLiterals": true
 			}
 		],
-		"camelcase": [
-			"warn",
-			{
-				"properties": "never"
-			}
-		],
+		"camelcase": "off",
 		"accessor-pairs": "off",
 		"default-case": "error",
 		"grouped-accessor-pairs": "error",
@@ -53,10 +48,7 @@
 			"error",
 			"1tbs",
 			{
-				"allowSingleLine": true,
-				"allow": [
-					"((bj_)\\w+[A-Z]$)"
-				]
+				"allowSingleLine": true
 			}
 		],
 		"indent": [

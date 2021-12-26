@@ -8,7 +8,6 @@ import { AbilityTypeMap } from 'app/classes/abilityTypeMap'
 import { AbilityTypes } from 'app/classes/abilityTypes'
 
 export class FallingStrikeAbility extends Ability {
-
 	damage = 85
 	speed = 32
 	augments = 0

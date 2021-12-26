@@ -93,7 +93,6 @@ export class AbilityType {
 	onLoop: () => void = () => { }
 	getAbility: (unit: Unit) => any = (unit: Unit) => { }
 
-
 	constructor (ability: iAbilityType) {
 		//
 		// Required Vars

@@ -1,7 +1,6 @@
 import { UnitType } from 'app/classes/unitType'
 import { Unit } from 'lib/w3ts/index'
 
-
 export class GateType {
 	public openGate: UnitType
 	public closedGate: UnitType

@@ -400,4 +400,3 @@ export class CameraSetup extends Handle<camerasetup> {
 		return this.getObject(handle)
 	}
 }
-

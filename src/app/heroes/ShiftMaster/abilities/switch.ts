@@ -5,7 +5,6 @@ import { Unit, Group, Effect, AbilityModel, Order } from 'lib/w3ts/index'
 import { AbilityTypeMap } from 'app/classes/abilityTypeMap'
 
 export class SwitchAbility extends Ability {
-
 	pickRange = 300
 	augments = 0
 

@@ -2,7 +2,6 @@ import { AbilityFour, Order, Unit, Effect, AbilityModel, AttachPoint, Group, Buf
 import { Ability, UnitType } from '.'
 import { AbilityType, EffectType, TargetType } from './abilityType'
 
-
 export class AbilityTypes {
 	private static instance: AbilityTypes
 
@@ -13,7 +12,6 @@ export class AbilityTypes {
 
 		return AbilityTypes.instance
 	}
-
 
 	aspectInferno
 	shift1Dummy
@@ -32,9 +30,7 @@ export class AbilityTypes {
 	coneOfFireTower
 	aspectOfDeathInfect
 
-
 	private constructor () {
-
 		print("Running Abilities")
 		//
 		// Unit Abilities
@@ -129,8 +125,6 @@ export class AbilityTypes {
 			})
 			g.destroy()
 		}
-
-
 
 		this.manaShieldTower = new AbilityType({
 			four: AbilityFour.ManaShieldTower,
@@ -235,5 +229,4 @@ export class AbilityTypes {
 			}
 		})
 	}
-
 }
