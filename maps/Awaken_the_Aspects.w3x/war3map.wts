@@ -12007,12 +12007,6 @@ STRING 4687
 Gyrocopter
 }
 
-STRING 4690
-// Units: h01E (Magi), Name (Name)
-{
-Magi
-}
-
 STRING 4691
 // Abilities: A05D (Link), Name (Name)
 {
@@ -14827,5 +14821,11 @@ STRING 5203
 // Abilities: Z00E (Bonus - E - Sight Range), Name (Name)
 {
 Bonus - E - Sight Range
+}
+
+STRING 5204
+// Units: h01E (Iron Mage), Name (Name)
+{
+Iron Mage
 }
 

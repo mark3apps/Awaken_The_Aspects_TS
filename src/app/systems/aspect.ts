@@ -45,7 +45,7 @@ export class Aspect {
 	public onDeath (): void {
 		try {
 			if (this.dependent.isAlive()) {
-				const u = Unit.fromKilled()
+				const u = Unit.fromDying()
 				new Effect(AbilityModel.deathPactTarget, u.x, u.y).destroy()
 
 				if (u === this.origAspect) {

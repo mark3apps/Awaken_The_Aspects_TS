@@ -1704,7 +1704,7 @@ export class Unit extends Widget {
 		return this.fromHandle(GetOrderedUnit())
 	}
 
-	public static fromKilled () {
+	public static fromDying () {
 		return this.fromHandle(GetTriggerUnit())
 	}
 

@@ -37,6 +37,6 @@ export class Triggers {
 			return damage.target.life - damage.damage <= 0
 		})
 
-		Triggers.unitDying.addAction(() => { DamageEvent.get().source.kills += 1 })
+		Triggers.unitDying.addAction(() => { DamageEvent.getLast().source.kills += 1 })
 	};
 }

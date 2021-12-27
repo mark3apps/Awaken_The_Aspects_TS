@@ -153,7 +153,7 @@ export class AbilityType {
 
 					case EffectType.Death:
 						Triggers.unitDies.addAction(() => {
-							if (Unit.fromEvent().hasAbility(this)) {
+							if (Unit.fromDying().hasAbility(this)) {
 								if (this.onEffect) this.onEffect()
 							}
 						})
@@ -161,7 +161,7 @@ export class AbilityType {
 
 					case EffectType.Attacked:
 						Triggers.unitAttacked.addAction(() => {
-							if (Unit.fromEvent().hasAbility(this.id)) {
+							if (Unit.fromAttacked().hasAbility(this.id)) {
 								if (this.onEffect) this.onEffect()
 							}
 						})

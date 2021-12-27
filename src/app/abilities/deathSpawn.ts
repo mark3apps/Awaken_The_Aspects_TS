@@ -92,7 +92,7 @@ export class DeathSpawn {
 		Triggers.unitDying.addAction(() => {
 			const unit = Unit.fromEvent()
 
-			if (unit.isStructure && UnitType.leaveCorpse.has(unit.typeId)) {
+			if (UnitType.leaveCorpse.has(unit.typeId)) {
 				if ((math.random()) < 0.4) {
 					BlzSetEventDamage(0)
 					const origColor = unit.color

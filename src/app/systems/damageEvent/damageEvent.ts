@@ -6,18 +6,18 @@ export class DamageEvent {
 	target: Unit
 	modifier?: DamageModifier
 
-	protected static _last: DamageEvent
+	protected static last: DamageEvent
 
 	constructor () {
 		this.source = Unit.fromDamageSource()
 		this.target = Unit.fromDamageTarget()
 
 		this.applyCustomDamage()
-		DamageEvent._last = this
+		DamageEvent.last = this
 	}
 
-	static get () {
-		return DamageEvent._last
+	static getLast () {
+		return DamageEvent.last
 	}
 
 	get attackType () {
@@ -45,36 +45,37 @@ export class DamageEvent {
 	}
 
 	isSpell = () => {
-		return this.attackType == AttackType.NORMAL
+		return this.attackType === AttackType.NORMAL
 	}
 
 	isAttack = () => {
-		return this.damageType == DamageType.NORMAL
+		return this.damageType === DamageType.NORMAL
 	}
 
 	applyCustomDamage = () => {
 		if (this.isSpell()) this.damage *= this.source.spellDamage * this.target.spellResistance
-		if (this.isAttack()) {
-			if (this.source.critical > 0) {
-				const rand = math.random()
-				if (rand <= this.source.critical) {
-					this.damage *= this.source.criticalMultiplier
-					this.modifier = DamageModifier.Critical
-				}
-			}
 
-			if (this.target.evade > 0) {
-				const rand = math.random()
-				if (rand <= this.target.evade) {
-					this.damage = 0
-					this.modifier = DamageModifier.Evade
-				}
+		if (this.source.critical > 0) {
+			const rand = math.random()
+			if (rand <= this.source.critical) {
+				this.damage *= this.source.criticalMultiplier
+				this.modifier = DamageModifier.Critical
 			}
 		}
+
+		if (this.target.evade > 0 && this.isAttack()) {
+			const rand = math.random()
+			if (rand <= this.target.evade) {
+				this.damage = 0
+				this.modifier = DamageModifier.Evade
+			}
+		}
+
 		const displayDamage = this.damage
 
 		if (this.target.shield > 0) {
 			this.target.shield -= this.damage
+			this.modifier = DamageModifier.Shielded
 			if (this.target.shield < 0) {
 				this.damage = this.target.shield * -1
 				this.target.shield = 0
@@ -97,7 +98,7 @@ export class DamageEvent {
 					break
 			}
 
-			if (this.source.owner.controller == MAP_CONTROL_USER && this.damage > 5) {
+			if (this.source.owner.controller === MAP_CONTROL_USER && (this.damage > 5 || this.modifier === DamageModifier.Shielded)) {
 				new ArcTag(`${math.floor(displayDamage)}`, this.target)
 			}
 		}
@@ -106,5 +107,6 @@ export class DamageEvent {
 
 const enum DamageModifier {
 	Evade,
-	Critical
+	Critical,
+	Shielded
 }

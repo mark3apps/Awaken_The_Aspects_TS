@@ -1554,7 +1554,7 @@ export const enum UnitFour {
 	Draeneiwatcher = 'ndrw', // model: Dranai	 selectScale: 1,05
 	Dragonbuilding = 'ndrb', // model: DragonBuilding	 selectScale: 3,5
 	Dragonhawk = 'hdhw', // model: BloodElfDragonHawk	 selectScale: 1,5
-	Dragonturtle = 'ntrd', // model: DragonSeaTurtle	 scale: 1,2	 selectScale: 4
+	Dragonturtle = 'nhyc', // model: DragonSeaTurtle	 scale: 1,2	 selectScale: 4
 	Drakthul = 'odkt', // model: OrcWarlockRed	 scale: 1,2	 selectScale: 1,25
 	Draneihut0 = 'ndh0', // model: DraneiHut0	 selectScale: 2,5
 	Draneihut1 = 'ndh1', // model: DraneiHut1	 selectScale: 2,5
