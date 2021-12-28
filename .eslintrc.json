@@ -65,6 +65,7 @@
 			}
 		],
 		"no-unused-vars": "off",
-		"semi": "off"
+		"semi": "off",
+		"comma-dangle": "warn"
 	}
 }
