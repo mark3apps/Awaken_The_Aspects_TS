@@ -73,12 +73,8 @@ export class Gate {
 		g.firstLoop((u) => {
 			if (u.isAlive()) {
 				if (u.isAlly(this.unit)) {
-					check.allies += 1
-
-					if (u.isHero) {
-						check.friendlyHeroes += 1
-					}
-				} else {
+					if (u.isHero) check.friendlyHeroes += 1
+				} else if (u.isVisible(this.unit.owner)) {
 					check.enemies += 1
 				}
 			}
@@ -122,7 +118,7 @@ export class Gate {
 		this.state = GateState.died
 		const index = Gate.gates.indexOf(this)
 		if (index > -1) Gate.gates.splice(index, 1)
-		if (Gate.gates.length == 0) Gate.checkTimer.pause()
+		if (Gate.gates.length === 0) Gate.checkTimer.pause()
 	}
 
 	public hit (): void {

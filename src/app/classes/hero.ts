@@ -1,3 +1,7 @@
+import { BonusArmorAbility } from 'app/abilities/bonus/bonusArmor'
+import { BonusAttackSpeedAbility } from 'app/abilities/bonus/bonusAttackSpeed'
+import { BonusDamageAbility } from 'app/abilities/bonus/bonusDamage'
+import { BonusMoveSpeedAbility } from 'app/abilities/bonus/bonusMoveSpeed'
 import { BonusStatsAbility } from 'app/abilities/bonus/bonusStats'
 import { IState, StateMachine } from 'app/heroes/stateMachine'
 import { TalentConfig } from 'app/systems/talents/talentConfig'
@@ -11,6 +15,7 @@ import { AbilityFour, Force, Frame, Group, MapPlayer, Order, Timer, Unit } from 
 import { Ability } from '.'
 import { Logger } from '../log'
 import { AbilityTypeMap } from './abilityTypeMap'
+import { HeroMap } from './HeroTypeMap'
 import { Position } from './position'
 
 export class Hero {
@@ -59,7 +64,6 @@ export class Hero {
 	AIweightedHealthMax = 0
 	AIweightedHealthPercent = 0
 
-	static map: WeakMap<handle, Hero> = new Map<handle, Hero>()
 	static readonly all: Hero[] = []
 	static human: Hero[] = []
 	static ai: Hero[] = []
@@ -116,7 +120,7 @@ export class Hero {
 			this.heroType.talentTrees(this)
 
 			// Add to Hero Map
-			Hero.map.set(this.unit.handle, this)
+			HeroMap.map.set(this.unit.handle, this)
 			Hero.all.push(this)
 
 			if (this.unit.owner.controller === MAP_CONTROL_COMPUTER) {
@@ -127,14 +131,6 @@ export class Hero {
 		} else {
 			error('Unit is not defined in HeroTypes')
 		}
-	}
-
-	public static get (unit: Unit) {
-		return (Hero.map.has(unit.handle)) ? Hero.map.get(unit.handle) : undefined
-	}
-
-	public static fromEvent () {
-		return this.get(Unit.fromEvent())
 	}
 
 	// AI Methods
@@ -286,7 +282,7 @@ export class Hero {
 	}
 
 	getAbility = (typeFour: string) => {
-		return this.abilities.get(typeFour)
+		return this.unit.abilities.get(typeFour)
 	}
 
 	updateAbilityTooltips = () => {
@@ -297,6 +293,54 @@ export class Hero {
 				ability.updateTooltips()
 			}
 		}
+	}
+
+	private getDamageBonus () {
+		return this.getAbility(AbilityFour.BonusDamage) as BonusDamageAbility
+	}
+
+	get damageBonus () {
+		return this.getDamageBonus().damage
+	}
+
+	set damageBonus (value) {
+		this.getDamageBonus().damage = value
+	}
+
+	private getArmorBonus () {
+		return this.getAbility(AbilityFour.BonusArmor) as BonusArmorAbility
+	}
+
+	get armorBonus () {
+		return this.getArmorBonus().armor
+	}
+
+	set armorBonus (value) {
+		this.getArmorBonus().armor = value
+	}
+
+	private getAttackSpeedBonus () {
+		return this.getAbility(AbilityFour.BonusAttackSpeed) as BonusAttackSpeedAbility
+	}
+
+	get moveSpeedBonus () {
+		return this.getMoveSpeedBonus().moveSpeed
+	}
+
+	set moveSpeedBonus (value) {
+		this.getMoveSpeedBonus().moveSpeed = value
+	}
+
+	private getMoveSpeedBonus () {
+		return this.getAbility(AbilityFour.BonusMovementSpeed) as BonusMoveSpeedAbility
+	}
+
+	get attackSpeedBonus () {
+		return this.getAttackSpeedBonus().attackSpeed
+	}
+
+	set attackSpeedBonus (value) {
+		this.getAttackSpeedBonus().attackSpeed = value
 	}
 
 	get strengthBonus () {
@@ -324,7 +368,7 @@ export class Hero {
 	}
 
 	private getStatBonus () {
-		return this.abilities.get(AbilityFour.BonusStats) as BonusStatsAbility
+		return this.getAbility(AbilityFour.BonusStats) as BonusStatsAbility
 	}
 
 	public addStartingItems (): void {

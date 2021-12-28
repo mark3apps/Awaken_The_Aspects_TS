@@ -80,7 +80,7 @@ export class Unit extends Widget {
 		if (Unit.dataMap.has(this.handle)) {
 			return Unit.dataMap.get(this.handle) as UnitData
 		} else {
-			Unit.dataMap.set(this.handle, { abilities: new Map(), abilityFours: [], custom: new Map() })
+			Unit.dataMap.set(this.handle, new UnitData())
 			return Unit.dataMap.get(this.handle) as UnitData
 		}
 	}
@@ -155,23 +155,71 @@ export class Unit extends Widget {
 	}
 
 	public get weapon1Base (): number {
-		return this.getField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, 1) as number
+		return this.getField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, 0) as number
 	}
 
 	public set weapon1Base (value: number) {
-		this.setField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, value, 1)
+		this.setField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, value, 0)
+	}
+
+	public get weapon1Dice (): number {
+		return BlzGetUnitDiceNumber(this.handle, 0)
+	}
+
+	public set weapon1Dice (value: number) {
+		BlzSetUnitDiceNumber(this.handle, value, 0)
+	}
+
+	public get weapon1Sides (): number {
+		return BlzGetUnitDiceSides(this.handle, 0)
+	}
+
+	public set weapon1Sides (value: number) {
+		BlzSetUnitDiceSides(this.handle, value, 0)
+	}
+
+	public get weapon1Cooldown () {
+		return BlzGetUnitAttackCooldown(this.handle, 0)
+	}
+
+	public set weapon1Cooldown (value) {
+		BlzSetUnitAttackCooldown(this.handle, value, 0)
+	}
+
+	public get weapon1Range () {
+		return this.getField(UNIT_WEAPON_RF_ATTACK_RANGE, 0) as number
+	}
+
+	public set weapon1Range (value) {
+		this.setField(UNIT_WEAPON_RF_ATTACK_RANGE, value, 0)
+	}
+
+	public get weapon1Enabled () {
+		return this.getField(UNIT_WEAPON_BF_ATTACKS_ENABLED, 0) as boolean
+	}
+
+	public set weapon1Enabled (value) {
+		this.setField(UNIT_WEAPON_BF_ATTACKS_ENABLED, value, 0) as boolean
 	}
 
 	public get weapon2Base (): number {
-		return this.getField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, 2) as number
+		return this.getField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, 1) as number
 	}
 
 	public set weapon2Base (value: number) {
-		this.setField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, value, 2)
+		this.setField(UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE, value, 1)
 	}
 
 	public get primaryAttribute (): PrimaryAttribute {
 		return this.getField(UNIT_IF_PRIMARY_ATTRIBUTE) as PrimaryAttribute
+	}
+
+	public get lifeRegenerationRate () {
+		return this.getField(UNIT_RF_HIT_POINTS_REGENERATION_RATE) as number
+	}
+
+	public set lifeRegenerationRate (value) {
+		this.setField(UNIT_RF_HIT_POINTS_REGENERATION_RATE, value)
 	}
 
 	public get collisionSize (): number {
@@ -793,22 +841,6 @@ export class Unit extends Widget {
 
 	public getAgility (includeBonuses: boolean): number {
 		return GetHeroAgi(this.handle, includeBonuses)
-	}
-
-	public getAttackCooldown (weaponIndex: number): number {
-		return BlzGetUnitAttackCooldown(this.handle, weaponIndex)
-	}
-
-	public getBaseDamage (weaponIndex: number): number {
-		return BlzGetUnitBaseDamage(this.handle, weaponIndex)
-	}
-
-	public getDiceNumber (weaponIndex: number) {
-		return BlzGetUnitDiceNumber(this.handle, weaponIndex)
-	}
-
-	public getDiceSides (weaponIndex: number) {
-		return BlzGetUnitDiceSides(this.handle, weaponIndex)
 	}
 
 	public getField (field: UnitField, index = 0): UnitFieldValue {
@@ -1450,14 +1482,6 @@ export class Unit extends Widget {
 		SetUnitAnimationWithRarity(this.handle, whichAnimation, rarity)
 	}
 
-	public setAttackCooldown (cooldown: number, weaponIndex: number) {
-		BlzSetUnitAttackCooldown(this.handle, cooldown, weaponIndex)
-	}
-
-	public setBaseDamage (baseDamage: number, weaponIndex: number) {
-		BlzSetUnitBaseDamage(this.handle, baseDamage, weaponIndex)
-	}
-
 	public setBlendTime (timeScale: number) {
 		SetUnitBlendTime(this.handle, timeScale)
 	}
@@ -1468,14 +1492,6 @@ export class Unit extends Widget {
 
 	public setCreepGuard (creepGuard: boolean) {
 		SetUnitCreepGuard(this.handle, creepGuard)
-	}
-
-	public setDiceNumber (diceNumber: number, weaponIndex: number) {
-		BlzSetUnitDiceNumber(this.handle, diceNumber, weaponIndex)
-	}
-
-	public setDiceSides (diceSides: number, weaponIndex: number) {
-		BlzSetUnitDiceSides(this.handle, diceSides, weaponIndex)
 	}
 
 	public setExperience (newXpVal: number, showEyeCandy: boolean) {

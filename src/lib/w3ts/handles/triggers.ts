@@ -1,6 +1,7 @@
 import { Rectangle } from './rect'
 import { Trigger } from './trigger'
 import { DamageEvent } from 'app/systems/damageEvent/damageEvent'
+import { HeroMap } from 'app/classes/HeroTypeMap'
 
 export class Triggers {
 	static unitDies = new Trigger();
@@ -37,6 +38,15 @@ export class Triggers {
 			return damage.target.life - damage.damage <= 0
 		})
 
-		Triggers.unitDying.addAction(() => { DamageEvent.getLast().source.kills += 1 })
+		Triggers.unitDying.addAction(() => {
+			const damageEvent = DamageEvent.getLast()
+			damageEvent.source.kills += 1
+
+			if (damageEvent.target.isHero) {
+				const hero = HeroMap.get(damageEvent.target)
+				if (hero) hero.heroType.onDeath(hero.unit)
+				damageEvent.damage = 0
+			}
+		})
 	};
 }

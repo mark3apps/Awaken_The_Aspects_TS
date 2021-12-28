@@ -2,18 +2,18 @@
 export const enum AbilityFour {
 
 	// Custom Abilities
-	BonusSpellBook = 'Z000',
+	BonusSpellBook = 'A006',
 	BonusArmor = 'Z001',
-	BonusCriticalStrike = 'Z003',
+	BonusStats = 'Z002',
 	BonusDamage = 'Z004',
-	BonusEvasion = 'Z005',
 	BonusLife = 'Z006',
 	BonusLifeRegen = 'Z007',
 	BonusLifeSteal = 'Z008',
-	BonusMagicResistance = 'Z008',
-	BonusMovementSpeed = 'Z009',
-	BonusStats = 'Z00A',
-	BonusManaRegen = 'Z011',
+	BonusMana = 'Z009',
+	BonusManaRegen = 'Z00A',
+	BonusAttackSpeed = "Z00B",
+	BonusMovementSpeed = 'Z00C',
+	BonusSightRange = 'Z00D',
 
 	Skills = 'A01F',
 

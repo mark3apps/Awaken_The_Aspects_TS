@@ -12,6 +12,7 @@ import { FelFormAbility } from 'app/heroes/ShiftMaster/abilities/felForm'
 import { DefineBonusAbilities } from 'app/abilities/bonus/defineBonusAbilities'
 import { DefineTreeAbilities } from 'app/abilities/bonus/defineTreeAbilities'
 import { HeroAttributes } from 'app/systems/heroAttribute/heroAttributes'
+import { Logger } from 'app/log'
 
 export class ShiftMasterHeroType extends HeroType {
 	constructor () {
@@ -86,7 +87,8 @@ export class ShiftMasterHeroType extends HeroType {
 			four: AbilityFour.FelForm,
 			orderId: Order.Metamorphosis,
 			type: EffectType.Instant,
-			target: TargetType.SupportSelf
+			target: TargetType.SupportSelf,
+			onEffect: () => { FelFormAbility.fromCast().onEffect() }
 		})
 		felFormAbility.getAbility = (unit: Unit) => { return FelFormAbility.get(unit, felFormAbility) }
 
@@ -119,15 +121,26 @@ export class ShiftMasterHeroType extends HeroType {
 		this.addHeroAbilityType({ type: shiftStormAbility, starting: false, ult: true })
 
 		// Set Default Abilities for all Heroes
-		const bonus = DefineBonusAbilities.get()
 		const tree = DefineTreeAbilities.get()
-		this.addHeroAbilityType({ type: tree.collection, starting: true, ult: false })
-		this.addHeroAbilityType({ type: tree.armor, starting: true, ult: false })
-		this.addHeroAbilityType({ type: tree.skill, starting: true, ult: false })
-		this.addHeroAbilityType({ type: tree.guard, starting: true, ult: false })
+		// this.addHeroAbilityType({ type: tree.collection, starting: true, ult: false })
+		// this.addHeroAbilityType({ type: tree.armor, starting: true, ult: false })
+		this.addHeroAbilityType({ type: tree.skill, starting: true })
+		// this.addHeroAbilityType({ type: tree.guard, starting: true, ult: false })
 
 		// Default Bonus Abilities
-		this.addHeroAbilityType({ type: bonus.collection, starting: true, ult: false, hidden: true })
-		this.addHeroAbilityType({ type: bonus.stats, starting: true, ult: false, hidden: false })
+		const bonus = DefineBonusAbilities.get()
+		this.addHeroAbilityType({ type: bonus.collection, starting: true, hidden: false })
+		this.addHeroAbilityType({ type: bonus.stats, starting: true })
+		this.addHeroAbilityType({ type: bonus.damage, starting: true })
+		// this.addHeroAbilityType({ type: bonus.armor, starting: true })
+		// this.addHeroAbilityType({ type: bonus.moveSpeed, starting: true })
+		// this.addHeroAbilityType({ type: bonus.attackSpeed, starting: true })
+	}
+
+	override onDeath = (u: Unit) => {
+		if (u.custom.has("felForm")) {
+			const ability = u.abilities.get(AbilityFour.FelForm)
+			ability.resetValues()
+		}
 	}
 }

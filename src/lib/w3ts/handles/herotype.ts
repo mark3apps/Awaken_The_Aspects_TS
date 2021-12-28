@@ -32,6 +32,7 @@ export class HeroType extends UnitType {
 	public intelRange = 1100
 	public intelCloseRange = 500
 	public talentTrees = (hero: Hero): void => { }
+	public onDeath = (u: Unit) => { }
 
 	public traitAgressive = 50
 	public traitDefensive = 50

@@ -131,11 +131,11 @@ export class Ability {
 	}
 
 	public get heroDuration (): number {
-		return this.getLevelField(ABILITY_RLF_DURATION_HERO) as number
+		return this.getLevelField(ABILITY_RLF_DURATION_HERO, 0) as number
 	}
 
 	public set heroDuration (value: number) {
-		this.setLevelField(AbilityField.DURATION_HERO, value)
+		this.setLevelField(AbilityField.DURATION_HERO, value, 0)
 	}
 
 	public get level (): number {

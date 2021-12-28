@@ -1,5 +1,4 @@
 import { Ability, AbilityType } from 'app/classes'
-import { AbilityTypeMap } from 'app/classes/abilityTypeMap'
 import { AbilityField } from 'lib/resources/fields'
 import { Unit } from 'lib/w3ts'
 
@@ -15,10 +14,12 @@ export class BonusStatsAbility extends Ability {
 	}
 
 	get agility () {
+		print("BYE!!!")
 		return this.getLevelField(AbilityField.AGILITY_BONUS, 0) as number
 	}
 
 	set agility (value) {
+		print("HI!!!")
 		this.setLevelField(AbilityField.AGILITY_BONUS, value, 0)
 		this.incLevel()
 		this.decLevel()
@@ -32,10 +33,6 @@ export class BonusStatsAbility extends Ability {
 		this.setLevelField(AbilityField.INTELLIGENCE_BONUS, value, 0)
 		this.incLevel()
 		this.decLevel()
-	}
-
-	static override fromCast (): BonusStatsAbility {
-		return this.getAbility(Unit.fromEvent(), AbilityTypeMap.fromSpellEvent())
 	}
 
 	static override get (unit: Unit, ability: AbilityType): BonusStatsAbility {

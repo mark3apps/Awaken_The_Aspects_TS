@@ -30,7 +30,7 @@ export class ShiftAbility extends Ability {
 			`The Shifter shifts forward, leaving a Shade of himself behind that continues to fight.
 
 Shifts |cff00ffff${this.distance}|r units forward in |cff00ffff${this.speed}|r seconds.
-Shades recieve |cff00ffff${math.floor(this.shadeDamageTaken * 100 / 100)}|r times more damage, deal |cff00ffff${math.floor(this.shadeDamageDealt * 100 / 100)}%|r damage, and last |cff00ffff${this.shadeDuration}|r seconds.
+Shades recieve |cff00ffff${math.floor(this.shadeDamageTaken * 100)}%|r damage, deal |cff00ffff${math.floor(this.shadeDamageDealt * 100 / 100)}%|r damage, and last |cff00ffff${this.shadeDuration}|r seconds.
 cooldown |cff00ffff${math.floor(this.cooldown)}|r seconds.`
 	}
 

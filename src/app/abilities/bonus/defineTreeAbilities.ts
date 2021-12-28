@@ -1,4 +1,5 @@
-import { Ability, AbilityType, EffectType, Hero } from 'app/classes'
+import { Ability, AbilityType, EffectType } from 'app/classes'
+import { HeroMap } from 'app/classes/HeroTypeMap'
 import { AbilityFour } from 'lib/w3ts'
 
 export class DefineTreeAbilities {
@@ -19,7 +20,7 @@ export class DefineTreeAbilities {
 			four: 'A024',
 			type: EffectType.Instant,
 			onEffect: () => {
-				const hero = Hero.fromEvent()
+				const hero = HeroMap.fromEvent()
 				if (hero) {
 					if (hero.guardTree.IsWatched()) hero.guardTree.Hide()
 					if (hero.armorTree.IsWatched()) hero.armorTree.Hide()
@@ -34,7 +35,7 @@ export class DefineTreeAbilities {
 			four: 'A03Y',
 			type: EffectType.Instant,
 			onEffect: () => {
-				const hero = Hero.fromEvent()
+				const hero = HeroMap.fromEvent()
 				if (hero) {
 					if (hero.skillTree.IsWatched()) hero.skillTree.Hide()
 					if (hero.armorTree.IsWatched()) hero.armorTree.Hide()
@@ -49,7 +50,7 @@ export class DefineTreeAbilities {
 			four: 'A03W',
 			type: EffectType.Instant,
 			onEffect: () => {
-				const hero = Hero.fromEvent()
+				const hero = HeroMap.fromEvent()
 				if (hero) {
 					if (hero.guardTree.IsWatched()) hero.guardTree.Hide()
 					if (hero.skillTree.IsWatched()) hero.skillTree.Hide()

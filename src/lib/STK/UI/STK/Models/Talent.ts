@@ -4,9 +4,11 @@ type TalentDependencies = Partial<Record<'left' | 'up' | 'right' | 'down', numbe
 
 export type AllocationEvent = {
 	unit: Unit,
+	talent: Talent
 }
 export type ActivationEvent = {
 	unit: Unit,
+	talent: Talent
 }
 export type RequirementsEvent = {
 	unit: Unit,

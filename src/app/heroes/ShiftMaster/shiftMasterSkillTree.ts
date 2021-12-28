@@ -1,130 +1,144 @@
 import { ShadestormAbility, ShiftAbility } from 'app/heroes/ShiftMaster/abilities'
-import { Hero } from 'app/classes'
 import { ITalentTreeBuilder } from 'lib/STK/UI/STK/Interfaces/ITalentTreeBuilder'
 import { ActivationEvent } from 'lib/STK/UI/STK/Models/Talent'
 import { TalentTree } from 'lib/STK/UI/STK/Models/TalentTree'
 import { AbilityFour, Icon } from 'lib/w3ts'
 import { FelFormAbility } from './abilities/felForm'
+import { HeroMap } from 'app/classes/HeroTypeMap'
+
+interface IImprovedShift { distance: number, taken: number, dealt: number }
+interface IMasteredShift { cooldown: number, distance: number, duration: number, taken: number, dealt: number }
+interface IImprovedFelForm { hp: number, attack: number, regen: number, armor: number, attSpeed: number, moveSpeed: number, duration: number, cooldown: number }
 
 export class ShiftMasterSkillTree extends TalentTree {
 	get talentPoints (): number {
-		return this.ownerPlayer.getState(PLAYER_STATE_RESOURCE_LUMBER)
+		return this.ownerPlayer.lumber
 	}
 
 	set talentPoints (value: number) {
-		this.ownerPlayer.setState(PLAYER_STATE_RESOURCE_LUMBER, value)
+		this.ownerPlayer.lumber = value
 	}
-
-	// // Overriden stub methods ==================================================
-	// GetTalentPoints(nothing returns integer
-	//     return GetPlayerState(this.ownerPlayer, PLAYER_STATE_RESOURCE_LUMBER)
-	// }
-
-	// SetTalentPoints(integer points {
-	//     SetPlayerState(this.ownerPlayer, PLAYER_STATE_RESOURCE_LUMBER, points)
-	//     // STK_UpdateTalentViews(this.ownerPlayer)
-	// }
-
-	// GetTitle(nothing returns string
-	//     return this.title
-	// }
-	// =========================================================================
 
 	public Initialize (builder: ITalentTreeBuilder): void {
 		builder.SetColumnsRows(4, 8)
 		builder.title = 'Shift Master Skill Tree'
-		// builder.backgroundImage = 'balancebg.blp'
 
 		// The tree should be built with talents here
 		// ==============================================
 
+		//
+		// Shift <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		//
+
+		// Improved Shift
 		builder.AddMultirankTalent(0, 7, 3, lvl => {
-			const distance = [25, 50, 75]
-			const shadeDamageTaken = ["-5%", "-10%", "-15%"]
-			const shadeDamageDealt = ["5%", "10%", "15%"]
+			const stats: IImprovedShift[] = [
+				{ distance: 0, taken: 0, dealt: 0 },
+				{ distance: 25, taken: -0.05, dealt: 0.05 },
+				{ distance: 50, taken: -0.10, dealt: 0.10 },
+				{ distance: 75, taken: -0.15, dealt: 0.15 }]
 			return {
 				Name: "Improved Shift",
 				Icon: Icon.MirrorImage,
-				Description: `Increases Shifts effectiveness.|n+${distance[lvl - 1]} Distance Travelled|n${shadeDamageTaken[lvl - 1]} Shade Damage Taken|n${shadeDamageDealt[lvl - 1]} Shade Damage Dealt`,
+				Description: `Increases Shifts effectiveness.|n+${stats[lvl].distance} Distance Travelled|n${stats[lvl].taken} Shade Damage Taken|n${stats[lvl].dealt} Shade Damage Dealt`,
+				Tag: {
+					distance: stats[lvl].distance - stats[lvl - 1].distance,
+					taken: stats[lvl].taken - stats[lvl - 1].taken,
+					dealt: stats[lvl].dealt - stats[lvl - 1].dealt
+				},
 				Cost: 2,
-				OnAllocate: (e) => this.ActivateImprovedShift(e)
-			}
-		})
-		builder.AddMultirankTalent(0, 6, 1, lvl => {
-			const shadeDamageTaken = ["-10%"]
-			const shadeDamageDealt = ["+10%"]
-			const shadeDuration = [3]
-			return {
-				Name: "Mastered Shift",
-				Icon: Icon.MirrorImage,
-				Description: `Increases Shifts effectiveness.|n${shadeDamageTaken[lvl - 1]} Shade Damage Taken|n${shadeDamageDealt[lvl - 1]} Shade Damage DealtShade Duration +${shadeDuration[lvl - 1]}`,
-				Cost: 2,
-				OnAllocate: (e) => this.ActivateMasteredShift(e),
-				Dependency: { up: 3 }
+				OnAllocate: (e) => this.ImprovedShift(e)
 			}
 		})
 
-		// Improved Distance <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		// Masterd Shift
+		const masteredShiftStats: IMasteredShift = { cooldown: -1, distance: 50, duration: 3, taken: -0.1, dealt: 0.1 }
+		builder.AddTalent(0, 6, {
+			Name: "Mastered Shift",
+			Icon: Icon.MirrorImage,
+			Tag: masteredShiftStats,
+			Description: `Increases Shifts effectiveness.|n+${masteredShiftStats.distance} Distance Travelled|n ${math.floor(masteredShiftStats.taken * 100)}% Shade Damage Taken, +${math.floor(masteredShiftStats.dealt * 100)}% Shade Damage Dealt|n+${math.floor(masteredShiftStats.duration)}Shade Duration|n ${masteredShiftStats.cooldown} second Cooldown`,
+			Cost: 2,
+			OnAllocate: (e) => this.MasteredShift(e),
+			Dependency: { up: 3 }
+		})
+
+		// Shift Speed
 		builder.AddMultirankTalent(1, 7, 4, lvl => {
-			const distance = [50, 100, 150, 200]
+			const distance = [0, 50, 100, 150, 200]
 			return {
 				Name: 'Shift Speed',
-				Description: `Increases the distance travelled by ${distance[lvl - 1]}.`,
+				Description: `Increases the distance travelled by ${distance[lvl]}.`,
+				Tag: distance[lvl] - distance[lvl - 1],
 				Icon: Icon.Berserk,
-				OnAllocate: (e) => this.ActivateShiftDistance(e),
+				OnAllocate: (e) => this.ShiftDistance(e),
 				Dependency: { left: 1 }
 			}
 		})
 
-		// Improved Shade Strength <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		// Shade Strength
 		builder.AddMultirankTalent(2, 7, 5, lvl => {
-			const shadeDamageDealt = ["5%", "10%", "15%", "20%", "25%"]
+			const damageDealt = [0, 0.05, 0.10, 0.15, 0.20, 0.25]
 			return {
 				Name: 'Shade Strength',
-				Description: `Increases the damage shades deal by ${shadeDamageDealt[lvl - 1]}.`,
+				Description: `Increases the damage shades deal by ${math.floor(damageDealt[lvl] * 100)}%.`,
+				Tag: damageDealt[lvl] - damageDealt[lvl - 1],
 				Icon: Icon.ArcaniteMelee,
-				OnAllocate: (e) => this.ActivateShadeStrength(e),
+				OnAllocate: (e) => this.ShadeStrength(e),
 				Dependency: { left: 1 }
 			}
 		})
 
-		// Improved Shade Health <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		// Shade Health
 		builder.AddMultirankTalent(1, 6, 5, lvl => {
-			const shadeDamageDealt = ["8%", "16%", "24%", "32%", "40%"]
+			const damageTaken = [0, 0.08, 0.16, 0.24, 0.32, 0.40]
 			return {
 				Name: 'Shade Health',
-				Description: `Decreases the damage dealt to shades by ${shadeDamageDealt[lvl - 1]}.`,
+				Description: `Decreases the damage shades take by ${math.floor(damageTaken[lvl] * 100)}%.`,
 				Icon: Icon.ArcaniteArmor,
-				OnAllocate: (e) => this.ActivateShadeHealth(e),
+				OnAllocate: (e) => this.ShadeHealth(e),
+				Tag: damageTaken[lvl] - damageTaken[lvl - 1],
 				Dependency: { left: 1 }
 			}
 		})
 
 		//
-		// Fel Form
+		// Fel Form  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//
 
-		// Learn <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		// Learn
 		builder.AddTalent(3, 7, {
 			Name: "Learn Fel Form",
 			Description: "",
 			Icon: Icon.ChaosGrom,
 			OnAllocate: (e) => this.FelFormLearn(e),
-			Requirements: (e) => {
-				return [e.unit.heroLevel >= 8, "Level 8 Required"]
-			}
+			// Requirements: (e) => {
+			// 	return [e.unit.heroLevel >= 8, "Level 8 Required"]
+			// }
 		})
 
+		// Improved Fel Form
 		builder.AddMultirankTalent(3, 6, 4, lvl => {
-			const stats = [
-				{ hp: 0, attack: 5, regen: 2, armor: 2, attSpeed: 1.5 },
-				{ hp: 0, attack: 5, regen: 2, armor: 2, attSpeed: 1.5 },
-				{ hp: 0, attack: 5, regen: 2, armor: 2, attSpeed: 1.5 },
-				{ hp: 0, attack: 5, regen: 2, armor: 2, attSpeed: 1.5 }
+			const stats: IImprovedFelForm[] = [
+				{ hp: 0, attack: 0, regen: 0, armor: 0, attSpeed: 0, moveSpeed: 0, duration: 0, cooldown: 0 },
+				{ hp: 0, attack: 5, regen: 2, armor: 50, attSpeed: 1.5, moveSpeed: 10, duration: 0, cooldown: 0 },
+				{ hp: 0, attack: 5, regen: 2, armor: 2, attSpeed: 1.5, moveSpeed: 10, duration: 0, cooldown: 0 },
+				{ hp: 0, attack: 5, regen: 2, armor: 2, attSpeed: 1.5, moveSpeed: 10, duration: 0, cooldown: 0 },
+				{ hp: 0, attack: 5, regen: 2, armor: 2, attSpeed: 1.5, moveSpeed: 10, duration: 0, cooldown: 0 }
 			]
 			return {
 				Name: "Improved Fel Form",
 				Description: "Here",
+				Tag: {
+					hp: stats[lvl].hp - stats[lvl - 1].hp,
+					attack: stats[lvl].attack - stats[lvl - 1].attack,
+					regen: stats[lvl].regen - stats[lvl - 1].regen,
+					armor: stats[lvl].armor - stats[lvl - 1].armor,
+					attSpeed: stats[lvl].attSpeed - stats[lvl - 1].attSpeed,
+					moveSpeed: stats[lvl].moveSpeed - stats[lvl - 1].moveSpeed,
+					duration: stats[lvl].duration - stats[lvl - 1].duration,
+					cooldown: stats[lvl].cooldown - stats[lvl - 1].cooldown
+				},
 				Icon: Icon.ChaosGrom,
 				OnAllocate: (e) => this.FelFormImproved(e),
 				Dependency: { up: 1 },
@@ -132,14 +146,7 @@ export class ShiftMasterSkillTree extends TalentTree {
 			}
 		})
 
-		builder.AddTalent(2, 6, {
-			Name: "Fel Stability",
-			Description: "Increases the duration of Fel Form by 4 seconds.",
-			Icon: Icon.ChaosGrom,
-			OnAllocate: (e) => this.FelStability(e),
-			Dependency: { right: 2 }
-		})
-
+		// Mastered Fel Form
 		builder.AddTalent(3, 5, {
 			Name: "Mastered Fel Form",
 			Description: "",
@@ -149,7 +156,23 @@ export class ShiftMasterSkillTree extends TalentTree {
 			Dependency: { up: 4 }
 		})
 
-		builder.AddTalent(3, 0, {
+		// Fel Stability
+		const felStability = 4
+		builder.AddTalent(2, 6, {
+			Name: "Fel Stability",
+			Description: `Increases the duration of Fel Form by ${felStability} seconds.`,
+			Tag: felStability,
+			Icon: Icon.ChaosGrom,
+			OnAllocate: (e) => this.FelStability(e),
+			Dependency: { right: 2 }
+		})
+
+		//
+		// Shade Storm  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		//
+
+		// Learn
+		builder.AddTalent(0, 0, {
 			Name: "Learn Shade Storm",
 			Description: "",
 			Icon: Icon.Whirlwind,
@@ -169,10 +192,11 @@ export class ShiftMasterSkillTree extends TalentTree {
 	//
 
 	LearnShiftstorm (e: ActivationEvent) {
-		const hero = Hero.get(e.unit)
+		const hero = HeroMap.get(e.unit)
 		if (hero) {
 			const ability = hero.getAbility(AbilityFour.ShiftStorm) as ShadestormAbility
 			ability.enable()
+			hero.agilityBonus += 15
 		}
 	}
 
@@ -181,7 +205,7 @@ export class ShiftMasterSkillTree extends TalentTree {
 	//
 
 	FelFormLearn (e: ActivationEvent) {
-		const hero = Hero.get(e.unit)
+		const hero = HeroMap.get(e.unit)
 		if (hero) {
 			try {
 				const ability = hero.getAbility(AbilityFour.FelForm) as FelFormAbility
@@ -193,7 +217,7 @@ export class ShiftMasterSkillTree extends TalentTree {
 	}
 
 	FelFormImproved (e: ActivationEvent) {
-		const hero = Hero.get(e.unit)
+		const hero = HeroMap.get(e.unit)
 		if (hero) {
 			const ability = hero.getAbility(AbilityFour.FelForm) as FelFormAbility
 			// ability.show()
@@ -201,7 +225,7 @@ export class ShiftMasterSkillTree extends TalentTree {
 	}
 
 	FelFormMastered (e: ActivationEvent) {
-		const hero = Hero.get(e.unit)
+		const hero = HeroMap.get(e.unit)
 		if (hero) {
 			const ability = hero.getAbility(AbilityFour.FelForm) as FelFormAbility
 			// ability.show()
@@ -209,10 +233,10 @@ export class ShiftMasterSkillTree extends TalentTree {
 	}
 
 	FelStability (e: ActivationEvent) {
-		const hero = Hero.get(e.unit)
+		const hero = HeroMap.get(e.unit)
 		if (hero) {
 			const ability = hero.getAbility(AbilityFour.FelForm) as FelFormAbility
-			// ability.show()
+			ability.heroDuration += e.talent.tag
 		}
 	}
 
@@ -220,56 +244,60 @@ export class ShiftMasterSkillTree extends TalentTree {
 	// Shift
 	//
 
-	ActivateImprovedShift (e: ActivationEvent) {
-		const hero = Hero.get(e.unit)
+	ImprovedShift (e: ActivationEvent) {
+		const hero = HeroMap.get(e.unit)
 		if (hero) {
 			const ability = hero.getAbility(AbilityFour.Shift) as ShiftAbility
-			ability.distance += 50
-			ability.shadeDamageTaken -= 0.05
-			ability.shadeDamageDealt += 0.05
-			ability.tooltipName = "Improved Shift"
+			const stats: IImprovedShift = e.talent.tag
+			ability.distance += stats.distance
+			ability.shadeDamageTaken += stats.taken
+			ability.shadeDamageDealt += stats.dealt
+			ability.tooltipName = e.talent.name
 			// ability.update()
 			hero.updateAbilityTooltips()
 		}
 	}
 
-	ActivateMasteredShift (e: ActivationEvent) {
-		const hero = Hero.get(e.unit)
+	MasteredShift (e: ActivationEvent) {
+		const hero = HeroMap.get(e.unit)
 		if (hero) {
 			const ability = hero.getAbility(AbilityFour.Shift) as ShiftAbility
-			ability.distance += 50
-			ability.shadeDamageTaken -= 0.05
-			ability.shadeDamageDealt += 0.05
-			ability.shadeDuration += 3
-			ability.cooldown -= 1
-			ability.tooltipName = "Mastered Shift"
+			const stats: IMasteredShift = e.talent.tag
+
+			ability.distance += stats.distance
+			ability.shadeDamageTaken += stats.taken
+			ability.shadeDamageDealt += stats.dealt
+			ability.shadeDuration += stats.duration
+			ability.cooldown += stats.cooldown
+			ability.tooltipName = e.talent.name
 			ability.update()
 		}
 	}
 
-	ActivateShiftDistance (e: ActivationEvent) {
-		const hero = Hero.get(e.unit)
+	ShiftDistance (e: ActivationEvent) {
+		const hero = HeroMap.get(e.unit)
 		if (hero) {
 			const ability = hero.getAbility(AbilityFour.Shift) as ShiftAbility
-			ability.distance += 50
+			ability.distance += e.talent.tag as number
 			ability.update()
 		}
 	}
 
-	ActivateShadeStrength (e: ActivationEvent) {
-		const hero = Hero.get(e.unit)
+	ShadeStrength (e: ActivationEvent) {
+		const hero = HeroMap.get(e.unit)
 		if (hero) {
 			const ability = hero.getAbility(AbilityFour.Shift) as ShiftAbility
-			ability.shadeDamageDealt += 0.05
+			ability.shadeDamageDealt += e.talent.tag as number
 			ability.update()
 		}
 	}
 
-	ActivateShadeHealth (e: ActivationEvent) {
-		const hero = Hero.get(e.unit)
+	ShadeHealth (e: ActivationEvent) {
+		const hero = HeroMap.get(e.unit)
 		if (hero) {
 			const ability = hero.getAbility(AbilityFour.Shift) as ShiftAbility
-			ability.shadeDamageTaken -= 0.08
+
+			ability.shadeDamageTaken -= e.talent.tag as number
 			ability.update()
 		}
 	}

@@ -99,21 +99,24 @@ export abstract class TalentTree {
 	private ActivateTalent (index: number, talent: Talent, rank: number) {
 		if (!talent.onActivate) return
 		talent.onActivate({
-			unit: this._unit
+			unit: this._unit,
+			talent: talent
 		})
 	}
 
 	private DeactivateTalent (index: number, talent: Talent) {
 		if (!talent.onDeactivate) return
 		talent.onDeactivate({
-			unit: this._unit
+			unit: this._unit,
+			talent: talent
 		})
 	}
 
 	private AllocateTalent (index: number, talent: Talent): boolean {
 		if (!talent.onAllocate) return true
 		talent.onAllocate({
-			unit: this._unit
+			unit: this._unit,
+			talent: talent
 		})
 		return true
 	}
@@ -121,7 +124,8 @@ export abstract class TalentTree {
 	private DeallocateTalent (index: number, talent: Talent) {
 		if (!talent.onDeallocate) return
 		talent.onDeallocate({
-			unit: this._unit
+			unit: this._unit,
+			talent: talent
 		})
 	}
 
