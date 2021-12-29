@@ -1,11 +1,10 @@
+import { UnitType, Ability } from 'app/classes'
+import { AbilityTypes } from 'app/define/abilityTypes/abilityTypes'
 import { Logger } from 'app/log'
-import { Ability } from 'app/classes/ability/ability'
-import { UnitType } from 'app/classes/unitType'
-import { Timer, Unit, Trigger, Anim, Effect, AbilityModel, DoodadModel } from 'lib/w3ts/index'
-import { AbilityTypes } from "app/classes/ability/abilityTypes"
+import { Trigger, Unit, Anim, Effect, AbilityModel, Timer, DoodadModel } from 'lib/w3ts'
 import { Event } from './event'
-import { IAspectOfFireEventDepend } from './interfaces/IAspectOfFireEventDepend'
 import { IAspectOfFireEvent } from './interfaces/IAspectOfFireEvent'
+import { IAspectOfFireEventDepend } from './interfaces/IAspectOfFireEventDepend'
 
 export class AspectOfFireEvent extends Event {
 	inferno: Trigger

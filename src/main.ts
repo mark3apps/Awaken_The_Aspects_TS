@@ -8,22 +8,21 @@ import { Game } from 'app/game'
 import { Timer, addScriptHook, W3TS_HOOK } from 'lib/w3ts/index'
 
 const tsMain = () => {
-	Logger.Level(LogLevel.Information)
-
 	// Run at map Init
 	try {
-		Game.mapInit()
+		Game.init()
 	} catch (e) {
-		Logger.Fatal(e)
+		Logger.Fatal("Game.init()", e)
 	}
 
 	// Run at Game Start
 	const mapStart = new Timer()
 	mapStart.start(0.1, false, () => {
 		try {
+			Logger.Level(LogLevel.Information)
 			Game.start()
 		} catch (e) {
-			Logger.Fatal(e)
+			Logger.Fatal("Game.start()", e)
 		}
 	})
 }

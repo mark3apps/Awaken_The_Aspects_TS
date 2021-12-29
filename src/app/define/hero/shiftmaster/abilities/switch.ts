@@ -1,8 +1,8 @@
-import { Ability, AbilityType } from 'app/classes'
-import { Logger } from 'app/log'
+import { Ability } from 'app/classes'
 import { Position } from 'app/classes/position'
 import { Unit, Group, Effect, AbilityModel, Order } from 'lib/w3ts/index'
 import { IAbility } from 'app/classes/ability/interfaces/IAbility'
+import { Logger } from 'app/log'
 
 export class SwitchAbility extends Ability {
 	pickRange = 300
@@ -58,7 +58,7 @@ export class SwitchAbility extends Ability {
 			targetUnit.setPathing(true)
 			this.unit.setPathing(true)
 		} catch (error) {
-			Logger.Error(error)
+			Logger.Error("Switch.onEffect", error)
 		}
 	}
 

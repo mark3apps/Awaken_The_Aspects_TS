@@ -1,9 +1,9 @@
 import { Ability } from 'app/classes'
-import { AbilityTypes } from 'app/classes/ability/abilityTypes'
+import { AbilityTypes } from 'app/define/abilityTypes/abilityTypes'
 import { IAbility } from 'app/classes/ability/interfaces/IAbility'
 import { IAbilityCast } from 'app/classes/ability/interfaces/IAbilityCast'
 import { UnitType } from 'app/classes/unitType'
-import { Pathing } from 'app/systems/pathing'
+import { Pathing } from 'app/systems/spawn/pathing'
 import { AbilityField } from 'lib/resources/fields'
 import { Unit, Group, Timer, Effect, AbilityModel, AttachPoint } from 'lib/w3ts/index'
 

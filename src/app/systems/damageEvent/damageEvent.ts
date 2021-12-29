@@ -1,7 +1,7 @@
 import { AttackType, DamageType } from 'lib/resources/types'
 import { Color, MapPlayer, Unit } from 'lib/w3ts'
-import { ArcTag } from '../arcTags/arctags'
-import { IArcTag } from '../arcTags/IArcTag'
+import { ArcTag } from '../arcTag/arctag'
+import { IArcTag } from '../arcTag/IArcTag'
 import { IDamageEventDepend } from './IDamageEventDepend'
 
 export class DamageEvent {

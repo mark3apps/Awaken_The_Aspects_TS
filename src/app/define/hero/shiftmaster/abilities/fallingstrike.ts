@@ -1,11 +1,9 @@
-import { Ability } from 'app/classes'
-import { Logger } from 'app/log'
-import { Position } from 'app/classes/position'
-import { UnitType } from 'app/classes/unitType'
-import { AbilityFour, Unit, Timer, Anim, Group, Order } from 'lib/w3ts/index'
-import { AttackType, DamageType } from 'lib/resources/types'
-import { AbilityTypes } from 'app/classes/ability/abilityTypes'
+import { Ability, Position, UnitType } from 'app/classes'
 import { IAbility } from 'app/classes/ability/interfaces/IAbility'
+import { AbilityTypes } from 'app/define/abilityTypes/abilityTypes'
+import { Logger } from 'app/log'
+import { AttackType, DamageType } from 'lib/resources/types'
+import { AbilityFour, Timer, Anim, Unit, Group, Order } from 'lib/w3ts'
 
 export class FallingStrike extends Ability {
 	damage = 85
@@ -101,7 +99,7 @@ export class FallingStrike extends Ability {
 				this.resetCooldown()
 			}
 		} catch (error) {
-			Logger.Error(error)
+			Logger.Error("FallingStrike.onEffect", error)
 		}
 	}
 

@@ -1,6 +1,6 @@
 import { UnitType } from 'app/classes/unitType'
 import { Timer } from 'lib/w3ts/index'
-import { Banners } from "../banner/banners"
+import { Banners } from "../../define/banners"
 import { AspectOfFireEvent } from './AspectOfFireEvent'
 import { IAspectOfFireEvent } from './interfaces/IAspectOfFireEvent'
 import { IAspectOfFireEventDepend } from './interfaces/IAspectOfFireEventDepend'

@@ -1,4 +1,4 @@
-import { ArcTagEngine } from 'app/systems/arcTags/ArcTagEngine'
+import { ArcTagEngine } from 'app/systems/arcTag/ArcTagEngine'
 
 export interface ITriggersDepend {
 

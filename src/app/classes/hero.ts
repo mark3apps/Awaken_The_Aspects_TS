@@ -1,16 +1,14 @@
-import { IState, StateMachine } from 'app/heroes/stateMachine'
+import { StateMachine, IState } from 'app/heroes/stateMachine'
+import { Logger } from 'app/log'
 import { TalentConfig } from 'app/systems/talents/talentConfig'
 import { GoldTalentViewModel } from 'app/systems/talents/viewModels/GoldTalentViewModel'
 import { SkillTalentViewModel } from 'app/systems/talents/viewModels/SkillTalentViewModel'
 import { GenerateNoButtonTalentTreeView } from 'app/systems/talents/views/NoButtonTalentTreeView'
 import { GenerateNoButtonTalentView } from 'app/systems/talents/views/NoButtonTalentView'
 import { BasicTalentTreeViewModel } from 'lib/STK/UI/STK/ViewModels/BasicTalentTreeViewModel'
-import { HeroType } from 'lib/w3ts/handles/herotype'
-import { AbilityFour, Force, Frame, Group, MapPlayer, Order, Timer, Unit } from 'lib/w3ts/index'
-import { Ability } from '.'
-import { Logger } from '../log'
+import { Timer, Unit, HeroType, Group, Force, MapPlayer, Frame, Order } from 'lib/w3ts'
+import { Position } from '.'
 import { HeroMap } from './HeroTypeMap'
-import { Position } from './position'
 
 export class Hero {
 	private stateMachine: StateMachine | undefined

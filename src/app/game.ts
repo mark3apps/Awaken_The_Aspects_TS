@@ -7,28 +7,29 @@ import { Rectangles } from 'lib/w3ts/handles/Rectangles'
 import { Regions } from 'lib/w3ts/handles/Regions'
 import { Triggers } from 'app/define/triggers/triggers'
 import { Units } from 'lib/w3ts/handles/Units'
-import { AbilityTypes } from './classes/ability/abilityTypes'
-import { Heroes } from './classes/Heroes'
-import { ItemTypes } from './classes/ItemTypes'
-import { Logger } from './log'
-import { Banners } from './systems/banner/banners'
+import { AbilityTypes } from './define/abilityTypes/abilityTypes'
+import { Heroes } from './define/heroes'
+import { ItemTypes } from './define/itemTypes'
+import { Banners } from './define/banners'
 import { Events } from './systems/event/Events'
 import { Gates } from './systems/gates/gates'
 import { HeroAttributes } from './systems/heroAttribute/heroAttributes'
 import { AbilityTriggers } from './define/abilityTriggers/abilityTriggers'
 import { AbilityEngine } from './classes/abilityEngine/AbilityEngine'
-import { AbilityCast } from './classes/ability/abilityCast'
-import { ArcTagEngine } from './systems/arcTags/ArcTagEngine'
-import { Armies } from './systems/Armies'
-import { Factions } from './systems/faction/Factions'
-import { Locs } from './systems/Locs'
-import { Aspects } from './systems/Aspects'
-import { Spawns } from './systems/Spawns'
+import { AbilityCast } from './classes/abilityCast'
+import { ArcTagEngine } from './systems/arcTag/ArcTagEngine'
+import { Armies } from './define/Armies'
+import { Factions } from './define/Factions'
+import { Locs } from './systems/loc/Locs'
+import { Aspects } from './define/Aspects'
+import { Spawns } from './systems/spawn/Spawns'
 import { ShiftMasterHeroType } from './heroes/heroTypes'
 import { DamageEngine } from './systems/damageEvent/DamageEngine'
+import { Bases } from './define/Bases'
+import { Logger } from './log'
 
 export class Game {
-	static mapInit = (): void => {
+	static init = (): void => {
 	}
 
 	static start = (): void => {
@@ -48,15 +49,16 @@ export class Game {
 		const abilTypes = AbilityTypes.getInstance()
 		const regions = Regions.getInstance()
 		const arcTagEngine = ArcTagEngine.getInstance()
+		const triggers = Triggers.getInstance({})
 
 		// Globals with upstream and downstream dependencies
 		Logger.Information('Up and Down Dependencies')
-		const triggers = Triggers.getInstance({})
 		const armies = Armies.getInstance({ units: units, forces: forces })
 		const locs = Locs.getInstance({ triggers: triggers, armies: armies, rects: rects })
 		const banners = Banners.getInstance({ units: units, forces: forces })
 		const heroAttr = HeroAttributes.getInstance({ itemTypes: itemTypes })
-		const factions = Factions.getInstance({ locs: locs, units: units, armies: armies })
+		const bases = Bases.getInstance({ locs: locs, armies: armies, units: units })
+		const factions = Factions.getInstance({ bases: bases })
 		const abilEngine = AbilityEngine.getInstance({ triggers: triggers, abilityCast: abilCast })
 		const pathing = Pathing.getInstance({ triggers: triggers, locs: locs, forces: forces, regions: regions })
 

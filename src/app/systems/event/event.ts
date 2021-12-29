@@ -3,8 +3,8 @@ import { UnitType } from 'app/classes/unitType'
 import { Timer, Unit, Trigger, Order } from 'lib/w3ts/index'
 import { Banner } from '../banner/banner'
 import { Side } from "../banner/Side"
-import { IEvent } from './IEvent'
-import { IEventDepend } from './IEventDepend'
+import { IEvent } from './interfaces/IEvent'
+import { IEventDepend } from './interfaces/IEventDepend'
 
 export class Event {
 	banners: Banner[] = []

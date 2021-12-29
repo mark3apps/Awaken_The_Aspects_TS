@@ -1,4 +1,4 @@
-import { Base } from '../base'
+import { Base } from '../base/base'
 import { IFaction } from './IFaction'
 
 export class Faction {

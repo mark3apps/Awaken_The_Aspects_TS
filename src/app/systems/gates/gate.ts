@@ -1,6 +1,6 @@
+import { Position } from 'app/classes'
 import { Logger } from 'app/log'
-import { Position } from 'app/classes/position'
-import { Unit, MapPlayer, Timer, Group, Anim } from 'lib/w3ts/index'
+import { Unit, MapPlayer, Timer, Group, Anim } from 'lib/w3ts'
 import { GateType } from './gateType'
 
 export interface GateCheck {

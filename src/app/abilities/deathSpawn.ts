@@ -1,8 +1,8 @@
 import { UnitType } from 'app/classes'
+import { IDeathSpawn } from 'app/classes/IDeathSpawn'
+import { IDeathSpawnDepend } from 'app/classes/IDeathSpawnDepend'
 import { Logger } from 'app/log'
 import { Unit, MapPlayer, AbilityFour, Timer, Effect } from 'lib/w3ts'
-import { IDeathSpawn } from './IDeathSpawn'
-import { IDeathSpawnDepend } from './IDeathSpawnDepend'
 
 export class DeathSpawn {
 	protected static instance?: DeathSpawn

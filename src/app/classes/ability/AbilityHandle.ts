@@ -1,5 +1,3 @@
-import { Logger } from 'app/log'
-import { Ability } from '..'
 import { IAbility } from './interfaces/IAbility'
 
 export class AbilityHandle {

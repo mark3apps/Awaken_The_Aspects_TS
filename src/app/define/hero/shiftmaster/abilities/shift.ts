@@ -1,10 +1,10 @@
 import { Ability, Position, UnitType } from 'app/classes'
-import { AbilityTypes } from 'app/classes/ability/abilityTypes'
-import { Logger } from 'app/log'
+import { AbilityTypes } from 'app/define/abilityTypes/abilityTypes'
 import { AbilityField } from 'lib/resources/fields'
 import { AbilityFour, Effect, AbilityModel, Unit, Timer } from 'lib/w3ts'
 import { IAbility } from 'app/classes/ability/interfaces/IAbility'
 import { IAbilityCast } from 'app/classes/ability/interfaces/IAbilityCast'
+import { Logger } from 'app/log'
 
 export class Shift extends Ability {
 	augments = 0
