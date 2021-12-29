@@ -6,10 +6,9 @@ import { CameraSetups } from 'lib/w3ts/handles/CameraSetups'
 import { Forces } from 'lib/w3ts/handles/Forces'
 import { Rectangles } from 'lib/w3ts/handles/Rectangles'
 import { Regions } from 'lib/w3ts/handles/Regions'
-import { Triggers } from 'lib/w3ts/handles/triggers'
+import { Triggers } from 'app/define/triggers/triggers'
 import { Units } from 'lib/w3ts/handles/Units'
-import { AbilityTypeMap } from './classes/abilityTypeMap'
-import { AbilityTypes } from './classes/abilityTypes'
+import { AbilityTypes } from './classes/ability/abilityTypes'
 import { Heroes } from './classes/Heroes'
 import { ItemTypes } from './classes/ItemTypes'
 import { Logger } from './log'
@@ -17,6 +16,9 @@ import { Banners } from './systems/banner/banners'
 import { Events } from './systems/event/Events'
 import { Gates } from './systems/gates/gates'
 import { HeroAttributes } from './systems/heroAttribute/heroAttributes'
+import { AbilityTriggers } from './define/abilityTriggers/abilityTriggers'
+import { AbilityEngine } from './classes/abilityEngine/AbilityEngine'
+import { AbilityCast } from './classes/ability/abilityCast'
 
 export class Game {
 	static mapInit = (): void => {
@@ -35,13 +37,12 @@ export class Game {
 
 		Regions.define()
 
-		Triggers.define()
-
-		DeathSpawn.define()
-		Pathing.define()
+		const triggers = Triggers.getInstance()
+		DeathSpawn.getInstance(triggers)
+		Pathing.define(triggers)
 		HeroAttributes.define()
 
-		Heroes.define()
+		Heroes.define({ triggers: triggers })
 
 		// new BrawlerHeroType()
 		// new ManaAddictHeroType()
@@ -58,11 +59,16 @@ export class Game {
 
 		Logger.Verbose('Game Map Start')
 
+		const abilTypes = AbilityTypes.getInstance()
+		const abilEngine = AbilityEngine.getInstance()
+		const triggers = Triggers.getInstance()
+		const cast = AbilityCast.getInstance()
+
 		Army.define()
-		Loc.define()
+		Loc.define(triggers)
 		Faction.define()
 		Spawn.define()
-		Gates.define()
+		Gates.define(triggers)
 		Aspect.define()
 		Banners.define()
 		Events.define()
@@ -70,8 +76,8 @@ export class Game {
 		Cinematic.setupCineCamera()
 		Load.units()
 
-		AbilityTypes.getInstance()
-		AbilityTypeMap.initSpellEffects()
+		const abilTrigsDepend = { abilityEngine: abilEngine, abilityTypes: abilTypes, cast: cast, triggers: triggers }
+		const abilTrigs = AbilityTriggers.getInstance(abilTrigsDepend)
 
 		Cinematic.startHeroSelector()
 

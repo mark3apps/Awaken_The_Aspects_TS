@@ -2,14 +2,14 @@ import { Ability, AbilityType } from 'app/classes'
 import { Logger } from 'app/log'
 import { Position } from 'app/classes/position'
 import { Unit, Group, Effect, AbilityModel, Order } from 'lib/w3ts/index'
-import { AbilityTypeMap } from 'app/classes/abilityTypeMap'
+import { IAbility } from 'app/classes/ability/interfaces/IAbility'
 
 export class SwitchAbility extends Ability {
 	pickRange = 300
 	augments = 0
 
-	constructor (unit: Unit, abilityType: AbilityType) {
-		super(unit, abilityType)
+	constructor (ability: IAbility) {
+		super(ability)
 		this.updateTooltips()
 	}
 
@@ -62,11 +62,7 @@ export class SwitchAbility extends Ability {
 		}
 	}
 
-	static override fromCast (): SwitchAbility {
-		return this.getAbility(Unit.fromEvent(), AbilityTypeMap.fromSpellEvent())
-	}
-
-	static override get (unit: Unit, abilityType: AbilityType): SwitchAbility {
-		return this.getAbility(unit, abilityType)
+	static override fromHandle (ability: IAbility) {
+		return this.getObject(ability) as SwitchAbility
 	}
 }

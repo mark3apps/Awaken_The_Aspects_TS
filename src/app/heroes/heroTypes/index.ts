@@ -1,5 +1,5 @@
 export * from './brawlerHeroType'
 export * from './manaAddictHeroType'
-export * from '../ShiftMaster/shiftMasterHeroType'
+export * from '../../define/hero/shiftmaster/shiftMasterHeroType'
 export * from './tacticianHeroType'
 export * from './timeMageHeroType'

@@ -1,8 +1,10 @@
 import { Hero } from 'app/classes'
-import { AbilityType, EffectType, TargetType } from 'app/classes/abilityType'
+import { AbilityType } from 'app/classes/abilityType/abilityType'
+import { TargetType } from "app/classes/abilityType/TargetType"
+import { EffectType } from "app/classes/abilityType/EffectType"
 import { UnitType } from 'app/classes/unitType'
 import { HeroAttribute } from 'app/systems/heroAttribute/heroAttribute'
-import { ShiftMasterSkillTree } from 'app/heroes/ShiftMaster/shiftMasterSkillTree'
+import { ShiftMasterSkillTree } from 'app/define/hero/shiftmaster/shiftMasterSkillTree'
 import { Strategy } from 'lib/resources/strategy'
 import { HeroType } from 'lib/w3ts/handles/herotype'
 import { AbilityFour, Order } from 'lib/w3ts/index'

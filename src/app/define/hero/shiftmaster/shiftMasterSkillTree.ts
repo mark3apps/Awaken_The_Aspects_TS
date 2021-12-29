@@ -1,4 +1,4 @@
-import { ShadestormAbility, ShiftAbility } from 'app/heroes/ShiftMaster/abilities'
+import { ShadestormAbility, ShiftAbility } from 'app/define/hero/shiftmaster/abilities'
 import { ITalentTreeBuilder } from 'lib/STK/UI/STK/Interfaces/ITalentTreeBuilder'
 import { ActivationEvent } from 'lib/STK/UI/STK/Models/Talent'
 import { TalentTree } from 'lib/STK/UI/STK/Models/TalentTree'
@@ -196,7 +196,6 @@ export class ShiftMasterSkillTree extends TalentTree {
 		if (hero) {
 			const ability = hero.getAbility(AbilityFour.ShiftStorm) as ShadestormAbility
 			ability.enable()
-			hero.agilityBonus += 15
 		}
 	}
 

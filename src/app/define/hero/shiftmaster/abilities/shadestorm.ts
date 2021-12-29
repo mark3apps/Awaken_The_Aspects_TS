@@ -1,7 +1,6 @@
 import { Ability } from 'app/classes'
-import { AbilityType } from 'app/classes/abilityType'
-import { AbilityTypeMap } from "app/classes/abilityTypeMap"
-import { AbilityTypes } from 'app/classes/abilityTypes'
+import { AbilityTypes } from 'app/classes/ability/abilityTypes'
+import { IAbility } from 'app/classes/ability/interfaces/IAbility'
 import { UnitType } from 'app/classes/unitType'
 import { Pathing } from 'app/systems/pathing'
 import { AbilityField } from 'lib/resources/fields'
@@ -13,8 +12,8 @@ export class ShadestormAbility extends Ability {
 	duration = 10
 	augments = 0
 
-	constructor (unit: Unit, abilityType: AbilityType) {
-		super(unit, abilityType)
+	constructor (ability: IAbility) {
+		super(ability)
 		this.updateTooltips()
 	}
 
@@ -35,7 +34,6 @@ export class ShadestormAbility extends Ability {
 		const aoe = this.areaOfEffect
 
 		const g = new Group()
-
 		g.enumUnitsInRange(this.unit, aoe, () => {
 			const u = Unit.fromFilter()
 			return u.isIllusion && u.owner === this.unit.owner
@@ -60,7 +58,7 @@ export class ShadestormAbility extends Ability {
 					const shade = u.replace(UnitType.DummyShiftstorm)
 					shade.addAbility(abilityTypes.shadeStormDummy)
 
-					const shadeAbility = Ability.get(shade, abilityTypes.shadeStormDummy)
+					const shadeAbility = Ability.fromHandle({ castingUnit: shade, abilType: abilityTypes.shadeStormDummy })
 					shadeAbility.setLevelField(AbilityField.DAMAGE_PER_SECOND_OWW1, this.damage)
 					shadeAbility.normalDuration = this.duration
 					shadeAbility.castImmediate()
@@ -78,11 +76,7 @@ export class ShadestormAbility extends Ability {
 		}
 	}
 
-	static override fromCast (): ShadestormAbility {
-		return this.getAbility(Unit.fromCaster(), AbilityTypeMap.fromSpellEvent())
-	}
-
-	static override get (unit: Unit, abilityType: AbilityType): ShadestormAbility {
-		return this.getAbility(unit, abilityType)
+	static fromHandle (ability: IAbility) {
+		return this.getObject(ability) as ShadestormAbility
 	}
 }

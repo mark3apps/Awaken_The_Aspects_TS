@@ -1,21 +1,21 @@
-import { Ability, AbilityType } from 'app/classes'
+import { Ability } from 'app/classes'
 import { Logger } from 'app/log'
 import { Position } from 'app/classes/position'
 import { UnitType } from 'app/classes/unitType'
 import { AbilityFour, Unit, Timer, Anim, Group, Order } from 'lib/w3ts/index'
 import { AttackType, DamageType } from 'lib/resources/types'
-import { AbilityTypeMap } from 'app/classes/abilityTypeMap'
-import { AbilityTypes } from 'app/classes/abilityTypes'
+import { AbilityTypes } from 'app/classes/ability/abilityTypes'
+import { IAbility } from 'app/classes/ability/interfaces/IAbility'
 
-export class FallingStrikeAbility extends Ability {
+export class FallingStrike extends Ability {
 	damage = 85
 	speed = 32
 	augments = 0
 	slowDuration = 5
 	slowMovement = 0.50
 
-	constructor (unit: Unit, abilityType: AbilityType) {
-		super(unit, abilityType)
+	constructor (ability: IAbility) {
+		super(ability)
 		this.updateTooltips()
 	}
 
@@ -75,7 +75,7 @@ export class FallingStrikeAbility extends Ability {
 						u.addAbility(abilityTypes.fallingStrikeDummy)
 						u.applyTimedLifeGeneric(1)
 
-						const ability = Ability.get(u, abilityTypes.fallingStrikeDummy)
+						const ability = new Ability({ castingUnit: u, abilType: abilityTypes.fallingStrikeDummy })
 						ability.heroDuration = this.slowDuration
 						ability.normalDuration = this.slowDuration
 						ability.areaOfEffect = this.areaOfEffect
@@ -105,11 +105,7 @@ export class FallingStrikeAbility extends Ability {
 		}
 	}
 
-	static override fromCast (): FallingStrikeAbility {
-		return this.getAbility(Unit.fromEvent(), AbilityTypeMap.fromSpellEvent())
-	}
-
-	static override get (unit: Unit, abilityType: AbilityType): FallingStrikeAbility {
-		return this.getAbility(unit, abilityType)
+	static override fromHandle (ability: IAbility) {
+		return this.getObject(ability) as FallingStrike
 	}
 }

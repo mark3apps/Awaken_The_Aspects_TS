@@ -1,8 +1,3 @@
-import { BonusArmorAbility } from 'app/abilities/bonus/bonusArmor'
-import { BonusAttackSpeedAbility } from 'app/abilities/bonus/bonusAttackSpeed'
-import { BonusDamageAbility } from 'app/abilities/bonus/bonusDamage'
-import { BonusMoveSpeedAbility } from 'app/abilities/bonus/bonusMoveSpeed'
-import { BonusStatsAbility } from 'app/abilities/bonus/bonusStats'
 import { IState, StateMachine } from 'app/heroes/stateMachine'
 import { TalentConfig } from 'app/systems/talents/talentConfig'
 import { GoldTalentViewModel } from 'app/systems/talents/viewModels/GoldTalentViewModel'
@@ -14,7 +9,6 @@ import { HeroType } from 'lib/w3ts/handles/herotype'
 import { AbilityFour, Force, Frame, Group, MapPlayer, Order, Timer, Unit } from 'lib/w3ts/index'
 import { Ability } from '.'
 import { Logger } from '../log'
-import { AbilityTypeMap } from './abilityTypeMap'
 import { HeroMap } from './HeroTypeMap'
 import { Position } from './position'
 
@@ -266,19 +260,19 @@ export class Hero {
 	}
 
 	addStartingAbilities = () => {
-		try {
-			if (this.heroType !== undefined) {
-				for (let i = 0; i < this.heroType.abilityTypes.length; i++) {
-					const heroAbilityType = this.heroType.abilityTypes[i]
-					const ability = heroAbilityType.type.getAbility(this.unit) as Ability
-					ability.permanent = true
-					if (!heroAbilityType.starting) ability.disable()
-					if (heroAbilityType.hidden) ability.hide()
-				}
-			}
-		} catch (error) {
-			Logger.Error("Hero.addStartingAbilities", error)
-		}
+		// try {
+		// 	if (this.heroType !== undefined) {
+		// 		for (let i = 0; i < this.heroType.abilityTypes.length; i++) {
+		// 			const heroAbilityType = this.heroType.abilityTypes[i]
+		// 			const ability = heroAbilityType.type.getAbility(this.unit) as Ability
+		// 			ability.permanent = true
+		// 			if (!heroAbilityType.starting) ability.disable()
+		// 			if (heroAbilityType.hidden) ability.hide()
+		// 		}
+		// 	}
+		// } catch (error) {
+		// 	Logger.Error("Hero.addStartingAbilities", error)
+		// }
 	}
 
 	getAbility = (typeFour: string) => {
@@ -286,90 +280,90 @@ export class Hero {
 	}
 
 	updateAbilityTooltips = () => {
-		for (let i = 0; i < this.unit.abilityFours.length; i++) {
-			const abilityType = AbilityTypeMap.fromId(this.unit.abilityFours[i])
-			if (abilityType) {
-				const ability = abilityType.getAbility(this.unit)
-				ability.updateTooltips()
-			}
-		}
+		// for (let i = 0; i < this.unit.abilityFours.length; i++) {
+		// 	const abilityType = AbilityTypeHandle.getObject(this.unit.abilityFours[i])
+		// 	if (abilityType) {
+		// 		const ability = abilityType.getAbility(this.unit)
+		// 		ability.updateTooltips()
+		// 	}
+		// }
 	}
 
-	private getDamageBonus () {
-		return this.getAbility(AbilityFour.BonusDamage) as BonusDamageAbility
-	}
+	// private getDamageBonus () {
+	// 	return this.getAbility(AbilityFour.BonusDamage) as BonusDamageAbility
+	// }
 
-	get damageBonus () {
-		return this.getDamageBonus().damage
-	}
+	// get damageBonus () {
+	// 	return this.getDamageBonus().damage
+	// }
 
-	set damageBonus (value) {
-		this.getDamageBonus().damage = value
-	}
+	// set damageBonus (value) {
+	// 	this.getDamageBonus().damage = value
+	// }
 
-	private getArmorBonus () {
-		return this.getAbility(AbilityFour.BonusArmor) as BonusArmorAbility
-	}
+	// private getArmorBonus () {
+	// 	return this.getAbility(AbilityFour.BonusArmor) as BonusArmorAbility
+	// }
 
-	get armorBonus () {
-		return this.getArmorBonus().armor
-	}
+	// get armorBonus () {
+	// 	return this.getArmorBonus().armor
+	// }
 
-	set armorBonus (value) {
-		this.getArmorBonus().armor = value
-	}
+	// set armorBonus (value) {
+	// 	this.getArmorBonus().armor = value
+	// }
 
-	private getAttackSpeedBonus () {
-		return this.getAbility(AbilityFour.BonusAttackSpeed) as BonusAttackSpeedAbility
-	}
+	// private getAttackSpeedBonus () {
+	// 	return this.getAbility(AbilityFour.BonusAttackSpeed) as BonusAttackSpeedAbility
+	// }
 
-	get moveSpeedBonus () {
-		return this.getMoveSpeedBonus().moveSpeed
-	}
+	// get moveSpeedBonus () {
+	// 	return this.getMoveSpeedBonus().moveSpeed
+	// }
 
-	set moveSpeedBonus (value) {
-		this.getMoveSpeedBonus().moveSpeed = value
-	}
+	// set moveSpeedBonus (value) {
+	// 	this.getMoveSpeedBonus().moveSpeed = value
+	// }
 
-	private getMoveSpeedBonus () {
-		return this.getAbility(AbilityFour.BonusMovementSpeed) as BonusMoveSpeedAbility
-	}
+	// private getMoveSpeedBonus () {
+	// 	return this.getAbility(AbilityFour.BonusMovementSpeed) as BonusMoveSpeedAbility
+	// }
 
-	get attackSpeedBonus () {
-		return this.getAttackSpeedBonus().attackSpeed
-	}
+	// get attackSpeedBonus () {
+	// 	return this.getAttackSpeedBonus().attackSpeed
+	// }
 
-	set attackSpeedBonus (value) {
-		this.getAttackSpeedBonus().attackSpeed = value
-	}
+	// set attackSpeedBonus (value) {
+	// 	this.getAttackSpeedBonus().attackSpeed = value
+	// }
 
-	get strengthBonus () {
-		return this.getStatBonus().strength
-	}
+	// get strengthBonus () {
+	// 	return this.getStatBonus().strength
+	// }
 
-	set strengthBonus (value) {
-		this.getStatBonus().strength = value
-	}
+	// set strengthBonus (value) {
+	// 	this.getStatBonus().strength = value
+	// }
 
-	get agilityBonus () {
-		return this.getStatBonus().agility
-	}
+	// get agilityBonus () {
+	// 	return this.getStatBonus().agility
+	// }
 
-	set agilityBonus (value) {
-		this.getStatBonus().agility = value
-	}
+	// set agilityBonus (value) {
+	// 	this.getStatBonus().agility = value
+	// }
 
-	get intelligenceBonus () {
-		return this.getStatBonus().intelligence
-	}
+	// get intelligenceBonus () {
+	// 	return this.getStatBonus().intelligence
+	// }
 
-	set intelligenceBonus (value) {
-		this.getStatBonus().intelligence = value
-	}
+	// set intelligenceBonus (value) {
+	// 	this.getStatBonus().intelligence = value
+	// }
 
-	private getStatBonus () {
-		return this.getAbility(AbilityFour.BonusStats) as BonusStatsAbility
-	}
+	// private getStatBonus () {
+	// 	return this.getAbility(AbilityFour.BonusStats) as BonusStatsAbility
+	// }
 
 	public addStartingItems (): void {
 		if (this.heroType !== undefined) {

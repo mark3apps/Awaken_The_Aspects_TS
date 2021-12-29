@@ -1,9 +1,9 @@
-import { Ability, AbilityType, Hero, UnitType } from 'app/classes'
-import { AbilityTypeMap } from 'app/classes/abilityTypeMap'
+import { Ability, Hero, UnitType } from 'app/classes'
+import { IAbility } from 'app/classes/ability/interfaces/IAbility'
 import { HeroMap } from 'app/classes/HeroTypeMap'
 import { Logger } from 'app/log'
 import { AbilityField } from 'lib/resources/fields'
-import { Order, Timer, Unit } from 'lib/w3ts'
+import { Order } from 'lib/w3ts'
 
 export class FelFormAbility extends Ability {
 	private _felUnit = UnitType.get(this.getLevelField(AbilityField.ALTERNATE_FORM_UNIT_EMEU) as number)
@@ -15,8 +15,8 @@ export class FelFormAbility extends Ability {
 	augments = 0
 	custom = this.unit.custom
 
-	constructor (unit: Unit, abilityType: AbilityType) {
-		super(unit, abilityType)
+	constructor (ability: IAbility) {
+		super(ability)
 		this.updateTooltips()
 	}
 
@@ -116,14 +116,14 @@ export class FelFormAbility extends Ability {
 				// hero.armorBonus += this.armor
 				// this.custom.set("felFormArmor", this.armor)
 
-				hero.agilityBonus += this.damage
-				this.custom.set("felFormDamage", this.damage)
+				// hero.agilityBonus += this.damage
+				// this.custom.set("felFormDamage", this.damage)
 
-				hero.attackSpeedBonus += this.attackSpeed
-				this.custom.set("felFormAttackSpeed", this.attackSpeed)
+				// hero.attackSpeedBonus += this.attackSpeed
+				// this.custom.set("felFormAttackSpeed", this.attackSpeed)
 
-				hero.moveSpeedBonus += this.moveSpeed
-				this.custom.set("felFormMoveSpeed", this.moveSpeed)
+				// hero.moveSpeedBonus += this.moveSpeed
+				// this.custom.set("felFormMoveSpeed", this.moveSpeed)
 
 				this.unit.lifeRegenerationRate += this.lifeRegenerationRate
 				this.custom.set("felFormLifeRegen", this.lifeRegenerationRate)
@@ -140,9 +140,9 @@ export class FelFormAbility extends Ability {
 	endFelForm () {
 		const hero = HeroMap.get(this.unit) as Hero
 		// hero.armorBonus -= this.custom.get("felFormArmor") as number
-		hero.damageBonus -= this.custom.get("felFormDamage") as number
-		hero.attackSpeedBonus -= this.custom.get("felFormAttackSpeed") as number
-		hero.moveSpeedBonus -= this.custom.get("felFormMoveSpeed") as number
+		// hero.damageBonus -= this.custom.get("felFormDamage") as number
+		// hero.attackSpeedBonus -= this.custom.get("felFormAttackSpeed") as number
+		// hero.moveSpeedBonus -= this.custom.get("felFormMoveSpeed") as number
 		this.unit.lifeRegenerationRate -= this.custom.get("felFormLifeRegen") as number
 
 		// Reset variables
@@ -151,11 +151,7 @@ export class FelFormAbility extends Ability {
 		print("UnMorphing")
 	}
 
-	static override fromCast (): FelFormAbility {
-		return this.getAbility(Unit.fromEvent(), AbilityTypeMap.fromSpellEvent())
-	}
-
-	static override get (unit: Unit, abilityType: AbilityType): FelFormAbility {
-		return this.getAbility(unit, abilityType)
+	static override fromHandle (ability: IAbility) {
+		return this.getObject(ability) as FelFormAbility
 	}
 }

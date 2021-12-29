@@ -4,6 +4,8 @@
     "baseUrl": "./src",
     "allowJs": true,
     "target": "es6",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "lib": [
       "es6"
     ],

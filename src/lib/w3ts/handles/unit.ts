@@ -1,6 +1,6 @@
 /** @noSelfInFile **/
 
-import { AbilityType } from 'app/classes/abilityType'
+import { AbilityType } from 'app/classes/abilityType/abilityType'
 import { UnitType } from 'app/classes/unitType'
 import { UnitData } from 'app/systems/unitData'
 import { CC2Four } from 'lib/resources/library'

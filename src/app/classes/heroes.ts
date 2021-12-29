@@ -1,4 +1,3 @@
-import { Triggers } from 'lib/w3ts/handles/triggers'
 import { Force, Unit } from 'lib/w3ts/index'
 import { Logger } from '../log'
 import { Position } from './position'
@@ -6,13 +5,18 @@ import { Hero } from './hero'
 import { Rectangles } from 'lib/w3ts/handles/Rectangles'
 import { Forces } from 'lib/w3ts/handles/Forces'
 import { HeroMap } from './HeroTypeMap'
+import { ITriggers } from 'app/define/triggers/interfaces/ITriggers'
+
+export interface IHeroesDepend {
+	triggers: ITriggers
+}
 
 export class Heroes {
-	static define = (): void => {
+	static define = (depend: IHeroesDepend): void => {
 		Hero.PickedPlayers = new Force()
 
 		// When a Hero Levels up
-		Triggers.heroLevels.addAction(() => {
+		depend.triggers.heroLevels.addAction(() => {
 			const hero = HeroMap.get(Unit.fromEvent())
 
 			if (hero) {
@@ -34,7 +38,7 @@ export class Heroes {
 		})
 
 		// When a new hero is created add it to the index
-		Triggers.unitCreated.addAction(() => {
+		depend.triggers.unitCreated.addAction(() => {
 			if (Unit.fromEvent().isHero) {
 				const unit = Unit.fromEvent()
 

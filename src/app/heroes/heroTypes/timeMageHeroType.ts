@@ -1,6 +1,6 @@
-import { UnitType, AbilityType, EffectType, TargetType, Hero } from 'app/classes'
+import { UnitType, AbilityType, Hero } from 'app/classes'
 import { HeroAttribute } from 'app/systems'
-import { ShiftMasterSkillTree } from 'app/heroes/ShiftMaster/shiftMasterSkillTree'
+import { ShiftMasterSkillTree } from 'app/define/hero/shiftmaster/shiftMasterSkillTree'
 import { Strategy } from 'lib/resources/strategy'
 import { HeroType, AbilityFour, Order } from 'lib/w3ts'
 export class TimeMageHeroType extends HeroType {

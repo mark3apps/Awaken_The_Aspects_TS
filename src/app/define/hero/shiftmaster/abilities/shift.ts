@@ -1,9 +1,9 @@
 import { Ability, AbilityType, Position, UnitType } from 'app/classes'
-import { AbilityTypeMap } from 'app/classes/abilityTypeMap'
-import { AbilityTypes } from 'app/classes/abilityTypes'
+import { AbilityTypes } from 'app/classes/ability/abilityTypes'
 import { Logger } from 'app/log'
 import { AbilityField } from 'lib/resources/fields'
 import { AbilityFour, Effect, AbilityModel, Unit, Timer } from 'lib/w3ts'
+import { IAbility } from 'app/classes/ability/interfaces/IAbility'
 
 export class ShiftAbility extends Ability {
 	augments = 0
@@ -15,9 +15,8 @@ export class ShiftAbility extends Ability {
 	shadeDuration = 15
 	tooltipName = "Shift"
 
-	constructor (unit: Unit, ability: AbilityType) {
-		super(unit, ability)
-		this.cooldown = 11
+	constructor (ability: IAbility) {
+		super(ability)
 		this.updateTooltips()
 	}
 
@@ -58,10 +57,10 @@ cooldown |cff00ffff${math.floor(this.cooldown)}|r seconds.`
 
 			// Cast Illusion on Hero
 			const dummy = new Unit(this.unit.owner, UnitType.Dummy, this.unit.coordinate, 0)
-			dummy.addAbility(abilityTypes.shift1Dummy)
+			dummy.addAbility(abilityTypes.shiftDummy)
 			dummy.applyTimedLifeGeneric(1)
 
-			const shiftDummyAbil = Ability.get(dummy, abilityTypes.shift1Dummy)
+			const shiftDummyAbil = new Ability({ castingUnit: dummy, abilType: abilityTypes.shiftDummy })
 			shiftDummyAbil.setLevelField(AbilityField.DAMAGE_DEALT_PERCENT_OF_NORMAL, this.shadeDamageDealt, 0)
 			shiftDummyAbil.setLevelField(AbilityField.DAMAGE_RECEIVED_MULTIPLIER, this.shadeDamageTaken, 0)
 			shiftDummyAbil.heroDuration = this.shadeDuration
@@ -90,11 +89,7 @@ cooldown |cff00ffff${math.floor(this.cooldown)}|r seconds.`
 		this.updateTooltips()
 	}
 
-	static override fromCast (): ShiftAbility {
-		return this.getAbility(Unit.fromCaster(), AbilityTypeMap.fromSpellEvent())
-	}
-
-	static override get (unit: Unit, ability: AbilityType): ShiftAbility {
-		return this.getAbility(unit, ability)
+	static override fromHandle (ability: IAbility) {
+		return this.getObject(ability) as ShiftAbility
 	}
 }

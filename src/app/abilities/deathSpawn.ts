@@ -2,7 +2,7 @@ import { UnitType } from 'app/classes'
 import { Logger } from 'app/log'
 import { Pathing } from 'app/systems'
 import { AttachPoint, AttachMod, AttachSpecial, Unit, MapPlayer, AbilityFour, Timer, Effect } from 'lib/w3ts'
-import { Triggers } from 'lib/w3ts/handles/triggers'
+import { ITriggers } from 'app/define/triggers/interfaces/ITriggers'
 
 interface DeathSpawnInterface {
 	amount: number,
@@ -16,9 +16,16 @@ interface DeathSpawnInterface {
 }
 
 export class DeathSpawn {
+	protected static instance?: DeathSpawn
+
+	static getInstance (triggers: ITriggers) {
+		if (!DeathSpawn.instance) DeathSpawn.instance = new DeathSpawn(triggers)
+		return DeathSpawn.instance
+	}
+
 	static id: { [id: string]: DeathSpawnInterface[] } = {}
 
-	static define (): void {
+	constructor (triggers: ITriggers) {
 		DeathSpawn.add(UnitType.Knight, { amount: 1, unitId: UnitType.Captain1 })
 		DeathSpawn.add(UnitType.WaterElemental2, { amount: 1, unitId: UnitType.WaterElemental1 })
 		DeathSpawn.add(UnitType.WaterElemental3, { amount: 1, unitId: UnitType.WaterElemental2 })
@@ -73,7 +80,7 @@ export class DeathSpawn {
 		DeathSpawn.add(UnitType.NightElfBattleship, { amount: 3, unitId: UnitType.NightElfSentry, chance: 0.8 })
 
 		// Add Death Spawn trigger to Unit Dieing Trigger
-		Triggers.unitDies.addAction(() => {
+		triggers.UnitDies.addAction(() => {
 			try {
 				const unit = Unit.fromEvent()
 
@@ -89,7 +96,7 @@ export class DeathSpawn {
 		})
 
 		// Set Buildings to Randomly Stay behind
-		Triggers.unitDying.addAction(() => {
+		triggers.UnitDying.addAction(() => {
 			const unit = Unit.fromEvent()
 
 			if (UnitType.leaveCorpse.has(unit.typeId)) {

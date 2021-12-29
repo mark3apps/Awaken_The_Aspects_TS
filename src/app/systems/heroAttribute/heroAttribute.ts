@@ -1,4 +1,4 @@
-import { AbilityType } from 'app/classes/abilityType'
+import { AbilityType } from 'app/classes/abilityType/abilityType'
 import { ItemType } from 'app/classes/itemType'
 
 export class HeroAttribute {

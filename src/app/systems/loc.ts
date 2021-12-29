@@ -3,8 +3,8 @@ import { Position } from 'app/classes/position'
 import { UnitType } from 'app/classes/unitType'
 import { Rectangle, Region, Unit, Order } from 'lib/w3ts/index'
 import { Army } from './army'
-import { Triggers } from 'lib/w3ts/handles/triggers'
 import { Rectangles } from 'lib/w3ts/handles/Rectangles'
+import { ITriggers } from 'app/define/triggers/interfaces/ITriggers'
 
 interface LocInterface {
 	alliance: Loc,
@@ -28,13 +28,13 @@ export class Loc {
 
 	public static map: Map<number, Loc> = new Map()
 
-	constructor (r: Rectangle, forward?: ForwardMove[]) {
+	constructor (triggers: ITriggers, r: Rectangle, forward?: ForwardMove[]) {
 		this.rect = r
 		this.region = new Region()
 		this.region.addRect(r)
 		this.forward = forward ?? []
 
-		Triggers.unitEntersRegion.registerEnterRegion(this.region.handle, null)
+		triggers.unitEntersRegion.registerEnterRegion(this.region.handle, null)
 		Loc.map.set(this.region.id, this)
 	}
 
@@ -89,152 +89,152 @@ export class Loc {
 	static cStorm: LocInterface
 	static cRock: LocInterface
 
-	static define = (): void => {
+	static define = (triggers: ITriggers): void => {
 		Loc.castle = {
-			alliance: new Loc(Rectangles.Left_Hero),
-			federation: new Loc(Rectangles.Right_Hero)
+			alliance: new Loc(triggers, Rectangles.Left_Hero),
+			federation: new Loc(triggers, Rectangles.Right_Hero)
 		}
 		Loc.arcane = {
-			alliance: new Loc(Rectangles.Left_Mage_Base, [{ loc: Loc.castle.alliance, army: Army.Federation }]),
-			federation: new Loc(Rectangles.Right_Mage_Base, [{ loc: Loc.castle.federation, army: Army.Alliance }])
+			alliance: new Loc(triggers, Rectangles.Left_Mage_Base, [{ loc: Loc.castle.alliance, army: Army.Federation }]),
+			federation: new Loc(triggers, Rectangles.Right_Mage_Base, [{ loc: Loc.castle.federation, army: Army.Alliance }])
 		}
 		Loc.start = {
-			alliance: new Loc(Rectangles.Left_Start, [{ loc: Loc.castle.alliance, army: Army.Federation }]),
-			federation: new Loc(Rectangles.Right_Start, [{ loc: Loc.castle.federation, army: Army.Alliance }])
+			alliance: new Loc(triggers, Rectangles.Left_Start, [{ loc: Loc.castle.alliance, army: Army.Federation }]),
+			federation: new Loc(triggers, Rectangles.Right_Start, [{ loc: Loc.castle.federation, army: Army.Alliance }])
 		}
 		Loc.elf = {
-			alliance: new Loc(Rectangles.Elf_Base_Left, [{ loc: Loc.castle.alliance, army: Army.Federation }]),
-			federation: new Loc(Rectangles.Elf_Base_Right, [{ loc: Loc.castle.federation, army: Army.Alliance }])
+			alliance: new Loc(triggers, Rectangles.Elf_Base_Left, [{ loc: Loc.castle.alliance, army: Army.Federation }]),
+			federation: new Loc(triggers, Rectangles.Elf_Base_Right, [{ loc: Loc.castle.federation, army: Army.Alliance }])
 		}
 
 		// Pathing Rects
 		Loc.everything = {
-			alliance: new Loc(Rectangles.Left_Everything, [{ loc: Loc.castle.alliance, army: Army.Federation }]),
-			federation: new Loc(Rectangles.Right_Everything, [{ loc: Loc.castle.federation, army: Army.Alliance }])
+			alliance: new Loc(triggers, Rectangles.Left_Everything, [{ loc: Loc.castle.alliance, army: Army.Federation }]),
+			federation: new Loc(triggers, Rectangles.Right_Everything, [{ loc: Loc.castle.federation, army: Army.Alliance }])
 		}
 		Loc.bottom = {
-			alliance: new Loc(Rectangles.Left_Start_Bottom, [{ loc: Loc.arcane.alliance, army: Army.Federation }]),
-			federation: new Loc(Rectangles.Right_Start_Bottom, [{ loc: Loc.elf.federation, army: Army.Alliance }])
+			alliance: new Loc(triggers, Rectangles.Left_Start_Bottom, [{ loc: Loc.arcane.alliance, army: Army.Federation }]),
+			federation: new Loc(triggers, Rectangles.Right_Start_Bottom, [{ loc: Loc.elf.federation, army: Army.Alliance }])
 		}
 		Loc.middle = {
-			alliance: new Loc(Rectangles.Left_Start_Middle, [{ loc: Loc.start.alliance, army: Army.Federation }]),
-			federation: new Loc(Rectangles.Right_Start_Middle, [{ loc: Loc.start.federation, army: Army.Alliance }])
+			alliance: new Loc(triggers, Rectangles.Left_Start_Middle, [{ loc: Loc.start.alliance, army: Army.Federation }]),
+			federation: new Loc(triggers, Rectangles.Right_Start_Middle, [{ loc: Loc.start.federation, army: Army.Alliance }])
 		}
 		Loc.top = {
-			alliance: new Loc(Rectangles.Left_Start_Top, [{ loc: Loc.elf.alliance, army: Army.Federation }]),
-			federation: new Loc(Rectangles.Right_Start_Top, [{ loc: Loc.arcane.federation, army: Army.Alliance }])
+			alliance: new Loc(triggers, Rectangles.Left_Start_Top, [{ loc: Loc.elf.alliance, army: Army.Federation }]),
+			federation: new Loc(triggers, Rectangles.Right_Start_Top, [{ loc: Loc.arcane.federation, army: Army.Alliance }])
 		}
 
 		// Spawn Rects
 		Loc.sArcane = {
-			alliance: new Loc(Rectangles.Left_Arcane),
-			federation: new Loc(Rectangles.Right_Arcane)
+			alliance: new Loc(triggers, Rectangles.Left_Arcane),
+			federation: new Loc(triggers, Rectangles.Right_Arcane)
 		}
 		Loc.sArcaneHero = {
-			alliance: new Loc(Rectangles.Arcane_Hero_Left),
-			federation: new Loc(Rectangles.Arcane_Hero_Right)
+			alliance: new Loc(triggers, Rectangles.Arcane_Hero_Left),
+			federation: new Loc(triggers, Rectangles.Arcane_Hero_Right)
 		}
 		Loc.sCamp = {
-			alliance: new Loc(Rectangles.Camp_Bottom),
-			federation: new Loc(Rectangles.Camp_Top)
+			alliance: new Loc(triggers, Rectangles.Camp_Bottom),
+			federation: new Loc(triggers, Rectangles.Camp_Top)
 		}
 		Loc.sHighCity = {
-			alliance: new Loc(Rectangles.Blacksmith_Left),
-			federation: new Loc(Rectangles.Blacksmith_Right)
+			alliance: new Loc(triggers, Rectangles.Blacksmith_Left),
+			federation: new Loc(triggers, Rectangles.Blacksmith_Right)
 		}
 		Loc.sCityElf = {
-			alliance: new Loc(Rectangles.City_Elves_Left),
-			federation: new Loc(Rectangles.City_Elves_Right)
+			alliance: new Loc(triggers, Rectangles.City_Elves_Left),
+			federation: new Loc(triggers, Rectangles.City_Elves_Right)
 		}
 		Loc.sCityFront = {
-			alliance: new Loc(Rectangles.Front_Town_Left, [{ loc: Loc.middle.federation, army: Army.Alliance }]),
-			federation: new Loc(Rectangles.Front_City_Right, [{ loc: Loc.middle.alliance, army: Army.Federation }])
+			alliance: new Loc(triggers, Rectangles.Front_Town_Left, [{ loc: Loc.middle.federation, army: Army.Alliance }]),
+			federation: new Loc(triggers, Rectangles.Front_City_Right, [{ loc: Loc.middle.alliance, army: Army.Federation }])
 		}
 		Loc.sElementalTop = {
-			alliance: new Loc(Rectangles.Arcane_Left_Top),
-			federation: new Loc(Rectangles.Arcane_Right_Top)
+			alliance: new Loc(triggers, Rectangles.Arcane_Left_Top),
+			federation: new Loc(triggers, Rectangles.Arcane_Right_Top)
 		}
 		Loc.sElementalBottom = {
-			alliance: new Loc(Rectangles.Arcane_Left_Bottom),
-			federation: new Loc(Rectangles.Arcane_Right_Bottom)
+			alliance: new Loc(triggers, Rectangles.Arcane_Left_Bottom),
+			federation: new Loc(triggers, Rectangles.Arcane_Right_Bottom)
 		}
 		Loc.sElf = {
-			alliance: new Loc(Rectangles.Left_High_Elves),
-			federation: new Loc(Rectangles.Right_High_Elves)
+			alliance: new Loc(triggers, Rectangles.Left_High_Elves),
+			federation: new Loc(triggers, Rectangles.Right_High_Elves)
 		}
 		Loc.sElfShipyard = {
-			alliance: new Loc(Rectangles.Left_Shipyard),
-			federation: new Loc(Rectangles.Right_Shipyard)
+			alliance: new Loc(triggers, Rectangles.Left_Shipyard),
+			federation: new Loc(triggers, Rectangles.Right_Shipyard)
 		}
 		Loc.sHero = {
-			alliance: new Loc(Rectangles.Left_Hero),
-			federation: new Loc(Rectangles.Right_Hero)
+			alliance: new Loc(triggers, Rectangles.Left_Hero),
+			federation: new Loc(triggers, Rectangles.Right_Hero)
 		}
 		Loc.sHumanShipyard = {
-			alliance: new Loc(Rectangles.Human_Shipyard_Left),
-			federation: new Loc(Rectangles.Human_Shipyard_Right)
+			alliance: new Loc(triggers, Rectangles.Human_Shipyard_Left),
+			federation: new Loc(triggers, Rectangles.Human_Shipyard_Right)
 		}
 		Loc.sKolbold = {
-			alliance: new Loc(Rectangles.Furbolg_Left),
-			federation: new Loc(Rectangles.Furbolg_Right)
+			alliance: new Loc(triggers, Rectangles.Furbolg_Left),
+			federation: new Loc(triggers, Rectangles.Furbolg_Right)
 		}
 		Loc.sMurloc = {
-			alliance: new Loc(Rectangles.Murloc_Spawn_Left),
-			federation: new Loc(Rectangles.Murloc_Spawn_Right)
+			alliance: new Loc(triggers, Rectangles.Murloc_Spawn_Left),
+			federation: new Loc(triggers, Rectangles.Murloc_Spawn_Right)
 		}
 		Loc.sNaga = {
-			alliance: new Loc(Rectangles.Naga_Left),
-			federation: new Loc(Rectangles.Naga_Right)
+			alliance: new Loc(triggers, Rectangles.Naga_Left),
+			federation: new Loc(triggers, Rectangles.Naga_Right)
 		}
 		Loc.sOrc = {
-			alliance: new Loc(Rectangles.Left_Orc),
-			federation: new Loc(Rectangles.Right_Orc)
+			alliance: new Loc(triggers, Rectangles.Left_Orc),
+			federation: new Loc(triggers, Rectangles.Right_Orc)
 		}
 		Loc.sTree = {
-			alliance: new Loc(Rectangles.Left_Tree),
-			federation: new Loc(Rectangles.Right_Tree)
+			alliance: new Loc(triggers, Rectangles.Left_Tree),
+			federation: new Loc(triggers, Rectangles.Right_Tree)
 		}
 		Loc.sNightElf = {
-			alliance: new Loc(Rectangles.Night_Elf_Left),
-			federation: new Loc(Rectangles.Night_Elf_Right)
+			alliance: new Loc(triggers, Rectangles.Night_Elf_Left),
+			federation: new Loc(triggers, Rectangles.Night_Elf_Right)
 		}
 		Loc.sDwarf = {
-			alliance: new Loc(Rectangles.Left_Workshop),
-			federation: new Loc(Rectangles.Right_Workshop)
+			alliance: new Loc(triggers, Rectangles.Left_Workshop),
+			federation: new Loc(triggers, Rectangles.Right_Workshop)
 		}
 		Loc.sUndead = {
-			alliance: new Loc(Rectangles.Undead_Left),
-			federation: new Loc(Rectangles.Undead_Right)
+			alliance: new Loc(triggers, Rectangles.Undead_Left),
+			federation: new Loc(triggers, Rectangles.Undead_Right)
 		}
 
 		// Creep Rects
 		Loc.cForest = {
-			alliance: new Loc(Rectangles.Aspect_of_Forest_Left, [{ loc: Loc.top.federation, army: Army.Alliance }]),
-			federation: new Loc(Rectangles.Aspect_of_Forest_Right, [{ loc: Loc.bottom.alliance, army: Army.Federation }])
+			alliance: new Loc(triggers, Rectangles.Aspect_of_Forest_Left, [{ loc: Loc.top.federation, army: Army.Alliance }]),
+			federation: new Loc(triggers, Rectangles.Aspect_of_Forest_Right, [{ loc: Loc.bottom.alliance, army: Army.Federation }])
 		}
 		Loc.cForestMid = {
-			alliance: new Loc(Rectangles.Aspect_of_Forest_Left_Mid, [{ loc: Loc.cForest.alliance, army: Army.Alliance }]),
-			federation: new Loc(Rectangles.Aspect_of_Forest_Right_Mid, [{ loc: Loc.cForest.federation, army: Army.Federation }])
+			alliance: new Loc(triggers, Rectangles.Aspect_of_Forest_Left_Mid, [{ loc: Loc.cForest.alliance, army: Army.Alliance }]),
+			federation: new Loc(triggers, Rectangles.Aspect_of_Forest_Right_Mid, [{ loc: Loc.cForest.federation, army: Army.Federation }])
 		}
 		Loc.cTides = {
-			alliance: new Loc(Rectangles.Murloc_Left, [{ loc: Loc.top.federation, army: Army.Alliance }]),
-			federation: new Loc(Rectangles.Murloc_Right, [{ loc: Loc.bottom.alliance, army: Army.Federation }])
+			alliance: new Loc(triggers, Rectangles.Murloc_Left, [{ loc: Loc.top.federation, army: Army.Alliance }]),
+			federation: new Loc(triggers, Rectangles.Murloc_Right, [{ loc: Loc.bottom.alliance, army: Army.Federation }])
 		}
 		Loc.cDeath = {
-			alliance: new Loc(Rectangles.Zombie_End_Left, [{ loc: Loc.middle.federation, army: Army.Alliance }]),
-			federation: new Loc(Rectangles.Zombie_End_Right, [{ loc: Loc.middle.alliance, army: Army.Federation }])
+			alliance: new Loc(triggers, Rectangles.Zombie_End_Left, [{ loc: Loc.middle.federation, army: Army.Alliance }]),
+			federation: new Loc(triggers, Rectangles.Zombie_End_Right, [{ loc: Loc.middle.alliance, army: Army.Federation }])
 		}
 		Loc.cStorm = {
-			alliance: new Loc(Rectangles.Left_Elemental_Start, [{ loc: Loc.bottom.federation, army: Army.Alliance }]),
-			federation: new Loc(Rectangles.Right_Elemental_Start, [{ loc: Loc.top.alliance, army: Army.Federation }])
+			alliance: new Loc(triggers, Rectangles.Left_Elemental_Start, [{ loc: Loc.bottom.federation, army: Army.Alliance }]),
+			federation: new Loc(triggers, Rectangles.Right_Elemental_Start, [{ loc: Loc.top.alliance, army: Army.Federation }])
 		}
 		Loc.cRock = {
-			alliance: new Loc(Rectangles.Rock_Left, [{ loc: Loc.bottom.federation, army: Army.Alliance }]),
-			federation: new Loc(Rectangles.Rock_Right, [{ loc: Loc.top.alliance, army: Army.Federation }])
+			alliance: new Loc(triggers, Rectangles.Rock_Left, [{ loc: Loc.bottom.federation, army: Army.Alliance }]),
+			federation: new Loc(triggers, Rectangles.Rock_Right, [{ loc: Loc.top.alliance, army: Army.Federation }])
 		}
 
 		// Unit Enters a Loc Forwarding Region
-		Triggers.unitEntersRegion.addAction(() => {
+		triggers.unitEntersRegion.addAction(() => {
 			const eventRegion = Region.fromEvent()
 			const eventLoc = Loc.map.get(eventRegion.id)
 

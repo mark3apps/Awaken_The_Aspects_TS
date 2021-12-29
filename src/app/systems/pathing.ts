@@ -3,9 +3,9 @@ import { Position } from 'app/classes/position'
 import { UnitType } from 'app/classes/unitType'
 import { Order, BuffFour, Unit, Timer, Group, Rectangle } from 'lib/w3ts/index'
 import { Loc } from './loc'
-import { Triggers } from 'lib/w3ts/handles/triggers'
 import { Forces } from 'lib/w3ts/handles/Forces'
 import { Regions } from 'lib/w3ts/handles/Regions'
+import { ITriggers } from 'app/define/triggers/interfaces/ITriggers'
 
 export const OrderIdIgnore = [
 	Order.Move,
@@ -56,9 +56,9 @@ export const OrderIdIgnoreWithDelay = [
 ]
 
 export class Pathing {
-	static define = (): void => {
+	static define = (triggers: ITriggers): void => {
 		// Turn off Elder Ent Movement Pathing
-		Triggers.unitCreated.addAction(() => {
+		triggers.unitCreated.addAction(() => {
 			const eventUnit = Unit.fromEvent()
 			if (eventUnit.typeId === UnitType.AncientOfWar.id) {
 				eventUnit.setPathing(false)
@@ -66,7 +66,7 @@ export class Pathing {
 		})
 
 		// Units Ordered
-		Triggers.unitOrdered.addAction(() => {
+		triggers.unitOrdered.addAction(() => {
 			try {
 				const eventOrder = GetIssuedOrderId()
 				const eventUnit = Unit.fromOrdered()
@@ -90,7 +90,7 @@ export class Pathing {
 		})
 
 		// Unit is Summoned
-		Triggers.unitSummoned.addAction(() => {
+		triggers.unitSummoned.addAction(() => {
 			try {
 				const eventUnit = Unit.fromEvent()
 
@@ -107,7 +107,7 @@ export class Pathing {
 		})
 
 		// Unit is Spawned from Campsite
-		Triggers.unitCreated.addAction(() => {
+		triggers.unitCreated.addAction(() => {
 			const eventUnit = Unit.fromEvent()
 
 			try {
@@ -121,7 +121,7 @@ export class Pathing {
 			}
 		})
 
-		Triggers.mapStart.addAction(() => {
+		triggers.mapStart.addAction(() => {
 			const allUnits = new Group()
 			allUnits.enumUnitsInRect(Rectangle.getWorldBounds())
 
