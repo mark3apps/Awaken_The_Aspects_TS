@@ -1,185 +1,192 @@
-import { AbilityFour, Order } from 'lib/w3ts'
+import { AbilityFour, BuffFour, Order, Unit } from 'lib/w3ts'
 import { UnitType } from '..'
 import { AbilityType } from '../abilityType/abilityType'
 import { TargetType } from "../abilityType/TargetType"
 import { EffectType } from "../abilityType/EffectType"
-import { AbilityTypeData } from './AbilityTypeData'
+import { SwitchAbility } from 'app/define/hero/shiftmaster/abilities'
 
 export class AbilityTypes {
-	private static instance: AbilityTypes
+	private static instance?: AbilityTypes
 
 	static getInstance () {
-		if (!AbilityTypes.instance) {
-			AbilityTypes.instance = new AbilityTypes()
-		}
-
+		if (!AbilityTypes.instance) AbilityTypes.instance = new AbilityTypes()
 		return AbilityTypes.instance
 	}
 
-	aspectInferno
-	shiftDummy
-	fallingStrikeDummy
-	shadeStormDummy
-	stormCrowForm
-	footmanUpgrade
-	felGrunt
-	felOgre
-	felWarlord
-	felWarlock
-	manaRepository
-	// manaShieldTower
-	// manaShardsTower
-	// chainLightningTower
-	// coneOfFireTower
-	// aspectOfDeathInfect
+	static getInstanceNoCreate () {
+		return AbilityTypes.instance
+	}
+
+	AspectInferno
+	ShiftDummy
+	FallingStrikeDummy
+	ShadeStormDummy
+	StormCrowForm
+	FootmanUpgrade
+	FelGrunt
+	FelOgre
+	FelWarlord
+	FelWarlock
+	ManaTowerRestore
+	ManaShieldTower
+	ManaShardsTower
+	ChainLightningTower
+	ConeOfFireTower
+	AspectOfDeathInfect
+	Shift
+	Switch
+	FelForm
+	FallingStrike
+	ShiftStorm
 
 	private constructor () {
 		//
-		// Unit Abilities
+		// Non Triggered Abilities
 		//
-		this.aspectInferno = new AbilityType(AbilityTypeData.infernoAspect)
-		this.shiftDummy = new AbilityType(AbilityTypeData.shiftDummy)
-		this.fallingStrikeDummy = new AbilityType(AbilityTypeData.fallingStrikeDummy)
-		this.fallingStrikeDummy = new AbilityType(AbilityTypeData.fallingStrikeDummy)
-		this.shadeStormDummy = new AbilityType(AbilityTypeData.shadeStormDummy)
-		this.stormCrowForm = new AbilityType(AbilityTypeData.stormCrowForm)
+
+		this.AspectInferno = new AbilityType({
+			four: AbilityFour.InfernoAspect,
+			orderId: Order.Dreadlordinferno
+		})
+		this.ShiftDummy = new AbilityType({
+			four: AbilityFour.ItemIllusions,
+			orderId: Order.Illusion
+		})
+		this.FallingStrikeDummy = new AbilityType({
+			four: AbilityFour.FallingStrikeDummy,
+			orderId: Order.Creepthunderclap
+		})
+		this.ShadeStormDummy = new AbilityType({
+			four: 'A03O',
+			orderId: Order.Whirlwind
+		})
+		this.StormCrowForm = new AbilityType({
+			four: AbilityFour.StormCrowForm,
+			orderId: Order.Ravenform
+		})
+
+		//
+		// Triggered Unit Abilities
+		//
 
 		// Footman Upgrade
-		this.footmanUpgrade = new AbilityType(AbilityTypeData.footmanUpgrade)
+		this.FootmanUpgrade = new AbilityType({
+			four: AbilityFour.FootmanCharge,
+			effectType: EffectType.Casts,
+			targetType: TargetType.SupportSelf,
+			orderId: Order.Bearform
+		})
 
 		// Fel Grunt
-		this.felGrunt = new AbilityType({
+		this.FelGrunt = new AbilityType({
 			four: AbilityFour.FelGrunt,
 			effectType: EffectType.Kills
 		})
 
 		// Fel Ogre
-		this.felOgre = new AbilityType({
+		this.FelOgre = new AbilityType({
 			four: AbilityFour.FelOgre,
 			effectType: EffectType.Kills
 		})
 
 		// Fel Warlord
-		this.felWarlord = new AbilityType({
+		this.FelWarlord = new AbilityType({
 			four: AbilityFour.FelWarlord,
 			effectType: EffectType.Kills
 		})
 
 		// Fel Warlock
-		this.felWarlock = new AbilityType({
+		this.FelWarlock = new AbilityType({
 			four: AbilityFour.FelWarlock,
 			effectType: EffectType.Kills
 		})
 
-		this.manaRepository = new AbilityType({
-			four: AbilityFour.ManaRepository,
+		// Mana Repository
+		this.ManaTowerRestore = new AbilityType({
+			four: AbilityFour.ManaTowerRestore,
 			unitTypes: [UnitType.ArcaneManaRepository],
 			effectType: EffectType.UnitTypeAttacking,
 			targetType: TargetType.SupportSingle,
 			orderId: Order.Recharge
 		})
 
-		// this.manaShieldTower = new AbilityType({
-		// 	four: AbilityFour.ManaShieldTower,
-		// 	unitTypes: [UnitType.ArcaneFlameTower, UnitType.ArcaneManaTower, UnitType.ArcaneSorcerersTower],
-		// 	orderId: Order.Manashieldon,
-		// 	buffFour: BuffFour.ManaShield,
-		// 	effectType: EffectType.UnitTypeAttacking,
-		// 	targetType: TargetType.SupportSelf,
-		// 	onEffect: (): void => {
-		// 		const eventUnit = Unit.fromAttacker()
-		// 		const unitAbility = Ability.fromHandle({ castingUnit: eventUnit, abilityType: this.manaShieldTower })
+		this.ManaShieldTower = new AbilityType({
+			four: AbilityFour.ManaShieldTower,
+			orderId: Order.Manashieldon,
+			buffFour: BuffFour.ManaShield,
+			effectType: EffectType.Attacks,
+			targetType: TargetType.SupportSelf
+		})
 
-		// 		if (unitAbility.isCastable() &&
-		// 			!unitAbility.hasBuff()) {
-		// 			unitAbility.castImmediate()
-		// 		}
-		// 	}
-		// })
+		this.ManaShardsTower = new AbilityType({
+			four: AbilityFour.ManaShardsTower,
+			orderId: Order.Clusterrockets,
+			effectType: EffectType.Attacks,
+			targetType: TargetType.DamageArea
+		})
 
-		// this.manaShardsTower = new AbilityType({
-		// 	four: AbilityFour.ManaShardsTower,
-		// 	orderId: Order.Clusterrockets,
-		// 	unitTypes: [UnitType.ArcaneSorcerersTower],
-		// 	effectType: EffectType.UnitTypeAttacking,
-		// 	targetType: TargetType.DamageArea,
-		// 	onEffect: (): void => {
-		// 		const eventUnit = Unit.fromAttacker()
-		// 		const attackedUnit = Unit.fromEvent()
-		// 		const ability = Ability.fromHandle({ castingUnit: eventUnit, abilityType: this.manaShardsTower })
+		this.ChainLightningTower = new AbilityType({
+			four: AbilityFour.ChainLightningTower,
+			orderId: Order.Chainlightning,
+			effectType: EffectType.Attacks,
+			targetType: TargetType.DamageSingle
+		})
 
-		// 		if (ability.isCastable() &&
-		// 			attackedUnit.isGround) {
-		// 			ability.cast(attackedUnit.coordinate)
-		// 		}
-		// 	}
-		// })
+		this.ConeOfFireTower = new AbilityType({
+			four: AbilityFour.ConeOfFireTower,
+			orderId: Order.Breathoffrost,
+			effectType: EffectType.Attacks,
+			targetType: TargetType.DamageAreaTarget
+		})
 
-		// this.chainLightningTower = new AbilityType({
-		// 	four: AbilityFour.ChainLightningTower,
-		// 	orderId: Order.Chainlightning,
-		// 	unitTypes: [UnitType.ArcaneSorcerersTower],
-		// 	effectType: EffectType.UnitTypeAttacking,
-		// 	targetType: TargetType.DamageSingle,
-		// 	onEffect: (): void => {
-		// 		const eventUnit = Unit.fromAttacker()
-		// 		const attackedUnit = Unit.fromAttacked()
-		// 		const unitAbility = Ability.fromHandle({ castingUnit: eventUnit, abilityType: this.chainLightningTower })
+		this.AspectOfDeathInfect = new AbilityType({
+			four: AbilityFour.InfectAspect,
+			orderId: Order.Parasite,
+			buffFour: BuffFour.Infected,
+			effectType: EffectType.Attacks,
+			targetType: TargetType.CrippleAround
+		})
 
-		// 		if (unitAbility.isCastable() &&
-		// 			attackedUnit.isGround) {
-		// 			unitAbility.castTarget(attackedUnit)
-		// 		}
-		// 	}
-		// })
+		//
+		// Hero Ability Types
+		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-		// this.coneOfFireTower = new AbilityType({
-		// 	four: AbilityFour.ConeOfFireTower,
-		// 	orderId: Order.Breathoffrost,
-		// 	unitTypes: [UnitType.ArcaneFlameTower],
-		// 	effectType: EffectType.UnitTypeAttacking,
-		// 	targetType: TargetType.DamageAreaTarget,
-		// 	onEffect: (): void => {
-		// 		const eventUnit = Unit.fromAttacker()
-		// 		const attackedUnit = Unit.fromAttacked()
-		// 		const unitAbility = Ability.fromHandle({ castingUnit: eventUnit, abilityType: this.coneOfFireTower })
+		//
+		// Shift Master
+		//
+		this.Shift = new AbilityType({
+			four: AbilityFour.Shift,
+			orderId: Order.Berserk,
+			effectType: EffectType.Casts,
+			targetType: TargetType.SupportSelf
+		})
 
-		// 		if (unitAbility.isCastable() &&
-		// 			attackedUnit.isGround) {
-		// 			unitAbility.cast(attackedUnit.coordinate)
-		// 		}
-		// 	}
-		// })
+		this.Switch = new AbilityType({
+			four: AbilityFour.MirrorSwitch,
+			orderId: Order.Reveal,
+			effectType: EffectType.Casts,
+			targetType: TargetType.Specific
+		})
 
-		// this.aspectOfDeathInfect = new AbilityType({
-		// 	four: AbilityFour.InfectAspect,
-		// 	orderId: Order.Parasite,
-		// 	buffFour: BuffFour.Infected,
-		// 	unitTypes: [UnitType.AspectOfDeath],
-		// 	effectType: EffectType.UnitTypeAttacking,
-		// 	targetType: TargetType.CrippleAround,
-		// 	onEffect: (): void => {
-		// 		const attacker = Unit.fromAttacker()
-		// 		const unitCount = 3
+		this.FelForm = new AbilityType({
+			four: AbilityFour.FelForm,
+			orderId: Order.Metamorphosis,
+			effectType: EffectType.Casts,
+			targetType: TargetType.SupportSelf
+		})
 
-		// 		const g = new Group()
-		// 		g.enumUnitsInRange(attacker, 400)
-		// 		g.firstLoopCondition((u) => {
-		// 			return (u.isAlive() &&
-		// 				u.isEnemy(attacker) &&
-		// 				!u.isHero &&
-		// 				!u.isStructure &&
-		// 				!u.isIllusion &&
-		// 				!u.isMagicImmune &&
-		// 				!u.hasBuff(BuffFour.Infected))
-		// 		}, (u) => {
-		// 			const dummy = new Unit(attacker.owner, UnitType.Dummy, attacker.coordinate, attacker.facing)
-		// 			dummy.addAbility(AbilityFour.InfectAspectDummy)
-		// 			dummy.issueTargetOrder(Order.Parasite, u)
-		// 			dummy.applyTimedLife(BuffFour.TimedLifeGeneric, 1)
-		// 		}, unitCount)
-		// 		g.destroy()
-		// 	}
-		// })
+		this.FallingStrike = new AbilityType({
+			four: AbilityFour.FallingStrike,
+			orderId: Order.Thunderbolt,
+			effectType: EffectType.Casts,
+			targetType: TargetType.DamageAreaTarget
+		})
+
+		this.ShiftStorm = new AbilityType({
+			four: AbilityFour.ShiftStorm,
+			orderId: Order.Channel,
+			effectType: EffectType.Casts,
+			targetType: TargetType.Specific
+		})
 	}
 }

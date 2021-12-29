@@ -1,6 +1,9 @@
 import { AttackType, DamageType } from 'lib/resources/types'
 import { Color, MapPlayer, Unit } from 'lib/w3ts'
 import { ArcTag } from '../arcTags/arctags'
+import { IArcTag } from '../arcTags/IArcTag'
+import { IDamageEventDepend } from './IDamageEventDepend'
+
 export class DamageEvent {
 	source: Unit
 	target: Unit
@@ -8,11 +11,11 @@ export class DamageEvent {
 
 	protected static last: DamageEvent
 
-	constructor () {
+	constructor (depend: IDamageEventDepend) {
 		this.source = Unit.fromDamageSource()
 		this.target = Unit.fromDamageTarget()
 
-		this.applyCustomDamage()
+		this.applyCustomDamage(depend)
 		DamageEvent.last = this
 	}
 
@@ -44,15 +47,15 @@ export class DamageEvent {
 		BlzSetEventDamage(value)
 	}
 
-	isSpell = () => {
+	isSpell () {
 		return this.attackType === AttackType.NORMAL
 	}
 
-	isAttack = () => {
+	isAttack () {
 		return this.damageType === DamageType.NORMAL
 	}
 
-	applyCustomDamage = () => {
+	applyCustomDamage (depend: IDamageEventDepend) {
 		if (this.isSpell()) this.damage *= this.source.spellDamage * this.target.spellResistance
 
 		if (this.source.critical > 0) {
@@ -85,13 +88,18 @@ export class DamageEvent {
 		}
 
 		if (this.target.isVisible(MapPlayer.fromLocal())) {
+			const colorRed = new Color(255, 0, 0)
+			let arcTag: IArcTag
+
 			switch (this.modifier) {
 				case DamageModifier.Critical:
-					new ArcTag(`${math.floor(displayDamage)}`, this.target, new Color(255, 0, 0))
+					arcTag = { unit: this.target, text: `${math.floor(displayDamage)}`, color: colorRed }
+					new ArcTag(depend, arcTag)
 					break
 
 				case DamageModifier.Evade:
-					new ArcTag(`miss`, this.source, new Color(255, 0, 0))
+					arcTag = { unit: this.source, text: "miss", color: colorRed }
+					new ArcTag(depend, arcTag)
 					break
 
 				default:
@@ -99,7 +107,8 @@ export class DamageEvent {
 			}
 
 			if (this.source.owner.controller === MAP_CONTROL_USER && (this.damage > 5 || this.modifier === DamageModifier.Shielded)) {
-				new ArcTag(`${math.floor(displayDamage)}`, this.target)
+				arcTag = { unit: this.target, text: `${math.floor(displayDamage)}` }
+				new ArcTag(depend, arcTag)
 			}
 		}
 	}

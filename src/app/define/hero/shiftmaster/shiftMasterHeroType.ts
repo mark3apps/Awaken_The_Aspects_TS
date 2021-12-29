@@ -4,10 +4,22 @@ import { Strategy } from 'lib/resources/strategy'
 import { HeroType } from 'lib/w3ts/handles/herotype'
 import { AbilityFour, Unit } from 'lib/w3ts/index'
 import { HeroAttributes } from 'app/systems/heroAttribute/heroAttributes'
+import { IHeroTypeDepend } from 'app/classes/IHeroTypeDepend'
 
 export class ShiftMasterHeroType extends HeroType {
-	constructor () {
+	protected static instance?: ShiftMasterHeroType
+
+	static getInstance (depend: IHeroTypeDepend) {
+		if (!ShiftMasterHeroType.instance) ShiftMasterHeroType.instance = new ShiftMasterHeroType(depend)
+		return ShiftMasterHeroType.instance
+	}
+
+	private constructor (depend: IHeroTypeDepend) {
 		super('E002', 'Shift Master')
+
+		// Dependencies
+		const abilTypes = depend.abilityTypes
+		const heroAttr = depend.heroAttr
 
 		this.talentTrees = (u: Hero) => {
 			const skill = new ShiftMasterSkillTree(u.unit)
@@ -22,9 +34,9 @@ export class ShiftMasterHeroType extends HeroType {
 		// const G = Globals.get()
 
 		// Attributes
-		this.addHeroAttribute(HeroAttributes.agility)
-		this.addHeroAttribute(HeroAttributes.melee)
-		this.addHeroAttribute(HeroAttributes.assassin)
+		this.addHeroAttribute(heroAttr.agility)
+		this.addHeroAttribute(heroAttr.melee)
+		this.addHeroAttribute(heroAttr.assassin)
 
 		// Items
 
@@ -52,60 +64,11 @@ export class ShiftMasterHeroType extends HeroType {
 		this.addStrategy(Strategy.Neutral)
 		this.addStrategy(Strategy.Defensive)
 
-		//
-		// Define Ability Types
-		//
-
-		// const shiftAbility = new AbilityType({
-		// 	four: AbilityFour.Shift,
-		// 	orderId: Order.Berserk,
-		// 	effectType: EffectType.Casts,
-		// 	targetType: TargetType.SupportSelf,
-		// 	onEffect: () => { ShiftAbility.fromCast().onEffect() }
-		// })
-		// shiftAbility.getAbility = (unit: Unit) => { return ShiftAbility.get(unit, shiftAbility) }
-
-		// const switchAbility = new AbilityType({
-		// 	four: AbilityFour.MirrorSwitch,
-		// 	orderId: Order.Reveal,
-		// 	effectType: EffectType.Casts,
-		// 	targetType: TargetType.Specific,
-		// 	onEffect: () => { SwitchAbility.fromCast().onEffect() }
-		// })
-		// switchAbility.getAbility = (unit: Unit) => { return SwitchAbility.get(unit, switchAbility) }
-
-		// const felFormAbility = new AbilityType({
-		// 	four: AbilityFour.FelForm,
-		// 	orderId: Order.Metamorphosis,
-		// 	effectType: EffectType.Casts,
-		// 	targetType: TargetType.SupportSelf,
-		// 	onEffect: () => { FelFormAbility.fromCast().onEffect() }
-		// })
-		// felFormAbility.getAbility = (unit: Unit) => { return FelFormAbility.get(unit, felFormAbility) }
-
-		// const fallingstrike = new AbilityType({
-		// 	four: AbilityFour.FallingStrike,
-		// 	orderId: Order.Thunderbolt,
-		// 	effectType: EffectType.Casts,
-		// 	targetType: TargetType.DamageAreaTarget,
-		// 	onEffect: () => { FallingStrike.fromCast().onEffect() }
-		// })
-		// fallingstrike.getAbility = (unit: Unit) => { return FallingStrike.get(unit, fallingstrike) }
-
-		// const shiftStormAbility = new AbilityType({
-		// 	four: AbilityFour.ShiftStorm,
-		// 	orderId: Order.Channel,
-		// 	effectType: EffectType.Casts,
-		// 	targetType: TargetType.Specific,
-		// 	onEffect: () => { ShadestormAbility.fromCast().onEffect() }
-		// })
-		// shiftStormAbility.getAbility = (unit: Unit) => { return ShadestormAbility.get(unit, shiftStormAbility) }
-
 		// //
 		// // Add Abilities
 		// //
 
-		// this.addHeroAbilityType({ type: shiftAbility, starting: true, ult: false })
+		this.addHeroAbilityType({ type: abilTypes.Shift, starting: true, ult: false })
 		// this.addHeroAbilityType({ type: switchAbility, starting: true, ult: false })
 		// this.addHeroAbilityType({ type: fallingstrike, starting: true, ult: false })
 		// this.addHeroAbilityType({ type: felFormAbility, starting: false, ult: false })

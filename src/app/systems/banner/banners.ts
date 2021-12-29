@@ -1,22 +1,31 @@
-import { Units } from 'lib/w3ts/handles/Units'
 import { Banner } from './banner'
+import { IBannersDepend } from './IBannersDepend'
 
 export class Banners {
-	static center1: Banner
-	static center2: Banner
-	static center3: Banner
-	static center4: Banner
+	private static instance?: Banners
 
-	static define (): void {
-		Banners.center1 = new Banner(Units.o00C_1005)
-		Banners.center2 = new Banner(Units.o00C_1008)
-		Banners.center3 = new Banner(Units.o00C_1009)
-		Banners.center4 = new Banner(Units.o00C_1011)
+	static getInstance (depend: IBannersDepend) {
+		if (!Banners.instance) Banners.instance = new Banners(depend)
+		return Banners.instance
+	}
+
+	center1: Banner
+	center2: Banner
+	center3: Banner
+	center4: Banner
+
+	constructor (depend: IBannersDepend) {
+		const units = depend.units
+
+		this.center1 = new Banner(depend, { unit: units.o00C_1005 })
+		this.center2 = new Banner(depend, { unit: units.o00C_1008 })
+		this.center3 = new Banner(depend, { unit: units.o00C_1009 })
+		this.center4 = new Banner(depend, { unit: units.o00C_1011 })
 
 		// Main Gate
-		new Banner(Units.o00C_1018, 400, 2, 200)
-		new Banner(Units.o00C_1019, 400, 2, 200)
-		new Banner(Units.o00C_1020, 400, 2, 200)
-		new Banner(Units.o00C_1021, 400, 2, 200)
+		new Banner(depend, { unit: units.o00C_1018, range: 400, tick: 2, maxPower: 200 })
+		new Banner(depend, { unit: units.o00C_1019, range: 400, tick: 2, maxPower: 200 })
+		new Banner(depend, { unit: units.o00C_1020, range: 400, tick: 2, maxPower: 200 })
+		new Banner(depend, { unit: units.o00C_1021, range: 400, tick: 2, maxPower: 200 })
 	}
 }

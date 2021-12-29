@@ -33,6 +33,14 @@ export class AbilityCast implements IAbilityCast {
 		return Unit.fromDying()
 	}
 
+	get damageSource () {
+		return Unit.fromDamageSource()
+	}
+
+	get damageTarget () {
+		return Unit.fromDamageTarget()
+	}
+
 	get targetUnit () {
 		return Unit.fromSpellTarget()
 	}

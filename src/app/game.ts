@@ -1,6 +1,5 @@
 import { DeathSpawn } from 'app/abilities'
-import { BrawlerHeroType, ManaAddictHeroType, ShiftMasterHeroType, TacticianHeroType, TimeMageHeroType } from 'app/heroes/heroTypes'
-import { ItemUpgrade, Cinematic, Pathing, Army, Loc, Faction, Spawn, Aspect, Load } from 'app/systems'
+import { Cinematic, Pathing } from 'app/systems'
 import { Players } from 'lib/w3ts'
 import { CameraSetups } from 'lib/w3ts/handles/CameraSetups'
 import { Forces } from 'lib/w3ts/handles/Forces'
@@ -19,103 +18,73 @@ import { HeroAttributes } from './systems/heroAttribute/heroAttributes'
 import { AbilityTriggers } from './define/abilityTriggers/abilityTriggers'
 import { AbilityEngine } from './classes/abilityEngine/AbilityEngine'
 import { AbilityCast } from './classes/ability/abilityCast'
+import { ArcTagEngine } from './systems/arcTags/ArcTagEngine'
+import { Armies } from './systems/Armies'
+import { Factions } from './systems/faction/Factions'
+import { Locs } from './systems/Locs'
+import { Aspects } from './systems/Aspects'
+import { Spawns } from './systems/Spawns'
+import { ShiftMasterHeroType } from './heroes/heroTypes'
+import { DamageEngine } from './systems/damageEvent/DamageEngine'
 
 export class Game {
 	static mapInit = (): void => {
-		Logger.Verbose('Game Init Start')
-
-		// Define Map Globals
-		Rectangles.defineGlobals()
-		Units.defineGlobals()
-		CameraSetups.defineGlobals()
-
-		ItemTypes.define()
-		ItemUpgrade.define()
-
-		Forces.define()
-		Cinematic.onInit()
-
-		Regions.define()
-
-		const triggers = Triggers.getInstance()
-		DeathSpawn.getInstance(triggers)
-		Pathing.define(triggers)
-		HeroAttributes.define()
-
-		Heroes.define({ triggers: triggers })
-
-		// new BrawlerHeroType()
-		// new ManaAddictHeroType()
-		new ShiftMasterHeroType()
-		// new TacticianHeroType()
-		// new TimeMageHeroType()
-
-		Logger.Verbose('Game Init Finished')
 	}
 
 	static start = (): void => {
 		FogEnableOff()
 		FogMaskEnableOff()
 
-		Logger.Verbose('Game Map Start')
+		Logger.Information('Game Init Start')
 
+		// Globals with no Dependencies
+		Logger.Information('No Dependencies')
+		const rects = Rectangles.getInstance()
+		const camSetups = CameraSetups.getInstance()
+		const itemTypes = ItemTypes.getInstance()
+		const forces = Forces.getInstance()
+		const abilCast = AbilityCast.getInstance()
+		const units = Units.getInstance()
 		const abilTypes = AbilityTypes.getInstance()
-		const abilEngine = AbilityEngine.getInstance()
-		const triggers = Triggers.getInstance()
-		const cast = AbilityCast.getInstance()
+		const regions = Regions.getInstance()
+		const arcTagEngine = ArcTagEngine.getInstance()
 
-		Army.define()
-		Loc.define(triggers)
-		Faction.define()
-		Spawn.define()
-		Gates.define(triggers)
-		Aspect.define()
-		Banners.define()
-		Events.define()
+		// Globals with upstream and downstream dependencies
+		Logger.Information('Up and Down Dependencies')
+		const triggers = Triggers.getInstance({})
+		const armies = Armies.getInstance({ units: units, forces: forces })
+		const locs = Locs.getInstance({ triggers: triggers, armies: armies, rects: rects })
+		const banners = Banners.getInstance({ units: units, forces: forces })
+		const heroAttr = HeroAttributes.getInstance({ itemTypes: itemTypes })
+		const factions = Factions.getInstance({ locs: locs, units: units, armies: armies })
+		const abilEngine = AbilityEngine.getInstance({ triggers: triggers, abilityCast: abilCast })
+		const pathing = Pathing.getInstance({ triggers: triggers, locs: locs, forces: forces, regions: regions })
 
-		Cinematic.setupCineCamera()
-		Load.units()
+		// // // Globals with Upstream Dependencies
+		Logger.Information('Up Dependencies')
+		const damageEngine = DamageEngine.getInstance({ arcTagEngine: arcTagEngine, triggers: triggers })
+		const heroes = Heroes.getInstance({ triggers: triggers, forces: forces, rects: rects })
+		const deathSpwan = DeathSpawn.getInstance({ triggers: triggers, pathing: pathing })
+		const aspects = Aspects.getInstance({ locs: locs, units: units, forces: forces, rects: rects })
+		const shiftMasterHeroType = ShiftMasterHeroType.getInstance({ abilityTypes: abilTypes, heroAttr: heroAttr })
+		const abilTrigs = AbilityTriggers.getInstance({ abilityEngine: abilEngine, abilityTypes: abilTypes, abilityCast: abilCast })
+		const gates = Gates.getInstance({ triggers: triggers })
 
-		const abilTrigsDepend = { abilityEngine: abilEngine, abilityTypes: abilTypes, cast: cast, triggers: triggers }
-		const abilTrigs = AbilityTriggers.getInstance(abilTrigsDepend)
+		// // // Globals with Init Functions
+		const cinematic = Cinematic.getInstance({ forces: forces, camSetups: camSetups })
+		const spawns = Spawns.getInstance({ factions: factions })
+		const events = Events.getInstance({ units: units, banners: banners, locs: locs, forces: forces, rects: rects })
 
-		Cinematic.startHeroSelector()
+		Logger.Verbose('Game Init Finished')
+
+		Logger.Verbose('Running Init Functions')
+		// Start Functions
+		cinematic.onInit()
+		cinematic.setupCineCamera()
+		cinematic.startHeroSelector()
+		spawns.start()
+		events.start()
 
 		Players[0].lumber = 50
-
-		Spawn.start()
-
-		Logger.Verbose('Game Map Start Finished')
-
-		Logger.Verbose('Start Hero Pick')
-
-		// HeroSelector.addUnit('Hamg')
-		// HeroSelector.addUnit('Hblm')
-		// HeroSelector.addUnit('Hmkg')
-		// HeroSelector.addUnit("Obla", true) //this unit can only be randomed
-		// HeroSelector.addUnit("Ofar")
-		// HeroSelector.addUnit("Otch", 1) //this unit can only be randomed
-		// HeroSelector.addUnit("") //this is an empty box. It still takes a slot.
-		// HeroSelector.addUnit("") //this is an empty box. It still takes a slot.
-		// HeroSelector.addUnit("Oshd")
-		// HeroSelector.addUnit("Edem")
-		// HeroSelector.addUnit("") //this is an empty box. It still takes a slot.
-		// HeroSelector.addUnit("") //this is an empty box. It still takes a slot.
-		// HeroSelector.addUnit("Ekee")
-		// HeroSelector.addUnit("Emoo")
-		// HeroSelector.addUnit("Ewar",true)
-		// HeroSelector.addUnit("Udea")
-		// HeroSelector.addUnit("Ulic")
-		// HeroSelector.addUnit("Udre")
-		// HeroSelector.addUnit("Ucrl",1)
-
-		// if (Log.logLevel <= LogLevel.Information) {
-		//     const hero = new Unit(Players[0], UNIT_TYPE.ShiftMaster.id, Rectangle.getPlayableMap().centerX, Rectangle.getPlayableMap().centerY, 0)
-		//     hero.heroLevel = 100
-		//     hero.attack1Base = 2500
-		//     hero.strength = 1000
-		//     hero.armor = 500
-		//     hero.moveSpeed = 500
-		// }
 	}
 }

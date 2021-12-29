@@ -2,28 +2,35 @@ import { Rectangle } from './rect'
 import { Region } from './region'
 
 export class Regions {
-	static BigTop: Region
-	static BigMiddle: Region
-	static BigBottom: Region
+	protected static instance: Regions
 
-	static define = (): void => {
-		Regions.BigTop = new Region()
-		Regions.BigMiddle = new Region()
-		Regions.BigBottom = new Region()
+	static getInstance () {
+		if (!Regions.instance) Regions.instance = new Regions()
+		return Regions.instance
+	}
 
-		Regions.BigTop.addRect(Rectangle.fromHandle(gg_rct_Big_Top_Left))
-		Regions.BigTop.addRect(Rectangle.fromHandle(gg_rct_Big_Top_Left_Center))
-		Regions.BigTop.addRect(Rectangle.fromHandle(gg_rct_Big_Top_Right))
-		Regions.BigTop.addRect(Rectangle.fromHandle(gg_rct_Big_Top_Right_Center))
+	BigTop: Region
+	BigMiddle: Region
+	BigBottom: Region
 
-		Regions.BigMiddle.addRect(Rectangle.fromHandle(gg_rct_Big_Middle_Left))
-		Regions.BigMiddle.addRect(Rectangle.fromHandle(gg_rct_Big_Middle_Left_Center))
-		Regions.BigMiddle.addRect(Rectangle.fromHandle(gg_rct_Big_Middle_Right))
-		Regions.BigMiddle.addRect(Rectangle.fromHandle(gg_rct_Big_Middle_Right_Center))
+	constructor () {
+		this.BigTop = new Region()
+		this.BigMiddle = new Region()
+		this.BigBottom = new Region()
 
-		Regions.BigBottom.addRect(Rectangle.fromHandle(gg_rct_Big_Bottom_Left))
-		Regions.BigBottom.addRect(Rectangle.fromHandle(gg_rct_Big_Bottom_Left_Center))
-		Regions.BigBottom.addRect(Rectangle.fromHandle(gg_rct_Big_Bottom_Right))
-		Regions.BigBottom.addRect(Rectangle.fromHandle(gg_rct_Big_Bottom_Right_Center))
+		this.BigTop.addRect(Rectangle.fromHandle(gg_rct_Big_Top_Left))
+		this.BigTop.addRect(Rectangle.fromHandle(gg_rct_Big_Top_Left_Center))
+		this.BigTop.addRect(Rectangle.fromHandle(gg_rct_Big_Top_Right))
+		this.BigTop.addRect(Rectangle.fromHandle(gg_rct_Big_Top_Right_Center))
+
+		this.BigMiddle.addRect(Rectangle.fromHandle(gg_rct_Big_Middle_Left))
+		this.BigMiddle.addRect(Rectangle.fromHandle(gg_rct_Big_Middle_Left_Center))
+		this.BigMiddle.addRect(Rectangle.fromHandle(gg_rct_Big_Middle_Right))
+		this.BigMiddle.addRect(Rectangle.fromHandle(gg_rct_Big_Middle_Right_Center))
+
+		this.BigBottom.addRect(Rectangle.fromHandle(gg_rct_Big_Bottom_Left))
+		this.BigBottom.addRect(Rectangle.fromHandle(gg_rct_Big_Bottom_Left_Center))
+		this.BigBottom.addRect(Rectangle.fromHandle(gg_rct_Big_Bottom_Right))
+		this.BigBottom.addRect(Rectangle.fromHandle(gg_rct_Big_Bottom_Right_Center))
 	};
 }

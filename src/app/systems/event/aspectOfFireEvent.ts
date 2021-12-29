@@ -2,19 +2,33 @@ import { Logger } from 'app/log'
 import { Ability } from 'app/classes/ability/ability'
 import { UnitType } from 'app/classes/unitType'
 import { Timer, Unit, Trigger, Anim, Effect, AbilityModel, DoodadModel } from 'lib/w3ts/index'
-import { Banner } from '../banner/banner'
-import { Units } from 'lib/w3ts/handles/Units'
 import { AbilityTypes } from "app/classes/ability/abilityTypes"
 import { Event } from './event'
-import { Rectangles } from 'lib/w3ts/handles/Rectangles'
-import { Forces } from 'lib/w3ts/handles/Forces'
+import { IAspectOfFireEventDepend } from './interfaces/IAspectOfFireEventDepend'
+import { IAspectOfFireEvent } from './interfaces/IAspectOfFireEvent'
 
 export class AspectOfFireEvent extends Event {
 	inferno: Trigger
 	wisp?: Unit
 
-	constructor (summonUnitType: UnitType, banners: Banner[] = [], eventInterval?: number, eventTime?: number) {
-		super(summonUnitType, banners, Rectangles.EventCenter.centerPosition, eventInterval, eventTime)
+	// Dependencies
+	units
+	rects
+	forces
+
+	constructor (depend: IAspectOfFireEventDepend, aspectOfFireEvent: IAspectOfFireEvent) {
+		super(depend, {
+			summonUnitType: aspectOfFireEvent.summonUnitType,
+			banners: aspectOfFireEvent.banners,
+			spawnPos: depend.rects.EventCenter.centerPosition,
+			eventInterval: aspectOfFireEvent.eventInterval,
+			eventTime: aspectOfFireEvent.eventTime
+		})
+
+		// Dependencies
+		this.units = depend.units
+		this.rects = depend.rects
+		this.forces = depend.forces
 
 		this.inferno = new Trigger()
 		this.inferno.enabled = false
@@ -30,21 +44,21 @@ export class AspectOfFireEvent extends Event {
 
 			for (let i = 0; i < count; i++) {
 				const u = new Unit(this.eventUnit.owner, UnitType.Dummy.id, this.eventUnit.coordinate, 0)
-				u.addAbility(abilityTypes.aspectInferno)
+				u.addAbility(abilityTypes.AspectInferno)
 				u.applyTimedLifeGeneric(2)
 
-				const ua = new Ability({ castingUnit: u, abilType: abilityTypes.aspectInferno })
+				const ua = new Ability({ castingUnit: u, abilType: abilityTypes.AspectInferno })
 				ua.cast(u.getRandomPosAround(500))
 			}
 		}
 	}
 
 	public override onEventInit (): void {
-		Units.h002_0699.setAnimation(Anim.EyeOfSargeras.death)
+		this.units.h002_0699.setAnimation(Anim.EyeOfSargeras.death)
 	}
 
 	public override onEventStart (): void {
-		Units.h002_0699.setAnimation(Anim.EyeOfSargeras.stand)
+		this.units.h002_0699.setAnimation(Anim.EyeOfSargeras.stand)
 		this.wisp = new Unit(PLAYER_NEUTRAL_PASSIVE, UnitType.DummyCenterEvent.id, this.spawnPos, 0)
 		this.wisp.flyHeight = 50
 		this.wisp.applyTimedLifeGeneric(this.eventDuration + 4)
@@ -54,9 +68,9 @@ export class AspectOfFireEvent extends Event {
 	public override onEventLoop (): void {
 		if (this.wisp) {
 			if (this.allianceScore > this.federationScore) {
-				this.wisp.owner = Forces.Alliance.getRandomPlayer()
+				this.wisp.owner = this.forces.Alliance.getRandomPlayer()
 			} else {
-				this.wisp.owner = Forces.Federation.getRandomPlayer()
+				this.wisp.owner = this.forces.Federation.getRandomPlayer()
 			}
 		}
 	}
@@ -64,12 +78,12 @@ export class AspectOfFireEvent extends Event {
 	public override onEventEnd (): void {
 		try {
 			const regions = [
-				[Rectangles.EventTL1, Rectangles.EventTR1, Rectangles.EventBL1, Rectangles.EventBR1],
-				[Rectangles.EventTL2, Rectangles.EventTR2, Rectangles.EventBL2, Rectangles.EventBR2],
-				[Rectangles.EventTL3, Rectangles.EventTR3, Rectangles.EventBL3, Rectangles.EventBR3]
+				[this.rects.EventTL1, this.rects.EventTR1, this.rects.EventBL1, this.rects.EventBR1],
+				[this.rects.EventTL2, this.rects.EventTR2, this.rects.EventBL2, this.rects.EventBR2],
+				[this.rects.EventTL3, this.rects.EventTR3, this.rects.EventBL3, this.rects.EventBR3]
 			]
 
-			const startEffect1 = new Effect(AbilityModel.flameStrikeTarget, Rectangles.EventCenter.centerX, Rectangles.EventCenter.centerY)
+			const startEffect1 = new Effect(AbilityModel.flameStrikeTarget, this.rects.EventCenter.centerX, this.rects.EventCenter.centerY)
 
 			let count = 0
 			const loopTimer = new Timer()
@@ -93,8 +107,8 @@ export class AspectOfFireEvent extends Event {
 			})
 
 			endTimer.start(4, false, () => {
-				Units.h002_0699.show = false
-				new Effect(AbilityModel.doomDeath, Rectangles.EventCenter.centerX, Rectangles.EventCenter.centerY).destroy()
+				this.units.h002_0699.show = false
+				new Effect(AbilityModel.doomDeath, this.rects.EventCenter.centerX, this.rects.EventCenter.centerY).destroy()
 
 				startEffect1.destroy()
 
@@ -112,7 +126,7 @@ export class AspectOfFireEvent extends Event {
 
 	public override onEventUnitDeath (): void {
 		this.inferno.enabled = false
-		Units.h002_0699.show = true
-		Units.h002_0699.setAnimation(Anim.EyeOfSargeras.death)
+		this.units.h002_0699.show = true
+		this.units.h002_0699.setAnimation(Anim.EyeOfSargeras.death)
 	}
 }

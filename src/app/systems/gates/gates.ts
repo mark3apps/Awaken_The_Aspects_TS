@@ -2,11 +2,20 @@ import { UnitType } from 'app/classes/unitType'
 import { Group, Rectangle, Anim } from 'lib/w3ts/index'
 import { GateType } from './gateType'
 import { Gate } from './gate'
-import { ITriggers } from 'app/define/triggers/interfaces/ITriggers'
 import { DamageEvent } from '../damageEvent/damageEvent'
+import { IGatesDepend } from './IGatesDepend'
 
 export class Gates {
-	public static define (triggers: ITriggers): void {
+	protected static instance: Gates
+
+	static getInstance (depend: IGatesDepend) {
+		if (!Gates.instance) Gates.instance = new Gates(depend)
+		return Gates.instance
+	}
+
+	constructor (depend: IGatesDepend) {
+		const triggers = depend.triggers
+
 		new GateType(UnitType.DwarvenGateOpen, UnitType.DwarvenGateClosed)
 		new GateType(UnitType.CastleGateOpen, UnitType.CastleGateClosed)
 

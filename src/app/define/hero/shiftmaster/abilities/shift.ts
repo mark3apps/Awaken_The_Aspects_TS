@@ -1,11 +1,12 @@
-import { Ability, AbilityType, Position, UnitType } from 'app/classes'
+import { Ability, Position, UnitType } from 'app/classes'
 import { AbilityTypes } from 'app/classes/ability/abilityTypes'
 import { Logger } from 'app/log'
 import { AbilityField } from 'lib/resources/fields'
 import { AbilityFour, Effect, AbilityModel, Unit, Timer } from 'lib/w3ts'
 import { IAbility } from 'app/classes/ability/interfaces/IAbility'
+import { IAbilityCast } from 'app/classes/ability/interfaces/IAbilityCast'
 
-export class ShiftAbility extends Ability {
+export class Shift extends Ability {
 	augments = 0
 	distance = 400
 	speed = 0.45
@@ -37,7 +38,7 @@ cooldown |cff00ffff${math.floor(this.cooldown)}|r seconds.`
 		return this.distance / (this.speed / this.tick)
 	}
 
-	override onEffect = () => {
+	override onEffect = (cast: IAbilityCast) => {
 		try {
 			const abilityTypes = AbilityTypes.getInstance()
 
@@ -57,10 +58,10 @@ cooldown |cff00ffff${math.floor(this.cooldown)}|r seconds.`
 
 			// Cast Illusion on Hero
 			const dummy = new Unit(this.unit.owner, UnitType.Dummy, this.unit.coordinate, 0)
-			dummy.addAbility(abilityTypes.shiftDummy)
+			dummy.addAbility(abilityTypes.ShiftDummy)
 			dummy.applyTimedLifeGeneric(1)
 
-			const shiftDummyAbil = new Ability({ castingUnit: dummy, abilType: abilityTypes.shiftDummy })
+			const shiftDummyAbil = new Ability({ castingUnit: dummy, abilType: abilityTypes.ShiftDummy })
 			shiftDummyAbil.setLevelField(AbilityField.DAMAGE_DEALT_PERCENT_OF_NORMAL, this.shadeDamageDealt, 0)
 			shiftDummyAbil.setLevelField(AbilityField.DAMAGE_RECEIVED_MULTIPLIER, this.shadeDamageTaken, 0)
 			shiftDummyAbil.heroDuration = this.shadeDuration
@@ -90,6 +91,6 @@ cooldown |cff00ffff${math.floor(this.cooldown)}|r seconds.`
 	}
 
 	static override fromHandle (ability: IAbility) {
-		return this.getObject(ability) as ShiftAbility
+		return this.getObject(ability) as Shift
 	}
 }

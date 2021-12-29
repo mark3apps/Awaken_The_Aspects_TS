@@ -1,7 +1,6 @@
-import { HeroMap } from 'app/classes/HeroTypeMap'
-import { DamageEvent } from 'app/systems/damageEvent/damageEvent'
 import { Trigger, Rectangle } from 'lib/w3ts'
 import { ITriggers } from './interfaces/ITriggers'
+import { ITriggersDepend } from './interfaces/ITriggersDepend'
 
 export class Triggers implements ITriggers {
 	UnitDies = new Trigger()
@@ -19,12 +18,12 @@ export class Triggers implements ITriggers {
 
 	protected static instance?: Triggers
 
-	static getInstance () {
-		if (!Triggers.instance) Triggers.instance = new Triggers()
+	static getInstance (depend: ITriggersDepend) {
+		if (!Triggers.instance) Triggers.instance = new Triggers(depend)
 		return Triggers.instance
 	}
 
-	private constructor () {
+	private constructor (depend: ITriggersDepend) {
 		this.mapStart.registerTimerEvent(0.5, false)
 		this.unitCreated.registerEnterRect(Rectangle.getPlayableMap())
 
@@ -40,20 +39,5 @@ export class Triggers implements ITriggers {
 		this.heroLevels.registerAnyUnitEvent(EVENT_PLAYER_HERO_LEVEL)
 		this.UnitDies.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH)
 		this.UnitDying.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DAMAGED)
-		this.UnitDying.addCondition(() => {
-			const damage = new DamageEvent()
-			return damage.target.life - damage.damage <= 0
-		})
-
-		this.UnitDying.addAction(() => {
-			const damageEvent = DamageEvent.getLast()
-			damageEvent.source.kills += 1
-
-			if (damageEvent.target.isHero) {
-				const hero = HeroMap.get(damageEvent.target)
-				if (hero) hero.heroType.onDeath(hero.unit)
-				damageEvent.damage = 0
-			}
-		})
 	};
 }

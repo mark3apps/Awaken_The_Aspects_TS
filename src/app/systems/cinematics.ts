@@ -2,14 +2,29 @@ import { Hero } from 'app/classes/hero'
 import { Logger } from 'app/log'
 import { Sky } from 'lib/w3ts/globals/sky'
 import { Sounds } from 'lib/w3ts/globals/sounds'
-import { CameraSetups } from 'lib/w3ts/handles/CameraSetups'
-import { Forces } from 'lib/w3ts/handles/Forces'
 import { MapPlayer, Group, Unit, Mask, Players, Timer, Frame } from 'lib/w3ts/index'
+import { ICinematicDepend } from './ICinematicDepend'
 
 export class Cinematic {
+	protected static instance: Cinematic
+
+	static getInstance (depend: ICinematicDepend) {
+		if (!Cinematic.instance) Cinematic.instance = new Cinematic(depend)
+		return Cinematic.instance
+	}
+
+	// Dependencies
+	camSetups
+	forces
+
+	constructor (depend: ICinematicDepend) {
+		this.camSetups = depend.camSetups
+		this.forces = depend.forces
+	}
+
 	// On Init
-	static onInit (): void {
-		Forces.Alliance.for(() => {
+	onInit (): void {
+		this.forces.Alliance.for(() => {
 			MapPlayer.fromEnum().color = PLAYER_COLOR_RED
 			const g = new Group()
 			g.enumUnitsOfPlayer(MapPlayer.fromEnum(), () => {
@@ -19,7 +34,7 @@ export class Cinematic {
 			g.destroy()
 		})
 
-		Forces.Federation.for(() => {
+		this.forces.Federation.for(() => {
 			MapPlayer.fromEnum().color = PLAYER_COLOR_BLUE
 			const g = new Group()
 			g.enumUnitsOfPlayer(MapPlayer.fromEnum(), () => {
@@ -30,7 +45,7 @@ export class Cinematic {
 		})
 	}
 
-	static setupCustomUI () {
+	setupCustomUI () {
 		// Set Hero Bar Offsets
 		const x = 0.205
 		const y = -0.025
@@ -109,7 +124,7 @@ export class Cinematic {
 		}
 	}
 
-	static setupCineCamera (): void {
+	setupCineCamera (): void {
 		SetSkyModel(Sky.blizzard)
 		FogEnableOff()
 
@@ -117,8 +132,8 @@ export class Cinematic {
 		CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 3.00, Mask.black, 0, 0, 0, 0)
 
 		const startCams = [
-			CameraSetups.intro01, CameraSetups.intro02, CameraSetups.intro03, CameraSetups.intro04, CameraSetups.intro05, CameraSetups.intro06, CameraSetups.intro07,
-			CameraSetups.intro08, CameraSetups.intro09, CameraSetups.intro10, CameraSetups.intro11, CameraSetups.intro12, CameraSetups.intro13, CameraSetups.intro14
+			this.camSetups.intro01, this.camSetups.intro02, this.camSetups.intro03, this.camSetups.intro04, this.camSetups.intro05, this.camSetups.intro06, this.camSetups.intro07,
+			this.camSetups.intro08, this.camSetups.intro09, this.camSetups.intro10, this.camSetups.intro11, this.camSetups.intro12, this.camSetups.intro13, this.camSetups.intro14
 		]
 
 		for (let i = 0; i < 11; i++) {
@@ -135,18 +150,18 @@ export class Cinematic {
 		this.setupCustomUI()
 	}
 
-	static setupGameCamera = (): void => {
-		const camLeftStart = CameraSetups.baseLeftPanStart
-		const camLeftEnd = CameraSetups.baseLeftStart
-		const camRightStart = CameraSetups.baseRightPanStart
-		const camRightEnd = CameraSetups.baseRightStart
+	setupGameCamera = (): void => {
+		const camLeftStart = this.camSetups.baseLeftPanStart
+		const camLeftEnd = this.camSetups.baseLeftStart
+		const camRightStart = this.camSetups.baseRightPanStart
+		const camRightEnd = this.camSetups.baseRightStart
 
-		Forces.AlliancePlayers.for(() => {
+		this.forces.AlliancePlayers.for(() => {
 			MapPlayer.fromEnum().applyCamera(true, camLeftStart, 0)
 			MapPlayer.fromEnum().applyCamera(true, camLeftEnd, 2)
 		})
 
-		Forces.FederationPlayers.for(() => {
+		this.forces.FederationPlayers.for(() => {
 			MapPlayer.fromEnum().applyCamera(true, camRightStart, 0)
 			MapPlayer.fromEnum().applyCamera(true, camRightEnd, 2)
 		})
@@ -154,7 +169,7 @@ export class Cinematic {
 		FogEnableOn()
 	}
 
-	static startHeroSelector = (): void => {
+	startHeroSelector = (): void => {
 		HeroSelector.show(true)
 		HeroSelector.enableBan(false)
 		HeroSelector.enablePick(true)
@@ -176,7 +191,7 @@ export class Cinematic {
 				if (timeLeft <= 0) {
 					PlaySound(Sounds.warning)
 
-					Forces.Humans.for(() => {
+					this.forces.Humans.for(() => {
 						if (!Hero.PickedPlayers.hasPlayer(MapPlayer.fromEnum())) {
 							Logger.Information('Picked', MapPlayer.fromEnum().name)
 							HeroSelector.forcePick(GetEnumPlayer())
@@ -192,7 +207,7 @@ export class Cinematic {
 					countdown.destroy()
 					HeroSelector.destroy()
 
-					Cinematic.setupGameCamera()
+					this.setupGameCamera()
 				}
 			} catch (error) {
 				Logger.Error('Hero Selector:', error)

@@ -1,6 +1,7 @@
 import { Ability } from 'app/classes'
 import { AbilityTypes } from 'app/classes/ability/abilityTypes'
 import { IAbility } from 'app/classes/ability/interfaces/IAbility'
+import { IAbilityCast } from 'app/classes/ability/interfaces/IAbilityCast'
 import { UnitType } from 'app/classes/unitType'
 import { Pathing } from 'app/systems/pathing'
 import { AbilityField } from 'lib/resources/fields'
@@ -28,8 +29,11 @@ export class ShadestormAbility extends Ability {
 |cff00ffff${this.duration}|r Second Duration`
 	}
 
-	override onEffect = (): void => {
-		const abilityTypes = AbilityTypes.getInstance()
+	override onEffect = (cast: IAbilityCast) => {
+		// Get Dependencies (Leave if not yet defined)
+		const abilityTypes = AbilityTypes.getInstanceNoCreate()
+		const pathing = Pathing.getInstanceNoCreate()
+		if (!pathing || !abilityTypes) return
 
 		const aoe = this.areaOfEffect
 
@@ -56,13 +60,13 @@ export class ShadestormAbility extends Ability {
 			g.firstLoop((u) => {
 				if (unitsPicked < this.maxShades) {
 					const shade = u.replace(UnitType.DummyShiftstorm)
-					shade.addAbility(abilityTypes.shadeStormDummy)
+					shade.addAbility(abilityTypes.ShadeStormDummy)
 
-					const shadeAbility = Ability.fromHandle({ castingUnit: shade, abilType: abilityTypes.shadeStormDummy })
+					const shadeAbility = Ability.fromHandle({ castingUnit: shade, abilType: abilityTypes.ShadeStormDummy })
 					shadeAbility.setLevelField(AbilityField.DAMAGE_PER_SECOND_OWW1, this.damage)
 					shadeAbility.normalDuration = this.duration
 					shadeAbility.castImmediate()
-					Pathing.newOrders(shade)
+					pathing.newOrders(shade)
 
 					const killTimer = new Timer()
 					killTimer.start(this.duration, false, () => {

@@ -2,10 +2,9 @@ import { Logger } from 'app/log'
 import { Position } from 'app/classes/position'
 import { UnitType } from 'app/classes/unitType'
 import { Order, BuffFour, Unit, Timer, Group, Rectangle } from 'lib/w3ts/index'
-import { Loc } from './loc'
 import { Forces } from 'lib/w3ts/handles/Forces'
 import { Regions } from 'lib/w3ts/handles/Regions'
-import { ITriggers } from 'app/define/triggers/interfaces/ITriggers'
+import { IPathingDepend } from './IPathingDepend'
 
 export const OrderIdIgnore = [
 	Order.Move,
@@ -56,7 +55,28 @@ export const OrderIdIgnoreWithDelay = [
 ]
 
 export class Pathing {
-	static define = (triggers: ITriggers): void => {
+	protected static instance?: Pathing
+
+	static getInstance (depend: IPathingDepend) {
+		if (!Pathing.instance) Pathing.instance = new Pathing(depend)
+		return Pathing.instance
+	}
+
+	static getInstanceNoCreate () {
+		return Pathing.instance
+	}
+
+	// Dependencies
+	locs
+	forces
+	regions
+
+	constructor (depend: IPathingDepend) {
+		const triggers = depend.triggers
+		this.locs = depend.locs
+		this.forces = depend.forces
+		this.regions = depend.regions
+
 		// Turn off Elder Ent Movement Pathing
 		triggers.unitCreated.addAction(() => {
 			const eventUnit = Unit.fromEvent()
@@ -94,11 +114,11 @@ export class Pathing {
 			try {
 				const eventUnit = Unit.fromEvent()
 
-				if (eventUnit.inForce(Forces.Computers)) {
+				if (eventUnit.inForce(this.forces.Computers)) {
 					if (UnitType.replaceOnSummon.has(eventUnit.typeId)) {
-						Pathing.newOrders(eventUnit.replace(eventUnit.typeId))
+						this.newOrders(eventUnit.replace(eventUnit.typeId))
 					} else {
-						Pathing.newOrders(eventUnit)
+						this.newOrders(eventUnit)
 					}
 				}
 			} catch (error) {
@@ -112,8 +132,8 @@ export class Pathing {
 
 			try {
 				if (UnitType.factorySummon.has(eventUnit.typeId)) {
-					if (eventUnit.inForce(Forces.Computers)) {
-						Pathing.newOrders(eventUnit)
+					if (eventUnit.inForce(this.forces.Computers)) {
+						this.newOrders(eventUnit)
 					}
 				}
 			} catch (error) {
@@ -127,7 +147,7 @@ export class Pathing {
 
 			let unit = allUnits.first
 			while (unit != null) {
-				if (unit.inForce(Forces.Computers) && UnitType.order.has(unit.typeId)) { Pathing.newOrders(unit) }
+				if (unit.inForce(this.forces.Computers) && UnitType.order.has(unit.typeId)) { this.newOrders(unit) }
 
 				allUnits.removeUnit(unit)
 				unit = allUnits.first
@@ -137,30 +157,30 @@ export class Pathing {
 	}
 
 	// Namespace Functions
-	static newOrders = (unit: Unit): void => {
+	newOrders (unit: Unit) {
 		try {
 			let dest: Position | undefined
 
-			if (unit.inRegion(Regions.BigTop)) {
+			if (unit.inRegion(this.regions.BigTop)) {
 				Logger.Verbose('top', unit.name)
-				if (unit.inForce(Forces.AllianceAll)) {
-					dest = Loc.top.federation.randomPosition
-				} else if (unit.inForce(Forces.FederationAll)) {
-					dest = Loc.top.alliance.randomPosition
+				if (unit.inForce(this.forces.AllianceAll)) {
+					dest = this.locs.top.federation.randomPosition
+				} else if (unit.inForce(this.forces.FederationAll)) {
+					dest = this.locs.top.alliance.randomPosition
 				}
-			} else if (unit.inRegion(Regions.BigMiddle)) {
+			} else if (unit.inRegion(this.regions.BigMiddle)) {
 				Logger.Verbose('middle', unit.name)
-				if (unit.inForce(Forces.AllianceAll)) {
-					dest = Loc.middle.federation.randomPosition
-				} else if (unit.inForce(Forces.FederationAll)) {
-					dest = Loc.middle.alliance.randomPosition
+				if (unit.inForce(this.forces.AllianceAll)) {
+					dest = this.locs.middle.federation.randomPosition
+				} else if (unit.inForce(this.forces.FederationAll)) {
+					dest = this.locs.middle.alliance.randomPosition
 				}
 			} else {
 				Logger.Verbose('bottom', unit.name)
-				if (unit.inForce(Forces.AllianceAll)) {
-					dest = Loc.bottom.federation.randomPosition
-				} else if (unit.inForce(Forces.FederationAll)) {
-					dest = Loc.bottom.alliance.randomPosition
+				if (unit.inForce(this.forces.AllianceAll)) {
+					dest = this.locs.bottom.federation.randomPosition
+				} else if (unit.inForce(this.forces.FederationAll)) {
+					dest = this.locs.bottom.alliance.randomPosition
 				}
 			}
 

@@ -1,38 +1,38 @@
 import { Ability } from '..'
 import { EffectType } from '../abilityType/EffectType'
-import { IAbilityTrigger, IAbilityTriggerDependencies } from "./interfaces/IAbilityTrigger"
+import { IAbilityTrigger, IAbilityTriggerDepend } from "./interfaces/IAbilityTrigger"
 
 export class AbilityTrigger {
 	abilityType
 	cast
-	triggers
-	getAbility
+	getAbility: () => unknown
 
-	constructor (depend: IAbilityTriggerDependencies, abilityTrigger: IAbilityTrigger) {
+	constructor (depend: IAbilityTriggerDepend, abilityTrigger: IAbilityTrigger) {
+		const abilityEngine = depend.abilityEngine
+
 		this.abilityType = abilityTrigger.abilityType
-		this.cast = depend.cast
-		this.triggers = depend.triggers
+		this.cast = depend.abilityCast
 		this.getAbility = abilityTrigger.getAblity
 
 		switch (this.abilityType.effectType) {
 			case EffectType.Attacked:
-				depend.abilityEngine.Attacked.set(this.abilityType.id, this)
+				abilityEngine.Attacked.push({ id: this.abilityType.id, abilityTrigger: this })
 				break
 
 			case EffectType.Attacks:
-				depend.abilityEngine.Attacks.set(this.abilityType.id, this)
+				abilityEngine.Attacks.push({ id: this.abilityType.id, abilityTrigger: this })
 				break
 
 			case EffectType.Dies:
-				depend.abilityEngine.Dies.set(this.abilityType.id, this)
+				abilityEngine.Dies.push({ id: this.abilityType.id, abilityTrigger: this })
 				break
 
 			case EffectType.Kills:
-				depend.abilityEngine.Kills.set(this.abilityType.id, this)
+				abilityEngine.Kills.push({ id: this.abilityType.id, abilityTrigger: this })
 				break
 
 			case EffectType.Casts:
-				depend.abilityEngine.Casts.set(this.abilityType.id, this)
+				abilityEngine.Casts.set(this.abilityType.id, this)
 				break
 			default:
 				break

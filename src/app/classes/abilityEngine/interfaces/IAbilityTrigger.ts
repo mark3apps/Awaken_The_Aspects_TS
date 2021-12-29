@@ -8,8 +8,7 @@ export interface IAbilityTrigger {
 	getAblity: () => unknown
 }
 
-export interface IAbilityTriggerDependencies {
-	triggers: ITriggers,
-	cast: IAbilityCast,
+export interface IAbilityTriggerDepend {
+	abilityCast: IAbilityCast,
 	abilityEngine: AbilityEngine
 }

@@ -18,7 +18,7 @@ export class Ability extends AbilityHandle {
 	}
 
 	// Blank "On" Trigger
-	onEffect (cast: IAbilityCast) { }
+	onEffect (cast: IAbilityCast) { print("Blank Effect") }
 	onEffectEnd (cast: IAbilityCast) { }
 
 	isCastable (): boolean {

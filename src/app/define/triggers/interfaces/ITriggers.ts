@@ -1,4 +1,4 @@
-import { Trigger } from 'lib/w3ts'
+import type { Trigger } from 'lib/w3ts'
 
 export interface ITriggers {
 	UnitDies: Trigger

@@ -72,10 +72,10 @@ export class FallingStrike extends Ability {
 						this.unit.flyHeight = this.unit.defaultFlyHeight
 
 						const u = new Unit(this.unit.owner, UnitType.Dummy, this.unit.coordinate, 0)
-						u.addAbility(abilityTypes.fallingStrikeDummy)
+						u.addAbility(abilityTypes.FallingStrikeDummy)
 						u.applyTimedLifeGeneric(1)
 
-						const ability = new Ability({ castingUnit: u, abilType: abilityTypes.fallingStrikeDummy })
+						const ability = new Ability({ castingUnit: u, abilType: abilityTypes.FallingStrikeDummy })
 						ability.heroDuration = this.slowDuration
 						ability.normalDuration = this.slowDuration
 						ability.areaOfEffect = this.areaOfEffect

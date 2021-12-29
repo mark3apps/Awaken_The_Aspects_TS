@@ -1,52 +1,66 @@
-import { ITriggers } from 'app/define/triggers/interfaces/ITriggers'
-import { Triggers } from 'app/define/triggers/triggers'
 import { AbilityTrigger } from './AbilityTrigger'
+import { IAbilityEngineMap } from './interfaces/IAbilityEngineMap'
+import { IAbilityEngineDepend } from './interfaces/IAbilityEngineDepend'
 
 export class AbilityEngine {
-	Attacked
-	Attacks
-	Dies
-	Kills
-	Casts
+	Attacked: IAbilityEngineMap[]
+	Attacks: IAbilityEngineMap[]
+	Dies: IAbilityEngineMap[]
+	Kills: IAbilityEngineMap[]
+	Casts: Map<number, AbilityTrigger>
 
 	protected static instance?: AbilityEngine
 
-	static getInstance () {
-		if (!AbilityEngine.instance) AbilityEngine.instance = new AbilityEngine(Triggers.getInstance())
+	static getInstance (depend: IAbilityEngineDepend) {
+		if (!AbilityEngine.instance) AbilityEngine.instance = new AbilityEngine(depend)
 		return AbilityEngine.instance
 	}
 
-	private constructor (triggers: ITriggers) {
-		this.Attacked = new Map<number, AbilityTrigger>()
-		this.Attacks = new Map<number, AbilityTrigger>()
-		this.Dies = new Map<number, AbilityTrigger>()
-		this.Kills = new Map<number, AbilityTrigger>()
+	private constructor (depend: IAbilityEngineDepend) {
+		// Prep Dependencies
+		const triggers = depend.triggers
+		const abilCast = depend.abilityCast
+
+		this.Attacked = []
+		this.Attacks = []
+		this.Dies = []
+		this.Kills = []
 		this.Casts = new Map<number, AbilityTrigger>()
 
 		triggers.UnitAttacked.addAction(() => {
 			// Unit Attacked
-			let abilTrig = this.Attacked.get(GetSpellAbilityId())
-			if (abilTrig && abilTrig.cast.attackedUnit.hasAbility(abilTrig.abilityType)) abilTrig.onEffect()
+			for (let index = 0; index < this.Attacked.length; index++) {
+				const element = this.Attacked[index]
+				if (abilCast.attackedUnit.hasAbility(element.id)) element.abilityTrigger.onEffect()
+			}
 
 			// Unit Attacks
-			abilTrig = this.Attacks.get(GetSpellAbilityId())
-			if (abilTrig && abilTrig.cast.attackingUnit.hasAbility(abilTrig.abilityType)) abilTrig.onEffect()
+			for (let index = 0; index < this.Attacks.length; index++) {
+				const element = this.Attacks[index]
+				if (abilCast.attackingUnit.hasAbility(element.id)) element.abilityTrigger.onEffect()
+			}
 		})
 
-		triggers.unitDamaged.addAction(() => {
+		triggers.UnitDying.addAction(() => {
 			// Unit Dies
-			let abilTrig = this.Attacked.get(GetSpellAbilityId())
-			if (abilTrig && abilTrig.cast.dyingUnit.hasAbility(abilTrig.abilityType)) abilTrig.onEffect()
+			for (let index = 0; index < this.Dies.length; index++) {
+				const element = this.Dies[index]
+				if (abilCast.damageTarget.hasAbility(element.id)) element.abilityTrigger.onEffect()
+			}
+		})
 
+		triggers.UnitDies.addAction(() => {
 			// Unit Kills
-			abilTrig = this.Attacks.get(GetSpellAbilityId())
-			if (abilTrig && abilTrig.cast.killingUnit.hasAbility(abilTrig.abilityType)) abilTrig.onEffect()
+			for (let index = 0; index < this.Kills.length; index++) {
+				const element = this.Kills[index]
+				if (abilCast.killingUnit.hasAbility(element.id)) element.abilityTrigger.onEffect()
+			}
 		})
 
 		triggers.UnitCasts.addAction(() => {
 			// Unit Casting
 			const abilTrig = this.Casts.get(GetSpellAbilityId())
-			if (abilTrig && abilTrig.cast.castingUnit.hasAbility(abilTrig.abilityType)) abilTrig.onEffect()
+			if (abilTrig) abilTrig.onEffect()
 		})
 	}
 }

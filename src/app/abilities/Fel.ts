@@ -5,7 +5,7 @@ import { AbilityFour } from 'lib/w3ts'
 
 export class FelGrunt extends Ability {
 	override onEffect (cast: IAbilityCast): void {
-		cast.killingUnit.addAbility(AbilityFour.FelWarlordTransformed)
+		this.unit.addAbility(AbilityFour.FelGruntTransformed)
 	}
 
 	static override fromHandle (ability: IAbility) {
@@ -15,7 +15,7 @@ export class FelGrunt extends Ability {
 
 export class FelOgre extends Ability {
 	override onEffect (cast: IAbilityCast): void {
-		cast.killingUnit.addAbility(AbilityFour.FelOgreTransformed)
+		this.unit.addAbility(AbilityFour.FelOgreTransformed)
 	}
 
 	static override fromHandle (ability: IAbility) {
@@ -25,7 +25,7 @@ export class FelOgre extends Ability {
 
 export class FelWarlord extends Ability {
 	override onEffect (cast: IAbilityCast): void {
-		if (cast.killingUnit.kills >= 4) cast.killingUnit.addAbility(AbilityFour.FelWarlordTransformed)
+		if (this.unit.kills >= 4) this.unit.addAbility(AbilityFour.FelWarlordTransformed)
 	}
 
 	static override fromHandle (ability: IAbility) {
@@ -35,7 +35,7 @@ export class FelWarlord extends Ability {
 
 export class FelWarlock extends Ability {
 	override onEffect (cast: IAbilityCast): void {
-		if (cast.killingUnit.kills >= 2) cast.killingUnit.addAbility(AbilityFour.FelWarlockTransformed)
+		if (this.unit.kills >= 2) this.unit.addAbility(AbilityFour.FelWarlockTransformed)
 	}
 
 	static override fromHandle (ability: IAbility) {

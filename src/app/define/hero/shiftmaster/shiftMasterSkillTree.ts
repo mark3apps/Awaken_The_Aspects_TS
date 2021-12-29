@@ -1,4 +1,4 @@
-import { ShadestormAbility, ShiftAbility } from 'app/define/hero/shiftmaster/abilities'
+import { ShadestormAbility, Shift } from 'app/define/hero/shiftmaster/abilities'
 import { ITalentTreeBuilder } from 'lib/STK/UI/STK/Interfaces/ITalentTreeBuilder'
 import { ActivationEvent } from 'lib/STK/UI/STK/Models/Talent'
 import { TalentTree } from 'lib/STK/UI/STK/Models/TalentTree'
@@ -246,7 +246,7 @@ export class ShiftMasterSkillTree extends TalentTree {
 	ImprovedShift (e: ActivationEvent) {
 		const hero = HeroMap.get(e.unit)
 		if (hero) {
-			const ability = hero.getAbility(AbilityFour.Shift) as ShiftAbility
+			const ability = hero.getAbility(AbilityFour.Shift) as Shift
 			const stats: IImprovedShift = e.talent.tag
 			ability.distance += stats.distance
 			ability.shadeDamageTaken += stats.taken
@@ -260,7 +260,7 @@ export class ShiftMasterSkillTree extends TalentTree {
 	MasteredShift (e: ActivationEvent) {
 		const hero = HeroMap.get(e.unit)
 		if (hero) {
-			const ability = hero.getAbility(AbilityFour.Shift) as ShiftAbility
+			const ability = hero.getAbility(AbilityFour.Shift) as Shift
 			const stats: IMasteredShift = e.talent.tag
 
 			ability.distance += stats.distance
@@ -276,7 +276,7 @@ export class ShiftMasterSkillTree extends TalentTree {
 	ShiftDistance (e: ActivationEvent) {
 		const hero = HeroMap.get(e.unit)
 		if (hero) {
-			const ability = hero.getAbility(AbilityFour.Shift) as ShiftAbility
+			const ability = hero.getAbility(AbilityFour.Shift) as Shift
 			ability.distance += e.talent.tag as number
 			ability.update()
 		}
@@ -285,7 +285,7 @@ export class ShiftMasterSkillTree extends TalentTree {
 	ShadeStrength (e: ActivationEvent) {
 		const hero = HeroMap.get(e.unit)
 		if (hero) {
-			const ability = hero.getAbility(AbilityFour.Shift) as ShiftAbility
+			const ability = hero.getAbility(AbilityFour.Shift) as Shift
 			ability.shadeDamageDealt += e.talent.tag as number
 			ability.update()
 		}
@@ -294,7 +294,7 @@ export class ShiftMasterSkillTree extends TalentTree {
 	ShadeHealth (e: ActivationEvent) {
 		const hero = HeroMap.get(e.unit)
 		if (hero) {
-			const ability = hero.getAbility(AbilityFour.Shift) as ShiftAbility
+			const ability = hero.getAbility(AbilityFour.Shift) as Shift
 
 			ability.shadeDamageTaken -= e.talent.tag as number
 			ability.update()

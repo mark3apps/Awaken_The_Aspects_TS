@@ -41,7 +41,7 @@ export const enum AbilityFour {
 	InfernoAspect = 'A025',
 
 	// Mage Towers
-	ManaRepository = 'A05L',
+	ManaTowerRestore = 'A05L',
 	ManaShieldTower = 'A00H',
 	ManaShardsTower = 'A03D',
 	ChainLightningTower = 'A00I',

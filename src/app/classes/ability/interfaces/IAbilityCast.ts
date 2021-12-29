@@ -7,6 +7,8 @@ export interface IAbilityCast extends IAbility {
 	targetUnit: Unit
 	attackingUnit: Unit,
 	attackedUnit: Unit,
+	damageSource: Unit,
+	damageTarget: Unit,
 	killingUnit: Unit,
 	dyingUnit: Unit,
 	abilType: AbilityType

@@ -2,21 +2,26 @@ import { Force, Unit } from 'lib/w3ts/index'
 import { Logger } from '../log'
 import { Position } from './position'
 import { Hero } from './hero'
-import { Rectangles } from 'lib/w3ts/handles/Rectangles'
-import { Forces } from 'lib/w3ts/handles/Forces'
 import { HeroMap } from './HeroTypeMap'
-import { ITriggers } from 'app/define/triggers/interfaces/ITriggers'
-
-export interface IHeroesDepend {
-	triggers: ITriggers
-}
+import { IHeroesDepend } from './IHeroesDepend'
 
 export class Heroes {
-	static define = (depend: IHeroesDepend): void => {
+	protected static instance: Heroes
+
+	static getInstance (depend: IHeroesDepend) {
+		if (!Heroes.instance) Heroes.instance = new Heroes(depend)
+		return Heroes.instance
+	}
+
+	constructor (depend: IHeroesDepend) {
+		const triggers = depend.triggers
+		const rects = depend.rects
+		const forces = depend.forces
+
 		Hero.PickedPlayers = new Force()
 
 		// When a Hero Levels up
-		depend.triggers.heroLevels.addAction(() => {
+		triggers.heroLevels.addAction(() => {
 			const hero = HeroMap.get(Unit.fromEvent())
 
 			if (hero) {
@@ -38,7 +43,7 @@ export class Heroes {
 		})
 
 		// When a new hero is created add it to the index
-		depend.triggers.unitCreated.addAction(() => {
+		triggers.unitCreated.addAction(() => {
 			if (Unit.fromEvent().isHero) {
 				const unit = Unit.fromEvent()
 
@@ -48,10 +53,10 @@ export class Heroes {
 					try {
 						let pos: Position
 
-						if (unit.owner.inForce(Forces.AlliancePlayers)) {
-							pos = Rectangles.Left_Castle.centerPosition
+						if (unit.owner.inForce(forces.AlliancePlayers)) {
+							pos = rects.Left_Castle.centerPosition
 						} else {
-							pos = Rectangles.Right_Castle.centerPosition
+							pos = rects.Right_Castle.centerPosition
 						}
 
 						const hero = new Hero(unit.owner, unit.typeId, pos, 180)

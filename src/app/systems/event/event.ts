@@ -1,9 +1,10 @@
 import { Position } from 'app/classes/position'
 import { UnitType } from 'app/classes/unitType'
-import { Forces } from 'lib/w3ts/handles/Forces'
 import { Timer, Unit, Trigger, Order } from 'lib/w3ts/index'
-import { Banner, Side } from '../banner/banner'
-import { Loc } from '../loc'
+import { Banner } from '../banner/banner'
+import { Side } from "../banner/Side"
+import { IEvent } from './IEvent'
+import { IEventDepend } from './IEventDepend'
 
 export class Event {
 	banners: Banner[] = []
@@ -15,17 +16,25 @@ export class Event {
 	eventUnit?: Unit
 	spawnPos: Position
 
+	// Dependencies
+	locs
+	forces
+
 	allianceScore = 0
 	federationScore = 0
 
 	eventDeath: Trigger
 
-	constructor (summonUnitType: UnitType, banners: Banner[] = [], spawnPos: Position, eventInterval = 240, eventTime = 30) {
-		this.banners = banners
-		this.summonUnitType = summonUnitType
-		this.eventInterval = eventInterval
-		this.eventDuration = eventTime
-		this.spawnPos = spawnPos
+	constructor (depend: IEventDepend, event: IEvent) {
+		// Dependencies
+		this.locs = depend.locs
+		this.forces = depend.forces
+
+		this.banners = event.banners
+		this.summonUnitType = event.summonUnitType
+		this.eventInterval = event.eventInterval ?? 240
+		this.eventDuration = event.eventTime ?? 30
+		this.spawnPos = event.spawnPos
 
 		this.timer = new Timer()
 		this.timer.start(this.eventInterval, false, () => { this._onEventStart() })
@@ -40,10 +49,10 @@ export class Event {
 	}
 
 	private _onEventStart (): void {
-		const sightUnitAlliance = new Unit(Forces.Alliance.getRandomPlayer(), UnitType.DummySeer, this.spawnPos, 0)
+		const sightUnitAlliance = new Unit(this.forces.Alliance.getRandomPlayer(), UnitType.DummySeer, this.spawnPos, 0)
 		sightUnitAlliance.applyTimedLifeGeneric(this.eventDuration)
 
-		const sightUnitFederation = new Unit(Forces.Federation.getRandomPlayer(), UnitType.DummySeer, this.spawnPos, 0)
+		const sightUnitFederation = new Unit(this.forces.Federation.getRandomPlayer(), UnitType.DummySeer, this.spawnPos, 0)
 		sightUnitFederation.applyTimedLifeGeneric(this.eventDuration)
 
 		this.onEventStart()
@@ -86,11 +95,11 @@ export class Event {
 
 	public createUnit (): void {
 		if (this.allianceScore > this.federationScore) {
-			this.eventUnit = new Unit(Forces.Alliance.getRandomPlayer(), this.summonUnitType.id, this.spawnPos, 270)
-			this.eventUnit.issueOrderAt(Order.Attack, Loc.middle.federation.randomX, Loc.middle.federation.randomY)
+			this.eventUnit = new Unit(this.forces.Alliance.getRandomPlayer(), this.summonUnitType.id, this.spawnPos, 270)
+			this.eventUnit.issueOrderAt(Order.Attack, this.locs.middle.federation.randomX, this.locs.middle.federation.randomY)
 		} else if (this.allianceScore < this.federationScore) {
-			this.eventUnit = new Unit(Forces.Federation.getRandomPlayer(), this.summonUnitType.id, this.spawnPos, 270)
-			this.eventUnit.issueOrderAt(Order.Attack, Loc.middle.alliance.randomX, Loc.middle.alliance.randomY)
+			this.eventUnit = new Unit(this.forces.Federation.getRandomPlayer(), this.summonUnitType.id, this.spawnPos, 270)
+			this.eventUnit.issueOrderAt(Order.Attack, this.locs.middle.alliance.randomX, this.locs.middle.alliance.randomY)
 		} else {
 			this.eventUnit = new Unit(PLAYER_NEUTRAL_AGGRESSIVE, this.summonUnitType.id, this.spawnPos, 270)
 		}
