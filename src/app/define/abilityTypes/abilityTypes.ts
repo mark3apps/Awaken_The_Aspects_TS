@@ -1,7 +1,7 @@
 import { EffectType } from 'app/classes/abilityType/enums/EffectType'
 import { TargetType } from 'app/classes/abilityType/enums/TargetType'
 import { AbilityFour, Order, BuffFour } from 'lib/w3ts'
-import { AbilityType, UnitType } from '../../classes'
+import { AbilityType } from '../../classes'
 
 export class AbilityTypes {
 	private static instance?: AbilityTypes
@@ -31,6 +31,17 @@ export class AbilityTypes {
 	ChainLightningTower
 	ConeOfFireTower
 	AspectOfDeathInfect
+
+	bonusCollection
+	bonusStats
+	bonusDamage
+	bonusArmor
+	bonusAttackSpeed
+	bonusMoveSpeed
+	bonusLifeRegen
+
+	treeSkill
+
 	Shift
 	Switch
 	FelForm
@@ -143,6 +154,24 @@ export class AbilityTypes {
 			effectType: EffectType.Attacks,
 			targetType: TargetType.CrippleAround
 		})
+
+		//
+		// Bonus Abilities
+		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+		this.bonusCollection = new AbilityType({ four: AbilityFour.BonusSpellBook })
+		this.bonusStats = new AbilityType({ four: AbilityFour.BonusStats })
+		this.bonusDamage = new AbilityType({ four: AbilityFour.BonusDamage })
+		this.bonusArmor = new AbilityType({ four: AbilityFour.BonusArmor })
+		this.bonusAttackSpeed = new AbilityType({ four: AbilityFour.BonusAttackSpeed })
+		this.bonusMoveSpeed = new AbilityType({ four: AbilityFour.BonusMovementSpeed })
+		this.bonusLifeRegen = new AbilityType({ four: AbilityFour.BonusLifeRegen })
+
+		//
+		// Tree Abilities
+		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+		this.treeSkill = new AbilityType({ four: 'A024', effectType: EffectType.Casts })
 
 		//
 		// Hero Ability Types

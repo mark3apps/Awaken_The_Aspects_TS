@@ -1,4 +1,4 @@
-import { UnitType } from 'app/classes/unitType'
+import { UnitType } from 'app/classes/unitType/UnitType'
 import { Unit } from 'lib/w3ts/index'
 
 export class GateType {

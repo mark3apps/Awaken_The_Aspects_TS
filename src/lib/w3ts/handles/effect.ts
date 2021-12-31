@@ -5,7 +5,7 @@ import { Color } from '../index'
 import { Handle } from './handle'
 import { MapPlayer } from './player'
 import { Point } from './point'
-import { VectorInterface } from "../../../app/classes/VectorInterface"
+import { IVector } from "../../../app/classes/IVector"
 import { Orientation } from "../../../app/classes/Orientation"
 import { Coordinate } from "../../../app/classes/Coordinate"
 import { Widget } from './widget'
@@ -199,7 +199,7 @@ export class Effect extends Handle<effect> {
 	}
 
 	// eslint-disable-next-line accessor-pairs
-	public set vector (vector: VectorInterface) {
+	public set vector (vector: IVector) {
 		this.position = vector
 		this.orientation = vector
 	}

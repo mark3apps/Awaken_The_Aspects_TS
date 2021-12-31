@@ -297,7 +297,7 @@ export class UnitAbility extends UnitAbilityHandle {
 		return false
 	}
 
-	setLevelField (field: abilitybooleanlevelfield | abilitystringlevelfield | abilityreallevelfield | abilityintegerlevelfield, value: boolean | number | string, level: number = this.level): boolean {
+	setLevelField (field: abilitybooleanlevelfield | abilitystringlevelfield | abilityreallevelfield | abilityintegerlevelfield, value: boolean | number | string, level: number = this.level - 1): boolean {
 		const fieldType = field.toString().substr(0, field.toString().indexOf(':'))
 
 		if (fieldType === 'abilitybooleanlevelfield' && typeof value === 'boolean') {
@@ -342,9 +342,8 @@ export class UnitAbility extends UnitAbilityHandle {
 		}
 	}
 
-	getLevelField (field: abilitybooleanlevelfield | abilitystringlevelfield | abilityreallevelfield | abilityintegerlevelfield, level: number = this.level): (boolean | number | string) {
+	getLevelField (field: abilitybooleanlevelfield | abilitystringlevelfield | abilityreallevelfield | abilityintegerlevelfield, level: number = this.level - 1): (boolean | number | string) {
 		const fieldType = field.toString().substr(0, field.toString().indexOf(':'))
-		level -= 1
 
 		switch (fieldType) {
 			case 'abilitybooleanlevelfield': {

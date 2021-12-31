@@ -1,5 +1,5 @@
 import { UnitType } from 'app/classes'
-import { AttachPoint, AttachMod, AttachSpecial } from 'lib/w3ts'
+import { Attach, AttachMod, AttachSpecial } from 'lib/w3ts'
 
 export interface IDeathSpawn {
 	amount: number
@@ -7,7 +7,7 @@ export interface IDeathSpawn {
 	chance?: number
 	animation?: string
 	effectPath?: string
-	effectAttach?: AttachPoint
+	effectAttach?: Attach
 	effectAttachMod?: AttachMod
 	effectAttachSpecial?: AttachSpecial
 }

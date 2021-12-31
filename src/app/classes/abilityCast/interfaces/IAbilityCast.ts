@@ -1,9 +1,10 @@
 import { Coordinate } from 'app/classes/Coordinate'
 import { Unit } from 'lib/w3ts/index'
-import { AbilityType } from '../..'
+import { AbilityType, Hero } from '../..'
 
 export interface IAbilityCast {
 	CastingUnit: () => Unit
+	CastingHero: () => Hero
 	TargetUnit: () => Unit
 	AttackingUnit: () => Unit,
 	AttackedUnit: () => Unit,

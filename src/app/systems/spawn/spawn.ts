@@ -76,7 +76,7 @@ export class Spawn {
 						const p = baseElement.army.randomPlayer
 						const unitType = unitElement.unitType
 
-						const u = new Unit(p, unitType, start)
+						const u = new Unit({ owner: p, type: unitType, coor: start })
 						u.issueOrderAtCoordinate(Order.Attack, dest)
 					}
 				}

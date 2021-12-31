@@ -1,10 +1,13 @@
 import { Group, BuffFour, Unit, AbilityFour, Order } from 'lib/w3ts'
-import { UnitAbility, UnitType } from '../classes'
+import { UnitAbility } from '../classes'
 import { IUnitAbilityParam } from '../classes/unitAbility/interfaces/IUnitAbilityParam'
 import { IAbilityCast } from '../classes/abilityCast/interfaces/IAbilityCast'
+import { UnitTypes } from 'app/define/UnitTypes'
 
 export class AspectOfDeathInfect extends UnitAbility {
 	override onEffect (cast: IAbilityCast): void {
+		const unitTypes = UnitTypes.getInstance()
+
 		const unitCount = this.normalDuration
 
 		const g = new Group()
@@ -18,7 +21,7 @@ export class AspectOfDeathInfect extends UnitAbility {
 				!u.isMagicImmune &&
 				!u.hasBuff(BuffFour.Infected))
 		}, (u) => {
-			const dummy = new Unit(this.unit.owner, UnitType.Dummy, this.unit.coordinate, this.unit.facing)
+			const dummy = new Unit({ owner: this.unit.owner, type: unitTypes.Dummy, coor: this.unit.coordinate, facing: this.unit.facing })
 			dummy.addAbility(AbilityFour.InfectAspectDummy)
 			dummy.issueTargetOrder(Order.Parasite, u)
 			dummy.applyTimedLife(BuffFour.TimedLifeGeneric, 1)

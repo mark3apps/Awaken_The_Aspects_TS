@@ -1,4 +1,3 @@
-import { UnitType } from 'app/classes/unitType'
 import { Group, Rectangle, Anim } from 'lib/w3ts/index'
 import { GateType } from './gateType'
 import { Gate } from './gate'
@@ -15,9 +14,10 @@ export class Gates {
 
 	constructor (depend: IGatesDepend) {
 		const triggers = depend.triggers
+		const unitTypes = depend.unitTypes
 
-		new GateType(UnitType.DwarvenGateOpen, UnitType.DwarvenGateClosed)
-		new GateType(UnitType.CastleGateOpen, UnitType.CastleGateClosed)
+		new GateType(unitTypes.DwarvenGateOpen, unitTypes.DwarvenGateClosed)
+		new GateType(unitTypes.CastleGateOpen, unitTypes.CastleGateClosed)
 
 		const g = new Group()
 		g.enumUnitsInRect(Rectangle.getPlayableMap())

@@ -1,11 +1,10 @@
-import { AbilityType, UnitAbility } from 'app/classes'
-import { IUnitAbilityParam } from 'app/classes/unitAbility/interfaces/IUnitAbilityParam'
+import { AbilityType, Hero, UnitAbility } from 'app/classes'
 import { Unit } from 'lib/w3ts'
 
 export interface IAbility {
 	abilType: AbilityType,
 	onEffectCast: () => void,
-	getAbility: (unitAbil: IUnitAbilityParam) => unknown,
-	TriggerUnit: () => Unit,
-	castAbility: UnitAbility
+	getUnitAbility: (unit: Unit) => unknown,
+	TriggerUnit: () => Unit | Hero
+	UnitAbilityFromCast: UnitAbility
 }

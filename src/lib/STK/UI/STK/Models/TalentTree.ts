@@ -1,10 +1,11 @@
-import { Unit, MapPlayer } from 'lib/w3ts'
+import { Hero } from 'app/classes'
+import { MapPlayer } from 'lib/w3ts'
 import { ITalentBuilder } from '../Interfaces/ITalentBuilder'
 import { ITalentTreeBuilder } from '../Interfaces/ITalentTreeBuilder'
 import { Talent, TalentData } from './Talent'
 
 export abstract class TalentTree {
-	private _unit: Unit
+	private _unit: Hero
 
 	private _talentPoints: number = 0;
 	private _title: string = '';
@@ -24,8 +25,8 @@ export abstract class TalentTree {
 
 	abstract talentPoints: number
 
-	constructor (unit: Unit) {
-		this._unit = unit
+	constructor (hero: Hero) {
+		this._unit = hero
 		this.Initialize(new TalentTreeBuilder(this))
 	}
 
@@ -99,7 +100,7 @@ export abstract class TalentTree {
 	private ActivateTalent (index: number, talent: Talent, rank: number) {
 		if (!talent.onActivate) return
 		talent.onActivate({
-			unit: this._unit,
+			hero: this._unit,
 			talent: talent
 		})
 	}
@@ -107,7 +108,7 @@ export abstract class TalentTree {
 	private DeactivateTalent (index: number, talent: Talent) {
 		if (!talent.onDeactivate) return
 		talent.onDeactivate({
-			unit: this._unit,
+			hero: this._unit,
 			talent: talent
 		})
 	}
@@ -115,7 +116,7 @@ export abstract class TalentTree {
 	private AllocateTalent (index: number, talent: Talent): boolean {
 		if (!talent.onAllocate) return true
 		talent.onAllocate({
-			unit: this._unit,
+			hero: this._unit,
 			talent: talent
 		})
 		return true
@@ -124,7 +125,7 @@ export abstract class TalentTree {
 	private DeallocateTalent (index: number, talent: Talent) {
 		if (!talent.onDeallocate) return
 		talent.onDeallocate({
-			unit: this._unit,
+			hero: this._unit,
 			talent: talent
 		})
 	}
@@ -132,7 +133,7 @@ export abstract class TalentTree {
 	public CalculateTalentRequirements (index: number, talent: Talent): [boolean, string?] {
 		if (!talent.requirements) return [true]
 		const result = talent.requirements({
-			unit: this._unit
+			hero: this._unit
 		})
 		return result
 	}
@@ -333,7 +334,7 @@ export abstract class TalentTree {
 		return !this._tempRankState
 	}
 
-	public get unit (): Unit {
+	public get hero (): Hero {
 		return this._unit
 	}
 

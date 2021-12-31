@@ -1,6 +1,6 @@
 
 /** Class that contains every known attachmentpoint in game */
-export enum AttachPoint {
+export enum Attach {
 	/** The attachmentpoint 'overhead' floats over the unit's head, but doesn't sway with it */
 	overhead = 'overhead',
 	/** The attachmentpoint 'head' sways with the unit's animation */

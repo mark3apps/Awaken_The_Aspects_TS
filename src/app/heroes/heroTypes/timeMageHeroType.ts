@@ -2,7 +2,8 @@ import { UnitType, AbilityType, Hero } from 'app/classes'
 import { HeroAttribute } from 'app/systems'
 import { ShiftMasterSkillTree } from 'app/define/hero/shiftmaster/shiftMasterSkillTree'
 import { Strategy } from 'lib/resources/strategy'
-import { HeroType, AbilityFour, Order } from 'lib/w3ts'
+import { AbilityFour, Order } from 'lib/w3ts'
+import { HeroType } from 'app/classes/herotype'
 export class TimeMageHeroType extends HeroType {
 	// constructor () {
 	// 	super('H00J', 'TimeMage')

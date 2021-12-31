@@ -19,7 +19,7 @@ export class UnitAbilityHandle {
 
 		if (!UnitAbilityHandle.exists(this.unit, this.abilityType)) UnitAddAbility(this.unit.handle, this.abilityType.id)
 
-		this.unit.abilities.set(this.abilityType.four, this)
+		this.unit.unitAbilities.set(this.abilityType.four, this)
 		this.unit.abilityFours.push(this.abilityType.four)
 	}
 
@@ -37,7 +37,7 @@ export class UnitAbilityHandle {
 	}
 
 	protected static getObject (ability: IUnitAbilityParam): unknown {
-		const obj = ability.unit.abilities.get(ability.abilType.four)
+		const obj = ability.unit.unitAbilities.get(ability.abilType.four)
 		if (obj) {
 			return obj
 		}

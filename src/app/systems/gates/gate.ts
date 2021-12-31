@@ -113,7 +113,7 @@ export class Gate {
 	}
 
 	public died (): void {
-		if (this.gateType) this.unit = new Unit(PlayerPassive, this.gateType.openGate, this.unit.coordinate, this.unit.facing)
+		if (this.gateType) this.unit = new Unit({ owner: PlayerPassive, type: this.gateType.openGate, coor: this.unit.coordinate, facing: this.unit.facing })
 		this.unit.setAnimation(Anim.Gate.death)
 		this.state = GateState.died
 		const index = Gate.gates.indexOf(this)

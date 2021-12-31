@@ -1,5 +1,7 @@
-import { Factions } from '../../define/Factions'
+import { UnitTypes } from 'app/define/UnitTypes'
+import { Factions } from '../../define/factions/Factions'
 
 export interface ISpawnsDepend {
-	factions: Factions
+	factions: Factions,
+	unitTypes: UnitTypes
 }

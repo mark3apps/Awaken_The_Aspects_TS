@@ -8,7 +8,6 @@ export class Units {
 		return Units.instance
 	}
 
-	/// / AUTO DEFINE
 	h003_0015
 	e003_0058
 	n001_0048

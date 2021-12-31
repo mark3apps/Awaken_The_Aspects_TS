@@ -16,10 +16,12 @@ export class Cinematic {
 	// Dependencies
 	camSetups
 	forces
+	unitTypes
 
 	constructor (depend: ICinematicDepend) {
 		this.camSetups = depend.camSetups
 		this.forces = depend.forces
+		this.unitTypes = depend.unitTypes
 	}
 
 	// On Init
@@ -141,7 +143,7 @@ export class Cinematic {
 
 			Players[i].applyCamera(true, startCamera, 0)
 
-			const unit = new Unit(Players[19], UnitType.DummyCameraLock, startCamera.position, bj_UNIT_FACING)
+			const unit = new Unit({ owner: Players[19], type: this.unitTypes.DummyCameraLock, coor: startCamera.position })
 			unit.applyTimedLifeGeneric(30)
 
 			Players[i].setTargetControllerCamera(unit, 0, 0, false)
@@ -200,7 +202,7 @@ export class Cinematic {
 
 					for (let i = 0; i < Hero.all.length; i++) {
 						const hero = Hero.all[i]
-						hero.unit.show = true
+						hero.show = true
 					}
 
 					countdown.pause()

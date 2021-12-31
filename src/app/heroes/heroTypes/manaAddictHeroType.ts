@@ -5,7 +5,7 @@ import { EffectType } from "app/classes/abilityType/enums/EffectType"
 import { HeroAttribute } from 'app/systems/heroAttribute/heroAttribute'
 import { ShiftMasterSkillTree } from 'app/define/hero/shiftmaster/shiftMasterSkillTree'
 import { Strategy } from 'lib/resources/strategy'
-import { HeroType } from 'lib/w3ts/handles/herotype'
+import { HeroType } from 'app/classes/herotype'
 import { AbilityFour, Order, BuffFour } from 'lib/w3ts/index'
 
 export class ManaAddictHeroType extends HeroType {

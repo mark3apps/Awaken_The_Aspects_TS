@@ -21,59 +21,60 @@ export class DeathSpawn {
 		// Dependencies
 		this.pathing = depend.pathing
 		const triggers = depend.triggers
+		const unitTypes = depend.unitTypes
 
-		this.add(UnitType.Knight, { amount: 1, unitId: UnitType.Captain1 })
-		this.add(UnitType.WaterElemental2, { amount: 1, unitId: UnitType.WaterElemental1 })
-		this.add(UnitType.WaterElemental3, { amount: 1, unitId: UnitType.WaterElemental2 })
-		this.add(UnitType.SeigeGolem, { amount: 2, unitId: UnitType.WarGolem })
-		this.add(UnitType.WarGolem, { amount: 2, unitId: UnitType.BattleGolem })
-		this.add(UnitType.HippogryphRider, { amount: 1, unitId: UnitType.NightElfRanger, chance: 0.6 })
+		this.add(unitTypes.Knight, { amount: 1, unitId: unitTypes.Captain1 })
+		this.add(unitTypes.WaterElemental2, { amount: 1, unitId: unitTypes.WaterElemental1 })
+		this.add(unitTypes.WaterElemental3, { amount: 1, unitId: unitTypes.WaterElemental2 })
+		this.add(unitTypes.SeigeGolem, { amount: 2, unitId: unitTypes.WarGolem })
+		this.add(unitTypes.WarGolem, { amount: 2, unitId: unitTypes.BattleGolem })
+		this.add(unitTypes.HippogryphRider, { amount: 1, unitId: unitTypes.NightElfRanger, chance: 0.6 })
 
-		this.add(UnitType.SeigeEngine, { amount: 1, unitId: UnitType.Gyrocopter })
-		this.add(UnitType.SeigeEngine, { amount: 1, unitId: UnitType.SeigeEngineDamaged })
-		this.add(UnitType.SeigeEngineDamaged, { amount: 1, unitId: UnitType.Gyrocopter })
+		this.add(unitTypes.SeigeEngine, { amount: 1, unitId: unitTypes.Gyrocopter })
+		this.add(unitTypes.SeigeEngine, { amount: 1, unitId: unitTypes.SeigeEngineDamaged })
+		this.add(unitTypes.SeigeEngineDamaged, { amount: 1, unitId: unitTypes.Gyrocopter })
 
-		this.add(UnitType.Nerubianziggurat, { amount: 7, unitId: UnitType.SkeletonWarrior, chance: 0.7 })
-		this.add(UnitType.Nerubianziggurat, { amount: 5, unitId: UnitType.SkeletonArcher, chance: 0.7 })
+		this.add(unitTypes.Nerubianziggurat, { amount: 7, unitId: unitTypes.SkeletonWarrior, chance: 0.7 })
+		this.add(unitTypes.Nerubianziggurat, { amount: 5, unitId: unitTypes.SkeletonArcher, chance: 0.7 })
 
-		this.add(UnitType.MercTent, { amount: 5, unitId: UnitType.Bandit, chance: 0.4 })
-		this.add(UnitType.MercTent, { amount: 3, unitId: UnitType.BanditSpearman, chance: 0.5 })
-		this.add(UnitType.MercTent, { amount: 2, unitId: UnitType.Assassin, chance: 0.25 })
+		this.add(unitTypes.MercTent, { amount: 5, unitId: unitTypes.Bandit, chance: 0.4 })
+		this.add(unitTypes.MercTent, { amount: 3, unitId: unitTypes.BanditSpearman, chance: 0.5 })
+		this.add(unitTypes.MercTent, { amount: 2, unitId: unitTypes.Assassin, chance: 0.25 })
 
-		this.add(UnitType.WildhammerCottage, { amount: 2, unitId: UnitType.DwarfClansman, chance: 0.3 })
-		this.add(UnitType.WildhammerCottage, { amount: 2, unitId: UnitType.DwarfAxethrower, chance: 0.3 })
-		this.add(UnitType.WildhammerCottage, { amount: 1, unitId: UnitType.DwarfElite, chance: 0.2 })
-		this.add(UnitType.WildhammerFarm, { amount: 2, unitId: UnitType.DwarfClansman, chance: 0.2 })
-		this.add(UnitType.WildhammerFarm, { amount: 2, unitId: UnitType.DwarfAxethrower, chance: 0.2 })
-		this.add(UnitType.WildhammerFarm, { amount: 1, unitId: UnitType.DwarfElite, chance: 0.3 })
-		this.add(UnitType.WildhammerFarmLarge, { amount: 2, unitId: UnitType.DwarfClansman, chance: 0.3 })
-		this.add(UnitType.WildhammerFarmLarge, { amount: 2, unitId: UnitType.DwarfAxethrower, chance: 0.3 })
-		this.add(UnitType.WildhammerFarmLarge, { amount: 1, unitId: UnitType.DwarfElite, chance: 0.3 })
+		this.add(unitTypes.WildhammerCottage, { amount: 2, unitId: unitTypes.DwarfClansman, chance: 0.3 })
+		this.add(unitTypes.WildhammerCottage, { amount: 2, unitId: unitTypes.DwarfAxethrower, chance: 0.3 })
+		this.add(unitTypes.WildhammerCottage, { amount: 1, unitId: unitTypes.DwarfElite, chance: 0.2 })
+		this.add(unitTypes.WildhammerFarm, { amount: 2, unitId: unitTypes.DwarfClansman, chance: 0.2 })
+		this.add(unitTypes.WildhammerFarm, { amount: 2, unitId: unitTypes.DwarfAxethrower, chance: 0.2 })
+		this.add(unitTypes.WildhammerFarm, { amount: 1, unitId: unitTypes.DwarfElite, chance: 0.3 })
+		this.add(unitTypes.WildhammerFarmLarge, { amount: 2, unitId: unitTypes.DwarfClansman, chance: 0.3 })
+		this.add(unitTypes.WildhammerFarmLarge, { amount: 2, unitId: unitTypes.DwarfAxethrower, chance: 0.3 })
+		this.add(unitTypes.WildhammerFarmLarge, { amount: 1, unitId: unitTypes.DwarfElite, chance: 0.3 })
 
-		this.add(UnitType.GryphonRider, { amount: 1, unitId: UnitType.DwarfAxethrower })
+		this.add(unitTypes.GryphonRider, { amount: 1, unitId: unitTypes.DwarfAxethrower })
 
-		this.add(UnitType.CityBuilding03, { amount: 1, unitId: UnitType.VillagerMale1, chance: 0.1 })
-		this.add(UnitType.CityBuilding03, { amount: 1, unitId: UnitType.VillagerMale2, chance: 0.1 })
-		this.add(UnitType.CityBuilding03, { amount: 2, unitId: UnitType.VillagerFemale1, chance: 0.1 })
-		this.add(UnitType.CityBuilding03, { amount: 1, unitId: UnitType.VillagerChild1, chance: 0.1 })
-		this.add(UnitType.CityBuilding03, { amount: 1, unitId: UnitType.VillagerChild2, chance: 0.1 })
+		this.add(unitTypes.CityBuilding03, { amount: 1, unitId: unitTypes.VillagerMale1, chance: 0.1 })
+		this.add(unitTypes.CityBuilding03, { amount: 1, unitId: unitTypes.VillagerMale2, chance: 0.1 })
+		this.add(unitTypes.CityBuilding03, { amount: 2, unitId: unitTypes.VillagerFemale1, chance: 0.1 })
+		this.add(unitTypes.CityBuilding03, { amount: 1, unitId: unitTypes.VillagerChild1, chance: 0.1 })
+		this.add(unitTypes.CityBuilding03, { amount: 1, unitId: unitTypes.VillagerChild2, chance: 0.1 })
 
-		this.add(UnitType.CityBuilding09, { amount: 1, unitId: UnitType.VillagerMale1, chance: 0.1 })
-		this.add(UnitType.CityBuilding09, { amount: 1, unitId: UnitType.VillagerMale2, chance: 0.1 })
-		this.add(UnitType.CityBuilding09, { amount: 2, unitId: UnitType.VillagerFemale1, chance: 0.1 })
-		this.add(UnitType.CityBuilding09, { amount: 1, unitId: UnitType.VillagerChild1, chance: 0.1 })
-		this.add(UnitType.CityBuilding09, { amount: 1, unitId: UnitType.VillagerChild2, chance: 0.1 })
+		this.add(unitTypes.CityBuilding09, { amount: 1, unitId: unitTypes.VillagerMale1, chance: 0.1 })
+		this.add(unitTypes.CityBuilding09, { amount: 1, unitId: unitTypes.VillagerMale2, chance: 0.1 })
+		this.add(unitTypes.CityBuilding09, { amount: 2, unitId: unitTypes.VillagerFemale1, chance: 0.1 })
+		this.add(unitTypes.CityBuilding09, { amount: 1, unitId: unitTypes.VillagerChild1, chance: 0.1 })
+		this.add(unitTypes.CityBuilding09, { amount: 1, unitId: unitTypes.VillagerChild2, chance: 0.1 })
 
-		this.add(UnitType.HumanFrigate, { amount: 2, unitId: UnitType.Arbalist, chance: 0.4 })
-		this.add(UnitType.HumanFrigate, { amount: 3, unitId: UnitType.NavyMarine, chance: 0.5 })
-		this.add(UnitType.HumanBattleship, { amount: 1, unitId: UnitType.Arbalist, chance: 0.5 })
-		this.add(UnitType.HumanBattleship, { amount: 4, unitId: UnitType.NavyMarine, chance: 0.5 })
+		this.add(unitTypes.HumanFrigate, { amount: 2, unitId: unitTypes.Arbalist, chance: 0.4 })
+		this.add(unitTypes.HumanFrigate, { amount: 3, unitId: unitTypes.NavyMarine, chance: 0.5 })
+		this.add(unitTypes.HumanBattleship, { amount: 1, unitId: unitTypes.Arbalist, chance: 0.5 })
+		this.add(unitTypes.HumanBattleship, { amount: 4, unitId: unitTypes.NavyMarine, chance: 0.5 })
 
-		this.add(UnitType.NightElfFrigate, { amount: 2, unitId: UnitType.NightElfRanger, chance: 0.6 })
-		this.add(UnitType.NightElfFrigate, { amount: 2, unitId: UnitType.NightElfSentry, chance: 0.7 })
-		this.add(UnitType.NightElfBattleship, { amount: 2, unitId: UnitType.NightElfRanger, chance: 0.7 })
-		this.add(UnitType.NightElfBattleship, { amount: 1, unitId: UnitType.NightElfEliteRanger, chance: 0.6 })
-		this.add(UnitType.NightElfBattleship, { amount: 3, unitId: UnitType.NightElfSentry, chance: 0.8 })
+		this.add(unitTypes.NightElfFrigate, { amount: 2, unitId: unitTypes.NightElfRanger, chance: 0.6 })
+		this.add(unitTypes.NightElfFrigate, { amount: 2, unitId: unitTypes.NightElfSentry, chance: 0.7 })
+		this.add(unitTypes.NightElfBattleship, { amount: 2, unitId: unitTypes.NightElfRanger, chance: 0.7 })
+		this.add(unitTypes.NightElfBattleship, { amount: 1, unitId: unitTypes.NightElfEliteRanger, chance: 0.6 })
+		this.add(unitTypes.NightElfBattleship, { amount: 3, unitId: unitTypes.NightElfSentry, chance: 0.8 })
 
 		// Add Death Spawn trigger to Unit Dieing Trigger
 		triggers.UnitDies.addAction(() => {
@@ -123,7 +124,7 @@ export class DeathSpawn {
 		try {
 			for (let i = 0; i < deathSpawn.amount; i++) {
 				if (deathSpawn.chance as number >= math.random() && unit.isTerrainPathable(PATHING_TYPE_WALKABILITY)) {
-					const u = new Unit(unit.owner, deathSpawn.unitId, unit.coordinate, unit.facing)
+					const u = new Unit({ owner: unit.owner, type: deathSpawn.unitId, coor: unit.coordinate, facing: unit.facing })
 
 					// if ()
 					this.pathing.newOrders(u)

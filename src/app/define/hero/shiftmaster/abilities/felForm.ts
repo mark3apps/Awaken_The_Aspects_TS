@@ -1,11 +1,10 @@
 import { UnitAbility, Hero, UnitType } from 'app/classes'
 import { IUnitAbilityParam } from 'app/classes/unitAbility/interfaces/IUnitAbilityParam'
-import { HeroMap } from 'app/classes/HeroTypeMap'
 import { Logger } from 'app/log'
 import { AbilityField } from 'lib/resources/fields'
 import { Order } from 'lib/w3ts'
 
-export class FelFormAbility extends UnitAbility {
+export class FelForm extends UnitAbility {
 	private _felUnit = UnitType.get(this.getLevelField(AbilityField.ALTERNATE_FORM_UNIT_EMEU) as number)
 	private _damage = 100
 	private _attackSpeed = 0.5
@@ -106,30 +105,25 @@ export class FelFormAbility extends UnitAbility {
 
 	startFelForm () {
 		try {
+			const hero = this.unit as Hero
+			Logger.Information("Hero", hero.name)
+
 			this.custom.set("felForm", true)
 
-			const hero = HeroMap.get(this.unit)
+			hero.armorBonus += this.armor
+			this.custom.set("felFormArmor", this.armor)
 
-			if (hero) {
-				Logger.Information("Hero", hero.unit.name)
+			hero.damageBonus += this.damage
+			this.custom.set("felFormDamage", this.damage)
 
-				// hero.armorBonus += this.armor
-				// this.custom.set("felFormArmor", this.armor)
+			hero.attackSpeedBonus += this.attackSpeed
+			this.custom.set("felFormAttackSpeed", this.attackSpeed)
 
-				// hero.agilityBonus += this.damage
-				// this.custom.set("felFormDamage", this.damage)
+			hero.movementSpeedBonus += this.moveSpeed
+			this.custom.set("felFormMoveSpeed", this.moveSpeed)
 
-				// hero.attackSpeedBonus += this.attackSpeed
-				// this.custom.set("felFormAttackSpeed", this.attackSpeed)
-
-				// hero.moveSpeedBonus += this.moveSpeed
-				// this.custom.set("felFormMoveSpeed", this.moveSpeed)
-
-				this.unit.lifeRegenerationRate += this.lifeRegenerationRate
-				this.custom.set("felFormLifeRegen", this.lifeRegenerationRate)
-			} else {
-				Logger.Warning("Hero Not Found")
-			}
+			hero.lifeRegenBonus += this.lifeRegenerationRate
+			this.custom.set("felFormLifeRegen", this.lifeRegenerationRate)
 
 			print("Morphing")
 		} catch (error) {
@@ -138,12 +132,12 @@ export class FelFormAbility extends UnitAbility {
 	}
 
 	endFelForm () {
-		const hero = HeroMap.get(this.unit) as Hero
-		// hero.armorBonus -= this.custom.get("felFormArmor") as number
-		// hero.damageBonus -= this.custom.get("felFormDamage") as number
-		// hero.attackSpeedBonus -= this.custom.get("felFormAttackSpeed") as number
-		// hero.moveSpeedBonus -= this.custom.get("felFormMoveSpeed") as number
-		this.unit.lifeRegenerationRate -= this.custom.get("felFormLifeRegen") as number
+		const hero = this.unit as Hero
+		hero.armorBonus -= this.custom.get("felFormArmor") as number
+		hero.damageBonus -= this.custom.get("felFormDamage") as number
+		hero.attackSpeedBonus -= this.custom.get("felFormAttackSpeed") as number
+		hero.movementSpeedBonus -= this.custom.get("felFormMoveSpeed") as number
+		hero.lifeRegenBonus -= this.custom.get("felFormLifeRegen") as number
 
 		// Reset variables
 		this.custom.set("felForm", false)
@@ -152,6 +146,6 @@ export class FelFormAbility extends UnitAbility {
 	}
 
 	static override fromHandle (ability: IUnitAbilityParam) {
-		return this.getObject(ability) as FelFormAbility
+		return this.getObject(ability) as FelForm
 	}
 }

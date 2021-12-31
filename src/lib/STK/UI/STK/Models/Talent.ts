@@ -1,17 +1,17 @@
-import { Unit } from 'lib/w3ts'
+import { Hero } from 'app/classes'
 
 type TalentDependencies = Partial<Record<'left' | 'up' | 'right' | 'down', number>>
 
 export type AllocationEvent = {
-	unit: Unit,
+	hero: Hero,
 	talent: Talent
 }
 export type ActivationEvent = {
-	unit: Unit,
+	hero: Hero,
 	talent: Talent
 }
 export type RequirementsEvent = {
-	unit: Unit,
+	hero: Hero,
 }
 
 export type TalentData = {

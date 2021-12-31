@@ -1,7 +1,7 @@
 import { Triggers } from 'app/define/triggers/triggers'
-import { ArcTagEngine } from '../arcTag/ArcTagEngine'
+import { ArcTagEngine } from '..'
 
 export interface IDamageEngineDepend {
-	triggers: Triggers
+	triggers: Triggers,
 	arcTagEngine: ArcTagEngine
 }

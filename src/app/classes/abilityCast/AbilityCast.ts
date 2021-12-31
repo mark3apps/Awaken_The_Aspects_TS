@@ -1,6 +1,7 @@
 import { Unit } from 'lib/w3ts/index'
 import { AbilityType } from '..'
 import { Coordinate } from '../Coordinate'
+import { Hero } from '../hero/hero'
 import { IUnitAbilityParam } from '../unitAbility/interfaces/IUnitAbilityParam'
 import { IAbilityCast } from './interfaces/IAbilityCast'
 
@@ -16,6 +17,10 @@ export class AbilityCast implements IAbilityCast {
 
 	CastingUnit () {
 		return Unit.fromCaster()
+	}
+
+	CastingHero () {
+		return Hero.fromEvent()
 	}
 
 	AttackingUnit () {

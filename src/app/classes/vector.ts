@@ -2,7 +2,7 @@
 import { Position } from 'app/classes/position'
 import { Effect } from '../../lib/w3ts/handles/effect'
 import { Orientation } from './Orientation'
-import { VectorInterface } from './VectorInterface'
+import { IVector } from './IVector'
 
 export class Vector extends Position {
 	// Hidden Variables with Getter/Setter
@@ -13,7 +13,7 @@ export class Vector extends Position {
 
 	effect: Effect | null = null
 
-	constructor (line: VectorInterface, effectPath?: string) {
+	constructor (line: IVector, effectPath?: string) {
 		super(line.x, line.y, line.z)
 		if (line.yaw) this.yaw = line.yaw
 		if (line.pitch) this.pitch = line.pitch
@@ -78,7 +78,7 @@ export class Vector extends Position {
 		if (this.effect) { this.effect.orientation = this.orientation }
 	}
 
-	public get line (): VectorInterface {
+	public get line (): IVector {
 		return { x: this.x, y: this.y, z: this.z, yaw: this.yaw, pitch: this.pitch, roll: this.roll }
 	}
 

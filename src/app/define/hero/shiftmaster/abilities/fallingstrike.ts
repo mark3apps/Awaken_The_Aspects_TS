@@ -1,5 +1,6 @@
-import { UnitAbility, Position, UnitType } from 'app/classes'
+import { UnitAbility, Position } from 'app/classes'
 import { IUnitAbilityParam } from 'app/classes/unitAbility/interfaces/IUnitAbilityParam'
+import { UnitTypes } from 'app/define/UnitTypes'
 import { AbilityTypes } from 'app/define/abilityTypes/abilityTypes'
 import { Logger } from 'app/log'
 import { AttackType, DamageType } from 'lib/resources/types'
@@ -34,6 +35,7 @@ export class FallingStrike extends UnitAbility {
 	override onEffect = () => {
 		try {
 			const abilityTypes = AbilityTypes.getInstance()
+			const unitTypes = UnitTypes.getInstance()
 
 			// Get Attributes
 			const startPos = new Position(this.unit.coordinate)
@@ -69,7 +71,7 @@ export class FallingStrike extends UnitAbility {
 						this.unit.setPathing(true)
 						this.unit.flyHeight = this.unit.defaultFlyHeight
 
-						const u = new Unit(this.unit.owner, UnitType.Dummy, this.unit.coordinate, 0)
+						const u = new Unit({ owner: this.unit.owner, type: unitTypes.Dummy, coor: this.unit.coordinate })
 						u.addAbility(abilityTypes.FallingStrikeDummy)
 						u.applyTimedLifeGeneric(1)
 

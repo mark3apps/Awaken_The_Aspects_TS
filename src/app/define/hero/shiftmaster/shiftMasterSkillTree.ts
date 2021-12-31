@@ -3,8 +3,7 @@ import { ITalentTreeBuilder } from 'lib/STK/UI/STK/Interfaces/ITalentTreeBuilder
 import { ActivationEvent } from 'lib/STK/UI/STK/Models/Talent'
 import { TalentTree } from 'lib/STK/UI/STK/Models/TalentTree'
 import { AbilityFour, Icon } from 'lib/w3ts'
-import { FelFormAbility } from './abilities/felForm'
-import { HeroMap } from 'app/classes/HeroTypeMap'
+import { FelForm } from './abilities/felForm'
 
 interface IImprovedShift { distance: number, taken: number, dealt: number }
 interface IMasteredShift { cooldown: number, distance: number, duration: number, taken: number, dealt: number }
@@ -113,7 +112,7 @@ export class ShiftMasterSkillTree extends TalentTree {
 			Icon: Icon.ChaosGrom,
 			OnAllocate: (e) => this.FelFormLearn(e),
 			// Requirements: (e) => {
-			// 	return [e.unit.heroLevel >= 8, "Level 8 Required"]
+			// 	return [e.unit.handle.heroLevel >= 8, "Level 8 Required"]
 			// }
 		})
 
@@ -179,7 +178,7 @@ export class ShiftMasterSkillTree extends TalentTree {
 			OnAllocate: (e) => this.LearnShiftstorm(e),
 			Cost: 2,
 			Requirements: (e) => {
-				return [e.unit.heroLevel >= 15, "Level 15 Required"]
+				return [e.hero.heroLevel >= 15, "Level 15 Required"]
 			}
 		})
 	}
@@ -192,11 +191,8 @@ export class ShiftMasterSkillTree extends TalentTree {
 	//
 
 	LearnShiftstorm (e: ActivationEvent) {
-		const hero = HeroMap.get(e.unit)
-		if (hero) {
-			const ability = hero.getAbility(AbilityFour.ShiftStorm) as ShadestormAbility
-			ability.enable()
-		}
+		const ability = e.hero.getUnitAbility(AbilityFour.ShiftStorm) as ShadestormAbility
+		ability.enable()
 	}
 
 	//
@@ -204,39 +200,27 @@ export class ShiftMasterSkillTree extends TalentTree {
 	//
 
 	FelFormLearn (e: ActivationEvent) {
-		const hero = HeroMap.get(e.unit)
-		if (hero) {
-			try {
-				const ability = hero.getAbility(AbilityFour.FelForm) as FelFormAbility
-				ability.enable()
-			} catch (error) {
-				print(error)
-			}
+		try {
+			const ability = e.hero.getUnitAbility(AbilityFour.FelForm) as FelForm
+			ability.enable()
+		} catch (error) {
+			print(error)
 		}
 	}
 
 	FelFormImproved (e: ActivationEvent) {
-		const hero = HeroMap.get(e.unit)
-		if (hero) {
-			const ability = hero.getAbility(AbilityFour.FelForm) as FelFormAbility
-			// ability.show()
-		}
+		const ability = e.hero.getUnitAbility(AbilityFour.FelForm) as FelForm
+		// ability.show()
 	}
 
 	FelFormMastered (e: ActivationEvent) {
-		const hero = HeroMap.get(e.unit)
-		if (hero) {
-			const ability = hero.getAbility(AbilityFour.FelForm) as FelFormAbility
-			// ability.show()
-		}
+		const ability = e.hero.getUnitAbility(AbilityFour.FelForm) as FelForm
+		// ability.show()
 	}
 
 	FelStability (e: ActivationEvent) {
-		const hero = HeroMap.get(e.unit)
-		if (hero) {
-			const ability = hero.getAbility(AbilityFour.FelForm) as FelFormAbility
-			ability.heroDuration += e.talent.tag
-		}
+		const ability = e.hero.getUnitAbility(AbilityFour.FelForm) as FelForm
+		ability.heroDuration += e.talent.tag
 	}
 
 	//
@@ -244,60 +228,46 @@ export class ShiftMasterSkillTree extends TalentTree {
 	//
 
 	ImprovedShift (e: ActivationEvent) {
-		const hero = HeroMap.get(e.unit)
-		if (hero) {
-			const ability = hero.getAbility(AbilityFour.Shift) as Shift
-			const stats: IImprovedShift = e.talent.tag
-			ability.distance += stats.distance
-			ability.shadeDamageTaken += stats.taken
-			ability.shadeDamageDealt += stats.dealt
-			ability.tooltipName = e.talent.name
-			// ability.update()
-			hero.updateAbilityTooltips()
-		}
+		const ability = e.hero.getUnitAbility(AbilityFour.Shift) as Shift
+		const stats: IImprovedShift = e.talent.tag
+		ability.distance += stats.distance
+		ability.shadeDamageTaken += stats.taken
+		ability.shadeDamageDealt += stats.dealt
+		ability.tooltipName = e.talent.name
+		e.hero.damageBonus += 5
+		print(e.hero.damageBonus)
+		// ability.update()
+		e.hero.updateAbilityTooltips()
 	}
 
 	MasteredShift (e: ActivationEvent) {
-		const hero = HeroMap.get(e.unit)
-		if (hero) {
-			const ability = hero.getAbility(AbilityFour.Shift) as Shift
-			const stats: IMasteredShift = e.talent.tag
+		const ability = e.hero.getUnitAbility(AbilityFour.Shift) as Shift
+		const stats: IMasteredShift = e.talent.tag
 
-			ability.distance += stats.distance
-			ability.shadeDamageTaken += stats.taken
-			ability.shadeDamageDealt += stats.dealt
-			ability.shadeDuration += stats.duration
-			ability.cooldown += stats.cooldown
-			ability.tooltipName = e.talent.name
-			ability.update()
-		}
+		ability.distance += stats.distance
+		ability.shadeDamageTaken += stats.taken
+		ability.shadeDamageDealt += stats.dealt
+		ability.shadeDuration += stats.duration
+		ability.cooldown += stats.cooldown
+		ability.tooltipName = e.talent.name
+		ability.update()
 	}
 
 	ShiftDistance (e: ActivationEvent) {
-		const hero = HeroMap.get(e.unit)
-		if (hero) {
-			const ability = hero.getAbility(AbilityFour.Shift) as Shift
-			ability.distance += e.talent.tag as number
-			ability.update()
-		}
+		const ability = e.hero.getUnitAbility(AbilityFour.Shift) as Shift
+		ability.distance += e.talent.tag as number
+		ability.update()
 	}
 
 	ShadeStrength (e: ActivationEvent) {
-		const hero = HeroMap.get(e.unit)
-		if (hero) {
-			const ability = hero.getAbility(AbilityFour.Shift) as Shift
-			ability.shadeDamageDealt += e.talent.tag as number
-			ability.update()
-		}
+		const ability = e.hero.getUnitAbility(AbilityFour.Shift) as Shift
+		ability.shadeDamageDealt += e.talent.tag as number
+		ability.update()
 	}
 
 	ShadeHealth (e: ActivationEvent) {
-		const hero = HeroMap.get(e.unit)
-		if (hero) {
-			const ability = hero.getAbility(AbilityFour.Shift) as Shift
-
-			ability.shadeDamageTaken -= e.talent.tag as number
-			ability.update()
-		}
+		const ability = e.hero.getUnitAbility(AbilityFour.Shift) as Shift
+		ability.shadeDamageTaken -= e.talent.tag as number
+		ability.update()
 	}
 }

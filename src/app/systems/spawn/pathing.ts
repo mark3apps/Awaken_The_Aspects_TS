@@ -71,6 +71,7 @@ export class Pathing {
 
 	constructor (depend: IPathingDepend) {
 		const triggers = depend.triggers
+		const unitTypes = depend.unitTypes
 		this.locs = depend.locs
 		this.forces = depend.forces
 		this.regions = depend.regions
@@ -78,7 +79,7 @@ export class Pathing {
 		// Turn off Elder Ent Movement Pathing
 		triggers.unitCreated.addAction(() => {
 			const eventUnit = Unit.fromEvent()
-			if (eventUnit.typeId === UnitType.AncientOfWar.id) {
+			if (eventUnit.typeId === unitTypes.AncientOfWar.id) {
 				eventUnit.setPathing(false)
 			}
 		})

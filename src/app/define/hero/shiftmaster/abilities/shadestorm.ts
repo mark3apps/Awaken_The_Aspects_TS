@@ -2,10 +2,10 @@ import { UnitAbility } from 'app/classes'
 import { AbilityTypes } from 'app/define/abilityTypes/abilityTypes'
 import { IUnitAbilityParam } from 'app/classes/unitAbility/interfaces/IUnitAbilityParam'
 import { IAbilityCast } from 'app/classes/abilityCast/interfaces/IAbilityCast'
-import { UnitType } from 'app/classes/unitType'
 import { Pathing } from 'app/systems/spawn/pathing'
 import { AbilityField } from 'lib/resources/fields'
-import { Unit, Group, Timer, Effect, AbilityModel, AttachPoint } from 'lib/w3ts/index'
+import { Unit, Group, Timer, Effect, AbilityModel, Attach } from 'lib/w3ts/index'
+import { UnitTypes } from 'app/define/UnitTypes'
 
 export class ShadestormAbility extends UnitAbility {
 	damage = 100
@@ -33,6 +33,7 @@ export class ShadestormAbility extends UnitAbility {
 		// Get Dependencies (Leave if not yet defined)
 		const abilityTypes = AbilityTypes.getInstanceNoCreate()
 		const pathing = Pathing.getInstanceNoCreate()
+		const unitTypes = UnitTypes.getInstance()
 		if (!pathing || !abilityTypes) return
 
 		const aoe = this.areaOfEffect
@@ -54,12 +55,12 @@ export class ShadestormAbility extends UnitAbility {
 
 			// Cast the Spell!!!
 		} else {
-			new Effect(AbilityModel.howlCaster, this.unit, AttachPoint.origin).destroy()
+			new Effect(AbilityModel.howlCaster, this.unit, Attach.origin).destroy()
 
 			let unitsPicked = 0
 			g.firstLoop((u) => {
 				if (unitsPicked < this.maxShades) {
-					const shade = u.replace(UnitType.DummyShiftstorm)
+					const shade = u.replace(unitTypes.DummyShiftstorm)
 					shade.addAbility(abilityTypes.ShadeStormDummy)
 
 					const shadeAbility = UnitAbility.fromHandle({ unit: shade, abilType: abilityTypes.ShadeStormDummy })

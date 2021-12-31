@@ -2,11 +2,11 @@ import { Hero } from 'app/classes'
 import { AbilityType } from 'app/classes/abilityType/abilityType'
 import { TargetType } from "app/classes/abilityType/enums/TargetType"
 import { EffectType } from "app/classes/abilityType/enums/EffectType"
-import { UnitType } from 'app/classes/unitType'
+import { UnitType } from 'app/classes/unitType/UnitType'
 import { HeroAttribute } from 'app/systems/heroAttribute/heroAttribute'
 import { ShiftMasterSkillTree } from 'app/define/hero/shiftmaster/shiftMasterSkillTree'
 import { Strategy } from 'lib/resources/strategy'
-import { HeroType } from 'lib/w3ts/handles/herotype'
+import { HeroType } from 'app/classes/herotype'
 import { AbilityFour, Order } from 'lib/w3ts/index'
 
 export class BrawlerHeroType extends HeroType {

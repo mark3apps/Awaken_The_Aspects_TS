@@ -1,10 +1,9 @@
 import { Hero } from 'app/classes'
 import { ShiftMasterSkillTree } from 'app/define/hero/shiftmaster/shiftMasterSkillTree'
 import { Strategy } from 'lib/resources/strategy'
-import { HeroType } from 'lib/w3ts/handles/herotype'
+import { HeroType } from 'app/classes/herotype'
 import { AbilityFour, Unit } from 'lib/w3ts/index'
-import { HeroAttributes } from 'app/systems/heroAttribute/heroAttributes'
-import { IHeroTypeDepend } from 'app/classes/IHeroTypeDepend'
+import { IHeroTypeDepend } from 'app/classes/heroAbility/interfaces/IHeroTypeDepend'
 
 export class ShiftMasterHeroType extends HeroType {
 	protected static instance?: ShiftMasterHeroType
@@ -15,16 +14,16 @@ export class ShiftMasterHeroType extends HeroType {
 	}
 
 	private constructor (depend: IHeroTypeDepend) {
-		super('E002', 'Shift Master')
+		super({ four: 'E002', name: 'Shift Master', order: false })
 
 		// Dependencies
-		const abilTypes = depend.abilityTypes
+		const heroAbils = depend.heroAbils
 		const heroAttr = depend.heroAttr
 
 		this.talentTrees = (u: Hero) => {
-			const skill = new ShiftMasterSkillTree(u.unit)
-			const guard = new ShiftMasterSkillTree(u.unit)
-			const armor = new ShiftMasterSkillTree(u.unit)
+			const skill = new ShiftMasterSkillTree(u)
+			const guard = new ShiftMasterSkillTree(u)
+			const armor = new ShiftMasterSkillTree(u)
 
 			u.skillTree.SetTree(skill)
 			u.guardTree.SetTree(guard)
@@ -68,32 +67,13 @@ export class ShiftMasterHeroType extends HeroType {
 		// // Add Abilities
 		// //
 
-		this.addHeroAbilityType({ type: abilTypes.Shift, starting: true, ult: false })
-		// this.addHeroAbilityType({ type: switchAbility, starting: true, ult: false })
-		// this.addHeroAbilityType({ type: fallingstrike, starting: true, ult: false })
-		// this.addHeroAbilityType({ type: felFormAbility, starting: false, ult: false })
-		// this.addHeroAbilityType({ type: shiftStormAbility, starting: false, ult: true })
-
-		// // Set Default Abilities for all Heroes
-		// const tree = DefineTreeAbilities.get()
-		// // this.addHeroAbilityType({ type: tree.collection, starting: true, ult: false })
-		// // this.addHeroAbilityType({ type: tree.armor, starting: true, ult: false })
-		// this.addHeroAbilityType({ type: tree.skill, starting: true })
-		// // this.addHeroAbilityType({ type: tree.guard, starting: true, ult: false })
-
-		// // Default Bonus Abilities
-		// const bonus = DefineBonusAbilities.get()
-		// this.addHeroAbilityType({ type: bonus.collection, starting: true, hidden: false })
-		// this.addHeroAbilityType({ type: bonus.stats, starting: true })
-		// this.addHeroAbilityType({ type: bonus.damage, starting: true })
-		// this.addHeroAbilityType({ type: bonus.armor, starting: true })
-		// this.addHeroAbilityType({ type: bonus.moveSpeed, starting: true })
-		// this.addHeroAbilityType({ type: bonus.attackSpeed, starting: true })
+		this.addHeroAbility(heroAbils.shift)
+		this.addHeroAbility(heroAbils.felForm)
 	}
 
 	override onDeath = (u: Unit) => {
 		if (u.custom.has("felForm")) {
-			const ability = u.abilities.get(AbilityFour.FelForm)
+			const ability = u.unitAbilities.get(AbilityFour.FelForm)
 			ability.resetValues()
 		}
 	}

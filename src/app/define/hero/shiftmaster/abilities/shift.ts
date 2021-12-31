@@ -1,10 +1,11 @@
-import { UnitAbility, Position, UnitType } from 'app/classes'
+import { UnitAbility, Position } from 'app/classes'
 import { AbilityTypes } from 'app/define/abilityTypes/abilityTypes'
 import { AbilityField } from 'lib/resources/fields'
 import { AbilityFour, Effect, AbilityModel, Unit, Timer } from 'lib/w3ts'
 import { IUnitAbilityParam } from 'app/classes/unitAbility/interfaces/IUnitAbilityParam'
 import { IAbilityCast } from 'app/classes/abilityCast/interfaces/IAbilityCast'
 import { Logger } from 'app/log'
+import { UnitTypes } from 'app/define/UnitTypes'
 
 export class Shift extends UnitAbility {
 	augments = 0
@@ -41,6 +42,7 @@ cooldown |cff00ffff${math.floor(this.cooldown)}|r seconds.`
 	override onEffect = (cast: IAbilityCast) => {
 		try {
 			const abilityTypes = AbilityTypes.getInstance()
+			const unitTypes = UnitTypes.getInstance()
 
 			// Get Unit Constants
 			const facing = this.unit.facing
@@ -57,7 +59,7 @@ cooldown |cff00ffff${math.floor(this.cooldown)}|r seconds.`
 			startEffect.destroy()
 
 			// Cast Illusion on Hero
-			const dummy = new Unit(this.unit.owner, UnitType.Dummy, this.unit.coordinate, 0)
+			const dummy = new Unit({ owner: this.unit.owner, type: unitTypes.Dummy, coor: this.unit.coordinate })
 			dummy.addAbility(abilityTypes.ShiftDummy)
 			dummy.applyTimedLifeGeneric(1)
 

@@ -1,5 +1,5 @@
 import { Coordinate } from 'app/classes/Coordinate'
-import { UnitType } from 'app/classes/unitType'
+import { UnitType } from 'app/classes/unitType/UnitType'
 import { Timer, Unit, Trigger, Order, PlayerHostile } from 'lib/w3ts/index'
 import { Banner } from '../banner/banner'
 import { Side } from "../banner/Side"
@@ -19,6 +19,7 @@ export class Event {
 	// Dependencies
 	locs
 	forces
+	unitTypes
 
 	allianceScore = 0
 	federationScore = 0
@@ -29,6 +30,7 @@ export class Event {
 		// Dependencies
 		this.locs = depend.locs
 		this.forces = depend.forces
+		this.unitTypes = depend.unitTypes
 
 		this.banners = event.banners
 		this.summonUnitType = event.summonUnitType
@@ -49,10 +51,10 @@ export class Event {
 	}
 
 	private _onEventStart (): void {
-		const sightUnitAlliance = new Unit(this.forces.Alliance.getRandomPlayer(), UnitType.DummySeer, this.spawnPos, 0)
+		const sightUnitAlliance = new Unit({ owner: this.forces.Alliance.getRandomPlayer(), type: this.unitTypes.DummySeer, coor: this.spawnPos })
 		sightUnitAlliance.applyTimedLifeGeneric(this.eventDuration)
 
-		const sightUnitFederation = new Unit(this.forces.Federation.getRandomPlayer(), UnitType.DummySeer, this.spawnPos, 0)
+		const sightUnitFederation = new Unit({ owner: this.forces.Federation.getRandomPlayer(), type: this.unitTypes.DummySeer, coor: this.spawnPos })
 		sightUnitFederation.applyTimedLifeGeneric(this.eventDuration)
 
 		this.onEventStart()
@@ -95,13 +97,13 @@ export class Event {
 
 	public createUnit (): void {
 		if (this.allianceScore > this.federationScore) {
-			this.eventUnit = new Unit(this.forces.Alliance.getRandomPlayer(), this.summonUnitType, this.spawnPos)
+			this.eventUnit = new Unit({ owner: this.forces.Alliance.getRandomPlayer(), type: this.summonUnitType, coor: this.spawnPos })
 			this.eventUnit.issueOrderAt(Order.Attack, this.locs.middle.federation.randomX, this.locs.middle.federation.randomY)
 		} else if (this.allianceScore < this.federationScore) {
-			this.eventUnit = new Unit(this.forces.Federation.getRandomPlayer(), this.summonUnitType, this.spawnPos)
+			this.eventUnit = new Unit({ owner: this.forces.Federation.getRandomPlayer(), type: this.summonUnitType, coor: this.spawnPos })
 			this.eventUnit.issueOrderAt(Order.Attack, this.locs.middle.alliance.randomX, this.locs.middle.alliance.randomY)
 		} else {
-			this.eventUnit = new Unit(PlayerHostile, this.summonUnitType, this.spawnPos)
+			this.eventUnit = new Unit({ owner: PlayerHostile, type: this.summonUnitType, coor: this.spawnPos })
 		}
 
 		this.eventUnit.setPathing(false)

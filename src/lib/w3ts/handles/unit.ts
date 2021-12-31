@@ -2,7 +2,8 @@
 
 import { AbilityType } from 'app/classes/abilityType/abilityType'
 import { Coordinate } from 'app/classes/Coordinate'
-import { UnitType } from 'app/classes/unitType'
+import { IUnitParam } from "app/classes/hero/interfaces/IUnitParam"
+import { UnitType } from 'app/classes/unitType/UnitType'
 import { UnitData } from 'app/systems/unitData'
 import { CC2Four } from 'lib/resources/library'
 import { OrderType } from 'lib/resources/orderType'
@@ -31,6 +32,8 @@ export class Unit extends Widget {
 	public critical: number
 	public criticalMultiplier: number
 	public evade: number
+	public lifesteal: number
+
 	public kills: number
 	public startX: number
 	public startY: number
@@ -39,6 +42,7 @@ export class Unit extends Widget {
 	public order?: Order
 	public orderType?: OrderType
 	public targetWidget?: Widget
+
 	public setAsFlying: boolean
 
 	private static dataMap = new WeakMap<handle, UnitData>()
@@ -52,23 +56,34 @@ export class Unit extends Widget {
 	 * @param face The direction that the unit will be facing in degrees.
 	 * @param skinId The skin of the unit.
 	 */
-	constructor (owner: MapPlayer, unitType: UnitType, coor: Coordinate, face = bj_UNIT_FACING, critical?: number, criticalMult?: number, evade?: number) {
+	constructor (unit: IUnitParam) {
 		if (Handle.initFromHandle()) {
 			super()
 		} else {
-			super(CreateUnit(owner.handle, unitType.id, coor.x, coor.y, face))
+			super(CreateUnit(unit.owner.handle, unit.type.id, unit.coor.x, unit.coor.y, unit.facing ?? bj_UNIT_FACING))
 		}
 
 		this.spellDamage = 1
 		this.spellResistance = 1
 		this.shield = 0
-		this.critical = critical ?? 0.01
-		this.criticalMultiplier = criticalMult ?? 1.5
-		this.evade = evade ?? 0.01
 		this.kills = 0
-		this.startX = this.x
-		this.startY = this.y
 		this.setAsFlying = false
+
+		if (unit) {
+			this.critical = unit.critical ?? 0.01
+			this.criticalMultiplier = unit.criticalMultiplier ?? 1.5
+			this.evade = unit.evade ?? 0.01
+			this.lifesteal = unit.lifesteal ?? 0.0
+			this.startX = unit.coor.x
+			this.startY = unit.coor.y
+		} else {
+			this.critical = 0.01
+			this.criticalMultiplier = 1.5
+			this.evade = 0.01
+			this.lifesteal = 0.0
+			this.startX = this.x
+			this.startY = this.y
+		}
 	}
 
 	// Custom Data Fields
@@ -388,6 +403,24 @@ export class Unit extends Widget {
 		return MapPlayer.fromHandle(GetOwningPlayer(this.handle))
 	}
 
+	public get unitParams () {
+		return (this.type)
+			? {
+				owner: this.owner,
+				type: this.type,
+				coor: this.coordinate,
+				facing: this.facing,
+				critical: this.critical,
+				criticalMultiplier: this.criticalMultiplier,
+				evade: this.evade,
+				shield: this.shield,
+				lifesteal: this.lifesteal,
+				spellDamage: this.spellDamage,
+				spellResistance: this.spellResistance
+			} as IUnitParam
+			: undefined
+	}
+
 	/**
 	 * Pauses a unit. A paused unit has the following properties:
 	 * 1. Buffs/effects are suspended
@@ -542,7 +575,7 @@ export class Unit extends Widget {
 	}
 
 	public get type () {
-		return UnitType.get(this)
+		return UnitType.get(this.typeId)
 	}
 
 	public get typeId (): number {
@@ -641,12 +674,16 @@ export class Unit extends Widget {
 		this.z = value.z ?? this.z
 	}
 
-	public get abilities () {
+	public get unitAbilities () {
 		return this.data.abilities
 	}
 
-	public set abilities (value) {
+	public set unitAbilities (value) {
 		this.data.abilities = value
+	}
+
+	public getUnitAbility (typeFour: string) {
+		return this.unitAbilities.get(typeFour)
 	}
 
 	public addAbility (abilityId: number | string | AbilityType) {
@@ -1236,7 +1273,7 @@ export class Unit extends Widget {
 
 	public replace (newUnitType: UnitType): Unit {
 		this.show = false
-		const newUnit = new Unit(this.owner, newUnitType, this.coordinate, this.facing)
+		const newUnit = new Unit({ owner: this.owner, type: newUnitType, coor: this.coordinate, facing: this.facing })
 		newUnit.lifePercent = this.lifePercent
 		newUnit.manaPercent = this.manaPercent
 

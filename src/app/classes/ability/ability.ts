@@ -1,3 +1,4 @@
+import { Unit } from 'lib/w3ts'
 import { UnitAbility } from '..'
 import { EffectType } from '../abilityType/enums/EffectType'
 import { IUnitAbilityParam } from '../unitAbility/interfaces/IUnitAbilityParam'
@@ -17,7 +18,7 @@ export class Ability implements IAbility {
 	}
 
 	// Instance
-	getAbility: (unitAbil: IUnitAbilityParam) => unknown
+	unitAbility: (unitAbil: IUnitAbilityParam) => unknown
 
 	// Dependencies
 	cast
@@ -31,7 +32,7 @@ export class Ability implements IAbility {
 		this.TriggerUnit = ability.TriggerUnit
 
 		// this.abilityType = abilityTrigger.abilityType
-		this.getAbility = ability.GetAblity
+		this.unitAbility = ability.unitAbility
 
 		switch (this.abilType.effectType) {
 			case EffectType.Attacked:
@@ -61,11 +62,19 @@ export class Ability implements IAbility {
 		Ability.map.set(this.abilType.id, this)
 	}
 
-	get castAbility () {
-		return this.getAbility({ unit: this.TriggerUnit(), abilType: this.abilType }) as UnitAbility
+	get UnitAbilityFromCast () {
+		return this.getUnitAbility(this.TriggerUnit()) as UnitAbility
+	}
+
+	getUnitAbility (unit: Unit) {
+		return this.unitAbility({ unit: unit, abilType: this.abilType }) as UnitAbility
+	}
+
+	getUnitAbilityUnknown (unit: Unit) {
+		return this.unitAbility({ unit: unit, abilType: this.abilType })
 	}
 
 	onEffectCast () {
-		this.castAbility.onEffect(this.cast)
+		this.UnitAbilityFromCast.onEffect(this.cast)
 	}
 }
