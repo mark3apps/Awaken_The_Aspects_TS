@@ -1,6 +1,6 @@
 import { Position } from 'app/classes'
 import { Logger } from 'app/log'
-import { Unit, MapPlayer, Timer, Group, Anim } from 'lib/w3ts'
+import { Unit, MapPlayer, Timer, Group, Anim, PlayerPassive } from 'lib/w3ts'
 import { GateType } from './gateType'
 
 export interface GateCheck {
@@ -95,7 +95,7 @@ export class Gate {
 	}
 
 	public open (): void {
-		Logger.Debug('Opening Gate', this.unit.owner)
+		Logger.Verbose('Opening Gate', this.unit.owner)
 		if (this.gateType) this.unit = this.unit.replace(this.gateType.openGate)
 		this.unit.userData = 15
 
@@ -104,7 +104,7 @@ export class Gate {
 	}
 
 	public close (): void {
-		Logger.Debug('Closing Gate', this.unit.owner)
+		Logger.Verbose('Closing Gate', this.unit.owner)
 
 		if (this.gateType) { this.unit = this.unit.replace(this.gateType.closedGate) }
 		this.unit.userData = 15
@@ -113,7 +113,7 @@ export class Gate {
 	}
 
 	public died (): void {
-		if (this.gateType) this.unit = new Unit(MapPlayer.fromHandle(Player(PLAYER_NEUTRAL_PASSIVE)), this.gateType.openGate.id, this.unit.coordinate, this.unit.facing)
+		if (this.gateType) this.unit = new Unit(PlayerPassive, this.gateType.openGate, this.unit.coordinate, this.unit.facing)
 		this.unit.setAnimation(Anim.Gate.death)
 		this.state = GateState.died
 		const index = Gate.gates.indexOf(this)

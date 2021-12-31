@@ -7,8 +7,16 @@ import { GenerateNoButtonTalentTreeView } from 'app/systems/talents/views/NoButt
 import { GenerateNoButtonTalentView } from 'app/systems/talents/views/NoButtonTalentView'
 import { BasicTalentTreeViewModel } from 'lib/STK/UI/STK/ViewModels/BasicTalentTreeViewModel'
 import { Timer, Unit, HeroType, Group, Force, MapPlayer, Frame, Order } from 'lib/w3ts'
-import { Position } from '.'
+import { UnitType } from '.'
 import { HeroMap } from './HeroTypeMap'
+import { Coordinate } from "./Coordinate"
+
+export interface IHeroParam {
+	owner: MapPlayer,
+	unitType: UnitType,
+	coor: Coordinate,
+	face?: number,
+}
 
 export class Hero {
 	private stateMachine: StateMachine | undefined
@@ -61,8 +69,8 @@ export class Hero {
 	static ai: Hero[] = []
 	static PickedPlayers: Force
 
-	constructor (owner: MapPlayer | number, unitId: number, pos: Position, face: number, skinId?: number) {
-		this.unit = new Unit(owner, unitId, pos, face, skinId)
+	constructor (hero: IHeroParam) {
+		this.unit = new Unit(hero.owner, hero.unitType, hero.coor, hero.face)
 
 		this.heroType = HeroType.get(this.unit) as HeroType
 
@@ -258,19 +266,19 @@ export class Hero {
 	}
 
 	addStartingAbilities = () => {
-		// try {
-		// 	if (this.heroType !== undefined) {
-		// 		for (let i = 0; i < this.heroType.abilityTypes.length; i++) {
-		// 			const heroAbilityType = this.heroType.abilityTypes[i]
-		// 			const ability = heroAbilityType.type.getAbility(this.unit) as Ability
-		// 			ability.permanent = true
-		// 			if (!heroAbilityType.starting) ability.disable()
-		// 			if (heroAbilityType.hidden) ability.hide()
-		// 		}
-		// 	}
-		// } catch (error) {
-		// 	Logger.Error("Hero.addStartingAbilities", error)
-		// }
+		try {
+			if (this.heroType !== undefined) {
+				for (let i = 0; i < this.heroType.abilityTypes.length; i++) {
+					// const heroAbilityType = this.heroType.abilityTypes[i]
+					// const ability = heroAbilityType.type
+					// ability.permanent = true
+					// if (!heroAbilityType.starting) ability.disable()
+					// if (heroAbilityType.hidden) ability.hide()
+				}
+			}
+		} catch (error) {
+			Logger.Error("Hero.addStartingAbilities", error)
+		}
 	}
 
 	getAbility = (typeFour: string) => {

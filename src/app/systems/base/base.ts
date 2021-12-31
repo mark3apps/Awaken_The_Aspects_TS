@@ -1,4 +1,3 @@
-import { Position } from 'app/classes/position'
 import { Unit } from 'lib/w3ts/index'
 import { Army } from '../army/army'
 import { Loc } from '../loc/loc'
@@ -29,11 +28,11 @@ export class Base {
 		return this.baseUnit.isAlive()
 	}
 
-	public randomStartPosition (): Position {
+	public randomStartPosition () {
 		return this.startLoc.rect.randomPosition
 	}
 
-	public randomEndPosition (): Position {
+	public randomEndPosition () {
 		return this.endLoc.rect.randomPosition
 	}
 }

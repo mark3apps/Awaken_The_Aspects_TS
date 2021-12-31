@@ -93,7 +93,7 @@ const log = (logLevel: LogLevel, text: string, ...events: unknown[]) => {
 export class Logger {
 	static logLevel = LogLevel.None
 
-	static Level = (level: LogLevel): void => {
+	static set Level (level: LogLevel) {
 		Logger.logLevel = level
 	}
 

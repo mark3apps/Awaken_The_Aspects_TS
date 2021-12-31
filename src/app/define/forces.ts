@@ -1,5 +1,5 @@
-import { Players } from '../globals/index'
-import { Force } from './force'
+import { Players } from '../../lib/w3ts/globals/index'
+import { Force } from '../../lib/w3ts/handles/force'
 
 export class Forces {
 	protected static instance: Forces

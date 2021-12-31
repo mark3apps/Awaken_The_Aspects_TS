@@ -1,5 +1,5 @@
-import type { Forces } from 'lib/w3ts/handles/Forces'
-import type { Units } from 'lib/w3ts/handles/Units'
+import type { Forces } from 'app/define/forces'
+import type { Units } from 'app/define/units'
 
 export interface IArmiesDepend {
 	units: Units,

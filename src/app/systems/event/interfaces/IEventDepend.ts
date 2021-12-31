@@ -1,4 +1,4 @@
-import { Forces } from 'lib/w3ts/handles/Forces'
+import { Forces } from 'app/define/forces'
 import { Locs } from '../../loc/Locs'
 
 export interface IEventDepend {

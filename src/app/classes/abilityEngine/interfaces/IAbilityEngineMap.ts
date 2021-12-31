@@ -1,5 +1,5 @@
-import { AbilityTrigger } from '../AbilityTrigger'
+import { Ability } from 'app/classes/ability/Ability'
 
 export interface IAbilityEngineMap {
-	id: number; abilityTrigger: AbilityTrigger
+	ability: Ability
 }

@@ -1,11 +1,8 @@
-
-import { Timer, Group, Unit } from 'lib/w3ts'
-import { Triggers } from 'app/define/triggers/triggers'
 import { AbilityTypeHandle } from './abilityTypeHandle'
-import { IAbilityType } from './interfaces/iAbilityType'
+import { IAbilityTypeParam } from './interfaces/iAbilityTypeParam'
 
 export class AbilityType extends AbilityTypeHandle {
-	constructor (ability: IAbilityType) {
+	constructor (ability: IAbilityTypeParam) {
 		if (AbilityTypeHandle.initFromAbilityType()) {
 			super()
 		} else {

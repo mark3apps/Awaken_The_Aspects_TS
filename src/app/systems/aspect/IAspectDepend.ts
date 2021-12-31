@@ -1,4 +1,4 @@
-import { Forces } from 'lib/w3ts/handles/Forces'
+import { Forces } from 'app/define/forces'
 
 export interface IAspectDepend {
 	forces: Forces

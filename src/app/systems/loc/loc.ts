@@ -1,4 +1,3 @@
-import { Position } from 'app/classes/position'
 import { Rectangle, Region } from 'lib/w3ts/index'
 import { Army } from '../army/army'
 import { ILocForward } from './interfaces/ILocForward'
@@ -35,7 +34,7 @@ export class Loc {
 		return this.rect.randomY
 	}
 
-	public get randomPosition (): Position {
+	public get randomCoordinate () {
 		return this.rect.randomPosition
 	}
 }

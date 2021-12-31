@@ -1,4 +1,4 @@
-import { CameraSetup } from './camera'
+import { CameraSetup } from '../../lib/w3ts/handles/camera'
 
 export class CameraSetups {
 	protected static instance: CameraSetups

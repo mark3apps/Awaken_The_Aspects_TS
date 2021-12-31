@@ -1,9 +1,10 @@
 import { Force, Unit } from 'lib/w3ts/index'
-import { Position } from '../classes/position'
 import { Hero } from '../classes/hero'
 import { HeroMap } from '../classes/HeroTypeMap'
 import { IHeroesDepend } from './IHeroesDepend'
 import { Logger } from 'app/log'
+import { UnitType } from 'app/classes'
+import { Coordinate } from 'app/classes/Coordinate'
 
 export class Heroes {
 	protected static instance: Heroes
@@ -51,15 +52,15 @@ export class Heroes {
 				// eslint-disable-next-line camelcase
 				if (unit.handle === udg_unit_PickedHero) {
 					try {
-						let pos: Position
+						let coor: Coordinate
 
 						if (unit.owner.inForce(forces.AlliancePlayers)) {
-							pos = rects.Left_Castle.centerPosition
+							coor = rects.Left_Castle.centerPosition
 						} else {
-							pos = rects.Right_Castle.centerPosition
+							coor = rects.Right_Castle.centerPosition
 						}
 
-						const hero = new Hero(unit.owner, unit.typeId, pos, 180)
+						const hero = new Hero({ owner: unit.owner, unitType: (unit.type as UnitType), coor: coor })
 						// hero.setupHero()
 						unit.destroy()
 

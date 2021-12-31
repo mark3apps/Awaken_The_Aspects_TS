@@ -1,5 +1,5 @@
-import { Rectangles } from 'lib/w3ts/handles/Rectangles'
-import { Forces } from 'lib/w3ts/handles/Forces'
+import { Rectangles } from 'app/define/rectangles'
+import { Forces } from 'app/define/forces'
 import { ITriggers } from 'app/define/triggers/interfaces/ITriggers'
 
 export interface IHeroesDepend {

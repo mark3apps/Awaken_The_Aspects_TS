@@ -5,7 +5,9 @@ import { Color } from '../index'
 import { Handle } from './handle'
 import { MapPlayer } from './player'
 import { Point } from './point'
-import { Coordinate, VectorInterface, Orientation } from './vector'
+import { VectorInterface } from "../../../app/classes/VectorInterface"
+import { Orientation } from "../../../app/classes/Orientation"
+import { Coordinate } from "../../../app/classes/Coordinate"
 import { Widget } from './widget'
 
 export class Effect extends Handle<effect> {

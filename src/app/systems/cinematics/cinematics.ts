@@ -1,4 +1,4 @@
-import { Hero } from 'app/classes'
+import { Hero, UnitType } from 'app/classes'
 import { Logger } from 'app/log'
 import { MapPlayer, Group, Unit, Players, Frame, Mask, Timer } from 'lib/w3ts'
 import { Sky } from 'lib/w3ts/globals/sky'
@@ -141,8 +141,8 @@ export class Cinematic {
 
 			Players[i].applyCamera(true, startCamera, 0)
 
-			const unit = new Unit(Players[19], FourCC('h01Z'), startCamera.position, bj_UNIT_FACING)
-			unit.applyTimedLife(FourCC('BTLF'), 30)
+			const unit = new Unit(Players[19], UnitType.DummyCameraLock, startCamera.position, bj_UNIT_FACING)
+			unit.applyTimedLifeGeneric(30)
 
 			Players[i].setTargetControllerCamera(unit, 0, 0, false)
 		}

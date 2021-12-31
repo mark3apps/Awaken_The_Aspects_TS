@@ -1,11 +1,11 @@
-import { Ability, Hero, UnitType } from 'app/classes'
-import { IAbility } from 'app/classes/ability/interfaces/IAbility'
+import { UnitAbility, Hero, UnitType } from 'app/classes'
+import { IUnitAbilityParam } from 'app/classes/unitAbility/interfaces/IUnitAbilityParam'
 import { HeroMap } from 'app/classes/HeroTypeMap'
 import { Logger } from 'app/log'
 import { AbilityField } from 'lib/resources/fields'
 import { Order } from 'lib/w3ts'
 
-export class FelFormAbility extends Ability {
+export class FelFormAbility extends UnitAbility {
 	private _felUnit = UnitType.get(this.getLevelField(AbilityField.ALTERNATE_FORM_UNIT_EMEU) as number)
 	private _damage = 100
 	private _attackSpeed = 0.5
@@ -15,7 +15,7 @@ export class FelFormAbility extends Ability {
 	augments = 0
 	custom = this.unit.custom
 
-	constructor (ability: IAbility) {
+	constructor (ability: IUnitAbilityParam) {
 		super(ability)
 		this.updateTooltips()
 	}
@@ -151,7 +151,7 @@ export class FelFormAbility extends Ability {
 		print("UnMorphing")
 	}
 
-	static override fromHandle (ability: IAbility) {
+	static override fromHandle (ability: IUnitAbilityParam) {
 		return this.getObject(ability) as FelFormAbility
 	}
 }

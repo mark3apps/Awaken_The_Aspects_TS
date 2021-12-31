@@ -1,11 +1,11 @@
 /** @noSelfInFile **/
 
 import { AbilityType } from 'app/classes/abilityType/abilityType'
+import { Coordinate } from 'app/classes/Coordinate'
 import { UnitType } from 'app/classes/unitType'
 import { UnitData } from 'app/systems/unitData'
 import { CC2Four } from 'lib/resources/library'
 import { OrderType } from 'lib/resources/orderType'
-import { Coordinate } from '.'
 import { PrimaryAttribute } from '../globals/primaryAttribute'
 import { Order, BuffFour, AbilityFour } from '../index'
 import { Destructable } from './destructable'
@@ -46,21 +46,17 @@ export class Unit extends Widget {
 	/**
 	 * Creates a unit.
 	 * @param owner The owner of the unit.
-	 * @param unitId The rawcode of the unit.
+	 * @param unitType The rawcode of the unit.
 	 * @param x The x-coordinate of the unit.
 	 * @param y The y-coordinate of the unit.
 	 * @param face The direction that the unit will be facing in degrees.
 	 * @param skinId The skin of the unit.
 	 */
-	constructor (owner: MapPlayer | number, unitId: number | UnitType, pos: Coordinate, face: number, skinId?: number, critical?: number, criticalMult?: number, evade?: number) {
+	constructor (owner: MapPlayer, unitType: UnitType, coor: Coordinate, face = bj_UNIT_FACING, critical?: number, criticalMult?: number, evade?: number) {
 		if (Handle.initFromHandle()) {
 			super()
 		} else {
-			const p = typeof owner === 'number' ? Player(owner) : owner.handle
-
-			typeof unitId === 'number'
-				? super(skinId ? BlzCreateUnitWithSkin(p, unitId, pos.x, pos.y, face, skinId) : CreateUnit(p, unitId, pos.x, pos.y, face))
-				: super(skinId ? BlzCreateUnitWithSkin(p, unitId.id, pos.x, pos.y, face, skinId) : CreateUnit(p, unitId.id, pos.x, pos.y, face))
+			super(CreateUnit(owner.handle, unitType.id, coor.x, coor.y, face))
 		}
 
 		this.spellDamage = 1
@@ -545,6 +541,10 @@ export class Unit extends Widget {
 		return GetUnitTurnSpeed(this.handle)
 	}
 
+	public get type () {
+		return UnitType.get(this)
+	}
+
 	public get typeId (): number {
 		return GetUnitTypeId(this.handle)
 	}
@@ -780,23 +780,10 @@ export class Unit extends Widget {
 	}
 
 	/**
-	 * Decreases the level of a unit's ability by 1. The level will not go below 1.
-	 * @param abilCode The four digit rawcode representation of the ability.
-	 * @returns The new ability level.
-	 */
-	public decAbilityLevel (abilCode: number): number {
-		return DecUnitAbilityLevel(this.handle, abilCode)
-	}
-
-	/**
 	 * Instantly removes the unit from the game.
 	 */
 	public destroy (): void {
 		RemoveUnit(this.handle)
-	}
-
-	public disableAbility (abilId: number | string, flag: boolean, hideUI: boolean): void {
-		typeof abilId === 'string' ? BlzUnitDisableAbility(this.handle, FourCC(abilId), flag, hideUI) : BlzUnitDisableAbility(this.handle, abilId, flag, hideUI)
 	}
 
 	public dropItem (whichItem: Item, x: number, y: number): boolean {
@@ -809,38 +796,6 @@ export class Unit extends Widget {
 
 	public dropItemTarget (whichItem: Item, target: Widget /* | Unit | Item | Destructable */): boolean {
 		return UnitDropItemTarget(this.handle, whichItem.handle, target.handle)
-	}
-
-	public endAbilityCooldown (abilCode: number | string): void {
-		typeof abilCode === 'string' ? BlzEndUnitAbilityCooldown(this.handle, FourCC(abilCode)) : BlzEndUnitAbilityCooldown(this.handle, abilCode)
-	}
-
-	public getAbilityByIndex (index: number): ability {
-		return BlzGetUnitAbilityByIndex(this.handle, index)
-	}
-
-	public getAbilityCooldown (abilId: number, level: number): number {
-		return BlzGetUnitAbilityCooldown(this.handle, abilId, level)
-	}
-
-	public getAbilityCooldownRemaining (abilId: number): number {
-		return BlzGetUnitAbilityCooldownRemaining(this.handle, abilId)
-	}
-
-	/**
-	 * Returns the level of the ability for the unit.
-	 * @note This function is **not** zero indexed.
-	 */
-	public getAbilityLevel (abilCode: number): number {
-		return GetUnitAbilityLevel(this.handle, abilCode)
-	}
-
-	public getAbilityManaCost (abilId: number, level: number): number {
-		return BlzGetUnitAbilityManaCost(this.handle, abilId, level)
-	}
-
-	public getAgility (includeBonuses: boolean): number {
-		return GetHeroAgi(this.handle, includeBonuses)
 	}
 
 	public getField (field: UnitField, index = 0): UnitFieldValue {
@@ -952,18 +907,6 @@ export class Unit extends Widget {
 		return false
 	}
 
-	public hasAbility (ability: AbilityType | number): boolean {
-		return this.getAbilityLevel((typeof ability === 'number' ? ability : ability.id)) >= 1
-	}
-
-	public hideAbility (abilId: AbilityType | number) {
-		typeof abilId === "number" ? BlzUnitHideAbility(this.handle, abilId, true) : BlzUnitHideAbility(this.handle, abilId.id, true)
-	}
-
-	public showAbility (abilId: number | AbilityType) {
-		typeof abilId === "number" ? BlzUnitHideAbility(this.handle, abilId, false) : BlzUnitHideAbility(this.handle, abilId.id, false)
-	}
-
 	public distanceTo (value: Unit | Coordinate): number {
 		return SquareRoot(((value.x - this.x) * (value.x - this.x)) + ((value.y - this.y) * (value.y - this.y)))
 	}
@@ -988,20 +931,6 @@ export class Unit extends Widget {
 	public moveToProjection (distance: number): void {
 		this.x = this.x + distance * Cos(this.facing * bj_DEGTORAD)
 		this.y = this.y + distance * Sin(this.facing * bj_DEGTORAD)
-	}
-
-	/**
-	 * Increases the level of a unit's ability by 1.
-	 * @param abilCode The four digit rawcode representation of the ability.
-	 * @returns The new ability level.
-	 *
-	 * @note `incAbilityLevel` can increase an abilities level to maxlevel+1. On maxlevel+1 all ability fields are 0.
-	 *
-	 * http://www.wc3c.net/showthread.php?p=1029039#post1029039
-	 * http://www.hiveworkshop.com/forums/lab-715/silenceex-everything-you-dont-know-about-silence-274351/.
-	 */
-	public incAbilityLevel (abilCode: number) {
-		return IncUnitAbilityLevel(this.handle, abilCode)
 	}
 
 	public inForce (whichForce: Force) {
@@ -1305,11 +1234,9 @@ export class Unit extends Widget {
 	// 	return new UnitType(this.four)
 	// }
 
-	public replace (newUnitType: UnitType | number): Unit {
+	public replace (newUnitType: UnitType): Unit {
 		this.show = false
-		let id: number
-		typeof newUnitType === 'number' ? id = newUnitType : id = newUnitType.id
-		const newUnit = new Unit(this.owner, id, this.coordinate, this.facing)
+		const newUnit = new Unit(this.owner, newUnitType, this.coordinate, this.facing)
 		newUnit.lifePercent = this.lifePercent
 		newUnit.manaPercent = this.manaPercent
 

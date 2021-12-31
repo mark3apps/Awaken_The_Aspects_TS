@@ -27,4 +27,3 @@ export * from "./unit"
 export * from "./weathereffect"
 export * from "./widget"
 export * from './herotype'
-export * from "./vector"

@@ -123,7 +123,7 @@ export class DeathSpawn {
 		try {
 			for (let i = 0; i < deathSpawn.amount; i++) {
 				if (deathSpawn.chance as number >= math.random() && unit.isTerrainPathable(PATHING_TYPE_WALKABILITY)) {
-					const u = new Unit(unit.owner, deathSpawn.unitId.id, unit.coordinate, unit.facing)
+					const u = new Unit(unit.owner, deathSpawn.unitId, unit.coordinate, unit.facing)
 
 					// if ()
 					this.pathing.newOrders(u)

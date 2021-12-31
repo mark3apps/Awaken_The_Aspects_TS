@@ -1,5 +1,5 @@
-import { EffectType } from 'app/classes/abilityType/EffectType'
-import { TargetType } from 'app/classes/abilityType/TargetType'
+import { EffectType } from 'app/classes/abilityType/enums/EffectType'
+import { TargetType } from 'app/classes/abilityType/enums/TargetType'
 import { AbilityFour, Order, BuffFour } from 'lib/w3ts'
 import { AbilityType, UnitType } from '../../classes'
 
@@ -102,8 +102,7 @@ export class AbilityTypes {
 		// Mana Repository
 		this.ManaTowerRestore = new AbilityType({
 			four: AbilityFour.ManaTowerRestore,
-			unitTypes: [UnitType.ArcaneManaRepository],
-			effectType: EffectType.UnitTypeAttacking,
+			effectType: EffectType.Attacks,
 			targetType: TargetType.SupportSingle,
 			orderId: Order.Recharge
 		})

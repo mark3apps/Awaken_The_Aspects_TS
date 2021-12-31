@@ -1,6 +1,6 @@
 import { ITriggers } from 'app/define/triggers/interfaces/ITriggers'
-import { Forces } from 'lib/w3ts/handles/Forces'
-import { Regions } from 'lib/w3ts/handles/Regions'
+import { Forces } from 'app/define/forces'
+import { Regions } from 'app/define/regions'
 import { Locs } from '../loc/Locs'
 
 export interface IPathingDepend {

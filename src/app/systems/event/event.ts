@@ -1,6 +1,6 @@
-import { Position } from 'app/classes/position'
+import { Coordinate } from 'app/classes/Coordinate'
 import { UnitType } from 'app/classes/unitType'
-import { Timer, Unit, Trigger, Order } from 'lib/w3ts/index'
+import { Timer, Unit, Trigger, Order, PlayerHostile } from 'lib/w3ts/index'
 import { Banner } from '../banner/banner'
 import { Side } from "../banner/Side"
 import { IEvent } from './interfaces/IEvent'
@@ -14,7 +14,7 @@ export class Event {
 	timer: Timer
 	count = 0
 	eventUnit?: Unit
-	spawnPos: Position
+	spawnPos: Coordinate
 
 	// Dependencies
 	locs
@@ -95,13 +95,13 @@ export class Event {
 
 	public createUnit (): void {
 		if (this.allianceScore > this.federationScore) {
-			this.eventUnit = new Unit(this.forces.Alliance.getRandomPlayer(), this.summonUnitType.id, this.spawnPos, 270)
+			this.eventUnit = new Unit(this.forces.Alliance.getRandomPlayer(), this.summonUnitType, this.spawnPos)
 			this.eventUnit.issueOrderAt(Order.Attack, this.locs.middle.federation.randomX, this.locs.middle.federation.randomY)
 		} else if (this.allianceScore < this.federationScore) {
-			this.eventUnit = new Unit(this.forces.Federation.getRandomPlayer(), this.summonUnitType.id, this.spawnPos, 270)
+			this.eventUnit = new Unit(this.forces.Federation.getRandomPlayer(), this.summonUnitType, this.spawnPos)
 			this.eventUnit.issueOrderAt(Order.Attack, this.locs.middle.alliance.randomX, this.locs.middle.alliance.randomY)
 		} else {
-			this.eventUnit = new Unit(PLAYER_NEUTRAL_AGGRESSIVE, this.summonUnitType.id, this.spawnPos, 270)
+			this.eventUnit = new Unit(PlayerHostile, this.summonUnitType, this.spawnPos)
 		}
 
 		this.eventUnit.setPathing(false)

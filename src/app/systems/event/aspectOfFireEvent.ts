@@ -1,7 +1,7 @@
-import { UnitType, Ability } from 'app/classes'
+import { UnitType, UnitAbility } from 'app/classes'
 import { AbilityTypes } from 'app/define/abilityTypes/abilityTypes'
 import { Logger } from 'app/log'
-import { Trigger, Unit, Anim, Effect, AbilityModel, Timer, DoodadModel } from 'lib/w3ts'
+import { Trigger, Unit, Anim, Effect, AbilityModel, Timer, DoodadModel, PlayerPassive } from 'lib/w3ts'
 import { Event } from './event'
 import { IAspectOfFireEvent } from './interfaces/IAspectOfFireEvent'
 import { IAspectOfFireEventDepend } from './interfaces/IAspectOfFireEventDepend'
@@ -42,11 +42,11 @@ export class AspectOfFireEvent extends Event {
 			const count = math.floor(math.random(2, 4))
 
 			for (let i = 0; i < count; i++) {
-				const u = new Unit(this.eventUnit.owner, UnitType.Dummy.id, this.eventUnit.coordinate, 0)
+				const u = new Unit(this.eventUnit.owner, UnitType.Dummy, this.eventUnit.coordinate)
 				u.addAbility(abilityTypes.AspectInferno)
 				u.applyTimedLifeGeneric(2)
 
-				const ua = new Ability({ castingUnit: u, abilType: abilityTypes.AspectInferno })
+				const ua = new UnitAbility({ unit: u, abilType: abilityTypes.AspectInferno })
 				ua.cast(u.getRandomPosAround(500))
 			}
 		}
@@ -58,7 +58,7 @@ export class AspectOfFireEvent extends Event {
 
 	public override onEventStart (): void {
 		this.units.h002_0699.setAnimation(Anim.EyeOfSargeras.stand)
-		this.wisp = new Unit(PLAYER_NEUTRAL_PASSIVE, UnitType.DummyCenterEvent.id, this.spawnPos, 0)
+		this.wisp = new Unit(PlayerPassive, UnitType.DummyCenterEvent, this.spawnPos)
 		this.wisp.flyHeight = 50
 		this.wisp.applyTimedLifeGeneric(this.eventDuration + 4)
 		Logger.Information('Event Started')

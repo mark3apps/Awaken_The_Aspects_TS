@@ -1,12 +1,12 @@
 import { DeathSpawn } from 'app/abilities'
 import { Cinematic, Pathing } from 'app/systems'
 import { Players } from 'lib/w3ts'
-import { CameraSetups } from 'lib/w3ts/handles/CameraSetups'
-import { Forces } from 'lib/w3ts/handles/Forces'
-import { Rectangles } from 'lib/w3ts/handles/Rectangles'
-import { Regions } from 'lib/w3ts/handles/Regions'
+import { CameraSetups } from 'app/define/cameraSetups'
+import { Forces } from 'app/define/forces'
+import { Rectangles } from 'app/define/rectangles'
+import { Regions } from 'app/define/regions'
 import { Triggers } from 'app/define/triggers/triggers'
-import { Units } from 'lib/w3ts/handles/Units'
+import { Units } from 'app/define/units'
 import { AbilityTypes } from './define/abilityTypes/abilityTypes'
 import { Heroes } from './define/heroes'
 import { ItemTypes } from './define/itemTypes'
@@ -14,9 +14,9 @@ import { Banners } from './define/banners'
 import { Events } from './systems/event/Events'
 import { Gates } from './systems/gates/gates'
 import { HeroAttributes } from './systems/heroAttribute/heroAttributes'
-import { AbilityTriggers } from './define/abilityTriggers/abilityTriggers'
+import { Abilities } from './define/abilityTriggers/abilities'
 import { AbilityEngine } from './classes/abilityEngine/AbilityEngine'
-import { AbilityCast } from './classes/abilityCast'
+import { AbilityCast } from './classes/abilityCast/AbilityCast'
 import { ArcTagEngine } from './systems/arcTag/ArcTagEngine'
 import { Armies } from './define/Armies'
 import { Factions } from './define/Factions'
@@ -64,22 +64,32 @@ export class Game {
 
 		// // // Globals with Upstream Dependencies
 		Logger.Information('Up Dependencies')
+		Logger.Debug("DamageEngine")
 		const damageEngine = DamageEngine.getInstance({ arcTagEngine: arcTagEngine, triggers: triggers })
+		Logger.Debug("DamageEngine")
 		const heroes = Heroes.getInstance({ triggers: triggers, forces: forces, rects: rects })
+		Logger.Debug("DeathSpawn")
 		const deathSpwan = DeathSpawn.getInstance({ triggers: triggers, pathing: pathing })
+		Logger.Debug("DeathSpawn")
 		const aspects = Aspects.getInstance({ locs: locs, units: units, forces: forces, rects: rects })
+		Logger.Debug("shiftMasterHeroType")
 		const shiftMasterHeroType = ShiftMasterHeroType.getInstance({ abilityTypes: abilTypes, heroAttr: heroAttr })
-		const abilTrigs = AbilityTriggers.getInstance({ abilityEngine: abilEngine, abilityTypes: abilTypes, abilityCast: abilCast })
+		Logger.Debug("abilTrigs")
+		const abilTrigs = Abilities.getInstance({ abilityEngine: abilEngine, abilityTypes: abilTypes, abilityCast: abilCast })
+		Logger.Debug("gates")
 		const gates = Gates.getInstance({ triggers: triggers })
 
 		// // // Globals with Init Functions
+		Logger.Debug("cinematic")
 		const cinematic = Cinematic.getInstance({ forces: forces, camSetups: camSetups })
+		Logger.Debug("spawns")
 		const spawns = Spawns.getInstance({ factions: factions })
+		Logger.Debug("events")
 		const events = Events.getInstance({ units: units, banners: banners, locs: locs, forces: forces, rects: rects })
 
-		Logger.Verbose('Game Init Finished')
+		Logger.Debug('Game Init Finished')
 
-		Logger.Verbose('Running Init Functions')
+		Logger.Debug('Running Init Functions')
 		// Start Functions
 		cinematic.onInit()
 		cinematic.setupCineCamera()

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { Coordinate, Orientation } from 'lib/w3ts/handles/vector'
-import { Unit } from 'lib/w3ts/index'
+import { Orientation } from "app/classes/Orientation"
+import { Coordinate } from "app/classes/Coordinate"
 
 export class Position implements Coordinate {
 	protected _x: number
@@ -38,6 +38,10 @@ export class Position implements Coordinate {
 		return new Position(GetCameraTargetPositionX(), GetCameraTargetPositionY(), GetCameraTargetPositionZ())
 	}
 
+	static fromCoordinate (coor: Coordinate) {
+		return new Position(coor)
+	}
+
 	public get x (): number {
 		return this._x
 	}
@@ -55,7 +59,7 @@ export class Position implements Coordinate {
 	}
 
 	public get z (): number {
-		return this._y
+		return this._z
 	}
 
 	public set z (value: number) {
@@ -71,35 +75,34 @@ export class Position implements Coordinate {
 	 * @param pathingType Default is WALKABILITY
 	 * @returns
 	 */
-	public isTerrianPathable (pathingType = PATHING_TYPE_WALKABILITY): boolean {
+	public isTerrianPathable (pathingType = PATHING_TYPE_WALKABILITY) {
 		return !IsTerrainPathable(this.x, this.y, pathingType)
 	}
 
-	public distanceTo (value: Position | Unit): number {
+	public distanceTo (value: Coordinate) {
 		return SquareRoot(((value.x - this.x) * (value.x - this.x)) + ((value.y - this.y) * (value.y - this.y)))
 	}
 
-	public yawTo (value: Position | Unit): number {
+	public yawTo (value: Coordinate) {
 		return bj_RADTODEG * Atan2(value.y - this.y, value.x - this.x)
 	}
 
-	public pitchTo (value: Position): number {
-		const distance = this.distanceTo(value)
-		return bj_RADTODEG * Atan2(this.z - value.z, 0 - distance)
+	public pitchTo (value: Coordinate) {
+		return bj_RADTODEG * Atan2(this.z - (value.z ?? 0), 0 - this.distanceTo(value))
 	}
 
-	public orientationTo (pos: Position): Orientation {
-		const yaw = this.yawTo(pos)
-		const pitch = this.pitchTo(pos)
+	public orientationTo (coor: Coordinate): Orientation {
+		const yaw = this.yawTo(coor)
+		const pitch = this.pitchTo(coor)
 
 		return { yaw: yaw, pitch: pitch }
 	}
 
-	public polarProjection (dist: number, angle: number): Position {
-		return new Position(this.x + dist * Cos(angle * bj_DEGTORAD), this.y + dist * Sin(angle * bj_DEGTORAD))
+	public polarProjection (dist: number, angle: number): Coordinate {
+		return { x: this.x + dist * Cos(angle * bj_DEGTORAD), y: this.y + dist * Sin(angle * bj_DEGTORAD) }
 	}
 
-	public moveToPolarProjection (dist: number, angle: number): void {
+	public moveToPolarProjection (dist: number, angle: number) {
 		this.x = this.x + dist * Cos(angle * bj_DEGTORAD)
 		this.y = this.y + dist * Sin(angle * bj_DEGTORAD)
 	}
@@ -112,7 +115,7 @@ export class Position implements Coordinate {
 		PingMinimapEx(this.x, this.y, duration, red, green, blue, extraEffects)
 	}
 
-	public moveTo (pos: Position): void {
+	public moveTo (pos: Coordinate): void {
 		this.x = pos.x
 		this.y = pos.y
 		if (pos.z) { this.z = pos.z }
@@ -124,7 +127,7 @@ export class Position implements Coordinate {
 	 * @param pathingType default = WALKABILITY
 	 * @returns
 	 */
-	public isGroundPathable (threshold = 100, pathingType = PATHING_TYPE_WALKABILITY): boolean {
+	public isGroundPathable (threshold = 100, pathingType = PATHING_TYPE_WALKABILITY) {
 		const item = CreateItem(Position.itemType, this.x, this.y)
 		const x = GetItemX(item)
 		const y = GetItemY(item)
@@ -136,7 +139,7 @@ export class Position implements Coordinate {
 	}
 
 	// Async command, use with caution, creates and destroys a Point Handle, not amazingly fast
-	public get localZ (): number {
+	public get localZ () {
 		const point = Location(this.x, this.y)
 		const z = GetLocationZ(point)
 		RemoveLocation(point)

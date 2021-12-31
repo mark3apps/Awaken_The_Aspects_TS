@@ -1,10 +1,9 @@
 import { CC2Four } from 'lib/resources/library'
-import { TargetType } from "./TargetType"
-import { EffectType } from "./EffectType"
-import { IAbilityType } from "./interfaces/iAbilityType"
+import { TargetType } from "./enums/TargetType"
+import { EffectType } from "./enums/EffectType"
+import { IAbilityTypeParam } from "./interfaces/iAbilityTypeParam"
 
 const AbilityTypeMap = new Map<number, unknown>()
-const MapInstant = new Map<number, unknown>()
 const preload: unknown[] = []
 
 export class AbilityTypeHandle {
@@ -17,16 +16,15 @@ export class AbilityTypeHandle {
 	readonly orderIdAutoOn
 	readonly orderIdAutoOff
 	readonly orderIdOff
-	readonly unitTypes: Map<number, boolean> = new Map<number, boolean>()
 
-	static initAbilityType?: IAbilityType
+	static initAbilityType?: IAbilityTypeParam
 
-	constructor (abilityType?: IAbilityType) {
-		let abilityTypeDefined: IAbilityType
+	constructor (abilityType?: IAbilityTypeParam) {
+		let abilityTypeDefined: IAbilityTypeParam
 		if (abilityType) {
 			abilityTypeDefined = abilityType
 		} else {
-			abilityTypeDefined = AbilityTypeHandle.initAbilityType as IAbilityType
+			abilityTypeDefined = AbilityTypeHandle.initAbilityType as IAbilityTypeParam
 		}
 
 		this.four = abilityTypeDefined.four
@@ -38,12 +36,6 @@ export class AbilityTypeHandle {
 		this.orderIdAutoOff = abilityTypeDefined.orderIdAutoOff ?? 0
 		this.orderIdAutoOn = abilityTypeDefined.orderIdAutoOn ?? 0
 		this.orderIdOff = abilityTypeDefined.orderIdOff ?? 0
-
-		if (abilityTypeDefined.unitTypes) {
-			for (let index = 0; index < abilityTypeDefined.unitTypes.length; index++) {
-				this.unitTypes.set(abilityTypeDefined.unitTypes[index].id, true)
-			}
-		}
 	}
 
 	protected static initFromAbilityType () {

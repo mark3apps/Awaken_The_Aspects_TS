@@ -1,4 +1,4 @@
-import { Rectangle } from './rect'
+import { Rectangle } from '../../lib/w3ts/handles/rect'
 
 export class Rectangles {
 	protected static instance: Rectangles

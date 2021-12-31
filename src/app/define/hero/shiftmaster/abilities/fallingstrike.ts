@@ -1,18 +1,18 @@
-import { Ability, Position, UnitType } from 'app/classes'
-import { IAbility } from 'app/classes/ability/interfaces/IAbility'
+import { UnitAbility, Position, UnitType } from 'app/classes'
+import { IUnitAbilityParam } from 'app/classes/unitAbility/interfaces/IUnitAbilityParam'
 import { AbilityTypes } from 'app/define/abilityTypes/abilityTypes'
 import { Logger } from 'app/log'
 import { AttackType, DamageType } from 'lib/resources/types'
 import { AbilityFour, Timer, Anim, Unit, Group, Order } from 'lib/w3ts'
 
-export class FallingStrike extends Ability {
+export class FallingStrike extends UnitAbility {
 	damage = 85
 	speed = 32
 	augments = 0
 	slowDuration = 5
 	slowMovement = 0.50
 
-	constructor (ability: IAbility) {
+	constructor (ability: IUnitAbilityParam) {
 		super(ability)
 		this.updateTooltips()
 	}
@@ -73,7 +73,7 @@ export class FallingStrike extends Ability {
 						u.addAbility(abilityTypes.FallingStrikeDummy)
 						u.applyTimedLifeGeneric(1)
 
-						const ability = new Ability({ castingUnit: u, abilType: abilityTypes.FallingStrikeDummy })
+						const ability = new UnitAbility({ unit: u, abilType: abilityTypes.FallingStrikeDummy })
 						ability.heroDuration = this.slowDuration
 						ability.normalDuration = this.slowDuration
 						ability.areaOfEffect = this.areaOfEffect
@@ -103,7 +103,7 @@ export class FallingStrike extends Ability {
 		}
 	}
 
-	static override fromHandle (ability: IAbility) {
+	static override fromHandle (ability: IUnitAbilityParam) {
 		return this.getObject(ability) as FallingStrike
 	}
 }

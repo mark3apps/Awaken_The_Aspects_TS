@@ -1,3 +1,4 @@
+import { UnitType } from 'app/classes'
 import { Position } from 'app/classes/position'
 import { Logger } from 'app/log'
 import { Unit, Rectangle, Force, Trigger, Timer, Effect, AbilityModel, Destructable, Order } from 'lib/w3ts/index'
@@ -7,7 +8,7 @@ import { IAspectDepend } from './IAspectDepend'
 
 export class Aspect {
 	readonly origAspect!: Unit
-	readonly aspectTypeId: number
+	readonly aspectType: UnitType
 	readonly gateRegion?: Rectangle
 	readonly gateTypeId?: number
 	readonly dependent!: Unit
@@ -36,7 +37,7 @@ export class Aspect {
 		}
 
 		this.origAspect = aspect.unit
-		this.aspectTypeId = this.origAspect.typeId
+		this.aspectType = this.origAspect.type as UnitType
 		this.dependent = aspect.dependentUnit
 		this.force = aspect.force
 		this.respawnTime = aspect.respawnTime
@@ -71,14 +72,14 @@ export class Aspect {
 					// Initial Timer
 					this.respawnTimer.start(3, false, () => {
 						new Effect(AbilityModel.darkPortalTarget, this.deathPos as Position, {}).destroy()
-						this.aspect = new Unit(this.force.getRandomPlayer(), this.aspectTypeId, this.deathPos as Position, this.deathFacing ?? 0, 0)
+						this.aspect = new Unit(this.force.getRandomPlayer(), this.aspectType, this.deathPos as Position, this.deathFacing ?? 0, 0)
 						this.aspect.issueOrderAt(Order.Attack, this.dest.randomX, this.dest.randomY)
 						this.aspectDies.registerUnitEvent(this.aspect, EVENT_UNIT_DEATH)
 					})
 				} else {
 					this.respawnTimer.start(this.respawnTime, false, () => {
 						new Effect(AbilityModel.darkPortalTarget, this.deathPos as Position, {}).destroy()
-						this.aspect = new Unit(this.force.getRandomPlayer(), this.aspectTypeId, this.deathPos as Position, this.deathFacing ?? 0, 0)
+						this.aspect = new Unit(this.force.getRandomPlayer(), this.aspectType, this.deathPos as Position, this.deathFacing ?? 0, 0)
 						this.aspect.issueOrderAt(Order.Attack, this.dest.randomX, this.dest.randomY)
 						this.aspectDies.registerUnitEvent(this.aspect, EVENT_UNIT_DEATH)
 					})

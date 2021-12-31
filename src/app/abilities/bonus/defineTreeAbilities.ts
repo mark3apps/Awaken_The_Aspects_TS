@@ -1,4 +1,4 @@
-import { Ability, AbilityType } from 'app/classes'
+import { UnitAbility, AbilityType } from 'app/classes'
 import { HeroMap } from 'app/classes/HeroTypeMap'
 import { AbilityFour } from 'lib/w3ts'
 

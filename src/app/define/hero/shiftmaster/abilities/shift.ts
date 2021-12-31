@@ -1,12 +1,12 @@
-import { Ability, Position, UnitType } from 'app/classes'
+import { UnitAbility, Position, UnitType } from 'app/classes'
 import { AbilityTypes } from 'app/define/abilityTypes/abilityTypes'
 import { AbilityField } from 'lib/resources/fields'
 import { AbilityFour, Effect, AbilityModel, Unit, Timer } from 'lib/w3ts'
-import { IAbility } from 'app/classes/ability/interfaces/IAbility'
-import { IAbilityCast } from 'app/classes/ability/interfaces/IAbilityCast'
+import { IUnitAbilityParam } from 'app/classes/unitAbility/interfaces/IUnitAbilityParam'
+import { IAbilityCast } from 'app/classes/abilityCast/interfaces/IAbilityCast'
 import { Logger } from 'app/log'
 
-export class Shift extends Ability {
+export class Shift extends UnitAbility {
 	augments = 0
 	distance = 400
 	speed = 0.45
@@ -16,7 +16,7 @@ export class Shift extends Ability {
 	shadeDuration = 15
 	tooltipName = "Shift"
 
-	constructor (ability: IAbility) {
+	constructor (ability: IUnitAbilityParam) {
 		super(ability)
 		this.updateTooltips()
 	}
@@ -61,7 +61,7 @@ cooldown |cff00ffff${math.floor(this.cooldown)}|r seconds.`
 			dummy.addAbility(abilityTypes.ShiftDummy)
 			dummy.applyTimedLifeGeneric(1)
 
-			const shiftDummyAbil = new Ability({ castingUnit: dummy, abilType: abilityTypes.ShiftDummy })
+			const shiftDummyAbil = new UnitAbility({ unit: dummy, abilType: abilityTypes.ShiftDummy })
 			shiftDummyAbil.setLevelField(AbilityField.DAMAGE_DEALT_PERCENT_OF_NORMAL, this.shadeDamageDealt, 0)
 			shiftDummyAbil.setLevelField(AbilityField.DAMAGE_RECEIVED_MULTIPLIER, this.shadeDamageTaken, 0)
 			shiftDummyAbil.heroDuration = this.shadeDuration
@@ -90,7 +90,7 @@ cooldown |cff00ffff${math.floor(this.cooldown)}|r seconds.`
 		this.updateTooltips()
 	}
 
-	static override fromHandle (ability: IAbility) {
+	static override fromHandle (ability: IUnitAbilityParam) {
 		return this.getObject(ability) as Shift
 	}
 }

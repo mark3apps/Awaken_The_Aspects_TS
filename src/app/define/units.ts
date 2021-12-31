@@ -1,4 +1,4 @@
-import { Unit } from './unit'
+import { Unit } from '../../lib/w3ts/handles/unit'
 
 export class Units {
 	private static instance?: Units

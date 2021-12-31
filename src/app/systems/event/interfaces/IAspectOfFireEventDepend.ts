@@ -1,8 +1,8 @@
 import { Banners } from 'app/define/banners'
 import { Locs } from 'app/systems/loc/Locs'
-import { Forces } from 'lib/w3ts/handles/Forces'
-import { Rectangles } from 'lib/w3ts/handles/Rectangles'
-import { Units } from 'lib/w3ts/handles/Units'
+import { Forces } from 'app/define/forces'
+import { Rectangles } from 'app/define/rectangles'
+import { Units } from 'app/define/units'
 
 export interface IAspectOfFireEventDepend {
 	units: Units,

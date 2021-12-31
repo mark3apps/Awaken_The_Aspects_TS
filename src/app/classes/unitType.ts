@@ -194,6 +194,7 @@ export class UnitType {
 	static DummySeer = new UnitType({ four: 'h00H', order: false })
 	static DummyCenterEvent = new UnitType({ four: 'n01U', order: false })
 	static DummyShiftstorm = new UnitType({ four: 'o006' })
+	static DummyCameraLock = new UnitType({ four: "h01Z" })
 
 	static FelShifter1 = new UnitType({ four: "E004", order: false })
 	static FelShifter2 = new UnitType({ four: "E009", order: false })

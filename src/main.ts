@@ -19,7 +19,7 @@ const tsMain = () => {
 	const mapStart = new Timer()
 	mapStart.start(0.1, false, () => {
 		try {
-			Logger.Level(LogLevel.Information)
+			Logger.Level = LogLevel.Debug
 			Game.start()
 		} catch (e) {
 			Logger.Fatal("Game.start()", e)

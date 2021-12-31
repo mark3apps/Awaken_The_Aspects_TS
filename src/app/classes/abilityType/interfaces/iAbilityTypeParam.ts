@@ -1,9 +1,8 @@
 import { AbilityFour, BuffFour } from 'lib/w3ts'
-import { TargetType } from "../TargetType"
-import { EffectType } from "../EffectType"
-import { UnitType } from 'app/classes'
+import { TargetType } from "../enums/TargetType"
+import { EffectType } from "../enums/EffectType"
 
-export interface IAbilityType {
+export interface IAbilityTypeParam {
 	four: AbilityFour | string,
 	buffFour?: BuffFour,
 	effectType?: EffectType,
@@ -12,5 +11,4 @@ export interface IAbilityType {
 	orderIdAutoOn?: number,
 	orderIdAutoOff?: number,
 	orderIdOff?: number,
-	unitTypes?: UnitType[]
 }

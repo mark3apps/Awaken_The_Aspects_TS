@@ -1,6 +1,6 @@
 /** @noSelfInFile **/
 
-import { Coordinate } from '.'
+import { Coordinate } from 'app/classes/Coordinate'
 import { Handle } from './handle'
 
 export class Widget extends Handle<widget> {

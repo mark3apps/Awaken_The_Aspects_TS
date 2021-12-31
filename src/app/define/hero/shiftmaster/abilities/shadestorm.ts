@@ -1,19 +1,19 @@
-import { Ability } from 'app/classes'
+import { UnitAbility } from 'app/classes'
 import { AbilityTypes } from 'app/define/abilityTypes/abilityTypes'
-import { IAbility } from 'app/classes/ability/interfaces/IAbility'
-import { IAbilityCast } from 'app/classes/ability/interfaces/IAbilityCast'
+import { IUnitAbilityParam } from 'app/classes/unitAbility/interfaces/IUnitAbilityParam'
+import { IAbilityCast } from 'app/classes/abilityCast/interfaces/IAbilityCast'
 import { UnitType } from 'app/classes/unitType'
 import { Pathing } from 'app/systems/spawn/pathing'
 import { AbilityField } from 'lib/resources/fields'
 import { Unit, Group, Timer, Effect, AbilityModel, AttachPoint } from 'lib/w3ts/index'
 
-export class ShadestormAbility extends Ability {
+export class ShadestormAbility extends UnitAbility {
 	damage = 100
 	maxShades = 2
 	duration = 10
 	augments = 0
 
-	constructor (ability: IAbility) {
+	constructor (ability: IUnitAbilityParam) {
 		super(ability)
 		this.updateTooltips()
 	}
@@ -62,7 +62,7 @@ export class ShadestormAbility extends Ability {
 					const shade = u.replace(UnitType.DummyShiftstorm)
 					shade.addAbility(abilityTypes.ShadeStormDummy)
 
-					const shadeAbility = Ability.fromHandle({ castingUnit: shade, abilType: abilityTypes.ShadeStormDummy })
+					const shadeAbility = UnitAbility.fromHandle({ unit: shade, abilType: abilityTypes.ShadeStormDummy })
 					shadeAbility.setLevelField(AbilityField.DAMAGE_PER_SECOND_OWW1, this.damage)
 					shadeAbility.normalDuration = this.duration
 					shadeAbility.castImmediate()
@@ -80,7 +80,7 @@ export class ShadestormAbility extends Ability {
 		}
 	}
 
-	static fromHandle (ability: IAbility) {
+	static fromHandle (ability: IUnitAbilityParam) {
 		return this.getObject(ability) as ShadestormAbility
 	}
 }

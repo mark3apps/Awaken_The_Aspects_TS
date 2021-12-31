@@ -13,3 +13,6 @@ export * from './order'
 for (let i = 0; i < bj_MAX_PLAYER_SLOTS; i++) {
 	Players[i] = MapPlayer.fromHandle(Player(i))
 }
+
+export const PlayerHostile = MapPlayer.fromIndex(PLAYER_NEUTRAL_AGGRESSIVE)
+export const PlayerPassive = MapPlayer.fromIndex(PLAYER_NEUTRAL_PASSIVE)

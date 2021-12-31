@@ -1,5 +1,5 @@
-import { Forces } from 'lib/w3ts/handles/Forces'
-import { Units } from 'lib/w3ts/handles/Units'
+import { Forces } from 'app/define/forces'
+import { Units } from 'app/define/units'
 
 export interface IBannersDepend {
 	units: Units,

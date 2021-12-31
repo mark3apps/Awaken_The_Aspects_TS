@@ -1,7 +1,8 @@
-import { Coordinate, Unit } from 'lib/w3ts/index'
-import { AbilityType } from '.'
-import { IAbility } from './ability/interfaces/IAbility'
-import { IAbilityCast } from './ability/interfaces/IAbilityCast'
+import { Unit } from 'lib/w3ts/index'
+import { AbilityType } from '..'
+import { Coordinate } from '../Coordinate'
+import { IUnitAbilityParam } from '../unitAbility/interfaces/IUnitAbilityParam'
+import { IAbilityCast } from './interfaces/IAbilityCast'
 
 export class AbilityCast implements IAbilityCast {
 	protected static instance: AbilityCast
@@ -13,47 +14,47 @@ export class AbilityCast implements IAbilityCast {
 
 	private constructor () { }
 
-	get castingUnit () {
+	CastingUnit () {
 		return Unit.fromCaster()
 	}
 
-	get attackingUnit () {
+	AttackingUnit () {
 		return Unit.fromAttacker()
 	}
 
-	get attackedUnit () {
+	AttackedUnit () {
 		return Unit.fromAttacked()
 	}
 
-	get killingUnit () {
+	KillingUnit () {
 		return Unit.fromKilling()
 	}
 
-	get dyingUnit () {
+	DyingUnit () {
 		return Unit.fromDying()
 	}
 
-	get damageSource () {
+	DamageSource () {
 		return Unit.fromDamageSource()
 	}
 
-	get damageTarget () {
+	DamageTarget () {
 		return Unit.fromDamageTarget()
 	}
 
-	get targetUnit () {
+	TargetUnit () {
 		return Unit.fromSpellTarget()
 	}
 
-	get abilType () {
+	AbilType () {
 		return AbilityType.fromSpellEvent()
 	}
 
-	get targetCoordinate (): Coordinate {
+	Target (): Coordinate {
 		return { x: GetSpellTargetX(), y: GetSpellTargetY() }
 	}
 
-	get ability (): IAbility {
-		return { castingUnit: this.castingUnit, abilType: this.abilType }
+	AbilityParam (): IUnitAbilityParam {
+		return { unit: this.CastingUnit(), abilType: this.AbilType() }
 	}
 }

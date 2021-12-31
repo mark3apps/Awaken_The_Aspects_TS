@@ -207,7 +207,7 @@ export class Locs {
 						const element = eventLoc.forward[i]
 
 						if (eventUnit.inForce(element.army.force)) {
-							const dest = element.loc.randomPosition
+							const dest = element.loc.randomCoordinate
 
 							eventUnit.issueOrderAtCoordinate(Order.Attack, dest)
 						}

@@ -1,14 +1,14 @@
-import { Ability } from 'app/classes'
+import { UnitAbility } from 'app/classes'
 import { Position } from 'app/classes/position'
 import { Unit, Group, Effect, AbilityModel, Order } from 'lib/w3ts/index'
-import { IAbility } from 'app/classes/ability/interfaces/IAbility'
+import { IUnitAbilityParam } from 'app/classes/unitAbility/interfaces/IUnitAbilityParam'
 import { Logger } from 'app/log'
 
-export class SwitchAbility extends Ability {
+export class SwitchAbility extends UnitAbility {
 	pickRange = 300
 	augments = 0
 
-	constructor (ability: IAbility) {
+	constructor (ability: IUnitAbilityParam) {
 		super(ability)
 		this.updateTooltips()
 	}
@@ -62,7 +62,7 @@ export class SwitchAbility extends Ability {
 		}
 	}
 
-	static override fromHandle (ability: IAbility) {
+	static override fromHandle (ability: IUnitAbilityParam) {
 		return this.getObject(ability) as SwitchAbility
 	}
 }

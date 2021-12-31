@@ -1,5 +1,5 @@
-import { CameraSetups } from 'lib/w3ts/handles/CameraSetups'
-import { Forces } from 'lib/w3ts/handles/Forces'
+import { CameraSetups } from 'app/define/cameraSetups'
+import { Forces } from 'app/define/forces'
 
 export interface ICinematicDepend {
 	forces: Forces

@@ -1,9 +1,9 @@
 import { Group, BuffFour, Unit, AbilityFour, Order } from 'lib/w3ts'
-import { Ability, UnitType } from '../classes'
-import { IAbility } from '../classes/ability/interfaces/IAbility'
-import { IAbilityCast } from '../classes/ability/interfaces/IAbilityCast'
+import { UnitAbility, UnitType } from '../classes'
+import { IUnitAbilityParam } from '../classes/unitAbility/interfaces/IUnitAbilityParam'
+import { IAbilityCast } from '../classes/abilityCast/interfaces/IAbilityCast'
 
-export class AspectOfDeathInfect extends Ability {
+export class AspectOfDeathInfect extends UnitAbility {
 	override onEffect (cast: IAbilityCast): void {
 		const unitCount = this.normalDuration
 
@@ -26,7 +26,7 @@ export class AspectOfDeathInfect extends Ability {
 		g.destroy()
 	}
 
-	static override fromHandle (ability: IAbility) {
+	static override fromHandle (ability: IUnitAbilityParam) {
 		return this.getObject(ability) as AspectOfDeathInfect
 	}
 }

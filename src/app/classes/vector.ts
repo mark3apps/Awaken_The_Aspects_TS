@@ -1,27 +1,8 @@
 /* eslint-disable camelcase */
 import { Position } from 'app/classes/position'
-import { Effect } from './effect'
-
-export interface Orientation {
-	yaw?: number,
-	pitch?: number,
-	roll?: number
-}
-
-export interface Coordinate {
-	x: number,
-	y: number,
-	z?: number
-}
-
-export interface VectorInterface {
-	x: number,
-	y: number,
-	z?: number,
-	yaw?: number,
-	pitch?: number,
-	roll?: number
-}
+import { Effect } from '../../lib/w3ts/handles/effect'
+import { Orientation } from './Orientation'
+import { VectorInterface } from './VectorInterface'
 
 export class Vector extends Position {
 	// Hidden Variables with Getter/Setter

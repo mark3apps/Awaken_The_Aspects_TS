@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 import { Position } from 'app/classes/position'
-import { MapPlayer } from './player'
-import { Timer } from './timer'
-import { Unit } from './unit'
+import { MapPlayer } from '../../lib/w3ts/handles/player'
+import { Timer } from '../../lib/w3ts/handles/timer'
+import { Unit } from '../../lib/w3ts/handles/unit'
 import { Vector } from './vector'
 
 export class Ray extends Vector {

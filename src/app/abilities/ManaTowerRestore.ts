@@ -1,8 +1,9 @@
-import { Ability } from 'app/classes'
-import { IAbilityCast } from 'app/classes/ability/interfaces/IAbilityCast'
+import { UnitAbility } from 'app/classes'
+import { IAbilityCast } from 'app/classes/abilityCast/interfaces/IAbilityCast'
+import { IUnitAbilityParam } from 'app/classes/unitAbility/interfaces/IUnitAbilityParam'
 import { Group } from 'lib/w3ts'
 
-export class ManaTowerRestore extends Ability {
+export class ManaTowerRestore extends UnitAbility {
 	override onEffect (cast: IAbilityCast): void {
 		const g = new Group()
 		g.enumUnitsInRange(this.unit, 1300)
@@ -19,5 +20,9 @@ export class ManaTowerRestore extends Ability {
 			}
 		})
 		g.destroy()
+	}
+
+	static override fromHandle (ability: IUnitAbilityParam) {
+		return this.getObject(ability) as ManaTowerRestore
 	}
 }

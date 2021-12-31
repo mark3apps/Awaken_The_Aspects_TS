@@ -1,4 +1,5 @@
-import { UnitType, Position } from 'app/classes'
+import { UnitType } from 'app/classes'
+import { Coordinate } from 'app/classes/Coordinate'
 import { Logger } from 'app/log'
 import { Order, BuffFour, Unit, Timer, Group, Rectangle } from 'lib/w3ts'
 import { IPathingDepend } from './IPathingDepend'
@@ -113,7 +114,7 @@ export class Pathing {
 
 				if (eventUnit.inForce(this.forces.Computers)) {
 					if (UnitType.replaceOnSummon.has(eventUnit.typeId)) {
-						this.newOrders(eventUnit.replace(eventUnit.typeId))
+						this.newOrders(eventUnit.replace(eventUnit.type as UnitType))
 					} else {
 						this.newOrders(eventUnit)
 					}
@@ -156,28 +157,28 @@ export class Pathing {
 	// Namespace Functions
 	newOrders (unit: Unit) {
 		try {
-			let dest: Position | undefined
+			let dest: Coordinate | undefined
 
 			if (unit.inRegion(this.regions.BigTop)) {
 				Logger.Verbose('top', unit.name)
 				if (unit.inForce(this.forces.AllianceAll)) {
-					dest = this.locs.top.federation.randomPosition
+					dest = this.locs.top.federation.randomCoordinate
 				} else if (unit.inForce(this.forces.FederationAll)) {
-					dest = this.locs.top.alliance.randomPosition
+					dest = this.locs.top.alliance.randomCoordinate
 				}
 			} else if (unit.inRegion(this.regions.BigMiddle)) {
 				Logger.Verbose('middle', unit.name)
 				if (unit.inForce(this.forces.AllianceAll)) {
-					dest = this.locs.middle.federation.randomPosition
+					dest = this.locs.middle.federation.randomCoordinate
 				} else if (unit.inForce(this.forces.FederationAll)) {
-					dest = this.locs.middle.alliance.randomPosition
+					dest = this.locs.middle.alliance.randomCoordinate
 				}
 			} else {
 				Logger.Verbose('bottom', unit.name)
 				if (unit.inForce(this.forces.AllianceAll)) {
-					dest = this.locs.bottom.federation.randomPosition
+					dest = this.locs.bottom.federation.randomCoordinate
 				} else if (unit.inForce(this.forces.FederationAll)) {
-					dest = this.locs.bottom.alliance.randomPosition
+					dest = this.locs.bottom.alliance.randomCoordinate
 				}
 			}
 

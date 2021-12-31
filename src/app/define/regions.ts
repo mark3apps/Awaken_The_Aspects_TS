@@ -1,5 +1,5 @@
-import { Rectangle } from './rect'
-import { Region } from './region'
+import { Rectangle } from '../../lib/w3ts/handles/rect'
+import { Region } from '../../lib/w3ts/handles/region'
 
 export class Regions {
 	protected static instance: Regions
