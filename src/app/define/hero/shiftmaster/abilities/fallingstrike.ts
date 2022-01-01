@@ -1,28 +1,30 @@
-import { UnitAbility, Position } from 'app/classes'
-import { IUnitAbilityParam } from 'app/classes/unitAbility/interfaces/IUnitAbilityParam'
-import { UnitTypes } from 'app/define/UnitTypes'
-import { AbilityTypes } from 'app/define/abilityTypes/abilityTypes'
-import { Logger } from 'app/log'
-import { AttackType, DamageType } from 'lib/resources/types'
-import { AbilityFour, Timer, Anim, Unit, Group, Order } from 'lib/w3ts'
+/** @format */
+
+import { UnitAbility, Position } from "app/classes"
+import { IUnitAbilityParam } from "app/classes/unitAbility/interfaces/IUnitAbilityParam"
+import { UnitTypes } from "app/define/UnitTypes"
+import { AbilityTypes } from "app/define/abilityTypes/abilityTypes"
+import { Logger } from "app/log"
+import { AttackType, DamageType } from "lib/resources/types"
+import { AbilityFour, Timer, Anim, Unit, Group, Order } from "lib/w3ts"
 
 export class FallingStrike extends UnitAbility {
 	damage = 85
 	speed = 32
 	augments = 0
 	slowDuration = 5
-	slowMovement = 0.50
+	slowMovement = 0.5
 
-	constructor (ability: IUnitAbilityParam) {
+	constructor(ability: IUnitAbilityParam) {
 		super(ability)
 		this.updateTooltips()
 	}
 
-	updateTooltip (): void {
+	updateTooltip(): void {
 		this.tooltip = `Falling Strike - [|cffffcc00${this.augments} Augments|r]`
 	}
 
-	updateExtendedTooltop (): void {
+	updateExtendedTooltip(): void {
 		this.extendedTooltip = `The Shifter jumps to the target dealing damage and slowing units in close proximity to the landing attack for a short time.
 
 |cff00ffff${this.damage}|r Area Damage
@@ -64,18 +66,29 @@ export class FallingStrike extends UnitAbility {
 				loop.start(0.02, true, () => {
 					distanceTravelled += this.speed
 					this.unit.moveToPolarProjection(this.speed, angle)
-					this.unit.flyHeight = this.unit.getParabolaZ(distanceTravelled, fullDistance, maximumHeight)
+					this.unit.flyHeight = this.unit.getParabolaZ(
+						distanceTravelled,
+						fullDistance,
+						maximumHeight
+					)
 
 					if (distanceTravelled >= fullDistance) {
 						this.unit.invulnerable = false
 						this.unit.setPathing(true)
 						this.unit.flyHeight = this.unit.defaultFlyHeight
 
-						const u = new Unit({ owner: this.unit.owner, type: unitTypes.Dummy, coor: this.unit.coordinate })
+						const u = new Unit({
+							owner: this.unit.owner,
+							type: unitTypes.Dummy,
+							coor: this.unit.coordinate,
+						})
 						u.addAbility(abilityTypes.FallingStrikeDummy)
 						u.applyTimedLifeGeneric(1)
 
-						const ability = new UnitAbility({ unit: u, abilType: abilityTypes.FallingStrikeDummy })
+						const ability = new UnitAbility({
+							unit: u,
+							abilType: abilityTypes.FallingStrikeDummy,
+						})
 						ability.heroDuration = this.slowDuration
 						ability.normalDuration = this.slowDuration
 						ability.areaOfEffect = this.areaOfEffect
@@ -84,11 +97,24 @@ export class FallingStrike extends UnitAbility {
 						const g = new Group()
 						g.enumUnitsInRange(spellTarget, this.areaOfEffect, () => {
 							const u = Unit.fromFilter()
-							return u.isAlive() && u.isEnemy(this.unit) && !u.isMagicImmune && !u.isStructure && u.isGround
+							return (
+								u.isAlive() &&
+								u.isEnemy(this.unit) &&
+								!u.isMagicImmune &&
+								!u.isStructure &&
+								u.isGround
+							)
 						})
 
 						g.firstLoop((u) => {
-							this.unit.damageTarget(u, this.damage, false, false, AttackType.MAGIC, DamageType.NORMAL)
+							this.unit.damageTarget(
+								u,
+								this.damage,
+								false,
+								false,
+								AttackType.MAGIC,
+								DamageType.NORMAL
+							)
 						})
 						g.destroy()
 
@@ -105,7 +131,7 @@ export class FallingStrike extends UnitAbility {
 		}
 	}
 
-	static override fromHandle (ability: IUnitAbilityParam) {
+	static override fromHandle(ability: IUnitAbilityParam) {
 		return this.getObject(ability) as FallingStrike
 	}
 }

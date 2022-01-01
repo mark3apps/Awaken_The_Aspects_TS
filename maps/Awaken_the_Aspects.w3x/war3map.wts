@@ -14631,12 +14631,6 @@ STRING 5166
 Tree - Skill
 }
 
-STRING 5167
-// Abilities: A024 (Tree - Skill), Hotkey (Hotkey - Normal)
-{
-Q
-}
-
 STRING 5168
 // Abilities: A024 (Tree - Skill), Tip (Tooltip - Normal)
 {
@@ -14809,5 +14803,11 @@ STRING 5204
 // Units: h01E (Iron Mage), Name (Name)
 {
 Iron Mage
+}
+
+STRING 5205
+// Abilities: A024 (Tree - Skill), Hotkey (Hotkey - Normal)
+{
+O
 }
 

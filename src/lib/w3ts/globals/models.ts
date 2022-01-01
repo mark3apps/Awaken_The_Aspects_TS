@@ -382,6 +382,7 @@ export const enum AbilityModel {
 	healTarget2 = 'Abilities\\Spells\\Other\\HealTarget2\\HealTarget2.mdx',
 	healingSalveTarget = 'Abilities\\Spells\\Items\\HealingSalve\\HealingSalveTarget.mdx',
 	healingWaveTarget = 'Abilities\\Spells\\Orc\\HealingWave\\HealingWaveTarget.mdx',
+	hellscreamMorph = 'Objects\\Spawnmodels\\Demon\\HellscreamMorph\\HellscreamMorph.mdx',
 	holyBoltMissile = 'Abilities\\Spells\\Human\\HolyBolt\\HolyBoltMissile.mdx',
 	holyBoltSpecialArt = 'Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt.mdx',
 	howlCaster = 'Abilities\\Spells\\Other\\HowlOfTerror\\HowlCaster.mdx',

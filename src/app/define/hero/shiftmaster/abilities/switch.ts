@@ -1,24 +1,28 @@
-import { UnitAbility } from 'app/classes'
-import { Position } from 'app/classes/position'
-import { Unit, Group, Effect, AbilityModel, Order } from 'lib/w3ts/index'
-import { IUnitAbilityParam } from 'app/classes/unitAbility/interfaces/IUnitAbilityParam'
-import { Logger } from 'app/log'
+/** @format */
 
-export class SwitchAbility extends UnitAbility {
+import { UnitAbility } from "app/classes"
+import { Position } from "app/classes/position"
+import { Unit, Group, Effect, AbilityModel, Order } from "lib/w3ts/index"
+import { IUnitAbilityParam } from "app/classes/unitAbility/interfaces/IUnitAbilityParam"
+import { Logger } from "app/log"
+
+export class Switch extends UnitAbility {
 	pickRange = 300
 	augments = 0
 
-	constructor (ability: IUnitAbilityParam) {
+	constructor(ability: IUnitAbilityParam) {
 		super(ability)
 		this.updateTooltips()
 	}
 
-	override updateTooltip (): void {
+	override updateTooltip(): void {
 		this.tooltip = `Switch - [|cffffcc00${this.augments} Augments|r]`
 	}
 
-	override updateExtendedTooltop (): void {
-		this.extendedTooltip = `The Shifter switches positions with a nearby friendly shade within |cff00ffff${math.floor(this.castRange)}|r of the Shift Master.  If no shade exists, this spell is cancelled.
+	override updateExtendedTooltip(): void {
+		this.extendedTooltip = `The Shifter switches positions with a nearby friendly shade within |cff00ffff${math.floor(
+			this.castRange
+		)}|r of the Shift Master.  If no shade exists, this spell is cancelled.
 
 |cff00ffff${math.floor(this.cooldown)}|r second cooldown.`
 	}
@@ -62,7 +66,7 @@ export class SwitchAbility extends UnitAbility {
 		}
 	}
 
-	static override fromHandle (ability: IUnitAbilityParam) {
-		return this.getObject(ability) as SwitchAbility
+	static override fromHandle(ability: IUnitAbilityParam) {
+		return this.getObject(ability) as Switch
 	}
 }

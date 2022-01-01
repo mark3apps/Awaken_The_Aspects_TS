@@ -1,23 +1,25 @@
-import { BonusArmor } from 'app/abilities/bonus/bonusArmor'
-import { BonusAttackSpeed } from 'app/abilities/bonus/bonusAttackSpeed'
-import { BonusDamage } from 'app/abilities/bonus/bonusDamage'
-import { BonusLifeRegen } from 'app/abilities/bonus/bonusLifeRegen'
-import { BonusMoveSpeed } from 'app/abilities/bonus/bonusMoveSpeed'
-import { BonusStats } from 'app/abilities/bonus/bonusStats'
-import { SkillTree } from 'app/abilities/tree/skillTree'
-import { HeroType } from 'app/classes/herotype'
-import { StateMachine, IState } from 'app/heroes/stateMachine'
-import { Logger } from 'app/log'
-import { TalentConfig } from 'app/systems/talents/talentConfig'
-import { GoldTalentViewModel } from 'app/systems/talents/viewModels/GoldTalentViewModel'
-import { SkillTalentViewModel } from 'app/systems/talents/viewModels/SkillTalentViewModel'
-import { GenerateNoButtonTalentTreeView } from 'app/systems/talents/views/NoButtonTalentTreeView'
-import { GenerateNoButtonTalentView } from 'app/systems/talents/views/NoButtonTalentView'
-import { BasicTalentTreeViewModel } from 'lib/STK/UI/STK/ViewModels/BasicTalentTreeViewModel'
-import { Timer, Unit, Group, Force, Frame, Order } from 'lib/w3ts'
-import { UnitAbility } from '..'
-import { IHeroDepend } from './interfaces/IHeroDepend'
-import { IHeroParam } from './interfaces/IHeroParam'
+/** @format */
+
+import { BonusArmor } from "app/abilities/bonus/bonusArmor"
+import { BonusAttackSpeed } from "app/abilities/bonus/bonusAttackSpeed"
+import { BonusDamage } from "app/abilities/bonus/bonusDamage"
+import { BonusLifeRegeneration } from "app/abilities/bonus/bonusLifeRegeneration"
+import { BonusMoveSpeed } from "app/abilities/bonus/bonusMoveSpeed"
+import { BonusStats } from "app/abilities/bonus/bonusStats"
+import { SkillTree } from "app/abilities/tree/skillTree"
+import { HeroType } from "app/classes/heroType/heroType"
+import { StateMachine, IState } from "app/heroes/stateMachine"
+import { Logger } from "app/log"
+import { TalentConfig } from "app/systems/talents/talentConfig"
+import { GoldTalentViewModel } from "app/systems/talents/viewModels/GoldTalentViewModel"
+import { SkillTalentViewModel } from "app/systems/talents/viewModels/SkillTalentViewModel"
+import { GenerateNoButtonTalentTreeView } from "app/systems/talents/views/NoButtonTalentTreeView"
+import { GenerateNoButtonTalentView } from "app/systems/talents/views/NoButtonTalentView"
+import { BasicTalentTreeViewModel } from "lib/STK/UI/STK/ViewModels/BasicTalentTreeViewModel"
+import { Timer, Unit, Group, Force, Frame, Order } from "lib/w3ts"
+import { UnitAbility } from ".."
+import { IHeroDepend } from "./interfaces/IHeroDepend"
+import { IHeroParam } from "./interfaces/IHeroParam"
 
 export class Hero extends Unit {
 	static readonly all: Hero[] = []
@@ -25,11 +27,11 @@ export class Hero extends Unit {
 	static ai: Hero[] = []
 	static PickedPlayers: Force
 
-	public static fromHandle (handle: unit): Hero {
+	public static fromHandle(handle: unit): Hero {
 		return this.getObject(handle)
 	}
 
-	public static fromEvent () {
+	public static fromEvent() {
 		return this.fromHandle(GetTriggerUnit())
 	}
 
@@ -51,7 +53,7 @@ export class Hero extends Unit {
 
 	AIunitCount = 0
 	AIunitCountAlly = 0
-	AIUnitCoundEnemy = 0
+	AIUnitCountEnemy = 0
 
 	AImostPowerfulAlly = 0
 	AImostPowerfulAllyUnit: Unit | undefined
@@ -84,10 +86,10 @@ export class Hero extends Unit {
 	private statsAbility
 	private attackSpeedAbility
 	private moveSpeedAbility
-	private lifeRegenAbility
+	private lifeRegenerationAbility
 	private skillTreeAbility
 
-	constructor (depend: IHeroDepend, hero: IHeroParam) {
+	constructor(depend: IHeroDepend, hero: IHeroParam) {
 		super(hero)
 
 		// Dependencies
@@ -105,9 +107,13 @@ export class Hero extends Unit {
 		this.damageAbility = abils.bonusDamage.getUnitAbilityUnknown(this) as BonusDamage
 		this.armorAbility = abils.bonusArmor.getUnitAbilityUnknown(this) as BonusArmor
 		this.moveSpeedAbility = abils.bonusMoveSpeed.getUnitAbilityUnknown(this) as BonusMoveSpeed
-		this.attackSpeedAbility = abils.bonusAttackSpeed.getUnitAbilityUnknown(this) as BonusAttackSpeed
+		this.attackSpeedAbility = abils.bonusAttackSpeed.getUnitAbilityUnknown(
+			this
+		) as BonusAttackSpeed
 		this.statsAbility = abils.bonusStats.getUnitAbilityUnknown(this) as BonusStats
-		this.lifeRegenAbility = abils.bonusLifeRegen.getUnitAbilityUnknown(this) as BonusLifeRegen
+		this.lifeRegenerationAbility = abils.bonusLifeRegeneration.getUnitAbilityUnknown(
+			this
+		) as BonusLifeRegeneration
 
 		// Set the Bonus Abilities to Permanent
 		this.damageAbility.permanent = true
@@ -115,7 +121,7 @@ export class Hero extends Unit {
 		this.moveSpeedAbility.permanent = true
 		this.attackSpeedAbility.permanent = true
 		this.statsAbility.permanent = true
-		this.lifeRegenAbility.permanent = true
+		this.lifeRegenerationAbility.permanent = true
 
 		// Add Tree Abilities
 		this.skillTreeAbility = abils.treeSkill.getUnitAbility(this) as SkillTree
@@ -151,7 +157,10 @@ export class Hero extends Unit {
 
 		// Define Skill Trees
 		const config = new TalentConfig()
-		const treeUi = GenerateNoButtonTalentTreeView(config.talentTreeView, Frame.fromOrigin(ORIGIN_FRAME_GAME_UI, 0))
+		const treeUi = GenerateNoButtonTalentTreeView(
+			config.talentTreeView,
+			Frame.fromOrigin(ORIGIN_FRAME_GAME_UI, 0)
+		)
 
 		this.skillTree = new BasicTalentTreeViewModel(
 			config.talentTreeViewModel,
@@ -163,7 +172,10 @@ export class Hero extends Unit {
 					GenerateNoButtonTalentView(
 						config.talentView,
 						treeUi.talentTreeContainer,
-						i.toString())))
+						i.toString()
+					)
+				)
+		)
 
 		this.guardTree = new BasicTalentTreeViewModel(
 			config.talentTreeViewModel,
@@ -175,7 +187,10 @@ export class Hero extends Unit {
 					GenerateNoButtonTalentView(
 						config.talentView,
 						treeUi.talentTreeContainer,
-						i.toString())))
+						i.toString()
+					)
+				)
+		)
 
 		this.armorTree = new BasicTalentTreeViewModel(
 			config.talentTreeViewModel,
@@ -187,7 +202,10 @@ export class Hero extends Unit {
 					GenerateNoButtonTalentView(
 						config.talentView,
 						treeUi.talentTreeContainer,
-						i.toString())))
+						i.toString()
+					)
+				)
+		)
 
 		this.heroType.talentTrees(this)
 
@@ -205,14 +223,14 @@ export class Hero extends Unit {
 		for (let i = 0; i < this.abilityFours.length; i++) {
 			const abilityType = this.unitAbilities.get(this.abilityFours[i])
 			if (abilityType) {
-				(abilityType as UnitAbility).updateTooltips()
+				;(abilityType as UnitAbility).updateTooltips()
 			}
 		}
 	}
 
 	// AI Methods
-	public AIstart (tick = this.AITickIncrement) {
-		Logger.Information('Starting AI for', this.nameProper)
+	public AIstart(tick = this.AITickIncrement) {
+		Logger.Information("Starting AI for", this.nameProper)
 
 		this.stateMachine = new StateMachine(this)
 		this.AITickIncrement = tick
@@ -225,17 +243,17 @@ export class Hero extends Unit {
 		this.stateMachine.addState(this.STATEflee())
 
 		// Set the starting State
-		this.stateMachine.setState('attack')
+		this.stateMachine.setState("attack")
 
 		// Start the AI Loop Timer
 		this.AITickTimer.start(tick, true, () => this.AIexecute())
 	}
 
-	public AIpause () {
+	public AIpause() {
 		this.AITickTimer.pause()
 	}
 
-	public AIexecute () {
+	public AIexecute() {
 		if (this.stateMachine) {
 			this.AIintel()
 			this.stateMachine.update()
@@ -243,17 +261,17 @@ export class Hero extends Unit {
 		// Nothing at the moment
 	}
 
-	public AIintel () {
+	public AIintel() {
 		//
 	}
 
-	public AIlevelup () {
+	public AIlevelup() {
 		//
 	}
 
-	private STATEdead (): IState {
+	private STATEdead(): IState {
 		return {
-			name: 'dead',
+			name: "dead",
 			onEnter: () => {
 				//
 			},
@@ -262,13 +280,13 @@ export class Hero extends Unit {
 			},
 			onExit: () => {
 				//
-			}
+			},
 		}
 	}
 
-	private STATEcast (): IState {
+	private STATEcast(): IState {
 		return {
-			name: 'cast',
+			name: "cast",
 			onEnter: () => {
 				//
 			},
@@ -277,13 +295,13 @@ export class Hero extends Unit {
 			},
 			onExit: () => {
 				//
-			}
+			},
 		}
 	}
 
-	private STATEheal (): IState {
+	private STATEheal(): IState {
 		return {
-			name: 'heal',
+			name: "heal",
 			onEnter: () => {
 				// Log.Information("Heal")
 			},
@@ -292,13 +310,13 @@ export class Hero extends Unit {
 			},
 			onExit: () => {
 				//
-			}
+			},
 		}
 	}
 
-	private STATEattack (): IState {
+	private STATEattack(): IState {
 		return {
-			name: 'attack',
+			name: "attack",
 			onEnter: () => {
 				// Log.Information("Attack", this.nameProper)
 				this.issueOrderAt(Order.Attack, 0, 0)
@@ -308,13 +326,13 @@ export class Hero extends Unit {
 			},
 			onExit: () => {
 				// Log.Information("End Attack")
-			}
+			},
 		}
 	}
 
-	private STATEflee (): IState {
+	private STATEflee(): IState {
 		return {
-			name: 'flee',
+			name: "flee",
 			onEnter: () => {
 				//
 			},
@@ -323,73 +341,73 @@ export class Hero extends Unit {
 			},
 			onExit: () => {
 				//
-			}
+			},
 		}
 	}
 
 	// General Methods
 
-	get lifeRegenBonus () {
-		return this.lifeRegenAbility.lifeRegeneration
+	get lifeRegenerationBonus() {
+		return this.lifeRegenerationAbility.lifeRegeneration
 	}
 
-	set lifeRegenBonus (value) {
-		this.lifeRegenAbility.lifeRegeneration = value
+	set lifeRegenerationBonus(value) {
+		this.lifeRegenerationAbility.lifeRegeneration = value
 	}
 
-	get damageBonus () {
+	get damageBonus() {
 		return this.damageAbility.damage
 	}
 
-	set damageBonus (value) {
+	set damageBonus(value) {
 		this.damageAbility.damage = value
 	}
 
-	get armorBonus () {
+	get armorBonus() {
 		return this.armorAbility.armor
 	}
 
-	set armorBonus (value) {
+	set armorBonus(value) {
 		this.armorAbility.armor = value
 	}
 
-	get movementSpeedBonus () {
+	get movementSpeedBonus() {
 		return this.moveSpeedAbility.movementSpeed
 	}
 
-	set movementSpeedBonus (value) {
+	set movementSpeedBonus(value) {
 		this.moveSpeedAbility.movementSpeed = value
 	}
 
-	get attackSpeedBonus () {
+	get attackSpeedBonus() {
 		return this.attackSpeedAbility.attackSpeed
 	}
 
-	set attackSpeedBonus (value) {
+	set attackSpeedBonus(value) {
 		this.attackSpeedAbility.attackSpeed = value
 	}
 
-	get strengthBonus () {
+	get strengthBonus() {
 		return this.statsAbility.strength
 	}
 
-	set strengthBonus (value) {
+	set strengthBonus(value) {
 		this.statsAbility.strength = value
 	}
 
-	get agilityBonus () {
+	get agilityBonus() {
 		return this.statsAbility.agility
 	}
 
-	set agilityBonus (value) {
+	set agilityBonus(value) {
 		this.statsAbility.agility = value
 	}
 
-	get intelligenceBonus () {
+	get intelligenceBonus() {
 		return this.statsAbility.intelligence
 	}
 
-	set intelligenceBonus (value) {
+	set intelligenceBonus(value) {
 		this.statsAbility.intelligence = value
 	}
 }

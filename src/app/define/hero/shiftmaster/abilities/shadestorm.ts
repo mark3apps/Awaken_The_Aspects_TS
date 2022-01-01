@@ -1,28 +1,30 @@
-import { UnitAbility } from 'app/classes'
-import { AbilityTypes } from 'app/define/abilityTypes/abilityTypes'
-import { IUnitAbilityParam } from 'app/classes/unitAbility/interfaces/IUnitAbilityParam'
-import { IAbilityCast } from 'app/classes/abilityCast/interfaces/IAbilityCast'
-import { Pathing } from 'app/systems/spawn/pathing'
-import { AbilityField } from 'lib/resources/fields'
-import { Unit, Group, Timer, Effect, AbilityModel, Attach } from 'lib/w3ts/index'
-import { UnitTypes } from 'app/define/UnitTypes'
+/** @format */
 
-export class ShadestormAbility extends UnitAbility {
+import { UnitAbility } from "app/classes"
+import { AbilityTypes } from "app/define/abilityTypes/abilityTypes"
+import { IUnitAbilityParam } from "app/classes/unitAbility/interfaces/IUnitAbilityParam"
+import { IAbilityCast } from "app/classes/abilityCast/interfaces/IAbilityCast"
+import { Pathing } from "app/systems/spawn/pathing"
+import { AbilityField } from "lib/resources/fields"
+import { Unit, Group, Timer, Effect, AbilityModel, Attach } from "lib/w3ts/index"
+import { UnitTypes } from "app/define/UnitTypes"
+
+export class Shadestorm extends UnitAbility {
 	damage = 100
 	maxShades = 2
 	duration = 10
 	augments = 0
 
-	constructor (ability: IUnitAbilityParam) {
+	constructor(ability: IUnitAbilityParam) {
 		super(ability)
 		this.updateTooltips()
 	}
 
-	updateTooltip (): void {
+	updateTooltip(): void {
 		this.tooltip = `Shade Storm - [|cffffcc00${this.augments} Augments|r]`
 	}
 
-	updateExtendedTooltop (): void {
+	updateExtendedTooltip(): void {
 		this.extendedTooltip = `The Shift Master calls up to ${this.maxShades} of his nearby shades to go into a whirlwind, dealing damage to all nearby enemies.  After the whirlwind is over, the Shade disapears.
 
 |cff00ffff${this.damage}|r Damage per second
@@ -63,7 +65,10 @@ export class ShadestormAbility extends UnitAbility {
 					const shade = u.replace(unitTypes.DummyShiftstorm)
 					shade.addAbility(abilityTypes.ShadeStormDummy)
 
-					const shadeAbility = UnitAbility.fromHandle({ unit: shade, abilType: abilityTypes.ShadeStormDummy })
+					const shadeAbility = UnitAbility.fromHandle({
+						unit: shade,
+						abilType: abilityTypes.ShadeStormDummy,
+					})
 					shadeAbility.setLevelField(AbilityField.DAMAGE_PER_SECOND_OWW1, this.damage)
 					shadeAbility.normalDuration = this.duration
 					shadeAbility.castImmediate()
@@ -71,7 +76,11 @@ export class ShadestormAbility extends UnitAbility {
 
 					const killTimer = new Timer()
 					killTimer.start(this.duration, false, () => {
-						new Effect(AbilityModel.mirrorImageDeathCaster, shade.coordinate, {}).destroy()
+						new Effect(
+							AbilityModel.mirrorImageDeathCaster,
+							shade.coordinate,
+							{}
+						).destroy()
 						shade.destroy()
 					})
 				}
@@ -81,7 +90,7 @@ export class ShadestormAbility extends UnitAbility {
 		}
 	}
 
-	static fromHandle (ability: IUnitAbilityParam) {
-		return this.getObject(ability) as ShadestormAbility
+	static fromHandle(ability: IUnitAbilityParam) {
+		return this.getObject(ability) as Shadestorm
 	}
 }

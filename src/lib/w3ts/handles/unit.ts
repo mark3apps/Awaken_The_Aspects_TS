@@ -1,5 +1,6 @@
 /** @noSelfInFile **/
 
+import { UnitAbility } from 'app/classes'
 import { AbilityType } from 'app/classes/abilityType/abilityType'
 import { Coordinate } from 'app/classes/Coordinate'
 import { IUnitParam } from "app/classes/hero/interfaces/IUnitParam"
@@ -662,16 +663,23 @@ export class Unit extends Widget {
 		SetUnitFlyHeight(this.handle, value, 100000000)
 	}
 
+	public get coordinateZ (): Coordinate {
+		return { x: this.x, y: this.y, z: this.z }
+	}
+
+	public set coordinateZ (value: Coordinate) {
+		this.x = value.x
+		this.y = value.y
+		if (value.z) this.z = value.z
+	}
+
 	public get coordinate (): Coordinate {
-		return {
-			x: this.x, y: this.y, z: this.z
-		}
+		return { x: this.x, y: this.y }
 	}
 
 	public set coordinate (value: Coordinate) {
 		this.x = value.x
 		this.y = value.y
-		this.z = value.z ?? this.z
 	}
 
 	public get unitAbilities () {
@@ -683,6 +691,10 @@ export class Unit extends Widget {
 	}
 
 	public getUnitAbility (typeFour: string) {
+		return this.unitAbilities.get(typeFour) as UnitAbility
+	}
+
+	public getUnitAbilityUnknown (typeFour: string) {
 		return this.unitAbilities.get(typeFour)
 	}
 

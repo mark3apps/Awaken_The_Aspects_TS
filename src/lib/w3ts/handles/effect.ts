@@ -16,7 +16,7 @@ export class Effect extends Handle<effect> {
 	 * @param modelName
 	 * @param pos
 	 */
-	constructor (modelName: string, pos: Coordinate, orientation: Orientation)
+	constructor (modelName: string, pos: Coordinate, orientation?: Orientation)
 	/**
 	 * Creates a special effect.
 	 * @param modelName The path of the model that the effect will use.
@@ -34,7 +34,7 @@ export class Effect extends Handle<effect> {
 	 * If the attachment point does not exist, it will attach the effect to the model's origin.
 	 */
 	constructor (modelName: string, targetWidget: Widget, attachPointName: string)
-	constructor (modelName: string, a: number | Widget | Coordinate, b: number | string | Orientation) {
+	constructor (modelName: string, a: number | Widget | Coordinate, b?: number | string | Orientation) {
 		if (Handle.initFromHandle()) {
 			super()
 		} else if (typeof a === 'number' && typeof b === 'number') {

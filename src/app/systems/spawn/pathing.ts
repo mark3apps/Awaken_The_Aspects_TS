@@ -1,66 +1,66 @@
-import { UnitType } from 'app/classes'
-import { Coordinate } from 'app/classes/Coordinate'
-import { Logger } from 'app/log'
-import { Order, BuffFour, Unit, Timer, Group, Rectangle } from 'lib/w3ts'
-import { IPathingDepend } from './IPathingDepend'
+/** @format */
+
+import { UnitType } from "app/classes"
+import { Coordinate } from "app/classes/Coordinate"
+import { Logger } from "app/log"
+import { Order, BuffFour, Unit, Timer, Group, Rectangle } from "lib/w3ts"
+import { IPathingDepend } from "./IPathingDepend"
 
 export const OrderIdIgnore = [
 	Order.Move,
-	Order.Rejuvination,
-	Order.Waterelemental,
-	Order.Fingerofdeath,
-	Order.Holybolt,
-	Order.Spiritlink,
-	Order.Raisedead,
-	Order.Carrionscarabs,
-	Order.Breathoffire,
-	Order.Forkedlightning,
+	Order.Rejuvenation,
+	Order.WaterElemental,
+	Order.FingerOfDeath,
+	Order.HolyBolt,
+	Order.SpiritLink,
+	Order.RaiseDead,
+	Order.CarrionScarabs,
+	Order.BreathOfFire,
+	Order.ForkedLightning,
 	Order.Parasite,
-	Order.Carrionswarm,
+	Order.CarrionSwarm,
 	Order.Thunderbolt,
-	Order.Spiritwolf,
-	Order.Summongrizzly,
-	Order.Wateryminion,
-	Order.Healingwave,
+	Order.SpiritWolf,
+	Order.SummonGrizzly,
+	Order.WateryMinion,
+	Order.HealingWave,
 	Order.Roar,
 	Order.Inferno,
-	Order.Creepthunderbolt,
+	Order.CreepThunderbolt,
 	Order.Cripple,
 	Order.Recharge,
 	Order.Replenish,
-	Order.Summonfactory,
-	Order.Chainlightning,
+	Order.SummonFactory,
+	Order.ChainLightning,
 	Order.Polymorph,
 	Order.Shockwave,
 	Order.Dispel,
-	Order.Innerfire,
-	Order.Firebolt,
-	Order.Clusterrockets,
-	Order.Creepthunderclap,
-	Order.Darkportal,
-	Order.Breathoffire,
-	Order.Bearform
+	Order.InnerFire,
+	Order.FireBolt,
+	Order.ClusterRockets,
+	Order.CreepThunderclap,
+	Order.DarkPortal,
+	Order.BreathOfFire,
+	Order.BearForm,
 ]
 
-export const BuffIdIgnore = [
-	BuffFour.AttackUnit
-]
+export const BuffIdIgnore = [BuffFour.AttackUnit]
 
 export const OrderIdIgnoreWithDelay = [
-	Order.Rainoffire,
+	Order.RainOfFire,
 	Order.Tranquility,
-	Order.Stunned
+	Order.Stunned,
 ]
 
 export class Pathing {
 	protected static instance?: Pathing
 
-	static getInstance (depend: IPathingDepend) {
+	static getInstance(depend: IPathingDepend) {
 		if (!Pathing.instance) Pathing.instance = new Pathing(depend)
 		return Pathing.instance
 	}
 
-	static getInstanceNoCreate () {
+	static getInstanceNoCreate() {
 		return Pathing.instance
 	}
 
@@ -69,7 +69,7 @@ export class Pathing {
 	forces
 	regions
 
-	constructor (depend: IPathingDepend) {
+	constructor(depend: IPathingDepend) {
 		const triggers = depend.triggers
 		const unitTypes = depend.unitTypes
 		this.locs = depend.locs
@@ -91,12 +91,17 @@ export class Pathing {
 				const eventUnit = Unit.fromOrdered()
 
 				if (UnitType.order.get(eventUnit.typeId) === true) {
-					if (OrderIdIgnore.indexOf(eventOrder) !== -1 && !eventUnit.hasBuff(BuffIdIgnore[0])) {
+					if (
+						OrderIdIgnore.indexOf(eventOrder) !== -1 &&
+						!eventUnit.hasBuff(BuffIdIgnore[0])
+					) {
 						const timer = new Timer()
 						timer.start(1, false, () => {
 							eventUnit.issueLastOrder()
 						})
-					} else if (OrderIdIgnoreWithDelay.indexOf(eventOrder) !== -1) {
+					} else if (
+						OrderIdIgnoreWithDelay.indexOf(eventOrder) !== -1
+					) {
 						const timer = new Timer()
 						timer.start(10, false, () => {
 							eventUnit.issueLastOrder()
@@ -115,7 +120,9 @@ export class Pathing {
 
 				if (eventUnit.inForce(this.forces.Computers)) {
 					if (UnitType.replaceOnSummon.has(eventUnit.typeId)) {
-						this.newOrders(eventUnit.replace(eventUnit.type as UnitType))
+						this.newOrders(
+							eventUnit.replace(eventUnit.type as UnitType)
+						)
 					} else {
 						this.newOrders(eventUnit)
 					}
@@ -146,7 +153,12 @@ export class Pathing {
 
 			let unit = allUnits.first
 			while (unit != null) {
-				if (unit.inForce(this.forces.Computers) && UnitType.order.has(unit.typeId)) { this.newOrders(unit) }
+				if (
+					unit.inForce(this.forces.Computers) &&
+					UnitType.order.has(unit.typeId)
+				) {
+					this.newOrders(unit)
+				}
 
 				allUnits.removeUnit(unit)
 				unit = allUnits.first
@@ -156,26 +168,26 @@ export class Pathing {
 	}
 
 	// Namespace Functions
-	newOrders (unit: Unit) {
+	newOrders(unit: Unit) {
 		try {
 			let dest: Coordinate | undefined
 
 			if (unit.inRegion(this.regions.BigTop)) {
-				Logger.Verbose('top', unit.name)
+				Logger.Verbose("top", unit.name)
 				if (unit.inForce(this.forces.AllianceAll)) {
 					dest = this.locs.top.federation.randomCoordinate
 				} else if (unit.inForce(this.forces.FederationAll)) {
 					dest = this.locs.top.alliance.randomCoordinate
 				}
 			} else if (unit.inRegion(this.regions.BigMiddle)) {
-				Logger.Verbose('middle', unit.name)
+				Logger.Verbose("middle", unit.name)
 				if (unit.inForce(this.forces.AllianceAll)) {
 					dest = this.locs.middle.federation.randomCoordinate
 				} else if (unit.inForce(this.forces.FederationAll)) {
 					dest = this.locs.middle.alliance.randomCoordinate
 				}
 			} else {
-				Logger.Verbose('bottom', unit.name)
+				Logger.Verbose("bottom", unit.name)
 				if (unit.inForce(this.forces.AllianceAll)) {
 					dest = this.locs.bottom.federation.randomCoordinate
 				} else if (unit.inForce(this.forces.FederationAll)) {

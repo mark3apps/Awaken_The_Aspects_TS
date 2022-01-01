@@ -52,7 +52,8 @@ export class Banner {
 
 		switch (this.currentWinner) {
 			case Side.Alliance: {
-				this.currentPower += alliancePower - federationPower
+				const newPower = alliancePower - federationPower
+				this.currentPower += newPower > 0 ? newPower / 2 : newPower
 
 				if (this.currentPower < 0) {
 					this.currentPower *= -1

@@ -1,31 +1,28 @@
-import { UnitType, AbilityType, Hero } from 'app/classes'
-import { HeroAttribute } from 'app/systems'
-import { ShiftMasterSkillTree } from 'app/define/hero/shiftmaster/shiftMasterSkillTree'
-import { Strategy } from 'lib/resources/strategy'
-import { AbilityFour, Order } from 'lib/w3ts'
-import { HeroType } from 'app/classes/herotype'
+/** @format */
+
+import { UnitType, AbilityType, Hero } from "app/classes"
+import { HeroAttribute } from "app/systems"
+import { ShiftMasterSkillTree } from "app/define/hero/shiftmaster/shiftMasterSkillTree"
+import { Strategy } from "lib/resources/strategy"
+import { AbilityFour, Order } from "lib/w3ts"
+import { HeroType } from "app/classes/heroType/heroType"
 export class TimeMageHeroType extends HeroType {
 	// constructor () {
 	// 	super('H00J', 'TimeMage')
-
 	// 	// Set up Talent Trees
 	// 	this.talentTrees = (u: Hero) => {
 	// 		const skill = new DruidBalanceTree(u)
 	// 		const guard = new DruidBalanceTree(u)
 	// 		const armor = new DruidBalanceTree(u)
-
 	// 		u.skillTree.SetTree(skill)
 	// 		u.guardTree.SetTree(guard)
 	// 		u.armorTree.SetTree(armor)
 	// 	}
-
 	// 	// Attributes
 	// 	this.addHeroAttribute(HeroAttribute.intelligence)
 	// 	this.addHeroAttribute(HeroAttribute.ranged)
 	// 	this.addHeroAttribute(HeroAttribute.healer)
-
 	// 	// Items
-
 	// 	// AI Setup
 	// 	this.lifeFactor = 1
 	// 	this.manaFactor = 0.02
@@ -40,18 +37,14 @@ export class TimeMageHeroType extends HeroType {
 	// 	this.unitClumpRange = 100
 	// 	this.intelRange = 1100
 	// 	this.intelCloseRange = 500
-
 	// 	this.traitAgressive = 40
 	// 	this.traitDefensive = 40
 	// 	this.traitSupport = 80
 	// 	this.traitAssassinate = 40
-
 	// 	this.addStrategy(Strategy.Agressive)
 	// 	this.addStrategy(Strategy.Neutral)
 	// 	this.addStrategy(Strategy.Defensive)
-
 	// 	// Abilities
-
 	// 	// Chrono Atrophy
 	// 	this.addHeroAbilityType(new AbilityType({
 	// 		four: AbilityFour.ChronoAtrophy,
@@ -62,7 +55,6 @@ export class TimeMageHeroType extends HeroType {
 	// 		starting: true,
 	// 		ult: false
 	// 	}))
-
 	// 	// Decay
 	// 	this.addHeroAbilityType(new AbilityType({
 	// 		four: AbilityFour.Decay,
@@ -73,7 +65,6 @@ export class TimeMageHeroType extends HeroType {
 	// 		starting: true,
 	// 		ult: false
 	// 	}))
-
 	// 	// Time Travel
 	// 	this.addHeroAbilityType(new AbilityType({
 	// 		four: AbilityFour.TimeTravel,
@@ -84,7 +75,6 @@ export class TimeMageHeroType extends HeroType {
 	// 		starting: false,
 	// 		ult: false
 	// 	}))
-
 	// 	// Paradox
 	// 	this.addHeroAbilityType(new AbilityType({
 	// 		four: AbilityFour.Paradox,

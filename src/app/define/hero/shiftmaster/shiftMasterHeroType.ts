@@ -1,20 +1,24 @@
-import { Hero } from 'app/classes'
-import { ShiftMasterSkillTree } from 'app/define/hero/shiftmaster/shiftMasterSkillTree'
-import { Strategy } from 'lib/resources/strategy'
-import { HeroType } from 'app/classes/herotype'
-import { AbilityFour, Unit } from 'lib/w3ts/index'
-import { IHeroTypeDepend } from 'app/classes/heroAbility/interfaces/IHeroTypeDepend'
+/** @format */
+
+import { Hero } from "app/classes"
+import { ShiftMasterSkillTree } from "app/define/hero/shiftmaster/shiftMasterSkillTree"
+import { Strategy } from "lib/resources/strategy"
+import { HeroType } from "app/classes/heroType/heroType"
+import { AbilityFour, Unit } from "lib/w3ts/index"
+import { IHeroTypeDepend } from "app/classes/heroAbility/interfaces/IHeroTypeDepend"
+import { FelForm } from "./abilities/felForm"
 
 export class ShiftMasterHeroType extends HeroType {
 	protected static instance?: ShiftMasterHeroType
 
-	static getInstance (depend: IHeroTypeDepend) {
-		if (!ShiftMasterHeroType.instance) ShiftMasterHeroType.instance = new ShiftMasterHeroType(depend)
+	static getInstance(depend: IHeroTypeDepend) {
+		if (!ShiftMasterHeroType.instance)
+			ShiftMasterHeroType.instance = new ShiftMasterHeroType(depend)
 		return ShiftMasterHeroType.instance
 	}
 
-	private constructor (depend: IHeroTypeDepend) {
-		super({ four: 'E002', name: 'Shift Master', order: false })
+	private constructor(depend: IHeroTypeDepend) {
+		super({ four: "E002", name: "Shift Master", order: false })
 
 		// Dependencies
 		const heroAbils = depend.heroAbils
@@ -54,7 +58,7 @@ export class ShiftMasterHeroType extends HeroType {
 		this.intelRange = 1100
 		this.intelCloseRange = 500
 
-		this.traitAgressive = 60
+		this.traitAggressive = 60
 		this.traitDefensive = 30
 		this.traitSupport = 20
 		this.traitAssassinate = 80
@@ -69,12 +73,15 @@ export class ShiftMasterHeroType extends HeroType {
 
 		this.addHeroAbility(heroAbils.shift)
 		this.addHeroAbility(heroAbils.felForm)
+		this.addHeroAbility(heroAbils.switch)
+		this.addHeroAbility(heroAbils.fallingStrike)
+		this.addHeroAbility(heroAbils.shadeStorm)
 	}
 
 	override onDeath = (u: Unit) => {
 		if (u.custom.has("felForm")) {
-			const ability = u.unitAbilities.get(AbilityFour.FelForm)
-			ability.resetValues()
+			const ability = u.getUnitAbilityUnknown(AbilityFour.FelForm) as FelForm
+			ability.endFelForm()
 		}
 	}
 }

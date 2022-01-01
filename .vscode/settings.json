@@ -6,14 +6,22 @@
 	"files.watcherExclude": {
 		"*/maps/**": true
 	},
-	"Lua.diagnostics.globals": [
-		"text",
-		"bj_lastCreatedUnit",
-		"udg_PickedHero"
-	],
-	"editor.codeActionsOnSave": [
-		"source.addMissingImports"
-	],
+	"Lua.diagnostics.globals": ["text", "bj_lastCreatedUnit", "udg_PickedHero"],
+	"editor.codeActionsOnSave": ["source.addMissingImports"],
 	"editor.insertSpaces": false,
-	"IndentCaseLabels": true
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"IndentCaseLabels": true,
+	"cSpell.words": [
+		"abil",
+		"abils",
+		"Arcanite",
+		"Bloodlust",
+		"coor",
+		"DEGTORAD",
+		"Dreadlord",
+		"Grom",
+		"lifesteal",
+		"Pathing",
+		"strat"
+	]
 }

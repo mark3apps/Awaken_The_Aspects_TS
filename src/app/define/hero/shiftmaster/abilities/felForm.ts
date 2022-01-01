@@ -1,151 +1,195 @@
-import { UnitAbility, Hero, UnitType } from 'app/classes'
-import { IUnitAbilityParam } from 'app/classes/unitAbility/interfaces/IUnitAbilityParam'
-import { Logger } from 'app/log'
-import { AbilityField } from 'lib/resources/fields'
-import { Order } from 'lib/w3ts'
+/** @format */
+
+import { UnitAbility, Hero, UnitType } from "app/classes"
+import { IUnitAbilityParam } from "app/classes/unitAbility/interfaces/IUnitAbilityParam"
+import { Logger } from "app/log"
+import { AbilityField } from "lib/resources/fields"
+import { AbilityModel, Effect, Order } from "lib/w3ts"
+
+export interface FelFormCustomData {
+  enabled: boolean
+  armor: number
+  damage: number
+  attackSpeed: number
+  moveSpeed: number
+  lifeRegeneration: number
+}
+
+export interface IFelFormAttributes {
+  hitPointBonus?: number
+  damage?: number
+  lifeRegeneration?: number
+  armor?: number
+  attackSpeed?: number
+  moveSpeed?: number
+  heroDuration?: number
+  cooldown?: number
+  duration?: number
+  title?: string
+}
 
 export class FelForm extends UnitAbility {
-	private _felUnit = UnitType.get(this.getLevelField(AbilityField.ALTERNATE_FORM_UNIT_EMEU) as number)
-	private _damage = 100
-	private _attackSpeed = 0.5
-	private _moveSpeed = 200
-	private _armor = 10
-	private _lifeRegenerationRate = 50
-	augments = 0
-	custom = this.unit.custom
+  private _felUnit = UnitType.get(this.getLevelField(AbilityField.ALTERNATE_FORM_UNIT_EMEU) as number)
 
-	constructor (ability: IUnitAbilityParam) {
-		super(ability)
-		this.updateTooltips()
-	}
+  private _damage = 15
+  private _attackSpeed = 0.5
+  private _moveSpeed = 100
+  private _armor = 2
+  private _lifeRegenerationRate = 12
+  private _title = ""
+  augments = 0
+  custom = this.unit.custom
 
-	override updateTooltip (): void {
-		this.tooltip = `Fel Form [|cffffcc00${this.augments} Augments|r]`
-	}
+  constructor(ability: IUnitAbilityParam) {
+    super(ability)
+    this.updateTooltips()
+  }
 
-	override updateExtendedTooltop (): void {
-		//
-	}
+  override updateTooltip(): void {
+    this.tooltip = `${this.title}Fel Form [|cffffcc00${this.augments} Augments|r]`
+  }
 
-	get moveSpeed () {
-		return this._moveSpeed
-	}
+  override updateExtendedTooltip(): void {
+    this.extendedTooltip = `The Shifter unleashes his inner rage, greatly increasing his fighting abilities and stamina while depleting his mana.
+Lasts ${this.heroDuration} seconds.
+		
+|cff00ffff+${this.damage} Armor
+|cff00ffff+${this.armor} Armor
+|cff00ffff+${this.attackSpeed + 1}x attack speed
+|cff00ffff+${this.moveSpeed} move speed
+|cff00ffff+${this.lifeRegeneration} health per second`
+  }
 
-	set moveSpeed (value) {
-		this._moveSpeed = value
-		this.updateTooltips()
-	}
+  get title() {
+    return this._title
+  }
 
-	get attackSpeed () {
-		return this._attackSpeed
-	}
+  set title(value) {
+    this._title = value + " "
+  }
 
-	set attackSpeed (value) {
-		this._attackSpeed = value
-		this.updateTooltips()
-	}
+  get moveSpeed() {
+    return this._moveSpeed
+  }
 
-	get armor () {
-		return this._armor
-	}
+  set moveSpeed(value) {
+    this._moveSpeed = value
+    this.updateTooltips()
+  }
 
-	set armor (value) {
-		this._armor = value
-		this.updateTooltips()
-	}
+  get attackSpeed() {
+    return this._attackSpeed
+  }
 
-	get lifeRegenerationRate () {
-		return this._lifeRegenerationRate
-	}
+  set attackSpeed(value) {
+    this._attackSpeed = value
+    this.updateTooltips()
+  }
 
-	set lifeRegenerationRate (value) {
-		this._lifeRegenerationRate = value
-		this.updateTooltips()
-	}
+  get armor() {
+    return this._armor
+  }
 
-	get felUnit () {
-		return this._felUnit
-	}
+  set armor(value) {
+    this._armor = value
+    this.updateTooltips()
+  }
 
-	set felUnit (value) {
-		if (value) {
-			this.setLevelField(AbilityField.ALTERNATE_FORM_UNIT_EMEU, value.id)
-			this._felUnit = value
-		}
-	}
+  get lifeRegeneration() {
+    return this._lifeRegenerationRate
+  }
 
-	get hitPointBonus () {
-		return this.getLevelField(AbilityField.ALTERNATE_FORM_HIT_POINT_BONUS) as number
-	}
+  set lifeRegeneration(value) {
+    this._lifeRegenerationRate = value
+    this.updateTooltips()
+  }
 
-	set hitPointBonus (value) {
-		this.setLevelField(AbilityField.ALTERNATE_FORM_HIT_POINT_BONUS, value)
-		this.updateTooltips()
-	}
+  get felUnit() {
+    return this._felUnit
+  }
 
-	get damage () {
-		return this._damage
-	}
+  set felUnit(value) {
+    if (value) {
+      this.setLevelField(AbilityField.ALTERNATE_FORM_UNIT_EMEU, value.id)
+      this._felUnit = value
+    }
+  }
 
-	set damage (value) {
-		this.updateTooltips()
-		this._damage = value
-	}
+  get hitPointBonus() {
+    return this.getLevelField(AbilityField.ALTERNATE_FORM_HIT_POINT_BONUS) as number
+  }
 
-	override onEffect = () => {
-		// Start Fel Form
-		if (this.unit.currentOrder === Order.Metamorphosis) {
-			this.startFelForm()
+  set hitPointBonus(value) {
+    this.setLevelField(AbilityField.ALTERNATE_FORM_HIT_POINT_BONUS, value)
+    this.updateTooltips()
+  }
 
-			// End Fel Form
-		} else if (this.custom.get("felForm")) {
-			this.endFelForm()
-		}
-	}
+  get damage() {
+    return this._damage
+  }
 
-	startFelForm () {
-		try {
-			const hero = this.unit as Hero
-			Logger.Information("Hero", hero.name)
+  set damage(value) {
+    this.updateTooltips()
+    this._damage = value
+  }
 
-			this.custom.set("felForm", true)
+  override onEffect = () => {
+    // Start Fel Form
+    if (this.unit.currentOrder === Order.Metamorphosis) {
+      this.startFelForm()
 
-			hero.armorBonus += this.armor
-			this.custom.set("felFormArmor", this.armor)
+      // End Fel Form
+    } else if (this.custom.get("felForm")) {
+      this.endFelForm()
+    }
+  }
 
-			hero.damageBonus += this.damage
-			this.custom.set("felFormDamage", this.damage)
+  startFelForm() {
+    try {
+      const hero = this.unit as Hero
+      Logger.Information("Hero", hero.name)
 
-			hero.attackSpeedBonus += this.attackSpeed
-			this.custom.set("felFormAttackSpeed", this.attackSpeed)
+      const customData: FelFormCustomData = {
+        enabled: true,
+        armor: this.armor,
+        damage: this.damage,
+        attackSpeed: this.attackSpeed,
+        moveSpeed: this.moveSpeed,
+        lifeRegeneration: this.lifeRegeneration,
+      }
+      this.custom.set("felForm", customData)
 
-			hero.movementSpeedBonus += this.moveSpeed
-			this.custom.set("felFormMoveSpeed", this.moveSpeed)
+      hero.armorBonus += this.armor
+      hero.damageBonus += this.damage
+      hero.attackSpeedBonus += this.attackSpeed
+      hero.movementSpeedBonus += this.moveSpeed
+      hero.lifeRegenerationBonus += this.lifeRegeneration
 
-			hero.lifeRegenBonus += this.lifeRegenerationRate
-			this.custom.set("felFormLifeRegen", this.lifeRegenerationRate)
+      const morph = new Effect(AbilityModel.howlCaster, hero.coordinate)
+      morph.destroy()
 
-			print("Morphing")
-		} catch (error) {
-			Logger.Error("Fel Form", error)
-		}
-	}
+      print("Morphing")
+    } catch (error) {
+      Logger.Error("Fel Form", error)
+    }
+  }
 
-	endFelForm () {
-		const hero = this.unit as Hero
-		hero.armorBonus -= this.custom.get("felFormArmor") as number
-		hero.damageBonus -= this.custom.get("felFormDamage") as number
-		hero.attackSpeedBonus -= this.custom.get("felFormAttackSpeed") as number
-		hero.movementSpeedBonus -= this.custom.get("felFormMoveSpeed") as number
-		hero.lifeRegenBonus -= this.custom.get("felFormLifeRegen") as number
+  endFelForm() {
+    const hero = this.unit as Hero
+    const customData = this.custom.get("felForm") as FelFormCustomData
+    hero.armorBonus -= customData.armor
+    hero.damageBonus -= customData.damage
+    hero.attackSpeedBonus -= customData.attackSpeed
+    hero.movementSpeedBonus -= customData.moveSpeed
+    hero.lifeRegenerationBonus -= customData.lifeRegeneration
 
-		// Reset variables
-		this.custom.set("felForm", false)
+    // Reset variables
+    this.custom.delete("felForm")
 
-		print("UnMorphing")
-	}
+    print("UnMorphing")
+  }
 
-	static override fromHandle (ability: IUnitAbilityParam) {
-		return this.getObject(ability) as FelForm
-	}
+  static override fromHandle(ability: IUnitAbilityParam) {
+    return this.getObject(ability) as FelForm
+  }
 }

@@ -2,7 +2,7 @@ import { MapPlayer } from 'lib/w3ts'
 import { UnitType } from '../..'
 import { Coordinate } from "../../Coordinate"
 
-export interface IUnitParam {
+export type IUnitParam = {
 	owner: MapPlayer
 	type: UnitType
 	coor: Coordinate

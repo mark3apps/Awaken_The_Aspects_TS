@@ -1,17 +1,19 @@
-import { EffectType } from 'app/classes/abilityType/enums/EffectType'
-import { TargetType } from 'app/classes/abilityType/enums/TargetType'
-import { AbilityFour, Order, BuffFour } from 'lib/w3ts'
-import { AbilityType } from '../../classes'
+/** @format */
+
+import { EffectType } from "app/classes/abilityType/enums/EffectType"
+import { TargetType } from "app/classes/abilityType/enums/TargetType"
+import { AbilityFour, Order, BuffFour } from "lib/w3ts"
+import { AbilityType } from "../../classes"
 
 export class AbilityTypes {
 	private static instance?: AbilityTypes
 
-	static getInstance () {
+	static getInstance() {
 		if (!AbilityTypes.instance) AbilityTypes.instance = new AbilityTypes()
 		return AbilityTypes.instance
 	}
 
-	static getInstanceNoCreate () {
+	static getInstanceNoCreate() {
 		return AbilityTypes.getInstance()
 	}
 
@@ -28,9 +30,9 @@ export class AbilityTypes {
 	ManaTowerRestore
 	ManaShieldTower
 	ManaShardsTower
-	ChainLightningTower
-	ConeOfFireTower
-	AspectOfDeathInfect
+	chainLightningTower
+	coneOfFireTower
+	aspectOfDeathInfect
 
 	bonusCollection
 	bonusStats
@@ -38,40 +40,40 @@ export class AbilityTypes {
 	bonusArmor
 	bonusAttackSpeed
 	bonusMoveSpeed
-	bonusLifeRegen
+	bonusLifeRegeneration
 
 	treeSkill
 
-	Shift
-	Switch
-	FelForm
-	FallingStrike
-	ShiftStorm
+	shift
+	switch
+	felForm
+	fallingStrike
+	shadeStorm
 
-	private constructor () {
+	private constructor() {
 		//
 		// Non Triggered Abilities
 		//
 
 		this.AspectInferno = new AbilityType({
 			four: AbilityFour.InfernoAspect,
-			orderId: Order.Dreadlordinferno
+			orderId: Order.DreadlordInferno,
 		})
 		this.ShiftDummy = new AbilityType({
 			four: AbilityFour.ItemIllusions,
-			orderId: Order.Illusion
+			orderId: Order.Illusion,
 		})
 		this.FallingStrikeDummy = new AbilityType({
 			four: AbilityFour.FallingStrikeDummy,
-			orderId: Order.Creepthunderclap
+			orderId: Order.CreepThunderclap,
 		})
 		this.ShadeStormDummy = new AbilityType({
-			four: 'A03O',
-			orderId: Order.Whirlwind
+			four: "A03O",
+			orderId: Order.Whirlwind,
 		})
 		this.StormCrowForm = new AbilityType({
 			four: AbilityFour.StormCrowForm,
-			orderId: Order.Ravenform
+			orderId: Order.Ravenform,
 		})
 
 		//
@@ -83,31 +85,31 @@ export class AbilityTypes {
 			four: AbilityFour.FootmanCharge,
 			effectType: EffectType.Casts,
 			targetType: TargetType.SupportSelf,
-			orderId: Order.Bearform
+			orderId: Order.BearForm,
 		})
 
 		// Fel Grunt
 		this.FelGrunt = new AbilityType({
 			four: AbilityFour.FelGrunt,
-			effectType: EffectType.Kills
+			effectType: EffectType.Kills,
 		})
 
 		// Fel Ogre
 		this.FelOgre = new AbilityType({
 			four: AbilityFour.FelOgre,
-			effectType: EffectType.Kills
+			effectType: EffectType.Kills,
 		})
 
 		// Fel Warlord
 		this.FelWarlord = new AbilityType({
 			four: AbilityFour.FelWarlord,
-			effectType: EffectType.Kills
+			effectType: EffectType.Kills,
 		})
 
 		// Fel Warlock
 		this.FelWarlock = new AbilityType({
 			four: AbilityFour.FelWarlock,
-			effectType: EffectType.Kills
+			effectType: EffectType.Kills,
 		})
 
 		// Mana Repository
@@ -115,63 +117,74 @@ export class AbilityTypes {
 			four: AbilityFour.ManaTowerRestore,
 			effectType: EffectType.Attacks,
 			targetType: TargetType.SupportSingle,
-			orderId: Order.Recharge
+			orderId: Order.Recharge,
 		})
 
 		this.ManaShieldTower = new AbilityType({
 			four: AbilityFour.ManaShieldTower,
-			orderId: Order.Manashieldon,
+			orderId: Order.ManaShieldOn,
 			buffFour: BuffFour.ManaShield,
 			effectType: EffectType.Attacks,
-			targetType: TargetType.SupportSelf
+			targetType: TargetType.SupportSelf,
 		})
 
 		this.ManaShardsTower = new AbilityType({
 			four: AbilityFour.ManaShardsTower,
-			orderId: Order.Clusterrockets,
+			orderId: Order.ClusterRockets,
 			effectType: EffectType.Attacks,
-			targetType: TargetType.DamageArea
+			targetType: TargetType.DamageArea,
 		})
 
-		this.ChainLightningTower = new AbilityType({
+		this.chainLightningTower = new AbilityType({
 			four: AbilityFour.ChainLightningTower,
-			orderId: Order.Chainlightning,
+			orderId: Order.ChainLightning,
 			effectType: EffectType.Attacks,
-			targetType: TargetType.DamageSingle
+			targetType: TargetType.DamageSingle,
 		})
 
-		this.ConeOfFireTower = new AbilityType({
+		this.coneOfFireTower = new AbilityType({
 			four: AbilityFour.ConeOfFireTower,
-			orderId: Order.Breathoffrost,
+			orderId: Order.BreathOfFrost,
 			effectType: EffectType.Attacks,
-			targetType: TargetType.DamageAreaTarget
+			targetType: TargetType.DamageAreaTarget,
 		})
 
-		this.AspectOfDeathInfect = new AbilityType({
+		this.aspectOfDeathInfect = new AbilityType({
 			four: AbilityFour.InfectAspect,
 			orderId: Order.Parasite,
 			buffFour: BuffFour.Infected,
 			effectType: EffectType.Attacks,
-			targetType: TargetType.CrippleAround
+			targetType: TargetType.CrippleAround,
 		})
 
 		//
 		// Bonus Abilities
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-		this.bonusCollection = new AbilityType({ four: AbilityFour.BonusSpellBook })
+		this.bonusCollection = new AbilityType({
+			four: AbilityFour.BonusSpellBook,
+		})
 		this.bonusStats = new AbilityType({ four: AbilityFour.BonusStats })
 		this.bonusDamage = new AbilityType({ four: AbilityFour.BonusDamage })
 		this.bonusArmor = new AbilityType({ four: AbilityFour.BonusArmor })
-		this.bonusAttackSpeed = new AbilityType({ four: AbilityFour.BonusAttackSpeed })
-		this.bonusMoveSpeed = new AbilityType({ four: AbilityFour.BonusMovementSpeed })
-		this.bonusLifeRegen = new AbilityType({ four: AbilityFour.BonusLifeRegen })
+		this.bonusAttackSpeed = new AbilityType({
+			four: AbilityFour.BonusAttackSpeed,
+		})
+		this.bonusMoveSpeed = new AbilityType({
+			four: AbilityFour.BonusMovementSpeed,
+		})
+		this.bonusLifeRegeneration = new AbilityType({
+			four: AbilityFour.BonusLifeRegeneration,
+		})
 
 		//
 		// Tree Abilities
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-		this.treeSkill = new AbilityType({ four: 'A024', effectType: EffectType.Casts })
+		this.treeSkill = new AbilityType({
+			four: "A024",
+			effectType: EffectType.Casts,
+		})
 
 		//
 		// Hero Ability Types
@@ -180,39 +193,40 @@ export class AbilityTypes {
 		//
 		// Shift Master
 		//
-		this.Shift = new AbilityType({
+
+		this.shift = new AbilityType({
 			four: AbilityFour.Shift,
 			orderId: Order.Berserk,
 			effectType: EffectType.Casts,
-			targetType: TargetType.SupportSelf
+			targetType: TargetType.SupportSelf,
 		})
 
-		this.Switch = new AbilityType({
+		this.switch = new AbilityType({
 			four: AbilityFour.MirrorSwitch,
 			orderId: Order.Reveal,
 			effectType: EffectType.Casts,
-			targetType: TargetType.Specific
+			targetType: TargetType.Specific,
 		})
 
-		this.FelForm = new AbilityType({
+		this.felForm = new AbilityType({
 			four: AbilityFour.FelForm,
 			orderId: Order.Metamorphosis,
 			effectType: EffectType.Casts,
-			targetType: TargetType.SupportSelf
+			targetType: TargetType.SupportSelf,
 		})
 
-		this.FallingStrike = new AbilityType({
+		this.fallingStrike = new AbilityType({
 			four: AbilityFour.FallingStrike,
 			orderId: Order.Thunderbolt,
 			effectType: EffectType.Casts,
-			targetType: TargetType.DamageAreaTarget
+			targetType: TargetType.DamageAreaTarget,
 		})
 
-		this.ShiftStorm = new AbilityType({
-			four: AbilityFour.ShiftStorm,
+		this.shadeStorm = new AbilityType({
+			four: AbilityFour.ShadeStorm,
 			orderId: Order.Channel,
 			effectType: EffectType.Casts,
-			targetType: TargetType.Specific
+			targetType: TargetType.Specific,
 		})
 	}
 }
