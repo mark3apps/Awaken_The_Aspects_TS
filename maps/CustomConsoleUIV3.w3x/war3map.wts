@@ -1,0 +1,40 @@
+﻿STRING 1
+{
+Spieler 1
+}
+
+STRING 2
+{
+Streitmacht 1
+}
+
+STRING 3
+{
+CustomConsoleUI
+}
+
+STRING 4
+{
+mapper
+}
+
+STRING 5
+{
+A  System to change the UI during the game.
+}
+
+STRING 6
+{
+Tasyen
+}
+
+STRING 7
+{
+Spieler 2
+}
+
+STRING 8
+{
+Write Human Orc NightElf or Undead to display the ui of that race.
+}
+

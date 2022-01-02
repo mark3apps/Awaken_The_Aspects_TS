@@ -1,0 +1,7 @@
+[CustomSkin]
+HeroBarBorder=UI/Console/Human/HumanUITile01.blp
+XpBarConsole=UI\Feedback\ProgressBar\TimerBar.mdl
+
+[FrameDef]
+INVENTORY=
+

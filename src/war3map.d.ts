@@ -1,4 +1,9 @@
-/* eslint-disable camelcase */
+/**
+ * /* eslint-disable camelcase
+ *
+ * @format
+ */
+
 declare let udg_force_allied: force
 
 declare let udg_force_federation: force
@@ -534,3 +539,5 @@ declare const gg_unit_o00C_1019: unit
 declare const gg_unit_o00C_1020: unit
 
 declare const gg_unit_o00C_1021: unit
+
+declare const gg_unit_Hpal_0002: unit
