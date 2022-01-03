@@ -3,6 +3,7 @@
  * @noSelfInFile *
  */
 
+import { IFrames } from "app/define/Frames"
 import { Handle } from "./handle"
 
 /**
@@ -333,7 +334,11 @@ export class Frame extends Handle<framehandle> {
     return this.fromHandle(BlzGetFrameByName(name, createContext))
   }
 
-  public static fromOrigin(frameType: originframetype, index: number) {
+  public static fromContext(frame: IFrames, index = 0) {
+    return this.fromHandle(BlzGetFrameByName(frame.name, frame.context[index]))
+  }
+
+  public static fromOrigin(frameType: originframetype, index = 0) {
     return this.fromHandle(BlzGetOriginFrame(frameType, index))
   }
 

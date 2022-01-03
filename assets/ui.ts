@@ -1,16 +1,16 @@
-export class UI {
+export class REFORGEDUIMAKER {
 
-   bottomUI: Frame
+   Frame01: Frame
 
    constructor() {
       let t: Trigger;
 
 
 
-this.bottomUI = new Frame("this.bottomUI", Frame.fromName("ConsoleUIBackdrop",0), 1, 1, "BACKDROP", "") 
-this.bottomUI.setAbsPoint(FRAMEPOINT_TOPLEFT, 0.0977700, 0.174136) 
-this.bottomUI.setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, 0.667470, 0.000535700) 
-this.bottomUI.setTexture("\\UI\\Bottom_MiniMap.dds", 0, true) 
+this.Frame01 = new Frame("this.Frame01", Frame.fromOrigin(ORIGIN_FRAME_GAME_UI, 0), 1, 1, "BACKDROP", "") 
+this.Frame01.setAbsPoint(FRAMEPOINT_TOPLEFT, -0.133200, 0.601100) 
+this.Frame01.setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, 0.934800, 0.00000) 
+this.Frame01.setTexture("", 0, true) 
 }
 
 }

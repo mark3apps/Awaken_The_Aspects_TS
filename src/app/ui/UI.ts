@@ -1,7 +1,7 @@
 /** @format */
 
-import { FrameName } from "app/define/Frames"
-import { Frame, MapPlayer, Players, Timer, Trigger, Unit } from "lib/w3ts"
+import { FramePoint, Frames } from "app/define/Frames"
+import { Frame, Timer, Trigger, Unit } from "lib/w3ts"
 
 export interface IUIDepend {}
 export class UI {
@@ -12,107 +12,96 @@ export class UI {
     return UI.instance
   }
 
-  bottomUI: Frame
+  unitBanner: Frame
 
   private constructor(depend: IUIDepend) {
     let t: Trigger
 
     BlzEnableUIAutoPosition(false)
+    Frame.fromContext(Frames.consoleUIBackdrop).setSize(0, 0.0001)
 
-    BlzFrameSetSize(BlzGetFrameByName("ConsoleUIBackdrop", 0), 0, 0.0001)
-    BlzFrameSetVisible(BlzGetFrameByName(FrameName.inventoryButton0, 0), true)
-    BlzFrameSetVisible(BlzGetFrameByName("ResourceBarFrame", 0), false)
-    BlzFrameSetVisible(BlzGetFrameByName("UpperButtonBarFrame", 0), false)
-    BlzFrameSetVisible(BlzGetOriginFrame(ORIGIN_FRAME_CHAT_MSG, 0), false)
+    this.unitBanner = new Frame("this.unitBanner", Frame.fromOrigin(ORIGIN_FRAME_GAME_UI, 0), 1, 1, "BACKDROP", "")
+    this.unitBanner.setAbsPoint(FRAMEPOINT_TOPLEFT, 0.273, 0.16604)
+    this.unitBanner.setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, 0.4681, 0.1264)
+    this.unitBanner.setTexture("\\UI\\unitBanner.dds", 0, true)
 
     // Hidden Frames
-    Frame.fromName(FrameName.inventoryButton4, 0).setVisible(false)
-    Frame.fromName(FrameName.inventoryButton5, 0).setVisible(false)
-    Frame.fromName(FrameName.inventoryText, 0).clearPoints().setAbsPoint(FramePoint.TL, 1.5, 0.5)
+    Frame.fromContext(Frames.InventoryButton5).setVisible(false)
+    Frame.fromContext(Frames.InventoryText).clearPoints().setAbsPoint(FramePoint.TL, 1.5, 0.5)
 
-    const ofMiniMap = Frame.fromOrigin(ORIGIN_FRAME_MINIMAP, 0)
-    ofMiniMap.clearPoints()
-    ofMiniMap.setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.1115, 0.002)
-
-    Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT, 0).clearPoints().setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.336, 0.057).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.371, 0.126)
+    // Set Origin Frames
+    Frame.fromOrigin(ORIGIN_FRAME_MINIMAP).clearPoints().setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.1065, 0.007)
+    Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT).clearPoints().setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.336, 0.057).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.371, 0.126)
+    Frame.fromOrigin(ORIGIN_FRAME_UNIT_PANEL_BUFF_BAR_LABEL).clearPoints().setAbsPoint(FramePoint.BL, 0.497, 0.06)
+    Frame.fromOrigin(ORIGIN_FRAME_UNIT_PANEL_BUFF_BAR).clearPoints().setAbsPoint(FramePoint.BL, 0.527, 0.055)
 
     // Order Buttons
-    let x = 0.355
-    let xInc = 0.0236
-    let y = 0.0726
+    let x = 0.53
+    let xInc = 0.0187
+    let y = 0.166
     let yInc = 0
-    let scale = 0.67
-    let frames = [FrameName.commandButton1, FrameName.commandButton2, FrameName.commandButton3, FrameName.commandButton4, FrameName.commandButton0]
+    let scale = 0.62
+    let frames = [Frames.CommandButton4, Frames.CommandButton0, Frames.CommandButton1, Frames.CommandButton2, Frames.CommandButton3]
 
     for (let index = 0; index < frames.length; index++) {
-      Frame.fromName(frames[index], 0).clearPoints().setAbsPoint(FRAMEPOINT_TOPLEFT, x, y).setScale(scale)
+      Frame.fromContext(frames[index]).clearPoints().setAbsPoint(FRAMEPOINT_TOPLEFT, x, y).setScale(scale)
 
-      x += 0.0236
+      x += xInc
+      y += yInc
+    }
+
+    // Items Buttons
+    x = 0.3495
+    xInc = 0.0225
+    y = 0.0785
+    yInc = 0
+    scale = 0.58
+    frames = [Frames.InventoryButton0, Frames.InventoryButton1, Frames.InventoryButton2, Frames.InventoryButton3, Frames.InventoryButton4]
+
+    for (let index = 0; index < frames.length; index++) {
+      Frame.fromContext(frames[index]).clearPoints().setAbsPoint(FRAMEPOINT_TOPLEFT, x, y).setScale(scale)
+
+      x += xInc
       y += yInc
     }
 
     // Ability Buttons
-    x = 0.266
-    xInc = 0.0405
-    y = 0.0432
+    x = 0.262
+    xInc = 0.0404
+    y = 0.048
     yInc = 0
     scale = 1
-    frames = [FrameName.commandButton5, FrameName.commandButton8, FrameName.commandButton9, FrameName.commandButton10]
+    frames = [Frames.CommandButton5, Frames.CommandButton8, Frames.CommandButton9, Frames.CommandButton10]
 
     for (let index = 0; index < frames.length; index++) {
-      Frame.fromName(frames[index], 0).clearPoints().setAbsPoint(FRAMEPOINT_TOPLEFT, x, y).setScale(scale)
+      Frame.fromContext(frames[index]).clearPoints().setAbsPoint(FRAMEPOINT_TOPLEFT, x, y).setScale(scale)
 
       x += xInc
       y += yInc
     }
 
     // Ult Ability
-    Frame.fromName(FrameName.commandButton11, 0).clearPoints().setAbsPoint(FRAMEPOINT_TOPLEFT, 0.444, y).setScale(scale)
-
-    // Item Row 1
-    x = 0.4985
-    xInc = 0.025
-    y = 0.0474
-    yInc = 0
-    scale = 0.63
-    frames = [FrameName.inventoryButton0, FrameName.inventoryButton1]
-    for (let index = 0; index < frames.length; index++) {
-      Frame.fromName(frames[index], 0).clearPoints().setAbsPoint(FRAMEPOINT_TOPLEFT, x, y).setScale(scale)
-
-      x += xInc
-      y += yInc
-    }
-
-    // Item Row 2
-    x = 0.4985
-    y = 0.0222
-    frames = [FrameName.inventoryButton2, FrameName.inventoryButton3]
-    for (let index = 0; index < frames.length; index++) {
-      Frame.fromName(frames[index], 0).clearPoints().setAbsPoint(FRAMEPOINT_TOPLEFT, x, y).setScale(scale)
-
-      x += xInc
-      y += yInc
-    }
+    Frame.fromContext(Frames.CommandButton11).clearPoints().setAbsPoint(FRAMEPOINT_TOPLEFT, 0.436, y).setScale(scale)
 
     // Name Value
-    Frame.fromName(FrameName.simpleNameValue, 0).clearPoints().setAbsPoint(FramePoint.T, 0.374, 0.1645)
-    Frame.fromName(FrameName.simpleHeroLevelBar, 0).clearPoints().setAbsPoint(FramePoint.T, 0.374, 0.151)
-    Frame.fromName(FrameName.simpleClassValue, 0).clearPoints().setAbsPoint(FramePoint.T, 0.374, 0.146)
-    Frame.fromName(FrameName.simpleInfoPanelIconDamage, 0).clearPoints().setAbsPoint(FramePoint.TL, 0.497, 0.128)
-    Frame.fromName(FrameName.infoPanelIconHeroIcon, 6).clearPoints().setAbsPoint(FramePoint.TL, 1.5, 0.5)
-    // Frame.fromName(FrameName.simpleInfoPanelIconArmor, 2).clearPoints().setAbsPoint(FramePoint.TL, 0.505, 0.086)
+    Frame.fromContext(Frames.SimpleNameValue).clearPoints().setAbsPoint(FramePoint.T, 0.374, 0.164)
+    Frame.fromContext(Frames.SimpleHeroLevelBar).clearPoints().setAbsPoint(FramePoint.T, 0.374, 0.1505)
+    Frame.fromContext(Frames.SimpleClassValue).clearPoints().setAbsPoint(FramePoint.T, 0.374, 0.1455)
+    Frame.fromContext(Frames.SimpleInfoPanelIconDamage).clearPoints().setAbsPoint(FramePoint.TL, 0.497, 0.14)
+    Frame.fromContext(Frames.InfoPanelIconHeroIcon).clearPoints().setAbsPoint(FramePoint.TL, 1.5, 0.5)
+    // Frame.fromName(Frames.simpleInfoPanelIconArmor, 2).clearPoints().setAbsPoint(FramePoint.TL, 0.505, 0.086)
 
     Unit.fromHandle(gg_unit_Hpal_0002).select(true)
     const time = new Timer()
     time.start(0.1, false, () => {
-      Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT_HP_TEXT, 0).clearPoints().setAbsPoint(FramePoint.C, 0.412, 0.109)
-      Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT_MANA_TEXT, 0).clearPoints().setAbsPoint(FramePoint.C, 0.412, 0.095)
+      Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT_HP_TEXT, 0).clearPoints().setAbsPoint(FramePoint.C, 0.405, 0.109)
+      Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT_MANA_TEXT, 0).clearPoints().setAbsPoint(FramePoint.C, 0.405, 0.095)
     })
 
-    this.bottomUI = new Frame("this.bottomUI", Frame.fromName("ConsoleUIBackdrop", 0), 1, 1, "BACKDROP", "")
-    this.bottomUI.setAbsPoint(FRAMEPOINT_TOPLEFT, 0.09777, 0.174136)
-    this.bottomUI.setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, 0.66929, 0)
-    this.bottomUI.setTexture("\\UI\\Bottom_MiniMap_v03.dds", 0, true)
+    // this.bottomUI = new Frame("this.bottomUI", Frame.fromName("ConsoleUIBackdrop", 0), 1, 1, "BACKDROP", "")
+    // this.bottomUI.setAbsPoint(FRAMEPOINT_TOPLEFT, 0.09777, 0.174136)
+    // this.bottomUI.setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, 0.66929, 0)
+    // this.bottomUI.setTexture("\\UI\\Bottom_MiniMap_v03.dds", 0, true)
 
     // // Set Hero Bar Offsets
     // const x = 0.205
@@ -179,16 +168,4 @@ export class UI {
     //   }
     // }
   }
-}
-
-const FramePoint = {
-  C: FRAMEPOINT_CENTER,
-  T: FRAMEPOINT_TOP,
-  B: FRAMEPOINT_BOTTOM,
-  TL: FRAMEPOINT_TOPLEFT,
-  TR: FRAMEPOINT_TOPRIGHT,
-  BL: FRAMEPOINT_BOTTOMLEFT,
-  BR: FRAMEPOINT_BOTTOMRIGHT,
-  L: FRAMEPOINT_LEFT,
-  R: FRAMEPOINT_RIGHT,
 }
