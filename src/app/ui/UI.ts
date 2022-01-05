@@ -20,23 +20,45 @@ export class UI {
     BlzEnableUIAutoPosition(false)
     Frame.fromContext(Frames.consoleUIBackdrop).setSize(0, 0.0001)
 
-    this.unitBanner = new Frame("this.unitBanner", Frame.fromOrigin(ORIGIN_FRAME_GAME_UI, 0), 1, 1, "BACKDROP", "")
-    this.unitBanner.setAbsPoint(FRAMEPOINT_TOPLEFT, 0.273, 0.16604)
-    this.unitBanner.setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, 0.4681, 0.1264)
+    this.unitBanner = new Frame("unitBanner", Frame.fromOrigin(ORIGIN_FRAME_WORLD_FRAME, 0), 1, 1, "BACKDROP", "")
+    this.unitBanner.setAbsPoint(FRAMEPOINT_TOPLEFT, 0.2663, 0.162)
+    this.unitBanner.setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, 0.469, 0.121)
     this.unitBanner.setTexture("\\UI\\unitBanner.dds", 0, true)
 
     // Hidden Frames
     Frame.fromContext(Frames.InventoryButton5).setVisible(false)
     Frame.fromContext(Frames.InventoryText).clearPoints().setAbsPoint(FramePoint.TL, 1.5, 0.5)
+    Frame.fromContext(Frames.ResourceBarFrame).clearPoints().setAbsPoint(FRAMEPOINT_TOPLEFT, 1.5, 0.5)
+    Frame.fromContext(Frames.SimpleInfoPanelIconAlly).clearPoints().setAbsPoint(FRAMEPOINT_TOPLEFT, 1.5, 0.5)
+    Frame.fromOrigin(ORIGIN_FRAME_SYSTEM_BUTTON, 1).clearPoints().setAbsPoint(FramePoint.BL, 1.5, 0.5)
+    Frame.fromOrigin(ORIGIN_FRAME_SYSTEM_BUTTON, 3).clearPoints().setAbsPoint(FramePoint.BL, 1.5, 0.5)
 
     // Set Origin Frames
     Frame.fromOrigin(ORIGIN_FRAME_MINIMAP).clearPoints().setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.1065, 0.007)
-    Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT).clearPoints().setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.336, 0.057).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.371, 0.126)
-    Frame.fromOrigin(ORIGIN_FRAME_UNIT_PANEL_BUFF_BAR_LABEL).clearPoints().setAbsPoint(FramePoint.BL, 0.497, 0.06)
-    Frame.fromOrigin(ORIGIN_FRAME_UNIT_PANEL_BUFF_BAR).clearPoints().setAbsPoint(FramePoint.BL, 0.527, 0.055)
+    Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT).clearPoints().setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.335, 0.057).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.369, 0.118)
+    Frame.fromOrigin(ORIGIN_FRAME_UNIT_PANEL_BUFF_BAR_LABEL).clearPoints().setAbsPoint(FramePoint.BL, 0.494, 0.058)
+    Frame.fromOrigin(ORIGIN_FRAME_UNIT_PANEL_BUFF_BAR).clearPoints().setAbsPoint(FramePoint.BL, 0.524, 0.055)
+
+    // Menu Bars
+    Frame.fromOrigin(ORIGIN_FRAME_SYSTEM_BUTTON, 0).clearPoints().setAbsPoint(FramePoint.BL, 0.671, 0.018)
+    Frame.fromOrigin(ORIGIN_FRAME_SYSTEM_BUTTON, 2).clearPoints().setAbsPoint(FramePoint.BL, 0.671, 0.0)
+
+    // Move HP / Mana Bar
+    Unit.fromHandle(gg_unit_Hpal_0002).select(true)
+    const time = new Timer()
+    time.start(0.1, false, () => {
+      const x = 0
+      const y = -0.004
+      Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT_HP_TEXT, 0)
+        .clearPoints()
+        .setAbsPoint(FramePoint.C, x + 0.405, y + 0.109)
+      Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT_MANA_TEXT, 0)
+        .clearPoints()
+        .setAbsPoint(FramePoint.C, x + 0.405, y + 0.095)
+    })
 
     // Order Buttons
-    let x = 0.53
+    let x = 0.529
     let xInc = 0.0187
     let y = 0.166
     let yInc = 0
@@ -51,9 +73,9 @@ export class UI {
     }
 
     // Items Buttons
-    x = 0.3495
+    x = 0.35
     xInc = 0.0225
-    y = 0.0785
+    y = 0.073
     yInc = 0
     scale = 0.58
     frames = [Frames.InventoryButton0, Frames.InventoryButton1, Frames.InventoryButton2, Frames.InventoryButton3, Frames.InventoryButton4]
@@ -68,7 +90,7 @@ export class UI {
     // Ability Buttons
     x = 0.262
     xInc = 0.0404
-    y = 0.048
+    y = 0.045
     yInc = 0
     scale = 1
     frames = [Frames.CommandButton5, Frames.CommandButton8, Frames.CommandButton9, Frames.CommandButton10]
@@ -81,27 +103,46 @@ export class UI {
     }
 
     // Ult Ability
-    Frame.fromContext(Frames.CommandButton11).clearPoints().setAbsPoint(FRAMEPOINT_TOPLEFT, 0.436, y).setScale(scale)
+    Frame.fromContext(Frames.CommandButton11).clearPoints().setAbsPoint(FRAMEPOINT_TOPLEFT, 0.434, y).setScale(scale)
 
-    // Name Value
-    Frame.fromContext(Frames.SimpleNameValue).clearPoints().setAbsPoint(FramePoint.T, 0.374, 0.164)
-    Frame.fromContext(Frames.SimpleHeroLevelBar).clearPoints().setAbsPoint(FramePoint.T, 0.374, 0.1505)
-    Frame.fromContext(Frames.SimpleClassValue).clearPoints().setAbsPoint(FramePoint.T, 0.374, 0.1455)
-    Frame.fromContext(Frames.SimpleInfoPanelIconDamage).clearPoints().setAbsPoint(FramePoint.TL, 0.497, 0.14)
-    Frame.fromContext(Frames.InfoPanelIconHeroIcon).clearPoints().setAbsPoint(FramePoint.TL, 1.5, 0.5)
+    // Level Upgrade Effects
+    Frame.fromContext(Frames.CommandButton6).clearPoints().setAbsPoint(FramePoint.TL, 0.5, 0.041).setScale(0.95)
+    Frame.fromContext(Frames.CommandButton7).clearPoints().setAbsPoint(FramePoint.TL, 0.54, 0.041).setScale(0.95)
+
+    // Resources
+    Frame.fromContext(Frames.ResourceBarGoldText).clearPoints().setAbsPoint(FramePoint.TR, 0.651, 0.039)
+    Frame.fromContext(Frames.ResourceBarLumberText).clearPoints().setAbsPoint(FramePoint.TR, 0.651, 0.02)
+    Frame.fromContext(Frames.ResourceTradingTitle).clearPoints().setAbsPoint(FramePoint.TR, 0.5, 0.5)
+
+    // Info Panel
+    const itemNameX = 0.368
+    const itemNameY = 0.156
+    Frame.fromContext(Frames.SimpleNameValue)
+      .clearPoints()
+      .setAbsPoint(FramePoint.T, itemNameX, itemNameY - 0.001)
+    Frame.fromContext(Frames.SimpleHeroLevelBar)
+      .clearPoints()
+      .setAbsPoint(FramePoint.T, itemNameX, itemNameY - 0.014)
+    Frame.fromContext(Frames.SimpleClassValue)
+      .clearPoints()
+      .setAbsPoint(FramePoint.T, itemNameX, itemNameY - 0.018)
+
+    // Destructible
+    Frame.fromContext(Frames.SimpleDestructableNameValue)
+      .clearPoints()
+      .setAbsPoint(FramePoint.T, itemNameX, itemNameY - 0.001)
+    Frame.fromContext(Frames.SimpleInfoPanelDestructableDetail).clearPoints().setAbsPoint(FramePoint.TL, 0.488, 0.14)
+
+    // Item Info
+    Frame.fromContext(Frames.SimpleItemNameValue)
+      .clearPoints()
+      .setAbsPoint(FramePoint.T, itemNameX, itemNameY - 0.001)
+    Frame.fromContext(Frames.SimpleItemDescriptionValue).clearPoints().setAbsPoint(FramePoint.TL, 0.488, 0.14)
+
+    // Unit Info
+    Frame.fromContext(Frames.SimpleInfoPanelIconDamage).clearPoints().setAbsPoint(FramePoint.TL, 0.488, 0.14)
+    // Frame.fromContext(Frames.InfoPanelIconHeroIcon).clearPoints().setAbsPoint(FramePoint.TL, 1.5, 0.5)
     // Frame.fromName(Frames.simpleInfoPanelIconArmor, 2).clearPoints().setAbsPoint(FramePoint.TL, 0.505, 0.086)
-
-    Unit.fromHandle(gg_unit_Hpal_0002).select(true)
-    const time = new Timer()
-    time.start(0.1, false, () => {
-      Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT_HP_TEXT, 0).clearPoints().setAbsPoint(FramePoint.C, 0.405, 0.109)
-      Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT_MANA_TEXT, 0).clearPoints().setAbsPoint(FramePoint.C, 0.405, 0.095)
-    })
-
-    // this.bottomUI = new Frame("this.bottomUI", Frame.fromName("ConsoleUIBackdrop", 0), 1, 1, "BACKDROP", "")
-    // this.bottomUI.setAbsPoint(FRAMEPOINT_TOPLEFT, 0.09777, 0.174136)
-    // this.bottomUI.setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, 0.66929, 0)
-    // this.bottomUI.setTexture("\\UI\\Bottom_MiniMap_v03.dds", 0, true)
 
     // // Set Hero Bar Offsets
     // const x = 0.205
