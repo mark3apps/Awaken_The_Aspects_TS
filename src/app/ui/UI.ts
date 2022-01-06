@@ -12,7 +12,10 @@ export class UI {
     return UI.instance
   }
 
-  unitBanner: Frame
+  unitBanner1: Frame
+  unitBanner2: Frame
+  unitBanner3: Frame
+  unitBanner4: Frame
 
   private constructor(depend: IUIDepend) {
     let t: Trigger
@@ -20,13 +23,27 @@ export class UI {
     BlzEnableUIAutoPosition(false)
     Frame.fromContext(Frames.consoleUIBackdrop).setSize(0, 0.0001)
 
-    this.unitBanner = new Frame("unitBanner", Frame.fromOrigin(ORIGIN_FRAME_WORLD_FRAME, 0), 1, 1, "BACKDROP", "")
-    this.unitBanner.setAbsPoint(FRAMEPOINT_TOPLEFT, 0.2663, 0.162)
-    this.unitBanner.setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, 0.469, 0.121)
-    this.unitBanner.setTexture("\\UI\\unitBanner.dds", 0, true)
+    this.unitBanner1 = new Frame("unitBanner", Frame.fromOrigin(ORIGIN_FRAME_WORLD_FRAME, 0), 1, 1, "BACKDROP", "")
+    this.unitBanner1.setTexture("\\UI\\bottomUi1.dds", 0, true)
+    this.unitBanner1.setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.0, 0.0)
+    this.unitBanner1.setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.2, 0.1939)
+
+    this.unitBanner2 = new Frame("unitBanner", Frame.fromOrigin(ORIGIN_FRAME_WORLD_FRAME, 0), 1, 1, "BACKDROP", "")
+    this.unitBanner2.setTexture("\\UI\\bottomUi2.dds", 0, true)
+    this.unitBanner2.setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.2, 0.0)
+    this.unitBanner2.setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.4, 0.1939)
+
+    this.unitBanner3 = new Frame("unitBanner", Frame.fromOrigin(ORIGIN_FRAME_WORLD_FRAME, 0), 1, 1, "BACKDROP", "")
+    this.unitBanner3.setTexture("\\UI\\bottomUi3.dds", 0, true)
+    this.unitBanner3.setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.4, 0.0)
+    this.unitBanner3.setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.6, 0.1939)
+
+    this.unitBanner4 = new Frame("unitBanner", Frame.fromOrigin(ORIGIN_FRAME_WORLD_FRAME, 0), 1, 1, "BACKDROP", "")
+    this.unitBanner4.setTexture("\\UI\\bottomUi4.dds", 0, true)
+    this.unitBanner4.setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.6, 0.0)
+    this.unitBanner4.setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.8, 0.1939)
 
     // Hidden Frames
-    Frame.fromContext(Frames.InventoryButton5).setVisible(false)
     Frame.fromContext(Frames.InventoryText).clearPoints().setAbsPoint(FramePoint.TL, 1.5, 0.5)
     Frame.fromContext(Frames.ResourceBarFrame).clearPoints().setAbsPoint(FRAMEPOINT_TOPLEFT, 1.5, 0.5)
     Frame.fromContext(Frames.SimpleInfoPanelIconAlly).clearPoints().setAbsPoint(FRAMEPOINT_TOPLEFT, 1.5, 0.5)
@@ -35,7 +52,7 @@ export class UI {
 
     // Set Origin Frames
     Frame.fromOrigin(ORIGIN_FRAME_MINIMAP).clearPoints().setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.1065, 0.007)
-    Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT).clearPoints().setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.335, 0.057).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.369, 0.118)
+    Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT).clearPoints().setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.33, 0.057).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.364, 0.118)
     Frame.fromOrigin(ORIGIN_FRAME_UNIT_PANEL_BUFF_BAR_LABEL).clearPoints().setAbsPoint(FramePoint.BL, 0.494, 0.058)
     Frame.fromOrigin(ORIGIN_FRAME_UNIT_PANEL_BUFF_BAR).clearPoints().setAbsPoint(FramePoint.BL, 0.524, 0.055)
 
@@ -58,11 +75,11 @@ export class UI {
     })
 
     // Order Buttons
-    let x = 0.529
+    let x = 0.526
     let xInc = 0.0187
-    let y = 0.166
+    let y = 0.158
     let yInc = 0
-    let scale = 0.62
+    let scale = 0.7
     let frames = [Frames.CommandButton4, Frames.CommandButton0, Frames.CommandButton1, Frames.CommandButton2, Frames.CommandButton3]
 
     for (let index = 0; index < frames.length; index++) {
@@ -73,12 +90,12 @@ export class UI {
     }
 
     // Items Buttons
-    x = 0.35
+    x = 0.339
     xInc = 0.0225
-    y = 0.073
+    y = 0.072
     yInc = 0
     scale = 0.58
-    frames = [Frames.InventoryButton0, Frames.InventoryButton1, Frames.InventoryButton2, Frames.InventoryButton3, Frames.InventoryButton4]
+    frames = [Frames.InventoryButton0, Frames.InventoryButton1, Frames.InventoryButton2, Frames.InventoryButton3, Frames.InventoryButton4, Frames.InventoryButton5]
 
     for (let index = 0; index < frames.length; index++) {
       Frame.fromContext(frames[index]).clearPoints().setAbsPoint(FRAMEPOINT_TOPLEFT, x, y).setScale(scale)
