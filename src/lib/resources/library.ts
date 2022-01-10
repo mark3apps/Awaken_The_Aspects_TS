@@ -9,10 +9,12 @@ export const GetSpellAbilityFour = () => {
 }
 
 export const ValueFactor = (level: number, base: number, previousFactor: number, levelFactor: number, constant: number) => {
+  if (level === 0) return 0
+
   let value = base
 
   if (level > 1) {
-    for (let i = 2; i < level; i++) {
+    for (let i = 1; i < level; i++) {
       value = value * previousFactor + i * levelFactor + constant
     }
   }

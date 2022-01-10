@@ -39,6 +39,7 @@ export const enum FrameType {
   dialogframe = "DIALOG",
   /** The frame type HIGHLIGHT is used for frame template to define how buttons/texts are highlight on hovering/click/enter/focus of the mouse */
   highlight = "HIGHLIGHT",
+  frame = "FRAME",
 }
 
 export interface IFrames {
@@ -199,6 +200,7 @@ export const Frames = {
   ExtraHighLatencyLabel: { name: "ExtraHighLatencyLabel", context: [0] },
   ExtraHighLatencyRadio: { name: "ExtraHighLatencyRadio", context: [0] },
   FileListFrame: { name: "FileListFrame", context: [0] },
+  ForamtionButton: { name: "FormationButton", context: [0] },
   FormationToggleCheckBox: { name: "FormationToggleCheckBox", context: [0] },
   FormationToggleLabel: { name: "FormationToggleLabel", context: [0] },
   GameplayButton: { name: "GameplayButton", context: [0] },
@@ -293,6 +295,12 @@ export const Frames = {
   MainPanel: { name: "MainPanel", context: [0] },
   MapListBoxBackdrop: { name: "MapListBoxBackdrop", context: [0] },
   MapListScrollBar: { name: "MapListScrollBar", context: [0] },
+  MiniMapAllyButton: { name: "MiniMapAllyButton", context: [0] },
+  MinimapButtonBar: { name: "MinimapButtonBar", context: [0] },
+  MiniMapCreepButton: { name: "MiniMapCreepButton", context: [0] },
+  MiniMapFrame: { name: "MiniMapFrame", context: [0] },
+  MinimapSignalButton: { name: "MinimapSignalButton", context: [0] },
+  MiniMapTerrainButton: { name: "MiniMapTerrainButton", context: [0] },
   ModelDetailLabel: { name: "ModelDetailLabel", context: [0] },
   ModelDetailValue: { name: "ModelDetailValue", context: [0] },
   MouseScrollDisable: { name: "MouseScrollDisable", context: [0] },

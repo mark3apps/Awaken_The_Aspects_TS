@@ -11,5 +11,28 @@
   "editor.insertSpaces": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "IndentCaseLabels": true,
-  "cSpell.words": ["abil", "abils", "Arcanite", "Bloodlust", "coor", "DEGTORAD", "Dreadlord", "Enviro", "Grom", "Hpal", "lifesteal", "Pathing", "strat"]
+  "cSpell.words": [
+    "abil",
+    "abils",
+    "Arcanite",
+    "Avul",
+    "Azeroth",
+    "Bloodlust",
+    "coor",
+    "DEGTORAD",
+    "Dreadlord",
+    "Enviro",
+    "Grom",
+    "Hpal",
+    "Invuln",
+    "lifesteal",
+    "Pathing",
+    "RADTODEG",
+    "Regen",
+    "Rescuable",
+    "Robo",
+    "strat",
+    "Tauren",
+    "Unblight"
+  ]
 }

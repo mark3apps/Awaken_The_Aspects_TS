@@ -9,7 +9,8 @@ import { Coordinate } from "app/classes/Coordinate"
 import { IUnitParam } from "app/classes/hero/interfaces/IUnitParam"
 import { UnitType } from "app/classes/unitType/UnitType"
 import { UnitData } from "app/systems/unitData"
-import { CC2Four } from "lib/resources/library"
+import { GameConstants } from "lib/resources/GameConstants"
+import { CC2Four, ValueFactor } from "lib/resources/library"
 import { OrderType } from "lib/resources/orderType"
 import { PrimaryAttribute } from "../globals/primaryAttribute"
 import { Order, BuffFour, AbilityFour } from "../index"
@@ -315,6 +316,18 @@ export class Unit extends Widget {
 
   public set experience(newXpVal: number) {
     SetHeroXP(this.handle, newXpVal, true)
+  }
+
+  public experienceToNextLevel() {
+    return heroLevelExperience(this.heroLevel)
+  }
+
+  public experienceLevel() {
+    return heroLevelExperience(this.heroLevel - 1)
+  }
+
+  public experiencePercent() {
+    return ((this.experience - this.experienceLevel()) / (this.experienceToNextLevel() - this.experienceLevel())) * 100
   }
 
   public set facing(value: number) {
@@ -1183,7 +1196,7 @@ export class Unit extends Widget {
    * @note This native returns a boolean, which when typecasted to integer might be greater than 1. It's probably implemented via a bitset.
    * @note In past patches this native bugged when used in conditionfuncs.
    * The fix back then was to compare with true (`==true`).
-   * I cannot reproduce the faulty behaviour in patch 1.27 so this is only a note.
+   * I cannot reproduce the faulty behavior in patch 1.27 so this is only a note.
    * @param whichUnitType
    */
   public isUnitType(whichUnitType: unittype) {
@@ -1773,4 +1786,8 @@ export class Unit extends Widget {
 
 const getFieldType = (field: UnitField): string => {
   return field.toString().substr(0, field.toString().indexOf(":"))
+}
+
+const heroLevelExperience = (level: number) => {
+  return ValueFactor(level, GameConstants.NeedHeroXP, GameConstants.NeedHeroXPFormulaA, GameConstants.NeedHeroXPFormulaB, GameConstants.NeedHeroXP)
 }
