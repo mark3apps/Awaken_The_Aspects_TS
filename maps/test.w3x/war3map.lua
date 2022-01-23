@@ -32,6 +32,7 @@ function CreateBuildingsForPlayer0()
     local t
     local life
     u = BlzCreateUnitWithSkin(p, FourCC("hlum"), -1376.0, 1888.0, 270.000, FourCC("hlum"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hctw"), -1088.0, 1728.0, 270.000, FourCC("hctw"))
 end
 
 function CreateUnitsForPlayer0()
@@ -54,11 +55,13 @@ function CreateUnitsForPlayer0()
     UnitAddItemToSlotById(gg_unit_Hpal_0002, FourCC("cnhn"), 3)
     UnitAddItemToSlotById(gg_unit_Hpal_0002, FourCC("fgbd"), 4)
     UnitAddItemToSlotById(gg_unit_Hpal_0002, FourCC("dphe"), 5)
+    u = BlzCreateUnitWithSkin(p, FourCC("otau"), -1444.9, 1535.8, 267.020, FourCC("otau"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), -1260.0, 1313.2, 124.841, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), -1189.9, 1414.4, 312.263, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), -1165.8, 1504.2, 129.939, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), -1233.0, 1094.5, 305.385, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), -1233.4, 1010.6, 25.676, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("otau"), -1588.0, 1531.0, 277.380, FourCC("otau"))
 end
 
 function CreateBuildingsForPlayer1()
@@ -68,6 +71,7 @@ function CreateBuildingsForPlayer1()
     local t
     local life
     u = BlzCreateUnitWithSkin(p, FourCC("hbla"), -832.0, 1728.0, 270.000, FourCC("hbla"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hctw"), -1024.0, 2176.0, 270.000, FourCC("hctw"))
 end
 
 function CreateUnitsForPlayer1()
@@ -95,6 +99,7 @@ function CreateBuildingsForPlayer2()
     local t
     local life
     u = BlzCreateUnitWithSkin(p, FourCC("hkee"), 320.0, 0.0, 270.000, FourCC("hkee"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hatw"), 256.0, -640.0, 270.000, FourCC("hatw"))
 end
 
 function CreateUnitsForPlayer2()

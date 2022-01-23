@@ -25,6 +25,7 @@
     "Grom",
     "Hpal",
     "Invuln",
+    "lerp",
     "lifesteal",
     "Pathing",
     "RADTODEG",
@@ -33,6 +34,7 @@
     "Robo",
     "strat",
     "Tauren",
-    "Unblight"
+    "Unblight",
+    "xpbar"
   ]
 }

@@ -1,6 +1,6 @@
 {
-  "mapFolder": "test.w3x",
-  "mapFolderMain": "Awaken_the_Aspects.w3x",
+  "mapFolderTest": "test.w3x",
+  "mapFolder": "Awaken_the_Aspects.w3x",
   "minifyScript": false,
   "gameExecutable": "C:\\Program Files (x86)\\Warcraft III\\_retail_\\x86_64\\Warcraft III.exe",
   "outputFolder": "./dist/bin",

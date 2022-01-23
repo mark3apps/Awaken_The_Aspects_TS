@@ -79,8 +79,8 @@ export class Unit extends Widget {
 
     this.spellDamage = 1
     this.spellResistance = 1
-    this._shield = 100
-    this._shieldMax = 100
+    this._shield = 0
+    this._shieldMax = 0
     this.kills = 0
     this.setAsFlying = false
 
