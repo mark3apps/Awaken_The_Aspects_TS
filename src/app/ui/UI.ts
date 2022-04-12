@@ -5,7 +5,7 @@ import { FramePoint, Frames, FrameType } from "app/define/Frames"
 import { Logger } from "app/log"
 import { HintText, MessageColors } from "lib/resources/colors"
 import { GameConstants } from "lib/resources/GameConstants"
-import { File, Frame, Group, MapPlayer, PlayerPassive, Players, Timer, Trigger, Unit } from "lib/w3ts"
+import { File, Frame, Group, MapPlayer, Order, PlayerPassive, Players, Timer, Trigger, Unit } from "lib/w3ts"
 import { IUIDepend } from "./IUIDepend"
 
 export class UI {
@@ -304,7 +304,7 @@ export class UI {
       .setAbsPoint(FramePoint.T, x, y - 0.018)
     Frame.fromContext(Frames.SimpleHeroLevelBar)
       .clearPoints()
-      .setAbsPoint(FramePoint.T, 1.5, y - 0.014)
+      .setAbsPoint(FramePoint.T, 1.5, y + 0.1)
 
     //
     // Unit Detail Parent
@@ -418,6 +418,7 @@ export class UI {
       scale: 0.8,
     })
 
+    // Ally Stats
     setFrames({
       frames: [
         Frame.fromContext(Frames.InfoPanelIconAllyTitle),
@@ -426,11 +427,10 @@ export class UI {
         Frame.fromContext(Frames.InfoPanelIconAllyFoodIcon),
         Frame.fromContext(Frames.SimpleInfoPanelIconAlly),
       ],
-      coor: { x: 0.56 + xOff, y: 0.136 + yOff },
+      // coor: { x: 0.56 + xOff, y: 0.136 + yOff },
+      coor: { x: 1.5 + xOff, y: 0.136 + yOff },
       coorInc: { x: 0, y: -0.013 },
     })
-
-    Frame.fromContext(Frames.InfoPanelIconAllyTitle).setScale(0.999)
 
     setFrames({
       frames: [
@@ -439,7 +439,8 @@ export class UI {
         Frame.fromContext(Frames.InfoPanelIconAllyFoodValue),
         Frame.fromContext(Frames.InfoPanelIconAllyUpkeep),
       ],
-      coor: { x: 0.575 + xOff, y: 0.12 + yOff },
+      // coor: { x: 0.575 + xOff, y: 0.12 + yOff },
+      coor: { x: 1.5 + xOff, y: 0.136 + yOff },
       coorInc: { x: 0, y: -0.013 },
     })
 
@@ -449,7 +450,7 @@ export class UI {
 
     // Loop Update
     const updateTimer = new Timer()
-    updateTimer.start(0.06, true, () => {
+    updateTimer.start(0.08, true, () => {
       for (let i = 0; i < Players.length; i++) {
         const p = MapPlayer.fromIndex(i)
         if (MapPlayer.fromLocal() === p) {
@@ -539,30 +540,61 @@ export class UI {
               this.textAttackSpeed.text = `${attackSpeed(u)} sec`
             }
 
-            if (u.isHero)
-              this.experienceBar.width =
-                u.experiencePercent() > 0
-                  ? (u.experiencePercent() / 100) * this.experienceBarFullWidth
-                  : u.heroLevel === GameConstants.MaxHeroLevel
-                  ? this.experienceBarFullWidth
-                  : 0.00001
+            this.experienceBar.width =
+              u.xpPercent() > 0
+                ? math.min(u.xpPercent(), 1) * this.experienceBarFullWidth
+                : u.heroLevel === GameConstants.MaxHeroLevel
+                ? this.experienceBarFullWidth
+                : 0.00001
           }
         }
       }
     })
 
+    const trig = new Trigger()
+    trig.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_ORDER)
+    trig.addAction(() => {
+      if (Unit.fromEvent().typeId === unitTypes.UIDummy.id) {
+        print("Order: " + GetIssuedOrderId())
+      }
+    })
+
+    const g = new Group()
+
     // HP / Mana Text
-    const u = new Unit({ type: unitTypes.Militia1, owner: PlayerPassive, coor: { x: -14828, y: -4674 } })
-    u.select(true)
-    u.applyTimedLifeGeneric(3)
+    for (let i = 0; i < Players.length; i++) {
+      if (Players[i].controller === MAP_CONTROL_USER && Players[i].slotState === PLAYER_SLOT_STATE_PLAYING) {
+        const u = new Unit({ type: unitTypes.UIDummy, owner: Players[i], coor: { x: -14828, y: -4674 } })
+
+        for (let j = 0; j < 5; j++) {
+          u.addItemById("I00N")
+        }
+
+        u.issueOrder(Order.Useslot3)
+        g.addUnit(u)
+
+        if (MapPlayer.fromLocal() === Players[i]) u.select(true)
+      }
+    }
+
     const time = new Timer()
-    time.start(0.1, false, () => {
+    time.start(0.2, false, () => {
       setFrames({
         frames: [Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT_HP_TEXT), Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT_MANA_TEXT)],
         coor: { x: 0.399 + xOff, y: 0.105 + yOff },
         coorInc: { x: 0, y: -0.017 },
         framePoint: FramePoint.C,
       })
+
+      let u = g.first
+      while (u !== null) {
+        if (u) {
+          g.removeUnit(u)
+          u.destroy()
+          u = g.first
+        }
+      }
+      g.destroy()
     })
 
     const t = new Trigger()

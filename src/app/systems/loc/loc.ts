@@ -1,40 +1,54 @@
-import { Rectangle, Region } from 'lib/w3ts/index'
-import { Army } from '../army/army'
+/** @format */
+
+import { Force, Rectangle, Region } from 'lib/w3ts/index'
 import { ILocForward } from './interfaces/ILocForward'
 import { ILocDepend } from './interfaces/ILocDepend'
 import { ILoc } from './interfaces/ILoc'
 
 export class Loc {
-	readonly rect: Rectangle
-	readonly region: Region
-	forward: ILocForward[]
-	forwardArmy?: Army
+  readonly rects: Rectangle[]
+  readonly region: Region
+  thruOrder: ILocForward[]
+  thruForce?: Force
 
-	public static map: Map<number, Loc> = new Map()
+  static map: Map<number, Loc> = new Map()
 
-	constructor (depend: ILocDepend, loc: ILoc) {
-		this.rect = loc.rect
-		this.region = new Region()
-		this.region.addRect(loc.rect)
-		this.forward = loc.forward ?? []
+  constructor(depend: ILocDepend, loc: ILoc) {
+    this.rects = loc.rects
 
-		depend.triggers.unitEntersRegion.registerEnterRegion(this.region.handle, null)
-		Loc.map.set(this.region.id, this)
-	}
+    this.region = new Region()
+    this.rects.forEach((element) => {
+      this.region.addRect(element)
+    })
 
-	public static get (region: Region) {
-		return Loc.map.get(region.id)
-	}
+    this.thruOrder = loc.thruOrder ?? []
 
-	public get randomX (): number {
-		return this.rect.randomX
-	}
+    depend.triggers.unitEntersRegion.registerEnterRegion(this.region.handle, null)
+    Loc.map.set(this.region.id, this)
+  }
 
-	public get randomY (): number {
-		return this.rect.randomY
-	}
+  static get(region: Region) {
+    return Loc.map.get(region.id)
+  }
 
-	public get randomCoordinate () {
-		return this.rect.randomPosition
-	}
+  addRect = (rect: Rectangle) => {
+    this.rects.push(rect)
+    this.region.addRect(rect)
+  }
+
+  get randomRect() {
+    return this.rects[math.floor(math.random() * this.rects.length)]
+  }
+
+  get randomX(): number {
+    return this.randomRect.randomX
+  }
+
+  get randomY(): number {
+    return this.randomRect.randomY
+  }
+
+  get randomCoordinate() {
+    return this.randomRect.randomCoordinate
+  }
 }

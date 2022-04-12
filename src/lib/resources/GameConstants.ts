@@ -122,9 +122,9 @@ export const GameConstants = {
   //
   MaxHeroLevel: 10,
   MaxUnitLevel: 20,
-  NeedHeroXP: 200,
-  GrantHeroXP: [100, 120, 160, 220, 300],
-  GrantNormalXP: 25,
+  NeedHeroXP: 0,
+  GrantHeroXP: 400,
+  GrantNormalXP: 45,
   HeroFactorXP: 100,
   SummonedKillFactor: 0.5,
   StrAttackBonus: 1.0,
@@ -146,12 +146,12 @@ export const GameConstants = {
   //
   NeedHeroXPFormulaA: 1,
   NeedHeroXPFormulaB: 100,
-  NeedHeroXPFormulaC: 0,
+  NeedHeroXPFormulaC: 200,
   GrantHeroXPFormulaA: 1,
   GrantHeroXPFormulaB: 0,
   GrantHeroXPFormulaC: 100,
-  GrantNormalXPFormulaA: 1,
-  GrantNormalXPFormulaB: 5,
+  GrantNormalXPFormulaA: 10,
+  GrantNormalXPFormulaB: 50,
   GrantNormalXPFormulaC: 5,
 
   // Hero ability level skip
