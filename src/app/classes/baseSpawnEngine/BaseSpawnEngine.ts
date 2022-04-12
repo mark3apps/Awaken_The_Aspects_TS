@@ -129,13 +129,9 @@ export class BaseSpawnEngine {
         Logger.Information('Base', currentBaseGroup.bases[0].capital.name)
       }
 
-      if (curUnitCount === 0 && this.baseNumber !== 0) {
+      this.timer.start(interval, false, () => {
         this.iterate()
-      } else {
-        this.timer.start(interval, false, () => {
-          this.iterate()
-        })
-      }
+      })
     } catch (error) {
       Logger.Error('Error', error)
     }

@@ -69,7 +69,7 @@ export class Game {
     Logger.Information('Base Groups')
     const baseGroups = BaseGroups.initInstance({ bases: bases })
     Logger.Information('Base Spawn Engine')
-    const baseEngine = BaseSpawnEngine.initInstance({ baseGroups: baseGroups }, { waveInterval: 11, baseGroupInterval: 0.05, cycleInterval: 25, unitInterval: 0.03 })
+    const baseEngine = BaseSpawnEngine.initInstance({ baseGroups: baseGroups }, { waveInterval: 10, baseGroupInterval: 0.5, cycleInterval: 1, unitInterval: 0.05 })
     const abilEngine = AbilityEngine.getInstance({ triggers: triggers, abilityCast: abilCast })
     const pathing = Pathing.getInstance({ triggers: triggers, locs: locs, forces: forces, regions: regions, unitTypes: unitTypes })
     const abils = Abilities.getInstance({ abilityEngine: abilEngine, abilityTypes: abilTypes, abilityCast: abilCast })

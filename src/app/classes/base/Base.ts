@@ -87,7 +87,7 @@ export class Base {
 
     this._isAlive = this.capital.isAlive()
 
-    this.upgrade = base.upgrade ?? { base: 800, factor: 0.1, constant: 50 }
+    this.upgrade = base.upgrade ?? { base: 650, factor: 0.1, constant: 35 }
 
     this.spawnLoc = base.spawnLoc ?? base.townLoc
     this.visible = base.visible ?? true
@@ -155,7 +155,7 @@ export class Base {
   }
 
   get foodNormalized() {
-    return math.floor((this.food / this.maxFood) * 90) + 10
+    return math.floor((this.food / this.maxFood) * 110) + 10
   }
 
   get isAlive() {
