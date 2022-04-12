@@ -1,11 +1,11 @@
 /** @format */
 
-import { Hero } from "app/classes"
-import { Logger } from "app/log"
-import { MapPlayer, Group, Unit, Players, Mask, Timer } from "lib/w3ts"
-import { Sky } from "lib/w3ts/globals/sky"
-import { Sounds } from "lib/w3ts/globals/sounds"
-import { ICinematicDepend } from "./ICinematicDepend"
+import { Hero } from 'app/classes'
+import { Logger } from 'app/log'
+import { MapPlayer, Group, Unit, Players, Mask, Timer } from 'lib/w3ts'
+import { Sky } from 'lib/w3ts/globals/sky'
+import { Sounds } from 'lib/w3ts/globals/sounds'
+import { ICinematicDepend } from './ICinematicDepend'
 
 export class Cinematic {
   protected static instance: Cinematic
@@ -28,7 +28,7 @@ export class Cinematic {
 
   // On Init
   onInit(): void {
-    this.forces.Alliance.for(() => {
+    this.forces.AllianceComps.for(() => {
       MapPlayer.fromEnum().color = PLAYER_COLOR_RED
       const g = new Group()
       g.enumUnitsOfPlayer(MapPlayer.fromEnum(), () => {
@@ -38,7 +38,7 @@ export class Cinematic {
       g.destroy()
     })
 
-    this.forces.Federation.for(() => {
+    this.forces.FederationComps.for(() => {
       MapPlayer.fromEnum().color = PLAYER_COLOR_BLUE
       const g = new Group()
       g.enumUnitsOfPlayer(MapPlayer.fromEnum(), () => {
@@ -121,7 +121,7 @@ export class Cinematic {
       try {
         timeLeft -= 1
 
-        HeroSelector.setTitleText(GetLocalizedString("DEFAULTTIMERDIALOGTEXT") + ": " + timeLeft)
+        HeroSelector.setTitleText(GetLocalizedString('DEFAULTTIMERDIALOGTEXT') + ': ' + timeLeft)
 
         if (timeLeft < 6 && timeLeft > 0) {
           PlaySound(Sounds.battleNetTick)
@@ -132,7 +132,7 @@ export class Cinematic {
 
           this.forces.Humans.for(() => {
             if (!Hero.PickedPlayers.hasPlayer(MapPlayer.fromEnum())) {
-              Logger.Information("Picked", MapPlayer.fromEnum().name)
+              Logger.Information('Picked', MapPlayer.fromEnum().name)
               HeroSelector.forcePick(GetEnumPlayer())
             }
           })
@@ -149,7 +149,7 @@ export class Cinematic {
           this.setupGameCamera()
         }
       } catch (error) {
-        Logger.Error("Hero Selector:", error)
+        Logger.Error('Hero Selector:', error)
       }
     })
   }

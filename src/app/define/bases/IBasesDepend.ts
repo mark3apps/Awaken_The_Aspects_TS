@@ -1,9 +1,13 @@
+/** @format */
+
 import { Locs } from '../../systems/loc/Locs'
-import { Armies } from 'app/define/armies/Armies'
 import { Units } from 'app/define/units'
+import { Forces } from '../forces/Forces'
+import { Creeps } from '../creeps/Creeps'
 
 export interface IBasesDepend {
-	locs: Locs
-	armies: Armies
-	units: Units
+  locs: Locs
+  units: Units
+  forces: Forces
+  creeps: Creeps
 }

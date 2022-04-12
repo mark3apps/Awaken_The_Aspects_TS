@@ -153,7 +153,7 @@ export class AbilityTypes {
       four: AbilityFour.InfectAspect,
       orderId: Order.Parasite,
       buffFour: BuffFour.Infected,
-      effectType: EffectType.Attacked,
+      effectType: EffectType.Attacks,
       targetType: TargetType.CrippleAround,
     })
 

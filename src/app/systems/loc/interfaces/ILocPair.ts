@@ -1,6 +1,18 @@
+/** @format */
+
 import { Loc } from '../loc'
 
-export interface ILocPair {
-	alliance: Loc
-	federation: Loc
+export interface ILocGroup {
+  alliance: Loc
+  federation: Loc
+}
+
+export class LocGroup {
+  alliance: Loc
+  federation: Loc
+
+  constructor(locGroup: ILocGroup) {
+    this.alliance = locGroup.alliance
+    this.federation = locGroup.federation
+  }
 }

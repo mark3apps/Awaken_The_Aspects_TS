@@ -31,6 +31,7 @@ export class Shift extends UnitAbility {
   constructor(ability: IUnitAbilityParam) {
     super(ability)
     this.updateTooltips()
+    this.cooldown = 8
   }
 
   get augments() {

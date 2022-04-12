@@ -276,6 +276,10 @@ declare const gg_rct_Rock_Gate_Right: rect
 
 declare const gg_rct_Rock_Gate_Left: rect
 
+declare const gg_rct_wildhammerRight: rect
+
+declare const gg_rct_wildhammerLeft: rect
+
 declare const gg_rct_EventTL1: rect
 
 declare const gg_rct_EventTL2: rect
@@ -541,3 +545,7 @@ declare const gg_unit_o00C_1020: unit
 declare const gg_unit_o00C_1021: unit
 
 declare const gg_unit_Hpal_0002: unit
+
+declare const gg_unit_h01X_0750: unit
+
+declare const gg_unit_h01X_0707: unit

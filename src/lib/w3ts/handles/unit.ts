@@ -10,7 +10,7 @@ import { IUnitParam } from "app/classes/hero/interfaces/IUnitParam"
 import { UnitType } from "app/classes/unitType/UnitType"
 import { UnitData } from "app/systems/unitData"
 import { GameConstants } from "lib/resources/GameConstants"
-import { CC2Four, ValueFactor } from "lib/resources/library"
+import { CC2Four, LevelValueFactor, ValueFactor } from "lib/resources/library"
 import { OrderType } from "lib/resources/orderType"
 import { PrimaryAttribute } from "../globals/primaryAttribute"
 import { Order, BuffFour, AbilityFour } from "../index"
@@ -316,18 +316,6 @@ export class Unit extends Widget {
 
   public set experience(newXpVal: number) {
     SetHeroXP(this.handle, newXpVal, true)
-  }
-
-  public experienceToNextLevel() {
-    return heroLevelExperience(this.heroLevel)
-  }
-
-  public experienceLevel() {
-    return heroLevelExperience(this.heroLevel - 1)
-  }
-
-  public experiencePercent() {
-    return ((this.experience - this.experienceLevel()) / (this.experienceToNextLevel() - this.experienceLevel())) * 100
   }
 
   public set facing(value: number) {
@@ -787,8 +775,8 @@ export class Unit extends Widget {
     return UnitAddItem(this.handle, whichItem.handle)
   }
 
-  public addItemById(itemId: number): Item {
-    return Item.fromHandle(UnitAddItemById(this.handle, itemId))
+  public addItemById(itemId: number | string): Item {
+    return typeof itemId === "number" ? Item.fromHandle(UnitAddItemById(this.handle, itemId)) : Item.fromHandle(UnitAddItemById(this.handle, FourCC(itemId)))
   }
 
   public addItemToSlotById(itemId: number, itemSlot: number): boolean {
@@ -1130,7 +1118,7 @@ export class Unit extends Widget {
     return typeof unit === "string" ? IssueBuildOrder(this.handle, unit, x, y) : IssueBuildOrderById(this.handle, unit, x, y)
   }
 
-  public issueImmediateOrder(order: Order) {
+  public issueOrder(order: Order) {
     return IssueImmediateOrderById(this.handle, order)
   }
 
@@ -1154,7 +1142,7 @@ export class Unit extends Widget {
     return IssuePointOrderById(this.handle, order, x, y)
   }
 
-  public issueOrderAtCoordinate(order: Order, dest: Coordinate) {
+  public issueCoordinateOrder(order: Order, dest: Coordinate) {
     this.destX = dest.x
     this.destY = dest.y
     this.orderType = OrderType.Point
@@ -1782,12 +1770,24 @@ export class Unit extends Widget {
   public static isUnitIdType(unitId: number, whichUnitType: unittype) {
     return IsUnitIdType(unitId, whichUnitType)
   }
+
+  public xpRequiredNext() {
+    return this.xpRequired(this.heroLevel + 1)
+  }
+
+  public xpRequiredCurrent() {
+    return this.xpRequired(this.heroLevel)
+  }
+
+  public xpPercent() {
+    return (this.experience - this.xpRequiredCurrent()) / (this.xpRequiredNext() - this.xpRequiredCurrent())
+  }
+
+  public xpRequired(level: number) {
+    return LevelValueFactor(level, 0, GameConstants.NeedHeroXPFormulaA, GameConstants.NeedHeroXPFormulaB, GameConstants.NeedHeroXPFormulaC)
+  }
 }
 
 const getFieldType = (field: UnitField): string => {
   return field.toString().substr(0, field.toString().indexOf(":"))
-}
-
-const heroLevelExperience = (level: number) => {
-  return ValueFactor(level, GameConstants.NeedHeroXP, GameConstants.NeedHeroXPFormulaA, GameConstants.NeedHeroXPFormulaB, GameConstants.NeedHeroXP)
 }
