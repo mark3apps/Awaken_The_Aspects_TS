@@ -1,13 +1,13 @@
 /** @format */
 
-import { UnitAbility, Position } from "app/classes"
-import { AbilityTypes } from "app/define/abilityTypes/abilityTypes"
-import { AbilityField } from "lib/resources/fields"
-import { AbilityFour, Effect, AbilityModel, Unit, Timer } from "lib/w3ts"
-import { IUnitAbilityParam } from "app/classes/unitAbility/interfaces/IUnitAbilityParam"
-import { IAbilityCast } from "app/classes/abilityCast/interfaces/IAbilityCast"
-import { Logger } from "app/log"
-import { UnitTypes } from "app/define/UnitTypes"
+import { UnitAbility, Position } from 'app/classes'
+import { AbilityTypes } from 'app/define/abilityTypes/abilityTypes'
+import { AbilityField } from 'lib/resources/fields'
+import { AbilityFour, Effect, AbilityModel, Unit, Timer } from 'lib/w3ts'
+import { IUnitAbilityParam } from 'app/classes/unitAbility/interfaces/IUnitAbilityParam'
+import { IAbilityCast } from 'app/classes/abilityCast/interfaces/IAbilityCast'
+import { Logger } from 'app/log'
+import { UnitTypes } from 'app/define/UnitTypes'
 
 export interface IShiftAttributes {
   distance?: number
@@ -25,7 +25,7 @@ export class Shift extends UnitAbility {
   private _shadeDamageTaken = 2.0
   private _shadeDuration = 15
 
-  title = "Shift"
+  title = 'Shift'
   tick = 0.01
 
   constructor(ability: IUnitAbilityParam) {
@@ -108,7 +108,7 @@ cooldown |cff00ffff${math.floor(this.cooldown)}|r seconds.`
 
   override onEffect = (cast: IAbilityCast) => {
     try {
-      const abilityTypes = AbilityTypes.getInstance()
+      const abilityTypes = AbilityTypes.initInstance()
       const unitTypes = UnitTypes.getInstance()
 
       // Get Unit Constants
@@ -136,7 +136,7 @@ cooldown |cff00ffff${math.floor(this.cooldown)}|r seconds.`
 
       const shiftDummyAbil = new UnitAbility({
         unit: dummy,
-        abilType: abilityTypes.ShiftDummy,
+        abilityType: abilityTypes.ShiftDummy,
       })
       shiftDummyAbil.setLevelField(AbilityField.DAMAGE_DEALT_PERCENT_OF_NORMAL, this.shadeDamageDealt, 0)
       shiftDummyAbil.setLevelField(AbilityField.DAMAGE_RECEIVED_MULTIPLIER, this.shadeDamageTaken, 0)
@@ -157,7 +157,7 @@ cooldown |cff00ffff${math.floor(this.cooldown)}|r seconds.`
         }
       })
     } catch (error) {
-      Logger.Error("ShiftAbility.onEffect", error)
+      Logger.Error('ShiftAbility.onEffect', error)
     }
   }
 

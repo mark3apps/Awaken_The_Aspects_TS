@@ -1,7 +1,7 @@
 /** @format */
 
 import { Locs } from '../../systems/loc/Locs'
-import { Units } from 'app/define/units'
+import { Units } from 'app/define/units/Units'
 import { Forces } from '../forces/Forces'
 import { Creeps } from '../creeps/Creeps'
 

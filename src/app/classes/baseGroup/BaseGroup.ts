@@ -1,6 +1,7 @@
 /** @format */
 
 import { Base } from '../base/Base'
+import { BaseUpdateEngine } from '../baseUpdateEngine/BaseUpdateEngine'
 
 export interface IBaseGroup {
   bases: Base[]
@@ -11,6 +12,8 @@ export class BaseGroup {
 
   constructor(bases?: Base[]) {
     this.bases = bases ?? []
+
+    BaseUpdateEngine.getInstance().add(this)
   }
 
   add(base: Base) {

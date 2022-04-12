@@ -42,7 +42,7 @@ export class AspectOfFireEvent extends Event {
   }
 
   public infernoAbility(): void {
-    const abilityTypes = AbilityTypes.getInstance()
+    const abilityTypes = AbilityTypes.initInstance()
 
     if (this.eventUnit) {
       const count = math.floor(math.random(2, 4))
@@ -52,7 +52,7 @@ export class AspectOfFireEvent extends Event {
         u.addAbility(abilityTypes.AspectInferno)
         u.applyTimedLifeGeneric(2)
 
-        const ua = new UnitAbility({ unit: u, abilType: abilityTypes.AspectInferno })
+        const ua = new UnitAbility({ unit: u, abilityType: abilityTypes.AspectInferno })
         ua.cast(u.getRandomPosAround(500))
       }
     }

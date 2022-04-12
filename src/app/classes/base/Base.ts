@@ -1,9 +1,11 @@
 /** @format */
 
+import { AbilityTypes } from 'app/define/abilityTypes/abilityTypes'
 import { Logger } from 'app/log'
 import { Loc } from 'app/systems'
 import { Force, Group, Unit } from 'lib/w3ts'
 import { Creep } from '../creep/Creep'
+import { UnitAbility } from '../unitAbility/UnitAbility'
 
 export enum Importance {
   Low,
@@ -41,6 +43,9 @@ export class Base {
   importance: Importance
   force: Force
 
+  healAbil?: UnitAbility
+  summonAbil?: UnitAbility
+
   private _level = 1
   _currentFood = 0
   readonly maxFood: number
@@ -52,7 +57,8 @@ export class Base {
   critModActive: boolean
   evadeModActive: boolean
 
-  buildings: Group
+  buildings = new Group()
+  private _isAlive: boolean
 
   upgrade: { base: number; factor: number; constant: number }
   visible: boolean
@@ -68,6 +74,8 @@ export class Base {
 
   private capitalBaseName: string
 
+  static bases: Base[] = []
+
   constructor(base: IBase) {
     this.creep = base.creep
     this.capital = base.capital
@@ -77,7 +85,9 @@ export class Base {
     this.importance = base.importance
     this.force = base.force
 
-    this.upgrade = base.upgrade ?? { base: 900, factor: 1.2, constant: 100 }
+    this._isAlive = this.capital.isAlive()
+
+    this.upgrade = base.upgrade ?? { base: 800, factor: 0.1, constant: 50 }
 
     this.spawnLoc = base.spawnLoc ?? base.townLoc
     this.visible = base.visible ?? true
@@ -89,10 +99,8 @@ export class Base {
     this.evadeModActive = base.evadeModActive ?? true
 
     this.capitalBaseName = this.capital.name
-
     this.level = 1
 
-    this.buildings = new Group()
     for (let i = 0; i < this.townLoc.rects.length; i++) {
       const rect = this.townLoc.rects[i]
       this.buildings.enumUnitsInRect(rect, () => {
@@ -101,6 +109,12 @@ export class Base {
     }
 
     this.maxFood = this.food > 0 ? this.food : 1
+
+    if (this.visible) {
+      this.healAbil = new UnitAbility({ unit: this.capital, abilityType: AbilityTypes.getInstance().CapitalHeal })
+      this.setCapitalMana()
+      this.capital.manaPercent = 100
+    }
   }
 
   get level() {
@@ -111,11 +125,12 @@ export class Base {
     this._level = value
     if (this.visible) {
       this.capital.name = `${this.capitalBaseName} (Level ${this._level})`
+      if (this.healAbil) this.healAbil.level += 1
     }
   }
 
   get foodNeeded() {
-    return (this.upgrade.base + this.upgrade.base) ^ (this.upgrade.factor * (this.level - 1) + this.upgrade.constant * (this.level - 1))
+    return this.upgrade.base + this.upgrade.base * this.upgrade.factor * (this.level - 1) + this.upgrade.constant * (this.level - 1)
   }
 
   get currentFood() {
@@ -140,11 +155,56 @@ export class Base {
   }
 
   get foodNormalized() {
-    return math.floor((this.food / this.maxFood) * 100)
+    return math.floor((this.food / this.maxFood) * 90) + 10
   }
 
-  setCapitalStrength = () => {
-    this.capital.maxMana = 25 + 625 / (this.foodNormalized / 100)
+  get isAlive() {
+    if (this._isAlive) {
+      return this.capital.isAlive()
+    } else {
+      return false
+    }
+  }
+
+  set isAlive(value: boolean) {
+    value ? (this._isAlive = this.capital.isAlive()) : (this._isAlive = value)
+  }
+
+  setCapitalMana = () => {
+    this.capital.maxMana = math.floor((this.importance + 1) * 400 * (this.foodNormalized / 100))
+  }
+
+  updateCapital = () => {
+    if (this.isAlive) {
+      this.setCapitalMana()
+
+      // Cast Ability if needed
+      if (this.healAbil && this.healAbil.isCastable()) {
+        const g = new Group()
+        g.enumUnitsInRange(this.capital, 600)
+
+        // Get the Buff ID
+        const buffId = this.healAbil.abilityType.buffId
+        if (!buffId) return
+
+        let matchingUnit = g.firstMatching((u) => {
+          return !u.hasBuff(buffId) && u.isOrganicAlly(this.capital) && u.isHero && u.lifePercent <= 70
+        }, true)
+
+        // If there is no matching Hero, get a random matching unit
+        if (matchingUnit === undefined) {
+          matchingUnit = g.firstMatching((u) => {
+            return !u.hasBuff(buffId) && u.isOrganicAlly(this.capital) && u.lifePercent < 70
+          })
+        }
+        g.destroy()
+
+        if (matchingUnit) {
+          this.healAbil.castTarget(matchingUnit)
+          Logger.Information('Healing', matchingUnit.name)
+        }
+      }
+    }
   }
 
   getUnits = (wave: number) => {

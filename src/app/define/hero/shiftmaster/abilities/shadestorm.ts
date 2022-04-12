@@ -33,7 +33,7 @@ export class Shadestorm extends UnitAbility {
 
   override onEffect = (cast: IAbilityCast) => {
     // Get Dependencies (Leave if not yet defined)
-    const abilityTypes = AbilityTypes.getInstanceNoCreate()
+    const abilityTypes = AbilityTypes.getInstance()
     const pathing = Pathing.getInstanceNoCreate()
     const unitTypes = UnitTypes.getInstance()
     if (!pathing || !abilityTypes) return
@@ -67,7 +67,7 @@ export class Shadestorm extends UnitAbility {
 
           const shadeAbility = UnitAbility.fromHandle({
             unit: shade,
-            abilType: abilityTypes.ShadeStormDummy,
+            abilityType: abilityTypes.ShadeStormDummy,
           })
           shadeAbility.setLevelField(AbilityField.DAMAGE_PER_SECOND_OWW1, this.damage)
           shadeAbility.normalDuration = this.duration

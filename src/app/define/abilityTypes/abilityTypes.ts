@@ -1,20 +1,20 @@
 /** @format */
 
-import { EffectType } from "app/classes/abilityType/enums/EffectType"
-import { TargetType } from "app/classes/abilityType/enums/TargetType"
-import { AbilityFour, Order, BuffFour } from "lib/w3ts"
-import { AbilityType } from "../../classes"
+import { EffectType } from 'app/classes/abilityType/enums/EffectType'
+import { TargetType } from 'app/classes/abilityType/enums/TargetType'
+import { AbilityFour, Order, BuffFour } from 'lib/w3ts'
+import { AbilityType } from '../../classes'
 
 export class AbilityTypes {
   private static instance?: AbilityTypes
 
-  static getInstance() {
+  static initInstance() {
     if (!AbilityTypes.instance) AbilityTypes.instance = new AbilityTypes()
     return AbilityTypes.instance
   }
 
-  static getInstanceNoCreate() {
-    return AbilityTypes.getInstance()
+  static getInstance() {
+    return AbilityTypes.initInstance()
   }
 
   AspectInferno
@@ -33,6 +33,7 @@ export class AbilityTypes {
   chainLightningTower
   coneOfFireTower
   aspectOfDeathInfect
+  CapitalHeal
 
   bonusCollection
   bonusStats
@@ -68,12 +69,17 @@ export class AbilityTypes {
       orderId: Order.CreepThunderclap,
     })
     this.ShadeStormDummy = new AbilityType({
-      four: "A03O",
+      four: 'A03O',
       orderId: Order.Whirlwind,
     })
     this.StormCrowForm = new AbilityType({
       four: AbilityFour.StormCrowForm,
       orderId: Order.Ravenform,
+    })
+    this.CapitalHeal = new AbilityType({
+      four: AbilityFour.CapitalHeal,
+      orderId: Order.Rejuvenation,
+      buffFour: BuffFour.Rejuvenation,
     })
 
     //
@@ -182,7 +188,7 @@ export class AbilityTypes {
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     this.treeSkill = new AbilityType({
-      four: "A024",
+      four: 'A024',
       effectType: EffectType.Casts,
     })
 

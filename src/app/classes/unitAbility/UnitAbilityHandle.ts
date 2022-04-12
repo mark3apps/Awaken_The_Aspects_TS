@@ -1,8 +1,8 @@
 /** @format */
 
-import { Unit } from "lib/w3ts"
-import { AbilityType } from ".."
-import { IUnitAbilityParam } from "./interfaces/IUnitAbilityParam"
+import { Unit } from 'lib/w3ts'
+import { AbilityType } from '..'
+import { IUnitAbilityParam } from './interfaces/IUnitAbilityParam'
 
 export class UnitAbilityHandle {
   readonly unit
@@ -13,10 +13,10 @@ export class UnitAbilityHandle {
   constructor(ability?: IUnitAbilityParam) {
     if (ability) {
       this.unit = ability.unit
-      this.abilityType = ability.abilType
+      this.abilityType = ability.abilityType
     } else {
       this.unit = (UnitAbilityHandle.initAbility as IUnitAbilityParam).unit
-      this.abilityType = (UnitAbilityHandle.initAbility as IUnitAbilityParam).abilType
+      this.abilityType = (UnitAbilityHandle.initAbility as IUnitAbilityParam).abilityType
     }
 
     if (!UnitAbilityHandle.exists(this.unit, this.abilityType)) UnitAddAbility(this.unit.handle, this.abilityType.id)
@@ -39,7 +39,7 @@ export class UnitAbilityHandle {
   }
 
   protected static getObject(ability: IUnitAbilityParam): unknown {
-    const obj = ability.unit.unitAbilities.get(ability.abilType.four)
+    const obj = ability.unit.unitAbilities.get(ability.abilityType.four)
     if (obj) {
       return obj
     }

@@ -26,11 +26,12 @@ export class Locs {
   bottom: LocGroup
   middle: LocGroup
   top: LocGroup
+
   sArcane: LocGroup
   sArcaneHero: LocGroup
   sNightElf: LocGroup
-  sCamp: LocGroup
-  sHighCity: LocGroup
+  sMerc: LocGroup
+  sBackCity: LocGroup
   sCityElf: LocGroup
   sCityFront: LocGroup
   sElementalTop: LocGroup
@@ -47,6 +48,29 @@ export class Locs {
   sTree: LocGroup
   sDwarf: LocGroup
   sUndead: LocGroup
+
+  tArcane: LocGroup
+  tArcaneHero: LocGroup
+  tNightElf: LocGroup
+  tMerc: LocGroup
+  tBackCity: LocGroup
+  tCityElf: LocGroup
+  tCityFront: LocGroup
+  tElementalTop: LocGroup
+  tElementalBottom: LocGroup
+  tElf: LocGroup
+  tWildhammer: LocGroup
+  tElfShipyard: LocGroup
+  tHero: LocGroup
+  tHumanShipyard: LocGroup
+  tDraenei: LocGroup
+  tMurloc: LocGroup
+  tNaga: LocGroup
+  tOrc: LocGroup
+  tTree: LocGroup
+  tDwarf: LocGroup
+  tUndead: LocGroup
+
   cForest: LocGroup
   cForestMid: LocGroup
   cTides: LocGroup
@@ -103,11 +127,11 @@ export class Locs {
       alliance: new Loc(depend, { rects: [rects.Arcane_Hero_Left] }),
       federation: new Loc(depend, { rects: [rects.Arcane_Hero_Right] }),
     }
-    this.sCamp = {
+    this.sMerc = {
       alliance: new Loc(depend, { rects: [rects.Camp_Bottom] }),
       federation: new Loc(depend, { rects: [rects.Camp_Top] }),
     }
-    this.sHighCity = {
+    this.sBackCity = {
       alliance: new Loc(depend, { rects: [rects.Blacksmith_Left] }),
       federation: new Loc(depend, { rects: [rects.Blacksmith_Right] }),
     }
@@ -204,6 +228,92 @@ export class Locs {
     this.cRock = {
       alliance: new Loc(depend, { rects: [rects.Rock_Left], thruOrder: [{ loc: this.bottom.federation, army: armies.Alliance }] }),
       federation: new Loc(depend, { rects: [rects.Rock_Right], thruOrder: [{ loc: this.top.alliance, army: armies.Federation }] }),
+    }
+
+    // Town Locs
+    this.tArcane = {
+      alliance: new Loc(depend, { rects: [rects.Left_Arcane] }),
+      federation: new Loc(depend, { rects: [rects.Right_Arcane] }),
+    }
+    this.tArcaneHero = {
+      alliance: new Loc(depend, { rects: [rects.ArcaneHeroTownLeft] }),
+      federation: new Loc(depend, { rects: [rects.ArcaneHeroTownRight] }),
+    }
+    this.tMerc = {
+      alliance: new Loc(depend, { rects: [rects.MercTownLeft] }),
+      federation: new Loc(depend, { rects: [rects.MercTownRight] }),
+    }
+    this.tBackCity = {
+      alliance: new Loc(depend, { rects: [rects.BackCityTownLeft] }),
+      federation: new Loc(depend, { rects: [rects.BackCityTownRight] }),
+    }
+    this.tCityElf = {
+      alliance: new Loc(depend, { rects: [rects.City_Elves_Left] }),
+      federation: new Loc(depend, { rects: [rects.City_Elves_Right] }),
+    }
+    this.tCityFront = {
+      alliance: new Loc(depend, { rects: [rects.Front_Town_Left], thruOrder: [{ loc: this.middle.federation, army: armies.Alliance }] }),
+      federation: new Loc(depend, { rects: [rects.Front_City_Right], thruOrder: [{ loc: this.middle.alliance, army: armies.Federation }] }),
+    }
+    this.tElementalTop = {
+      alliance: new Loc(depend, { rects: [rects.ArcaneTopTownLeft] }),
+      federation: new Loc(depend, { rects: [rects.ArcaneTopTownRight] }),
+    }
+    this.tElementalBottom = {
+      alliance: new Loc(depend, { rects: [rects.ArcaneBottomTownLeft] }),
+      federation: new Loc(depend, { rects: [rects.ArcaneBottomTownRight] }),
+    }
+    this.tElf = {
+      alliance: new Loc(depend, { rects: [rects.HighElfTownLeft] }),
+      federation: new Loc(depend, { rects: [rects.HighElfTownRight] }),
+    }
+    this.tElfShipyard = {
+      alliance: new Loc(depend, { rects: [rects.ElfShipyardTownLeft] }),
+      federation: new Loc(depend, { rects: [rects.ElfShipyardTownRight] }),
+    }
+    this.tHero = {
+      alliance: new Loc(depend, { rects: [rects.Left_Hero] }),
+      federation: new Loc(depend, { rects: [rects.Right_Hero] }),
+    }
+    this.tHumanShipyard = {
+      alliance: new Loc(depend, { rects: [rects.HumanShipyardTownLeft] }),
+      federation: new Loc(depend, { rects: [rects.HumanShipyardTownRight] }),
+    }
+    this.tDraenei = {
+      alliance: new Loc(depend, { rects: [rects.DraeneiTownLeft] }),
+      federation: new Loc(depend, { rects: [rects.DraeneiTownRight] }),
+    }
+    this.tMurloc = {
+      alliance: new Loc(depend, { rects: [rects.MurlocTownLeft] }),
+      federation: new Loc(depend, { rects: [rects.MurlocTownRight] }),
+    }
+    this.tNaga = {
+      alliance: new Loc(depend, { rects: [rects.NagaTownLeft] }),
+      federation: new Loc(depend, { rects: [rects.NagaTownRight] }),
+    }
+    this.tOrc = {
+      alliance: new Loc(depend, { rects: [rects.OrcTownLeft] }),
+      federation: new Loc(depend, { rects: [rects.OrcTownRight] }),
+    }
+    this.tTree = {
+      alliance: new Loc(depend, { rects: [rects.Left_Tree] }),
+      federation: new Loc(depend, { rects: [rects.Right_Tree] }),
+    }
+    this.tNightElf = {
+      alliance: new Loc(depend, { rects: [rects.Night_Elf_Left] }),
+      federation: new Loc(depend, { rects: [rects.Night_Elf_Right] }),
+    }
+    this.tDwarf = {
+      alliance: new Loc(depend, { rects: [rects.DwarfTownLeft] }),
+      federation: new Loc(depend, { rects: [rects.DwarfTownRight] }),
+    }
+    this.tUndead = {
+      alliance: new Loc(depend, { rects: [rects.UndeadTownLeft] }),
+      federation: new Loc(depend, { rects: [rects.UndeadTownRight] }),
+    }
+    this.tWildhammer = {
+      alliance: new Loc(depend, { rects: [rects.WildhammerTownLeft] }),
+      federation: new Loc(depend, { rects: [rects.WildhammerTownRight] }),
     }
 
     // Unit Enters a Loc Forwarding Region

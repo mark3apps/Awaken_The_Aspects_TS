@@ -3,13 +3,13 @@
  * @noSelfInFile *
  */
 
-import { Position } from "app/classes/position"
-import { Handle } from "./handle"
-import { MapPlayer } from "./player"
-import { Point } from "./point"
-import { Rectangle } from "./rect"
-import { Unit } from "./unit"
-import { Widget } from "./widget"
+import { Coordinate } from 'app/classes/Coordinate'
+import { Handle } from './handle'
+import { MapPlayer } from './player'
+import { Point } from './point'
+import { Rectangle } from './rect'
+import { Unit } from './unit'
+import { Widget } from './widget'
 
 export class Group extends Handle<group> {
   constructor() {
@@ -20,11 +20,11 @@ export class Group extends Handle<group> {
     }
   }
 
-  public addGroupFast(addGroup: Group): number {
+  public addGroupFast(addGroup: Group) {
     return BlzGroupAddGroupFast(this.handle, addGroup.handle)
   }
 
-  public addUnit(whichUnit: Unit): boolean {
+  public addUnit(whichUnit: Unit) {
     return GroupAddUnit(this.handle, whichUnit.handle)
   }
 
@@ -36,7 +36,7 @@ export class Group extends Handle<group> {
     DestroyGroup(this.handle)
   }
 
-  public getClosestUnit(coor: Position): Unit | undefined {
+  public getClosestUnit(coor: Coordinate) {
     let pickedUnit: Unit | undefined
     let distance = 999999999999
     this.for(() => {
@@ -51,11 +51,11 @@ export class Group extends Handle<group> {
     return pickedUnit
   }
 
-  public enumUnitsInRangeXY(x: number, y: number, radius: number, filter?: boolexpr | (() => boolean)): void {
+  public enumUnitsInRangeXY(x: number, y: number, radius: number, filter?: boolexpr | (() => boolean)) {
     let typedFiler
     if (filter === undefined) {
       typedFiler = null
-    } else if (typeof filter === "function") {
+    } else if (typeof filter === 'function') {
       typedFiler = Filter(filter)
     } else {
       typedFiler = filter
@@ -63,11 +63,11 @@ export class Group extends Handle<group> {
     GroupEnumUnitsInRange(this.handle, x, y, radius, typedFiler)
   }
 
-  public enumUnitsInRange(pos: Unit | Position, radius: number, filter?: boolexpr | (() => boolean)): void {
+  public enumUnitsInRange(pos: Unit | Coordinate, radius: number, filter?: boolexpr | (() => boolean)) {
     let typedFiler
     if (filter === undefined) {
       typedFiler = null
-    } else if (typeof filter === "function") {
+    } else if (typeof filter === 'function') {
       typedFiler = Filter(filter)
     } else {
       typedFiler = filter
@@ -78,26 +78,26 @@ export class Group extends Handle<group> {
   /**
    * @bug Causes irregular behavior when used with large numbers
    */
-  public enumUnitsInRangeCounted(x: number, y: number, radius: number, filter: boolexpr | (() => boolean), countLimit: number): void {
-    GroupEnumUnitsInRangeCounted(this.handle, x, y, radius, typeof filter === "function" ? Filter(filter) : filter, countLimit)
+  public enumUnitsInRangeCounted(x: number, y: number, radius: number, filter: boolexpr | (() => boolean), countLimit: number) {
+    GroupEnumUnitsInRangeCounted(this.handle, x, y, radius, typeof filter === 'function' ? Filter(filter) : filter, countLimit)
   }
 
-  public enumUnitsInRangeOfPoint(whichPoint: Point, radius: number, filter: boolexpr | (() => boolean)): void {
-    GroupEnumUnitsInRangeOfLoc(this.handle, whichPoint.handle, radius, typeof filter === "function" ? Filter(filter) : filter)
+  public enumUnitsInRangeOfPoint(whichPoint: Point, radius: number, filter: boolexpr | (() => boolean)) {
+    GroupEnumUnitsInRangeOfLoc(this.handle, whichPoint.handle, radius, typeof filter === 'function' ? Filter(filter) : filter)
   }
 
   /**
    * @bug Causes irregular behavior when used with large numbers
    */
-  public enumUnitsInRangeOfPointCounted(whichPoint: Point, radius: number, filter: boolexpr | (() => boolean), countLimit: number): void {
-    GroupEnumUnitsInRangeOfLocCounted(this.handle, whichPoint.handle, radius, typeof filter === "function" ? Filter(filter) : filter, countLimit)
+  public enumUnitsInRangeOfPointCounted(whichPoint: Point, radius: number, filter: boolexpr | (() => boolean), countLimit: number) {
+    GroupEnumUnitsInRangeOfLocCounted(this.handle, whichPoint.handle, radius, typeof filter === 'function' ? Filter(filter) : filter, countLimit)
   }
 
-  public enumUnitsInRect(r: Rectangle, filter?: boolexpr | (() => boolean)): void {
+  public enumUnitsInRect(r: Rectangle, filter?: boolexpr | (() => boolean)) {
     let typedFiler
     if (filter === undefined) {
       typedFiler = null
-    } else if (typeof filter === "function") {
+    } else if (typeof filter === 'function') {
       typedFiler = Filter(filter)
     } else {
       typedFiler = filter
@@ -108,33 +108,33 @@ export class Group extends Handle<group> {
   /**
    * @bug Causes irregular behavior when used with large numbers
    */
-  public enumUnitsInRectCounted(r: Rectangle, filter: boolexpr | (() => boolean), countLimit: number): void {
-    GroupEnumUnitsInRectCounted(this.handle, r.handle, typeof filter === "function" ? Filter(filter) : filter, countLimit)
+  public enumUnitsInRectCounted(r: Rectangle, filter: boolexpr | (() => boolean), countLimit: number) {
+    GroupEnumUnitsInRectCounted(this.handle, r.handle, typeof filter === 'function' ? Filter(filter) : filter, countLimit)
   }
 
   /**
    * @note In contrast to other Enum-functions this function enumarates units with locust.
    */
-  public enumUnitsOfPlayer(whichPlayer: MapPlayer, filter: boolexpr | (() => boolean)): void {
-    GroupEnumUnitsOfPlayer(this.handle, whichPlayer.handle, typeof filter === "function" ? Filter(filter) : filter)
+  public enumUnitsOfPlayer(whichPlayer: MapPlayer, filter: boolexpr | (() => boolean)) {
+    GroupEnumUnitsOfPlayer(this.handle, whichPlayer.handle, typeof filter === 'function' ? Filter(filter) : filter)
   }
 
-  public enumUnitsOfType(unitName: string, filter: boolexpr | (() => boolean)): void {
-    GroupEnumUnitsOfType(this.handle, unitName, typeof filter === "function" ? Filter(filter) : filter)
+  public enumUnitsOfType(unitName: string, filter: boolexpr | (() => boolean)) {
+    GroupEnumUnitsOfType(this.handle, unitName, typeof filter === 'function' ? Filter(filter) : filter)
   }
 
   /**
    * @bug Causes irregular behavior when used with large numbers
    */
-  public enumUnitsOfTypeCounted(unitName: string, filter: boolexpr | (() => boolean), countLimit: number): void {
-    GroupEnumUnitsOfTypeCounted(this.handle, unitName, typeof filter === "function" ? Filter(filter) : filter, countLimit)
+  public enumUnitsOfTypeCounted(unitName: string, filter: boolexpr | (() => boolean), countLimit: number) {
+    GroupEnumUnitsOfTypeCounted(this.handle, unitName, typeof filter === 'function' ? Filter(filter) : filter, countLimit)
   }
 
-  public enumUnitsSelected(whichPlayer: MapPlayer, filter?: boolexpr | (() => boolean)): void {
+  public enumUnitsSelected(whichPlayer: MapPlayer, filter?: boolexpr | (() => boolean)) {
     let typedFiler
     if (filter === undefined) {
       typedFiler = null
-    } else if (typeof filter === "function") {
+    } else if (typeof filter === 'function') {
       typedFiler = Filter(filter)
     } else {
       typedFiler = filter
@@ -143,13 +143,13 @@ export class Group extends Handle<group> {
     GroupEnumUnitsSelected(this.handle, whichPlayer.handle, typedFiler)
   }
 
-  public enumUnitsOfTypeID(unitId: string | number): void {
+  public enumUnitsOfTypeID(unitId: string | number) {
     this.enumUnitsInRect(Rectangle.getWorldBounds(), () => {
-      return (typeof unitId === "string" ? FourCC(unitId) : unitId) === Unit.fromFilter().typeId
+      return (typeof unitId === 'string' ? FourCC(unitId) : unitId) === Unit.fromFilter().typeId
     })
   }
 
-  public for(callback: () => void): void {
+  public for(callback: () => void) {
     ForGroup(this.handle, callback)
   }
 
@@ -159,8 +159,9 @@ export class Group extends Handle<group> {
    * holds a reference to that unit but that unit is pretty much null.
    * See http://wc3c.net/showthread.php?t=104464.
    */
-  public get first(): Unit | undefined {
+  public get first() {
     const unit = FirstOfGroup(this.handle)
+
     return unit === undefined ? undefined : Unit.fromHandle(unit)
   }
 
@@ -171,9 +172,9 @@ export class Group extends Handle<group> {
    * add .destroy() after this runs to clean up the handle.
    * @param callback The function that will be run for ever unit of the group
    */
-  public firstLoop(callback: (u: Unit) => void): void {
+  public firstLoop(callback: (u: Unit) => void) {
     let u = this.first
-    while (u != null) {
+    while (u !== undefined) {
       callback(u)
 
       this.removeUnit(u)
@@ -181,7 +182,7 @@ export class Group extends Handle<group> {
     }
   }
 
-  public firstLoopCondition(condition: (u: Unit) => boolean, callback: (u: Unit) => void, maxUnits = 99999): void {
+  public firstLoopCondition(condition: (u: Unit) => boolean, callback: (u: Unit) => void, maxUnits = 99999) {
     let u = this.first
     let units = 0
     while (u != null && units < maxUnits) {
@@ -193,6 +194,28 @@ export class Group extends Handle<group> {
       this.removeUnit(u)
       u = this.first
     }
+  }
+
+  public firstMatching(condition: (u: Unit) => boolean, perserve = false) {
+    if (perserve) {
+      const units = this.getUnits()
+      let u = units.pop()
+      while (u !== undefined) {
+        if (condition(u)) return u
+        u = units.pop()
+      }
+    } else {
+      let u = this.first
+
+      while (u != null) {
+        if (condition(u)) return u
+
+        this.removeUnit(u)
+        u = this.first
+      }
+    }
+
+    return undefined
   }
 
   public getRandomUnit(): Unit {
@@ -218,7 +241,7 @@ export class Group extends Handle<group> {
   }
 
   public orderCoords(order: string | number, x: number, y: number): void {
-    if (typeof order === "string") {
+    if (typeof order === 'string') {
       GroupPointOrder(this.handle, order, x, y)
     } else {
       GroupPointOrderById(this.handle, order, x, y)
@@ -226,7 +249,7 @@ export class Group extends Handle<group> {
   }
 
   public orderImmediate(order: string | number): void {
-    if (typeof order === "string") {
+    if (typeof order === 'string') {
       GroupImmediateOrder(this.handle, order)
     } else {
       GroupImmediateOrderById(this.handle, order)
@@ -234,7 +257,7 @@ export class Group extends Handle<group> {
   }
 
   public orderPoint(order: string | number, whichPoint: Point): void {
-    if (typeof order === "string") {
+    if (typeof order === 'string') {
       GroupPointOrderLoc(this.handle, order, whichPoint.handle)
     } else {
       GroupPointOrderByIdLoc(this.handle, order, whichPoint.handle)
@@ -242,7 +265,7 @@ export class Group extends Handle<group> {
   }
 
   public orderTarget(order: string | number, targetWidget: Widget | Unit): void {
-    if (typeof order === "string") {
+    if (typeof order === 'string') {
       GroupTargetOrder(this.handle, order, targetWidget.handle)
     } else {
       GroupTargetOrderById(this.handle, order, targetWidget.handle)

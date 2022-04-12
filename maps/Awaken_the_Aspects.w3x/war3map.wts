@@ -7860,116 +7860,110 @@ STRING 3521
 Healing Mana and Life
 }
 
-STRING 3522
-// Abilities: A027 (Tower Heal Hero - Normal), Name (Name)
-{
-Tower Heal Hero - Normal
-}
-
 STRING 3523
-// Abilities: A027 (Tower Heal Hero - Normal), Tip (Tooltip - Normal)
+// Abilities: A027 (Capital Heal - Normal), Tip (Tooltip - Normal)
 {
 Rejuvenation
 }
 
 STRING 3524
-// Abilities: A027 (Tower Heal Hero - Normal), Tip (Tooltip - Normal)
+// Abilities: A027 (Capital Heal - Normal), Tip (Tooltip - Normal)
 {
 Rejuvenation
 }
 
 STRING 3525
-// Abilities: A027 (Tower Heal Hero - Normal), Tip (Tooltip - Normal)
+// Abilities: A027 (Capital Heal - Normal), Tip (Tooltip - Normal)
 {
 Rejuvenation
 }
 
 STRING 3526
-// Abilities: A027 (Tower Heal Hero - Normal), Tip (Tooltip - Normal)
+// Abilities: A027 (Capital Heal - Normal), Tip (Tooltip - Normal)
 {
 Rejuvenation
 }
 
 STRING 3527
-// Abilities: A027 (Tower Heal Hero - Normal), Tip (Tooltip - Normal)
+// Abilities: A027 (Capital Heal - Normal), Tip (Tooltip - Normal)
 {
 Rejuvenation
 }
 
 STRING 3528
-// Abilities: A027 (Tower Heal Hero - Normal), Tip (Tooltip - Normal)
+// Abilities: A027 (Capital Heal - Normal), Tip (Tooltip - Normal)
 {
 Rejuvenation
 }
 
 STRING 3529
-// Abilities: A027 (Tower Heal Hero - Normal), Tip (Tooltip - Normal)
+// Abilities: A027 (Capital Heal - Normal), Tip (Tooltip - Normal)
 {
 Rejuvenation
 }
 
 STRING 3530
-// Abilities: A027 (Tower Heal Hero - Normal), Tip (Tooltip - Normal)
+// Abilities: A027 (Capital Heal - Normal), Tip (Tooltip - Normal)
 {
 Rejuvenation
 }
 
 STRING 3531
-// Abilities: A027 (Tower Heal Hero - Normal), Tip (Tooltip - Normal)
+// Abilities: A027 (Capital Heal - Normal), Tip (Tooltip - Normal)
 {
 Rejuvenation
 }
 
 STRING 3532
-// Abilities: A027 (Tower Heal Hero - Normal), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A027 (Capital Heal - Normal), Ubertip (Tooltip - Normal - Extended)
 {
 Heals a target friendly unit for <Arej,DataA2> hit points over <Arej,Dur2> seconds.
 }
 
 STRING 3533
-// Abilities: A027 (Tower Heal Hero - Normal), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A027 (Capital Heal - Normal), Ubertip (Tooltip - Normal - Extended)
 {
 Heals a target friendly unit for <Arej,DataA3> hit points over <Arej,Dur3> seconds.
 }
 
 STRING 3534
-// Abilities: A027 (Tower Heal Hero - Normal), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A027 (Capital Heal - Normal), Ubertip (Tooltip - Normal - Extended)
 {
 Heals a target friendly unit for <Arej,DataA4> hit points over <Arej,Dur4> seconds.
 }
 
 STRING 3535
-// Abilities: A027 (Tower Heal Hero - Normal), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A027 (Capital Heal - Normal), Ubertip (Tooltip - Normal - Extended)
 {
 Heals a target friendly unit for <Arej,DataA5> hit points over <Arej,Dur5> seconds.
 }
 
 STRING 3536
-// Abilities: A027 (Tower Heal Hero - Normal), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A027 (Capital Heal - Normal), Ubertip (Tooltip - Normal - Extended)
 {
 Heals a target friendly unit for <Arej,DataA6> hit points over <Arej,Dur6> seconds.
 }
 
 STRING 3537
-// Abilities: A027 (Tower Heal Hero - Normal), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A027 (Capital Heal - Normal), Ubertip (Tooltip - Normal - Extended)
 {
 Heals a target friendly unit for <Arej,DataA7> hit points over <Arej,Dur7> seconds.
 }
 
 STRING 3538
-// Abilities: A027 (Tower Heal Hero - Normal), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A027 (Capital Heal - Normal), Ubertip (Tooltip - Normal - Extended)
 {
 Heals a target friendly unit for <Arej,DataA8> hit points over <Arej,Dur8> seconds.
 }
 
 STRING 3539
-// Abilities: A027 (Tower Heal Hero - Normal), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A027 (Capital Heal - Normal), Ubertip (Tooltip - Normal - Extended)
 {
 Heals a target friendly unit for <Arej,DataA9> hit points over <Arej,Dur9> seconds.
 }
 
 STRING 3540
-// Abilities: A027 (Tower Heal Hero - Normal), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A027 (Capital Heal - Normal), Ubertip (Tooltip - Normal - Extended)
 {
 Heals a target friendly unit for <Arej,DataA10> hit points over <Arej,Dur10> seconds.
 }
@@ -11537,25 +11531,25 @@ Gives a <A056,DataA6,%>% chance to avoid an attack.
 }
 
 STRING 4534
-// Abilities: A027 (Tower Heal Hero - Normal), Tip (Tooltip - Normal)
+// Abilities: A027 (Capital Heal - Normal), Tip (Tooltip - Normal)
 {
 Rejuvenation
 }
 
 STRING 4535
-// Abilities: A027 (Tower Heal Hero - Normal), Tip (Tooltip - Normal)
+// Abilities: A027 (Capital Heal - Normal), Tip (Tooltip - Normal)
 {
 Rejuvenation
 }
 
 STRING 4536
-// Abilities: A027 (Tower Heal Hero - Normal), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A027 (Capital Heal - Normal), Ubertip (Tooltip - Normal - Extended)
 {
 Heals a target friendly unit for <Arej,DataA11> hit points over <Arej,Dur11> seconds.
 }
 
 STRING 4537
-// Abilities: A027 (Tower Heal Hero - Normal), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A027 (Capital Heal - Normal), Ubertip (Tooltip - Normal - Extended)
 {
 Heals a target friendly unit for <Arej,DataA12> hit points over <Arej,Dur12> seconds.
 }
@@ -14827,5 +14821,11 @@ STRING 5212
 // Units: h01L (Arcane Library), Name (Name)
 {
 Arcane Library
+}
+
+STRING 5213
+// Abilities: A027 (Capital Heal - Normal), Name (Name)
+{
+Capital Heal - Normal
 }
 

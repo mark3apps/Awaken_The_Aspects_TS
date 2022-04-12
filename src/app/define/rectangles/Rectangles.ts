@@ -1,6 +1,6 @@
 /** @format */
 
-import { Rectangle } from "../../lib/w3ts/handles/rect"
+import { Rectangle } from '../../../lib/w3ts/handles/rect'
 
 export class Rectangles {
   protected static instance: Rectangles
@@ -10,7 +10,7 @@ export class Rectangles {
     return Rectangles.instance
   }
 
-  /// / AUTO DEFINE
+  /// AUTO DEFINE
   Left_Start: Rectangle
   Left_Hero: Rectangle
   Camp_Top: Rectangle
@@ -101,8 +101,6 @@ export class Rectangles {
   Rock_Right: Rectangle
   Rock_Gate_Right: Rectangle
   Rock_Gate_Left: Rectangle
-  wildhammerLeft: Rectangle
-  wildhammerRight: Rectangle
   EventTL1: Rectangle
   EventTL2: Rectangle
   EventTL3: Rectangle
@@ -116,8 +114,40 @@ export class Rectangles {
   EventTR2: Rectangle
   EventTR3: Rectangle
   EventCenter: Rectangle
+  wildhammerLeft: Rectangle
+  wildhammerRight: Rectangle
+  HumanShipyardTownLeft: Rectangle
+  HumanShipyardTownRight: Rectangle
+  ArcaneBottomTownRight: Rectangle
+  ArcaneTopTownLeft: Rectangle
+  ArcaneBottomTownLeft: Rectangle
+  ArcaneTopTownRight: Rectangle
+  WildhammerTownRight: Rectangle
+  WildhammerTownLeft: Rectangle
+  UndeadTownLeft: Rectangle
+  UndeadTownRight: Rectangle
+  ArcaneHeroTownRight: Rectangle
+  ArcaneHeroTownLeft: Rectangle
+  BackCityTownLeft: Rectangle
+  BackCityTownRight: Rectangle
+  ElfShipyardTownRight: Rectangle
+  ElfShipyardTownLeft: Rectangle
+  MercTownRight: Rectangle
+  MercTownLeft: Rectangle
+  DraeneiTownRight: Rectangle
+  DraeneiTownLeft: Rectangle
+  HighElfTownLeft: Rectangle
+  HighElfTownRight: Rectangle
+  NagaTownRight: Rectangle
+  NagaTownLeft: Rectangle
+  MurlocTownLeft: Rectangle
+  MurlocTownRight: Rectangle
+  OrcTownRight: Rectangle
+  OrcTownLeft: Rectangle
+  DwarfTownLeft: Rectangle
+  DwarfTownRight: Rectangle
 
-  constructor() {
+  private constructor() {
     this.Left_Start = Rectangle.fromHandle(gg_rct_Left_Start)
     this.Left_Hero = Rectangle.fromHandle(gg_rct_Left_Hero)
     this.Camp_Top = Rectangle.fromHandle(gg_rct_Camp_Top)
@@ -132,8 +162,8 @@ export class Rectangles {
     this.Camp_Bottom = Rectangle.fromHandle(gg_rct_Camp_Bottom)
     this.Left_Orc = Rectangle.fromHandle(gg_rct_Left_Orc)
     this.Right_Orc = Rectangle.fromHandle(gg_rct_Right_Orc)
-    this.Draenei_Left = Rectangle.fromHandle(gg_rct_Furbolg_Left)
-    this.Draenei_Right = Rectangle.fromHandle(gg_rct_Furbolg_Right)
+    this.Draenei_Left = Rectangle.fromHandle(gg_rct_Draenei_Left)
+    this.Draenei_Right = Rectangle.fromHandle(gg_rct_Draenei_Right)
     this.Left_Start_Bottom = Rectangle.fromHandle(gg_rct_Left_Start_Bottom)
     this.Left_Start_Top = Rectangle.fromHandle(gg_rct_Left_Start_Top)
     this.Right_Start_Top = Rectangle.fromHandle(gg_rct_Right_Start_Top)
@@ -208,8 +238,6 @@ export class Rectangles {
     this.Rock_Right = Rectangle.fromHandle(gg_rct_Rock_Right)
     this.Rock_Gate_Right = Rectangle.fromHandle(gg_rct_Rock_Gate_Right)
     this.Rock_Gate_Left = Rectangle.fromHandle(gg_rct_Rock_Gate_Left)
-    this.wildhammerLeft = Rectangle.fromHandle(gg_rct_wildhammerLeft)
-    this.wildhammerRight = Rectangle.fromHandle(gg_rct_wildhammerRight)
     this.EventTL1 = Rectangle.fromHandle(gg_rct_EventTL1)
     this.EventTL2 = Rectangle.fromHandle(gg_rct_EventTL2)
     this.EventTL3 = Rectangle.fromHandle(gg_rct_EventTL3)
@@ -223,5 +251,38 @@ export class Rectangles {
     this.EventTR2 = Rectangle.fromHandle(gg_rct_EventTR2)
     this.EventTR3 = Rectangle.fromHandle(gg_rct_EventTR3)
     this.EventCenter = Rectangle.fromHandle(gg_rct_EventCenter)
+    this.wildhammerLeft = Rectangle.fromHandle(gg_rct_wildhammerLeft)
+    this.wildhammerRight = Rectangle.fromHandle(gg_rct_wildhammerRight)
+    this.HumanShipyardTownLeft = Rectangle.fromHandle(gg_rct_HumanShipyardTownLeft)
+    this.HumanShipyardTownRight = Rectangle.fromHandle(gg_rct_HumanShipyardTownRight)
+    this.ArcaneBottomTownRight = Rectangle.fromHandle(gg_rct_ArcaneBottomTownRight)
+    this.ArcaneTopTownLeft = Rectangle.fromHandle(gg_rct_ArcaneTopTownLeft)
+    this.ArcaneBottomTownLeft = Rectangle.fromHandle(gg_rct_ArcaneBottomTownLeft)
+    this.ArcaneTopTownRight = Rectangle.fromHandle(gg_rct_ArcaneTopTownRight)
+    this.WildhammerTownRight = Rectangle.fromHandle(gg_rct_WildhammerTownRight)
+    this.WildhammerTownLeft = Rectangle.fromHandle(gg_rct_WildhammerTownLeft)
+    this.UndeadTownLeft = Rectangle.fromHandle(gg_rct_UndeadTownLeft)
+    this.UndeadTownRight = Rectangle.fromHandle(gg_rct_UndeadTownRight)
+    this.ArcaneHeroTownRight = Rectangle.fromHandle(gg_rct_ArcaneHeroTownRight)
+    this.ArcaneHeroTownLeft = Rectangle.fromHandle(gg_rct_ArcaneHeroTownLeft)
+    this.BackCityTownLeft = Rectangle.fromHandle(gg_rct_BackCityTownLeft)
+    this.BackCityTownRight = Rectangle.fromHandle(gg_rct_BackCityTownRight)
+    this.ElfShipyardTownRight = Rectangle.fromHandle(gg_rct_ElfShipyardTownRight)
+    this.ElfShipyardTownLeft = Rectangle.fromHandle(gg_rct_ElfShipyardTownLeft)
+    this.MercTownRight = Rectangle.fromHandle(gg_rct_MercTownRight)
+    this.MercTownLeft = Rectangle.fromHandle(gg_rct_MercTownLeft)
+    this.DraeneiTownRight = Rectangle.fromHandle(gg_rct_DraeneiTownRight)
+    this.DraeneiTownLeft = Rectangle.fromHandle(gg_rct_DraeneiTownLeft)
+    this.HighElfTownLeft = Rectangle.fromHandle(gg_rct_HighElfTownLeft)
+    this.HighElfTownRight = Rectangle.fromHandle(gg_rct_HighElfTownRight)
+    this.NagaTownRight = Rectangle.fromHandle(gg_rct_NagaTownRight)
+    this.NagaTownLeft = Rectangle.fromHandle(gg_rct_NagaTownLeft)
+    this.MurlocTownLeft = Rectangle.fromHandle(gg_rct_MurlocTownLeft)
+    this.MurlocTownRight = Rectangle.fromHandle(gg_rct_MurlocTownRight)
+    this.OrcTownRight = Rectangle.fromHandle(gg_rct_OrcTownRight)
+    this.OrcTownLeft = Rectangle.fromHandle(gg_rct_OrcTownLeft)
+    this.DwarfTownLeft = Rectangle.fromHandle(gg_rct_DwarfTownLeft)
+    this.DwarfTownRight = Rectangle.fromHandle(gg_rct_DwarfTownRight)
   }
+  /// AUTO DEFINE
 }

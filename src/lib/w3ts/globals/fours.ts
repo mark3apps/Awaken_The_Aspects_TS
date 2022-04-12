@@ -97,6 +97,9 @@ export const enum AbilityFour {
   TimeTravel = 'A04P',
   Paradox = 'A04N',
 
+  // Capital Abilities
+  CapitalHeal = 'A027',
+
   // Map Abilities
   AOEdamageupondeath = 'Adda', // (Sapper)
   AbolishMagic = 'Aadm',

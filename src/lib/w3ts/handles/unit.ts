@@ -3,28 +3,28 @@
  * @noSelfInFile *
  */
 
-import { UnitAbility } from "app/classes"
-import { AbilityType } from "app/classes/abilityType/abilityType"
-import { Coordinate } from "app/classes/Coordinate"
-import { IUnitParam } from "app/classes/hero/interfaces/IUnitParam"
-import { UnitType } from "app/classes/unitType/UnitType"
-import { UnitData } from "app/systems/unitData"
-import { GameConstants } from "lib/resources/GameConstants"
-import { CC2Four, LevelValueFactor, ValueFactor } from "lib/resources/library"
-import { OrderType } from "lib/resources/orderType"
-import { PrimaryAttribute } from "../globals/primaryAttribute"
-import { Order, BuffFour, AbilityFour } from "../index"
-import { Destructable } from "./destructable"
-import { Force } from "./force"
-import { Group } from "./group"
-import { Handle } from "./handle"
-import { Item } from "./item"
-import { MapPlayer } from "./player"
-import { Point } from "./point"
-import { Rectangle } from "./rect"
-import { Region } from "./region"
-import { Sound } from "./sound"
-import { Widget } from "./widget"
+import { UnitAbility } from 'app/classes'
+import { AbilityType } from 'app/classes/abilityType/abilityType'
+import { Coordinate } from 'app/classes/Coordinate'
+import { IUnitParam } from 'app/classes/hero/interfaces/IUnitParam'
+import { UnitType } from 'app/classes/unitType/UnitType'
+import { UnitData } from 'app/systems/unitData'
+import { GameConstants } from 'lib/resources/GameConstants'
+import { CC2Four, LevelValueFactor, ValueFactor } from 'lib/resources/library'
+import { OrderType } from 'lib/resources/orderType'
+import { PrimaryAttribute } from '../globals/primaryAttribute'
+import { Order, BuffFour, AbilityFour } from '../index'
+import { Destructable } from './destructable'
+import { Force } from './force'
+import { Group } from './group'
+import { Handle } from './handle'
+import { Item } from './item'
+import { MapPlayer } from './player'
+import { Point } from './point'
+import { Rectangle } from './rect'
+import { Region } from './region'
+import { Sound } from './sound'
+import { Widget } from './widget'
 
 export type UnitField =
   | unitintegerfield
@@ -550,7 +550,7 @@ export class Unit extends Widget {
 
   public get selectionScale(): number {
     const result = this.getField(UNIT_RF_SELECTION_SCALE)
-    return typeof result === "number" ? result : 0
+    return typeof result === 'number' ? result : 0
   }
 
   public set show(flag: boolean) {
@@ -734,9 +734,9 @@ export class Unit extends Widget {
   }
 
   public addAbility(abilityId: number | string | AbilityType) {
-    if (typeof abilityId === "number") {
+    if (typeof abilityId === 'number') {
       UnitAddAbility(this.handle, abilityId)
-    } else if (typeof abilityId === "string") {
+    } else if (typeof abilityId === 'string') {
       UnitAddAbility(this.handle, FourCC(abilityId))
     } else {
       UnitAddAbility(this.handle, abilityId.id)
@@ -776,7 +776,7 @@ export class Unit extends Widget {
   }
 
   public addItemById(itemId: number | string): Item {
-    return typeof itemId === "number" ? Item.fromHandle(UnitAddItemById(this.handle, itemId)) : Item.fromHandle(UnitAddItemById(this.handle, FourCC(itemId)))
+    return typeof itemId === 'number' ? Item.fromHandle(UnitAddItemById(this.handle, itemId)) : Item.fromHandle(UnitAddItemById(this.handle, FourCC(itemId)))
   }
 
   public addItemToSlotById(itemId: number, itemSlot: number): boolean {
@@ -813,7 +813,7 @@ export class Unit extends Widget {
   }
 
   public applyTimedLife(buffId: number | string, duration: number): void {
-    typeof buffId === "number" ? UnitApplyTimedLife(this.handle, buffId, duration) : UnitApplyTimedLife(this.handle, FourCC(buffId), duration)
+    typeof buffId === 'number' ? UnitApplyTimedLife(this.handle, buffId, duration) : UnitApplyTimedLife(this.handle, FourCC(buffId), duration)
   }
 
   public attachSound(sound: Sound): void {
@@ -894,43 +894,43 @@ export class Unit extends Widget {
     const fieldType = getFieldType(field)
 
     switch (fieldType) {
-      case "unitbooleanfield": {
+      case 'unitbooleanfield': {
         const fieldBool: unitbooleanfield = field as unitbooleanfield
 
         return BlzGetUnitBooleanField(this.handle, fieldBool)
       }
-      case "unitintegerfield": {
+      case 'unitintegerfield': {
         const fieldInt: unitintegerfield = field as unitintegerfield
 
         return BlzGetUnitIntegerField(this.handle, fieldInt)
       }
-      case "unitrealfield": {
+      case 'unitrealfield': {
         const fieldReal: unitrealfield = field as unitrealfield
 
         return BlzGetUnitRealField(this.handle, fieldReal)
       }
-      case "unitstringfield": {
+      case 'unitstringfield': {
         const fieldString: unitstringfield = field as unitstringfield
 
         return BlzGetUnitStringField(this.handle, fieldString)
       }
 
-      case "unitweaponbooleanfield": {
+      case 'unitweaponbooleanfield': {
         const fieldBool: unitweaponbooleanfield = field as unitweaponbooleanfield
 
         return BlzGetUnitWeaponBooleanField(this.handle, fieldBool, index)
       }
-      case "unitweaponintegerfield": {
+      case 'unitweaponintegerfield': {
         const fieldInt: unitweaponintegerfield = field as unitweaponintegerfield
 
         return BlzGetUnitWeaponIntegerField(this.handle, fieldInt, index)
       }
-      case "unitweaponrealfield": {
+      case 'unitweaponrealfield': {
         const fieldReal: unitweaponrealfield = field as unitweaponrealfield
 
         return BlzGetUnitWeaponRealField(this.handle, fieldReal, index)
       }
-      case "unitweaponstringfield": {
+      case 'unitweaponstringfield': {
         const fieldString: unitweaponstringfield = field as unitweaponstringfield
 
         return BlzGetUnitWeaponStringField(this.handle, fieldString, index)
@@ -977,7 +977,7 @@ export class Unit extends Widget {
   }
 
   public hasBuff(buffcode: number | string): boolean {
-    return typeof buffcode === "number" ? GetUnitAbilityLevel(this.handle, buffcode) > 0 : GetUnitAbilityLevel(this.handle, FourCC(buffcode)) > 0
+    return typeof buffcode === 'number' ? GetUnitAbilityLevel(this.handle, buffcode) > 0 : GetUnitAbilityLevel(this.handle, FourCC(buffcode)) > 0
   }
 
   public hasItem(whichItem: Item) {
@@ -985,7 +985,7 @@ export class Unit extends Widget {
   }
 
   public hasItemOfType(itemType: string | number) {
-    const itemId = typeof itemType === "string" ? FourCC(itemType) : itemType
+    const itemId = typeof itemType === 'string' ? FourCC(itemType) : itemType
 
     let index = 0
     while (index < bj_MAX_INVENTORY) {
@@ -1078,6 +1078,14 @@ export class Unit extends Widget {
     return UnitAlive(this.handle)
   }
 
+  public isOrganicAlly(whichHandle: MapPlayer | Unit) {
+    return this.isAlive() && !this.isStructure && !this.isMechanical && !this.isAncient && this.isAlly(whichHandle)
+  }
+
+  public isOrganicEnemy(whichHandle: MapPlayer | Unit) {
+    return this.isAlive() && !this.isStructure && !this.isMechanical && !this.isAncient && !this.isAlly(whichHandle)
+  }
+
   public isAlly(whichHandle: MapPlayer | Unit) {
     return whichHandle instanceof MapPlayer ? IsUnitAlly(this.handle, whichHandle.handle) : IsUnitAlly(this.handle, whichHandle.owner.handle)
   }
@@ -1115,7 +1123,7 @@ export class Unit extends Widget {
   }
 
   public issueBuildOrder(unit: string | number, x: number, y: number) {
-    return typeof unit === "string" ? IssueBuildOrder(this.handle, unit, x, y) : IssueBuildOrderById(this.handle, unit, x, y)
+    return typeof unit === 'string' ? IssueBuildOrder(this.handle, unit, x, y) : IssueBuildOrderById(this.handle, unit, x, y)
   }
 
   public issueOrder(order: Order) {
@@ -1138,7 +1146,7 @@ export class Unit extends Widget {
     this.destX = x
     this.destY = y
     this.orderType = OrderType.Point
-    this.order = typeof order === "string" ? String2OrderIdBJ(order) : order
+    this.order = typeof order === 'string' ? String2OrderIdBJ(order) : order
     return IssuePointOrderById(this.handle, order, x, y)
   }
 
@@ -1146,7 +1154,7 @@ export class Unit extends Widget {
     this.destX = dest.x
     this.destY = dest.y
     this.orderType = OrderType.Point
-    this.order = typeof order === "string" ? String2OrderIdBJ(order) : order
+    this.order = typeof order === 'string' ? String2OrderIdBJ(order) : order
     return IssuePointOrderById(this.handle, order, dest.x, dest.y)
   }
 
@@ -1311,7 +1319,7 @@ export class Unit extends Widget {
   }
 
   public set manaPercent(value: number) {
-    this.mana = this.maxMana * (value / 100)
+    this.mana = math.floor(this.maxMana * (value / 100))
   }
 
   public get manaPercent(): number {
@@ -1368,7 +1376,7 @@ export class Unit extends Widget {
    * This native is used to keep abilities when morphing units
    */
   public makeAbilityPermanent(permanent: boolean, abilityId: number | string) {
-    typeof abilityId === "number" ? UnitMakeAbilityPermanent(this.handle, permanent, abilityId) : UnitMakeAbilityPermanent(this.handle, permanent, FourCC(abilityId))
+    typeof abilityId === 'number' ? UnitMakeAbilityPermanent(this.handle, permanent, abilityId) : UnitMakeAbilityPermanent(this.handle, permanent, FourCC(abilityId))
   }
 
   public modifySkillPoints(skillPointDelta: number) {
@@ -1392,7 +1400,7 @@ export class Unit extends Widget {
   }
 
   public removeAbility(abilityId: number | string) {
-    return typeof abilityId === "number" ? UnitRemoveAbility(this.handle, abilityId) : UnitRemoveAbility(this.handle, FourCC(abilityId))
+    return typeof abilityId === 'number' ? UnitRemoveAbility(this.handle, abilityId) : UnitRemoveAbility(this.handle, FourCC(abilityId))
   }
 
   public removeBuffs(removePositive: boolean, removeNegative: boolean) {
@@ -1468,7 +1476,7 @@ export class Unit extends Widget {
   }
 
   public setAbilityLevel(abilCode: number | string, level: number) {
-    return typeof abilCode === "number" ? SetUnitAbilityLevel(this.handle, abilCode, level) : SetUnitAbilityLevel(this.handle, FourCC(abilCode), level)
+    return typeof abilCode === 'number' ? SetUnitAbilityLevel(this.handle, abilCode, level) : SetUnitAbilityLevel(this.handle, FourCC(abilCode), level)
   }
 
   public setAbilityManaCost(abilId: number, level: number, manaCost: number) {
@@ -1480,7 +1488,7 @@ export class Unit extends Widget {
   }
 
   public setAnimation(whichAnimation: string | number) {
-    if (typeof whichAnimation === "string") {
+    if (typeof whichAnimation === 'string') {
       SetUnitAnimation(this.handle, whichAnimation)
     } else {
       SetUnitAnimationByIndex(this.handle, whichAnimation)
@@ -1528,21 +1536,21 @@ export class Unit extends Widget {
   public setField(field: UnitField, value: UnitFieldValue, index = 0) {
     const fieldType = getFieldType(field)
 
-    if (fieldType === "unitbooleanfield" && typeof value === "boolean") {
+    if (fieldType === 'unitbooleanfield' && typeof value === 'boolean') {
       return BlzSetUnitBooleanField(this.handle, field as unitbooleanfield, value)
-    } else if (fieldType === "unitintegerfield" && typeof value === "number") {
+    } else if (fieldType === 'unitintegerfield' && typeof value === 'number') {
       return BlzSetUnitIntegerField(this.handle, field as unitintegerfield, value)
-    } else if (fieldType === "unitrealfield" && typeof value === "number") {
+    } else if (fieldType === 'unitrealfield' && typeof value === 'number') {
       return BlzSetUnitRealField(this.handle, field as unitrealfield, value)
-    } else if (fieldType === "unitstringfield" && typeof value === "string") {
+    } else if (fieldType === 'unitstringfield' && typeof value === 'string') {
       return BlzSetUnitStringField(this.handle, field as unitstringfield, value)
-    } else if (fieldType === "unitweaponbooleanfield" && typeof value === "boolean") {
+    } else if (fieldType === 'unitweaponbooleanfield' && typeof value === 'boolean') {
       return BlzSetUnitWeaponBooleanField(this.handle, field as unitweaponbooleanfield, index, value)
-    } else if (fieldType === "unitweaponintegerfield" && typeof value === "number") {
+    } else if (fieldType === 'unitweaponintegerfield' && typeof value === 'number') {
       return BlzSetUnitWeaponIntegerField(this.handle, field as unitweaponintegerfield, index, value)
-    } else if (fieldType === "unitweaponrealfield" && typeof value === "number") {
+    } else if (fieldType === 'unitweaponrealfield' && typeof value === 'number') {
       return BlzSetUnitWeaponRealField(this.handle, field as unitweaponrealfield, index, value)
-    } else if (fieldType === "unitweaponstringfield" && typeof value === "string") {
+    } else if (fieldType === 'unitweaponstringfield' && typeof value === 'string') {
       return BlzSetUnitWeaponStringField(this.handle, field as unitweaponstringfield, index, value)
     }
 
@@ -1789,5 +1797,5 @@ export class Unit extends Widget {
 }
 
 const getFieldType = (field: UnitField): string => {
-  return field.toString().substr(0, field.toString().indexOf(":"))
+  return field.toString().substr(0, field.toString().indexOf(':'))
 }

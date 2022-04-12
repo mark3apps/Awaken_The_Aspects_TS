@@ -1,12 +1,12 @@
 /** @format */
 
-import { UnitAbility, Position } from "app/classes"
-import { IUnitAbilityParam } from "app/classes/unitAbility/interfaces/IUnitAbilityParam"
-import { UnitTypes } from "app/define/UnitTypes"
-import { AbilityTypes } from "app/define/abilityTypes/abilityTypes"
-import { Logger } from "app/log"
-import { AttackType, DamageType } from "lib/resources/types"
-import { AbilityFour, Timer, Anim, Unit, Group, Order } from "lib/w3ts"
+import { UnitAbility, Position } from 'app/classes'
+import { IUnitAbilityParam } from 'app/classes/unitAbility/interfaces/IUnitAbilityParam'
+import { UnitTypes } from 'app/define/UnitTypes'
+import { AbilityTypes } from 'app/define/abilityTypes/abilityTypes'
+import { Logger } from 'app/log'
+import { AttackType, DamageType } from 'lib/resources/types'
+import { AbilityFour, Timer, Anim, Unit, Group, Order } from 'lib/w3ts'
 
 export class FallingStrike extends UnitAbility {
   damage = 85
@@ -36,7 +36,7 @@ export class FallingStrike extends UnitAbility {
 
   override onEffect = () => {
     try {
-      const abilityTypes = AbilityTypes.getInstance()
+      const abilityTypes = AbilityTypes.initInstance()
       const unitTypes = UnitTypes.getInstance()
 
       // Get Attributes
@@ -83,7 +83,7 @@ export class FallingStrike extends UnitAbility {
 
             const ability = new UnitAbility({
               unit: u,
-              abilType: abilityTypes.FallingStrikeDummy,
+              abilityType: abilityTypes.FallingStrikeDummy,
             })
             ability.heroDuration = this.slowDuration
             ability.normalDuration = this.slowDuration
@@ -110,7 +110,7 @@ export class FallingStrike extends UnitAbility {
         this.resetCooldown()
       }
     } catch (error) {
-      Logger.Error("FallingStrike.onEffect", error)
+      Logger.Error('FallingStrike.onEffect', error)
     }
   }
 

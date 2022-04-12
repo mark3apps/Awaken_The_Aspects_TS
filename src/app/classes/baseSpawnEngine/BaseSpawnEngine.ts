@@ -3,31 +3,28 @@
 import { BaseGroups } from 'app/define/baseGroups/BaseGroups'
 import { Logger } from 'app/log'
 import { Order, Timer, Unit } from 'lib/w3ts'
-import { BaseGroup } from '../baseGroup/BaseGroup'
-import { Creep } from '../creep/Creep'
-import { ICreepUnit } from '../creep/ICreepUnit'
 
-export interface IBaseEngineDepend {
+export interface IBaseSpawnEngineDepend {
   baseGroups: BaseGroups
 }
 
-export interface IBaseEngine {
+export interface IBaseSpawnEngine {
   waveInterval: number
   baseGroupInterval: number
   cycleInterval: number
   unitInterval: number
 }
 
-export class BaseEngine {
-  private static instance?: BaseEngine
+export class BaseSpawnEngine {
+  private static instance?: BaseSpawnEngine
 
-  static initInstance(depend: IBaseEngineDepend, baseEngine: IBaseEngine) {
-    if (!BaseEngine.instance) BaseEngine.instance = new BaseEngine(depend, baseEngine)
-    return BaseEngine.instance
+  static initInstance(depend: IBaseSpawnEngineDepend, baseEngine: IBaseSpawnEngine) {
+    if (!BaseSpawnEngine.instance) BaseSpawnEngine.instance = new BaseSpawnEngine(depend, baseEngine)
+    return BaseSpawnEngine.instance
   }
 
   static getInstance() {
-    return BaseEngine.instance
+    return BaseSpawnEngine.instance
   }
 
   // Define Dependencies
@@ -45,7 +42,7 @@ export class BaseEngine {
   private baseNumber = 0 // Indexed to 0 since it pulls from Arrays
   private unitNumber = 0 // Indexed to 0 since it pulls from Arrays
 
-  constructor(depend: IBaseEngineDepend, baseEngine: IBaseEngine) {
+  constructor(depend: IBaseSpawnEngineDepend, baseEngine: IBaseSpawnEngine) {
     this.baseGroups = depend.baseGroups
 
     this.waveInterval = baseEngine.waveInterval
@@ -74,31 +71,30 @@ export class BaseEngine {
       for (let i = 0; i < currentBaseGroup.bases.length; i++) {
         const base = currentBaseGroup.bases[i]
 
-        if (this.unitNumber === 0) {
-          base.currentFood += base.foodNormalized
-          base.setCapitalStrength()
+        if (base.capital.isAlive()) {
+          if (this.unitNumber === 0) {
+            base.currentFood += base.foodNormalized
 
-          Logger.Information('Food', base.food, base.maxFood, base.foodNormalized)
-          Logger.Information('Food Needed', base.currentFood, base.foodNeeded)
-          Logger.Information('')
-        }
+            Logger.Information('Food', base.currentFood, base.foodNeeded, 'Calc', base.food, base.maxFood, base.foodNormalized)
+          }
 
-        const units = base.getUnits(this.waveNumber)
-        const unitCreep = units[this.unitNumber]
-        const coor = base.townLoc.randomCoordinate
+          const units = base.getUnits(this.waveNumber)
+          const unitCreep = units[this.unitNumber]
+          const coor = base.spawnLoc.randomCoordinate
 
-        if (unitCreep) {
-          const unit = new Unit({ type: unitCreep.unitType, coor: coor, owner: base.force.getRandomPlayer() })
-          if (base.attackModActive) unit.weapon1Base += base.attackMod
-          if (base.healthModActive) unit.maxLife += base.healthMod
-          if (base.armorModActive) unit.armor += base.armorMod
-          if (base.shieldModActive) unit.shield += base.shieldMod
-          if (base.critModActive) unit.critical += base.critMod
-          if (base.evadeModActive) unit.evade += base.evadeMod
+          if (unitCreep) {
+            const unit = new Unit({ type: unitCreep.unitType, coor: coor, owner: base.force.getRandomPlayer() })
+            if (base.attackModActive) unit.weapon1Base += base.attackMod
+            if (base.healthModActive) unit.maxLife += base.healthMod
+            if (base.armorModActive) unit.armor += base.armorMod
+            if (base.shieldModActive) unit.shield += base.shieldMod
+            if (base.critModActive) unit.critical += base.critMod
+            if (base.evadeModActive) unit.evade += base.evadeMod
 
-          const dest = base.creepTarget.randomCoordinate
-          unit.issueCoordinateOrder(Order.Attack, dest)
-          unit.custom.set('base', base)
+            const dest = base.creepTarget.randomCoordinate
+            unit.issueCoordinateOrder(Order.Attack, dest)
+            unit.custom.set('base', base)
+          }
         }
       }
 
@@ -111,7 +107,6 @@ export class BaseEngine {
       if (this.unitNumber < curUnitCount) {
         this.unitNumber += 1
         interval = this.unitInterval
-        Logger.Information('Unit')
       } else if (this.baseNumber < this.baseGroups.count - 1) {
         this.baseNumber += 1
         this.unitNumber = 0
@@ -123,16 +118,18 @@ export class BaseEngine {
         this.unitNumber = 0
         interval = this.waveInterval
         Logger.Information('Wave', this.waveNumber)
+        Logger.Information('Base', currentBaseGroup.bases[0].capital.name)
       } else {
         this.waveNumber = 1
         this.baseNumber = 0
         this.unitNumber = 0
         interval = this.cycleInterval
         Logger.Information('Cycle')
+        Logger.Information('Wave', this.waveNumber)
+        Logger.Information('Base', currentBaseGroup.bases[0].capital.name)
       }
 
       if (curUnitCount === 0 && this.baseNumber !== 0) {
-        Logger.Information('Base Skip')
         this.iterate()
       } else {
         this.timer.start(interval, false, () => {
