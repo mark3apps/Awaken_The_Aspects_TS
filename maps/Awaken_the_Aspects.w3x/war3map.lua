@@ -281,6 +281,14 @@ gg_unit_uabo_0263 = nil
 gg_unit_h01X_0750 = nil
 gg_unit_h01S_0352 = nil
 gg_unit_n01A_0569 = nil
+gg_rct_VillageSpawnLeft = nil
+gg_rct_VillageSpawnRight = nil
+gg_rct_VillageTownRight1 = nil
+gg_rct_VillageTownRight2 = nil
+gg_rct_VillageTownLeft1 = nil
+gg_rct_VillageTownLeft2 = nil
+gg_unit_hlum_0128 = nil
+gg_unit_hlum_0623 = nil
 function InitGlobals()
     local i = 0
     udg_force_allied = CreateForce()
@@ -2510,7 +2518,7 @@ function CreateBuildingsForPlayer20()
     u = BlzCreateUnitWithSkin(p, FourCC("n000"), -20736.0, -5696.0, 270.000, FourCC("n000"))
     u = BlzCreateUnitWithSkin(p, FourCC("n01G"), -20352.0, -10336.0, 360.000, FourCC("n01G"))
     u = BlzCreateUnitWithSkin(p, FourCC("nft2"), -24768.0, -12416.0, 270.000, FourCC("nft2"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hlum"), -15520.0, -6880.0, 270.000, FourCC("hlum"))
+    gg_unit_hlum_0128 = BlzCreateUnitWithSkin(p, FourCC("hlum"), -15520.0, -6880.0, 270.000, FourCC("hlum"))
     u = BlzCreateUnitWithSkin(p, FourCC("hhou"), -14784.0, -6656.0, 270.000, FourCC("hhou"))
     u = BlzCreateUnitWithSkin(p, FourCC("h01B"), -14208.0, -6144.0, 115.000, FourCC("h01B"))
     u = BlzCreateUnitWithSkin(p, FourCC("o004"), -14592.0, -8064.0, 270.000, FourCC("o004"))
@@ -2617,6 +2625,8 @@ function CreateBuildingsForPlayer20()
     u = BlzCreateUnitWithSkin(p, FourCC("ncb9"), -25696.0, -7904.0, 270.000, FourCC("ncb9"))
     u = BlzCreateUnitWithSkin(p, FourCC("h020"), -24256.0, -5760.0, 270.000, FourCC("h020"))
     u = BlzCreateUnitWithSkin(p, FourCC("n01H"), -22816.0, -12416.0, 270.000, FourCC("n01H"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h00X"), -14528.0, -6016.0, 270.000, FourCC("h00X"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h00X"), -15808.0, -6464.0, 270.000, FourCC("h00X"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncb9"), -27552.0, -7520.0, 270.000, FourCC("ncb9"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.40 * life)
@@ -3236,12 +3246,14 @@ function CreateBuildingsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("o004"), -13568.0, -768.0, 270.000, FourCC("o004"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00M"), -14848.0, -1600.0, 270.000, FourCC("n00M"))
     SetUnitState(u, UNIT_STATE_MANA, 260)
-    u = BlzCreateUnitWithSkin(p, FourCC("hlum"), -13536.0, -2464.0, 270.000, FourCC("hlum"))
+    gg_unit_hlum_0623 = BlzCreateUnitWithSkin(p, FourCC("hlum"), -13536.0, -2464.0, 270.000, FourCC("hlum"))
     u = BlzCreateUnitWithSkin(p, FourCC("o004"), -14144.0, -1600.0, 270.000, FourCC("o004"))
     u = BlzCreateUnitWithSkin(p, FourCC("n00M"), -13952.0, -1536.0, 270.000, FourCC("n00M"))
     SetUnitState(u, UNIT_STATE_MANA, 260)
     u = BlzCreateUnitWithSkin(p, FourCC("ngob"), -5440.0, -6720.0, 270.000, FourCC("ngob"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h00X"), -14528.0, -3328.0, 270.000, FourCC("h00X"))
     u = BlzCreateUnitWithSkin(p, FourCC("n012"), -7904.0, -6688.0, 270.000, FourCC("n012"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h00X"), -13184.0, -2944.0, 270.000, FourCC("h00X"))
     u = BlzCreateUnitWithSkin(p, FourCC("h01I"), -14080.0, 3392.0, 90.000, FourCC("h01I"))
     u = BlzCreateUnitWithSkin(p, FourCC("h01I"), -13248.0, 3968.0, 90.000, FourCC("h01I"))
     gg_unit_h01X_0750 = BlzCreateUnitWithSkin(p, FourCC("h01X"), -15552.0, 3136.0, 270.000, FourCC("h01X"))
@@ -3662,6 +3674,12 @@ function CreateRegions()
     gg_rct_Zombie_End_Right = Rect(-1984.0, -4608.0, -1568.0, -4128.0)
     gg_rct_DwarfTownLeft = Rect(-17504.0, -14112.0, -14560.0, -10432.0)
     gg_rct_DwarfTownRight = Rect(-14528.0, 1152.0, -11584.0, 4832.0)
+    gg_rct_VillageSpawnLeft = Rect(-16832.0, -7392.0, -14272.0, -5984.0)
+    gg_rct_VillageSpawnRight = Rect(-14656.0, -3456.0, -12096.0, -2048.0)
+    gg_rct_VillageTownRight1 = Rect(-15008.0, -3616.0, -11776.0, -2208.0)
+    gg_rct_VillageTownRight2 = Rect(-13120.0, -2240.0, -12160.0, -384.0)
+    gg_rct_VillageTownLeft1 = Rect(-17216.0, -7136.0, -13984.0, -5728.0)
+    gg_rct_VillageTownLeft2 = Rect(-16832.0, -8960.0, -15872.0, -7104.0)
 end
 
 function CreateCameras()
@@ -4697,6 +4715,8 @@ function Trig_units_Actions()
     GroupAddUnitSimple(gg_unit_o00C_1020, udg_units)
     GroupAddUnitSimple(gg_unit_o00C_1021, udg_units)
     GroupAddUnitSimple(gg_unit_h002_0699, udg_units)
+    GroupAddUnitSimple(gg_unit_hlum_0128, udg_units)
+    GroupAddUnitSimple(gg_unit_hlum_0623, udg_units)
 end
 
 function InitTrig_units()

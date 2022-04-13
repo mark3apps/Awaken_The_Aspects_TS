@@ -1,5 +1,6 @@
 /** @format */
 
+import { ICapitalSummonUnit } from 'app/abilities/CapitalSummon'
 import { Base, Importance } from 'app/classes/base/Base'
 import { IBasesDepend } from './IBasesDepend'
 
@@ -59,6 +60,8 @@ export class Bases {
   draeneiFederation
   undeadAlliance
   undeadFederation
+  villageAlliance
+  villageFederation
   wildhammerAlliance
   wildhammerFederation
 
@@ -67,6 +70,7 @@ export class Bases {
     const forces = depend.forces
     const locs = depend.locs
     const creeps = depend.creeps
+    const unitTypes = depend.unitTypes
 
     this.arcaneAlliance = new Base({
       creep: creeps.arcane,
@@ -173,6 +177,14 @@ export class Bases {
       importance: Importance.Low,
     })
 
+    const castleSummon: ICapitalSummonUnit[] = [
+      { unitType: unitTypes.Footman2, amount: 2, level: 3 },
+      { unitType: unitTypes.Captain1, amount: 1, level: 3 },
+      { unitType: unitTypes.Captain1, amount: 1, level: 5 },
+      { unitType: unitTypes.Captain2, amount: 1, level: 7 },
+      { unitType: unitTypes.KingDagren, amount: 1, level: 9 },
+    ]
+
     this.castleAlliance = new Base({
       creep: creeps.castle,
       capital: units.h00E_0033,
@@ -182,7 +194,13 @@ export class Bases {
       creepTarget: locs.everything.federation,
       teleportTarget: true,
       importance: Importance.Highest,
+      summonUnits: castleSummon,
     })
+    if (this.castleAlliance.summonAbil) {
+      this.castleAlliance.summonAbil.cooldown = 280
+      this.castleAlliance.summonAbil.manaCost = 300
+    }
+
     this.castleFederation = new Base({
       creep: creeps.castle,
       capital: units.h00E_0081,
@@ -192,14 +210,19 @@ export class Bases {
       creepTarget: locs.everything.alliance,
       teleportTarget: true,
       importance: Importance.Highest,
+      summonUnits: castleSummon,
     })
+    if (this.castleFederation.summonAbil) {
+      this.castleFederation.summonAbil.cooldown = 280
+      this.castleFederation.summonAbil.manaCost = 300
+    }
 
     this.highCityAlliance = new Base({
       creep: creeps.highCity,
       capital: units.n00K_0802,
       force: forces.AllianceComps,
-      townLoc: locs.tBackCity.alliance,
-      spawnLoc: locs.sBackCity.alliance,
+      townLoc: locs.tHighCity.alliance,
+      spawnLoc: locs.sHighCity.alliance,
       creepTarget: locs.cDeath.alliance,
       teleportTarget: true,
       importance: Importance.Medium,
@@ -208,12 +231,18 @@ export class Bases {
       creep: creeps.highCity,
       capital: units.n00K_0477,
       force: forces.FederationComps,
-      townLoc: locs.tBackCity.federation,
-      spawnLoc: locs.sBackCity.federation,
+      townLoc: locs.tHighCity.federation,
+      spawnLoc: locs.sHighCity.federation,
       creepTarget: locs.cDeath.federation,
       teleportTarget: true,
       importance: Importance.Medium,
     })
+
+    const cityElvesSummon: ICapitalSummonUnit[] = [
+      { unitType: unitTypes.BloodElfArcher, amount: 2, level: 1 },
+      { unitType: unitTypes.BloodElfBreaker, amount: 1, level: 3 },
+      { unitType: unitTypes.BloodElfMage, amount: 1, level: 5 },
+    ]
 
     this.cityElvesAlliance = new Base({
       creep: creeps.cityElves,
@@ -224,6 +253,7 @@ export class Bases {
       creepTarget: locs.everything.federation,
       teleportTarget: true,
       importance: Importance.Medium,
+      summonUnits: cityElvesSummon,
     })
     this.cityElvesFederation = new Base({
       creep: creeps.cityElves,
@@ -234,7 +264,14 @@ export class Bases {
       creepTarget: locs.everything.alliance,
       teleportTarget: true,
       importance: Importance.Medium,
+      summonUnits: cityElvesSummon,
     })
+
+    const cityFrontSummon: ICapitalSummonUnit[] = [
+      { unitType: unitTypes.Militia1, amount: 2, level: 1 },
+      { unitType: unitTypes.Footman1, amount: 1, level: 3 },
+      { unitType: unitTypes.Footman2, amount: 1, level: 5 },
+    ]
 
     this.cityFrontAlliance = new Base({
       creep: creeps.cityFront,
@@ -245,6 +282,7 @@ export class Bases {
       creepTarget: locs.middle.federation,
       teleportTarget: true,
       importance: Importance.High,
+      summonUnits: cityFrontSummon,
     })
     this.cityFrontFederation = new Base({
       creep: creeps.cityFront,
@@ -255,7 +293,15 @@ export class Bases {
       creepTarget: locs.middle.alliance,
       teleportTarget: true,
       importance: Importance.High,
+      summonUnits: cityFrontSummon,
     })
+
+    const humanShipyardSummon: ICapitalSummonUnit[] = [
+      { unitType: unitTypes.NavyMarine, amount: 2, level: 1 },
+      { unitType: unitTypes.Crossbowman, amount: 1, level: 3 },
+      { unitType: unitTypes.NavyMarine, amount: 1, level: 5 },
+      { unitType: unitTypes.NavyCaptain, amount: 1, level: 7 },
+    ]
 
     this.humanShipyardAlliance = new Base({
       creep: creeps.humanShipyard,
@@ -265,7 +311,8 @@ export class Bases {
       spawnLoc: locs.sHumanShipyard.alliance,
       creepTarget: locs.sHumanShipyard.federation,
       teleportTarget: true,
-      importance: Importance.Medium,
+      importance: Importance.Low,
+      summonUnits: humanShipyardSummon,
     })
     this.humanShipyardFederation = new Base({
       creep: creeps.humanShipyard,
@@ -275,8 +322,17 @@ export class Bases {
       spawnLoc: locs.sHumanShipyard.federation,
       creepTarget: locs.sHumanShipyard.alliance,
       teleportTarget: true,
-      importance: Importance.Medium,
+      importance: Importance.Low,
+      summonUnits: humanShipyardSummon,
     })
+
+    const highElvesSummon: ICapitalSummonUnit[] = [
+      { unitType: unitTypes.HighElfApprenticeSwordsman, amount: 2, level: 1 },
+      { unitType: unitTypes.HighElfArcher, amount: 2, level: 3 },
+      { unitType: unitTypes.HighElfSwordsman, amount: 2, level: 5 },
+      { unitType: unitTypes.HighElfGuardian, amount: 1, level: 7 },
+      { unitType: unitTypes.HighElfKnight, amount: 1, level: 8 },
+    ]
 
     this.highElvesAlliance = new Base({
       creep: creeps.highElves,
@@ -287,6 +343,7 @@ export class Bases {
       creepTarget: locs.top.federation,
       teleportTarget: true,
       importance: Importance.High,
+      summonUnits: highElvesSummon,
     })
     this.highElvesFederation = new Base({
       creep: creeps.highElves,
@@ -297,6 +354,7 @@ export class Bases {
       creepTarget: locs.bottom.alliance,
       teleportTarget: true,
       importance: Importance.High,
+      summonUnits: highElvesSummon,
     })
 
     this.highElvesCreepAlliance = new Base({
@@ -322,6 +380,13 @@ export class Bases {
       visible: false,
     })
 
+    const treeSummon: ICapitalSummonUnit[] = [
+      { unitType: unitTypes.Treant, amount: 2, level: 1 },
+      { unitType: unitTypes.Dryad, amount: 2, level: 3 },
+      { unitType: unitTypes.Treant, amount: 1, level: 5 },
+      { unitType: unitTypes.AncientOfLife, amount: 1, level: 7 },
+    ]
+
     this.treeAlliance = new Base({
       creep: creeps.tree,
       capital: units.e003_0058,
@@ -331,6 +396,7 @@ export class Bases {
       creepTarget: locs.top.federation,
       teleportTarget: true,
       importance: Importance.Medium,
+      summonUnits: treeSummon,
     })
     this.treeFederation = new Base({
       creep: creeps.tree,
@@ -341,6 +407,7 @@ export class Bases {
       creepTarget: locs.bottom.alliance,
       teleportTarget: true,
       importance: Importance.Medium,
+      summonUnits: treeSummon,
     })
 
     this.nightElfAlliance = new Base({
@@ -385,6 +452,14 @@ export class Bases {
       importance: Importance.Low,
     })
 
+    const mercSummon: ICapitalSummonUnit[] = [
+      { unitType: unitTypes.Rogue, amount: 2, level: 1 },
+      { unitType: unitTypes.BanditSpearman, amount: 2, level: 3 },
+      { unitType: unitTypes.Enforcer, amount: 1, level: 5 },
+      { unitType: unitTypes.Assassin, amount: 1, level: 6 },
+      { unitType: unitTypes.BanditLord, amount: 1, level: 7 },
+    ]
+
     this.mercAlliance = new Base({
       creep: creeps.merc,
       capital: units.n001_0048,
@@ -393,7 +468,8 @@ export class Bases {
       spawnLoc: locs.sMerc.alliance,
       creepTarget: locs.bottom.federation,
       teleportTarget: true,
-      importance: Importance.Low,
+      importance: Importance.Medium,
+      summonUnits: mercSummon,
     })
     this.mercFederation = new Base({
       creep: creeps.merc,
@@ -403,8 +479,15 @@ export class Bases {
       spawnLoc: locs.sMerc.federation,
       creepTarget: locs.top.alliance,
       teleportTarget: true,
-      importance: Importance.Low,
+      importance: Importance.Medium,
+      summonUnits: mercSummon,
     })
+
+    const dwarfSummon: ICapitalSummonUnit[] = [
+      { unitType: unitTypes.IronGuard, amount: 2, level: 1 },
+      { unitType: unitTypes.IronRifleman, amount: 1, level: 3 },
+      { unitType: unitTypes.IronCaptain, amount: 1, level: 7 },
+    ]
 
     this.dwarfAlliance = new Base({
       creep: creeps.dwarf,
@@ -415,6 +498,7 @@ export class Bases {
       creepTarget: locs.bottom.federation,
       teleportTarget: true,
       importance: Importance.High,
+      summonUnits: dwarfSummon,
     })
     this.dwarfFederation = new Base({
       creep: creeps.dwarf,
@@ -425,6 +509,7 @@ export class Bases {
       creepTarget: locs.top.alliance,
       teleportTarget: true,
       importance: Importance.High,
+      summonUnits: dwarfSummon,
     })
 
     this.dwarfCreepAlliance = new Base({
@@ -515,6 +600,12 @@ export class Bases {
       importance: Importance.Low,
     })
 
+    const orcSummon: ICapitalSummonUnit[] = [
+      { unitType: unitTypes.Grunt, amount: 2, level: 1 },
+      { unitType: unitTypes.TrollAxethrower, amount: 1, level: 3 },
+      { unitType: unitTypes.Ogre, amount: 1, level: 5 },
+    ]
+
     this.orcAlliance = new Base({
       creep: creeps.orc,
       capital: units.o001_0075,
@@ -524,6 +615,7 @@ export class Bases {
       creepTarget: locs.top.federation,
       teleportTarget: true,
       importance: Importance.High,
+      summonUnits: orcSummon,
     })
     this.orcFederation = new Base({
       creep: creeps.orc,
@@ -534,7 +626,16 @@ export class Bases {
       creepTarget: locs.bottom.alliance,
       teleportTarget: true,
       importance: Importance.High,
+      summonUnits: orcSummon,
     })
+
+    const draeneiSummon: ICapitalSummonUnit[] = [
+      { unitType: unitTypes.DraeneiGuardian, amount: 1, level: 1 },
+      { unitType: unitTypes.DraeneiGuardian, amount: 1, level: 5 },
+      { unitType: unitTypes.DraeneiDarkslayer, amount: 1, level: 3 },
+      { unitType: unitTypes.DraeneiSeer, amount: 1, level: 7 },
+      { unitType: unitTypes.DraeneiVindicator, amount: 1, level: 8 },
+    ]
 
     this.draeneiAlliance = new Base({
       creep: creeps.draenei,
@@ -545,6 +646,7 @@ export class Bases {
       creepTarget: locs.top.federation,
       teleportTarget: true,
       importance: Importance.Low,
+      summonUnits: draeneiSummon,
     })
     this.draeneiFederation = new Base({
       creep: creeps.draenei,
@@ -555,7 +657,16 @@ export class Bases {
       creepTarget: locs.bottom.alliance,
       teleportTarget: true,
       importance: Importance.Low,
+      summonUnits: draeneiSummon,
     })
+
+    const undeadSummon: ICapitalSummonUnit[] = [
+      { unitType: unitTypes.Ghoul, amount: 2, level: 1 },
+      { unitType: unitTypes.SkeletonWarrior, amount: 1, level: 4 },
+      { unitType: unitTypes.Necromancer, amount: 1, level: 2 },
+      { unitType: unitTypes.SkeletonMage, amount: 1, level: 5 },
+      { unitType: unitTypes.GiantSkeleton, amount: 1, level: 8 },
+    ]
 
     this.undeadAlliance = new Base({
       creep: creeps.undead,
@@ -566,6 +677,7 @@ export class Bases {
       creepTarget: locs.middle.federation,
       teleportTarget: true,
       importance: Importance.Medium,
+      summonUnits: undeadSummon,
     })
     this.undeadFederation = new Base({
       creep: creeps.undead,
@@ -576,7 +688,47 @@ export class Bases {
       creepTarget: locs.middle.alliance,
       teleportTarget: true,
       importance: Importance.Medium,
+      summonUnits: undeadSummon,
     })
+
+    const villageSummon: ICapitalSummonUnit[] = [
+      { unitType: unitTypes.Militia1, amount: 3, level: 1 },
+      { unitType: unitTypes.BanditSpearman, amount: 2, level: 2 },
+      { unitType: unitTypes.Militia2, amount: 2, level: 3 },
+      { unitType: unitTypes.Hunter, amount: 1, level: 5 },
+    ]
+
+    this.villageAlliance = new Base({
+      creep: creeps.village,
+      capital: units.hlum_0128,
+      force: forces.AllianceComps,
+      townLoc: locs.tVillage.alliance,
+      spawnLoc: locs.sVillage.alliance,
+      creepTarget: locs.bottom.federation,
+      teleportTarget: true,
+      importance: Importance.Low,
+      summonUnits: villageSummon,
+    })
+
+    this.villageFederation = new Base({
+      creep: creeps.village,
+      capital: units.hlum_0623,
+      force: forces.FederationComps,
+      townLoc: locs.tVillage.federation,
+      spawnLoc: locs.sVillage.federation,
+      creepTarget: locs.top.alliance,
+      teleportTarget: true,
+      importance: Importance.Low,
+      summonUnits: villageSummon,
+    })
+
+    const wildhammerSummon: ICapitalSummonUnit[] = [
+      { unitType: unitTypes.DwarfClansman, amount: 2, level: 1 },
+      { unitType: unitTypes.DwarfAxethrower, amount: 1, level: 2 },
+      { unitType: unitTypes.DwarfElite, amount: 1, level: 3 },
+      { unitType: unitTypes.DwarfClansman, amount: 1, level: 4 },
+      { unitType: unitTypes.DwarfAxethrower, amount: 1, level: 5 },
+    ]
 
     this.wildhammerAlliance = new Base({
       creep: creeps.wildhammer,
@@ -587,6 +739,7 @@ export class Bases {
       creepTarget: locs.bottom.federation,
       teleportTarget: true,
       importance: Importance.Low,
+      summonUnits: wildhammerSummon,
     })
     this.wildhammerFederation = new Base({
       creep: creeps.wildhammer,
@@ -597,6 +750,7 @@ export class Bases {
       creepTarget: locs.top.alliance,
       teleportTarget: true,
       importance: Importance.Low,
+      summonUnits: wildhammerSummon,
     })
   }
 }

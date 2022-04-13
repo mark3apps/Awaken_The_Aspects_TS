@@ -72,6 +72,8 @@ export class Units {
   h01X_0750: Unit
   h01S_0352: Unit
   n01A_0569: Unit
+  hlum_0128: Unit
+  hlum_0623: Unit
 
   private constructor() {
     this.h003_0015 = Unit.fromHandle(gg_unit_h003_0015)
@@ -135,6 +137,8 @@ export class Units {
     this.h01X_0750 = Unit.fromHandle(gg_unit_h01X_0750)
     this.h01S_0352 = Unit.fromHandle(gg_unit_h01S_0352)
     this.n01A_0569 = Unit.fromHandle(gg_unit_n01A_0569)
+    this.hlum_0128 = Unit.fromHandle(gg_unit_hlum_0128)
+    this.hlum_0623 = Unit.fromHandle(gg_unit_hlum_0623)
   }
   /// AUTO DEFINE
 }

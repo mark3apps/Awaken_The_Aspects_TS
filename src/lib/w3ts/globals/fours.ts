@@ -99,6 +99,7 @@ export const enum AbilityFour {
 
   // Capital Abilities
   CapitalHeal = 'A027',
+  CapitalSummon = 'A02J',
 
   // Map Abilities
   AOEdamageupondeath = 'Adda', // (Sapper)
@@ -1704,6 +1705,7 @@ export const enum UnitFour {
   Grunt = 'ogru', // model: Grunt	 scale: 1,1
   Gryphonaviary = 'hgra', // model: GryphonAviary	 selectScale: 4
   Gryphonrider = 'hgry', // model: GryphonRider	 scale: 1,2	 selectScale: 1,5
+  GuardDog = 'ngog',
   Guardtower = 'hgtw', // model: HumanTower	 selectScale: 2,5
   Guldan = 'Ogld', // model: OrcWarlockGuldan	 selectScale: 1,4
   Halahk = 'Hhkl', // model: HeroPaladinBoss	 selectScale: 1,1

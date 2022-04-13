@@ -75,7 +75,7 @@ export class BaseSpawnEngine {
           if (this.unitNumber === 0) {
             base.currentFood += base.foodNormalized
 
-            Logger.Information('Food', base.currentFood, base.foodNeeded, 'Calc', base.food, base.maxFood, base.foodNormalized)
+            // Logger.Information('Food', base.currentFood, base.foodNeeded, 'Calc', base.food, base.maxFood, base.foodNormalized)
           }
 
           const units = base.getUnits(this.waveNumber)
@@ -111,22 +111,22 @@ export class BaseSpawnEngine {
         this.baseNumber += 1
         this.unitNumber = 0
         interval = this.baseGroupInterval
-        Logger.Information('Base', currentBaseGroup.bases[0].capital.name)
+        // Logger.Information('Base', currentBaseGroup.bases[0].capital.name)
       } else if (this.waveNumber < this.totalWaves) {
         this.waveNumber += 1
         this.baseNumber = 0
         this.unitNumber = 0
         interval = this.waveInterval
-        Logger.Information('Wave', this.waveNumber)
-        Logger.Information('Base', currentBaseGroup.bases[0].capital.name)
+        // Logger.Information('Wave', this.waveNumber)
+        // Logger.Information('Base', currentBaseGroup.bases[0].capital.name)
       } else {
         this.waveNumber = 1
         this.baseNumber = 0
         this.unitNumber = 0
         interval = this.cycleInterval
-        Logger.Information('Cycle')
-        Logger.Information('Wave', this.waveNumber)
-        Logger.Information('Base', currentBaseGroup.bases[0].capital.name)
+        // Logger.Information('Cycle')
+        // Logger.Information('Wave', this.waveNumber)
+        // Logger.Information('Base', currentBaseGroup.bases[0].capital.name)
       }
 
       this.timer.start(interval, false, () => {

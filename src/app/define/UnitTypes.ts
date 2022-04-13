@@ -25,7 +25,7 @@ export class UnitTypes {
   BloodElfMage
   Captain1
   Captain2
-  Catapult
+  Cannon
   Commander
   DraeneiDarkslayer
   DraeneiDemolisher
@@ -43,6 +43,8 @@ export class UnitTypes {
   Enforcer
   EredarWarlock
   FelOrcWarlock
+  FelOrcGrunt
+  FelOrcOgre
   Footman1
   Footman2
   Ghoul
@@ -50,6 +52,8 @@ export class UnitTypes {
   Grunt
   GryphonRider
   Gyrocopter
+  GuardDog
+  Hunter
   InfernalContraption
   InfernalJuggernaut
   InfernalMachine
@@ -147,6 +151,8 @@ export class UnitTypes {
   ArcaneSorcerersTower
   ArcaneManaRepository
 
+  KingDagren
+
   Dummy
   DummyManaStorm
   DummyMarkForDeath
@@ -173,7 +179,7 @@ export class UnitTypes {
     this.BloodElfMage = new UnitType({ four: UnitFour.Priest })
     this.Captain1 = new UnitType({ four: UnitFour.Thecaptain })
     this.Captain2 = new UnitType({ four: 'h00S' })
-    this.Catapult = new UnitType({ four: UnitFour.Mortarteam })
+    this.Cannon = new UnitType({ four: UnitFour.Mortarteam })
     this.Commander = new UnitType({ four: 'h00D' })
     this.DraeneiDarkslayer = new UnitType({ four: UnitFour.DraeneiDarkslayer })
     this.DraeneiDemolisher = new UnitType({ four: UnitFour.DraeneiDemolisher })
@@ -191,6 +197,8 @@ export class UnitTypes {
     this.Enforcer = new UnitType({ four: 'n008' })
     this.EredarWarlock = new UnitType({ four: UnitFour.Eredarwarlock })
     this.FelOrcWarlock = new UnitType({ four: UnitFour.Chaoswarlock })
+    this.FelOrcGrunt = new UnitType({ four: 'o00A' })
+    this.FelOrcOgre = new UnitType({ four: 'o00W' })
     this.Footman1 = new UnitType({ four: UnitFour.Footman })
     this.Footman2 = new UnitType({ four: 'h017' })
     this.Ghoul = new UnitType({ four: UnitFour.Ghoul })
@@ -198,6 +206,7 @@ export class UnitTypes {
     this.Grunt = new UnitType({ four: 'o002' })
     this.GryphonRider = new UnitType({ four: UnitFour.Gryphonrider })
     this.Gyrocopter = new UnitType({ four: UnitFour.Flyingmachine })
+    this.GuardDog = new UnitType({ four: UnitFour.GuardDog, replaceOnSummon: true })
     this.InfernalContraption = new UnitType({ four: UnitFour.Infernalcontraption })
     this.InfernalJuggernaut = new UnitType({ four: UnitFour.Infernaljuggernaut })
     this.InfernalMachine = new UnitType({ four: UnitFour.Infernalmachine })
@@ -209,6 +218,7 @@ export class UnitTypes {
     this.HighElfSwordsman = new UnitType({ four: UnitFour.HighElvenSwordsman })
     this.HippogryphRider = new UnitType({ four: UnitFour.RiddenHippogryph })
     this.HumanBattleship = new UnitType({ four: UnitFour.HumanBattleship })
+    this.Hunter = new UnitType({ four: 'n01W' })
     this.HumanFrigate = new UnitType({ four: UnitFour.Humandestroyer })
     this.IronCaptain = new UnitType({ four: 'h01P' })
     this.IronGuard = new UnitType({ four: 'h01O' })
@@ -266,6 +276,9 @@ export class UnitTypes {
     this.VillagerChild2 = new UnitType({ four: UnitFour.Villagerkid2, order: false })
     this.Treant = new UnitType({ four: 'e008' })
     this.CorruptedTreant = new UnitType({ four: 'e008' })
+
+    // Super Units
+    this.KingDagren = new UnitType({ four: 'h000' })
 
     // Aspects
     this.AspectOfTheTides = new UnitType({ four: UnitFour.MurgulShadowCaster, preload: false })

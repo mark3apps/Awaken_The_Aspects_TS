@@ -53,7 +53,7 @@ export class AspectOfFireEvent extends Event {
         u.applyTimedLifeGeneric(2)
 
         const ua = new UnitAbility({ unit: u, abilityType: abilityTypes.AspectInferno })
-        ua.cast(u.getRandomPosAround(500))
+        ua.cast(u.getRandomCoorWithin(500))
       }
     }
   }

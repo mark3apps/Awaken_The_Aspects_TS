@@ -170,7 +170,7 @@ export class War3TSTLHelper {
       const newUnitData = unitData.replace(/\/\/\/ AUTO DEFINE(.){0,}\/\/\/ AUTO DEFINE/gs, outputFull)
       return newUnitData
     } catch (error) {
-      logger.error(error.toString())
+      logger.error(error)
     }
     return ''
   }
@@ -196,6 +196,6 @@ try {
   fs.writeFileSync('src/app/define/cameraSetups/CameraSetups.ts', resultCam)
   fs.writeFileSync('src/app/define/triggers/Triggers.ts', resultTrig)
 } catch (err) {
-  logger.error(err.toString())
+  logger.error(err)
   logger.error(`There was an error generating the definition file for '${luaFile}'`)
 }

@@ -1,7 +1,7 @@
 /** @format */
 
 import { Unit } from 'lib/w3ts/index'
-import { AbilityType } from '..'
+import { AbilityType } from '../abilityType/abilityType'
 import { Coordinate } from '../Coordinate'
 import { Hero } from '../hero/hero'
 import { IUnitAbilityParam } from '../unitAbility/interfaces/IUnitAbilityParam'

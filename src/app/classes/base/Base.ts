@@ -1,5 +1,6 @@
 /** @format */
 
+import { CapitalSummon, ICapitalSummonUnit } from 'app/abilities/CapitalSummon'
 import { AbilityTypes } from 'app/define/abilityTypes/abilityTypes'
 import { Logger } from 'app/log'
 import { Loc } from 'app/systems'
@@ -24,6 +25,7 @@ export interface IBase {
   teleportTarget: boolean
   importance: Importance
   visible?: boolean
+  summonUnits?: ICapitalSummonUnit[]
   upgrade?: { base: number; factor: number; constant: number }
   healthModActive?: boolean
   attackModActive?: boolean
@@ -112,6 +114,10 @@ export class Base {
 
     if (this.visible) {
       this.healAbil = new UnitAbility({ unit: this.capital, abilityType: AbilityTypes.getInstance().CapitalHeal })
+      if (base.summonUnits) {
+        this.summonAbil = new CapitalSummon(this.capital, this, base.summonUnits)
+      }
+
       this.setCapitalMana()
       this.capital.manaPercent = 100
     }
@@ -124,8 +130,11 @@ export class Base {
   set level(value: number) {
     this._level = value
     if (this.visible) {
-      this.capital.name = `${this.capitalBaseName} (Level ${this._level})`
-      if (this.healAbil) this.healAbil.level += 1
+      this.capital.level = this.level
+      if (this.healAbil) {
+        this.healAbil.incLevel()
+        this.healAbil.areaOfEffect = this.healRange
+      }
     }
   }
 
@@ -155,7 +164,7 @@ export class Base {
   }
 
   get foodNormalized() {
-    return math.floor((this.food / this.maxFood) * 110) + 10
+    return math.floor((this.food / this.maxFood) * 120)
   }
 
   get isAlive() {
@@ -171,39 +180,52 @@ export class Base {
   }
 
   setCapitalMana = () => {
-    this.capital.maxMana = math.floor((this.importance + 1) * 400 * (this.foodNormalized / 100))
+    this.capital.maxMana = math.floor(((this.importance + 1) * 125 + 200) * (this.foodNormalized / 100))
+  }
+
+  get healRange() {
+    return this.healAbil ? 500 + this.healAbil.level * 100 : 600
   }
 
   updateCapital = () => {
-    if (this.isAlive) {
-      this.setCapitalMana()
+    try {
+      if (this.isAlive) {
+        this.setCapitalMana()
 
-      // Cast Ability if needed
-      if (this.healAbil && this.healAbil.isCastable()) {
-        const g = new Group()
-        g.enumUnitsInRange(this.capital, 600)
+        // Cast Ability if needed
+        if (this.healAbil?.isCastable()) {
+          const g = new Group()
+          g.enumUnitsInRange(this.capital, this.healRange)
 
-        // Get the Buff ID
-        const buffId = this.healAbil.abilityType.buffId
-        if (!buffId) return
+          const enemyUnit = g.firstMatching((u) => {
+            return u.isEnemy(this.capital) && u.isAlive()
+          }, true)
 
-        let matchingUnit = g.firstMatching((u) => {
-          return !u.hasBuff(buffId) && u.isOrganicAlly(this.capital) && u.isHero && u.lifePercent <= 70
-        }, true)
+          if (enemyUnit) this.summonAbil?.castImmediate()
 
-        // If there is no matching Hero, get a random matching unit
-        if (matchingUnit === undefined) {
-          matchingUnit = g.firstMatching((u) => {
-            return !u.hasBuff(buffId) && u.isOrganicAlly(this.capital) && u.lifePercent < 70
-          })
-        }
-        g.destroy()
+          // Get the Buff ID
+          const buffId = this.healAbil.abilityType.buffId
+          if (!buffId) return
 
-        if (matchingUnit) {
-          this.healAbil.castTarget(matchingUnit)
-          Logger.Information('Healing', matchingUnit.name)
+          let matchingUnit = g.firstMatching((u) => {
+            return !u.hasBuff(buffId) && u.isOrganicAlly(this.capital) && u.isHero && (u.lifePercent <= 90 || u.manaPercent <= 80)
+          }, true)
+
+          // If there is no matching Hero, get a random matching unit
+          if (matchingUnit === undefined) {
+            matchingUnit = g.firstMatching((u) => {
+              return !u.hasBuff(buffId) && u.isOrganicAlly(this.capital) && u.lifePercent < 85
+            })
+          }
+          g.destroy()
+
+          if (matchingUnit) {
+            this.healAbil.castTarget(matchingUnit)
+          }
         }
       }
+    } catch (error) {
+      Logger.Error('Error', error)
     }
   }
 

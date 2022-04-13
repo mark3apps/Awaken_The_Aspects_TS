@@ -4,6 +4,7 @@
  */
 
 import { Coordinate } from 'app/classes/Coordinate'
+import { Logger } from 'app/log'
 import { Handle } from './handle'
 import { MapPlayer } from './player'
 import { Point } from './point'
@@ -199,6 +200,7 @@ export class Group extends Handle<group> {
   public firstMatching(condition: (u: Unit) => boolean, perserve = false) {
     if (perserve) {
       const units = this.getUnits()
+
       let u = units.pop()
       while (u !== undefined) {
         if (condition(u)) return u
@@ -228,7 +230,7 @@ export class Group extends Handle<group> {
 
   public getUnits(): Unit[] {
     const units: Unit[] = []
-    this.for(() => units.push(Unit.fromFilter()))
+    this.for(() => units.push(Unit.fromEnum()))
     return units
   }
 

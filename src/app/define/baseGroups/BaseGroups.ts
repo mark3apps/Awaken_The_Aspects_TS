@@ -48,6 +48,7 @@ export class BaseGroups {
     this.groups.push(new BaseGroup([bases.orcAlliance, bases.orcFederation]))
     this.groups.push(new BaseGroup([bases.draeneiAlliance, bases.draeneiFederation]))
     this.groups.push(new BaseGroup([bases.undeadAlliance, bases.undeadFederation]))
+    this.groups.push(new BaseGroup([bases.villageAlliance, bases.villageFederation]))
     this.groups.push(new BaseGroup([bases.wildhammerAlliance, bases.wildhammerFederation]))
   }
 

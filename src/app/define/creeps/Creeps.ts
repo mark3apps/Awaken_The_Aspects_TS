@@ -39,6 +39,7 @@ export class Creeps {
   humanShipyard
   nightElfShipyard
   undead
+  village
   wildhammer
 
   private constructor(depend: ICreepsDepend) {
@@ -101,12 +102,12 @@ export class Creeps {
 
     // City Front
     this.cityFront = new Creep()
-    this.cityFront.addUnit({ unitType: unitTypes.Militia1, amount: 3, waves: [1, 2, 3, 4, 5, 6], end: 2 })
+    this.cityFront.addUnit({ unitType: unitTypes.Militia2, amount: 2, waves: [1, 2, 3, 4, 5], end: 2 })
     this.cityFront.addUnit({ unitType: unitTypes.Militia2, amount: 2, waves: [1, 2, 3, 4, 5, 6, 7], start: 3, end: 4 })
     this.cityFront.addUnit({ unitType: unitTypes.Footman1, amount: 3, waves: [1, 2, 3, 5, 6, 7], start: 5 })
     this.cityFront.addUnit({ unitType: unitTypes.Captain1, amount: 2, waves: [3, 4, 7], start: 5 })
     this.cityFront.addUnit({ unitType: unitTypes.Knight, waves: [1, 3, 5, 7], start: 6 })
-    this.cityFront.addUnit({ unitType: unitTypes.Catapult, waves: [1, 4], start: 6 })
+    this.cityFront.addUnit({ unitType: unitTypes.Cannon, waves: [1, 4], start: 6 })
     this.cityFront.addUnit({ unitType: unitTypes.Commander, waves: [2], start: 10 })
 
     // Draenei
@@ -164,10 +165,11 @@ export class Creeps {
 
     // Murloc
     this.murloc = new Creep()
-    this.murloc.addUnit({ unitType: unitTypes.MurlocCliffRunner, amount: 4, waves: [5, 6, 7, 8, 9, 10] })
-    this.murloc.addUnit({ unitType: unitTypes.MurlocCliffRunner, amount: 2, waves: [5, 6, 7, 8], start: 5 })
-    this.murloc.addUnit({ unitType: unitTypes.MurlocReaver, waves: [5, 6, 7, 9], start: 3 })
-    this.murloc.addUnit({ unitType: unitTypes.MurlocSnareCaster, amount: 2, waves: [6, 7, 8, 10], start: 4 })
+    this.murloc.addUnit({ unitType: unitTypes.MurlocCliffRunner, amount: 3, waves: [5, 6, 7, 8, 9, 10] })
+    this.murloc.addUnit({ unitType: unitTypes.MurlocCliffRunner, amount: 1, waves: [5, 6, 7, 8, 9, 10], start: 2 })
+    this.murloc.addUnit({ unitType: unitTypes.MurlocCliffRunner, amount: 2, waves: [5, 6, 7, 8], start: 6 })
+    this.murloc.addUnit({ unitType: unitTypes.MurlocReaver, waves: [5, 6, 7, 9], start: 4 })
+    this.murloc.addUnit({ unitType: unitTypes.MurlocSnareCaster, amount: 2, waves: [6, 7, 8, 10], start: 5 })
     this.murloc.addUnit({ unitType: unitTypes.MurlocTideWarrior, waves: [4, 8], start: 7 })
 
     // Naga
@@ -239,6 +241,13 @@ export class Creeps {
     this.undead.addUnit({ unitType: unitTypes.InfernalContraption, waves: [5, 7], start: 3, end: 5 })
     this.undead.addUnit({ unitType: unitTypes.InfernalMachine, waves: [5, 7], start: 6, end: 9 })
     this.undead.addUnit({ unitType: unitTypes.InfernalJuggernaut, waves: [5, 7], start: 10 })
+
+    // Village
+    this.village = new Creep()
+    this.village.addUnit({ unitType: unitTypes.Militia1, amount: 2, waves: [4, 5, 6, 7, 8] })
+    this.village.addUnit({ unitType: unitTypes.Militia2, amount: 1, waves: [4, 5, 6, 7, 8], start: 5 })
+    this.village.addUnit({ unitType: unitTypes.BanditSpearman, amount: 1, waves: [4, 5, 6, 7, 8], start: 3 })
+    this.village.addUnit({ unitType: unitTypes.Hunter, amount: 1, waves: [1, 5, 7, 9], start: 1 })
 
     // Wildhammer
     this.wildhammer = new Creep()

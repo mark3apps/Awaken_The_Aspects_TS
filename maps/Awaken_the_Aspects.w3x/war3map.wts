@@ -3847,18 +3847,6 @@ STRING 2402
 Mana Overflow
 }
 
-STRING 2405
-// Units: h00B (Altar of Kings (Mana Seeker)), Name (Name)
-{
-Altar of Kings (Mana Seeker)
-}
-
-STRING 2406
-// Units: h00I (Altar of Kings (Brawler)), Name (Name)
-{
-Altar of Kings (Brawler)
-}
-
 STRING 2414
 // Abilities: A018 (MS - Mana Overload), Ubertip (Tooltip - Normal - Extended)
 {
@@ -4192,12 +4180,6 @@ STRING 2600
 // Upgrades: R000 (Iron Forged Swords,Steel Forged Swords,Mithril Forged Swords), Name (Name)
 {
 Attribute Bonus - Level 15
-}
-
-STRING 2632
-// Units: h00Q (Altar of Kings (Shifter)), Name (Name)
-{
-Altar of Kings (Shifter)
 }
 
 STRING 2633
@@ -8383,12 +8365,6 @@ STRING 3640
 Inspire - [|cffffcc00Level 3|r]
 }
 
-STRING 3646
-// Units: h00Y (Altar of Kings (Tactition)), Name (Name)
-{
-Altar of Kings (Tactition)
-}
-
 STRING 3674
 // Units: E001 (Brawler), Propernames (Proper Names)
 {
@@ -8469,12 +8445,6 @@ STRING 3690
 // Units: H00J (Time Mage), Name (Name)
 {
 Time Mage
-}
-
-STRING 3691
-// Units: h00Z (Altar of Kings (Time Mage)), Name (Name)
-{
-Altar of Kings (Time Mage)
 }
 
 STRING 3692
@@ -11953,12 +11923,6 @@ STRING 4658
 Bunker
 }
 
-STRING 4659
-// Units: h01J (Temple), Name (Name)
-{
-Temple
-}
-
 STRING 4660
 // Units: h01K (Forge), Name (Name)
 {
@@ -14827,5 +14791,41 @@ STRING 5213
 // Abilities: A027 (Capital Heal - Normal), Name (Name)
 {
 Capital Heal - Normal
+}
+
+STRING 5214
+// Abilities: A02J (Capital Summon), Name (Name)
+{
+Capital Summon
+}
+
+STRING 5215
+// Buffs/Effects: B00L (( Capital Heal )), Bufftip (Tooltip)
+{
+Heal
+}
+
+STRING 5216
+// Buffs/Effects: B00L (( Capital Heal )), EditorName (Name (Editor Only))
+{
+( Capital Heal )
+}
+
+STRING 5217
+// Units: h000 (King Dagren), Name (Name)
+{
+King Dagren
+}
+
+STRING 5218
+// Units: n01W (Hunter), Name (Name)
+{
+Hunter
+}
+
+STRING 5219
+// Abilities: A031 (Call the Dogs), Name (Name)
+{
+Call the Dogs
 }
 

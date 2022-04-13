@@ -33,7 +33,9 @@ export class AbilityTypes {
   chainLightningTower
   coneOfFireTower
   aspectOfDeathInfect
+
   CapitalHeal
+  CapitalSummon
 
   bonusCollection
   bonusStats
@@ -76,10 +78,18 @@ export class AbilityTypes {
       four: AbilityFour.StormCrowForm,
       orderId: Order.Ravenform,
     })
+
+    // Capital Abilities
     this.CapitalHeal = new AbilityType({
       four: AbilityFour.CapitalHeal,
       orderId: Order.Rejuvenation,
       buffFour: BuffFour.Rejuvenation,
+    })
+    this.CapitalSummon = new AbilityType({
+      four: AbilityFour.CapitalSummon,
+      orderId: Order.Berserk,
+      effectType: EffectType.Casts,
+      targetType: TargetType.SupportAround,
     })
 
     //

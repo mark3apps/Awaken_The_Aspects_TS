@@ -65,7 +65,7 @@ export class Game {
     const heroAttr = HeroAttributes.getInstance({ itemTypes: itemTypes })
     const creeps = Creeps.getInstance({ unitTypes: unitTypes })
     Logger.Information('Bases')
-    const bases = Bases.getInstance({ locs: locs, forces: forces, creeps: creeps, units: units })
+    const bases = Bases.getInstance({ locs: locs, forces: forces, creeps: creeps, units: units, unitTypes: unitTypes })
     Logger.Information('Base Groups')
     const baseGroups = BaseGroups.initInstance({ bases: bases })
     Logger.Information('Base Spawn Engine')

@@ -1,9 +1,9 @@
 /** @format */
 
-import { Ability } from "../ability/Ability"
-import { IAbilityEngineMap } from "./interfaces/IAbilityEngineMap"
-import { IAbilityEngineDepend } from "./interfaces/IAbilityEngineDepend"
-import { UnitAbility } from ".."
+import { Ability } from '../ability/Ability'
+import { IAbilityEngineMap } from './interfaces/IAbilityEngineMap'
+import { IAbilityEngineDepend } from './interfaces/IAbilityEngineDepend'
+import { UnitAbility } from '../unitAbility/UnitAbility'
 
 export class AbilityEngine {
   Attacked: IAbilityEngineMap[]

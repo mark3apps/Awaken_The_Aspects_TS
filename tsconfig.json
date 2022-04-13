@@ -56,7 +56,7 @@
     "noHeader": true,
     "luaLibImport": "require",
     "noImplicitSelf": true,
-    "luaBundle": "../dist/tstl_output.lua",
+    "luaBundle": "./dist/tstl_output.lua",
     "luaBundleEntry": "./src/main.ts"
   }
 }

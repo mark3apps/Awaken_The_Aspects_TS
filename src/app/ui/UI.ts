@@ -1,12 +1,12 @@
 /** @format */
 
-import { Coordinate } from "app/classes/Coordinate"
-import { FramePoint, Frames, FrameType } from "app/define/Frames"
-import { Logger } from "app/log"
-import { HintText, MessageColors } from "lib/resources/colors"
-import { GameConstants } from "lib/resources/GameConstants"
-import { File, Frame, Group, MapPlayer, Order, PlayerPassive, Players, Timer, Trigger, Unit } from "lib/w3ts"
-import { IUIDepend } from "./IUIDepend"
+import { Coordinate } from 'app/classes/Coordinate'
+import { FramePoint, Frames, FrameType } from 'app/define/Frames'
+import { Logger } from 'app/log'
+import { HintText, MessageColors } from 'lib/resources/colors'
+import { GameConstants } from 'lib/resources/GameConstants'
+import { File, Frame, Group, MapPlayer, Order, PlayerPassive, Players, Timer, Trigger, Unit } from 'lib/w3ts'
+import { IUIDepend } from './IUIDepend'
 
 export class UI {
   protected static instance: UI
@@ -64,10 +64,10 @@ export class UI {
     const xOff = 0.03
     const yOff = 0
 
-    const screenRes = File.read("ATA_screenRes.txt")
+    const screenRes = File.read('ATA_screenRes.txt')
 
     if (screenRes) {
-      const matches = screenRes.split(",")
+      const matches = screenRes.split(',')
 
       if (matches) {
         const x = +matches[0]
@@ -76,7 +76,7 @@ export class UI {
         if (!this.portraitPoints[this.aspectRatio]) this.aspectRatio = 1.77
       }
     } else {
-      print(HintText("Tip:") + " If the UI isn't lining up correctly, use:\n" + '-screen [ScreenXRes]x[ScreenYRes]"\n' + 'For example: "-screen 1920x1080"')
+      print(HintText('Tip:') + " If the UI isn't lining up correctly, use:\n" + '-screen [ScreenXRes]x[ScreenYRes]"\n' + 'For example: "-screen 1920x1080"')
     }
 
     BlzEnableUIAutoPosition(false)
@@ -89,74 +89,74 @@ export class UI {
     // Create Custom Frames
 
     // UI Backdrop
-    this.banner1 = new Frame("unitBanner1", Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, "")
-    this.banner1.setTexture("bottomUi1.dds", 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.0, 0.0).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.2, 0.1939)
+    this.banner1 = new Frame('unitBanner1', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
+    this.banner1.setTexture('bottomUi1.dds', 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.0, 0.0).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.2, 0.1939)
 
-    this.black = new Frame("blackBg", Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, "")
-    this.black.setTexture("black.dds", 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.275, 0.045).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.35, 0.122)
+    this.black = new Frame('blackBg', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
+    this.black.setTexture('black.dds', 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.275, 0.045).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.35, 0.122)
 
-    this.banner2 = new Frame("unitBanner2", Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, "")
-    this.banner2.setTexture("bottomUi2.dds", 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.2, 0.0).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.4, 0.1939)
+    this.banner2 = new Frame('unitBanner2', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
+    this.banner2.setTexture('bottomUi2.dds', 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.2, 0.0).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.4, 0.1939)
 
-    this.banner2Cover = new Frame("unitBanner2Cover", Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, "")
-    this.banner2Cover.setTexture("bottomUi2Cover.dds", 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.2, 0.0).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.4, 0.1939)
+    this.banner2Cover = new Frame('unitBanner2Cover', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
+    this.banner2Cover.setTexture('bottomUi2Cover.dds', 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.2, 0.0).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.4, 0.1939)
 
-    this.banner3 = new Frame("unitBanner3", Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, "")
-    this.banner3.setTexture("bottomUi3.dds", 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.4, 0.0).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.6, 0.1939)
+    this.banner3 = new Frame('unitBanner3', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
+    this.banner3.setTexture('bottomUi3.dds', 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.4, 0.0).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.6, 0.1939)
 
-    this.banner4 = new Frame("unitBanner4", Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, "")
-    this.banner4.setTexture("bottomUi4.dds", 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.6, 0.0).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.8, 0.1939)
+    this.banner4 = new Frame('unitBanner4', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
+    this.banner4.setTexture('bottomUi4.dds', 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.6, 0.0).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.8, 0.1939)
 
     // Buttons
-    this.buttonMenuBack = new Frame("buttonMenuBack", Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, "")
-    this.buttonMenu = new Frame("buttonMenu", Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.frame, "")
-    this.buttonMenuBack.setTexture("btnMenu.dds", 0, true)
+    this.buttonMenuBack = new Frame('buttonMenuBack', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
+    this.buttonMenu = new Frame('buttonMenu', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.frame, '')
+    this.buttonMenuBack.setTexture('btnMenu.dds', 0, true)
 
     // Hero Attribute Icons
-    this.iconStr = new Frame("iconStr", Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, "")
-    this.iconStr.setTexture("UI\\widgets\\console\\human\\infocard-heroattributes-str.dds", 0, true)
+    this.iconStr = new Frame('iconStr', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
+    this.iconStr.setTexture('UI\\widgets\\console\\human\\infocard-heroattributes-str.dds', 0, true)
 
-    this.iconAgi = new Frame("iconAgi", Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, "")
-    this.iconAgi.setTexture("UI\\widgets\\console\\human\\infocard-heroattributes-agi.dds", 0, true)
+    this.iconAgi = new Frame('iconAgi', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
+    this.iconAgi.setTexture('UI\\widgets\\console\\human\\infocard-heroattributes-agi.dds', 0, true)
 
-    this.iconInt = new Frame("iconInt", Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, "")
-    this.iconInt.setTexture("UI\\widgets\\console\\human\\infocard-heroattributes-int.dds", 0, true)
+    this.iconInt = new Frame('iconInt', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
+    this.iconInt.setTexture('UI\\widgets\\console\\human\\infocard-heroattributes-int.dds', 0, true)
 
-    this.iconAttackSpeed = new Frame("iconAttackSpeed", Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, "")
-    this.iconAttackSpeed.setTexture("iconAttackSpeed.dds", 0, true).setVisible(true)
+    this.iconAttackSpeed = new Frame('iconAttackSpeed', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
+    this.iconAttackSpeed.setTexture('iconAttackSpeed.dds', 0, true).setVisible(true)
 
-    this.iconMoveSpeed = new Frame("iconMoveSpeed", Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, "")
-    this.iconMoveSpeed.setTexture("iconMoveSpeed.dds", 0, true).setVisible(true)
+    this.iconMoveSpeed = new Frame('iconMoveSpeed', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
+    this.iconMoveSpeed.setTexture('iconMoveSpeed.dds', 0, true).setVisible(true)
 
-    this.textAttackSpeed = new Frame("textAttackSpeed", Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.text, "")
-    this.textMoveSpeed = new Frame("textMoveSpeed", Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.text, "")
+    this.textAttackSpeed = new Frame('textAttackSpeed', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.text, '')
+    this.textMoveSpeed = new Frame('textMoveSpeed', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.text, '')
 
     // Health & Mana Bar
-    this.healthBar = new Frame("healthBar", Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, "")
+    this.healthBar = new Frame('healthBar', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
     this.healthBar
       .setAlpha(100)
-      .setTexture("healthBar.dds", 0, true)
+      .setTexture('healthBar.dds', 0, true)
       .setAbsPoint(FramePoint.TL, 0.334 + xOff, 0.115)
       .setSize(this.statBarFullWidth, 0.017)
 
-    this.shieldBar = new Frame("shieldBar", Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, "")
+    this.shieldBar = new Frame('shieldBar', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
     this.shieldBar
-      .setTexture("manaBar.dds", 0, true)
+      .setTexture('manaBar.dds', 0, true)
       .setAbsPoint(FramePoint.TL, 0.334 + xOff, 0.115)
       .setSize(this.statBarFullWidth, 0.002)
 
-    this.manaBar = new Frame("manaBar", Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, "")
+    this.manaBar = new Frame('manaBar', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
     this.manaBar
       .setAlpha(100)
-      .setTexture("manaBar.dds", 0, true)
+      .setTexture('manaBar.dds', 0, true)
       .setAbsPoint(FramePoint.TL, 0.334 + xOff, 0.097)
       .setSize(this.statBarFullWidth, 0.016)
 
-    this.experienceBar = new Frame("experienceBar", Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, "")
-    this.experienceBar.setTexture("human-bigbar-fill.dds", 0, true)
+    this.experienceBar = new Frame('experienceBar', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
+    this.experienceBar.setTexture('human-bigbar-fill.dds', 0, true)
 
-    this.experienceBarBorder = new Frame("experienceBarBorder", Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, "")
-    this.experienceBarBorder.setTexture("human-xpbar-border.dds", 0, true)
+    this.experienceBarBorder = new Frame('experienceBarBorder', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
+    this.experienceBarBorder.setTexture('human-xpbar-border.dds', 0, true)
 
     setFrames({
       frames: [this.experienceBar, this.experienceBarBorder],
@@ -166,9 +166,9 @@ export class UI {
     })
 
     // Hidden Frames
-    Frame.fromContext(Frames.InfoPanelIconHeroStrengthLabel).setText("")
-    Frame.fromContext(Frames.InfoPanelIconHeroAgilityLabel).setText("")
-    Frame.fromContext(Frames.InfoPanelIconHeroIntellectLabel).setText("")
+    Frame.fromContext(Frames.InfoPanelIconHeroStrengthLabel).setText('')
+    Frame.fromContext(Frames.InfoPanelIconHeroAgilityLabel).setText('')
+    Frame.fromContext(Frames.InfoPanelIconHeroIntellectLabel).setText('')
 
     setFrames({
       frames: [
@@ -194,7 +194,7 @@ export class UI {
       .setAbsPoint(FramePoint.TR, this.portraitPoints[this.aspectRatio].right, this.portraitTRY)
 
     // Unit Buff Label
-    Frame.fromOrigin(ORIGIN_FRAME_UNIT_PANEL_BUFF_BAR_LABEL).setText("")
+    Frame.fromOrigin(ORIGIN_FRAME_UNIT_PANEL_BUFF_BAR_LABEL).setText('')
 
     // Unit Buff Icons
     Frame.fromOrigin(ORIGIN_FRAME_UNIT_PANEL_BUFF_BAR)
@@ -288,7 +288,7 @@ export class UI {
     // Resources
     setFrames({
       frames: [Frame.fromContext(Frames.ResourceBarGoldText), Frame.fromContext(Frames.ResourceBarLumberText)],
-      coor: { x: 0.632 + xOff, y: 0.039 + yOff },
+      coor: { x: 0.632 + xOff, y: 0.04 + yOff },
       coorInc: { x: 0, y: -0.019 },
       framePoint: FramePoint.TR,
     })
@@ -408,7 +408,7 @@ export class UI {
       })
       statText.frames = [this.textAttackSpeed, this.textMoveSpeed]
       statText.scale = 0.85
-      statText.text = "200"
+      statText.text = '200'
       setFrames(statText)
     }
 
@@ -507,7 +507,7 @@ export class UI {
                 }
                 this.nameFrame.setAbsPoint(FramePoint.T, 0.358 + xOff, 0.155 + yOff)
               } else {
-                this.classFrame.text === " "
+                this.classFrame.text === ' '
                   ? this.nameFrame.setAbsPoint(FramePoint.T, 0.358 + xOff, 0.145 + yOff)
                   : this.nameFrame.setAbsPoint(FramePoint.T, 0.358 + xOff, 0.155 + yOff)
                 this.experienceBar.alpha = 0
@@ -526,7 +526,7 @@ export class UI {
 
             if (u.moveSpeed === 0) {
               this.iconMoveSpeed.alpha = 0
-              this.textMoveSpeed.text = ""
+              this.textMoveSpeed.text = ''
             } else {
               this.iconMoveSpeed.alpha = 255
               this.textMoveSpeed.text = `${math.floor(u.moveSpeed)}`
@@ -534,7 +534,7 @@ export class UI {
 
             if (attackSpeed(u) === 0) {
               this.iconAttackSpeed.alpha = 0
-              this.textAttackSpeed.text = ""
+              this.textAttackSpeed.text = ''
             } else {
               this.iconAttackSpeed.alpha = 255
               this.textAttackSpeed.text = `${attackSpeed(u)} sec`
@@ -555,7 +555,7 @@ export class UI {
     trig.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_ORDER)
     trig.addAction(() => {
       if (Unit.fromEvent().typeId === unitTypes.UIDummy.id) {
-        print("Order: " + GetIssuedOrderId())
+        print('Order: ' + GetIssuedOrderId())
       }
     })
 
@@ -567,7 +567,7 @@ export class UI {
         const u = new Unit({ type: unitTypes.UIDummy, owner: Players[i], coor: { x: -14828, y: -4674 } })
 
         for (let j = 0; j < 5; j++) {
-          u.addItemById("I00N")
+          u.addItemById('I00N')
         }
 
         u.issueOrder(Order.Useslot3)
@@ -600,7 +600,7 @@ export class UI {
     const t = new Trigger()
     for (let index = 0; index < Players.length; index++) {
       const p = Players[index]
-      t.registerPlayerChatEvent(p, "-screen", false)
+      t.registerPlayerChatEvent(p, '-screen', false)
     }
     t.addAction(() => {
       try {
@@ -610,7 +610,7 @@ export class UI {
         const p = MapPlayer.fromEvent()
         if (p === MapPlayer.fromLocal()) {
           const chat = GetEventPlayerChatString()
-          const matches = chat.split(" ")[1].split("x")
+          const matches = chat.split(' ')[1].split('x')
 
           if (matches) {
             x = +matches[0]
@@ -621,7 +621,7 @@ export class UI {
               this.aspectRatio = newAspect
               this.updatePortrait(p)
               const contents = `${x},${y}`
-              File.write("ATA_screenRes.txt", contents)
+              File.write('ATA_screenRes.txt', contents)
 
               DisplayTimedTextToPlayer(p.handle, 0, 0, 8, HintText(`Resolution Updated to ${x}x${y}.`))
             } else {
@@ -630,7 +630,7 @@ export class UI {
           }
         }
       } catch (error) {
-        Logger.Error("Error", error)
+        Logger.Error('Error', error)
       }
     })
   }

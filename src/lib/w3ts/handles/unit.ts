@@ -9,6 +9,7 @@ import { Coordinate } from 'app/classes/Coordinate'
 import { IUnitParam } from 'app/classes/hero/interfaces/IUnitParam'
 import { UnitType } from 'app/classes/unitType/UnitType'
 import { UnitData } from 'app/systems/unitData'
+import { UnitFields } from 'lib/resources/fields'
 import { GameConstants } from 'lib/resources/GameConstants'
 import { CC2Four, LevelValueFactor, ValueFactor } from 'lib/resources/library'
 import { OrderType } from 'lib/resources/orderType'
@@ -369,6 +370,10 @@ export class Unit extends Widget {
 
   public get level(): number {
     return GetUnitLevel(this.handle)
+  }
+
+  public set level(value: number) {
+    this.setField(UnitFields.LEVEL, value)
   }
 
   public get localZ(): number {
@@ -1499,7 +1504,7 @@ export class Unit extends Widget {
     UnitApplyTimedLife(this.handle, FourCC(BuffFour.TimedLifeGeneric), duration)
   }
 
-  public getRandomPosAround(distanceAround: number): Coordinate {
+  public getRandomCoorWithin(distanceAround: number): Coordinate {
     const x = math.random(this.x - distanceAround, this.x + distanceAround)
     const y = math.random(this.y - distanceAround, this.y + distanceAround)
     return { x: x, y: y }

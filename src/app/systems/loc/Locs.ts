@@ -31,7 +31,7 @@ export class Locs {
   sArcaneHero: LocGroup
   sNightElf: LocGroup
   sMerc: LocGroup
-  sBackCity: LocGroup
+  sHighCity: LocGroup
   sCityElf: LocGroup
   sCityFront: LocGroup
   sElementalTop: LocGroup
@@ -48,12 +48,13 @@ export class Locs {
   sTree: LocGroup
   sDwarf: LocGroup
   sUndead: LocGroup
+  sVillage: LocGroup
 
   tArcane: LocGroup
   tArcaneHero: LocGroup
   tNightElf: LocGroup
   tMerc: LocGroup
-  tBackCity: LocGroup
+  tHighCity: LocGroup
   tCityElf: LocGroup
   tCityFront: LocGroup
   tElementalTop: LocGroup
@@ -70,6 +71,7 @@ export class Locs {
   tTree: LocGroup
   tDwarf: LocGroup
   tUndead: LocGroup
+  tVillage: LocGroup
 
   cForest: LocGroup
   cForestMid: LocGroup
@@ -131,7 +133,7 @@ export class Locs {
       alliance: new Loc(depend, { rects: [rects.Camp_Bottom] }),
       federation: new Loc(depend, { rects: [rects.Camp_Top] }),
     }
-    this.sBackCity = {
+    this.sHighCity = {
       alliance: new Loc(depend, { rects: [rects.Blacksmith_Left] }),
       federation: new Loc(depend, { rects: [rects.Blacksmith_Right] }),
     }
@@ -199,6 +201,10 @@ export class Locs {
       alliance: new Loc(depend, { rects: [rects.Undead_Left] }),
       federation: new Loc(depend, { rects: [rects.Undead_Right] }),
     }
+    this.sVillage = {
+      alliance: new Loc(depend, { rects: [rects.VillageSpawnLeft] }),
+      federation: new Loc(depend, { rects: [rects.VillageSpawnRight] }),
+    }
     this.sWildhammer = {
       alliance: new Loc(depend, { rects: [rects.wildhammerLeft] }),
       federation: new Loc(depend, { rects: [rects.wildhammerRight] }),
@@ -243,7 +249,7 @@ export class Locs {
       alliance: new Loc(depend, { rects: [rects.MercTownLeft] }),
       federation: new Loc(depend, { rects: [rects.MercTownRight] }),
     }
-    this.tBackCity = {
+    this.tHighCity = {
       alliance: new Loc(depend, { rects: [rects.BackCityTownLeft] }),
       federation: new Loc(depend, { rects: [rects.BackCityTownRight] }),
     }
@@ -310,6 +316,10 @@ export class Locs {
     this.tUndead = {
       alliance: new Loc(depend, { rects: [rects.UndeadTownLeft] }),
       federation: new Loc(depend, { rects: [rects.UndeadTownRight] }),
+    }
+    this.tVillage = {
+      alliance: new Loc(depend, { rects: [rects.VillageTownLeft1, rects.VillageTownLeft2] }),
+      federation: new Loc(depend, { rects: [rects.VillageTownRight1, rects.VillageTownRight2] }),
     }
     this.tWildhammer = {
       alliance: new Loc(depend, { rects: [rects.WildhammerTownLeft] }),
