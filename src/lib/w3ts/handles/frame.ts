@@ -3,8 +3,8 @@
  * @noSelfInFile *
  */
 
-import { IFrames } from "app/define/Frames"
-import { Handle } from "./handle"
+import { IFrames } from 'app/define/Frames'
+import { Handle } from './handle'
 
 /**
  * Warcraft III's UI uses a proprietary format known as FDF (Frame Definition Files).
@@ -315,6 +315,11 @@ export class Frame extends Handle<framehandle> {
 
   public setWidth(width: number) {
     BlzFrameSetSize(this.handle, width, this.height)
+    return this
+  }
+
+  public setTextAlignment(vert: textaligntype, horz: textaligntype) {
+    BlzFrameSetTextAlignment(this.handle, vert, horz)
     return this
   }
 

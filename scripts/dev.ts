@@ -179,7 +179,7 @@ export class War3TSTLHelper {
 const config = loadJsonFile('config.json')
 
 // Create definitions file for generated globals
-const luaFile = `./maps/${config.mapFolder}/war3map.lua`
+const luaFile = `./maps/${config.mapFolderDev}/war3map.lua`
 
 try {
   const contents = fs.readFileSync(luaFile, 'utf8')

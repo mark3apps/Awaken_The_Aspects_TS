@@ -5,8 +5,78 @@ import { FramePoint, Frames, FrameType } from 'app/define/Frames'
 import { Logger } from 'app/log'
 import { HintText, MessageColors } from 'lib/resources/colors'
 import { GameConstants } from 'lib/resources/GameConstants'
-import { File, Frame, Group, MapPlayer, Order, PlayerPassive, Players, Timer, Trigger, Unit } from 'lib/w3ts'
+import { File, Frame, Group, Item, MapPlayer, Order, PlayerPassive, Players, Timer, Trigger, Unit } from 'lib/w3ts'
 import { IUIDepend } from './IUIDepend'
+
+export class UIRUID {
+  private static instance: UIRUID
+
+  static getInstance() {
+    if (!UIRUID.instance) UIRUID.instance = new UIRUID()
+    return UIRUID.instance
+  }
+
+  portraitBackground: Frame
+  healthBar: Frame
+  BackhealthBar: Frame
+  TexthealthBar: Frame
+  manaBar: Frame
+  BackmanaBar: Frame
+  TextmanaBar: Frame
+
+  private constructor() {
+    let t: Trigger
+
+    this.portraitBackground = new Frame('this.portraitBackground', Frame.fromName('ConsoleUIBackdrop', 0), 1, 1, 'BACKDROP', '')
+    this.portraitBackground.setAbsPoint(FRAMEPOINT_TOPLEFT, 0.12395, 0.15315)
+    this.portraitBackground.setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, 0.17495, 0.1014)
+    this.portraitBackground.setTexture('black.dds', 0, true)
+
+    const xTL = 0.18
+    const xBR = 0.271
+
+    const yTLHealth = 0.1315
+    const yBRHealth = 0.1175
+
+    const yTLMana = 0.1165
+    const yBRMana = 0.1025
+
+    this.BackhealthBar = new Frame('this.BackhealthBar', Frame.fromName('ConsoleUIBackdrop', 0), 1, 1, 'BACKDROP', '')
+      .setAbsPoint(FRAMEPOINT_TOPLEFT, xTL, yTLHealth)
+      .setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, xBR, yBRHealth)
+      .setTexture('black.dds', 0, true)
+    this.healthBar = new Frame('this.healthBar', this.BackhealthBar, 1, 1, 'SIMPLESTATUSBAR', '')
+      .setTexture('healthBar.dds', 0, true)
+      .setAbsPoint(FRAMEPOINT_TOPLEFT, xTL, yTLHealth)
+      .setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, xBR, yBRHealth)
+      .setValue(0)
+    this.TexthealthBar = new Frame('name', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI, 0), 0, 0, 'TEXT', '')
+      .setAbsPoint(FRAMEPOINT_TOPLEFT, xTL, yTLHealth)
+      .setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, xBR, yBRHealth)
+      .setText('|cff00ff1e9600 / 9600|r')
+      .setEnabled(false)
+      .setScale(1.0)
+      .setTextAlignment(TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_MIDDLE)
+
+    this.BackmanaBar = new Frame('this.BackmanaBar', Frame.fromName('ConsoleUIBackdrop', 0), 1, 1, 'BACKDROP', '')
+      .setAbsPoint(FRAMEPOINT_TOPLEFT, xTL, yTLMana)
+      .setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, xBR, yBRMana)
+      .setTexture('black.dds', 0, true)
+    this.manaBar = new Frame('this.manaBar', this.BackmanaBar, 1, 1, 'SIMPLESTATUSBAR', '')
+      .setTexture('manaBar.dds', 0, true)
+      .setAbsPoint(FRAMEPOINT_TOPLEFT, xTL, yTLMana)
+      .setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, xBR, yBRMana)
+      .setValue(0)
+
+    this.TextmanaBar = new Frame('name', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI, 0), 0, 0, 'TEXT', '')
+      .setAbsPoint(FRAMEPOINT_TOPLEFT, xTL, yTLMana)
+      .setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, xBR, yBRMana)
+      .setText('|cffffffff160 / 160|r')
+      .setEnabled(false)
+      .setScale(1.0)
+      .setTextAlignment(TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_MIDDLE)
+  }
+}
 
 export class UI {
   protected static instance: UI
@@ -19,27 +89,27 @@ export class UI {
   black: Frame
   banner1: Frame
   banner2: Frame
-  banner2Cover: Frame
+  // banner2Cover: Frame
   banner3: Frame
   banner4: Frame
 
-  iconStr: Frame
-  iconAgi: Frame
-  iconInt: Frame
+  // iconStr: Frame
+  // iconAgi: Frame
+  // iconInt: Frame
 
-  iconMoveSpeed: Frame
-  textMoveSpeed: Frame
-  iconAttackSpeed: Frame
-  textAttackSpeed: Frame
+  // iconMoveSpeed: Frame
+  // textMoveSpeed: Frame
+  // iconAttackSpeed: Frame
+  // textAttackSpeed: Frame
 
-  healthBar: Frame
-  manaBar: Frame
-  shieldBar: Frame
-  statBarFullWidth = 0.123
+  // healthBar: Frame
+  // manaBar: Frame
+  // shieldBar: Frame
+  statBarFullWidth = 0.095
   experienceBarFullWidth = 0.18
 
-  buttonMenuBack: Frame
-  buttonMenu: Frame
+  // buttonMenuBack: Frame
+  // buttonMenu: Frame
   experienceBar: Frame
   experienceBarBorder: Frame
 
@@ -48,20 +118,21 @@ export class UI {
   nameFrame: Frame
   classFrame: Frame
 
-  portraitBLY = 0.056
-  portraitTRY = 0.117
+  portraitYB = 0.1012
+  portraitYT = 0.152
   aspectRatio = 177 // Default Aspect Ratio
 
   portraitPoints: { left: number; right: number }[] = []
+  uiRuid: UIRUID
 
   private constructor(depend: IUIDepend) {
     const unitTypes = depend.unitTypes
 
     this.portraitPoints[160] = { left: 0.304, right: 0.358 }
-    this.portraitPoints[177] = { left: 0.314, right: 0.362 }
+    this.portraitPoints[177] = { left: 0.1932, right: 0.2315 }
     this.portraitPoints[238] = { left: 0.337, right: 0.373 }
 
-    const xOff = 0.03
+    const xOff = 0.0
     const yOff = 0
 
     const screenRes = File.read('ATA_screenRes.txt')
@@ -88,18 +159,17 @@ export class UI {
 
     // Create Custom Frames
 
+    this.uiRuid = UIRUID.getInstance()
+
     // UI Backdrop
     this.banner1 = new Frame('unitBanner1', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
     this.banner1.setTexture('bottomUi1.dds', 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.0, 0.0).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.2, 0.1939)
 
     this.black = new Frame('blackBg', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
-    this.black.setTexture('black.dds', 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.275, 0.045).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.35, 0.122)
+    this.black.setTexture('black.dds', 0, true).setAbsPoint(FRAMEPOINT_TOPLEFT, 0.12395, 0.152792).setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, 0.174735, 0.1014)
 
     this.banner2 = new Frame('unitBanner2', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
     this.banner2.setTexture('bottomUi2.dds', 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.2, 0.0).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.4, 0.1939)
-
-    this.banner2Cover = new Frame('unitBanner2Cover', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
-    this.banner2Cover.setTexture('bottomUi2Cover.dds', 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.2, 0.0).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.4, 0.1939)
 
     this.banner3 = new Frame('unitBanner3', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
     this.banner3.setTexture('bottomUi3.dds', 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.4, 0.0).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.6, 0.1939)
@@ -108,49 +178,49 @@ export class UI {
     this.banner4.setTexture('bottomUi4.dds', 0, true).setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.6, 0.0).setAbsPoint(FRAMEPOINT_TOPRIGHT, 0.8, 0.1939)
 
     // Buttons
-    this.buttonMenuBack = new Frame('buttonMenuBack', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
-    this.buttonMenu = new Frame('buttonMenu', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.frame, '')
-    this.buttonMenuBack.setTexture('btnMenu.dds', 0, true)
+    // this.buttonMenuBack = new Frame('buttonMenuBack', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
+    // this.buttonMenu = new Frame('buttonMenu', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.frame, '')
+    // this.buttonMenuBack.setTexture('btnMenu.dds', 0, true)
 
     // Hero Attribute Icons
-    this.iconStr = new Frame('iconStr', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
-    this.iconStr.setTexture('UI\\widgets\\console\\human\\infocard-heroattributes-str.dds', 0, true)
+    // this.iconStr = new Frame('iconStr', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
+    // this.iconStr.setTexture('UI\\widgets\\console\\human\\infocard-heroattributes-str.dds', 0, true)
 
-    this.iconAgi = new Frame('iconAgi', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
-    this.iconAgi.setTexture('UI\\widgets\\console\\human\\infocard-heroattributes-agi.dds', 0, true)
+    // this.iconAgi = new Frame('iconAgi', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
+    // this.iconAgi.setTexture('UI\\widgets\\console\\human\\infocard-heroattributes-agi.dds', 0, true)
 
-    this.iconInt = new Frame('iconInt', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
-    this.iconInt.setTexture('UI\\widgets\\console\\human\\infocard-heroattributes-int.dds', 0, true)
+    // this.iconInt = new Frame('iconInt', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
+    // this.iconInt.setTexture('UI\\widgets\\console\\human\\infocard-heroattributes-int.dds', 0, true)
 
-    this.iconAttackSpeed = new Frame('iconAttackSpeed', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
-    this.iconAttackSpeed.setTexture('iconAttackSpeed.dds', 0, true).setVisible(true)
+    // this.iconAttackSpeed = new Frame('iconAttackSpeed', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
+    // this.iconAttackSpeed.setTexture('iconAttackSpeed.dds', 0, true).setVisible(true)
 
-    this.iconMoveSpeed = new Frame('iconMoveSpeed', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
-    this.iconMoveSpeed.setTexture('iconMoveSpeed.dds', 0, true).setVisible(true)
+    // this.iconMoveSpeed = new Frame('iconMoveSpeed', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.backdrop, '')
+    // this.iconMoveSpeed.setTexture('iconMoveSpeed.dds', 0, true).setVisible(true)
 
-    this.textAttackSpeed = new Frame('textAttackSpeed', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.text, '')
-    this.textMoveSpeed = new Frame('textMoveSpeed', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.text, '')
+    // this.textAttackSpeed = new Frame('textAttackSpeed', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.text, '')
+    // this.textMoveSpeed = new Frame('textMoveSpeed', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI), 1, 1, FrameType.text, '')
 
     // Health & Mana Bar
-    this.healthBar = new Frame('healthBar', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
-    this.healthBar
-      .setAlpha(100)
-      .setTexture('healthBar.dds', 0, true)
-      .setAbsPoint(FramePoint.TL, 0.334 + xOff, 0.115)
-      .setSize(this.statBarFullWidth, 0.017)
+    // this.healthBar = new Frame('healthBar', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
+    // this.healthBar
+    //   .setAlpha(100)
+    //   .setTexture('healthBar.dds', 0, true)
+    //   .setAbsPoint(FramePoint.TL, 0.178 + xOff, 0.152)
+    //   .setSize(this.statBarFullWidth, 0.017)
 
-    this.shieldBar = new Frame('shieldBar', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
-    this.shieldBar
-      .setTexture('manaBar.dds', 0, true)
-      .setAbsPoint(FramePoint.TL, 0.334 + xOff, 0.115)
-      .setSize(this.statBarFullWidth, 0.002)
+    // this.shieldBar = new Frame('shieldBar', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
+    // this.shieldBar
+    //   .setTexture('manaBar.dds', 0, true)
+    //   .setAbsPoint(FramePoint.TL, 0.178 + xOff, 0.152)
+    //   .setSize(this.statBarFullWidth, 0.002)
 
-    this.manaBar = new Frame('manaBar', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
-    this.manaBar
-      .setAlpha(100)
-      .setTexture('manaBar.dds', 0, true)
-      .setAbsPoint(FramePoint.TL, 0.334 + xOff, 0.097)
-      .setSize(this.statBarFullWidth, 0.016)
+    // this.manaBar = new Frame('manaBar', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
+    // this.manaBar
+    //   .setAlpha(100)
+    //   .setTexture('manaBar.dds', 0, true)
+    //   .setAbsPoint(FramePoint.TL, 0.178 + xOff, 0.124)
+    //   .setSize(this.statBarFullWidth, 0.016)
 
     this.experienceBar = new Frame('experienceBar', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
     this.experienceBar.setTexture('human-bigbar-fill.dds', 0, true)
@@ -160,7 +230,7 @@ export class UI {
 
     setFrames({
       frames: [this.experienceBar, this.experienceBarBorder],
-      coor: { x: 0.268 + xOff, y: 0.1425 },
+      coor: { x: 0.316 + xOff, y: 0.073 },
       width: this.experienceBarFullWidth,
       height: 0.016,
     })
@@ -186,12 +256,27 @@ export class UI {
     // MiniMap
     Frame.fromOrigin(ORIGIN_FRAME_MINIMAP)
       .clearPoints()
-      .setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.089 + xOff, 0.009 + yOff)
+      .setAbsPoint(FRAMEPOINT_BOTTOMLEFT, 0.529 + xOff, 0.011 + yOff)
+
+    // Minimap Icons
+    setFrames({
+      frames: [
+        Frame.fromContext(Frames.MinimapSignalButton),
+        Frame.fromContext(Frames.MiniMapTerrainButton),
+        Frame.fromContext(Frames.MiniMapAllyButton),
+        Frame.fromContext(Frames.MiniMapCreepButton),
+        Frame.fromContext(Frames.ForamtionButton),
+      ],
+      coor: { x: 0.681 + xOff, y: 0.0085 + yOff },
+      coorInc: { x: 0, y: 0.0152 },
+      framePoint: FramePoint.BL,
+      scale: 0.65,
+    })
 
     // Portrait
     Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT)
-      .setAbsPoint(FramePoint.BL, this.portraitPoints[this.aspectRatio].left, this.portraitBLY)
-      .setAbsPoint(FramePoint.TR, this.portraitPoints[this.aspectRatio].right, this.portraitTRY)
+      .setAbsPoint(FramePoint.BL, this.portraitPoints[this.aspectRatio].left, this.portraitYB)
+      .setAbsPoint(FramePoint.TR, this.portraitPoints[this.aspectRatio].right, this.portraitYT)
 
     // Unit Buff Label
     Frame.fromOrigin(ORIGIN_FRAME_UNIT_PANEL_BUFF_BAR_LABEL).setText('')
@@ -199,7 +284,7 @@ export class UI {
     // Unit Buff Icons
     Frame.fromOrigin(ORIGIN_FRAME_UNIT_PANEL_BUFF_BAR)
       .clearPoints()
-      .setAbsPoint(FramePoint.BL, 0.488 + xOff, 0.05 + yOff)
+      .setAbsPoint(FramePoint.BL, 0.127 + xOff, 0.083 + yOff)
 
     // Menu Bars
     setFrames({
@@ -214,21 +299,6 @@ export class UI {
       framePoint: FramePoint.BL,
     })
 
-    // Minimap Icons
-    setFrames({
-      frames: [
-        Frame.fromContext(Frames.MinimapSignalButton),
-        Frame.fromContext(Frames.MiniMapTerrainButton),
-        Frame.fromContext(Frames.MiniMapAllyButton),
-        Frame.fromContext(Frames.MiniMapCreepButton),
-        Frame.fromContext(Frames.ForamtionButton),
-      ],
-      coor: { x: 0.063 + xOff, y: 0.009 + yOff },
-      coorInc: { x: 0, y: 0.0152 },
-      framePoint: FramePoint.BL,
-      scale: 0.65,
-    })
-
     // Order Buttons
     setFrames({
       frames: [
@@ -238,7 +308,7 @@ export class UI {
         Frame.fromContext(Frames.CommandButton2),
         Frame.fromContext(Frames.CommandButton3),
       ],
-      coor: { x: 0.513 + xOff, y: 0.162 + yOff },
+      coor: { x: 0.552 + xOff, y: 0.178 + yOff },
       coorInc: { x: 0.0197, y: 0 },
       scale: 0.71,
     })
@@ -253,7 +323,7 @@ export class UI {
         Frame.fromContext(Frames.InventoryButton4),
         Frame.fromContext(Frames.InventoryButton5),
       ],
-      coor: { x: 0.327 + xOff, y: 0.073 + yOff },
+      coor: { x: 0.126 + xOff, y: 0.075 + yOff },
       coorInc: { x: 0.0235, y: 0 },
       scale: 0.58,
     })
@@ -266,7 +336,7 @@ export class UI {
         Frame.fromContext(Frames.CommandButton9),
         Frame.fromContext(Frames.CommandButton10),
       ],
-      coor: { x: 0.252 + xOff, y: 0.045 + yOff },
+      coor: { x: 0.289 + xOff, y: 0.045 + yOff },
       coorInc: { x: 0.0409, y: 0 },
     })
 
@@ -274,28 +344,28 @@ export class UI {
     if (abilities.coor) {
       Frame.fromContext(Frames.CommandButton11)
         .clearPoints()
-        .setAbsPoint(FRAMEPOINT_TOPLEFT, 0.43 + xOff, abilities.coor.y + yOff)
+        .setAbsPoint(FRAMEPOINT_TOPLEFT, 0.469 + xOff, abilities.coor.y + yOff)
     }
 
     // Level Upgrade Effects
     setFrames({
       frames: [Frame.fromContext(Frames.CommandButton6), Frame.fromContext(Frames.CommandButton7)],
-      coor: { x: 0.487 + xOff, y: 0.045 },
+      coor: { x: 0.127 + xOff, y: 0.045 },
       coorInc: { x: 0.037, y: 0 },
-      scale: 0.97,
+      scale: 0.98,
     })
 
     // Resources
     setFrames({
       frames: [Frame.fromContext(Frames.ResourceBarGoldText), Frame.fromContext(Frames.ResourceBarLumberText)],
-      coor: { x: 0.632 + xOff, y: 0.04 + yOff },
+      coor: { x: 0.266 + xOff, y: 0.046 + yOff },
       coorInc: { x: 0, y: -0.019 },
       framePoint: FramePoint.TR,
     })
 
     // Experience / Name Bars
-    const x = 0.358 + xOff
-    const y = 0.156 + yOff
+    const x = 0.397 + xOff
+    const y = 0.087 + yOff
     Frame.fromContext(Frames.SimpleNameValue)
       .clearPoints()
       .setAbsPoint(FramePoint.T, x, y - 0.001)
@@ -310,7 +380,7 @@ export class UI {
     // Unit Detail Parent
     Frame.fromContext(Frames.SimpleInfoPanelUnitDetail, 0)
       .parent.clearPoints()
-      .setAbsPoint(FramePoint.TL, 0.485 + xOff, 0.166 + yOff)
+      .setAbsPoint(FramePoint.TL, 1.485 + xOff, 0.166 + yOff)
     //
     //
 
@@ -367,50 +437,50 @@ export class UI {
       .setScale(2.8)
       .setPoint(FramePoint.TL, Frame.fromContext(Frames.SimpleInfoPanelIconArmor), FramePoint.TL, 0.011, -0.004)
 
-    // Menu Button Backdrops
-    setFrames({
-      frames: [this.buttonMenuBack],
-      coor: { x: 0.647 + xOff, y: 0.068 + yOff },
-      coorInc: { x: 0, y: -0.013 },
-      width: 0.016,
-      height: 0.016,
-    })
+    // // Menu Button Backdrops
+    // setFrames({
+    //   frames: [this.buttonMenuBack],
+    //   coor: { x: 0.647 + xOff, y: 0.068 + yOff },
+    //   coorInc: { x: 0, y: -0.013 },
+    //   width: 0.016,
+    //   height: 0.016,
+    // })
 
-    // Menu Buttons
-    setFrames({
-      frames: [this.buttonMenu],
-      coor: { x: 0.647 + xOff, y: 0.068 + yOff },
-      coorInc: { x: 0, y: -0.013 },
-      width: 0.016,
-      height: 0.016,
-    })
+    // // Menu Buttons
+    // setFrames({
+    //   frames: [this.buttonMenu],
+    //   coor: { x: 0.647 + xOff, y: 0.068 + yOff },
+    //   coorInc: { x: 0, y: -0.013 },
+    //   width: 0.016,
+    //   height: 0.016,
+    // })
 
     // Stat Icons & Text
-    let statIcons = setFrames({
-      frames: [this.iconStr, this.iconAgi, this.iconInt],
-      coor: { x: 0.585 + xOff, y: 0.136 + yOff },
-      coorInc: { x: 0, y: -0.013 },
-      width: 0.011,
-      height: 0.011,
-    })
-    statIcons.frames = [this.iconAttackSpeed, this.iconMoveSpeed]
-    statIcons = setFrames(statIcons)
+    // let statIcons = setFrames({
+    //   frames: [this.iconStr, this.iconAgi, this.iconInt],
+    //   coor: { x: 0.585 + xOff, y: 0.136 + yOff },
+    //   coorInc: { x: 0, y: -0.013 },
+    //   width: 0.011,
+    //   height: 0.011,
+    // })
+    // statIcons.frames = [this.iconAttackSpeed, this.iconMoveSpeed]
+    // statIcons = setFrames(statIcons)
 
-    if (statIcons.coor) {
-      const statText = setFrames({
-        frames: [
-          Frame.fromContext(Frames.InfoPanelIconHeroStrengthValue),
-          Frame.fromContext(Frames.InfoPanelIconHeroAgilityValue),
-          Frame.fromContext(Frames.InfoPanelIconHeroIntellectValue),
-        ],
-        coor: { x: statIcons.coor.x + 0.015, y: 0.134 + yOff },
-        coorInc: { x: 0, y: -0.013 },
-      })
-      statText.frames = [this.textAttackSpeed, this.textMoveSpeed]
-      statText.scale = 0.85
-      statText.text = '200'
-      setFrames(statText)
-    }
+    // if (statIcons.coor) {
+    //   const statText = setFrames({
+    //     frames: [
+    //       Frame.fromContext(Frames.InfoPanelIconHeroStrengthValue),
+    //       Frame.fromContext(Frames.InfoPanelIconHeroAgilityValue),
+    //       Frame.fromContext(Frames.InfoPanelIconHeroIntellectValue),
+    //     ],
+    //     coor: { x: statIcons.coor.x + 0.015, y: 0.134 + yOff },
+    //     coorInc: { x: 0, y: -0.013 },
+    //   })
+    //   statText.frames = [this.textAttackSpeed, this.textMoveSpeed]
+    //   statText.scale = 0.85
+    //   statText.text = '200'
+    //   setFrames(statText)
+    // }
 
     // Group Selection
     setFrames({
@@ -469,35 +539,37 @@ export class UI {
 
           if (changed) {
             if (u === null) {
-              this.healthBar.alpha = 0
-              this.shieldBar.alpha = 0
-              this.manaBar.alpha = 0
-              this.iconMoveSpeed.alpha = 0
-              this.iconAttackSpeed.alpha = 0
-              this.textAttackSpeed.alpha = 0
-              this.textMoveSpeed.alpha = 0
-              this.iconStr.alpha = 0
-              this.iconAgi.alpha = 0
-              this.iconInt.alpha = 0
+              this.uiRuid.healthBar.alpha = 0
+              this.uiRuid.TexthealthBar.text = ' '
+              this.uiRuid.manaBar.alpha = 0
+              this.uiRuid.TextmanaBar.text = ' '
+              // this.shieldBar.alpha = 0
+
+              // this.iconMoveSpeed.alpha = 0
+              // this.iconAttackSpeed.alpha = 0
+              // this.textAttackSpeed.alpha = 0
+              // this.textMoveSpeed.alpha = 0
+              // this.iconStr.alpha = 0
+              // this.iconAgi.alpha = 0
+              // this.iconInt.alpha = 0
               this.experienceBar.alpha = 0
               this.experienceBarBorder.alpha = 0
             } else {
               // Overall Frames
-              this.healthBar.alpha = 255
-              this.shieldBar.alpha = 255
-              this.manaBar.alpha = 255
+              this.uiRuid.healthBar.alpha = 255
+              this.uiRuid.manaBar.alpha = 255
 
-              this.iconMoveSpeed.alpha = 255
-              this.iconAttackSpeed.alpha = 255
+              // this.iconMoveSpeed.alpha = 255
+              // this.iconAttackSpeed.alpha = 255
 
-              this.textAttackSpeed.alpha = 255
-              this.textMoveSpeed.alpha = 255
+              // this.textAttackSpeed.alpha = 255
+              // this.textMoveSpeed.alpha = 255
 
               // Hero Stats
               if (u.isHero) {
-                this.iconStr.alpha = 255
-                this.iconAgi.alpha = 255
-                this.iconInt.alpha = 255
+                // this.iconStr.alpha = 255
+                // this.iconAgi.alpha = 255
+                // this.iconInt.alpha = 255
                 if (u.isAlly(p)) {
                   this.experienceBarBorder.alpha = 255
                   this.experienceBar.alpha = 255
@@ -505,40 +577,53 @@ export class UI {
                   this.experienceBar.alpha = 0
                   this.experienceBarBorder.alpha = 0
                 }
-                this.nameFrame.setAbsPoint(FramePoint.T, 0.358 + xOff, 0.155 + yOff)
+                this.nameFrame.setAbsPoint(FramePoint.T, 0.4 + xOff, 0.087 + yOff)
               } else {
                 this.classFrame.text === ' '
-                  ? this.nameFrame.setAbsPoint(FramePoint.T, 0.358 + xOff, 0.145 + yOff)
-                  : this.nameFrame.setAbsPoint(FramePoint.T, 0.358 + xOff, 0.155 + yOff)
+                  ? this.nameFrame.setAbsPoint(FramePoint.T, 0.4 + xOff, 0.077 + yOff)
+                  : this.nameFrame.setAbsPoint(FramePoint.T, 0.4 + xOff, 0.087 + yOff)
                 this.experienceBar.alpha = 0
                 this.experienceBarBorder.alpha = 0
-                this.iconStr.alpha = 0
-                this.iconAgi.alpha = 0
-                this.iconInt.alpha = 0
+                // this.iconStr.alpha = 0
+                // this.iconAgi.alpha = 0
+                // this.iconInt.alpha = 0
               }
             }
           }
 
           if (u !== null) {
-            this.healthBar.width = (u.lifePercent / 100) * this.statBarFullWidth
-            this.manaBar.width = u.mana > 0 ? (u.manaPercent / 100) * this.statBarFullWidth : 0.0001
-            this.shieldBar.width = u.shield > 0 ? (u.shieldPercentage / 100) * this.statBarFullWidth : 0.0001
-
-            if (u.moveSpeed === 0) {
-              this.iconMoveSpeed.alpha = 0
-              this.textMoveSpeed.text = ''
+            let color: string
+            if (u.lifePercent > 60) {
+              color = '|cff00ff1e'
+            } else if (u.lifePercent > 40) {
+              color = '|cffffee00'
+            } else if (u.lifePercent > 20) {
+              color = '|cffffa600'
             } else {
-              this.iconMoveSpeed.alpha = 255
-              this.textMoveSpeed.text = `${math.floor(u.moveSpeed)}`
+              color = '|cffff0800'
             }
+            this.uiRuid.TexthealthBar.text = u.maxLife > 0 ? `${color}${math.floor(u.life)} / ${u.maxLife}|r` : ' '
+            this.uiRuid.healthBar.value = u.lifePercent
 
-            if (attackSpeed(u) === 0) {
-              this.iconAttackSpeed.alpha = 0
-              this.textAttackSpeed.text = ''
-            } else {
-              this.iconAttackSpeed.alpha = 255
-              this.textAttackSpeed.text = `${attackSpeed(u)} sec`
-            }
+            this.uiRuid.TextmanaBar.text = u.maxMana > 0 ? `${math.floor(u.mana)} / ${u.maxMana}` : ' '
+            this.uiRuid.manaBar.value = u.maxMana > 0 ? u.manaPercent : 0
+            // this.shieldBar.width = u.shield > 0 ? (u.shieldPercentage / 100) * this.statBarFullWidth : 0.0001
+
+            // if (u.moveSpeed === 0) {
+            //   this.iconMoveSpeed.alpha = 0
+            //   this.textMoveSpeed.text = ''
+            // } else {
+            //   this.iconMoveSpeed.alpha = 255
+            //   this.textMoveSpeed.text = `${math.floor(u.moveSpeed)}`
+            // }
+
+            // if (attackSpeed(u) === 0) {
+            //   this.iconAttackSpeed.alpha = 0
+            //   this.textAttackSpeed.text = ''
+            // } else {
+            //   this.iconAttackSpeed.alpha = 255
+            //   this.textAttackSpeed.text = `${attackSpeed(u)} sec`
+            // }
 
             this.experienceBar.width =
               u.xpPercent() > 0
@@ -567,10 +652,10 @@ export class UI {
         const u = new Unit({ type: unitTypes.UIDummy, owner: Players[i], coor: { x: -14828, y: -4674 } })
 
         for (let j = 0; j < 5; j++) {
-          u.addItemById('I00N')
+          const item = new Item(FourCC('I00N'), 0, 0)
+          u.addItem(item)
         }
 
-        u.issueOrder(Order.Useslot3)
         g.addUnit(u)
 
         if (MapPlayer.fromLocal() === Players[i]) u.select(true)
@@ -581,7 +666,7 @@ export class UI {
     time.start(0.2, false, () => {
       setFrames({
         frames: [Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT_HP_TEXT), Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT_MANA_TEXT)],
-        coor: { x: 0.399 + xOff, y: 0.105 + yOff },
+        coor: { x: 1.5 + xOff, y: 0.124 + yOff },
         coorInc: { x: 0, y: -0.017 },
         framePoint: FramePoint.C,
       })
@@ -589,8 +674,10 @@ export class UI {
       let u = g.first
       while (u !== null) {
         if (u) {
-          g.removeUnit(u)
+          u.issueOrder(Order.Useslot3)
           u.destroy()
+
+          g.removeUnit(u)
           u = g.first
         }
       }
@@ -639,8 +726,8 @@ export class UI {
     const portrait = Frame.fromOrigin(ORIGIN_FRAME_PORTRAIT)
     if (player === MapPlayer.fromLocal()) {
       portrait
-        .setAbsPoint(FramePoint.BL, this.portraitPoints[this.aspectRatio].left, this.portraitBLY)
-        .setAbsPoint(FramePoint.TR, this.portraitPoints[this.aspectRatio].right, this.portraitTRY)
+        .setAbsPoint(FramePoint.BL, this.portraitPoints[this.aspectRatio].left, this.portraitYB)
+        .setAbsPoint(FramePoint.TR, this.portraitPoints[this.aspectRatio].right, this.portraitYT)
     }
   }
 }
