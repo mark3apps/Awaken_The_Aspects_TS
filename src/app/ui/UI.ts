@@ -6,77 +6,8 @@ import { Logger } from 'app/log'
 import { HintText, MessageColors } from 'lib/resources/colors'
 import { GameConstants } from 'lib/resources/GameConstants'
 import { File, Frame, Group, Item, MapPlayer, Order, PlayerPassive, Players, Timer, Trigger, Unit } from 'lib/w3ts'
+import { GeneratedUI } from './GeneratedUI'
 import { IUIDepend } from './IUIDepend'
-
-export class UIRUID {
-  private static instance: UIRUID
-
-  static getInstance() {
-    if (!UIRUID.instance) UIRUID.instance = new UIRUID()
-    return UIRUID.instance
-  }
-
-  portraitBackground: Frame
-  healthBar: Frame
-  BackhealthBar: Frame
-  TexthealthBar: Frame
-  manaBar: Frame
-  BackmanaBar: Frame
-  TextmanaBar: Frame
-
-  private constructor() {
-    let t: Trigger
-
-    this.portraitBackground = new Frame('this.portraitBackground', Frame.fromName('ConsoleUIBackdrop', 0), 1, 1, 'BACKDROP', '')
-    this.portraitBackground.setAbsPoint(FRAMEPOINT_TOPLEFT, 0.12395, 0.15315)
-    this.portraitBackground.setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, 0.17495, 0.1014)
-    this.portraitBackground.setTexture('black.dds', 0, true)
-
-    const xTL = 0.18
-    const xBR = 0.271
-
-    const yTLHealth = 0.1315
-    const yBRHealth = 0.1175
-
-    const yTLMana = 0.1165
-    const yBRMana = 0.1025
-
-    this.BackhealthBar = new Frame('this.BackhealthBar', Frame.fromName('ConsoleUIBackdrop', 0), 1, 1, 'BACKDROP', '')
-      .setAbsPoint(FRAMEPOINT_TOPLEFT, xTL, yTLHealth)
-      .setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, xBR, yBRHealth)
-      .setTexture('black.dds', 0, true)
-    this.healthBar = new Frame('this.healthBar', this.BackhealthBar, 1, 1, 'SIMPLESTATUSBAR', '')
-      .setTexture('healthBar.dds', 0, true)
-      .setAbsPoint(FRAMEPOINT_TOPLEFT, xTL, yTLHealth)
-      .setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, xBR, yBRHealth)
-      .setValue(0)
-    this.TexthealthBar = new Frame('name', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI, 0), 0, 0, 'TEXT', '')
-      .setAbsPoint(FRAMEPOINT_TOPLEFT, xTL, yTLHealth)
-      .setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, xBR, yBRHealth)
-      .setText('|cff00ff1e9600 / 9600|r')
-      .setEnabled(false)
-      .setScale(1.0)
-      .setTextAlignment(TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_MIDDLE)
-
-    this.BackmanaBar = new Frame('this.BackmanaBar', Frame.fromName('ConsoleUIBackdrop', 0), 1, 1, 'BACKDROP', '')
-      .setAbsPoint(FRAMEPOINT_TOPLEFT, xTL, yTLMana)
-      .setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, xBR, yBRMana)
-      .setTexture('black.dds', 0, true)
-    this.manaBar = new Frame('this.manaBar', this.BackmanaBar, 1, 1, 'SIMPLESTATUSBAR', '')
-      .setTexture('manaBar.dds', 0, true)
-      .setAbsPoint(FRAMEPOINT_TOPLEFT, xTL, yTLMana)
-      .setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, xBR, yBRMana)
-      .setValue(0)
-
-    this.TextmanaBar = new Frame('name', Frame.fromOrigin(ORIGIN_FRAME_GAME_UI, 0), 0, 0, 'TEXT', '')
-      .setAbsPoint(FRAMEPOINT_TOPLEFT, xTL, yTLMana)
-      .setAbsPoint(FRAMEPOINT_BOTTOMRIGHT, xBR, yBRMana)
-      .setText('|cffffffff160 / 160|r')
-      .setEnabled(false)
-      .setScale(1.0)
-      .setTextAlignment(TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_MIDDLE)
-  }
-}
 
 export class UI {
   protected static instance: UI
@@ -123,7 +54,7 @@ export class UI {
   aspectRatio = 177 // Default Aspect Ratio
 
   portraitPoints: { left: number; right: number }[] = []
-  uiRuid: UIRUID
+  generatedUI: GeneratedUI
 
   private constructor(depend: IUIDepend) {
     const unitTypes = depend.unitTypes
@@ -159,7 +90,7 @@ export class UI {
 
     // Create Custom Frames
 
-    this.uiRuid = UIRUID.getInstance()
+    this.generatedUI = GeneratedUI.getInstance()
 
     // UI Backdrop
     this.banner1 = new Frame('unitBanner1', Frame.fromContext(Frames.consoleUIBackdrop), 1, 1, FrameType.backdrop, '')
@@ -539,10 +470,10 @@ export class UI {
 
           if (changed) {
             if (u === null) {
-              this.uiRuid.healthBar.alpha = 0
-              this.uiRuid.TexthealthBar.text = ' '
-              this.uiRuid.manaBar.alpha = 0
-              this.uiRuid.TextmanaBar.text = ' '
+              this.generatedUI.healthBar.alpha = 0
+              this.generatedUI.healthBarText.text = ' '
+              this.generatedUI.manaBar.alpha = 0
+              this.generatedUI.manaBarText.text = ' '
               // this.shieldBar.alpha = 0
 
               // this.iconMoveSpeed.alpha = 0
@@ -556,8 +487,8 @@ export class UI {
               this.experienceBarBorder.alpha = 0
             } else {
               // Overall Frames
-              this.uiRuid.healthBar.alpha = 255
-              this.uiRuid.manaBar.alpha = 255
+              this.generatedUI.healthBar.alpha = 255
+              this.generatedUI.manaBar.alpha = 255
 
               // this.iconMoveSpeed.alpha = 255
               // this.iconAttackSpeed.alpha = 255
@@ -602,11 +533,11 @@ export class UI {
             } else {
               color = '|cffff0800'
             }
-            this.uiRuid.TexthealthBar.text = u.maxLife > 0 ? `${color}${math.floor(u.life)} / ${u.maxLife}|r` : ' '
-            this.uiRuid.healthBar.value = u.lifePercent
+            this.generatedUI.healthBarText.text = u.maxLife > 0 ? `${color}${math.floor(u.life)} / ${u.maxLife}|r` : ' '
+            this.generatedUI.healthBar.value = u.lifePercent
 
-            this.uiRuid.TextmanaBar.text = u.maxMana > 0 ? `${math.floor(u.mana)} / ${u.maxMana}` : ' '
-            this.uiRuid.manaBar.value = u.maxMana > 0 ? u.manaPercent : 0
+            this.generatedUI.manaBarText.text = u.maxMana > 0 ? `${math.floor(u.mana)} / ${u.maxMana}` : ' '
+            this.generatedUI.manaBar.value = u.maxMana > 0 ? u.manaPercent : 0
             // this.shieldBar.width = u.shield > 0 ? (u.shieldPercentage / 100) * this.statBarFullWidth : 0.0001
 
             // if (u.moveSpeed === 0) {
