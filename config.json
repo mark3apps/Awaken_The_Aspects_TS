@@ -1,9 +1,14 @@
 {
-  "mapFolderTest": "Awaken_the_Aspects.w3x",
-  "mapFolder": "test.w3x",
-  "mapFolderDev": "Awaken_the_Aspects.w3x",
-  "minifyScript": false,
-  "gameExecutable": "C:\\Program Files (x86)\\Warcraft III\\_retail_\\x86_64\\Warcraft III.exe",
-  "outputFolder": "./dist/bin",
-  "launchArgs": ["-launch", "-nowfpause​", "-windowmode", "windowed"]
+	"mapFolderTest": "Awaken_the_Aspects.w3x",
+	"mapFolder": "Awaken_the_Aspects.w3x",
+	"mapFolderDev": "Awaken_the_Aspects.w3x",
+	"minifyScript": false,
+	"gameExecutable": "C:\\Program Files (x86)\\Warcraft III\\_retail_\\x86_64\\Warcraft III.exe",
+	"outputFolder": "./dist/bin",
+	"launchArgs": [
+		"-launch",
+		"-nowfpause​",
+		"-windowmode",
+		"windowed"
+	]
 }

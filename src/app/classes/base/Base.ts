@@ -89,7 +89,7 @@ export class Base {
 
     this._isAlive = this.capital.isAlive()
 
-    this.upgrade = base.upgrade ?? { base: 650, factor: 0.1, constant: 35 }
+    this.upgrade = base.upgrade ?? { base: 550, factor: 0.05, constant: 20 }
 
     this.spawnLoc = base.spawnLoc ?? base.townLoc
     this.visible = base.visible ?? true
@@ -139,7 +139,11 @@ export class Base {
   }
 
   get foodNeeded() {
-    return this.upgrade.base + this.upgrade.base * this.upgrade.factor * (this.level - 1) + this.upgrade.constant * (this.level - 1)
+    return (
+      this.upgrade.base +
+      this.upgrade.base * this.upgrade.factor * (this.level - 1) +
+      this.upgrade.constant * (this.level - 1)
+    )
   }
 
   get currentFood() {
@@ -208,7 +212,12 @@ export class Base {
           if (!buffId) return
 
           let matchingUnit = g.firstMatching((u) => {
-            return !u.hasBuff(buffId) && u.isOrganicAlly(this.capital) && u.isHero && (u.lifePercent <= 90 || u.manaPercent <= 80)
+            return (
+              !u.hasBuff(buffId) &&
+              u.isOrganicAlly(this.capital) &&
+              u.isHero &&
+              (u.lifePercent <= 90 || u.manaPercent <= 80)
+            )
           }, true)
 
           // If there is no matching Hero, get a random matching unit

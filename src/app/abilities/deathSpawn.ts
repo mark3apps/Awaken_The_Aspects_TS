@@ -1,10 +1,10 @@
 /** @format */
 
-import { UnitType } from "app/classes"
-import { IDeathSpawn } from "app/classes/IDeathSpawn"
-import { IDeathSpawnDepend } from "app/classes/IDeathSpawnDepend"
-import { Logger } from "app/log"
-import { Unit, MapPlayer, AbilityFour, Timer, Effect } from "lib/w3ts"
+import { UnitType } from 'app/classes'
+import { IDeathSpawn } from 'app/classes/IDeathSpawn'
+import { IDeathSpawnDepend } from 'app/classes/IDeathSpawnDepend'
+import { Logger } from 'app/log'
+import { Unit, MapPlayer, AbilityFour, Timer, Effect } from 'lib/w3ts'
 
 export class DeathSpawn {
   protected static instance?: DeathSpawn
@@ -36,8 +36,8 @@ export class DeathSpawn {
     this.add(unitTypes.SeigeEngine, { amount: 1, unitId: unitTypes.SeigeEngineDamaged })
     this.add(unitTypes.SeigeEngineDamaged, { amount: 1, unitId: unitTypes.Gyrocopter })
 
-    this.add(unitTypes.NerubianZiggurat, { amount: 7, unitId: unitTypes.SkeletonWarrior, chance: 0.7 })
-    this.add(unitTypes.NerubianZiggurat, { amount: 5, unitId: unitTypes.SkeletonArcher, chance: 0.7 })
+    this.add(unitTypes.NerubianZiggurat, { amount: 5, unitId: unitTypes.SkeletonWarrior, chance: 0.7 })
+    this.add(unitTypes.NerubianZiggurat, { amount: 3, unitId: unitTypes.SkeletonArcher, chance: 0.7 })
 
     this.add(unitTypes.MercTent, { amount: 5, unitId: unitTypes.Bandit, chance: 0.4 })
     this.add(unitTypes.MercTent, { amount: 3, unitId: unitTypes.BanditSpearman, chance: 0.5 })
@@ -90,7 +90,7 @@ export class DeathSpawn {
           }
         }
       } catch (error) {
-        Logger.Error("Death Spawn", error)
+        Logger.Error('Death Spawn', error)
       }
     })
 
@@ -137,7 +137,7 @@ export class DeathSpawn {
         }
       }
     } catch (error) {
-      Logger.Error("Death Spawn", error)
+      Logger.Error('Death Spawn', error)
     }
   }
 
