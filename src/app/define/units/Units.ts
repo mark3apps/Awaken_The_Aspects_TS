@@ -11,7 +11,6 @@ export class Units {
   }
 
   /// AUTO DEFINE
-  h003_0015: Unit
   e003_0058: Unit
   n001_0048: Unit
   h01X_0707: Unit
@@ -47,13 +46,10 @@ export class Units {
   o00C_1009: Unit
   o00C_1011: Unit
   o00C_1020: Unit
-  h014_0017: Unit
   hshy_0212: Unit
   n00K_0802: Unit
   hvlt_0207: Unit
   edob_0315: Unit
-  hars_0355: Unit
-  hars_0292: Unit
   h014_0158: Unit
   nmh1_0735: Unit
   h01S_0553: Unit
@@ -76,7 +72,6 @@ export class Units {
   n01A_0569: Unit
 
   private constructor() {
-    this.h003_0015 = Unit.fromHandle(gg_unit_h003_0015)
     this.e003_0058 = Unit.fromHandle(gg_unit_e003_0058)
     this.n001_0048 = Unit.fromHandle(gg_unit_n001_0048)
     this.h01X_0707 = Unit.fromHandle(gg_unit_h01X_0707)
@@ -112,13 +107,10 @@ export class Units {
     this.o00C_1009 = Unit.fromHandle(gg_unit_o00C_1009)
     this.o00C_1011 = Unit.fromHandle(gg_unit_o00C_1011)
     this.o00C_1020 = Unit.fromHandle(gg_unit_o00C_1020)
-    this.h014_0017 = Unit.fromHandle(gg_unit_h014_0017)
     this.hshy_0212 = Unit.fromHandle(gg_unit_hshy_0212)
     this.n00K_0802 = Unit.fromHandle(gg_unit_n00K_0802)
     this.hvlt_0207 = Unit.fromHandle(gg_unit_hvlt_0207)
     this.edob_0315 = Unit.fromHandle(gg_unit_edob_0315)
-    this.hars_0355 = Unit.fromHandle(gg_unit_hars_0355)
-    this.hars_0292 = Unit.fromHandle(gg_unit_hars_0292)
     this.h014_0158 = Unit.fromHandle(gg_unit_h014_0158)
     this.nmh1_0735 = Unit.fromHandle(gg_unit_nmh1_0735)
     this.h01S_0553 = Unit.fromHandle(gg_unit_h01S_0553)
