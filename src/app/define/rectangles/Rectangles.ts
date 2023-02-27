@@ -23,9 +23,6 @@ export class Rectangles {
   ArcaneHeroTownRight: Rectangle
   ArcaneTopTownLeft: Rectangle
   ArcaneTopTownRight: Rectangle
-  Aspect_of_Forest_Left: Rectangle
-  Aspect_of_Forest_Left_Gate: Rectangle
-  Aspect_of_Forest_Left_Mid: Rectangle
   Aspect_of_Forest_Right: Rectangle
   Aspect_of_Forest_Right_Gate: Rectangle
   Aspect_of_Forest_Right_Mid: Rectangle
@@ -49,7 +46,6 @@ export class Rectangles {
   Camp_Top: Rectangle
   City_Elves_Left: Rectangle
   City_Elves_Right: Rectangle
-  Death_Gate_Left: Rectangle
   Death_Gate_Right: Rectangle
   DraeneiTownLeft: Rectangle
   DraeneiTownRight: Rectangle
@@ -98,9 +94,7 @@ export class Rectangles {
   Left_Workshop: Rectangle
   MercTownLeft: Rectangle
   MercTownRight: Rectangle
-  Murloc_Gate_Left: Rectangle
   Murloc_Gate_Right: Rectangle
-  Murloc_Left: Rectangle
   Murloc_Right: Rectangle
   Murloc_Spawn_Left: Rectangle
   Murloc_Spawn_Right: Rectangle
@@ -142,7 +136,6 @@ export class Rectangles {
   wildhammerRight: Rectangle
   WildhammerTownLeft: Rectangle
   WildhammerTownRight: Rectangle
-  Zombie_End_Left: Rectangle
   Zombie_End_Right: Rectangle
   DwarfTownLeft: Rectangle
   DwarfTownRight: Rectangle
@@ -152,6 +145,7 @@ export class Rectangles {
   VillageTownRight2: Rectangle
   VillageTownLeft1: Rectangle
   VillageTownLeft2: Rectangle
+  Region_142: Rectangle
 
   private constructor() {
     this.Arcane_Hero_Left = Rectangle.fromHandle(gg_rct_Arcane_Hero_Left)
@@ -166,9 +160,6 @@ export class Rectangles {
     this.ArcaneHeroTownRight = Rectangle.fromHandle(gg_rct_ArcaneHeroTownRight)
     this.ArcaneTopTownLeft = Rectangle.fromHandle(gg_rct_ArcaneTopTownLeft)
     this.ArcaneTopTownRight = Rectangle.fromHandle(gg_rct_ArcaneTopTownRight)
-    this.Aspect_of_Forest_Left = Rectangle.fromHandle(gg_rct_Aspect_of_Forest_Left)
-    this.Aspect_of_Forest_Left_Gate = Rectangle.fromHandle(gg_rct_Aspect_of_Forest_Left_Gate)
-    this.Aspect_of_Forest_Left_Mid = Rectangle.fromHandle(gg_rct_Aspect_of_Forest_Left_Mid)
     this.Aspect_of_Forest_Right = Rectangle.fromHandle(gg_rct_Aspect_of_Forest_Right)
     this.Aspect_of_Forest_Right_Gate = Rectangle.fromHandle(gg_rct_Aspect_of_Forest_Right_Gate)
     this.Aspect_of_Forest_Right_Mid = Rectangle.fromHandle(gg_rct_Aspect_of_Forest_Right_Mid)
@@ -192,7 +183,6 @@ export class Rectangles {
     this.Camp_Top = Rectangle.fromHandle(gg_rct_Camp_Top)
     this.City_Elves_Left = Rectangle.fromHandle(gg_rct_City_Elves_Left)
     this.City_Elves_Right = Rectangle.fromHandle(gg_rct_City_Elves_Right)
-    this.Death_Gate_Left = Rectangle.fromHandle(gg_rct_Death_Gate_Left)
     this.Death_Gate_Right = Rectangle.fromHandle(gg_rct_Death_Gate_Right)
     this.DraeneiTownLeft = Rectangle.fromHandle(gg_rct_DraeneiTownLeft)
     this.DraeneiTownRight = Rectangle.fromHandle(gg_rct_DraeneiTownRight)
@@ -241,9 +231,7 @@ export class Rectangles {
     this.Left_Workshop = Rectangle.fromHandle(gg_rct_Left_Workshop)
     this.MercTownLeft = Rectangle.fromHandle(gg_rct_MercTownLeft)
     this.MercTownRight = Rectangle.fromHandle(gg_rct_MercTownRight)
-    this.Murloc_Gate_Left = Rectangle.fromHandle(gg_rct_Murloc_Gate_Left)
     this.Murloc_Gate_Right = Rectangle.fromHandle(gg_rct_Murloc_Gate_Right)
-    this.Murloc_Left = Rectangle.fromHandle(gg_rct_Murloc_Left)
     this.Murloc_Right = Rectangle.fromHandle(gg_rct_Murloc_Right)
     this.Murloc_Spawn_Left = Rectangle.fromHandle(gg_rct_Murloc_Spawn_Left)
     this.Murloc_Spawn_Right = Rectangle.fromHandle(gg_rct_Murloc_Spawn_Right)
@@ -285,7 +273,6 @@ export class Rectangles {
     this.wildhammerRight = Rectangle.fromHandle(gg_rct_wildhammerRight)
     this.WildhammerTownLeft = Rectangle.fromHandle(gg_rct_WildhammerTownLeft)
     this.WildhammerTownRight = Rectangle.fromHandle(gg_rct_WildhammerTownRight)
-    this.Zombie_End_Left = Rectangle.fromHandle(gg_rct_Zombie_End_Left)
     this.Zombie_End_Right = Rectangle.fromHandle(gg_rct_Zombie_End_Right)
     this.DwarfTownLeft = Rectangle.fromHandle(gg_rct_DwarfTownLeft)
     this.DwarfTownRight = Rectangle.fromHandle(gg_rct_DwarfTownRight)
@@ -295,6 +282,7 @@ export class Rectangles {
     this.VillageTownRight2 = Rectangle.fromHandle(gg_rct_VillageTownRight2)
     this.VillageTownLeft1 = Rectangle.fromHandle(gg_rct_VillageTownLeft1)
     this.VillageTownLeft2 = Rectangle.fromHandle(gg_rct_VillageTownLeft2)
+    this.Region_142 = Rectangle.fromHandle(gg_rct_Region_142)
   }
   /// AUTO DEFINE
 }

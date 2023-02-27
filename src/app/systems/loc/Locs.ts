@@ -90,34 +90,76 @@ export class Locs {
       federation: new Loc(depend, { rects: [rects.Right_Hero] }),
     }
     this.arcane = {
-      alliance: new Loc(depend, { rects: [rects.Left_Mage_Base], thruOrder: [{ loc: this.castle.alliance, army: armies.Federation }] }),
-      federation: new Loc(depend, { rects: [rects.Right_Mage_Base], thruOrder: [{ loc: this.castle.federation, army: armies.Alliance }] }),
+      alliance: new Loc(depend, {
+        rects: [rects.Left_Mage_Base],
+        thruOrder: [{ loc: this.castle.alliance, army: armies.Federation }],
+      }),
+      federation: new Loc(depend, {
+        rects: [rects.Right_Mage_Base],
+        thruOrder: [{ loc: this.castle.federation, army: armies.Alliance }],
+      }),
     }
     this.start = {
-      alliance: new Loc(depend, { rects: [rects.Left_Start], thruOrder: [{ loc: this.castle.alliance, army: armies.Federation }] }),
-      federation: new Loc(depend, { rects: [rects.Right_Start], thruOrder: [{ loc: this.castle.federation, army: armies.Alliance }] }),
+      alliance: new Loc(depend, {
+        rects: [rects.Left_Start],
+        thruOrder: [{ loc: this.castle.alliance, army: armies.Federation }],
+      }),
+      federation: new Loc(depend, {
+        rects: [rects.Right_Start],
+        thruOrder: [{ loc: this.castle.federation, army: armies.Alliance }],
+      }),
     }
     this.elf = {
-      alliance: new Loc(depend, { rects: [rects.Elf_Base_Left], thruOrder: [{ loc: this.castle.alliance, army: armies.Federation }] }),
-      federation: new Loc(depend, { rects: [rects.Elf_Base_Right], thruOrder: [{ loc: this.castle.federation, army: armies.Alliance }] }),
+      alliance: new Loc(depend, {
+        rects: [rects.Elf_Base_Left],
+        thruOrder: [{ loc: this.castle.alliance, army: armies.Federation }],
+      }),
+      federation: new Loc(depend, {
+        rects: [rects.Elf_Base_Right],
+        thruOrder: [{ loc: this.castle.federation, army: armies.Alliance }],
+      }),
     }
 
     // Pathing Rects
     this.everything = {
-      alliance: new Loc(depend, { rects: [rects.Left_Everything], thruOrder: [{ loc: this.castle.alliance, army: armies.Federation }] }),
-      federation: new Loc(depend, { rects: [rects.Right_Everything], thruOrder: [{ loc: this.castle.federation, army: armies.Alliance }] }),
+      alliance: new Loc(depend, {
+        rects: [rects.Left_Everything],
+        thruOrder: [{ loc: this.castle.alliance, army: armies.Federation }],
+      }),
+      federation: new Loc(depend, {
+        rects: [rects.Right_Everything],
+        thruOrder: [{ loc: this.castle.federation, army: armies.Alliance }],
+      }),
     }
     this.bottom = {
-      alliance: new Loc(depend, { rects: [rects.Left_Start_Bottom], thruOrder: [{ loc: this.arcane.alliance, army: armies.Federation }] }),
-      federation: new Loc(depend, { rects: [rects.Right_Start_Bottom], thruOrder: [{ loc: this.elf.federation, army: armies.Alliance }] }),
+      alliance: new Loc(depend, {
+        rects: [rects.Left_Start_Bottom],
+        thruOrder: [{ loc: this.arcane.alliance, army: armies.Federation }],
+      }),
+      federation: new Loc(depend, {
+        rects: [rects.Right_Start_Bottom],
+        thruOrder: [{ loc: this.elf.federation, army: armies.Alliance }],
+      }),
     }
     this.middle = {
-      alliance: new Loc(depend, { rects: [rects.Left_Start_Middle], thruOrder: [{ loc: this.start.alliance, army: armies.Federation }] }),
-      federation: new Loc(depend, { rects: [rects.Right_Start_Middle], thruOrder: [{ loc: this.start.federation, army: armies.Alliance }] }),
+      alliance: new Loc(depend, {
+        rects: [rects.Left_Start_Middle],
+        thruOrder: [{ loc: this.start.alliance, army: armies.Federation }],
+      }),
+      federation: new Loc(depend, {
+        rects: [rects.Right_Start_Middle],
+        thruOrder: [{ loc: this.start.federation, army: armies.Alliance }],
+      }),
     }
     this.top = {
-      alliance: new Loc(depend, { rects: [rects.Left_Start_Top], thruOrder: [{ loc: this.elf.alliance, army: armies.Federation }] }),
-      federation: new Loc(depend, { rects: [rects.Right_Start_Top], thruOrder: [{ loc: this.arcane.federation, army: armies.Alliance }] }),
+      alliance: new Loc(depend, {
+        rects: [rects.Left_Start_Top],
+        thruOrder: [{ loc: this.elf.alliance, army: armies.Federation }],
+      }),
+      federation: new Loc(depend, {
+        rects: [rects.Right_Start_Top],
+        thruOrder: [{ loc: this.arcane.federation, army: armies.Alliance }],
+      }),
     }
 
     // Spawn Rects
@@ -142,8 +184,14 @@ export class Locs {
       federation: new Loc(depend, { rects: [rects.City_Elves_Right] }),
     }
     this.sCityFront = {
-      alliance: new Loc(depend, { rects: [rects.Front_Town_Left], thruOrder: [{ loc: this.middle.federation, army: armies.Alliance }] }),
-      federation: new Loc(depend, { rects: [rects.Front_City_Right], thruOrder: [{ loc: this.middle.alliance, army: armies.Federation }] }),
+      alliance: new Loc(depend, {
+        rects: [rects.Front_Town_Left],
+        thruOrder: [{ loc: this.middle.federation, army: armies.Alliance }],
+      }),
+      federation: new Loc(depend, {
+        rects: [rects.Front_City_Right],
+        thruOrder: [{ loc: this.middle.alliance, army: armies.Federation }],
+      }),
     }
     this.sElementalTop = {
       alliance: new Loc(depend, { rects: [rects.Arcane_Left_Top] }),
@@ -212,28 +260,54 @@ export class Locs {
 
     // Creep Rects
     this.cForest = {
-      alliance: new Loc(depend, { rects: [rects.Aspect_of_Forest_Left], thruOrder: [{ loc: this.top.federation, army: armies.Alliance }] }),
-      federation: new Loc(depend, { rects: [rects.Aspect_of_Forest_Right], thruOrder: [{ loc: this.bottom.alliance, army: armies.Federation }] }),
+      alliance: new Loc(depend, {
+        rects: [rects.Aspect_of_Forest_Left],
+        thruOrder: [{ loc: this.top.federation, army: armies.Alliance }],
+      }),
+      federation: new Loc(depend, {
+        rects: [rects.Aspect_of_Forest_Right],
+        thruOrder: [{ loc: this.bottom.alliance, army: armies.Federation }],
+      }),
     }
     this.cForestMid = {
-      alliance: new Loc(depend, { rects: [rects.Aspect_of_Forest_Left_Mid], thruOrder: [{ loc: this.cForest.alliance, army: armies.Alliance }] }),
-      federation: new Loc(depend, { rects: [rects.Aspect_of_Forest_Right_Mid], thruOrder: [{ loc: this.cForest.federation, army: armies.Federation }] }),
+      alliance: new Loc(depend, {
+        rects: [rects.Aspect_of_Forest_Left_Mid],
+        thruOrder: [{ loc: this.cForest.alliance, army: armies.Alliance }],
+      }),
+      federation: new Loc(depend, {
+        rects: [rects.Aspect_of_Forest_Right_Mid],
+        thruOrder: [{ loc: this.cForest.federation, army: armies.Federation }],
+      }),
     }
     this.cTides = {
-      alliance: new Loc(depend, { rects: [rects.Murloc_Left], thruOrder: [{ loc: this.top.federation, army: armies.Alliance }] }),
-      federation: new Loc(depend, { rects: [rects.Murloc_Right], thruOrder: [{ loc: this.bottom.alliance, army: armies.Federation }] }),
-    }
-    this.cDeath = {
-      alliance: new Loc(depend, { rects: [rects.Zombie_End_Left], thruOrder: [{ loc: this.middle.federation, army: armies.Alliance }] }),
-      federation: new Loc(depend, { rects: [rects.Zombie_End_Right], thruOrder: [{ loc: this.middle.alliance, army: armies.Federation }] }),
+      alliance: new Loc(depend, {
+        rects: [rects.Murloc_Left],
+        thruOrder: [{ loc: this.top.federation, army: armies.Alliance }],
+      }),
+      federation: new Loc(depend, {
+        rects: [rects.Murloc_Right],
+        thruOrder: [{ loc: this.bottom.alliance, army: armies.Federation }],
+      }),
     }
     this.cStorm = {
-      alliance: new Loc(depend, { rects: [rects.Left_Elemental_Start], thruOrder: [{ loc: this.bottom.federation, army: armies.Alliance }] }),
-      federation: new Loc(depend, { rects: [rects.Right_Elemental_Start], thruOrder: [{ loc: this.top.alliance, army: armies.Federation }] }),
+      alliance: new Loc(depend, {
+        rects: [rects.Left_Elemental_Start],
+        thruOrder: [{ loc: this.bottom.federation, army: armies.Alliance }],
+      }),
+      federation: new Loc(depend, {
+        rects: [rects.Right_Elemental_Start],
+        thruOrder: [{ loc: this.top.alliance, army: armies.Federation }],
+      }),
     }
     this.cRock = {
-      alliance: new Loc(depend, { rects: [rects.Rock_Left], thruOrder: [{ loc: this.bottom.federation, army: armies.Alliance }] }),
-      federation: new Loc(depend, { rects: [rects.Rock_Right], thruOrder: [{ loc: this.top.alliance, army: armies.Federation }] }),
+      alliance: new Loc(depend, {
+        rects: [rects.Rock_Left],
+        thruOrder: [{ loc: this.bottom.federation, army: armies.Alliance }],
+      }),
+      federation: new Loc(depend, {
+        rects: [rects.Rock_Right],
+        thruOrder: [{ loc: this.top.alliance, army: armies.Federation }],
+      }),
     }
 
     // Town Locs
@@ -258,8 +332,14 @@ export class Locs {
       federation: new Loc(depend, { rects: [rects.City_Elves_Right] }),
     }
     this.tCityFront = {
-      alliance: new Loc(depend, { rects: [rects.Front_Town_Left], thruOrder: [{ loc: this.middle.federation, army: armies.Alliance }] }),
-      federation: new Loc(depend, { rects: [rects.Front_City_Right], thruOrder: [{ loc: this.middle.alliance, army: armies.Federation }] }),
+      alliance: new Loc(depend, {
+        rects: [rects.Front_Town_Left],
+        thruOrder: [{ loc: this.middle.federation, army: armies.Alliance }],
+      }),
+      federation: new Loc(depend, {
+        rects: [rects.Front_City_Right],
+        thruOrder: [{ loc: this.middle.alliance, army: armies.Federation }],
+      }),
     }
     this.tElementalTop = {
       alliance: new Loc(depend, { rects: [rects.ArcaneTopTownLeft] }),
